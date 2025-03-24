@@ -46,6 +46,9 @@ title: Persontælling med dataopsamling
 
 ## Opgavens delelementer
 
+_her kommer mere, men nu er det blevet sent..._
+
+<!--
 ### __1.__    To eller flere sonsorer \
 ### __1.a.__  En form for persontæller, IR eller andet \
 ### __1.b.__  suppleret med indeklima sensor, som indsamler temperatur om eventuelt luftfugtighed
@@ -84,3 +87,5 @@ title: Persontælling med dataopsamling
 ### Løsningen præsenteres, på en måde hvor 
 ### __8.a.__  løsningens dele beskrives og 
 ### __8.b.__  de valg som er gjort, for at lave projektet, forklares.
+
+-->

@@ -1,7 +1,8 @@
 ---
-title: "Checliste"
-format: html
+subtitle: CHECKLISTE - Afsluttende opgave, anden del
+title: Persontælling med dataopsamling
 ---
+
 
 - [ ] __1.__    To eller flere sonsorer \
 - [ ] __1.a.__  En form for persontæller, IR eller andet \
