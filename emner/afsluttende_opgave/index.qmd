@@ -1,0 +1,86 @@
+---
+subtitle: Afsluttende opgave, anden del
+title: Persontælling med dataopsamling
+---
+
+## Overblik og checkliste
+
+1.  To eller flere sonsorer
+    a.  En form for persontæller, IR eller andet
+    b.  suppleret med indeklima sensor, som indsamler temperatur om eventuelt luftfugtighed
+2.  Data indsamles
+    a.  når sensoren aktiveres, fordi en person passerer
+    b.  med faste tidsintervaller, passive data som temperaturer og luftfugtighed
+3.  data casches på ESP32'ens lokale "disk"
+    a.  hvis netforbindesen mistes, gemmes målingerne fra sensorerne *stadig* i cashen (en fil på ESP32)
+    b.  når data forbindelsen kommer igen, sendes cashed data op til serveren
+4.  data sendes til data lager på net/cloud
+    vælg selv protokol og server model (find gerne noget andet end api over http)
+    a.  installer datalager services
+    b.  opsæt evt middleware scripts, til f.eks at abonnere fra mqtt og indsætte i database
+5.  Programmering \
+    Programkoden skal skrives så den er 
+    a.  mest muligt overskuelig, 
+    b.  understøtter genbrug, 
+    c.  lettest muligt kan udbygges eller 
+    d.  udskiftes med andre teknologier.
+5.  Konfiguration \
+    Det skal være let at overskue og ændre centrale konfigurationer
+    a.  GPIO porte som sensorer tilsluttes
+    b.  Tids-intervaller for sensor(er) som aflæses med faste perioder
+    c.  Tærskelværdier for tidsgrænser til pauser for de-bounce mv.
+    d.  Adresser, porte og koder til de anvendte datalager services
+    e.  WiFi SSID, og password, som bruges til at ESP32 eneheden kan tilgå internettet
+    f.  med mere
+6.  Dokumentation \
+    Det skal dokumenteres, hvordan
+    a.  systemet anvedes og startes,
+    b.  systemet sættes op, og 
+    c.  hvilke krav der er til datalagringen, for at systemet fungerer,
+    d.  hvordan komponenter kan udkiftes eller udbygges.
+    e.  Programkoden skal være passende kommenteret, så komponenterne let genkendes, og forstås.
+7.  Præsentation
+    Løsningen præsenteres, på en måde hvor 
+    a.  løsningens dele beskrives og 
+    b.  de valg som er gjort, for at lave projektet, forklares.
+
+## Opgavens delelementer
+
+### __1.__    To eller flere sonsorer \
+### __1.a.__  En form for persontæller, IR eller andet \
+### __1.b.__  suppleret med indeklima sensor, som indsamler temperatur om eventuelt luftfugtighed
+### __2.__  Data indsamles
+### __2.a.__  når sensoren aktiveres, fordi en person passerer
+### __2.b.__  med faste tidsintervaller, passive data som temperaturer og luftfugtighed
+### __3.__  data casches på ESP32'ens lokale "disk"
+### __3.a.__  hvis netforbindesen mistes, gemmes målingerne fra sensorerne *stadig* i cashen (en fil på ESP32)
+### __3.b.__  når data forbindelsen kommer igen, sendes cashed data op til serveren
+### __4.__  data sendes til data lager på net/cloud
+### vælg selv protokol og server model (find gerne noget andet end api over http)
+### __4.a.__  installer datalager services
+### __4.b.__  opsæt evt middleware scripts, til f.eks at abonnere fra mqtt og indsætte i database
+### __5.__  Programmering \
+### Programkoden skal skrives så den er 
+### __5.a.__  mest muligt overskuelig, 
+### __5.b.__  understøtter genbrug, 
+### __5.c.__  lettest muligt kan udbygges eller 
+### __5.d.__  udskiftes med andre teknologier.
+### __6.__  Konfiguration \
+### Det skal være let at overskue og ændre centrale konfigurationer
+### __6.a.__  GPIO porte som sensorer tilsluttes
+### __6.b.__  Tids-intervaller for sensor(er) som aflæses med faste perioder
+### __6.c.__  Tærskelværdier for tidsgrænser til pauser for de-bounce mv.
+### __6.d.__  Adresser, porte og koder til de anvendte datalager services
+### __6.e.__  WiFi SSID, og password, som bruges til at ESP32 eneheden kan tilgå internettet
+### __6.f.__  med mere
+### __7.__  Dokumentation \
+### Det skal dokumenteres, hvordan
+### __7.a.__  systemet anvedes og startes,
+### __7.b.__  systemet sættes op, og 
+### __7.c.__  hvilke krav der er til datalagringen, for at systemet fungerer,
+### __7.d.__  hvordan komponenter kan udkiftes eller udbygges.
+### __7.e.__  Programkoden skal være passende kommenteret, så komponenterne let genkendes, og forstås.
+### __8.__  Præsentation
+### Løsningen præsenteres, på en måde hvor 
+### __8.a.__  løsningens dele beskrives og 
+### __8.b.__  de valg som er gjort, for at lave projektet, forklares.

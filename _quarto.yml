@@ -1,0 +1,26 @@
+project:
+  title: "FAG 17682_IoT_II" 
+  type: website
+
+website:
+  navbar:
+    left:
+      - href: index.qmd
+        text: Hjem
+      # - about.qmd
+  sidebar:
+    contents: emner
+
+format:
+  html:
+    theme:
+      - cosmo
+      - brand
+    css: styles.css
+    toc: true
+    lang: da
+    lightbox: true
+  typst:
+    lang: da
+    toc: true
+    theme: cosmo
