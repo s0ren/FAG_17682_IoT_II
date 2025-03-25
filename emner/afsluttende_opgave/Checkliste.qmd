@@ -1,6 +1,7 @@
 ---
-subtitle: CHECKLISTE - Afsluttende opgave, anden del
-title: Persontælling med dataopsamling
+subtitle: Afsluttende opgave, anden del
+title: CHECKLISTE
+toc: false
 ---
 
 
