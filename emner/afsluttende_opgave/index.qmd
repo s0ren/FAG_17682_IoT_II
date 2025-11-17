@@ -3,7 +3,7 @@ subtitle: Afsluttende opgave, anden del
 title: Persontælling med dataopsamling
 ---
 
-## Overblik og checkliste
+# Overblik og checkliste
 
 1.  To typer sensorer
     a.  En form for persontæller, IR eller andet
@@ -43,15 +43,15 @@ title: Persontælling med dataopsamling
     a.  løsningens dele beskrives og
     b.  de valg som er gjort, for at lave projektet, forklares.
 
-## Opgavens delelementer
+# Opgavens delelementer
 
-### 1. To typer sensorer
+## 1. To typer sensorer
 
 I denne sammenhæng er de *to typer sensorer* opdelt efter hvordan man programmerer dataopsamlingen.
 
 Tidskritikse sensorer
 
-:   Disse sensorer kræver at systemet registrerer hændelsen *når den sker!* \
+:   Disse sensorer kræver at systemet registrerer hændelsen *når den sker!*\
     Hvis sensoren registrer når en person går igennem en døråbning, skal systemet registrere det med det samme. Det fungerer ikke at systemet kun checker en gang i minuttet, om der er en person, for der er sandsynligvis ikke noget lige på det tidspunkt sensoren aflæses, men muligvis flere på andre tidspunkter.
 
     Andre typer tidskritiske sensorer, måler data der skal opsamles med passende kort mellemrum. F.eks. kan man måle vibrationer med en gyrosensor, men det kræver at systemet opsamler data med en frekvens der er hurtigere end de vibrationer der observeres.
@@ -62,9 +62,35 @@ Ikke-tidskritiske sensorer
 
 I projektopgaven skal der altså være sensorer af begge typer, så det demonstreres hvordan man håndterer begge typer dataopsamling.
 
-#### 1.a En form for persontæller, IR eller andet
+### 1.a event baseret sensor
 
-Til at tælle hvor mange personer der er i et lokale eller paserer et bestemt punkt, eller lignende, er det oplagt at bruge 
+Den ene type sensor, som er event-orienteret, og aktiveres når en begivenhed indtræffer, kan tælle personer som f.eks. går ind eller ud fra et lokale. Du kan tælle hvor mange der passerer et punkt, eller scanner et id-kort eller noget andet.
+
+Det væsentlige er at du håndterer en sensor som kræver at applikationen reagerer øjeblikligt.
+
+Du skal selv vælge hvordan din case ser ud.
+
+### **1.b.** sensor der ikke er tidskritiske
+
+Der skal også være en sensor af den mere passive type, som aflæses og dataindsamles med faste intervaller. Det kan f.eks. være temperatur, luftfugtighed eller f.eks. batteri-niveau[^1].
+
+[^1]: Vi har muligvis ikke udstyr til et et setup med batteri og mulighed for at aflæse spændingsneveauet på batterriet.
+
+Igen, er det op til dig at formulere den case det indgår i.
+
+### **2.** Data indsamles
+
+Uanset hvilken case du vælger, skal de indsamlede data gemmes, så det senere kan analyseres og presenteres.
+
+### **2.a.** når en event-sensor aktiveres
+
+Evensensorer aktiveres når en begivenhed sker, f.eks. fordi en person passerer sensoren, et kort skannes eller noget andet sker.
+
+Hver gang sådan en begivenhed sker, skal det registreres og sendes til databasen.
+
+Det er altså ikke bare det totale antal personer det skal registreres, men hver begivenhed. Der skal naturlig
+
+### **2.b.** med faste tidsintervaller, passive data som temperaturer og
 
 *her kommer mere, men nu er det blevet sent...*
 
