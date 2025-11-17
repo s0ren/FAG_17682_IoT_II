@@ -1,0 +1,12 @@
+---
+title: "Referencemanualer"
+format: html
+---
+
+(1) ESP-IDF Programming Guide - ESP32 - — ESP-IDF Programming Guide v5.5.1 documentation. <https://docs.espressif.com/projects/esp-idf/en/stable/esp32/index.html> (accessed 2025-11-17).
+(2) Language Reference \| Arduino Documentation. <https://docs.arduino.cc/language-reference/> (accessed 2025-11-17).
+(3) Technical Documents \| Espressif Systems. <https://www.espressif.com/en/support/download/documents/development-board> (accessed 2025-11-17).
+(4) Welcome to ESP32 Arduino Core’s documentation - - — Arduino ESP32 latest documentation. <https://docs.espressif.com/projects/arduino-esp32/en/latest/index.html> (accessed 2025-11-17).
+
+(1) Mischianti, R. DOIT ESP32 DEV KIT v1: high resolution pinout and specs. Renzo Mischianti. <https://mischianti.org/doit-esp32-dev-kit-v1-high-resolution-pinout-and-specs/> (accessed 2025-11-17).
+(2) Santos, R. Getting Started with the ESP32 Development Board | Random Nerd Tutorials. <https://randomnerdtutorials.com/getting-started-with-esp32/> (accessed 2025-11-17).

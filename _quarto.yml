@@ -1,6 +1,7 @@
 project:
   title: "FAG 17682_IoT_II" 
   type: website
+  output-dir: output
 
 website:
   navbar:
@@ -9,7 +10,10 @@ website:
         text: Hjem
       # - about.qmd
   sidebar:
-    contents: emner
+    # contents: emner
+    contents: auto
+    background: gray
+  draft-mode: unlinked
 
 format:
   html:
@@ -20,7 +24,7 @@ format:
     toc: true
     lang: da
     lightbox: true
-  typst:
-    lang: da
-    toc: true
-    theme: cosmo
+  # typst:
+  #   lang: da
+  #   toc: true
+  #   theme: cosmo

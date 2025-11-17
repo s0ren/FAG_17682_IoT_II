@@ -1,2 +1,5 @@
-output/*
-.quarto/*
+output/**
+.quarto/**
+
+/.quarto/
+**/*.quarto_ipynb

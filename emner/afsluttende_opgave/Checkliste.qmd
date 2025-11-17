@@ -1,6 +1,8 @@
 ---
 title: "Checliste"
 format: html
+
+draft: true
 ---
 
 - [ ] __1.__    To eller flere sonsorer \

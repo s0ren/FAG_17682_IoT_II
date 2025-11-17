@@ -1,0 +1,32 @@
+---
+title: "Features"
+format: html
+---
+
+
+
+## DeepSleep
+(1) Santos, S. ESP32 Deep Sleep with Arduino IDE and Wake Up Sources | Random Nerd Tutorials. <https://randomnerdtutorials.com/esp32-deep-sleep-arduino-ide-wake-up-sources/> (accessed 2025-11-17).
+(1) Deep Sleep - - — Arduino ESP32 latest documentation. <https://docs.espressif.com/projects/arduino-esp32/en/latest/api/deepsleep.html> (accessed 2025-11-17).
+
+
+## MQTT
+
+(1) ESP32 MQTT Publish Subscribe with Arduino IDE | Random Nerd Tutorials. <https://randomnerdtutorials.com/esp32-mqtt-publish-subscribe-arduino-ide/> (accessed 2025-11-17).
+(6) O’Leary, N. Knolleary/Pubsubclient, 2025. <https://github.com/knolleary/pubsubclient> (accessed 2025-11-17).
+(8) ROGER, M. Marvinroger/Async-Mqtt-Client, 2025. <https://github.com/marvinroger/async-mqtt-client> (accessed 2025-11-17).
+(9) Santos, R. What is MQTT and How It Works | Random Nerd Tutorials. <https://randomnerdtutorials.com/what-is-mqtt-and-how-it-works/> (accessed 2025-11-17).
+
+## WiFi
+
+(1) Santos, S. ESP32 Useful Wi-Fi Library Functions (Arduino IDE) | Random Nerd Tutorials. <https://randomnerdtutorials.com/esp32-useful-wi-fi-functions-arduino/> (accessed 2025-11-17).
+(10) Wi-Fi API - - — Arduino ESP32 latest documentation. <https://docs.espressif.com/projects/arduino-esp32/en/latest/api/wifi.html#> (accessed 2025-11-17).
+(11) WiFi | Arduino Documentation. <https://docs.arduino.cc/libraries/wifi/> (accessed 2025-11-17).
+
+
+## LittleFS
+
+(1) Mischianti, R. ESP32: integrated LittleFS FileSystem - 5. Renzo Mischianti. <https://mischianti.org/esp32-integrated-littlefs-filesystem-5/> (accessed 2025-11-17).
+(5) Santos, S. ESP32: Write Data to a File (LittleFS) - Arduino | Random Nerd Tutorials. <https://randomnerdtutorials.com/esp32-write-data-littlefs-arduino/> (accessed 2025-11-17).
+
+(7) Littlefs-Project/Littlefs, 2025. <https://github.com/littlefs-project/littlefs> (accessed 2025-11-17).
