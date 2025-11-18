@@ -11,6 +11,27 @@
     ]
   },
   {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "FAG 17682_IoT_II",
+    "section": "",
+    "text": "Her er anden del af faget 17682 IoT og Embedded. Første del blev gennemført på skoleforløbet H3.\nIndholdet på anden del går dybere i strømbesparelse med Deep Sleep, mere internet opkobling, data lagring både lokalt og via internettet. Der er også mere om trådløs kommunikation, og udveksling mellem IoT enhederne.\nEn IoT enhed, er en processor med meget lidt periferiudstyr direkte, men med muligheder for udbygning, primært sensorer. Traditionelt har TEC brugt Arduino Uno og Arduino Mega, som skolen stadig råder over et antal af.\nAktuelt, er undervisningen bygget op omkring Espresif’s ESP32, nemlig ESP32-DEVKIT-V1."
+  },
+  {
+    "objectID": "index.html#forløb",
+    "href": "index.html#forløb",
+    "title": "FAG 17682_IoT_II",
+    "section": "Forløb",
+    "text": "Forløb\n\nUge 1\n\n\n\n\n\n\n\n\n\n\nMandag\nTirsdag\nOnsdag\nTorsdag\nFredag\n\n\n\n\nRe-introduktion af IoT\nDeepSleep og inputevents\nwifi “Station mode”\nog NTP\nMQTT introduktion\nSelvstendigt arbejde\nmed projektopgaven\nArbejde med projektopgaven\nGennemgang og presentation af projektopgave\n\n\n\nProjekopgave Introduceres\n\n\n\n\n\n\n\n\nUge 2\n\n\n\n\n\n\n\n\n\n\nMandag\nTirsdag\nOnsdag\nTorsdag\nFredag\n\n\n\n\nWiFi i AP mode\nDe pakker wifi klienter sender\nGeolokalisering med f.eks. Triangulering, matematisk og praktisk\nData fra enhed til enhed\nSelvstendigt arbejde med projektopgaven\nArbejde med projektopgaven\nGennemgang/presentation af projektopgave\n\n\n\nProjekopgave Introduceres"
+  },
+  {
+    "objectID": "index.html#indhold",
+    "href": "index.html#indhold",
+    "title": "FAG 17682_IoT_II",
+    "section": "Indhold",
+    "text": "Indhold\n\nDemoer, øvelser og opgaver\nProjektopgaver\nVæktøjer (IDE, diagrammer etc)\n\nPlatformIO\nFritzing\n\nmore parts\n\n\nReferencer\n\nESP32 DEVKIT V1 specifikationer\nEspresif programmin\nAurduino framework\nTutorials\n\nRandom Nerd\n…\n\n\nEmner\n\nRe-introduktion af IoT\n\nHardware\nInput/output\nflow, timing og events\n\nDeep Sleep\nWifi\nData lagring\n\nlokalt, på filsystem\nremote, med MQTT\nformater (json, csv, …)\n\nFind andre enheder på nettet\nKommunikation mellem IoT enheder\nTriangulering af enheder"
+  },
+  {
     "objectID": "Features/index.html",
     "href": "Features/index.html",
     "title": "Features",
@@ -77,24 +98,75 @@
     ]
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "FAG 17682_IoT_II",
+    "objectID": "Features/lokal_mqtt.html",
+    "href": "Features/lokal_mqtt.html",
+    "title": "Lokal MQTT server",
     "section": "",
-    "text": "Her er anden del af faget 17682 IoT og Embedded. Første del blev gennemført på skoleforløbet H3.\nIndholdet på anden del går dybere i strømbesparelse med Deep Sleep, mere internet opkobling, data lagring både lokalt og via internettet. Der er også mere om trådløs kommunikation, og udveksling mellem IoT enhederne.\nEn IoT enhed, er en processor med meget lidt periferiudstyr direkte, men med muligheder for udbygning, primært sensorer. Traditionelt har TEC brugt Arduino Uno og Arduino Mega, som skolen stadig råder over et antal af.\nAktuelt, er undervisningen bygget op omkring Espresif’s ESP32, nemlig ESP32-DEVKIT-V1."
+    "text": "MQTT er det nye sort inden for cloud data storage. Så det skal vi også have.\nDet giver bedst mening, alt i alt, at vi har en server lokalt.\nMQTT serveren kaldes en broker, som implementerer en publish/subscribe arkitektur. Det betyder at de meddelelser publiseres til brokeren øjeblikligt sendes videre til abonnenterne (subscribers). Meddelelserne gemmes ikke på serveren, men skal modtages af en subscriber.\nPå den lokale server er der en subscriber, som gemmer alle meddelser i jsonlfiler.\nMQTT protokollen, gør at man kan sende meddelser til et topic en “payload”.\nTopic er en form for adresse eller path. Et topic kunne f.eks. være iot/del2/team-rocket/feedback.\nPayload’en er en String med de data der gemmes. Payload er ofte formateret son json, især hvis payloaden består af flere dele.",
+    "crumbs": [
+      "Hjem",
+      "Features",
+      "Lokal MQTT server"
+    ]
   },
   {
-    "objectID": "index.html#forløb",
-    "href": "index.html#forløb",
-    "title": "FAG 17682_IoT_II",
-    "section": "Forløb",
-    "text": "Forløb\n\nUge 1\n\n\n\n\n\n\n\n\n\n\nMandag\nTirsdag\nOnsdag\nTorsdag\nFredag\n\n\n\n\nRe-introduktion af IoT\nDeepSleep og inputevents\nwifi “Station mode”\nog NTP\nMQTT introduktion\nSelvstendigt arbejde\nmed projektopgaven\nArbejde med projektopgaven\nGennemgang og presentation af projektopgave\n\n\n\nProjekopgave Introduceres\n\n\n\n\n\n\n\n\nUge 2\n\n\n\n\n\n\n\n\n\n\nMandag\nTirsdag\nOnsdag\nTorsdag\nFredag\n\n\n\n\nWiFi i AP mode\nDe pakker wifi klienter sender\nGeolokalisering med f.eks. Triangulering, matematisk og praktisk\nData fra enhed til enhed\nSelvstendigt arbejde med projektopgaven\nArbejde med projektopgaven\nGennemgang/presentation af projektopgave\n\n\n\nProjekopgave Introduceres"
+    "objectID": "Features/lokal_mqtt.html#intro",
+    "href": "Features/lokal_mqtt.html#intro",
+    "title": "Lokal MQTT server",
+    "section": "",
+    "text": "MQTT er det nye sort inden for cloud data storage. Så det skal vi også have.\nDet giver bedst mening, alt i alt, at vi har en server lokalt.\nMQTT serveren kaldes en broker, som implementerer en publish/subscribe arkitektur. Det betyder at de meddelelser publiseres til brokeren øjeblikligt sendes videre til abonnenterne (subscribers). Meddelelserne gemmes ikke på serveren, men skal modtages af en subscriber.\nPå den lokale server er der en subscriber, som gemmer alle meddelser i jsonlfiler.\nMQTT protokollen, gør at man kan sende meddelser til et topic en “payload”.\nTopic er en form for adresse eller path. Et topic kunne f.eks. være iot/del2/team-rocket/feedback.\nPayload’en er en String med de data der gemmes. Payload er ofte formateret son json, især hvis payloaden består af flere dele.",
+    "crumbs": [
+      "Hjem",
+      "Features",
+      "Lokal MQTT server"
+    ]
   },
   {
-    "objectID": "index.html#indhold",
-    "href": "index.html#indhold",
-    "title": "FAG 17682_IoT_II",
-    "section": "Indhold",
-    "text": "Indhold\n\nDemoer, øvelser og opgaver\nProjektopgaver\nVæktøjer (IDE, diagrammer etc)\n\nPlatformIO\nFritzing\n\nmore parts\n\n\nReferencer\n\nESP32 DEVKIT V1 specifikationer\nEspresif programmin\nAurduino framework\nTutorials\n\nRandom Nerd\n…\n\n\nEmner\n\nRe-introduktion af IoT\n\nHardware\nInput/output\nflow, timing og events\n\nDeep Sleep\nWifi\nData lagring\n\nlokalt, på filsystem\nremote, med MQTT\nformater (json, csv, …)\n\nFind andre enheder på nettet\nKommunikation mellem IoT enheder\nTriangulering af enheder"
+    "objectID": "Features/lokal_mqtt.html#fakta",
+    "href": "Features/lokal_mqtt.html#fakta",
+    "title": "Lokal MQTT server",
+    "section": "2 Fakta",
+    "text": "2 Fakta\n\n2.1 MQTT\n\nhost\n\nwilson.local (192.168.0.161)\n\nporte\n\n1883 (annoným)\n8883 (SSL/TLS)\n\nBrugernavn\n\nelev1\n\nPassword\n\npassword\n\n\n### WEB-LOG\n\nhost\n\nwilson.local (192.168.0.161)\n\nport\n\n8080\n\n\nWeblog’gen er en webserver hvor kan se det mqtt-messages som serveren har modtaget.\nJson filerne ligger i mapper, efter topic, og indeholder en linie med et json-streng objekt for hver message",
+    "crumbs": [
+      "Hjem",
+      "Features",
+      "Lokal MQTT server"
+    ]
+  },
+  {
+    "objectID": "Features/lokal_mqtt.html#eksempeler",
+    "href": "Features/lokal_mqtt.html#eksempeler",
+    "title": "Lokal MQTT server",
+    "section": "3 Eksempeler",
+    "text": "3 Eksempeler\n\n3.1 CLI klient\nHvis du har installeret Mosquitto pubsub client, kan du køre denne:\nmosquitto_pub -h 192.168.0.161 -p 1883 -t \"fisk/tun/yellowfin\" -m \"Hej verden\"\n\n\n3.2 Python\n\n\n3.3 ESP32/Arduino\nDet her er en demo, som sender en mqtt-message når jeg trykker på knappen.\nForklaring neden for…\n#include &lt;Arduino.h&gt;\n#include &lt;WiFi.h&gt;\n#include &lt;PubSubClient.h&gt;\n\n// WiFi indstillinger\nconst char* ssid = \"IoT_H3/4\";\nconst char* password = \"98806829\";\n\n// MQTT indstillinger\nconst char* mqtt_server = \"wilson.local\";  // f.eks. \"192.168.1.100\"\nconst int mqtt_port = 1883;\nconst char* mqtt_topic = \"test/esp32/button\";\n\nconst int buttonPin = 32;\nint lastButtonState = LOW;\nint buttonState = LOW;\nunsigned long lastDebounceTime = 0;\nunsigned long debounceDelay = 50;\n\nWiFiClient espClient;\nPubSubClient client(espClient);\n\nvoid setup_wifi() {\n  Serial.println();\n  Serial.print(\"Connecting to WiFi\");\n  \n  WiFi.begin(ssid, password);\n  \n  while (WiFi.status() != WL_CONNECTED) {\n    delay(500);\n    Serial.print(\".\");\n  }\n  \n  Serial.println(\"\\nWiFi connected!\");\n  Serial.print(\"IP: \");\n  Serial.println(WiFi.localIP());\n}\n\nvoid reconnect() {\n  while (!client.connected()) {\n    Serial.print(\"Connecting to MQTT...\");\n    \n    String clientId = \"ESP32-\" + String(random(0xffff), HEX);\n    \n    if (client.connect(clientId.c_str())) {\n      Serial.println(\"connected\");\n    } else {\n      Serial.print(\"failed, rc=\");\n      Serial.println(client.state());\n      delay(5000);\n    }\n  }\n}\n\nvoid setup() {\n  Serial.begin(115200);\n  pinMode(buttonPin, INPUT);\n  \n  setup_wifi();\n  client.setServer(mqtt_server, mqtt_port);\n  \n  Serial.println(\"ESP32 ready!\");\n}\n\nvoid loop() {\n  if (!client.connected()) {\n    reconnect();\n  }\n  client.loop();\n\n  // Serial.println(\"Past client.loop()\");\n  \n  int reading = digitalRead(buttonPin);\n  // Serial.println(\"Button reading: \" + String(reading));\n  \n  if (reading != lastButtonState) {\n    lastDebounceTime = millis();\n  }\n  \n  if ((millis() - lastDebounceTime) &gt; debounceDelay) {\n    if (reading != buttonState) {\n      buttonState = reading;\n      \n      if (buttonState == HIGH) {\n        unsigned long uptime = millis();\n        \n        String payload = \"{\\\"uptime_ms\\\":\" + String(uptime) + \n                        \",\\\"button\\\":\\\"pressed\\\",\\\"device\\\":\\\"ESP32\\\"}\";\n        \n        Serial.print(\"Button pressed! \");\n        Serial.println(payload);\n        \n        client.publish(mqtt_topic, payload.c_str());\n      }\n    }\n  }\n  \n  lastButtonState = reading;\n}\n\n3.3.1 først skal der wifi på\n#include \\&lt;WiFi.h\\&gt;\nog\n\n\n\n\n3.4 med SSL/TSL\n\n3.4.1 ca cert fil",
+    "crumbs": [
+      "Hjem",
+      "Features",
+      "Lokal MQTT server"
+    ]
+  },
+  {
+    "objectID": "Opgaver/Projektopgave_Smiley.html",
+    "href": "Opgaver/Projektopgave_Smiley.html",
+    "title": "Projektopgave, Smiley feedback panel",
+    "section": "",
+    "text": "(For)Bruger smileys https://www.happy-or-not.com/en/\n\n\nSmiley feedback konsollen er en sjov og daglidags anordning som vi genkender fra oplevelser i banken, borgerservice, varehuse og sundhedscentre. Anordningen kan implementeres uden alt for store udfordringer og allivel tilføjes kompleksitet i forbindelse med dataoverførsel og strømbesparelse. Derfor er det et passende intro-projekt til faget IoT og embeddede systemers anden del, på H4.\n\n\n\n\nAnordningen har 4 knapper, med tilhørende smileys.\nDer er respons på LED ved hver knap.\nPå kapperne implementeres debounce funktionalitet.\nEfter tryk på en knap, er anordningen låst i 7 sekunder, før en ny feedback modtages,\n\nlysdioden ud for den trykkede knap lyser i alle 7 sekunder\n\nAnordningen tilsluttes internet, via wi-fi access-punkt i undervisningslokalet\nAnordningens ur synkroniseres løbende med NTP, og korrekt tidszone\nKnaptryk-data (værdi og timestamp), overføres via MQTT,\n\nder bruges brugernavn og password, og hele kommunikationen er sikret ved brug af TLS-kryptering\n\nAnordningen er designet strømbesparende, ved brug af DeepSleep og batteridrift,\n\nanordningen skal spare strøm ved at skifte til deep-sleep, når den er ubeskæftiget i et stykke tid\neksperimenter og analyser skal vise de bedste tidsgrænser for hvor længe anordningen er ubeskæftiget, men aktiv.\nsamt, hvordan skal opvågnen fungere, så anordningen opdage hvad der sker, og falder i søvn igen\nen god analyse og overvejelse danner grundlag for hvor længe anordningen sover, inden den vågner rutinemæssigt.\n\n\n\n\n\n\nOpgaven løses i grupper på 2 (to).\n\nEneste undtagelse er hvis der er et ulige antal elever tilmeldt. I det tilfælde dannes en gruppe på tre (3). Læreren tager initiativ, og beslutter hvem der deltager i gruppen på tre medlemmer.\n\nUnder hele projektforløbet skal versionsstyringssystemet git bruges til at håndtere og registrere de filer som indgår i projektet.\nAlle gruppemedlemmer skal dagligt lave comits til repo’et.\n\nDet gør det hele lettere hvis repoet pushes til github, gitlab eller lignende. Det er ikke et absolut krav, bare meget nemmere for alle. Det er vigtigt at læreren tilføjes til til brugergruppen, så læreren har fri adgang til hele ropo’et, hele commit historikken, alle branches osv.\n\nGruppen fører løbende en logbog, hvor alle comit’ter, mindst en gang om dagen.\n\nDet betyder at repoet skal have et commit af dagbogen, fra alle medlemmer, hver dag.\n\nGruppen opbygger også et arbejds-portfolio hvor alle ideer og beslutninger, som fører til løsning af projektets elementer beskrives, fra ide, via skitse til færdig løsning.\n\nAlle bidrager til indholdet.\nArbejds-portfolien opdateres når der indhold at putte i. Ikke nødvendigvis på bestemte tidspunkter, men når der er pointer, der skal med.\nIndholdet kan både være tekst, skitser, screenshots, links. Altmuligt som inspirerer, og kan skrabes sammen.\n\nBåde logbog og arbejdsportfolie skal comittes til git-repoet, så progressionen dokumenteres.\n\nDokumentformatet MarkDown er meget velegnet til at skrive i med detaljeret versionsstyring i git.\n\nGruppen og læreren taler løbende sammen om udfordringer og fremdrift i projektarbejdet. Herigennem deler gruppen og læreren indsigt i læring og fremskridt.\n\n\n\n\nOpgavebesvarelsen indgår som en del af den samlede bedømmelse for faget, proportionalt med den tid der er brugt til projektarbejdet. Produktkravene og proceskravene prioriteres lige højt, fordi produktet alene ikke afslører deltagerens viden om løsningen, og processen alene ikke altid fører til en løsning der virker.\nBegge dele skal mindst opnå karakteren 02, hver for sig, for at bedømmelsen samlet opnår karakteren 02, eller mere. På samme måde, kan hverken en bedømmelse af produktkravene og proceskravene, som præsterer mere end hvad der forventes til karakteren 12, kompensere for en præstation under 02 i den anden del.\nEn løsning som mangler TSL-kryptering og mangler strømbesparelses elementer, bedømmes, for produktkravene, ikke bedømmes til karakteren 12.\nKarakteren 12 gives hvor alle målene opfyldes, og som kun har ubetydelige fejl eller mangler.\nF.eks. kan produktet have periodisk usikkerhed af debounce, eller usikker håndtering af tidszone eller deep-sleep funktioner. Der kan også enkelte begivenheder som mangler i logbogen, eller projektelementer som er mangelfuldt beskrevet i portfoliet.",
+    "crumbs": [
+      "Hjem",
+      "Opgaver",
+      "Projektopgave, Smiley feedback panel"
+    ]
+  },
+  {
+    "objectID": "Opgaver/Projektopgave_Smiley.html#smiley-feedback-panel",
+    "href": "Opgaver/Projektopgave_Smiley.html#smiley-feedback-panel",
+    "title": "Projektopgave, Smiley feedback panel",
+    "section": "",
+    "text": "(For)Bruger smileys https://www.happy-or-not.com/en/\n\n\nSmiley feedback konsollen er en sjov og daglidags anordning som vi genkender fra oplevelser i banken, borgerservice, varehuse og sundhedscentre. Anordningen kan implementeres uden alt for store udfordringer og allivel tilføjes kompleksitet i forbindelse med dataoverførsel og strømbesparelse. Derfor er det et passende intro-projekt til faget IoT og embeddede systemers anden del, på H4.\n\n\n\n\nAnordningen har 4 knapper, med tilhørende smileys.\nDer er respons på LED ved hver knap.\nPå kapperne implementeres debounce funktionalitet.\nEfter tryk på en knap, er anordningen låst i 7 sekunder, før en ny feedback modtages,\n\nlysdioden ud for den trykkede knap lyser i alle 7 sekunder\n\nAnordningen tilsluttes internet, via wi-fi access-punkt i undervisningslokalet\nAnordningens ur synkroniseres løbende med NTP, og korrekt tidszone\nKnaptryk-data (værdi og timestamp), overføres via MQTT,\n\nder bruges brugernavn og password, og hele kommunikationen er sikret ved brug af TLS-kryptering\n\nAnordningen er designet strømbesparende, ved brug af DeepSleep og batteridrift,\n\nanordningen skal spare strøm ved at skifte til deep-sleep, når den er ubeskæftiget i et stykke tid\neksperimenter og analyser skal vise de bedste tidsgrænser for hvor længe anordningen er ubeskæftiget, men aktiv.\nsamt, hvordan skal opvågnen fungere, så anordningen opdage hvad der sker, og falder i søvn igen\nen god analyse og overvejelse danner grundlag for hvor længe anordningen sover, inden den vågner rutinemæssigt.\n\n\n\n\n\n\nOpgaven løses i grupper på 2 (to).\n\nEneste undtagelse er hvis der er et ulige antal elever tilmeldt. I det tilfælde dannes en gruppe på tre (3). Læreren tager initiativ, og beslutter hvem der deltager i gruppen på tre medlemmer.\n\nUnder hele projektforløbet skal versionsstyringssystemet git bruges til at håndtere og registrere de filer som indgår i projektet.\nAlle gruppemedlemmer skal dagligt lave comits til repo’et.\n\nDet gør det hele lettere hvis repoet pushes til github, gitlab eller lignende. Det er ikke et absolut krav, bare meget nemmere for alle. Det er vigtigt at læreren tilføjes til til brugergruppen, så læreren har fri adgang til hele ropo’et, hele commit historikken, alle branches osv.\n\nGruppen fører løbende en logbog, hvor alle comit’ter, mindst en gang om dagen.\n\nDet betyder at repoet skal have et commit af dagbogen, fra alle medlemmer, hver dag.\n\nGruppen opbygger også et arbejds-portfolio hvor alle ideer og beslutninger, som fører til løsning af projektets elementer beskrives, fra ide, via skitse til færdig løsning.\n\nAlle bidrager til indholdet.\nArbejds-portfolien opdateres når der indhold at putte i. Ikke nødvendigvis på bestemte tidspunkter, men når der er pointer, der skal med.\nIndholdet kan både være tekst, skitser, screenshots, links. Altmuligt som inspirerer, og kan skrabes sammen.\n\nBåde logbog og arbejdsportfolie skal comittes til git-repoet, så progressionen dokumenteres.\n\nDokumentformatet MarkDown er meget velegnet til at skrive i med detaljeret versionsstyring i git.\n\nGruppen og læreren taler løbende sammen om udfordringer og fremdrift i projektarbejdet. Herigennem deler gruppen og læreren indsigt i læring og fremskridt.\n\n\n\n\nOpgavebesvarelsen indgår som en del af den samlede bedømmelse for faget, proportionalt med den tid der er brugt til projektarbejdet. Produktkravene og proceskravene prioriteres lige højt, fordi produktet alene ikke afslører deltagerens viden om løsningen, og processen alene ikke altid fører til en løsning der virker.\nBegge dele skal mindst opnå karakteren 02, hver for sig, for at bedømmelsen samlet opnår karakteren 02, eller mere. På samme måde, kan hverken en bedømmelse af produktkravene og proceskravene, som præsterer mere end hvad der forventes til karakteren 12, kompensere for en præstation under 02 i den anden del.\nEn løsning som mangler TSL-kryptering og mangler strømbesparelses elementer, bedømmes, for produktkravene, ikke bedømmes til karakteren 12.\nKarakteren 12 gives hvor alle målene opfyldes, og som kun har ubetydelige fejl eller mangler.\nF.eks. kan produktet have periodisk usikkerhed af debounce, eller usikker håndtering af tidszone eller deep-sleep funktioner. Der kan også enkelte begivenheder som mangler i logbogen, eller projektelementer som er mangelfuldt beskrevet i portfoliet.",
+    "crumbs": [
+      "Hjem",
+      "Opgaver",
+      "Projektopgave, Smiley feedback panel"
+    ]
   }
 ]
