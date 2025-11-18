@@ -1,62 +1,108 @@
 ---
 title: "Projektopgave, Smiley feedback panel"
-format: html
+
+author: Søren Magnusson
+author-meta: smag@tec.dk
+
+format: 
+  html: default
+  typst: default
+format-links:
+  - html
+  - format: typst
+    text: PDF
+    icon: file-pdf
 ---
 
 ## Smiley feedback panel
-![Pasted image 20250518162623.png](Pasted image 20250518162623.png)
-(For)Bruger smileys
-https://www.happy-or-not.com/en/
+
+![Pasted image 20250518162623.png](Pasted%20image%2020250518162623.png) (For)Bruger smileys https://www.happy-or-not.com/en/
 
 ### Motivation
 
-Smiley feedback konsollen er en sjov og daglidags anordning som vi genkender fra oplevelser i banken, borgerservice, varehuse og sundhedscentre.
-Anordningen kan implementeres uden alt for store udfordringer og allivel tilføjes kompleksitet i forbindelse med dataoverførsel og strømbesparelse.
-Derfor er det et passende intro-projekt til faget __IoT og embeddede systemers__ anden del, på H4. 
+Smiley feedback konsollen er en sjov og daglidags anordning som vi genkender fra oplevelser i banken, borgerservice, varehuse og sundhedscentre. Anordningen kan implementeres uden alt for store udfordringer og allivel tilføjes kompleksitet i forbindelse med dataoverførsel og strømbesparelse. Derfor er det et passende intro-projekt til faget **IoT og embeddede systemers** anden del, på H4.
 
 ### Produktkrav
-- Anordningen har 4 knapper, med tilhørende smileys.
-- Der er respons på LED ved hver knap.
-- På kapperne implementeres _debounce_ funktionalitet.
-- Efter tryk på en knap, er anordningen låst i 7 sekunder, før en ny feedback modtages,
-	- lysdioden ud for den trykkede knap lyser i alle 7 sekunder
-- Anordningen tilsluttes internet, via wi-fi access-punkt i undervisningslokalet 
-- Anordningens ur synkroniseres løbende med NTP, og korrekt tidszone
-- Knaptryk-data (værdi og timestamp), overføres via MQTT,
-	- der bruges brugernavn og password, og hele kommunikationen er sikret ved brug af TLS-kryptering
-- Anordningen er designet strømbesparende, ved brug af DeepSleep og batteridrift,
-	- anordningen skal spare strøm ved at skifte til deep-sleep, når den er ubeskæftiget i et stykke tid
-	- eksperimenter og analyser skal vise de bedste tidsgrænser for hvor længe anordningen er ubeskæftiget, men aktiv. 
-	- samt, hvordan skal opvågnen fungere, så anordningen opdage hvad der sker, og falder i søvn igen
-	- en god analyse og overvejelse danner grundlag for hvor længe anordningen sover, inden den vågner rutinemæssigt.
+
+-   Anordningen har 4 knapper, med tilhørende smileys.
+-   Der er respons på LED ved hver knap.
+-   På kapperne implementeres *debounce* funktionalitet.
+-   ~~Efter tryk på en knap, er anordningen låst i 7 sekunder, før en ny feedback modtages,~~
+    -   lysdioden ud for den trykkede knap lyser ~~i alle 7 sekunder~~ et passende stykke tid
+-   Anordningen tilsluttes internet, via wi-fi access-punkt i undervisningslokalet
+-   Anordningens ur synkroniseres løbende med NTP, og korrekt tidszone
+-   Knaptryk-data (værdi og timestamp), overføres via MQTT,
+    -   der bruges brugernavn og password, og hele kommunikationen er sikret ved brug af TLS-kryptering
+-   Anordningen er designet strømbesparende, ved brug af DeepSleep og batteridrift,
+    -   anordningen skal spare strøm ved at skifte til deep-sleep, når den er ubeskæftiget i et stykke tid
+    -   eksperimenter og analyser skal vise de bedste tidsgrænser for hvor længe anordningen er ubeskæftiget, men aktiv.
+    -   samt, hvordan skal opvågnen fungere, så anordningen opdage hvad der sker, og falder i søvn igen
+    -   en god analyse og overvejelse danner grundlag for hvor længe anordningen sover, inden den vågner rutinemæssigt.
 
 ### Proceskrav
-- Opgaven løses i grupper på 2 (to).
-	- _Eneste_ undtagelse er hvis der er et ulige antal elever tilmeldt. I det tilfælde dannes _en_ gruppe på tre (3). 
-	  Læreren tager initiativ, og beslutter hvem der deltager i gruppen på tre medlemmer.
-- Under hele projektforløbet skal versionsstyringssystemet _git_ bruges til at håndtere og registrere de filer som indgår i projektet.
-- Alle gruppemedlemmer skal dagligt lave _comits_ til _repo_'et.
-	- Det gør det hele lettere hvis repoet pushes til _github_, _gitlab_ eller lignende. Det er ikke et absolut krav, bare meget nemmere for alle. Det er vigtigt at læreren tilføjes til til brugergruppen, så læreren har fri adgang til hele ropo'et, hele commit historikken, alle branches osv.
-- Gruppen fører løbende en ___logbog___, hvor alle comit'ter, mindst en gang om dagen.
-	- Det betyder at repoet skal have et commit af dagbogen, fra alle medlemmer, hver dag.
-- Gruppen opbygger også et ___arbejds-portfolio___ hvor alle ideer og beslutninger, som fører til løsning af projektets elementer beskrives, fra ide, via skitse til færdig løsning. 
-	- Alle bidrager til indholdet. 
-	- Arbejds-portfolien opdateres når der indhold at putte i. Ikke nødvendigvis på bestemte tidspunkter, men når der er pointer, der skal med. 
-	- Indholdet kan både være tekst, skitser, screenshots, links. Altmuligt som inspirerer, og kan skrabes sammen.
-- Både logbog og arbejdsportfolie skal comittes til git-repoet, så progressionen dokumenteres.
-	- Dokumentformatet _MarkDown_ er meget velegnet til at skrive i med detaljeret versionsstyring i git.
-- Gruppen og læreren taler løbende sammen om udfordringer og fremdrift i projektarbejdet. Herigennem deler gruppen og læreren indsigt i læring og fremskridt.
+
+-   Opgaven løses i grupper på 2 (to).
+    -   *Eneste* undtagelse er hvis der er et ulige antal elever tilmeldt. I det tilfælde dannes *en* gruppe på tre (3). Læreren tager initiativ, og beslutter hvem der deltager i gruppen på tre medlemmer.
+-   Under hele projektforløbet skal versionsstyringssystemet *git* bruges til at håndtere og registrere de filer som indgår i projektet.
+-   Alle gruppemedlemmer skal dagligt lave *comits* til *repo*'et.
+    -   Det gør det hele lettere hvis repoet pushes til *github*, *gitlab* eller lignende. Det er ikke et absolut krav, bare meget nemmere for alle. Det er vigtigt at læreren tilføjes til til brugergruppen, så læreren har fri adgang til hele ropo'et, hele commit historikken, alle branches osv.
+-   Gruppen fører løbende en ***logbog***, hvor alle comit'ter, mindst en gang om dagen.
+    -   Det betyder at repoet skal have et commit af dagbogen, fra alle medlemmer, hver dag.
+-   Gruppen opbygger også et ***arbejds-portfolio*** hvor alle ideer og beslutninger, som fører til løsning af projektets elementer beskrives, fra ide, via skitse til færdig løsning.
+    -   Alle bidrager til indholdet.
+    -   Arbejds-portfolien opdateres når der indhold at putte i. Ikke nødvendigvis på bestemte tidspunkter, men når der er pointer, der skal med.
+    -   Indholdet kan både være tekst, skitser, screenshots, links. Altmuligt som inspirerer, og kan skrabes sammen.
+-   Både logbog og arbejdsportfolie skal comittes til git-repoet, så progressionen dokumenteres.
+    -   Dokumentformatet *MarkDown* er meget velegnet til at skrive i med detaljeret versionsstyring i git.
+-   Gruppen og læreren taler løbende sammen om udfordringer og fremdrift i projektarbejdet. Herigennem deler gruppen og læreren indsigt i læring og fremskridt.
 
 ### Bedømmelse
-Opgavebesvarelsen indgår som en del af den samlede bedømmelse for faget, proportionalt med den tid der er brugt til projektarbejdet.
-Produktkravene og proceskravene prioriteres lige højt, fordi produktet alene ikke afslører deltagerens viden om løsningen, og processen alene ikke altid fører til en løsning der virker.
 
-Begge dele skal mindst opnå karakteren __02__, hver for sig, for at bedømmelsen samlet opnår karakteren __02__, eller mere.
-På samme måde, kan hverken en bedømmelse af produktkravene og proceskravene, som præsterer mere end hvad der forventes til karakteren __12__, kompensere for en præstation under __02__ i den anden del.
+Opgavebesvarelsen indgår som en del af den samlede bedømmelse for faget, proportionalt med den tid der er brugt til projektarbejdet. Produktkravene og proceskravene prioriteres lige højt, fordi produktet alene ikke afslører deltagerens viden om løsningen, og processen alene ikke altid fører til en løsning der virker.
 
-En løsning som mangler TSL-kryptering og mangler strømbesparelses elementer, bedømmes, for produktkravene, _ikke_ bedømmes til karakteren __12__.
+Begge dele skal mindst opnå karakteren **02**, hver for sig, for at bedømmelsen samlet opnår karakteren **02**, eller mere. På samme måde, kan hverken en bedømmelse af produktkravene og proceskravene, som præsterer mere end hvad der forventes til karakteren **12**, kompensere for en præstation under **02** i den anden del.
 
-Karakteren __12__ gives hvor alle målene opfyldes, og som kun har ubetydelige fejl eller mangler. 
+En løsning som mangler TSL-kryptering og mangler strømbesparelses elementer, bedømmes, for produktkravene, *ikke* bedømmes til karakteren **12**.
 
-F.eks. kan produktet have periodisk usikkerhed af debounce, eller usikker håndtering af tidszone eller deep-sleep funktioner.
-Der kan også enkelte begivenheder som mangler i logbogen, eller projektelementer som er mangelfuldt beskrevet i portfoliet.
+Karakteren **12** gives hvor alle målene opfyldes, og som kun har ubetydelige fejl eller mangler.
+
+F.eks. kan produktet have periodisk usikkerhed af debounce, eller usikker håndtering af tidszone eller deep-sleep funktioner. Der kan også enkelte begivenheder som mangler i logbogen, eller projektelementer som er mangelfuldt beskrevet i portfoliet.
+
+## Info
+
+|  |  |
+|----|----|
+| **MQTT** |  |
+| Host | wilson.local eller 192.168.0.161 |
+| Port (annonym) | 1883 |
+| Port (TLS/SSL *ikke* annonym) | 8883 |
+| brugernavn | elev1 |
+| password | password |
+| **Web log** |  |
+| host | wilson.local eller 192.168.0.161 |
+| port | 8080 |
+| url | <http://wilson.local:8080> eller <http://192.168.0.161:8080> |
+
+CA cert: [./ca.crt](./ca.crt)
+
+```         
+-----BEGIN CERTIFICATE-----
+MIIDBTCCAe2gAwIBAgIUXopiLMN2tHLH5ALoHzUf4tY5upUwDQYJKoZIhvcNAQEL
+BQAwEjEQMA4GA1UEAwwHTVFUVC1DQTAeFw0yNTExMTYwOTQyMDlaFw0zNTExMTQw
+OTQyMDlaMBIxEDAOBgNVBAMMB01RVFQtQ0EwggEiMA0GCSqGSIb3DQEBAQUAA4IB
+DwAwggEKAoIBAQDTJehrHOy4YN3OmnVumeYq7gA7vd8iUoBLCsiHIGLAfnWA8b0f
+r9XK3T552ztwfnZ6uK+T8kpqdQL0OczNXyEz2oi5e5MJAXYr1ytXns1SUQVgzj8F
+Igl9i7MuwEYLyj9VjIjQgAhqDL2LlNomGyCfYoIhxJ0mvOii+yNsD5ghM2uLpaMu
+FoP6k00gl0T/2fnJYKmy2frsRYxQLScf+arMHyXKcK89DVy5jQpFNhXHzqKwFgTY
+kl0VIWp11ZKjCI3CNWl2t5U/GHbdHGf94TtXPvG5c6oe4hvd9On6d0fm12K5kc0C
+ceQCq5pXP/z+a4acH8s2Iqfs+h0v8i4DtkFZAgMBAAGjUzBRMB0GA1UdDgQWBBTz
+lQPbwuJ9LBR524FJXVYQArXcPjAfBgNVHSMEGDAWgBTzlQPbwuJ9LBR524FJXVYQ
+ArXcPjAPBgNVHRMBAf8EBTADAQH/MA0GCSqGSIb3DQEBCwUAA4IBAQALGWCrskwS
+BfaPnFZs8pm/FAcehS/YvdClyHoL4XBg7EqW+f72SiBy6Nu0Hgj7tPBwC0tPpKHA
+IwVp5UN54IYGXnIgXirZOSxGBnoqS1ttrRYvrngmXg8woiQzaKryVEOGzwEI9/MI
+qaclcDnK0G7KbYRnJ2o5mneyY87OKyBznW9ceas7o4hzGvKojY67nGrayWwjO7Iw
+/4cXqqfWhE1x7znsU4IUXaL6CN/cpe6+forBUi84Cv6uVmeRhsABt+ENxaLG6CDu
+Fd0rtKYmoqbkfqPGXeRVfvbJg0PJmrBHZG2KOMDC37fvIysHGc+jYl6yWh6b5mEG
+uOn/9KgYpDzd
+-----END CERTIFICATE-----
+```
