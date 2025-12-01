@@ -100,7 +100,13 @@ Når vi indsamler data om alle enheder i "luften", så er nogen af disse data no
 
 ## Aflevering 
 
-Opgaven skal afleveres på ItsLearning (man kan ikke lave ekseterne links ind).
+Opgaven skal afleveres på ItsLearning (man kan ikke lave ekseterne links ind). /
+I skal aflevere alle kode filer (naturligvis), samt logbog og arbejdsportefolie.
+Enten skal det hele pakkes i en komprimeret fil (f.eks. zip), eller hvis I har projektet i git og på GitLab, GitHub eller lignende, så er det fint at I bare afleverer et link til repo'et. Husk bare at læreren skal have læse rettigheder (eller bare public).
+
+### Tidlig aflevering
+
+Hvis projektet alligevel ligger på et offentligt git repo (eller noget lignende), kan i godt lave en tidlig aflevering, og så løbende pushe til repo'et. På den måde kan læreren følge med i logbog og portefolie.
 
 ## Spørgsmål som indgår i bedømmelsen
 
