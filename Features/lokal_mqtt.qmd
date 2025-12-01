@@ -7,6 +7,7 @@ format: html
 # bibliography: ../bib/IoT 1 nov 25/IoT 1 nov 25.bib
 bibliography: ../bib/IoT 1 nov 25.bib
 number-sections: true
+lightbox: true
 ---
 
 ## Intro
@@ -42,7 +43,9 @@ Weblog'gen er en webserver hvor kan se det mqtt-messages som serveren har modtag
 
 Json filerne ligger i mapper, efter topic, og indeholder en linie med et json-streng objekt for hver message
 
-![](images/paste-3.png){width="400"} ![](images/paste-2.png){width="400"}
+![](images/paste-3.png){width="300"} 
+
+![](images/paste-2.png){width="300"}
 
 |      |                                                              |
 |------|--------------------------------------------------------------|
@@ -144,14 +147,17 @@ void setup() {
 ```cpp
 #include <PubSubClient.h>
 ```
-...
+
+::: {.column-margin}
+Indkluder PubSubClient lib
+:::
+
 ```cpp
 // MQTT indstillinger
 const char* mqtt_server = "wilson.local";  // f.eks. "192.168.1.100"
 const int mqtt_port = 1883;
 const char* mqtt_topic = "test/esp32/button";
 ```
-...
 ```cpp
 PubSubClient client(espClient);
 ```
