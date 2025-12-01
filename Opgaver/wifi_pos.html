@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="smag@tec.dk">
 
-<title>Features – FAG 17682_IoT_II</title>
+<title>Projektopgave, Positionsbestemmelse af enheder uden GPS dækning – FAG 17682_IoT_II</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -107,7 +108,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Skift sidebjælke" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Features/index.html">Features</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Opgaver/Projektopgave_Smiley.html">Opgaver</a></li><li class="breadcrumb-item"><a href="../Opgaver/wifi_pos.html">Projektopgave, Positionsbestemmelse af enheder uden GPS dækning</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Skift sidebjælke" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -148,7 +149,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../Features/index.html" class="sidebar-item-text sidebar-link active">
+            <a href="../Features/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Features</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Skift sektion">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -180,7 +181,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Opgaver/wifi_pos.html" class="sidebar-item-text sidebar-link">
+  <a href="../Opgaver/wifi_pos.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Projektopgave, Positionsbestemmelse af enheder uden GPS dækning</span></a>
   </div>
 </li>
@@ -196,26 +197,49 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">På denne side</h2>
    
   <ul>
-  <li><a href="#deepsleep" id="toc-deepsleep" class="nav-link active" data-scroll-target="#deepsleep">DeepSleep</a></li>
-  <li><a href="#mqtt" id="toc-mqtt" class="nav-link" data-scroll-target="#mqtt">MQTT</a></li>
-  <li><a href="#wifi" id="toc-wifi" class="nav-link" data-scroll-target="#wifi">WiFi</a></li>
-  <li><a href="#littlefs" id="toc-littlefs" class="nav-link" data-scroll-target="#littlefs">LittleFS</a></li>
+  <li><a href="#formål" id="toc-formål" class="nav-link active" data-scroll-target="#formål">Formål</a></li>
+  <li><a href="#produktmål" id="toc-produktmål" class="nav-link" data-scroll-target="#produktmål">Produktmål</a></li>
+  <li><a href="#procesmål" id="toc-procesmål" class="nav-link" data-scroll-target="#procesmål">Procesmål</a></li>
+  <li><a href="#hovedproblematikker" id="toc-hovedproblematikker" class="nav-link" data-scroll-target="#hovedproblematikker">Hovedproblematikker</a>
+  <ul class="collapse">
+  <li><a href="#persondata" id="toc-persondata" class="nav-link" data-scroll-target="#persondata">Persondata</a></li>
+  </ul></li>
+  <li><a href="#aflevering" id="toc-aflevering" class="nav-link" data-scroll-target="#aflevering">Aflevering</a></li>
+  <li><a href="#spørgsmål-som-indgår-i-bedømmelsen" id="toc-spørgsmål-som-indgår-i-bedømmelsen" class="nav-link" data-scroll-target="#spørgsmål-som-indgår-i-bedømmelsen">Spørgsmål som indgår i bedømmelsen</a></li>
+  <li><a href="#forslag-til-teknologier-at-kigge-på" id="toc-forslag-til-teknologier-at-kigge-på" class="nav-link" data-scroll-target="#forslag-til-teknologier-at-kigge-på">Forslag til teknologier at kigge på</a>
+  <ul class="collapse">
+  <li><a href="#links" id="toc-links" class="nav-link" data-scroll-target="#links">Links</a></li>
+  <li><a href="#kode-eksempler" id="toc-kode-eksempler" class="nav-link" data-scroll-target="#kode-eksempler">Kode eksempler</a></li>
+  <li><a href="#mqtt-server" id="toc-mqtt-server" class="nav-link" data-scroll-target="#mqtt-server">MQTT server</a></li>
+  </ul></li>
   </ul>
-</nav>
+<div class="quarto-alternate-formats"><h2>Andre formater</h2><ul><li><a href="wifi_pos.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Opgaver/Projektopgave_Smiley.html">Opgaver</a></li><li class="breadcrumb-item"><a href="../Opgaver/wifi_pos.html">Projektopgave, Positionsbestemmelse af enheder uden GPS dækning</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Features</h1>
+<h1 class="title">Projektopgave, Positionsbestemmelse af enheder uden GPS dækning</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Forfatter</div>
+    <div class="quarto-title-meta-contents">
+             <p>Søren Magnusson </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Udgivet</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">30. november 2025</p>
+    </div>
+  </div>
   
     
   </div>
@@ -225,39 +249,196 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="deepsleep" class="level2">
-<h2 class="anchored" data-anchor-id="deepsleep">DeepSleep</h2>
-<ol type="1">
-<li>Santos, S. ESP32 Deep Sleep with Arduino IDE and Wake Up Sources | Random Nerd Tutorials. <a href="https://randomnerdtutorials.com/esp32-deep-sleep-arduino-ide-wake-up-sources/" class="uri">https://randomnerdtutorials.com/esp32-deep-sleep-arduino-ide-wake-up-sources/</a> (accessed 2025-11-17).</li>
-<li>Deep Sleep - - — Arduino ESP32 latest documentation. <a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/api/deepsleep.html" class="uri">https://docs.espressif.com/projects/arduino-esp32/en/latest/api/deepsleep.html</a> (accessed 2025-11-17).</li>
-</ol>
+<!-- # Positionsbestemmelse af enheder uden GPS dækning -->
+<ul>
+<li>Hvordan laver man positionsbestemmelse af f.eks. mobile enheder, uden adgang til GPS?</li>
+<li>Kan man tælle hvor mange enheder (og dermed måske personer), der er i et område?</li>
+</ul>
+<p>Er man indendørs har man ofte ikke mulighed for at få en god positionsbestemmelse med GPS. I hvertfald ikke i metrosystemet, eller indenfor i et storcenter. Ikke på en måde så man tydeligt kan se hvor bygningen, eller i hvilket lokale, en person eller en enhed findes.<br>
+Desuden kan man ønske at få oplysninger om hvormange (personer/enheder) der færdes i et område, uden at de har tilmeldt sig. Men må man det?</p>
+<p>Hvordan kan man bestemme hvor en enhed befinder sig, uden at have adgang til GPS? Inde i bygninger er GPS signaler ikke særligt tilgængelige, og/eller særlige nøjagtige.</p>
+<section id="formål" class="level2">
+<h2 class="anchored" data-anchor-id="formål">Formål</h2>
+<p>I skal undersøge hvordan det er muligt at bestemme</p>
+<ul>
+<li>om en enhed (mobiltelefon) er i området</li>
+<li>hvor i området</li>
+<li>hvor nøjagtigt</li>
+</ul>
+<p>Samtidig skal I også forholde jer til</p>
+<ul>
+<li>hvad det er tilladt at monitorere</li>
+<li>om hvem</li>
+<li>hvormeget, hvorlænge osv.</li>
+</ul>
+<p>Undersøg hvordan man kan håndtere viden om enhederne så lidt som muligt, og alligevel registrere at der er enheder tilstede, hvor og hvornår.</p>
 </section>
-<section id="mqtt" class="level2">
-<h2 class="anchored" data-anchor-id="mqtt">MQTT</h2>
-<ol type="1">
-<li>ESP32 MQTT Publish Subscribe with Arduino IDE | Random Nerd Tutorials. <a href="https://randomnerdtutorials.com/esp32-mqtt-publish-subscribe-arduino-ide/" class="uri">https://randomnerdtutorials.com/esp32-mqtt-publish-subscribe-arduino-ide/</a> (accessed 2025-11-17).</li>
-<li>O’Leary, N. Knolleary/Pubsubclient, 2025. <a href="https://github.com/knolleary/pubsubclient" class="uri">https://github.com/knolleary/pubsubclient</a> (accessed 2025-11-17).</li>
-<li>ROGER, M. Marvinroger/Async-Mqtt-Client, 2025. <a href="https://github.com/marvinroger/async-mqtt-client" class="uri">https://github.com/marvinroger/async-mqtt-client</a> (accessed 2025-11-17).</li>
-<li>Santos, R. What is MQTT and How It Works | Random Nerd Tutorials. <a href="https://randomnerdtutorials.com/what-is-mqtt-and-how-it-works/" class="uri">https://randomnerdtutorials.com/what-is-mqtt-and-how-it-works/</a> (accessed 2025-11-17).</li>
-</ol>
+<section id="produktmål" class="level2">
+<h2 class="anchored" data-anchor-id="produktmål">Produktmål</h2>
+<p>I skal lave en opstilling med flere IoT-enheder, som indsamler oplysninger om mobilenheder (f.eks.mobiltelefoner) med wifi.<br>
+Det område I arbejder med kan være jeres bord eller hele lokalet.</p>
+<p>Ved at placere flere IoT-enheder i hjørnerne af området, kan man få oplysninger om afstanden fra hver IoT-enhed til mobilenheden. På baggrund af disse oplysninger kan beregne geometrisk, hvor mobilenheden befinder sig. Nøjagtigheden bliver ikke så stor, men det må vi leve med.</p>
+<p>I skal programmere IoT-enhederne i opstillingen til at kommunike med hinanden, så de kan samle oplysninger om afstand til mobilenheder, så der bliver mulighed for stedsbestemmelse.<br>
+Skal en af IoT-enhederne være server, eller skal de alle samle data? Det er jeres valg.</p>
+<p>Jeres opstalling af IoT-enheder skal indsende data til MQTT serveren (den som er sat op lokalt) med data om</p>
+<ul>
+<li>et unikt id,</li>
+<li>et tidspunkt, og</li>
+<li>et kordinat (x,y)</li>
+</ul>
+<p>En anden applikation (som ikke er indeholdt i denne opgave) kan så udtrække oplysningerne, og presentere statistiske sammendrag som hyppighed over dagen, et heatmap over hvor i området, osv</p>
 </section>
-<section id="wifi" class="level2">
-<h2 class="anchored" data-anchor-id="wifi">WiFi</h2>
-<ol type="1">
-<li>Santos, S. ESP32 Useful Wi-Fi Library Functions (Arduino IDE) | Random Nerd Tutorials. <a href="https://randomnerdtutorials.com/esp32-useful-wi-fi-functions-arduino/" class="uri">https://randomnerdtutorials.com/esp32-useful-wi-fi-functions-arduino/</a> (accessed 2025-11-17).</li>
-<li>Wi-Fi API - - — Arduino ESP32 latest documentation. <a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/api/wifi.html#" class="uri">https://docs.espressif.com/projects/arduino-esp32/en/latest/api/wifi.html#</a> (accessed 2025-11-17).</li>
-<li>WiFi | Arduino Documentation. <a href="https://docs.arduino.cc/libraries/wifi/" class="uri">https://docs.arduino.cc/libraries/wifi/</a> (accessed 2025-11-17).</li>
-</ol>
+<section id="procesmål" class="level2">
+<h2 class="anchored" data-anchor-id="procesmål">Procesmål</h2>
+<p>Beskriv fremgangsmåde og teknologier der kan bruges til at nå målet.</p>
+<p>Der er flere forskellige teknologier og strategier at vælge, og I skal lave noter om hvilke i har fundet oplysniger om, og lave forsøg med at implementere en eller flere. Implementerirngerne kan starte som nogle forsøg på hurtigt at se om det er muligt at bruge teknologien. Hvis det ikke er, kan man gå videre til noget andet. Hvis der er gode resultater, kan det bruges til at kombinere med flere.</p>
+<p>Beskriv hvad I finder, hvad I prøver af, og hvordan den nye viden kan bruges.</p>
+<p>Her er <em>logbog</em> og <em>portfolie</em> vigtige dokumentationsformer. I behøver <em>ikke</em> lave en traditionel rapport, bare i har ført <em>logbogen</em> og noteret i <em>portfoliet</em>. Helst undervejs.</p>
 </section>
-<section id="littlefs" class="level2">
-<h2 class="anchored" data-anchor-id="littlefs">LittleFS</h2>
+<section id="hovedproblematikker" class="level2">
+<h2 class="anchored" data-anchor-id="hovedproblematikker">Hovedproblematikker</h2>
+<p>Der er et antal hovedproblematikker:</p>
+<ul>
+<li>Triangulering
+<ul>
+<li>Hvordan ser matematikken ud?</li>
+</ul></li>
+<li>Afstand mellem målestation og mobil
+<ul>
+<li>RSSI
+<ul>
+<li>Kan findes med “sniffing” i wifi modulet promicius mode</li>
+</ul></li>
+<li>Roundtrip</li>
+</ul></li>
+<li>Kommunikation mellem målestationer
+<ul>
+<li>ESP MESH</li>
+<li>ESP NOW</li>
+</ul></li>
+</ul>
+<section id="persondata" class="level3">
+<h3 class="anchored" data-anchor-id="persondata">Persondata</h3>
+<p>Når vi indsamler data om alle enheder i “luften”, så er nogen af disse data noget der har med perosner at gøre. Det gør at vi skal overveje hvordan vi behandler disse oplysninger. Projektet kommer muligvis i berøring med Persondata lovgivningen, som igen refererer til EUs GDPR.</p>
+<ul>
+<li>Hvilke disse data er personlige?
+<ul>
+<li>Er de følsomme?</li>
+<li>Hele tiden, eller nogen gange?</li>
+<li>Er f.eks. en MAC-adresse følsom personlig data?</li>
+</ul></li>
+<li>Beriges data ved at indsamle f.eks. MAC adressse, sammen med tid og sted?
+<ul>
+<li>Hvad gør det ved data-ansvaret?</li>
+</ul></li>
+<li>Kan vi begrænse hvilke oplysninger der opsamles, i forhold til formålet?</li>
+</ul>
+</section>
+</section>
+<section id="aflevering" class="level2">
+<h2 class="anchored" data-anchor-id="aflevering">Aflevering</h2>
+<p>Opgaven skal afleveres på ItsLearning (man kan ikke lave ekseterne links ind).</p>
+</section>
+<section id="spørgsmål-som-indgår-i-bedømmelsen" class="level2">
+<h2 class="anchored" data-anchor-id="spørgsmål-som-indgår-i-bedømmelsen">Spørgsmål som indgår i bedømmelsen</h2>
+<p>Opgavens karakter er udpræget eksplorativ. Det vil sige at I skal undersøge hvad og hvordan det kan lade sig gøre. Så undesøgelsen tæller i sig selv. Det tæller også at kode noget. Så altså begge dele.</p>
+<ul class="task-list">
+<li><label><input type="checkbox">Hvordan ser løsningen ud</label>
+<ul class="task-list">
+<li><label><input type="checkbox">Arkitektur</label></li>
+<li><label><input type="checkbox">Teknologier</label></li>
+</ul></li>
+<li><label><input type="checkbox">Dataprocess</label>
+<ul class="task-list">
+<li><label><input type="checkbox">primær dataopsamling</label></li>
+<li><label><input type="checkbox">data berigelse</label></li>
+<li><label><input type="checkbox">beregning</label></li>
+<li><label><input type="checkbox">data lagring</label></li>
+<li><label><input type="checkbox">evt data visualisering</label></li>
+</ul></li>
+<li><label><input type="checkbox">Datasikkerhed</label>
+<ul class="task-list">
+<li><label><input type="checkbox">Følsomhed</label>
+<ul class="task-list">
+<li><label><input type="checkbox">hvad er personlige data?</label></li>
+<li><label><input type="checkbox">hvad er risikoen ved at behandle andre folks personlige data?</label></li>
+<li><label><input type="checkbox">i hvor høj grad er de data projektet benytter personlige?</label>
+<ul class="task-list">
+<li><label><input type="checkbox">er data mere personlige når de beriges?</label></li>
+</ul></li>
+<li><label><input type="checkbox">hvor længe er der brug for at have personlige data i projektet?</label></li>
+</ul></li>
+<li><label><input type="checkbox">Beskyttelse</label>
+<ul class="task-list">
+<li><label><input type="checkbox">hvem kan få adgang?</label></li>
+<li><label><input type="checkbox">hvor svært er det for udenforstående at skaffe sig adgang til data?</label></li>
+<li><label><input type="checkbox">eller at lytte med?</label></li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="forslag-til-teknologier-at-kigge-på" class="level2">
+<h2 class="anchored" data-anchor-id="forslag-til-teknologier-at-kigge-på">Forslag til teknologier at kigge på</h2>
 <ol type="1">
-<li><p>Mischianti, R. ESP32: integrated LittleFS FileSystem - 5. Renzo Mischianti. <a href="https://mischianti.org/esp32-integrated-littlefs-filesystem-5/" class="uri">https://mischianti.org/esp32-integrated-littlefs-filesystem-5/</a> (accessed 2025-11-17).</p></li>
-<li><p>Santos, S. ESP32: Write Data to a File (LittleFS) - Arduino | Random Nerd Tutorials. <a href="https://randomnerdtutorials.com/esp32-write-data-littlefs-arduino/" class="uri">https://randomnerdtutorials.com/esp32-write-data-littlefs-arduino/</a> (accessed 2025-11-17).</p></li>
-<li><p>Littlefs-Project/Littlefs, 2025. <a href="https://github.com/littlefs-project/littlefs" class="uri">https://github.com/littlefs-project/littlefs</a> (accessed 2025-11-17).</p></li>
+<li>prøv først med at opsamle RSSI ved at lytte til net pakker, i promiscuis mode</li>
+<li>prøv at lave en tilnærmet afstandsberegning</li>
+<li>undersøg hvordan afstand/RSSI kan udveklses mellem ESP32-enhederne
+<ol type="1">
+<li>Kan man bruge ESP-MESH mens enheden sniffer?</li>
+<li>Kan man bruge ESP-NOW?
+<ul>
+<li>Kan det sikres/krypteres</li>
+</ul></li>
+</ol></li>
+<li>Med afstand/signalstyrke/RSSI fra flere stationer, Hvordan kan man så beregne (men tilnærmet nøjagtighed), hvor mobilen befinder sig?</li>
 </ol>
+<section id="links" class="level3">
+<h3 class="anchored" data-anchor-id="links">Links</h3>
+<section id="generelt" class="level4">
+<h4 class="anchored" data-anchor-id="generelt">Generelt</h4>
+<ul>
+<li><a href="https://www.bitbrain.com/blog/indoor-positioning-system" class="uri">https://www.bitbrain.com/blog/indoor-positioning-system</a></li>
+</ul>
+</section>
+<section id="math" class="level4">
+<h4 class="anchored" data-anchor-id="math">Math</h4>
+<ul>
+<li><a href="https://link.springer.com/article/10.1186/s13673-020-00236-8" class="uri">https://link.springer.com/article/10.1186/s13673-020-00236-8</a></li>
+</ul>
+</section>
+<section id="persondata-og-gdpr" class="level4">
+<h4 class="anchored" data-anchor-id="persondata-og-gdpr">Persondata og GDPR</h4>
+<ul>
+<li><a href="https://pentests.dk/docs/gdpr-developers-guide/" class="uri">https://pentests.dk/docs/gdpr-developers-guide/</a>
+<ul>
+<li>Original (på engelsk) <a href="https://github.com/LINCnil/GDPR-Developer-Guide" class="uri">https://github.com/LINCnil/GDPR-Developer-Guide</a></li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="kode-eksempler" class="level3">
+<h3 class="anchored" data-anchor-id="kode-eksempler">Kode eksempler</h3>
+<section id="wifi-sniffter" class="level4">
+<h4 class="anchored" data-anchor-id="wifi-sniffter">WiFi sniffter</h4>
+<ul>
+<li><p>En demo af en wifi sniffer lavet med generativ AI (Claude). <a href="https://github.com/s0ren/IndoorPos_opgave_noter/tree/main/demo_kode/Proximity%20sniffer">demo_kode/Proximity sniffer</a></p></li>
+<li><p>og lidt flere på <a href="https://github.com/s0ren/IndoorPos_opgave_noter" class="uri">https://github.com/s0ren/IndoorPos_opgave_noter</a></p></li>
+<li><p>en anden wifi sniffer <a href="https://github.com/ETS-PoliTO/esp32-sniffer" class="uri">https://github.com/ETS-PoliTO/esp32-sniffer</a></p></li>
+</ul>
+</section>
+</section>
+<section id="mqtt-server" class="level3">
+<h3 class="anchored" data-anchor-id="mqtt-server">MQTT server</h3>
+<p>Der er opstillet en lokal MQTT server i undervisningslokalet, som i skal bruge. Under udviklingen kan i godt gøre brug af jeres egen.</p>
+<p>Se: <a href="../Features/lokal_mqtt.html">Lokal MQTT server</a></p>
+<!--
+#### MQTT & MongoDB server setup
+
+Et docker-compose projekt som kører Mosquitto MQTT og MongoDB, samt en tilhørende mqtt-subscriber, til at overføre fra MQTT til mongoDB. Se mappen [demo_kode/mqtt_mongdb_server/](/demo_kode/mqtt_mongdb_server/).
+-->
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

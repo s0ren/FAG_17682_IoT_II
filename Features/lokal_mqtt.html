@@ -112,7 +112,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link rel="stylesheet" href="../styles.css">
 </head>
 
-<body class="nav-sidebar floating nav-fixed quarto-light">
+<body class="nav-sidebar floating nav-fixed slimcontent quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -217,6 +217,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Projektopgave, Smiley feedback panel</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Opgaver/wifi_pos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Projektopgave, Positionsbestemmelse af enheder uden GPS dækning</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -246,7 +252,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Features/index.html">Features</a></li><li class="breadcrumb-item"><a href="../Features/lokal_mqtt.html">Lokal MQTT server</a></li></ol></nav>
 <div class="quarto-title">
@@ -363,7 +369,7 @@ uOn/9KgYpDzd
 -----END CERTIFICATE-----</code></pre>
 </section>
 </section>
-<section id="eksempeler" class="level2" data-number="3">
+<section id="eksempeler" class="level2 page-columns page-full" data-number="3">
 <h2 data-number="3" class="anchored" data-anchor-id="eksempeler"><span class="header-section-number">3</span> Eksempeler</h2>
 <section id="cli-klient" class="level3" data-number="3.1">
 <h3 data-number="3.1" class="anchored" data-anchor-id="cli-klient"><span class="header-section-number">3.1</span> CLI klient</h3>
@@ -383,7 +389,7 @@ uOn/9KgYpDzd
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>client.publish(<span class="st">"test/usikker"</span>, <span class="st">"Hello annon uden TLS, fra ekstern klient!"</span>)</span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Hele programfilen: <a href="https://github.com/s0ren/IOT_del2_demo_projecter/blob/main/mqtt_test_clients/annon_client.py">annon_client.py</a>.</p>
 </section>
-<section id="esp32arduino" class="level3" data-number="3.3">
+<section id="esp32arduino" class="level3 page-columns page-full" data-number="3.3">
 <h3 data-number="3.3" class="anchored" data-anchor-id="esp32arduino"><span class="header-section-number">3.3</span> ESP32/Arduino</h3>
 <p>I <a href="https://github.com/s0ren/IOT_del2_demo_projecter/blob/main/mqtt_test_clients/mqtt_button_esp32/src/main.cpp">main.cpp</a> ses en demo, som sender en mqtt-message når jeg trykker på knappen.</p>
 <section id="enheden-skal-på-wifi" class="level4" data-number="3.3.1">
@@ -413,15 +419,16 @@ uOn/9KgYpDzd
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="co">//...</span></span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="åben-mqtt" class="level4" data-number="3.3.2">
+<section id="åben-mqtt" class="level4 page-columns page-full" data-number="3.3.2">
 <h4 data-number="3.3.2" class="anchored" data-anchor-id="åben-mqtt"><span class="header-section-number">3.3.2</span> Åben MQTT</h4>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;PubSubClient.h&gt;</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
-<p>…</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">// MQTT indstillinger</span></span>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>Indkluder PubSubClient lib</p>
+</div></div><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">// MQTT indstillinger</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">char</span><span class="op">*</span> mqtt_server <span class="op">=</span> <span class="st">"wilson.local"</span><span class="op">;</span>  <span class="co">// f.eks. "192.168.1.100"</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">int</span> mqtt_port <span class="op">=</span> <span class="dv">1883</span><span class="op">;</span></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">char</span><span class="op">*</span> mqtt_topic <span class="op">=</span> <span class="st">"test/esp32/button"</span><span class="op">;</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
-<p>…</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>PubSubClient client<span class="op">(</span>espClient<span class="op">);</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
 <p>… <code>reconnect()</code> skal kaldes hver gang forbindelsen tabes.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> reconnect<span class="op">()</span> <span class="op">{</span></span>
