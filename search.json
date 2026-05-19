@@ -39,7 +39,7 @@
     "href": "Opgaver/Projektopgave_Smiley.html#info",
     "title": "Projektopgave, Smiley feedback panel",
     "section": "Info",
-    "text": "Info\nOm den lokale mqtt-server, se lokal MQTT server. Her kan du også se nogen eksempler på kode som sender beskeder med MQTT.",
+    "text": "Info\nFor få info om den lokale mqtt-server, se lokal MQTT server. Her kan du også se nogen eksempler på kode som sender beskeder med MQTT.",
     "crumbs": [
       "Hjem",
       "Opgaver",
