@@ -26,7 +26,7 @@ Smiley feedback konsollen er en sjov og daglidags anordning som vi genkender fra
 
 -   Anordningen har 4 knapper, med tilhørende smileys.
 -   Der er respons på LED ved hver knap.
--   På kapperne implementeres *debounce* funktionalitet.
+-   ~~På kapperne implementeres *debounce* funktionalitet.~~
 -   ~~Efter tryk på en knap, er anordningen låst i 7 sekunder, før en ny feedback modtages,~~
     -   lysdioden ud for den trykkede knap lyser ~~i alle 7 sekunder~~ et passende stykke tid
 -   Anordningen tilsluttes internet, via wi-fi access-punkt i undervisningslokalet
@@ -70,4 +70,4 @@ F.eks. kan produktet have periodisk usikkerhed af debounce, eller usikker håndt
 
 ## Info
 
-Om den lokale mqtt-server, se [lokal MQTT server](../Features/lokal_mqtt.qmd). Her kan du også se nogen eksempler på kode som sender beskeder med MQTT.
+For få info om den lokale mqtt-server, se [lokal MQTT server](../Features/lokal_mqtt.qmd). Her kan du også se nogen eksempler på kode som sender beskeder med MQTT.
