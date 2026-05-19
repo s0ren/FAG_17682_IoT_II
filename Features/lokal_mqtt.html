@@ -304,7 +304,7 @@ Payload’en er en String med de data der gemmes. Payload er ofte formateret son
 <tbody>
 <tr class="odd">
 <td>Host</td>
-<td>wilson.local eller 192.168.0.161</td>
+<td>wilsons.local eller 192.168.0.161</td>
 </tr>
 <tr class="even">
 <td>Port (annonym)</td>
@@ -316,11 +316,11 @@ Payload’en er en String med de data der gemmes. Payload er ofte formateret son
 </tr>
 <tr class="even">
 <td>brugernavn</td>
-<td>elev1</td>
+<td>user&lt;nr&gt;</td>
 </tr>
 <tr class="odd">
 <td>password</td>
-<td>password</td>
+<td>&lt;password&gt;</td>
 </tr>
 </tbody>
 </table>
@@ -335,7 +335,7 @@ Payload’en er en String med de data der gemmes. Payload er ofte formateret son
 <tbody>
 <tr class="odd">
 <td>host</td>
-<td>wilson.local eller 192.168.0.161</td>
+<td>wilsons.local eller 192.168.0.161</td>
 </tr>
 <tr class="even">
 <td>port</td>
@@ -349,23 +349,33 @@ Payload’en er en String med de data der gemmes. Payload er ofte formateret son
 </table>
 <p>CA cert: <a href="./ca.crt">./ca.crt</a></p>
 <pre><code>-----BEGIN CERTIFICATE-----
-MIIDBTCCAe2gAwIBAgIUXopiLMN2tHLH5ALoHzUf4tY5upUwDQYJKoZIhvcNAQEL
-BQAwEjEQMA4GA1UEAwwHTVFUVC1DQTAeFw0yNTExMTYwOTQyMDlaFw0zNTExMTQw
-OTQyMDlaMBIxEDAOBgNVBAMMB01RVFQtQ0EwggEiMA0GCSqGSIb3DQEBAQUAA4IB
-DwAwggEKAoIBAQDTJehrHOy4YN3OmnVumeYq7gA7vd8iUoBLCsiHIGLAfnWA8b0f
-r9XK3T552ztwfnZ6uK+T8kpqdQL0OczNXyEz2oi5e5MJAXYr1ytXns1SUQVgzj8F
-Igl9i7MuwEYLyj9VjIjQgAhqDL2LlNomGyCfYoIhxJ0mvOii+yNsD5ghM2uLpaMu
-FoP6k00gl0T/2fnJYKmy2frsRYxQLScf+arMHyXKcK89DVy5jQpFNhXHzqKwFgTY
-kl0VIWp11ZKjCI3CNWl2t5U/GHbdHGf94TtXPvG5c6oe4hvd9On6d0fm12K5kc0C
-ceQCq5pXP/z+a4acH8s2Iqfs+h0v8i4DtkFZAgMBAAGjUzBRMB0GA1UdDgQWBBTz
-lQPbwuJ9LBR524FJXVYQArXcPjAfBgNVHSMEGDAWgBTzlQPbwuJ9LBR524FJXVYQ
-ArXcPjAPBgNVHRMBAf8EBTADAQH/MA0GCSqGSIb3DQEBCwUAA4IBAQALGWCrskwS
-BfaPnFZs8pm/FAcehS/YvdClyHoL4XBg7EqW+f72SiBy6Nu0Hgj7tPBwC0tPpKHA
-IwVp5UN54IYGXnIgXirZOSxGBnoqS1ttrRYvrngmXg8woiQzaKryVEOGzwEI9/MI
-qaclcDnK0G7KbYRnJ2o5mneyY87OKyBznW9ceas7o4hzGvKojY67nGrayWwjO7Iw
-/4cXqqfWhE1x7znsU4IUXaL6CN/cpe6+forBUi84Cv6uVmeRhsABt+ENxaLG6CDu
-Fd0rtKYmoqbkfqPGXeRVfvbJg0PJmrBHZG2KOMDC37fvIysHGc+jYl6yWh6b5mEG
-uOn/9KgYpDzd
+MIIFBTCCAu2gAwIBAgIURkMg/bKi8HPnQn4OqtpDwhqoK8owDQYJKoZIhvcNAQEL
+BQAwEjEQMA4GA1UEAwwHTVFUVC1DQTAeFw0yNjA1MTcxODMyMTBaFw0zNjA1MTQx
+ODMyMTBaMBIxEDAOBgNVBAMMB01RVFQtQ0EwggIiMA0GCSqGSIb3DQEBAQUAA4IC
+DwAwggIKAoICAQC8nf5IARgAB3FirRPveOW/4ju40nB/aL0kWLy5w3VLUY+AUZRE
+Xkez6YYeLXEJhKlBkI46EdRaXBgP457rcC3EW3ZZHRxxu94u8rtvrjtbk9w5HVRz
+bkwY2TS4f/GTB+/DOE5j1c8bzZK936/RILxkqlJvYV/3PSigCmEFxlLhegm5aWnk
+tRTzk6/pwbqt71iIbIlSScG1g4PDO9daDcBMd72ZTjvm8Fd48fEmZxhTAnXbMvx1
+1irAg9jGYzlgLdlxFYifwE4vFJeL4IZptJF9PRHTmjUsohBErMB+5aYKwqqp13pg
+QxVxzqPlZ4p9CrIryaVXAV/xAGyFUMV5yQZ3A06UWu/JPeDUHqd0+42LxLWOLy9x
+9Xde0sZHuQJbnBbNflj7wzvF9Jl1RknvZkN4Qf+r7I0TuybLNez1JRofBrKX42yN
+WEeq8Kf7iGlr9I5QUgX7kq/mFCkzKsCdVfB2gAc90nwiE7fQmPc8JioBQpH7hqMi
+OpvABic/U0kkoC7I9gfR63DZkhSsgQZnh9/IBmNLUkeRm7WDYVIc6EM7tcWJ1ltQ
+4sjXPknhDNfj5t1xcuGl8FlrNSue9KaJyhft6zFNafU6nzYUAsAp8elsMHVhtlHy
+XhW6LYxL/urFfYFy38sXBKUgIxQu4ssEh5vd/uhswRYMSAilJhebgDdR/wIDAQAB
+o1MwUTAdBgNVHQ4EFgQUdmvBC6kBGEQzmRtxc12shylrNmQwHwYDVR0jBBgwFoAU
+dmvBC6kBGEQzmRtxc12shylrNmQwDwYDVR0TAQH/BAUwAwEB/zANBgkqhkiG9w0B
+AQsFAAOCAgEABIGGXdoQvNp5D/3vcZyK8dU6ur9JeLaEJawN7zhSVoevisEnsUaK
+1n9GP8ubnFVyA0aqOnuMdXzVHzvP33rfYrJwGUfTlgy1R177OGki8Eo21l5717eg
+S5wniJ+z3gPL83h0mZ+H55kBCJpYmDdRZOKsqpluKefrlK2ywHVU2d6/i0QsJfSb
+xEvzhdD3ARtNtZaykd2cx0K0gGM54lWDQdla4ufRNkfGdUo+/C+JytSv+64GIts7
+h1sVcWjwixkqFRQTwkTYrWhx/8/0ngAomFAhijl6taO77bbltT6PDtb6eAwkOarH
+xDsfjf2hvZz2bqq+20DeNPLWrV+NsMaNhwF6pszfrenAtKrRcH8GTJdYwLTEhPF6
+NQRaM7VavxPexM9tIH5MW+O/accoXGCSweFojdtfVrAqxWgcg4zHw3VXFKQGsm5k
+pof0zBVGVDNhdQJf3NGQXWi31N2uttDKyQAwZzhaic+U8hk8n300YbXMojM2k729
+9+TccZUPn/cbvcNjvxB9UxKWhtFUQ6TvgoAHljaOuB/50Wgq0z0NH6U/uFpb2f+i
+PRcL6u5V8ILV7fXIyh4HPmJwDreNG9zYuBoVshMkxw+d3X0E7KLmEA6kvetTfKj9
+0EH/sy778DnPpMA1+6AN3XaO9Fy2g78qgiKyScI3i1HEuWpQAECAwAA=
 -----END CERTIFICATE-----</code></pre>
 </section>
 </section>
