@@ -1,0 +1,9 @@
+# Fælles for alle sider i Opgaver/ (også undermapper).
+# Sider, der også skal have PDF, skriver selv i front matter:
+#   format: {html: default, typst: default}
+# Så vises der et "PDF"-link på HTML-siden.
+format-links:
+  - html
+  - format: typst
+    text: PDF
+    icon: file-pdf

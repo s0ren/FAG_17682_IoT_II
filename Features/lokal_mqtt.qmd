@@ -1,13 +1,10 @@
 ---
 title: "Lokal MQTT server"
-author: "Søren Magnusson, smag"
 date: 2025-11-17
-format: html
 
 # bibliography: ../bib/IoT 1 nov 25/IoT 1 nov 25.bib
 bibliography: ../bib/IoT 1 nov 25.bib
 number-sections: true
-lightbox: true
 ---
 
 ## Intro

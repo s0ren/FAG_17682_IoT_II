@@ -1,17 +1,10 @@
 ---
 subtitle: Afsluttende opgave, anden del
 title: Persontælling med dataopsamling
-
-format: 
-  html: default
-  typst: default
-format-links:
-  - html
-  - format: typst
-    text: PDF
-    icon: file-pdf
+date: 2025-03-24
 
 draft: true
+format: {html: default, typst: default}
 ---
 
 ## Overblik og checkliste

@@ -1,5 +1,5 @@
 project:
-  title: "FAG 17682_IoT_II" 
+  title: "FAG 17682_IoT_II"
   type: website
   output-dir: output
 
@@ -11,10 +11,22 @@ website:
       - href: about.qmd
         text: Om sitet
   sidebar:
-    # contents: emner
     contents: auto
     background: gray
   draft-mode: unlinked
+
+# Fælles for alle sider og alle formater (HTML og PDF)
+lang: da
+toc: true
+# Ændringsdato: filens seneste ændring. Oprettelsesdato (date:) står på hver side.
+date-modified: last-modified
+author:
+  - name: Søren Magnusson
+    affiliation: Data, TEC
+# Quartos danske overskrift over affiliation er "Tilknytning"
+language:
+  title-block-affiliation-single: Uddannelse
+  title-block-affiliation-plural: Uddannelser
 
 format:
   html:
@@ -22,10 +34,4 @@ format:
       - cosmo
       - brand
     css: styles.css
-    toc: true
-    lang: da
     lightbox: true
-  # typst:
-  #   lang: da
-  #   toc: true
-  #   theme: cosmo

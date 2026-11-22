@@ -26,12 +26,13 @@ Content may go beyond the objectives or leave some out, and the teacher decides.
 
 ## Layout
 
-- `_quarto.yml`: site config: title, navbar, sidebar (`contents: auto`, built from all pages), `draft-mode: unlinked`, theme (`cosmo` + `brand`), `styles.css`, TOC, `lang: da`. Output goes to `output/` (`output-dir`). The site-wide Typst (PDF) format is commented out, but some pages (e.g. `Opgaver/Projektopgave_Smiley.qmd`) turn on `typst` in their own front matter.
+- `_quarto.yml`: site config: title, navbar, sidebar (`contents: auto`, built from all pages), `draft-mode: unlinked`, output to `output/` (`output-dir`). Top-level `lang: da`, `toc: true` and `author` (Søren Magnusson, Data, TEC) apply to every page and every format. `format: html` sets theme (`cosmo` + `brand`), `styles.css` and `lightbox`. There is no site-wide PDF format.
+- Settings live in one place: put shared settings in `_quarto.yml` or a folder's `_metadata.yml`, and keep only page-specific settings (title, subtitle, date, `draft`, `bibliography`, `number-sections`, `format` for PDF) in a page's front matter. Don't repeat `format: html`, `lightbox`, `toc`, `lang` or author fields on pages. Never put an email address on the pages.
 - `index.qmd`: front page: introduction to the second part of the subject (the first part was on H3), the hardware (ESP32-DEVKIT-V1) and the week plan (Forløb)
 - `Features/`: technical guides, e.g. `lokal_mqtt.qmd` (local MQTT broker), with images in `Features/images/`
-- `Opgaver/`: exercises and project assignments, e.g. `wifi_pos.qmd`, `Projektopgave_Smiley.qmd`
+- `Opgaver/`: exercises and project assignments, e.g. `wifi_pos.qmd`, `Projektopgave_Smiley.qmd`. `Opgaver/afsluttende_opgave/` holds the final assignment and its checklist (both `draft: true` for now). `Opgaver/index.qmd` lists the assignments automatically (a Quarto listing; drafts are left out).
+  - An assignment that should also be a PDF adds `format: {html: default, typst: default}` to its front matter. `Opgaver/_metadata.yml` styles the resulting "PDF" link. Typst can't be set in `_metadata.yml`, because a page can't opt out of an inherited format (the listing page would get a PDF too).
 - `Referencer/`: references
-- `emner/`: topics; `emner/afsluttende_opgave/` holds the final assignment and its checklist
 - `images/`: images for the front page
 - `bib/`: bibliography (`.bib`)
 - `about.qmd`: "Om sitet": how the site is organised and who is behind it. In the navbar.
@@ -45,7 +46,8 @@ Content may go beyond the objectives or leave some out, and the teacher decides.
 - Write content in Danish, for apprentices on the Datatekniker programme. Mark English passages with `{lang="en"}` (span or div) so spell checking and hyphenation use the right language.
 - Store images locally next to the page (e.g. an `images/` folder) rather than linking to remote URLs, since Typst needs local files. Avoid spaces in image file names: Typst can't find them.
 - Give images alt text with `fig-alt="..."` that describes what the picture actually shows.
-- Put new pages in the folder that fits (`Features/`, `Opgaver/`, `Referencer/`, `emner/`). The sidebar picks them up automatically. Mark unfinished pages `draft: true`.
+- Put new pages in the folder that fits (`Features/`, `Opgaver/`, `Referencer/`). The sidebar picks them up automatically. A folder's `index.qmd` becomes its section page in the sidebar; give new folders one. Mark unfinished pages `draft: true`.
+- Every page has `date:` (the date it was created) in its front matter. The modified date comes from `date-modified: last-modified` in `_quarto.yml` (the file's modification time), so don't set it on pages.
 - Where it helps, state which målpinde a page or assignment covers.
 
 ## Branches

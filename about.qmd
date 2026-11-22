@@ -1,5 +1,6 @@
 ---
 title: "Om sitet"
+date: 2026-11-22
 ---
 
 Sitet samler undervisningsmaterialet til faget **17682 IoT og Embeddede systemer** på Datatekniker med speciale i programmering.
@@ -15,10 +16,7 @@ Features
 : Vejledninger i de teknikker, vi bruger på ESP32, fx *Deep Sleep*, WiFi og MQTT, med links til dokumentation og eksempler. Brug dem som opslag, når du arbejder med opgaverne.
 
 Opgaver
-: Øvelser og projektopgaver, som vi arbejder med undervejs i forløbet.
-
-Emner
-: Større emner og den afsluttende opgave med tilhørende checkliste.
+: Øvelser og projektopgaver, som vi arbejder med undervejs i forløbet, og den afsluttende opgave med tilhørende checkliste.
 
 Referencer
 : Links til referencemanualer og datablade for ESP32 og Arduino.
@@ -27,7 +25,7 @@ Du kan søge i alle sider med søgefeltet øverst. Nogle sider kan også hentes 
 
 ## Om sitet
 
-Sitet er lavet af Søren Magnusson, Programmering, Data og kommunikation, TEC.
+Sitet er lavet af Søren Magnusson, Data, TEC.
 
 Det er bygget med [Quarto](https://quarto.org){lang="en"}, og kildeteksten ligger på GitHub: <https://github.com/s0ren/FAG_17682_IoT_II>. Sitet udgives på <https://s0ren.github.io/FAG_17682_IoT_II/>.
 

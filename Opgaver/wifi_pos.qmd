@@ -1,22 +1,8 @@
 ---
 title: "Projektopgave, Positionsbestemmelse af enheder uden GPS dækning"
 
-author: Søren Magnusson
-author-meta: smag@tec.dk
-affiliation: programmering, data teknikker, TEC
-institute: programmering, data teknikker, TEC
-
 date: 2025-11-30
-
-
-format: 
-  html: default
-  typst: default
-format-links:
-  - html
-  - format: typst
-    text: PDF
-    icon: file-pdf
+format: {html: default, typst: default}
 ---
 <!-- # Positionsbestemmelse af enheder uden GPS dækning -->
 

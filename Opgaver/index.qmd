@@ -1,0 +1,13 @@
+---
+title: "Opgaver"
+date: 2026-11-22
+listing:
+  contents:
+    - "*.qmd"
+    - "*/index.qmd"
+  type: table
+  fields: [title, subtitle, date]
+  sort: "title"
+---
+
+Øvelser og projektopgaver i forløbet. Hver opgave kan også hentes som PDF fra opgavens side.

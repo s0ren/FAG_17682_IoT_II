@@ -1,10 +1,7 @@
 ---
 title: "FAG 17682_IoT_II"
 subtitle: "anden del af faget"
-author: "Søren Magnusson"
-affiliation: "Programmering, Data og kommunikation, TEC"
 date: 2025-11-17
-lightbox: true
 ---
 
 Her er anden del af faget ***17682 IoT og Embedded***. Første del blev gennemført på skoleforløbet H3.

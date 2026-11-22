@@ -1,6 +1,6 @@
 ---
 title: "Referencemanualer"
-format: html
+date: 2025-11-17
 ---
 
 (1) ESP-IDF Programming Guide - ESP32 - — ESP-IDF Programming Guide v5.5.1 documentation. <https://docs.espressif.com/projects/esp-idf/en/stable/esp32/index.html> (accessed 2025-11-17).

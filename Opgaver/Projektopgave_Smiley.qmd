@@ -1,17 +1,7 @@
 ---
 title: "Projektopgave, Smiley feedback panel"
-
-author: Søren Magnusson
-author-meta: smag@tec.dk
-
-format: 
-  html: default
-  typst: default
-format-links:
-  - html
-  - format: typst
-    text: PDF
-    icon: file-pdf
+date: 2025-11-18
+format: {html: default, typst: default}
 ---
 
 ## Smiley feedback panel
