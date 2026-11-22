@@ -1,0 +1,3 @@
+# Store text files with LF in the repo and check them out with LF,
+# so Windows editors and the Linux container agree.
+* text=auto eol=lf
