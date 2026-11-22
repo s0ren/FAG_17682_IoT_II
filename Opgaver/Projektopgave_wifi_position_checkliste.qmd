@@ -1,0 +1,10 @@
+---
+title: "Checkliste: Positionsbestemmelse af enheder uden GPS dækning"
+subtitle: "Spørgsmål som indgår i bedømmelsen"
+date: 2026-11-22
+format: {html: default, typst: default}
+---
+
+Hører til [Projektopgave, Positionsbestemmelse af enheder uden GPS dækning](Projektopgave_wifi_position.qmd).
+
+{{< include _checkliste_wifi_position.qmd >}}

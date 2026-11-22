@@ -8,6 +8,8 @@ listing:
   type: table
   fields: [title, subtitle, date]
   sort: "title"
+  exclude:
+    filename: "Projektopgave_wifi_position_checkliste.qmd"
 ---
 
 Øvelser og projektopgaver i forløbet. Hver opgave kan også hentes som PDF fra opgavens side.

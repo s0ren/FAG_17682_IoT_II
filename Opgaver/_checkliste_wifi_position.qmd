@@ -1,0 +1,53 @@
+<!-- Bedømmelseskriterier for Projektopgave_wifi_position.
+     Inkluderes i opgaven og i Projektopgave_wifi_position_checkliste.qmd. Ret kun her. -->
+
+Opgavens karakter er udpræget eksplorativ. Det vil sige at I skal undersøge hvad og hvordan det kan lade sig gøre. Så undesøgelsen tæller i sig selv. Det tæller også at kode noget. Så altså begge dele.
+
+-   [ ] Hvordan ser løsningen ud
+    -   [ ] Arkitektur
+    -   [ ] Teknologier
+-   [ ] Dataprocess
+    -   [ ] primær dataopsamling
+    -   [ ] data berigelse
+    -   [ ] beregning
+    -   [ ] data lagring
+    -   [ ] evt data visualisering
+-   [ ] Datasikkerhed
+    -   [ ] Følsomhed
+        -   [ ] hvad er personlige data?
+        -   [ ] hvad er risikoen ved at behandle andre folks personlige data?
+        -   [ ] i hvor høj grad er de data projektet benytter personlige?
+            -   [ ] er data mere personlige når de beriges?
+        -   [ ] hvor længe er der brug for at have personlige data i projektet?
+    -   [ ] Beskyttelse
+        -   [ ] hvem kan få adgang?
+        -   [ ] hvor svært er det for udenforstående at skaffe sig adgang til data?
+        -   [ ] eller at lytte med?
+
+-   [ ]  Programmering\
+    Programkoden skal skrives så den er
+    -   [ ]  mest muligt overskuelig,
+    -   [ ]  understøtter genbrug,
+    -   [ ]  lettest muligt kan udbygges eller
+    -   [ ]  udskiftes med andre teknologier.
+-   [ ]  Konfiguration\
+    Det skal være let at overskue og ændre centrale konfigurationer
+    <!-- 
+    -   [ ] GPIO porte som sensorer tilsluttes
+    -   [ ] Tids-intervaller for sensor(er) som aflæses med faste perioder
+    -   [ ] Tærskelværdier for tidsgrænser til pauser for de-bounce mv. 
+    -->
+    -   [ ] Adresser, porte og koder til de anvendte datalager services
+    -   [ ] WiFi SSID, og password, som bruges til at ESP32 eneheden kan tilgå internettet
+    -   [ ] med mere, osv
+-   [ ]  Dokumentation\
+    Det skal dokumenteres, hvordan
+    -   [ ] systemet anvedes og startes,
+    -   [ ] systemet sættes op, og
+    -   [ ] hvilke krav der er til datalagringen, for at systemet fungerer,
+    -   [ ] hvordan komponenter kan udkiftes eller udbygges.
+    -   [ ] Programkoden skal være passende kommenteret, så komponenterne let genkendes, og forstås.
+- [ ]  Præsentation 
+    -  [ ] løsningens dele beskrives og
+    -  [ ] de valg som er gjort, for at lave projektet, forklares.
+    -  [ ] Præsenteret i plenum.
