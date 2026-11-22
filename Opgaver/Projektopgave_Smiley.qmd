@@ -16,7 +16,7 @@ format-links:
 
 ## Smiley feedback panel
 
-![Pasted image 20250518162623.png](Pasted%20image%2020250518162623.png) (For)Bruger smileys https://www.happy-or-not.com/en/
+![](smiley_feedback_terminal.png){fig-alt="En kvinde med en indkøbskurv trykker på en grøn smiley på en feedback-standerskærm med teksten Please rate your experience og fire smileys fra grøn til rød."} (For)Bruger smileys https://www.happy-or-not.com/en/
 
 ### Motivation
 
