@@ -11,7 +11,7 @@ Indholdet på anden del går dybere i strømbesparelse med *Deep Sleep*, mere in
 En IoT enhed, er en processor med meget lidt periferiudstyr direkte, men med muligheder for udbygning, primært sensorer. Traditionelt har TEC brugt Arduino Uno og Arduino Mega, som skolen stadig råder over et antal af.\
 Aktuelt, er undervisningen bygget op omkring Espresif's ESP32, nemlig **ESP32-DEVKIT-V1**.
 
-![https://randomnerdtutorials.com/getting-started-with-esp32/](images/paste-1.png){width="355"}
+![https://randomnerdtutorials.com/getting-started-with-esp32/](images/esp32_devkit_v1_komponenter.png){width="355" fig-alt="ESP32-DEVKIT-V1-printkort med pile, der peger på antenne, ESP-WROOM-32-modulet, CP2102-chippen, spændingsregulator, RESET/EN-knap, BOOT-knap og USB-stik."}
 
 ## Forløb
 

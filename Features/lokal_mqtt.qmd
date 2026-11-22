@@ -40,9 +40,9 @@ Weblog'gen er en webserver hvor kan se det mqtt-messages som serveren har modtag
 
 Json filerne ligger i mapper, efter topic, og indeholder en linie med et json-streng objekt for hver message
 
-![](images/paste-3.png){width="300"}
+![](images/weblog_mappeoversigt.png){width="300" fig-alt="Browser på wilson.local:8080/test/esp32/ med en mappeoversigt, der viser filen button.jsonl."}
 
-![](images/paste-2.png){width="300"}
+![](images/weblog_topic_button.png){width="300" fig-alt="Browser på wilson.local:8080/test/esp32/button.jsonl med en linje JSON per MQTT-besked: tidsstempel, topic test/esp32/button og payload med uptime_ms, button pressed og device ESP32."}
 
 |      |                                                              |
 |------|--------------------------------------------------------------|
