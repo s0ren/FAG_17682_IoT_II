@@ -2,6 +2,8 @@ project:
   title: "FAG 17682_IoT_II"
   type: website
   output-dir: output
+  # Sætter filernes ændringstid til sidste commit, så "Ændret" passer
+  pre-render: _scripts/git_mtime.py
 
 website:
   navbar:
@@ -18,7 +20,7 @@ website:
 # Fælles for alle sider og alle formater (HTML og PDF)
 lang: da
 toc: true
-# Ændringsdato: filens seneste ændring. Oprettelsesdato (date:) står på hver side.
+# Ændringsdato: sidste commit (via _scripts/git_mtime.py). Oprettelsesdato (date:) står på hver side.
 date-modified: last-modified
 author:
   - name: Søren Magnusson
