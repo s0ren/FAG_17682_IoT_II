@@ -25,7 +25,7 @@ Du kan søge i alle sider med søgefeltet øverst. Nogle sider kan også hentes 
 
 ## Om sitet
 
-Sitet er lavet af Søren Magnusson, Data, TEC.
+Sitet er lavet af {{< meta author >}}, {{< meta affiliations.1.name >}}.
 
 Det er bygget med [Quarto](https://quarto.org){lang="en"}, og kildeteksten ligger på GitHub: <https://github.com/s0ren/FAG_17682_IoT_II>. Sitet udgives på <https://s0ren.github.io/FAG_17682_IoT_II/>.
 
