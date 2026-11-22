@@ -40,7 +40,7 @@ Content may go beyond the objectives or leave some out, and the teacher decides.
 - `_scripts/`: helper scripts run by Quarto (`git_mtime.py`, see Conventions). Not rendered.
 - `_fagbeskrivelse/`: the official subject description (målpinde). Not rendered.
 - `output/` and `.quarto/`: build output and cache, ignored by git. Don't edit them by hand. (Older runs built to `_site/`; its pages from part 1, `IOT_del1_prog_tec/`, are kept in commit `247e24e`.)
-- The `gh-pages` branch holds the published site (built with `quarto publish gh-pages`). Don't edit it by hand.
+- The `gh-pages` branch holds the published site. See Publishing. Don't edit it by hand.
 
 ## Conventions
 
@@ -65,3 +65,24 @@ quarto preview             # live preview
 ```
 
 Render after changes to check that the site builds without errors.
+
+## Publishing
+
+The site is published with GitHub Pages at <https://s0ren.github.io/FAG_17682_IoT_II/>, served from the `gh-pages` branch. There is no `_publish.yml` and no CI: publishing is done by hand.
+
+1. Commit and push the course branch first, so the published site matches what is in git.
+2. Stop any running `quarto preview`. It builds into the same `output/` folder and the two can collide.
+3. From the repo root, run:
+
+   ```bash
+   quarto publish gh-pages --no-prompt --no-browser
+   ```
+
+   Quarto renders the whole site (the `git_mtime.py` pre-render script included), copies `output/` into a temporary worktree of `gh-pages`, commits it as "Built site for gh-pages" and pushes. The site updates on GitHub Pages within a minute or two.
+
+Things to know:
+
+- Only one version is online at a time. Whichever branch was published last is what students see, so publish from the current course branch only.
+- Publishing pushes to GitHub, so ask the teacher before running it.
+- Draft pages (`draft: true`) are published too. They aren't linked anywhere, but anyone with the address can open them.
+- Pages that were renamed keep working if they have `aliases:` (e.g. `wifi_pos.html` redirects to `Projektopgave_wifi_position.html`).
