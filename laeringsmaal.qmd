@@ -1,0 +1,25 @@
+---
+title: "Læringsmål"
+date: 2026-11-22
+listing:
+  id: dækning
+  contents:
+    - "Grundlag/*.qmd"
+    - "Features/*.qmd"
+    - "Opgaver/**/*.qmd"
+  type: table
+  fields: [title, maalpinde]
+  field-display-names:
+    maalpinde: "Målpinde"
+  sort: "title"
+  filter-ui: false
+---
+
+{{< include "_fagbeskrivelse/17682-IoT og Embeddede systemer.md" >}}
+
+## Hvilke sider dækker hvilke målpinde
+
+Tabellen viser de sider, der har angivet målpinde (feltet `maalpinde` øverst i siden).
+
+::: {#dækning}
+:::

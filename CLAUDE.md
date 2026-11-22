@@ -29,6 +29,7 @@ Content may go beyond the objectives or leave some out, and the teacher decides.
 - `_quarto.yml`: site config: title, navbar, sidebar (`contents: auto`, built from all pages), `draft-mode: unlinked`, output to `output/` (`output-dir`). Top-level `lang: da`, `toc: true` and `author` (Søren Magnusson, Data, TEC) apply to every page and every format. `format: html` sets theme (`cosmo` + `brand`), `styles.css` and `lightbox`. There is no site-wide PDF format.
 - Settings live in one place: put shared settings in `_quarto.yml` or a folder's `_metadata.yml`, and keep only page-specific settings (title, subtitle, date, `draft`, `bibliography`, `number-sections`, `format` for PDF) in a page's front matter. Don't repeat `format: html`, `lightbox`, `toc`, `lang` or author fields on pages. Never put an email address on the pages.
 - `index.qmd`: front page: introduction to the second part of the subject (the first part was on H3), the hardware (ESP32-DEVKIT-V1) and the week plan (Forløb)
+- `Grundlag/` (planned): basics the students should know from part 1 of the subject (PlatformIO, Hello World, C++, ESP32 specs, debouncing, WiFi). `Features/` is for what is new in part 2.
 - `Features/`: technical guides, e.g. `lokal_mqtt.qmd` (local MQTT broker), with images in `Features/images/`
 - `Opgaver/`: exercises and project assignments, e.g. `Projektopgave_wifi_position.qmd`, `Projektopgave_Smiley.qmd`. `Opgaver/afsluttende_opgave/` holds the final assignment and its checklist (both `draft: true` for now). `Opgaver/index.qmd` lists the assignments automatically (a Quarto listing; drafts are left out).
   - An assignment that should also be a PDF adds `format: {html: default, typst: default}` to its front matter. `Opgaver/_metadata.yml` styles the resulting "PDF" link. Typst can't be set in `_metadata.yml`, because a page can't opt out of an inherited format (the listing page would get a PDF too).
@@ -38,12 +39,16 @@ Content may go beyond the objectives or leave some out, and the teacher decides.
 - `about.qmd`: "Om sitet": how the site is organised and who is behind it. In the navbar.
 - `styles.css`: extra CSS for the HTML output
 - `todo.md`: the teacher's local list of open tasks. Ignored by git (`.gitignore`) and not rendered: `project: render` in `_quarto.yml` only builds `**/*.qmd`, so `.md` files are notes. Write pages as `.qmd`.
+- `laeringsmaal.qmd`: "Læringsmål" in the navbar. It includes the subject description from `_fagbeskrivelse/` with `{{< include >}}`, so the målpinde exist in one place only.
+- `_typst/typst-show.typ`: a copy of Quarto's Typst partial (set with `template-partials` in `_quarto.yml`). The only change is that the PDF date line also shows "Ændret". Re-copy it from `/opt/quarto/share/formats/typst/pandoc/quarto/` if a Quarto update breaks the PDFs.
 - `_scripts/`: helper scripts run by Quarto (`git_mtime.py`, see Conventions). Not rendered.
 - `_fagbeskrivelse/`: the official subject description (målpinde). Not rendered.
 - `output/` and `.quarto/`: build output and cache, ignored by git. Don't edit them by hand. (Older runs built to `_site/`; its pages from part 1, `IOT_del1_prog_tec/`, are kept in commit `247e24e`.)
 - The `gh-pages` branch holds the published site. See Publishing. Don't edit it by hand.
 
 ## Conventions
+
+- Code and examples use the **Arduino framework in PlatformIO** on the ESP32-DEVKIT-V1. Link to the ESP-IDF documentation only where it says something the Arduino docs don't (e.g. which GPIOs can wake the ESP32 from deep sleep).
 
 - Write content in Danish, for apprentices on the Datatekniker programme. Mark English passages with `{lang="en"}` (span or div) so spell checking and hyphenation use the right language.
 - Store images locally next to the page (e.g. an `images/` folder) rather than linking to remote URLs, since Typst needs local files. Avoid spaces in image file names: Typst can't find them.

@@ -13,6 +13,8 @@ website:
     left:
       - href: index.qmd
         text: Hjem
+      - href: laeringsmaal.qmd
+        text: Læringsmål
       - href: about.qmd
         text: Om sitet
   sidebar:
@@ -25,6 +27,10 @@ lang: da
 toc: true
 # Ændringsdato: sidste commit (via _scripts/git_mtime.py). Oprettelsesdato (date:) står på hver side.
 date-modified: last-modified
+date-format: long
+# PDF (Typst): datolinjen viser også "Ændret"
+template-partials:
+  - _typst/typst-show.typ
 # Sidemargener i PDF (Typst). HTML bruger dem ikke.
 margin:
   top: 1cm

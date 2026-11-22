@@ -5,12 +5,12 @@ papersize: a4
 fontsize: 11pt
 # title: "`17682`, IoT og Embeddede systemer"
 # subtitle: "Udtræk af fag på specialet Datatekniker med speciale i programmering gældende fra 01-08-2025"
-author: "Oplysningerne er hentet fra <https://hentdata.stil.dk/uddannelser>"
+# Kilde: står i teksten nedenfor (author her ville blive vist som forfatter, når filen inkluderes)
 ---
 
 # `17682`, IoT og Embeddede systemer
 
-^896118
+Oplysningerne er hentet fra <https://hentdata.stil.dk/uddannelser>.
 
 
 |                            |                           |
