@@ -37,7 +37,7 @@ Content may go beyond the objectives or leave some out, and the teacher decides.
 - `about.qmd`: exists but isn't in the navbar
 - `styles.css`: extra CSS for the HTML output
 - `_fagbeskrivelse/`: the official subject description (målpinde). Not rendered.
-- `output/`, `_site/` and `.quarto/`: build output and cache, ignored by git. Don't edit them by hand. `_site/` is from older builds before `output-dir` was set.
+- `output/` and `.quarto/`: build output and cache, ignored by git. Don't edit them by hand. (Older runs built to `_site/`; its pages from part 1, `IOT_del1_prog_tec/`, are kept in commit `247e24e`.)
 - The `gh-pages` branch holds the published site (built with `quarto publish gh-pages`). Don't edit it by hand.
 
 ## Conventions
