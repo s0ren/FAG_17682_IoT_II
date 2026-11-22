@@ -37,6 +37,7 @@ Content may go beyond the objectives or leave some out, and the teacher decides.
 - `bib/`: bibliography (`.bib`)
 - `about.qmd`: "Om sitet": how the site is organised and who is behind it. In the navbar.
 - `styles.css`: extra CSS for the HTML output
+- `todo.md`: the teacher's local list of open tasks. Ignored by git (`.gitignore`) and not rendered: `project: render` in `_quarto.yml` only builds `**/*.qmd`, so `.md` files are notes. Write pages as `.qmd`.
 - `_scripts/`: helper scripts run by Quarto (`git_mtime.py`, see Conventions). Not rendered.
 - `_fagbeskrivelse/`: the official subject description (målpinde). Not rendered.
 - `output/` and `.quarto/`: build output and cache, ignored by git. Don't edit them by hand. (Older runs built to `_site/`; its pages from part 1, `IOT_del1_prog_tec/`, are kept in commit `247e24e`.)

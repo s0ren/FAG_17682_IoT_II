@@ -4,3 +4,6 @@ output/**
 .quarto/**
 /.quarto/
 **/*.quarto_ipynb
+
+# Lokale noter
+/todo.md

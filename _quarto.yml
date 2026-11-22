@@ -2,6 +2,9 @@ project:
   title: "FAG 17682_IoT_II"
   type: website
   output-dir: output
+  # Kun .qmd-filer bygges; .md-filer (fx todo.md) er noter
+  render:
+    - "**/*.qmd"
   # Sætter filernes ændringstid til sidste commit, så "Ændret" passer
   pre-render: _scripts/git_mtime.py
 
