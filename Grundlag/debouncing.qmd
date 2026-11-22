@@ -1,0 +1,176 @@
+---
+title: "Debouncing"
+subtitle: "Stabil aflæsning af knapper"
+date: 2026-11-22
+maalpinde: [11, 19, 23]
+draft: true
+---
+
+<!-- IKKE KOMPILERET: eksemplerne er tjekket mod dokumentationen, men ikke kompileret eller testet på hardware. -->
+
+Når du trykker på en knap, forventer du, at programmet ser ét tryk. Men kontakterne inde i knappen er af metal, og de hopper mod hinanden et par millisekunder, før de ligger stille. ESP32 aflæser knappen tusindvis af gange i sekundet, så den kan nå at se det ene tryk som mange tryk. Det kaldes kontaktprel ([bounce]{lang="en"}), og det at filtrere det væk kaldes [debouncing]{lang="en"}.
+
+## Formål
+
+- Du kan forklare, hvad kontaktprel er, og hvorfor det giver forkerte aflæsninger.
+- Du kan koble en knap til ESP32 med den interne [pull-up]{lang="en"}-modstand.
+- Du kan bruge biblioteket ezButton til at aflæse en knap stabilt, uden at bruge `delay()`.
+
+## Målpinde
+
+Siden arbejder med målpind 11, 19 og 23 (se [Læringsmål](../laeringsmaal.qmd)).
+
+## Forudsætninger
+
+- Du kan oprette et PlatformIO-projekt til ESP32-DEVKIT-V1 og uploade et program.
+- Du kan åbne Serial Monitor i PlatformIO.
+- Hardware: ESP32-DEVKIT-V1, en trykknap, et breadboard og to ledninger.
+
+## Kontaktprel
+
+Et ideelt tryk ville give ét skift fra *ikke trykket* til *trykket*. I virkeligheden ser signalet sådan ud, de første få millisekunder efter et tryk:
+
+```
+ikke trykket ‾‾‾‾‾‾‾|_|‾|_|‾‾|____________ trykket
+                    ↑ prel: nogle få ms
+```
+
+Hvert lille hop er et rigtigt skift på benet. Et program, der tæller skift, tæller derfor for mange tryk. Hvor slemt det er, afhænger af knappen: nogle knapper preller næsten ikke, andre giver flere ekstra tryk hver gang.
+
+Løsningen er at vente, til signalet har været stabilt et stykke tid, før man tror på det. Det stykke tid kaldes *debounce-tiden*. 20–50 ms er typisk nok til en almindelig trykknap. Det er så kort, at et menneske ikke mærker det.
+
+## Kobling
+
+Knappen sættes mellem **GPIO 18** og **GND**. Der skal ikke bruges en modstand, fordi ESP32 har en intern pull-up-modstand, som man slår til i programmet:
+
+- Knappen er *ikke trykket*: pull-up-modstanden trækker benet op, og det læses som `HIGH`.
+- Knappen er *trykket*: benet forbindes til GND og læses som `LOW`.
+
+Bemærk, at et tryk altså giver `LOW`. Det er omvendt af, hvad mange forventer.
+
+Valg af ben på ESP32-DEVKIT-V1:
+
+| Ben | Brug til en knap? |
+|---|---|
+| 18, 19, 21–23, 25–27, 32, 33 | Ja |
+| 6–11 | Nej: forbundet til den interne flash |
+| 34–39 | Kun med en ekstern modstand: de har ingen intern pull-up |
+| 0, 2, 4, 5, 12, 15 | Helst ikke: de påvirker, hvordan ESP32 starter op ([strapping pins]{lang="en"}) |
+
+## Eksempel: uden debouncing
+
+Programmet tæller, hver gang benet skifter fra `HIGH` til `LOW`. Prøv det først, så du kan se problemet.
+
+```{.ini filename="platformio.ini"}
+[env:esp32doit-devkit-v1]
+platform = espressif32
+board = esp32doit-devkit-v1
+framework = arduino
+monitor_speed = 115200
+```
+
+```{.cpp filename="src/main.cpp"}
+#include <Arduino.h>
+
+// Konfiguration
+const int KNAP_PIN = 18;   // knap mellem GPIO 18 og GND
+
+int forrigeTilstand = HIGH;  // HIGH = ikke trykket (pull-up)
+unsigned long antalTryk = 0;
+
+void setup() {
+  Serial.begin(115200);
+  pinMode(KNAP_PIN, INPUT_PULLUP);  // slår den interne pull-up til
+}
+
+void loop() {
+  int tilstand = digitalRead(KNAP_PIN);
+
+  // Et tryk er skiftet fra HIGH til LOW
+  if (forrigeTilstand == HIGH && tilstand == LOW) {
+    antalTryk++;
+    Serial.printf("Tryk nr. %lu\n", antalTryk);
+  }
+  forrigeTilstand = tilstand;
+}
+```
+
+Tryk langsomt ti gange. Med mange knapper tæller programmet mere end ti.
+
+## Eksempel: med ezButton
+
+Biblioteket [ezButton](https://github.com/ArduinoGetStarted/button) laver debouncingen for dig. PlatformIO henter det automatisk, når det står i `lib_deps`.
+
+```{.ini filename="platformio.ini"}
+[env:esp32doit-devkit-v1]
+platform = espressif32
+board = esp32doit-devkit-v1
+framework = arduino
+monitor_speed = 115200
+lib_deps = arduinogetstarted/ezButton@^1.0.6
+```
+
+```{.cpp filename="src/main.cpp"}
+#include <Arduino.h>
+#include <ezButton.h>
+
+// Konfiguration
+const int KNAP_PIN = 18;               // knap mellem GPIO 18 og GND
+const unsigned long DEBOUNCE_MS = 50;  // hvor længe signalet skal være stabilt
+
+ezButton knap(KNAP_PIN);  // bruger INPUT_PULLUP, når der ikke angives andet
+
+void setup() {
+  Serial.begin(115200);
+  knap.setDebounceTime(DEBOUNCE_MS);  // standard er 0 ms, altså ingen debouncing
+}
+
+void loop() {
+  knap.loop();  // aflæser knappen; skal kaldes i hvert gennemløb af loop()
+
+  if (knap.isPressed()) {
+    Serial.printf("Tryk nr. %lu\n", knap.getCount());
+  }
+  if (knap.isReleased()) {
+    Serial.println("Sluppet");
+  }
+}
+```
+
+Sådan virker det:
+
+- `knap.loop()` læser benet og holder styr på tiden med `millis()`. Først når benet har haft samme værdi i `DEBOUNCE_MS` millisekunder, regnes det som en ny, stabil tilstand.
+- `isPressed()` er `true` én gang, lige når knappen er blevet trykket, og ikke hele tiden, mens den holdes nede. `isReleased()` virker på samme måde, når den slippes.
+- `getCount()` tæller tryk. `resetCount()` nulstiller tælleren.
+- `getState()` giver den stabile tilstand (`LOW` = trykket), mens `getStateRaw()` giver den rå aflæsning uden debouncing.
+
+### Hvorfor ikke bare `delay()`?
+
+Man kan debounce ved at vente med `delay(50)` efter et tryk. Men mens `delay()` venter, laver ESP32 ingenting: den læser ikke andre knapper, sender ikke data og svarer ikke på netværket. ezButton bruger i stedet `millis()` og blokerer aldrig, så `loop()` kan blive ved med at lave andre ting. Det bliver vigtigt, når programmet også skal bruge WiFi eller MQTT.
+
+## Øvelser
+
+1. Kør eksemplet *uden debouncing*. Tryk ti gange, og skriv ned, hvor mange tryk programmet tæller. Prøv også at trykke meget let og meget hårdt.
+2. Kør eksemplet *med ezButton*. Gentag de ti tryk. Prøv derefter med `DEBOUNCE_MS` sat til 0, 5, 50 og 500. Hvad sker der ved 0? Og hvad mærker du ved 500, hvis du trykker hurtigt flere gange i træk?
+3. Lad knappen tænde og slukke den indbyggede lysdiode på GPIO 2: hvert tryk skifter mellem tændt og slukket.
+4. Tilføj en knap mere på GPIO 19, så den ene tænder og den anden slukker lysdioden. Brug to `ezButton`-objekter.
+5. *Ekstra:* Skeln mellem et kort og et langt tryk (over ét sekund). Gem `millis()`, når `isPressed()` er sand, og beregn trykkets længde, når `isReleased()` er sand.
+
+## Typiske fejl
+
+- **Der sker ingenting:** `knap.loop()` bliver ikke kaldt, eller den bliver kun kaldt indimellem. Den skal kaldes i hvert gennemløb af `loop()`.
+- **Stadig for mange tryk:** `setDebounceTime()` er ikke kaldt. Standard er 0 ms, altså ingen debouncing.
+- **Knappen virker baglæns:** Med pull-up er et tryk `LOW`. Brug `isPressed()` i stedet for at sammenligne med `HIGH`/`LOW` selv.
+- **Tryk bliver ikke set:** Der står et `delay()` et andet sted i `loop()`, så `knap.loop()` kaldes for sjældent til at opdage korte tryk.
+- **Benet svæver:** Knappen sidder på GPIO 34–39, som ikke har en intern pull-up. Brug et andet ben, eller sæt en ekstern modstand på.
+- **ESP32 starter ikke eller kan ikke uploade:** Knappen sidder på en strapping pin (fx GPIO 0, 2 eller 12) og holdes nede ved opstart.
+
+## Kilder
+
+- ezButton: kildekode og README, <https://github.com/ArduinoGetStarted/button>
+- ezButton: vejledning, <https://arduinogetstarted.com/tutorials/arduino-button-library>
+- ezButton i PlatformIO-registret, <https://registry.platformio.org/libraries/arduinogetstarted/ezButton>
+- PlatformIO: ESP32-DEVKIT-V1, <https://docs.platformio.org/en/latest/boards/espressif32/esp32doit-devkit-v1.html>
+- Arduino-ESP32: GPIO, <https://docs.espressif.com/projects/arduino-esp32/en/latest/api/gpio.html>
+- ESP-IDF: GPIO, <https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/gpio.html>
+- Random Nerd Tutorials: ESP32 Pinout Reference, <https://randomnerdtutorials.com/esp32-pinout-reference-gpios/>

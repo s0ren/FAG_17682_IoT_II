@@ -1,0 +1,12 @@
+---
+title: "Grundlag"
+date: 2026-11-22
+listing:
+  contents:
+    - "*.qmd"
+  type: table
+  fields: [title, subtitle, date]
+  sort: "title"
+---
+
+Det grundlæggende fra første del af faget: værktøjer, programmering af ESP32 og de første input og output. Brug siderne som opslag, når du skal genopfriske noget.
