@@ -2,17 +2,24 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="da" xml:lang="da"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.10.20">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Søren Magnusson">
 
 <title>Persontælling med dataopsamling – FAG 17682_IoT_II</title>
 <style>
-code{white-space: pre-wrap;}
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -32,15 +39,14 @@ ul.task-list li input[type="checkbox"] {
 <meta name="quarto:offset" content="../../">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-17888a1159294d3eb470f19f6f52f5a5.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-f4817736c54c4935f643e29cf6b6cc1a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-1958bf8fe25c7117446dee592769f80d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -81,8 +87,6 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
-    </a>
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">FAG 17682_IoT_II</span>
     </a>
@@ -94,8 +98,12 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="../../index.html" aria-current="page"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Hjem</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../../about.html" aria-current="page"> 
+<span class="menu-text">Om sitet</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -108,7 +116,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Skift sidebjælke" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../emner/afsluttende_opgave/index.html">Emner</a></li><li class="breadcrumb-item"><a href="../../emner/afsluttende_opgave/index.html">Persontælling med dataopsamling</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../Opgaver/index.html">Opgaver</a></li><li class="breadcrumb-item"><a href="../../Opgaver/afsluttende_opgave/index.html">Persontælling med dataopsamling</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Skift sidebjælke" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -118,16 +126,12 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
-      <a href="../../index.html" class="sidebar-logo-link">
-      </a>
-      </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../about.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">About</span></a>
+ <span class="menu-text">Om sitet</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -138,24 +142,13 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Emner</span></a>
+            <a href="../../Features/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Features</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Skift sektion">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a href="../../Features/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Features</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Skift sektion">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../Features/lokal_mqtt.html" class="sidebar-item-text sidebar-link">
@@ -166,13 +159,13 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+            <a href="../../Opgaver/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Opgaver</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Skift sektion">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Skift sektion">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../Opgaver/Projektopgave_Smiley.html" class="sidebar-item-text sidebar-link">
@@ -181,8 +174,14 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../Opgaver/wifi_pos.html" class="sidebar-item-text sidebar-link">
+  <a href="../../Opgaver/Projektopgave_wifi_position.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Projektopgave, Positionsbestemmelse af enheder uden GPS dækning</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Opgaver/Projektopgave_wifi_position_checkliste.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Checkliste: Positionsbestemmelse af enheder uden GPS dækning</span></a>
   </div>
 </li>
       </ul>
@@ -200,10 +199,8 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#overblik-og-checkliste" id="toc-overblik-og-checkliste" class="nav-link active" data-scroll-target="#overblik-og-checkliste">Overblik og checkliste</a></li>
   <li><a href="#opgavens-delelementer" id="toc-opgavens-delelementer" class="nav-link" data-scroll-target="#opgavens-delelementer">Opgavens delelementer</a>
   <ul class="collapse">
-  <li><a href="#to-eller-flere-sonsorer" id="toc-to-eller-flere-sonsorer" class="nav-link" data-scroll-target="#to-eller-flere-sonsorer"><strong>1.</strong> To eller flere sonsorer<br>
-  </a></li>
-  <li><a href="#a.-en-form-for-persontæller-ir-eller-andet" id="toc-a.-en-form-for-persontæller-ir-eller-andet" class="nav-link" data-scroll-target="#a.-en-form-for-persontæller-ir-eller-andet"><strong>1.a.</strong> En form for persontæller, IR eller andet<br>
-  </a></li>
+  <li><a href="#to-eller-flere-sonsorer" id="toc-to-eller-flere-sonsorer" class="nav-link" data-scroll-target="#to-eller-flere-sonsorer"><strong>1.</strong> To eller flere sonsorer</a></li>
+  <li><a href="#a.-en-form-for-persontæller-ir-eller-andet" id="toc-a.-en-form-for-persontæller-ir-eller-andet" class="nav-link" data-scroll-target="#a.-en-form-for-persontæller-ir-eller-andet"><strong>1.a.</strong> En form for persontæller, IR eller andet</a></li>
   <li><a href="#b.-suppleret-med-indeklima-sensor-som-indsamler-temperatur-om-eventuelt-luftfugtighed" id="toc-b.-suppleret-med-indeklima-sensor-som-indsamler-temperatur-om-eventuelt-luftfugtighed" class="nav-link" data-scroll-target="#b.-suppleret-med-indeklima-sensor-som-indsamler-temperatur-om-eventuelt-luftfugtighed"><strong>1.b.</strong> suppleret med indeklima sensor, som indsamler temperatur om eventuelt luftfugtighed</a></li>
   <li><a href="#data-indsamles" id="toc-data-indsamles" class="nav-link" data-scroll-target="#data-indsamles"><strong>2.</strong> Data indsamles</a></li>
   <li><a href="#a.-når-sensoren-aktiveres-fordi-en-person-passerer" id="toc-a.-når-sensoren-aktiveres-fordi-en-person-passerer" class="nav-link" data-scroll-target="#a.-når-sensoren-aktiveres-fordi-en-person-passerer"><strong>2.a.</strong> når sensoren aktiveres, fordi en person passerer</a></li>
@@ -215,15 +212,13 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#vælg-selv-protokol-og-server-model-find-gerne-noget-andet-end-api-over-http" id="toc-vælg-selv-protokol-og-server-model-find-gerne-noget-andet-end-api-over-http" class="nav-link" data-scroll-target="#vælg-selv-protokol-og-server-model-find-gerne-noget-andet-end-api-over-http">vælg selv protokol og server model (find gerne noget andet end api over http)</a></li>
   <li><a href="#a.-installer-datalager-services" id="toc-a.-installer-datalager-services" class="nav-link" data-scroll-target="#a.-installer-datalager-services"><strong>4.a.</strong> installer datalager services</a></li>
   <li><a href="#b.-opsæt-evt-middleware-scripts-til-f.eks-at-abonnere-fra-mqtt-og-indsætte-i-database" id="toc-b.-opsæt-evt-middleware-scripts-til-f.eks-at-abonnere-fra-mqtt-og-indsætte-i-database" class="nav-link" data-scroll-target="#b.-opsæt-evt-middleware-scripts-til-f.eks-at-abonnere-fra-mqtt-og-indsætte-i-database"><strong>4.b.</strong> opsæt evt middleware scripts, til f.eks at abonnere fra mqtt og indsætte i database</a></li>
-  <li><a href="#programmering" id="toc-programmering" class="nav-link" data-scroll-target="#programmering"><strong>5.</strong> Programmering<br>
-  </a></li>
+  <li><a href="#programmering" id="toc-programmering" class="nav-link" data-scroll-target="#programmering"><strong>5.</strong> Programmering</a></li>
   <li><a href="#programkoden-skal-skrives-så-den-er" id="toc-programkoden-skal-skrives-så-den-er" class="nav-link" data-scroll-target="#programkoden-skal-skrives-så-den-er">Programkoden skal skrives så den er</a></li>
   <li><a href="#a.-mest-muligt-overskuelig" id="toc-a.-mest-muligt-overskuelig" class="nav-link" data-scroll-target="#a.-mest-muligt-overskuelig"><strong>5.a.</strong> mest muligt overskuelig,</a></li>
   <li><a href="#b.-understøtter-genbrug" id="toc-b.-understøtter-genbrug" class="nav-link" data-scroll-target="#b.-understøtter-genbrug"><strong>5.b.</strong> understøtter genbrug,</a></li>
   <li><a href="#c.-lettest-muligt-kan-udbygges-eller" id="toc-c.-lettest-muligt-kan-udbygges-eller" class="nav-link" data-scroll-target="#c.-lettest-muligt-kan-udbygges-eller"><strong>5.c.</strong> lettest muligt kan udbygges eller</a></li>
   <li><a href="#d.-udskiftes-med-andre-teknologier." id="toc-d.-udskiftes-med-andre-teknologier." class="nav-link" data-scroll-target="#d.-udskiftes-med-andre-teknologier."><strong>5.d.</strong> udskiftes med andre teknologier.</a></li>
-  <li><a href="#konfiguration" id="toc-konfiguration" class="nav-link" data-scroll-target="#konfiguration"><strong>6.</strong> Konfiguration<br>
-  </a></li>
+  <li><a href="#konfiguration" id="toc-konfiguration" class="nav-link" data-scroll-target="#konfiguration"><strong>6.</strong> Konfiguration</a></li>
   <li><a href="#det-skal-være-let-at-overskue-og-ændre-centrale-konfigurationer" id="toc-det-skal-være-let-at-overskue-og-ændre-centrale-konfigurationer" class="nav-link" data-scroll-target="#det-skal-være-let-at-overskue-og-ændre-centrale-konfigurationer">Det skal være let at overskue og ændre centrale konfigurationer</a></li>
   <li><a href="#a.-gpio-porte-som-sensorer-tilsluttes" id="toc-a.-gpio-porte-som-sensorer-tilsluttes" class="nav-link" data-scroll-target="#a.-gpio-porte-som-sensorer-tilsluttes"><strong>6.a.</strong> GPIO porte som sensorer tilsluttes</a></li>
   <li><a href="#b.-tids-intervaller-for-sensorer-som-aflæses-med-faste-perioder" id="toc-b.-tids-intervaller-for-sensorer-som-aflæses-med-faste-perioder" class="nav-link" data-scroll-target="#b.-tids-intervaller-for-sensorer-som-aflæses-med-faste-perioder"><strong>6.b.</strong> Tids-intervaller for sensor(er) som aflæses med faste perioder</a></li>
@@ -231,8 +226,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#d.-adresser-porte-og-koder-til-de-anvendte-datalager-services" id="toc-d.-adresser-porte-og-koder-til-de-anvendte-datalager-services" class="nav-link" data-scroll-target="#d.-adresser-porte-og-koder-til-de-anvendte-datalager-services"><strong>6.d.</strong> Adresser, porte og koder til de anvendte datalager services</a></li>
   <li><a href="#e.-wifi-ssid-og-password-som-bruges-til-at-esp32-eneheden-kan-tilgå-internettet" id="toc-e.-wifi-ssid-og-password-som-bruges-til-at-esp32-eneheden-kan-tilgå-internettet" class="nav-link" data-scroll-target="#e.-wifi-ssid-og-password-som-bruges-til-at-esp32-eneheden-kan-tilgå-internettet"><strong>6.e.</strong> WiFi SSID, og password, som bruges til at ESP32 eneheden kan tilgå internettet</a></li>
   <li><a href="#f.-med-mere" id="toc-f.-med-mere" class="nav-link" data-scroll-target="#f.-med-mere"><strong>6.f.</strong> med mere</a></li>
-  <li><a href="#dokumentation" id="toc-dokumentation" class="nav-link" data-scroll-target="#dokumentation"><strong>7.</strong> Dokumentation<br>
-  </a></li>
+  <li><a href="#dokumentation" id="toc-dokumentation" class="nav-link" data-scroll-target="#dokumentation"><strong>7.</strong> Dokumentation</a></li>
   <li><a href="#det-skal-dokumenteres-hvordan" id="toc-det-skal-dokumenteres-hvordan" class="nav-link" data-scroll-target="#det-skal-dokumenteres-hvordan">Det skal dokumenteres, hvordan</a></li>
   <li><a href="#a.-systemet-anvedes-og-startes" id="toc-a.-systemet-anvedes-og-startes" class="nav-link" data-scroll-target="#a.-systemet-anvedes-og-startes"><strong>7.a.</strong> systemet anvedes og startes,</a></li>
   <li><a href="#b.-systemet-sættes-op-og" id="toc-b.-systemet-sættes-op-og" class="nav-link" data-scroll-target="#b.-systemet-sættes-op-og"><strong>7.b.</strong> systemet sættes op, og</a></li>
@@ -250,18 +244,43 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../emner/afsluttende_opgave/index.html">Emner</a></li><li class="breadcrumb-item"><a href="../../emner/afsluttende_opgave/index.html">Persontælling med dataopsamling</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../Opgaver/index.html">Opgaver</a></li><li class="breadcrumb-item"><a href="../../Opgaver/afsluttende_opgave/index.html">Persontælling med dataopsamling</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Persontælling med dataopsamling</h1>
 <p class="subtitle lead">Afsluttende opgave, anden del</p>
 </div>
 
 
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Forfatter</div>
+  <div class="quarto-title-meta-heading">Uddannelse</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Søren Magnusson </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Data, TEC
+          </p>
+      </div>
+  </div>
 
 <div class="quarto-title-meta">
 
-    
+      
+    <div>
+    <div class="quarto-title-meta-heading">Udgivet</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">24. marts 2025</p>
+    </div>
+  </div>
   
+    <div>
+    <div class="quarto-title-meta-heading">Ændret</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">22. november 2026</p>
+    </div>
+  </div>
     
   </div>
   
@@ -288,7 +307,8 @@ ul.task-list li input[type="checkbox"] {
 <li>hvis netforbindesen mistes, gemmes målingerne fra sensorerne <em>stadig</em> i cashen (en fil på ESP32)</li>
 <li>når data forbindelsen kommer igen, sendes cashed data op til serveren</li>
 </ol></li>
-<li>data sendes til data lager på net/cloud vælg selv protokol og server model (find gerne noget andet end api over http)
+<li>data sendes til data lager på net/cloud<br>
+Vælg selv protokol og server model (find gerne noget andet end api over http)
 <ol type="a">
 <li>installer datalager services</li>
 <li>opsæt evt middleware scripts, til f.eks at abonnere fra mqtt og indsætte i database</li>
@@ -320,7 +340,8 @@ Det skal dokumenteres, hvordan
 <li>hvordan komponenter kan udkiftes eller udbygges.</li>
 <li>Programkoden skal være passende kommenteret, så komponenterne let genkendes, og forstås.</li>
 </ol></li>
-<li>Præsentation Løsningen præsenteres, på en måde hvor
+<li>Præsentation<br>
+Løsningen præsenteres, på en måde hvor
 <ol type="a">
 <li>løsningens dele beskrives og</li>
 <li>de valg som er gjort, for at lave projektet, forklares.</li>
@@ -330,12 +351,10 @@ Det skal dokumenteres, hvordan
 <section id="opgavens-delelementer" class="level2">
 <h2 class="anchored" data-anchor-id="opgavens-delelementer">Opgavens delelementer</h2>
 <section id="to-eller-flere-sonsorer" class="level3">
-<h3 class="anchored" data-anchor-id="to-eller-flere-sonsorer"><strong>1.</strong> To eller flere sonsorer<br>
-</h3>
+<h3 class="anchored" data-anchor-id="to-eller-flere-sonsorer"><strong>1.</strong> To eller flere sonsorer</h3>
 </section>
 <section id="a.-en-form-for-persontæller-ir-eller-andet" class="level3">
-<h3 class="anchored" data-anchor-id="a.-en-form-for-persontæller-ir-eller-andet"><strong>1.a.</strong> En form for persontæller, IR eller andet<br>
-</h3>
+<h3 class="anchored" data-anchor-id="a.-en-form-for-persontæller-ir-eller-andet"><strong>1.a.</strong> En form for persontæller, IR eller andet</h3>
 </section>
 <section id="b.-suppleret-med-indeklima-sensor-som-indsamler-temperatur-om-eventuelt-luftfugtighed" class="level3">
 <h3 class="anchored" data-anchor-id="b.-suppleret-med-indeklima-sensor-som-indsamler-temperatur-om-eventuelt-luftfugtighed"><strong>1.b.</strong> suppleret med indeklima sensor, som indsamler temperatur om eventuelt luftfugtighed</h3>
@@ -371,8 +390,7 @@ Det skal dokumenteres, hvordan
 <h3 class="anchored" data-anchor-id="b.-opsæt-evt-middleware-scripts-til-f.eks-at-abonnere-fra-mqtt-og-indsætte-i-database"><strong>4.b.</strong> opsæt evt middleware scripts, til f.eks at abonnere fra mqtt og indsætte i database</h3>
 </section>
 <section id="programmering" class="level3">
-<h3 class="anchored" data-anchor-id="programmering"><strong>5.</strong> Programmering<br>
-</h3>
+<h3 class="anchored" data-anchor-id="programmering"><strong>5.</strong> Programmering</h3>
 </section>
 <section id="programkoden-skal-skrives-så-den-er" class="level3">
 <h3 class="anchored" data-anchor-id="programkoden-skal-skrives-så-den-er">Programkoden skal skrives så den er</h3>
@@ -390,8 +408,7 @@ Det skal dokumenteres, hvordan
 <h3 class="anchored" data-anchor-id="d.-udskiftes-med-andre-teknologier."><strong>5.d.</strong> udskiftes med andre teknologier.</h3>
 </section>
 <section id="konfiguration" class="level3">
-<h3 class="anchored" data-anchor-id="konfiguration"><strong>6.</strong> Konfiguration<br>
-</h3>
+<h3 class="anchored" data-anchor-id="konfiguration"><strong>6.</strong> Konfiguration</h3>
 </section>
 <section id="det-skal-være-let-at-overskue-og-ændre-centrale-konfigurationer" class="level3">
 <h3 class="anchored" data-anchor-id="det-skal-være-let-at-overskue-og-ændre-centrale-konfigurationer">Det skal være let at overskue og ændre centrale konfigurationer</h3>
@@ -415,8 +432,7 @@ Det skal dokumenteres, hvordan
 <h3 class="anchored" data-anchor-id="f.-med-mere"><strong>6.f.</strong> med mere</h3>
 </section>
 <section id="dokumentation" class="level3">
-<h3 class="anchored" data-anchor-id="dokumentation"><strong>7.</strong> Dokumentation<br>
-</h3>
+<h3 class="anchored" data-anchor-id="dokumentation"><strong>7.</strong> Dokumentation</h3>
 </section>
 <section id="det-skal-dokumenteres-hvordan" class="level3">
 <h3 class="anchored" data-anchor-id="det-skal-dokumenteres-hvordan">Det skal dokumenteres, hvordan</h3>

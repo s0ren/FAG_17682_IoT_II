@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="da" xml:lang="da"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.20">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Søren Magnusson">
+
+<title>Projektopgave, Positionsbestemmelse af enheder uden GPS dækning – FAG 17682_IoT_II</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-17888a1159294d3eb470f19f6f52f5a5.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-1958bf8fe25c7117446dee592769f80d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Ingen resultater",
+    "search-matching-documents-text": "Matchende dokumenter",
+    "search-copy-link-title": "Kopier link for at søge",
+    "search-hide-matches-text": "Skjul yderligere resultater",
+    "search-more-match-text": "andet resultat i dette dokument",
+    "search-more-matches-text": "andre resultater i dette dokument",
+    "search-clear-button-title": "Ryd",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Fortryd",
+    "search-submit-button-title": "Indsend",
+    "search-label": "Søg"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">FAG 17682_IoT_II</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Søg"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Skift navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Hjem</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../about.html" aria-current="page"> 
+<span class="menu-text">Om sitet</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Skift sidebjælke" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Opgaver/index.html">Opgaver</a></li><li class="breadcrumb-item"><a href="../Opgaver/Projektopgave_wifi_position.html">Projektopgave, Positionsbestemmelse af enheder uden GPS dækning</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Skift sidebjælke" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Om sitet</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Referencer/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Referencemanualer</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Features/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Features</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Skift sektion">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Features/lokal_mqtt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lokal MQTT server</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Opgaver/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Opgaver</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Skift sektion">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Opgaver/Projektopgave_Smiley.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Projektopgave, Smiley feedback panel</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Opgaver/Projektopgave_wifi_position.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Projektopgave, Positionsbestemmelse af enheder uden GPS dækning</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Opgaver/Projektopgave_wifi_position_checkliste.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Checkliste: Positionsbestemmelse af enheder uden GPS dækning</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">På denne side</h2>
+   
+  <ul>
+  <li><a href="#formål" id="toc-formål" class="nav-link active" data-scroll-target="#formål">Formål</a></li>
+  <li><a href="#grupper" id="toc-grupper" class="nav-link" data-scroll-target="#grupper">Grupper</a></li>
+  <li><a href="#produktmål" id="toc-produktmål" class="nav-link" data-scroll-target="#produktmål">Produktmål</a></li>
+  <li><a href="#procesmål" id="toc-procesmål" class="nav-link" data-scroll-target="#procesmål">Procesmål</a></li>
+  <li><a href="#præsentation" id="toc-præsentation" class="nav-link" data-scroll-target="#præsentation">Præsentation</a></li>
+  <li><a href="#hovedproblematikker" id="toc-hovedproblematikker" class="nav-link" data-scroll-target="#hovedproblematikker">Hovedproblematikker</a>
+  <ul class="collapse">
+  <li><a href="#persondata" id="toc-persondata" class="nav-link" data-scroll-target="#persondata">Persondata</a></li>
+  </ul></li>
+  <li><a href="#aflevering" id="toc-aflevering" class="nav-link" data-scroll-target="#aflevering">Aflevering</a>
+  <ul class="collapse">
+  <li><a href="#tidlig-aflevering" id="toc-tidlig-aflevering" class="nav-link" data-scroll-target="#tidlig-aflevering">Tidlig aflevering</a></li>
+  </ul></li>
+  <li><a href="#bedømmelse" id="toc-bedømmelse" class="nav-link" data-scroll-target="#bedømmelse">Spørgsmål som indgår i bedømmelsen</a></li>
+  <li><a href="#forslag-til-teknologier-at-kigge-på" id="toc-forslag-til-teknologier-at-kigge-på" class="nav-link" data-scroll-target="#forslag-til-teknologier-at-kigge-på">Forslag til teknologier at kigge på</a>
+  <ul class="collapse">
+  <li><a href="#links" id="toc-links" class="nav-link" data-scroll-target="#links">Links</a></li>
+  <li><a href="#kode-eksempler" id="toc-kode-eksempler" class="nav-link" data-scroll-target="#kode-eksempler">Kode eksempler</a></li>
+  <li><a href="#mqtt-server" id="toc-mqtt-server" class="nav-link" data-scroll-target="#mqtt-server">MQTT server</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Andre formater</h2><ul><li><a href="Projektopgave_wifi_position.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Opgaver/index.html">Opgaver</a></li><li class="breadcrumb-item"><a href="../Opgaver/Projektopgave_wifi_position.html">Projektopgave, Positionsbestemmelse af enheder uden GPS dækning</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Projektopgave, Positionsbestemmelse af enheder uden GPS dækning</h1>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Forfatter</div>
+  <div class="quarto-title-meta-heading">Uddannelse</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Søren Magnusson </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Data, TEC
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Udgivet</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">30. november 2025</p>
+    </div>
+  </div>
+  
+    <div>
+    <div class="quarto-title-meta-heading">Ændret</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">22. november 2026</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- # Positionsbestemmelse af enheder uden GPS dækning -->
+<ul>
+<li>Hvordan laver man positionsbestemmelse af f.eks. mobile enheder, uden adgang til GPS?</li>
+<li>Kan man tælle hvor mange enheder (og dermed måske personer), der er i et område?</li>
+</ul>
+<p>Er man indendørs har man ofte ikke mulighed for at få en god positionsbestemmelse med GPS. I hvertfald ikke i metrosystemet, eller indenfor i et storcenter. Ikke på en måde så man tydeligt kan se hvor bygningen, eller i hvilket lokale, en person eller en enhed findes.<br>
+Desuden kan man ønske at få oplysninger om hvormange (personer/enheder) der færdes i et område, uden at de har tilmeldt sig. Men må man det?</p>
+<p>Hvordan kan man bestemme hvor en enhed befinder sig, uden at have adgang til GPS? Inde i bygninger er GPS signaler ikke særligt tilgængelige, og/eller særlige nøjagtige.</p>
+<p>Er det muligt at positionsbestemme enheder alene ved at kende signalstyrken fra enheden?</p>
+<section id="formål" class="level2">
+<h2 class="anchored" data-anchor-id="formål">Formål</h2>
+<p>I skal undersøge hvordan det er muligt at bestemme</p>
+<ul>
+<li>om en enhed (mobiltelefon) er i området</li>
+<li>hvor i området</li>
+<li>hvor nøjagtigt</li>
+</ul>
+<p>Samtidig skal I også forholde jer til</p>
+<ul>
+<li>hvad det er tilladt at monitorere</li>
+<li>om hvem</li>
+<li>hvormeget, hvorlænge osv.</li>
+</ul>
+<p>Undersøg hvordan man kan håndtere viden om enhederne så lidt som muligt, og alligevel registrere at der er enheder tilstede, hvor og hvornår.</p>
+</section>
+<section id="grupper" class="level2">
+<h2 class="anchored" data-anchor-id="grupper">Grupper</h2>
+<p>Opgaven skal løses på mindst 2 personer, og højst 3 personer. Grupperne sammensættes efter aftale med læreren. I opretter selv grupper på ItsLearning.</p>
+</section>
+<section id="produktmål" class="level2">
+<h2 class="anchored" data-anchor-id="produktmål">Produktmål</h2>
+<p>I skal lave en opstilling med flere IoT-enheder, som indsamler oplysninger om mobilenheder (f.eks.mobiltelefoner) med wifi.<br>
+Det område I arbejder med kan være jeres bord eller hele lokalet.</p>
+<p>Ved at placere flere IoT-enheder i hjørnerne af området, kan man få oplysninger om afstanden fra hver IoT-enhed til mobilenheden. På baggrund af disse oplysninger kan beregne geometrisk, hvor mobilenheden befinder sig. Nøjagtigheden bliver ikke så stor, men det må vi leve med.</p>
+<p>I skal programmere IoT-enhederne i opstillingen til at kommunikere med hinanden, så de kan samle oplysninger om afstand til mobilenheder, så der bliver mulighed for stedsbestemmelse.<br>
+Skal en af IoT-enhederne være server, eller skal de alle samle data? Det er jeres valg.</p>
+<p>Jeres opstilling af IoT-enheder skal indsende data til MQTT serveren (den som er sat op lokalt) med data om</p>
+<ul>
+<li>et unikt id,</li>
+<li>et tidspunkt, og</li>
+<li>et koordinat (x,y)</li>
+</ul>
+<p>Data skal være forberedt sådan, at det er let at udtrække data og vise statistiske oplysninger som hyppigheder for enheder fordelt på timer eller placeringer, et heatmap over hvor i området, eller lignende.</p>
+<p>Det er <strong>ikke</strong> en del af opgaven at lave sådan en præsentation men data skal være forberedt på det.</p>
+<p>Det funktionelle mål for programkode og dokumentation er at det skal være muligt for en anden person, at kunne tage jeres opstilling, og med jeres dokumentation, kunne få det til at virke.</p>
+<p>Se kravene til kode og dokumentation i <a href="#bedømmelse">checklisten</a> nedenfor.</p>
+</section>
+<section id="procesmål" class="level2">
+<h2 class="anchored" data-anchor-id="procesmål">Procesmål</h2>
+<p>Beskriv fremgangsmåde og teknologier der kan bruges til at nå målet.</p>
+<p>Der er flere forskellige teknologier og strategier at vælge, og I skal lave noter om hvilke I har fundet oplysninger om, og lave forsøg med at implementere en eller flere. Implementeringerne kan starte som nogle forsøg på hurtigt at se om det er muligt at bruge teknologien. Hvis det ikke er, kan man gå videre til noget andet. Hvis der er gode resultater, kan det bruges til at kombinere med flere.</p>
+<p>Beskriv hvad I finder, hvad I prøver af, og hvordan den nye viden kan bruges.</p>
+<p>Her er <em>logbog</em> og <em>portfolie</em> vigtige dokumentationsformer. I behøver <em>ikke</em> lave en traditionel rapport, bare i har ført <em>logbogen</em> og noteret i <em>portfoliet</em>. Helst undervejs.</p>
+</section>
+<section id="præsentation" class="level2">
+<h2 class="anchored" data-anchor-id="præsentation">Præsentation</h2>
+<p>I skal præsentere jeres løsning på en måde hvor I sørger for at</p>
+<ul>
+<li>løsningens dele beskrives og</li>
+<li>de valg som er gjort, for at lave projektet, forklares.</li>
+</ul>
+<p>Hvis I kan og vil præsentere i plenum for holdet, styrker det jeres læringsudbytte enormt, men det er ikke et krav.</p>
+<p>Hvis I vælger at fremvise for kun læreren, kan det også godkendes. Præsentation i plenum vurderes dog højere end en præsentation kun for læreren.</p>
+</section>
+<section id="hovedproblematikker" class="level2">
+<h2 class="anchored" data-anchor-id="hovedproblematikker">Hovedproblematikker</h2>
+<p>Der er et antal hovedproblematikker:</p>
+<ul>
+<li>Triangulering
+<ul>
+<li>Hvordan ser matematikken ud?</li>
+</ul></li>
+<li>Afstand mellem målestation og mobil
+<ul>
+<li>RSSI
+<ul>
+<li>Kan findes med “sniffing” i wifi-modulets <span lang="en">promiscuous mode</span></li>
+</ul></li>
+<li>Roundtrip</li>
+</ul></li>
+<li>Kommunikation mellem målestationer
+<ul>
+<li>ESP MESH</li>
+<li>ESP NOW</li>
+</ul></li>
+</ul>
+<section id="persondata" class="level3">
+<h3 class="anchored" data-anchor-id="persondata">Persondata</h3>
+<p>Når vi indsamler data om alle enheder i “luften”, så er nogen af disse data noget der har med personer at gøre. Det gør at vi skal overveje hvordan vi behandler disse oplysninger. Projektet kommer muligvis i berøring med Persondata lovgivningen, som igen refererer til EUs GDPR.</p>
+<ul>
+<li>Hvilke disse data er personlige?
+<ul>
+<li>Er de følsomme?</li>
+<li>Hele tiden, eller nogen gange?</li>
+<li>Er f.eks. en MAC-adresse følsom personlig data?</li>
+</ul></li>
+<li>Beriges data ved at indsamle f.eks. MAC adressse, sammen med tid og sted?
+<ul>
+<li>Hvad gør det ved data-ansvaret?</li>
+</ul></li>
+<li>Kan vi begrænse hvilke oplysninger der opsamles, i forhold til formålet?</li>
+</ul>
+</section>
+</section>
+<section id="aflevering" class="level2">
+<h2 class="anchored" data-anchor-id="aflevering">Aflevering</h2>
+<p>Opgaven skal afleveres på ItsLearning (man kan ikke lave eksterne links ind).<br>
+I skal aflevere alle kode filer (naturligvis), samt logbog og arbejdsportefolie. Enten skal det hele pakkes i en komprimeret fil (f.eks. zip), eller hvis I har projektet i git og på GitLab, GitHub eller lignende, så er det fint at I bare afleverer et link til repo’et. Husk bare at læreren skal have læse rettigheder (eller bare public).</p>
+<section id="tidlig-aflevering" class="level3">
+<h3 class="anchored" data-anchor-id="tidlig-aflevering">Tidlig aflevering</h3>
+<p>Hvis projektet alligevel ligger på et offentligt git repo (eller noget lignende), kan i godt lave en tidlig aflevering, og så løbende pushe til repo’et. På den måde kan læreren følge med i logbog og portefolie.</p>
+</section>
+</section>
+<section id="bedømmelse" class="level2">
+<h2 class="anchored" data-anchor-id="bedømmelse">Spørgsmål som indgår i bedømmelsen</h2>
+<p>Checklisten findes også som <a href="../Opgaver/Projektopgave_wifi_position_checkliste.html">selvstændig side og PDF</a>.</p>
+<!-- Bedømmelseskriterier for Projektopgave_wifi_position.
+     Inkluderes i opgaven og i Projektopgave_wifi_position_checkliste.qmd. Ret kun her. -->
+<p>Opgavens karakter er udpræget eksplorativ. Det vil sige at I skal undersøge hvad og hvordan det kan lade sig gøre. Så undesøgelsen tæller i sig selv. Det tæller også at kode noget. Så altså begge dele.</p>
+<ul class="task-list">
+<li><label><input type="checkbox">Hvordan ser løsningen ud</label>
+<ul class="task-list">
+<li><label><input type="checkbox">Arkitektur</label></li>
+<li><label><input type="checkbox">Teknologier</label></li>
+</ul></li>
+<li><label><input type="checkbox">Dataprocess</label>
+<ul class="task-list">
+<li><label><input type="checkbox">primær dataopsamling</label></li>
+<li><label><input type="checkbox">data berigelse</label></li>
+<li><label><input type="checkbox">beregning</label></li>
+<li><label><input type="checkbox">data lagring</label></li>
+<li><label><input type="checkbox">evt data visualisering</label></li>
+</ul></li>
+<li><label><input type="checkbox">Datasikkerhed</label>
+<ul class="task-list">
+<li><label><input type="checkbox">Følsomhed</label>
+<ul class="task-list">
+<li><label><input type="checkbox">hvad er personlige data?</label></li>
+<li><label><input type="checkbox">hvad er risikoen ved at behandle andre folks personlige data?</label></li>
+<li><label><input type="checkbox">i hvor høj grad er de data projektet benytter personlige?</label>
+<ul class="task-list">
+<li><label><input type="checkbox">er data mere personlige når de beriges?</label></li>
+</ul></li>
+<li><label><input type="checkbox">hvor længe er der brug for at have personlige data i projektet?</label></li>
+</ul></li>
+<li><label><input type="checkbox">Beskyttelse</label>
+<ul class="task-list">
+<li><label><input type="checkbox">hvem kan få adgang?</label></li>
+<li><label><input type="checkbox">hvor svært er det for udenforstående at skaffe sig adgang til data?</label></li>
+<li><label><input type="checkbox">eller at lytte med?</label></li>
+</ul></li>
+</ul></li>
+</ul>
+<div style="page-break-after: always;"></div>
+<ul class="task-list">
+<li><label><input type="checkbox">Programmering<br>
+Programkoden skal skrives så den er</label>
+<ul class="task-list">
+<li><label><input type="checkbox">mest muligt overskuelig,</label></li>
+<li><label><input type="checkbox">understøtter genbrug,</label></li>
+<li><label><input type="checkbox">lettest muligt kan udbygges eller</label></li>
+<li><label><input type="checkbox">udskiftes med andre teknologier.</label></li>
+</ul></li>
+<li><label><input type="checkbox">Konfiguration<br>
+Det skal være let at overskue og ændre centrale konfigurationer <!-- 
+-   [ ] GPIO porte som sensorer tilsluttes
+-   [ ] Tids-intervaller for sensor(er) som aflæses med faste perioder
+-   [ ] Tærskelværdier for tidsgrænser til pauser for de-bounce mv. 
+--></label>
+<ul class="task-list">
+<li><label><input type="checkbox">Adresser, porte og koder til de anvendte datalager services</label></li>
+<li><label><input type="checkbox">WiFi SSID, og password, som bruges til at ESP32 eneheden kan tilgå internettet</label></li>
+<li><label><input type="checkbox">med mere, osv</label></li>
+</ul></li>
+<li><label><input type="checkbox">Dokumentation<br>
+Det skal dokumenteres, hvordan</label>
+<ul class="task-list">
+<li><label><input type="checkbox">systemet anvedes og startes,</label></li>
+<li><label><input type="checkbox">systemet sættes op, og</label></li>
+<li><label><input type="checkbox">hvilke krav der er til datalagringen, for at systemet fungerer,</label></li>
+<li><label><input type="checkbox">hvordan komponenter kan udkiftes eller udbygges.</label></li>
+<li><label><input type="checkbox">Programkoden skal være passende kommenteret, så komponenterne let genkendes, og forstås.</label></li>
+</ul></li>
+<li><label><input type="checkbox">Præsentation</label>
+<ul class="task-list">
+<li><label><input type="checkbox">løsningens dele beskrives og</label></li>
+<li><label><input type="checkbox">de valg som er gjort, for at lave projektet, forklares.</label></li>
+<li><label><input type="checkbox">Præsenteret i plenum.</label></li>
+</ul></li>
+</ul>
+</section>
+<section id="forslag-til-teknologier-at-kigge-på" class="level2">
+<h2 class="anchored" data-anchor-id="forslag-til-teknologier-at-kigge-på">Forslag til teknologier at kigge på</h2>
+<ol type="1">
+<li>prøv først med at opsamle RSSI ved at lytte til net pakker, i <span lang="en">promiscuous mode</span></li>
+<li>prøv at lave en tilnærmet afstandsberegning</li>
+<li>undersøg hvordan afstand/RSSI kan udveklses mellem ESP32-enhederne
+<ol type="1">
+<li>Kan man bruge ESP-MESH mens enheden sniffer?</li>
+<li>Kan man bruge ESP-NOW?
+<ul>
+<li>Kan det sikres/krypteres</li>
+</ul></li>
+</ol></li>
+<li>Med afstand/signalstyrke/RSSI fra flere stationer, Hvordan kan man så beregne (men tilnærmet nøjagtighed), hvor mobilen befinder sig?</li>
+</ol>
+<section id="links" class="level3">
+<h3 class="anchored" data-anchor-id="links">Links</h3>
+<section id="generelt" class="level4">
+<h4 class="anchored" data-anchor-id="generelt">Generelt</h4>
+<ul>
+<li><a href="https://www.bitbrain.com/blog/indoor-positioning-system" class="uri">https://www.bitbrain.com/blog/indoor-positioning-system</a></li>
+</ul>
+</section>
+<section id="math" class="level4">
+<h4 class="anchored" data-anchor-id="math">Math</h4>
+<ul>
+<li><a href="https://link.springer.com/article/10.1186/s13673-020-00236-8" class="uri">https://link.springer.com/article/10.1186/s13673-020-00236-8</a></li>
+</ul>
+</section>
+<section id="persondata-og-gdpr" class="level4">
+<h4 class="anchored" data-anchor-id="persondata-og-gdpr">Persondata og GDPR</h4>
+<ul>
+<li><a href="https://pentests.dk/docs/gdpr-developers-guide/" class="uri">https://pentests.dk/docs/gdpr-developers-guide/</a>
+<ul>
+<li>Original (på engelsk) <a href="https://github.com/LINCnil/GDPR-Developer-Guide" class="uri">https://github.com/LINCnil/GDPR-Developer-Guide</a></li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="kode-eksempler" class="level3">
+<h3 class="anchored" data-anchor-id="kode-eksempler">Kode eksempler</h3>
+<section id="wifi-sniffter" class="level4">
+<h4 class="anchored" data-anchor-id="wifi-sniffter">WiFi sniffter</h4>
+<ul>
+<li><p>En demo af en wifi sniffer lavet med generativ AI (Claude). <a href="https://github.com/s0ren/IndoorPos_opgave_noter/tree/main/demo_kode/Proximity%20sniffer">demo_kode/Proximity sniffer</a></p></li>
+<li><p>og lidt flere på <a href="https://github.com/s0ren/IndoorPos_opgave_noter" class="uri">https://github.com/s0ren/IndoorPos_opgave_noter</a></p></li>
+<li><p>en anden wifi sniffer <a href="https://github.com/ETS-PoliTO/esp32-sniffer" class="uri">https://github.com/ETS-PoliTO/esp32-sniffer</a></p></li>
+</ul>
+</section>
+</section>
+<section id="mqtt-server" class="level3">
+<h3 class="anchored" data-anchor-id="mqtt-server">MQTT server</h3>
+<p>Der er opstillet en lokal MQTT server i undervisningslokalet, som i skal bruge. Under udviklingen kan i godt gøre brug af jeres egen.</p>
+<p>Se: <a href="../Features/lokal_mqtt.html">Lokal MQTT server</a></p>
+<!--
+#### MQTT & MongoDB server setup
+
+Et docker-compose projekt som kører Mosquitto MQTT og MongoDB, samt en tilhørende mqtt-subscriber, til at overføre fra MQTT til mongoDB. Se mappen [demo_kode/mqtt_mongdb_server/](/demo_kode/mqtt_mongdb_server/).
+-->
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Kopieret!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Kopieret!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/s0ren\.github\.io\/FAG_17682_IoT_II\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
