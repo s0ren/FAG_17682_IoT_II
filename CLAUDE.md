@@ -26,27 +26,38 @@ Content may go beyond the objectives or leave some out, and the teacher decides.
 
 ## Layout
 
-- `_quarto.yml`: site config: title, navbar, sidebar (built automatically from `emner/`), theme (`cosmo` + `brand`), `styles.css`, TOC, `lang: da`, HTML and Typst (PDF) output
-- `index.qmd`: front page. `about.qmd` exists but isn't in the navbar.
-- `emner/`: one subfolder per topic, each with an `index.qmd` and any related pages. For example, `emner/afsluttende_opgave/` holds the final assignment and its checklist.
+- `_quarto.yml`: site config: title, navbar, sidebar (`contents: auto`, built from all pages), `draft-mode: unlinked`, theme (`cosmo` + `brand`), `styles.css`, TOC, `lang: da`. Output goes to `output/` (`output-dir`). The site-wide Typst (PDF) format is commented out, but some pages (e.g. `Opgaver/Projektopgave_Smiley.qmd`) turn on `typst` in their own front matter.
+- `index.qmd`: front page: introduction to the second part of the subject (the first part was on H3), the hardware (ESP32-DEVKIT-V1) and the week plan (Forløb)
+- `Features/`: technical guides, e.g. `lokal_mqtt.qmd` (local MQTT broker), with images in `Features/images/`
+- `Opgaver/`: exercises and project assignments, e.g. `wifi_pos.qmd`, `Projektopgave_Smiley.qmd`
+- `Referencer/`: references
+- `emner/`: topics; `emner/afsluttende_opgave/` holds the final assignment and its checklist
+- `images/`: images for the front page
+- `bib/`: bibliography (`.bib`)
+- `about.qmd`: exists but isn't in the navbar
 - `styles.css`: extra CSS for the HTML output
 - `_fagbeskrivelse/`: the official subject description (målpinde). Not rendered.
-- `_site/` and `.quarto/`: build output and cache, ignored by git (as is the old build folder `output/`). Don't edit them by hand.
+- `output/`, `_site/` and `.quarto/`: build output and cache, ignored by git. Don't edit them by hand. `_site/` is from older builds before `output-dir` was set.
+- The `gh-pages` branch holds the published site (built with `quarto publish gh-pages`). Don't edit it by hand.
 
 ## Conventions
 
 - Write content in Danish, for apprentices on the Datatekniker programme. Mark English passages with `{lang="en"}` (span or div) so spell checking and hyphenation use the right language.
-- Pages render to both HTML and Typst (PDF). Keep content working in both: store images locally (e.g. in an `images/` folder next to the page) rather than linking to remote URLs, since Typst needs local files.
+- Store images locally next to the page (e.g. an `images/` folder) rather than linking to remote URLs, since Typst needs local files. Avoid spaces in image file names: Typst can't find them.
 - Give images alt text with `fig-alt="..."` that describes what the picture actually shows.
-- New topics go in `emner/<topic>/index.qmd`; the sidebar picks them up automatically. Pages outside `emner/` must be added to `website.navbar` in `_quarto.yml` to appear in the menu.
-- Where it helps, state which målpinde a topic or assignment covers.
+- Put new pages in the folder that fits (`Features/`, `Opgaver/`, `Referencer/`, `emner/`). The sidebar picks them up automatically. Mark unfinished pages `draft: true`.
+- Where it helps, state which målpinde a page or assignment covers.
+
+## Branches
+
+Each course run (skoleforløb) has its own branch, named after month and year (`Marts_2025`, `November_2025`, `maj_2026`, `November_2026`). A new run branches from the latest one. Don't change older run branches.
 
 ## Commands
 
 ```bash
-quarto render              # build the whole site into _site/
-quarto render index.qmd    # render one page (HTML and PDF)
+quarto render              # build the whole site into output/
+quarto render index.qmd    # render one page
 quarto preview             # live preview
 ```
 
-Render after changes to check that both formats build without errors.
+Render after changes to check that the site builds without errors.
