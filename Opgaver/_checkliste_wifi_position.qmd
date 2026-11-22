@@ -24,6 +24,8 @@ Opgavens karakter er udpræget eksplorativ. Det vil sige at I skal undersøge hv
         -   [ ] hvor svært er det for udenforstående at skaffe sig adgang til data?
         -   [ ] eller at lytte med?
 
+{{< pagebreak >}}
+
 -   [ ]  Programmering\
     Programkoden skal skrives så den er
     -   [ ]  mest muligt overskuelig,

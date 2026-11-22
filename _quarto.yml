@@ -22,6 +22,12 @@ lang: da
 toc: true
 # Ændringsdato: sidste commit (via _scripts/git_mtime.py). Oprettelsesdato (date:) står på hver side.
 date-modified: last-modified
+# Sidemargener i PDF (Typst). HTML bruger dem ikke.
+margin:
+  top: 1cm
+  right: 1cm
+  bottom: 1.5cm
+  left: 1.5cm
 author:
   - name: Søren Magnusson
     affiliation: Data, TEC
