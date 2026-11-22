@@ -14,6 +14,8 @@ Desuden kan man ønske at få oplysninger om hvormange (personer/enheder) der f�
 
 Hvordan kan man bestemme hvor en enhed befinder sig, uden at have adgang til GPS? Inde i bygninger er GPS signaler ikke særligt tilgængelige, og/eller særlige nøjagtige.
 
+Er det muligt at positionsbestemme enheder alene ved at kende signalstyrken fra enheden?
+
 ## Formål
 
 I skal undersøge hvordan det er muligt at bestemme
@@ -30,6 +32,10 @@ Samtidig skal I også forholde jer til
 
 Undersøg hvordan man kan håndtere viden om enhederne så lidt som muligt, og alligevel registrere at der er enheder tilstede, hvor og hvornår.
 
+## Grupper 
+
+Opgaven skal løses på mindst 2 personer, og højst 3 personer. Grupperne sammensættes efter aftale med læreren. I opretter selv grupper på ItsLearning.
+
 ## Produktmål
 
 I skal lave en opstilling med flere IoT-enheder, som indsamler oplysninger om mobilenheder (f.eks.mobiltelefoner) med wifi.\
@@ -37,26 +43,43 @@ Det område I arbejder med kan være jeres bord eller hele lokalet.
 
 Ved at placere flere IoT-enheder i hjørnerne af området, kan man få oplysninger om afstanden fra hver IoT-enhed til mobilenheden. På baggrund af disse oplysninger kan beregne geometrisk, hvor mobilenheden befinder sig. Nøjagtigheden bliver ikke så stor, men det må vi leve med.
 
-I skal programmere IoT-enhederne i opstillingen til at kommunike med hinanden, så de kan samle oplysninger om afstand til mobilenheder, så der bliver mulighed for stedsbestemmelse. \
+I skal programmere IoT-enhederne i opstillingen til at kommunikere med hinanden, så de kan samle oplysninger om afstand til mobilenheder, så der bliver mulighed for stedsbestemmelse. \
 Skal en af IoT-enhederne være server, eller skal de alle samle data? Det er jeres valg.
 
-Jeres opstalling af IoT-enheder skal indsende data til MQTT serveren (den som er sat op lokalt) med data om
+Jeres opstilling af IoT-enheder skal indsende data til MQTT serveren (den som er sat op lokalt) med data om
 
 -   et unikt id,
 -   et tidspunkt, og
--   et kordinat (x,y)
+-   et koordinat (x,y)
 
-En anden applikation (som ikke er indeholdt i denne opgave) kan så udtrække oplysningerne, og presentere statistiske sammendrag som hyppighed over dagen, et heatmap over hvor i området, osv
+Data skal være forberedt sådan, at det er let at udtrække data og vise statistiske oplysninger som hyppigheder for enheder fordelt på timer eller placeringer, et heatmap over hvor i området, eller lignende.
+
+Det er __ikke__ en del af opgaven at lave sådan en præsentation men data skal være forberedt på det.
+
+Det funktionelle mål for programkode og dokumentation er at det skal være muligt for en anden person, at kunne tage jeres opstilling, og med jeres dokumentation, kunne få det til at virke.
+
+Se kravene til kode og dokumentation i [checklisten](#bedømmelse) nedenfor.
 
 ## Procesmål
 
 Beskriv fremgangsmåde og teknologier der kan bruges til at nå målet.
 
-Der er flere forskellige teknologier og strategier at vælge, og I skal lave noter om hvilke i har fundet oplysniger om, og lave forsøg med at implementere en eller flere. Implementerirngerne kan starte som nogle forsøg på hurtigt at se om det er muligt at bruge teknologien. Hvis det ikke er, kan man gå videre til noget andet. Hvis der er gode resultater, kan det bruges til at kombinere med flere.
+Der er flere forskellige teknologier og strategier at vælge, og I skal lave noter om hvilke I har fundet oplysninger om, og lave forsøg med at implementere en eller flere. Implementeringerne kan starte som nogle forsøg på hurtigt at se om det er muligt at bruge teknologien. Hvis det ikke er, kan man gå videre til noget andet. Hvis der er gode resultater, kan det bruges til at kombinere med flere.
 
 Beskriv hvad I finder, hvad I prøver af, og hvordan den nye viden kan bruges.
 
 Her er *logbog* og *portfolie* vigtige dokumentationsformer. I behøver *ikke* lave en traditionel rapport, bare i har ført *logbogen* og noteret i *portfoliet*. Helst undervejs.
+
+## Præsentation
+
+I skal præsentere jeres løsning på en måde hvor I sørger for at
+
+-  løsningens dele beskrives og
+-  de valg som er gjort, for at lave projektet, forklares.
+
+Hvis I kan og vil præsentere i plenum for holdet, styrker det jeres læringsudbytte enormt, men det er ikke et krav. 
+
+Hvis I vælger at fremvise for kun læreren, kan det også godkendes. Præsentation i plenum vurderes dog højere end en præsentation kun for læreren.
 
 ## Hovedproblematikker
 
@@ -66,7 +89,7 @@ Der er et antal hovedproblematikker:
     -   Hvordan ser matematikken ud?
 -   Afstand mellem målestation og mobil
     -   RSSI
-        -   Kan findes med "sniffing" i wifi modulet promicius mode
+        -   Kan findes med "sniffing" i wifi-modulets [promiscuous mode]{lang="en"}
     -   Roundtrip
 -   Kommunikation mellem målestationer
     -   ESP MESH
@@ -74,7 +97,7 @@ Der er et antal hovedproblematikker:
 
 ### Persondata
 
-Når vi indsamler data om alle enheder i "luften", så er nogen af disse data noget der har med perosner at gøre. Det gør at vi skal overveje hvordan vi behandler disse oplysninger. Projektet kommer muligvis i berøring med Persondata lovgivningen, som igen refererer til EUs GDPR.
+Når vi indsamler data om alle enheder i "luften", så er nogen af disse data noget der har med personer at gøre. Det gør at vi skal overveje hvordan vi behandler disse oplysninger. Projektet kommer muligvis i berøring med Persondata lovgivningen, som igen refererer til EUs GDPR.
 
 -   Hvilke disse data er personlige?
     -   Er de følsomme?
@@ -86,7 +109,7 @@ Når vi indsamler data om alle enheder i "luften", så er nogen af disse data no
 
 ## Aflevering 
 
-Opgaven skal afleveres på ItsLearning (man kan ikke lave ekseterne links ind). /
+Opgaven skal afleveres på ItsLearning (man kan ikke lave eksterne links ind).\
 I skal aflevere alle kode filer (naturligvis), samt logbog og arbejdsportefolie.
 Enten skal det hele pakkes i en komprimeret fil (f.eks. zip), eller hvis I har projektet i git og på GitLab, GitHub eller lignende, så er det fint at I bare afleverer et link til repo'et. Husk bare at læreren skal have læse rettigheder (eller bare public).
 
@@ -94,7 +117,7 @@ Enten skal det hele pakkes i en komprimeret fil (f.eks. zip), eller hvis I har p
 
 Hvis projektet alligevel ligger på et offentligt git repo (eller noget lignende), kan i godt lave en tidlig aflevering, og så løbende pushe til repo'et. På den måde kan læreren følge med i logbog og portefolie.
 
-## Spørgsmål som indgår i bedømmelsen
+## Spørgsmål som indgår i bedømmelsen {#bedømmelse}
 
 Opgavens karakter er udpræget eksplorativ. Det vil sige at I skal undersøge hvad og hvordan det kan lade sig gøre. Så undesøgelsen tæller i sig selv. Det tæller også at kode noget. Så altså begge dele.
 
@@ -119,9 +142,37 @@ Opgavens karakter er udpræget eksplorativ. Det vil sige at I skal undersøge hv
         -   [ ] hvor svært er det for udenforstående at skaffe sig adgang til data?
         -   [ ] eller at lytte med?
 
+-   [ ]  Programmering\
+    Programkoden skal skrives så den er
+    -   [ ]  mest muligt overskuelig,
+    -   [ ]  understøtter genbrug,
+    -   [ ]  lettest muligt kan udbygges eller
+    -   [ ]  udskiftes med andre teknologier.
+-   [ ]  Konfiguration\
+    Det skal være let at overskue og ændre centrale konfigurationer
+    <!-- 
+    -   [ ] GPIO porte som sensorer tilsluttes
+    -   [ ] Tids-intervaller for sensor(er) som aflæses med faste perioder
+    -   [ ] Tærskelværdier for tidsgrænser til pauser for de-bounce mv. 
+    -->
+    -   [ ] Adresser, porte og koder til de anvendte datalager services
+    -   [ ] WiFi SSID, og password, som bruges til at ESP32 eneheden kan tilgå internettet
+    -   [ ] med mere, osv
+-   [ ]  Dokumentation\
+    Det skal dokumenteres, hvordan
+    -   [ ] systemet anvedes og startes,
+    -   [ ] systemet sættes op, og
+    -   [ ] hvilke krav der er til datalagringen, for at systemet fungerer,
+    -   [ ] hvordan komponenter kan udkiftes eller udbygges.
+    -   [ ] Programkoden skal være passende kommenteret, så komponenterne let genkendes, og forstås.
+- [ ]  Præsentation 
+    -  [ ] løsningens dele beskrives og
+    -  [ ] de valg som er gjort, for at lave projektet, forklares.
+    -  [ ] Præsenteret i plenum.
+
 ## Forslag til teknologier at kigge på
 
-1.  prøv først med at opsamle RSSI ved at lytte til net pakker, i promiscuis mode
+1.  prøv først med at opsamle RSSI ved at lytte til net pakker, i [promiscuous mode]{lang="en"}
 2.  prøv at lave en tilnærmet afstandsberegning
 3.  undersøg hvordan afstand/RSSI kan udveklses mellem ESP32-enhederne
     1.  Kan man bruge ESP-MESH mens enheden sniffer?
