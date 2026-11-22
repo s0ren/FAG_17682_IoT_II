@@ -30,7 +30,7 @@ Content may go beyond the objectives or leave some out, and the teacher decides.
 - Settings live in one place: put shared settings in `_quarto.yml` or a folder's `_metadata.yml`, and keep only page-specific settings (title, subtitle, date, `draft`, `bibliography`, `number-sections`, `format` for PDF) in a page's front matter. Don't repeat `format: html`, `lightbox`, `toc`, `lang` or author fields on pages. Never put an email address on the pages.
 - `index.qmd`: front page: introduction to the second part of the subject (the first part was on H3), the hardware (ESP32-DEVKIT-V1) and the week plan (Forløb)
 - `Features/`: technical guides, e.g. `lokal_mqtt.qmd` (local MQTT broker), with images in `Features/images/`
-- `Opgaver/`: exercises and project assignments, e.g. `wifi_pos.qmd`, `Projektopgave_Smiley.qmd`. `Opgaver/afsluttende_opgave/` holds the final assignment and its checklist (both `draft: true` for now). `Opgaver/index.qmd` lists the assignments automatically (a Quarto listing; drafts are left out).
+- `Opgaver/`: exercises and project assignments, e.g. `Projektopgave_wifi_position.qmd`, `Projektopgave_Smiley.qmd`. `Opgaver/afsluttende_opgave/` holds the final assignment and its checklist (both `draft: true` for now). `Opgaver/index.qmd` lists the assignments automatically (a Quarto listing; drafts are left out).
   - An assignment that should also be a PDF adds `format: {html: default, typst: default}` to its front matter. `Opgaver/_metadata.yml` styles the resulting "PDF" link. Typst can't be set in `_metadata.yml`, because a page can't opt out of an inherited format (the listing page would get a PDF too).
 - `Referencer/`: references
 - `images/`: images for the front page

@@ -2,6 +2,7 @@
 title: "Projektopgave, Positionsbestemmelse af enheder uden GPS dækning"
 
 date: 2025-11-30
+aliases: [wifi_pos.html]   # gammelt navn, så eksisterende links virker
 format: {html: default, typst: default}
 ---
 <!-- # Positionsbestemmelse af enheder uden GPS dækning -->
