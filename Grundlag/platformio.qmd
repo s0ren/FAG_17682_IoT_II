@@ -1,0 +1,364 @@
+---
+title: "PlatformIO"
+subtitle: "Opsætning af VS Code og PlatformIO til ESP32"
+date: 2026-11-23
+maalpinde: [17, 20, 24]
+draft: true
+---
+
+<!-- IKKE KOMPILERET: eksemplerne er tjekket mod dokumentationen, men ikke kompileret eller testet på hardware. -->
+
+<!--
+TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
+1. Kompilér og upload begge eksempler med platform = espressif32@8.0.0.
+2. Hvor meget fylder den første download af espressif32@8.0.0? Ret "flere hundrede MB".
+3. Beder VS Code om "Reload Window", når PlatformIO Core er installeret? (ren installation)
+4. Project Wizard: passer feltnavnene (Name/Board/Framework/Location) og fluebenet "Use default location"?
+5. Skriver guiden platform = espressif32 uden version?
+6. Hvilken USB-chip har skolens kort: CP2102 eller CH340? Ret afsnittet om USB.
+7. Virker driver-linkene til Silicon Labs og WCH? Henter Windows selv driveren på skolens maskiner?
+8. Hvornår må BOOT slippes under upload? Prøv på skolens kort.
+Skærmbilleder, der mangler (se BILLEDE-kommentarerne):
+9. Project Wizard udfyldt. 10. Explorer med nyt projekt. 11. PlatformIO-knapperne i statuslinjen. 12. Enhedshåndtering med COM-porten. 13. Terminalen ved en mislykket upload.
+14. Når alt er testet: fjern IKKE KOMPILERET, denne tjekliste og TJEK-/BILLEDE-kommentarerne.
+-->
+
+Før du kan skrive den første linje kode til ESP32, skal du have et værktøj, der kan oversætte koden og lægge den over på kortet. I faget bruger vi PlatformIO, som er en udvidelse til Visual Studio Code (VS Code). PlatformIO henter selv compiler, Arduino-framework og biblioteker, så alle i klassen bygger med præcis de samme versioner. Denne side fører dig fra en tom computer til et ESP32-kort, der blinker og skriver i Serial Monitor.
+
+## Formål
+
+- Du kan installere VS Code og PlatformIO på din egen computer.
+- Du kan oprette et PlatformIO-projekt til ESP32-DEVKIT-V1 med Arduino-frameworket og forklare, hvad de forskellige filer og mapper bruges til.
+- Du kan bygge, uploade og åbne Serial Monitor, og du kan sætte `monitor_speed`.
+- Du kan tilføje et bibliotek med `lib_deps`.
+- Du kan finde fejlen, når upload ikke virker: forkert kabel, manglende driver, forkert port eller kortet, der ikke vil gå i upload-tilstand.
+
+## Målpinde
+
+Siden arbejder med målpind 17, 20 og 24 (se [Læringsmål](../laeringsmaal.qmd)).
+
+## Forudsætninger
+
+- En computer med Windows, macOS eller Linux, hvor du må installere programmer. Vejledningen her går ud fra Windows.
+- Internetforbindelse. Første gang henter PlatformIO flere hundrede MB.
+- Hardware: ESP32-DEVKIT-V1 og et USB-kabel, der kan overføre data (se [USB-kablet](#usb-kablet)).
+
+<!-- TJEK: "flere hundrede MB" er et skøn ud fra toolchain + Arduino-core; ikke målt for espressif32@8.0.0. -->
+
+## Installation
+
+### VS Code og PlatformIO IDE
+
+1. Hent og installer VS Code fra <https://code.visualstudio.com/>.
+2. Start VS Code, og åbn Extensions-visningen ([Extensions view]{lang="en"}) med **Ctrl+Shift+X** eller ikonet med de fire firkanter i venstre side.
+3. Søg efter **PlatformIO IDE**. Vælg udvidelsen fra udgiveren PlatformIO (id'et er `platformio.platformio-ide`), og klik **Install**. Der findes andre udvidelser med lignende navne, så tjek udgiveren.
+4. Første gang du installerer en udvidelse fra en ny udgiver, spørger VS Code, om du stoler på udgiveren. Svar ja.
+
+VS Codes egen vejledning [Extension Marketplace](https://code.visualstudio.com/docs/configure/extensions/extension-marketplace){lang="en"} har skærmbilleder af Extensions-visningen og knappen **Install**.
+
+### Første start
+
+På Windows skal du ikke installere Python eller PlatformIO Core selv. PlatformIO IDE har sin egen Python og installerer PlatformIO Core ([CLI]{lang="en"}, kommandolinjeværktøjet) i baggrunden, første gang udvidelsen starter. Det tager et par minutter, og du kan følge det nederst i vinduet. Når det er færdigt, beder VS Code dig måske om at genindlæse vinduet. Gør det. (På Linux skal pakken `python3-venv` være installeret, før PlatformIO kan installere sig.) Derefter dukker PlatformIO-ikonet (et myrehoved) op i venstre side, og **PIO Home** åbner.
+
+<!-- TJEK: at VS Code beder om "Reload Window" efter installationen af Core står ikke i PlatformIO's docs; det er den typiske oplevelse. -->
+
+PlatformIO lægger alle værktøjer i mappen `.platformio` i din brugermappe (på Windows `%HOMEPATH%\.platformio`). Det er her, compileren og Arduino-frameworket ender, når du bygger første gang. Derfor tager den første build også lang tid; de næste går hurtigt.
+
+::: {.callout-warning}
+## Undgå æ, ø og å i stien
+
+PlatformIO kan ikke bygge projekter, hvor den fulde sti indeholder tegn uden for ASCII, fx æ, ø og å. Det er en kendt fejl, som står i PlatformIO's FAQ. Hvis dit brugernavn på Windows er fx `Søren`, så læg dine projekter i en mappe som `C:\iot\` i stedet for under Dokumenter. Undgå også mellemrum i mappenavne, så slipper du for en anden type problemer.
+:::
+
+## Opret et projekt
+
+1. Klik på PlatformIO-ikonet i venstre side, og vælg **PIO Home → Open**. Eller klik på huset i statuslinjen nederst.
+2. Klik **New Project**. I guiden ([Project Wizard]{lang="en"}) udfylder du:
+   - **Name:** projektets navn, fx `blink_test`. Brug små bogstaver og `_`, ingen mellemrum eller æøå.
+   - **Board:** skriv `DOIT` og vælg **DOIT ESP32 DEVKIT V1**.
+   - **Framework:** **Arduino**.
+   - **Location:** fjern fluebenet ved standardplaceringen, og vælg en mappe uden æøå og mellemrum (se boksen ovenfor).
+3. Klik **Finish**. Første gang henter PlatformIO platformen `espressif32` og Arduino-frameworket. Det kan tage flere minutter.
+
+Se skærmbillederne i PlatformIO's [Quick Start](https://docs.platformio.org/en/latest/integration/ide/vscode.html#quick-start){lang="en"} under trin 1 (PIO Home) og trin 2 (New Project).
+
+<!-- TJEK: feltnavnene Name/Board/Framework/Location og fluebenet "Use default location" (standard: Dokumenter\PlatformIO\Projects) er ikke beskrevet i PlatformIO's docs; de er efter hukommelsen. -->
+
+<!-- BILLEDE: dialogen "Project Wizard" i PIO Home, udfyldt med navn, board "DOIT ESP32 DEVKIT V1", framework "Arduino" og en Location uden æøå. -->
+
+### Lås platformens version
+
+Guiden skriver `platform = espressif32` i `platformio.ini`. Uden versionsnummer bruger PlatformIO den version, der allerede er installeret på computeren, eller den nyeste, hvis der ikke er nogen. Så kan to elever, der har installeret med en måneds mellemrum, få forskellige versioner af Arduino-frameworket. Ret derfor linjen til:
+
+```{.ini filename="platformio.ini"}
+platform = espressif32@8.0.0
+```
+
+Version 8.0.0 af platformen indeholder Arduino-ESP32 version 3.3.x. Bemærk, at det er to forskellige versionsnumre: platformen (8.0.0) er PlatformIO's pakke, og Arduino-ESP32 (3.3.x) er frameworket inden i den. Platform 7.x indeholdt fx stadig Arduino-ESP32 2.x. Det er den version, siderne på dette site er tjekket mod, så koden her opfører sig ens hos alle. PlatformIO anbefaler selv at låse versionen, så en build kan gentages.
+
+Vil du senere skifte version, retter du bare tallet og bygger igen. PlatformIO henter selv den nye version. Se, hvilke versioner der findes, på [platformens udgivelser på GitHub](https://github.com/platformio/platform-espressif32/releases). Bemærk, at et skift i hovedversion (fx fra Arduino-ESP32 2.x til 3.x) kan kræve ændringer i koden.
+
+<!-- TJEK: at Project Wizard skriver platform = espressif32 uden version er efter hukommelsen. -->
+
+## Projektets opbygning
+
+Når projektet er oprettet, ser mappen sådan ud:
+
+```
+blink_test/
+├── .pio/            ← byggede filer og hentede biblioteker (laves af PlatformIO)
+├── .vscode/         ← indstillinger til VS Code (laves af PlatformIO)
+├── include/         ← dine egne header-filer (.h)
+├── lib/             ← dine egne biblioteker, ét pr. undermappe
+├── src/
+│   └── main.cpp     ← dit program
+├── test/            ← automatiske tests
+├── .gitignore
+└── platformio.ini   ← projektets opsætning
+```
+
+| Fil eller mappe | Hvad den bruges til |
+|---|---|
+| `platformio.ini` | Projektets opsætning: board, framework, platformens version, `monitor_speed` og biblioteker. Én sektion `[env:…]` pr. miljø ([environment]{lang="en"}). |
+| `src/` | Kildekoden. Programmet starter i `src/main.cpp`, som skal begynde med `#include <Arduino.h>` for at kunne bruge Arduino-funktionerne. |
+| `include/` | Header-filer (`.h`), som `main.cpp` kan inkludere med `#include "fil.h"`. Fx `secrets.h` på siden om [WiFi](wifi.qmd). |
+| `lib/` | Biblioteker, du selv skriver og kun bruger i dette projekt. Biblioteker fra nettet skal ikke herind; dem skriver du i `lib_deps`. |
+| `test/` | Unit-tests til PlatformIO's testværktøj. Bruges ikke i begyndelsen. |
+| `.pio/` | Alt det, PlatformIO laver selv: oversatte filer, den færdige firmware og bibliotekerne fra `lib_deps` (i `.pio/libdeps/`). Kan altid laves igen. |
+| `.vscode/` | Filer, som PlatformIO genererer til VS Code, fx stier til header-filer, så autofuldførelse virker. |
+
+<!-- BILLEDE: VS Codes Explorer med et nyoprettet projekt foldet ud, så platformio.ini, src/main.cpp, include/, lib/ og .pio/ kan ses. -->
+
+### .gitignore
+
+Det, der kommer i git, er det, en anden skal bruge for at bygge projektet: `platformio.ini`, `src/`, `include/`, `lib/` og `test/`. `.pio/` skal ikke med. Den fylder meget, og PlatformIO laver den igen ved næste build. Det samme gælder de filer i `.vscode/`, der indeholder stier fra din egen computer.
+
+Når PlatformIO opretter et projekt i VS Code, laver det en `.gitignore` med dette indhold (kun hvis der ikke er en i forvejen):
+
+```{.txt filename=".gitignore"}
+.pio
+.vscode/.browse.c_cpp.db*
+.vscode/c_cpp_properties.json
+.vscode/launch.json
+.vscode/ipch
+```
+
+Lad den stå. Har du hemmeligheder som WiFi-passwords i projektet, skal de også i `.gitignore` (se [WiFi](wifi.qmd)).
+
+## Byg, upload og Serial Monitor
+
+Nederst i VS Code, i statuslinjen, har PlatformIO en række små knapper. Fra venstre:
+
+| Knap | Hvad den gør | Genvej |
+|---|---|---|
+| Hus | Åbner PIO Home | |
+| ✓ **Build** | Oversætter projektet. Fejl vises i terminalen. | Ctrl+Alt+B |
+| → **Upload** | Bygger, hvis det er nødvendigt, og lægger programmet over på ESP32. | Ctrl+Alt+U |
+| Skraldespand **Clean** | Sletter de byggede filer i `.pio/build/`, så næste build starter forfra. | |
+| Stik **Serial Monitor** | Åbner en terminal, der viser det, ESP32 skriver med `Serial`. | Ctrl+Alt+S |
+| Terminal | Åbner en terminal med PlatformIO's kommandolinje (`pio`). | |
+
+De samme kommandoer findes under PlatformIO-ikonet i venstre side under **Project Tasks**, sorteret efter miljø. Se skærmbilledet i PlatformIO's dokumentation under [PlatformIO Toolbar](https://docs.platformio.org/en/latest/integration/ide/vscode.html#platformio-toolbar){lang="en"} og [Task Explorer](https://docs.platformio.org/en/latest/integration/ide/vscode.html#task-explorer){lang="en"}.
+
+<!-- BILLEDE: statuslinjen nederst i VS Code med PlatformIO-knapperne, hvor hver knap har en dansk pil/etiket (Home, Build, Upload, Clean, Serial Monitor, Terminal). -->
+
+**Clean** bruger du, når en build opfører sig mærkeligt, fx efter du har skiftet platformens version eller flyttet filer. Ellers er der ingen grund til det: så skal alt bare oversættes igen.
+
+### monitor_speed
+
+ESP32 og Serial Monitor skal være enige om, hvor hurtigt de sender: [baud rate]{lang="en"}, altså bit pr. sekund. I programmet sættes den med `Serial.begin(115200)`. PlatformIO's Serial Monitor bruger 9600, hvis du ikke skriver andet. Derfor skal hvert projekt have denne linje i `platformio.ini`:
+
+```{.ini filename="platformio.ini"}
+monitor_speed = 115200
+```
+
+Er de to tal forskellige, ser du tilfældige tegn i Serial Monitor i stedet for tekst.
+
+Du lukker Serial Monitor med **Ctrl+C** i terminalen eller ved at lukke terminalen. Du behøver ikke lukke den, før du uploader: PlatformIO lukker den selv under upload og åbner den igen bagefter. Men et *andet* program, der har porten åben (Arduino IDE, PuTTY, en anden VS Code), blokerer upload.
+
+## USB-forbindelsen
+
+### USB-kablet
+
+Mange USB-kabler, især dem der følger med powerbanks og små apparater, kan kun lade og har ingen dataledninger. Med sådan et kabel lyser den røde lysdiode på kortet, men computeren ser ingen port, og upload fejler. Har du problemer, så prøv et andet kabel, før du leder efter fejlen andre steder.
+
+### USB-serielchippen og driveren
+
+ESP32 har ikke selv USB. På DEVKIT-V1 sidder der en lille chip ved USB-stikket, som oversætter mellem USB og ESP32's serielle port (UART). Det originale DOIT-design bruger en **CP2102** fra Silicon Labs, men mange kopier bruger en **CH340** fra WCH. Navnet står på chippen, hvis du kigger med lup.
+
+<!-- TJEK: hvilken USB-serielchip sidder på skolens kort? Tjek et par stykker og ret afsnittet, så det passer. -->
+
+Windows 10 og 11 installerer som regel driveren selv, når du sætter kortet i. Hvis der ikke dukker en port op:
+
+- CP2102: hent driveren *CP210x USB to UART Bridge VCP Drivers* fra [Silicon Labs](https://www.silabs.com/developer-tools/usb-to-uart-bridge-vcp-drivers).
+- CH340: hent driveren fra producenten WCH, [CH341SER](https://www.wch-ic.com/downloads/CH341SER_EXE.html).
+
+<!-- TJEK: Silicon Labs-siden og WCH-siden kunne ikke hentes ved faktatjekket (403 / tom side). Tjek, at linkene virker. At Windows 10/11 selv henter driveren, er Espressifs formulering ("drivers should be bundled with an operating system"), ikke afprøvet på skolens maskiner. -->
+
+### Find COM-porten
+
+På Windows hedder serielle porte `COM3`, `COM4` osv. Sådan finder du den, kortet har fået:
+
+1. Åbn **Enhedshåndtering** (højreklik på Start-knappen).
+2. Fold **Porte (COM og LPT)** ud.
+3. Tag kortet ud og sæt det i igen. Den port, der forsvinder og kommer igen, er din. Den hedder fx *Silicon Labs CP210x USB to UART Bridge (COM3)* eller *USB-SERIAL CH340 (COM5)*.
+
+Espressif viser det med skærmbilleder under [Check Port on Windows](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/establish-serial-connection.html#check-port-on-windows){lang="en"}.
+
+<!-- BILLEDE: Enhedshåndtering på dansk Windows med "Porte (COM og LPT)" foldet ud og ESP32-kortets port markeret. -->
+
+PlatformIO finder normalt selv porten. Har du flere serielle enheder tilsluttet, og vælger den forkert, så skriv porten i `platformio.ini`:
+
+```{.ini filename="platformio.ini"}
+upload_port = COM5
+monitor_port = COM5
+```
+
+Fjern linjerne igen, før du afleverer, for porten er sikkert en anden på lærerens computer.
+
+### "Failed to connect": BOOT-knappen
+
+Ved upload nulstiller værktøjet `esptool` normalt ESP32 og sætter den i upload-tilstand ([download mode]{lang="en"}) automatisk. Mens det sker, skriver det `Connecting....` med flere og flere prikker. Nogle kort når ikke at skifte, og så ender upload med en fejl, der begynder sådan:
+
+```
+A fatal error occurred: Failed to connect to ESP32: ...
+```
+
+Resten af linjen afhænger af esptool-versionen, fx `Timed out waiting for packet header`, `No serial data received` eller `Wrong boot mode detected`.
+
+<!-- BILLEDE: terminalen i VS Code under en mislykket upload, med "Connecting......" og "A fatal error occurred: Failed to connect to ESP32" synlige. -->
+
+Løsningen er at sætte kortet i upload-tilstand i hånden med knapperne ved USB-stikket:
+
+1. Start upload.
+2. Når der står `Connecting....`, så hold **BOOT**-knappen nede.
+3. Slip den, når uploaden er gået i gang, og der står `Writing at …`.
+
+<!-- TJEK: hvornår BOOT må slippes ("Writing at …") står ikke i esptool-docs, som kun siger: hold BOOT nede, mens esptool starter og under reset. Afprøv på skolens kort. -->
+
+Virker det ikke, så hold **BOOT** nede, tryk kort på **EN** (reset), og slip derefter BOOT. BOOT-knappen trækker GPIO 0 til GND, og det er det, der får ESP32 i upload-tilstand ved opstart.
+
+Efter upload starter programmet normalt af sig selv. Gør det ikke, så tryk på **EN**.
+
+## Eksempel: test af build og upload
+
+Et lille program, der kun skal vise, at det hele virker: den indbyggede lysdiode på GPIO 2 blinker, og ESP32 skriver i Serial Monitor hvert sekund. Selve programmeringen gennemgås på siden om Hello World.
+
+```{.ini filename="platformio.ini"}
+[env:esp32doit-devkit-v1]
+platform = espressif32@8.0.0
+board = esp32doit-devkit-v1
+framework = arduino
+monitor_speed = 115200
+```
+
+```{.cpp filename="src/main.cpp"}
+#include <Arduino.h>
+
+// Konfiguration
+const int LED_PIN = 2;                 // indbygget lysdiode på DEVKIT-V1
+const unsigned long INTERVAL_MS = 1000; // tid mellem skift
+
+unsigned long sidsteSkift = 0;
+bool ledTaendt = false;
+
+void setup() {
+  Serial.begin(115200);  // skal passe med monitor_speed
+  pinMode(LED_PIN, OUTPUT);
+  Serial.println("PlatformIO virker!");
+}
+
+void loop() {
+  // millis() i stedet for delay(), så loop() aldrig står stille
+  if (millis() - sidsteSkift >= INTERVAL_MS) {
+    sidsteSkift = millis();
+    ledTaendt = !ledTaendt;
+    digitalWrite(LED_PIN, ledTaendt ? HIGH : LOW);
+    Serial.printf("Kørt i %lu s\n", millis() / 1000);
+  }
+}
+```
+
+Klik **Upload** og derefter **Serial Monitor**. Lysdioden skal blinke, og der skal komme en linje hvert sekund. Ser du ikke linjen `PlatformIO virker!`, er det fordi programmet startede, før Serial Monitor var åben. Tryk på **EN**, så starter programmet forfra.
+
+## Eksempel: et bibliotek med lib_deps
+
+Biblioteker fra nettet skriver du i `lib_deps` i `platformio.ini`. Når du bygger, henter PlatformIO dem fra [PlatformIO-registret](https://registry.platformio.org/) og lægger dem i `.pio/libdeps/`. Du skal ikke kopiere filer selv.
+
+Siden om [Debouncing](debouncing.qmd) bruger biblioteket ezButton:
+
+```{.ini filename="platformio.ini"}
+[env:esp32doit-devkit-v1]
+platform = espressif32@8.0.0
+board = esp32doit-devkit-v1
+framework = arduino
+monitor_speed = 115200
+lib_deps = arduinogetstarted/ezButton@^1.0.6
+```
+
+Navnet består af tre dele:
+
+- `arduinogetstarted` er ejeren i registret. Tag det med, så du får det rigtige bibliotek, hvis flere har samme navn.
+- `ezButton` er bibliotekets navn.
+- `@^1.0.6` er versionen: `^` betyder "1.0.6 eller nyere, men stadig 1.x.x". Så får du fejlrettelser og nye funktioner, men ikke en ny hovedversion, der kan ændre de funktioner, du bruger. Det er den form, PlatformIO anbefaler.
+
+Flere biblioteker skrives på hver sin linje, rykket ind:
+
+```{.ini filename="platformio.ini"}
+lib_deps =
+  arduinogetstarted/ezButton@^1.0.6
+  knolleary/PubSubClient@^2.8
+```
+
+Biblioteker, der følger med Arduino-frameworket, som `WiFi.h`, skal *ikke* i `lib_deps`.
+
+
+## Øvelser
+
+1. Installer VS Code og PlatformIO, og opret projektet `blink_test`. Byg det. Hvor lang tid tager den første build, og hvor lang tid tager den næste? Forklar forskellen.
+2. Find kortets COM-port i Enhedshåndtering. Upload testprogrammet, og åbn Serial Monitor. Aflever et skærmbillede af Serial Monitor.
+3. Ret `monitor_speed` til 9600, men lad `Serial.begin(115200)` stå. Hvad ser du i Serial Monitor? Ret det tilbage.
+4. Tilføj ezButton med `lib_deps`, og byg. Find biblioteket i `.pio/libdeps/`. Kør derefter `git init` og `git status` i projektmappen. Kommer `.pio/` med? Hvorfor ikke?
+5. Ret `INTERVAL_MS` til 200, og upload igen. Upload så en gang, mens du holder BOOT-knappen nede, som beskrevet under [BOOT-knappen](#failed-to-connect-boot-knappen). Virker det også?
+6. *Ekstra:* Klik **Clean**, og byg igen. Sammenlign tiden med de to builds fra øvelse 1. Hvad blev slettet af Clean, og hvad lå der stadig i `.platformio` i din brugermappe?
+
+## Typiske fejl
+
+- **Ingen port dukker op:** Kablet kan kun lade, eller driveren til USB-serielchippen mangler. Prøv et andet kabel først.
+- **`Failed to connect to ESP32`:** Kortet kom ikke i upload-tilstand. Hold BOOT nede under `Connecting....`. Tjek også, at et andet program ikke har porten åben.
+- **Tilfældige tegn i Serial Monitor:** `monitor_speed` passer ikke med `Serial.begin()`.
+- **Serial Monitor er tom:** Programmet skrev sin tekst, før monitoren var åben. Tryk på EN. Eller `Serial.begin()` mangler.
+- **Build fejler med mærkelige fejl om stier eller tegn:** Projektets sti indeholder æ, ø, å eller andre tegn uden for ASCII. Flyt projektet.
+- **`Access is denied` under installationen:** Et antivirusprogram blokerer PlatformIO. Se PlatformIO's FAQ.
+- **`fatal error: ezButton.h: No such file or directory`:** Biblioteket står ikke i `lib_deps`, eller navnet er stavet forkert.
+- **Koden virker hos dig, men ikke hos læreren:** Platformens version er ikke låst, så I bygger med forskellige versioner af Arduino-frameworket.
+
+## Læs videre
+
+### Random Nerd Tutorials
+
+[Getting Started with VS Code and PlatformIO IDE for ESP32 and ESP8266](https://randomnerdtutorials.com/vs-code-platformio-ide-esp32-esp8266-arduino/){lang="en"} viser de samme trin med mange skærmbilleder: installationen af VS Code, PIO Home, guiden til nyt projekt med DOIT ESP32 DEVKIT V1, upload og Serial Monitor, og hvordan man finder biblioteker i PIO Home i stedet for at skrive `lib_deps` i hånden.
+
+Læs den med to forbehold. Artiklen er fra 2020 og siger, at du skal installere Python først. Det skal du ikke længere på Windows: PlatformIO IDE har sin egen Python. Og lås platformens version som beskrevet ovenfor, uanset hvad artiklens skærmbilleder viser.
+
+## Kilder
+
+- PlatformIO: PlatformIO IDE for VSCode (installation, Quick Start, toolbar, indstillinger), <https://docs.platformio.org/en/latest/integration/ide/vscode.html>
+- PlatformIO: DOIT ESP32 DEVKIT V1, <https://docs.platformio.org/en/latest/boards/espressif32/esp32doit-devkit-v1.html>
+- PlatformIO: `platform` (låsning af version), <https://docs.platformio.org/en/latest/projectconf/sections/env/options/platform/platform.html>
+- PlatformIO: platform-espressif32, udgivelser (8.0.0 med Arduino-ESP32 3.3.12), <https://github.com/platformio/platform-espressif32/releases>
+- PlatformIO: `pio project init` (projektets mapper), <https://docs.platformio.org/en/latest/core/userguide/project/cmd_init.html>
+- PlatformIO: kildekode til `.gitignore` for VS Code-projekter, <https://github.com/platformio/platformio-core/blob/develop/platformio/project/integration/tpls/vscode/.gitignore.optional.tpl>
+- PlatformIO: `monitor_speed`, <https://docs.platformio.org/en/latest/projectconf/sections/env/options/monitor/monitor_speed.html>
+- PlatformIO: `pio device monitor`, <https://docs.platformio.org/en/latest/core/userguide/device/cmd_monitor.html>
+- PlatformIO: `upload_port`, <https://docs.platformio.org/en/latest/projectconf/sections/env/options/upload/upload_port.html>
+- PlatformIO: `lib_deps`, <https://docs.platformio.org/en/latest/projectconf/sections/env/options/library/lib_deps.html>
+- PlatformIO: versionskrav (`^`, `~`), <https://docs.platformio.org/en/latest/core/userguide/pkg/cmd_install.html>
+- PlatformIO: `core_dir`, `workspace_dir` og `libdeps_dir`, <https://docs.platformio.org/en/latest/projectconf/sections/platformio/options/directory/core_dir.html>
+- PlatformIO: Troubleshooting (ikke-ASCII i stier, Access is denied), <https://docs.platformio.org/en/latest/faq/troubleshooting.html>
+- VS Code: Extension Marketplace, <https://code.visualstudio.com/docs/configure/extensions/extension-marketplace>
+- Espressif: Establish Serial Connection with ESP32, <https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/establish-serial-connection.html>
+- Arduino-ESP32: Troubleshooting (kabler, driver, BOOT-knappen), <https://docs.espressif.com/projects/arduino-esp32/en/latest/troubleshooting.html>
+- esptool: Troubleshooting, <https://docs.espressif.com/projects/esptool/en/latest/esp32/troubleshooting.html>
+- esptool: Boot Mode Selection, <https://docs.espressif.com/projects/esptool/en/latest/esp32/advanced-topics/boot-mode-selection.html>
+- Random Nerd Tutorials: Getting Started with VS Code and PlatformIO IDE for ESP32 and ESP8266, <https://randomnerdtutorials.com/vs-code-platformio-ide-esp32-esp8266-arduino/>
