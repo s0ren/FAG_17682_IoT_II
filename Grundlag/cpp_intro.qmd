@@ -1,0 +1,473 @@
+---
+title: "Intro til C++"
+subtitle: "Header-filer, deklarationer og pointere på ESP32"
+date: 2026-11-23
+maalpinde: [17, 20, 21, 24]
+draft: true
+---
+
+<!-- IKKE KOMPILERET: eksemplerne er tjekket mod dokumentationen, men ikke kompileret eller testet på hardware. -->
+
+<!--
+TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
+1. Kompilér og upload eksemplet med de tre filer (include/statistik.h, src/statistik.cpp, src/main.cpp) med platform = espressif32@8.0.0. Kommer der en linje i Serial Monitor hvert andet sekund?
+2. Kompilér og upload pointer-eksemplet. Passer udskriften med tabellen under eksemplet (21, 42, 42, 84, 168), og skriver %p en adresse ud?
+3. Øvelse 3 og 4: passer fejlteksterne på siden ("was not declared in this scope", "undefined reference to", "multiple definition of") med det, PlatformIO's terminal viser?
+4. TJEK (øvelse 6): genstarter ESP32 af sig selv efter en Guru Meditation Error med Arduino-ESP32 3.3.x? Står der LoadProhibited eller noget andet (fx IllegalInstruction) i parentesen? Hvis IllegalInstruction: nævn begge ord i øvelsen, eller brug volatile int* q = nullptr;.
+5. Tjek i den renderede side, at diagrammet under "Header-filer og kildefiler" står lige (┐, ┼ og ┘ under hinanden).
+Skærmbilleder, der mangler (se BILLEDE-kommentarerne):
+6. Explorer med include/statistik.h, src/statistik.cpp og src/main.cpp.
+7. Serial Monitor med udskriften fra pointer-eksemplet.
+8. Terminalen med en "undefined reference"-fejl fra linkeren.
+9. Når alt er testet: fjern IKKE KOMPILERET, denne tjekliste og TJEK-/BILLEDE-kommentarerne.
+-->
+
+Du kan allerede programmere, typisk i C# eller Python. Arduino-koden på ESP32 er C++, og meget ligner det, du kender: `if`, `for`, funktioner og variabler med typer. Men tre ting driller næsten alle, der kommer fra C# eller Python: compileren skal have set en funktion, *før* den bliver kaldt, koden deles op i `.h`- og `.cpp`-filer, og nogle funktioner vil have en *pointer* i stedet for en almindelig værdi. Denne side gennemgår de tre ting, så du kan læse og skrive koden på resten af sitet.
+
+## Formål
+
+- Du kan forklare forskellen på en deklaration og en definition, og du kan bruge en [forward declaration]{lang="en"}, så en funktion kan kaldes, før den er defineret.
+- Du kan dele et program op i en header-fil i `include/` og en kildefil i `src/` i et PlatformIO-projekt.
+- Du kan forklare, hvad en pointer er, og bruge `&` og `*` til at finde en adresse og læse eller ændre værdien på adressen.
+- Du kan skrive en funktion, der ændrer en variabel hos den, der kalder den, både med en pointer og med en reference.
+- Du kan genkende de typiske fejl fra compileren og linkeren, når en deklaration eller definition mangler eller står forkert.
+
+## Målpinde
+
+Siden arbejder med målpind 17, 20, 21 og 24 (se [Læringsmål](../laeringsmaal.qmd)).
+
+## Forudsætninger
+
+- Du kan oprette et PlatformIO-projekt til ESP32-DEVKIT-V1, uploade og åbne Serial Monitor (se [PlatformIO](platformio.qmd)).
+- Du kender projektets mapper `include/` og `src/` fra afsnittet [Projektets opbygning](platformio.qmd#projektets-opbygning).
+- Du kan programmere i et andet sprog: variabler, `if`, løkker, funktioner og arrays.
+- Hardware: ESP32-DEVKIT-V1 og et USB-kabel. Der skal ikke kobles noget til.
+
+## Hvad er anderledes i C++?
+
+Et par forskelle, der forklarer resten af siden:
+
+- **C++ oversættes til maskinkode, fil for fil.** Compileren oversætter hver `.cpp`-fil for sig, og den læser filen oppefra og ned. Bagefter samler *linkeren* de oversatte filer til ét program, firmwaren, som lægges på ESP32. Der er ingen fortolker som i Python, og ingen fælles oversættelse af hele projektet som i C#.
+- **Du arbejder tæt på hukommelsen.** Der er ingen [garbage collector]{lang="en"}, og du kan arbejde direkte med adressen på en variabel. Det er det, pointere bruges til.
+- **`main()` er skjult.** Arduino-frameworket har sin egen `main()`, som kalder din `setup()` én gang og derefter `loop()` igen og igen.
+
+## Deklaration og definition
+
+En **definition** af en funktion er hele funktionen, med krop. En **deklaration** fortæller kun compileren, at funktionen findes: navn, returtype og parametre, afsluttet med semikolon. Deklarationen kaldes også en prototype.
+
+```cpp
+float tilFahrenheit(float celsius);        // deklaration: "den findes"
+
+float tilFahrenheit(float celsius) {       // definition: "sådan virker den"
+  return celsius * 9.0f / 5.0f + 32.0f;
+}
+```
+
+Fordi compileren læser filen oppefra og ned, skal den have set mindst en deklaration, før funktionen bliver kaldt. Det her giver en fejl:
+
+```cpp
+void setup() {
+  Serial.begin(115200);
+  Serial.println(tilFahrenheit(21.5f));    // fejl: compileren kender ikke tilFahrenheit endnu
+}
+
+float tilFahrenheit(float celsius) {
+  return celsius * 9.0f / 5.0f + 32.0f;
+}
+```
+
+Compileren skriver noget i retning af `'tilFahrenheit' was not declared in this scope`. Du kan løse det på to måder:
+
+1. Flyt definitionen op over `setup()`.
+2. Skriv en deklaration øverst i filen og lad definitionen stå længere nede. Det kaldes en *forward declaration*, og definitionen kommer så senere (eller i en helt anden fil, se næste afsnit).
+
+Måde 2 er den, der skalerer: øverst i filen kan man se, hvilke funktioner filen har, og rækkefølgen af funktionerne er ligegyldig.
+
+::: {.callout-note}
+## Hvorfor virkede det i Arduino IDE?
+
+Arbejdede du med `.ino`-filer i Arduino IDE, skulle du ikke skrive deklarationer. Det er fordi Arduinos værktøjer selv indsætter prototyper for de funktioner i `.ino`-filer, der mangler en, før de oversætter (det går af og til galt, fx med egne typer i parametrene). Det sker ikke for `.cpp`-filer, og i PlatformIO skriver du `src/main.cpp`. Så her skal du selv deklarere dine funktioner. Det gælder ikke `setup()` og `loop()`, som allerede er deklareret i `Arduino.h`.
+:::
+
+## Header-filer og kildefiler
+
+Når et program vokser, deler man det op i flere filer. I C++ består et modul typisk af to filer med samme navn:
+
+| Fil | Mappe | Indhold |
+|---|---|---|
+| `statistik.h` | `include/` | Header-filen: *hvad* modulet kan. Deklarationer af funktioner og konstanter. |
+| `statistik.cpp` | `src/` | Kildefilen: *hvordan* det virker. Definitionerne, altså funktionernes krop. |
+
+Den fil, der vil bruge modulet, skriver `#include "statistik.h"`. `#include` gør præcis det samme, som hvis du kopierede header-filens tekst ind på det sted. Så har compileren set deklarationerne og kan oversætte kaldene, selv om definitionerne står i en anden fil.
+
+Sådan bygger PlatformIO projektet:
+
+```{.text}
+include/statistik.h ─┐ (kopieres ind af #include)
+                     ├──> src/main.cpp      ── compiler ──> main.o      ─┐
+                     └──> src/statistik.cpp ── compiler ──> statistik.o ─┼── linker ──> firmware
+                                                           Arduino-core ─┘
+```
+
+- PlatformIO oversætter *alle* `.cpp`-filer i `src/`. Du skal ikke selv tilføje dem nogen steder.
+- Mappen `include/` er på compilerens søgesti, så `#include "statistik.h"` finder filen, uden at du skriver en sti. Filerne i `include/` bliver ikke oversat for sig; de bliver kun brugt, når en `.cpp`-fil inkluderer dem.
+- Linkeren finder ud af, at kaldet til `gennemsnit()` i `main.o` skal gå til definitionen i `statistik.o`.
+
+Brug `"…"` om dine egne header-filer og `<…>` om dem fra frameworket og bibliotekerne, fx `<Arduino.h>` og `<WiFi.h>`.
+
+### #pragma once
+
+En header-fil kan komme til at blive inkluderet to gange i samme `.cpp`-fil, fx hvis to andre header-filer begge inkluderer den. Så ser compileren de samme definitioner af konstanter to gange og giver en fejl. Derfor starter hver header-fil med:
+
+```cpp
+#pragma once
+```
+
+Den betyder: "læs kun denne fil én gang pr. `.cpp`-fil". Den er ikke en del af C++-standarden, men GCC, som PlatformIO bruger, og alle andre almindelige compilere forstår den. I ældre kode og i mange biblioteker ser du i stedet en *include guard*, som gør det samme med standard-C++:
+
+```cpp
+#ifndef STATISTIK_H
+#define STATISTIK_H
+// ... indholdet ...
+#endif
+```
+
+### Hvad må stå i en header-fil?
+
+En header-fil bliver kopieret ind i alle de `.cpp`-filer, der inkluderer den. Derfor må den kun indeholde ting, der godt må stå flere steder:
+
+- **Ja:** deklarationer af funktioner, `const`-konstanter (fx `const int LED_PIN = 2;`) og `#include` af andre header-filer, som deklarationerne har brug for.
+- **Nej:** definitioner af funktioner (med krop) og almindelige variabler som `int antal = 0;`. Inkluderes filen i to `.cpp`-filer, findes de så to gange, og linkeren giver fejlen `multiple definition of …`.
+
+`const`-konstanter er en undtagelse, fordi en `const`-variabel i C++ kun er synlig i den fil, den står i. Hver `.cpp`-fil får sin egen kopi, og linkeren ser ingen konflikt. Det er derfor, `secrets.h` på siden om [WiFi](wifi.qmd) godt må indeholde `const char WIFI_SSID[] = "…";`.
+
+Skal flere filer dele én variabel, som kan ændres, deklarerer du den med `extern` i header-filen og definerer den i *én* `.cpp`-fil:
+
+```cpp
+// include/taeller.h
+extern int antalMaalinger;     // deklaration: variablen findes et sted
+
+// src/taeller.cpp
+int antalMaalinger = 0;        // definitionen: her ligger den
+```
+
+Brug det sparsomt. Ofte er det bedre at sende værdien som parameter.
+
+## Eksempel: et program i tre filer
+
+Programmet simulerer en sensor: hvert andet sekund tager det 10 "målinger" med `random()` i området 0–4095, samme område som `analogRead()` giver på ESP32. Gennemsnit og største værdi beregnes i et modul for sig.
+
+```{.ini filename="platformio.ini"}
+[env:esp32doit-devkit-v1]
+platform = espressif32@8.0.0
+board = esp32doit-devkit-v1
+framework = arduino
+monitor_speed = 115200
+```
+
+```{.cpp filename="include/statistik.h"}
+#pragma once
+
+// Deklarationer: det, andre filer kan bruge.
+// Definitionerne står i src/statistik.cpp.
+
+float gennemsnit(const int data[], int antal);
+int stoersteVaerdi(const int data[], int antal);
+```
+
+```{.cpp filename="src/statistik.cpp"}
+#include "statistik.h"  // så compileren tjekker, at definitionerne passer med deklarationerne
+
+float gennemsnit(const int data[], int antal) {
+  if (antal <= 0) {
+    return 0.0f;  // undgå division med 0
+  }
+  long sum = 0;
+  for (int i = 0; i < antal; i++) {
+    sum += data[i];
+  }
+  return (float)sum / antal;
+}
+
+int stoersteVaerdi(const int data[], int antal) {
+  if (antal <= 0) {
+    return 0;  // tomt array: data[0] findes ikke
+  }
+  int stoerst = data[0];
+  for (int i = 1; i < antal; i++) {
+    if (data[i] > stoerst) {
+      stoerst = data[i];
+    }
+  }
+  return stoerst;
+}
+```
+
+```{.cpp filename="src/main.cpp"}
+#include <Arduino.h>
+#include "statistik.h"
+
+// Konfiguration
+const int ANTAL_MAALINGER = 10;
+const unsigned long INTERVAL_MS = 2000;  // tid mellem hver serie af målinger
+
+int maalinger[ANTAL_MAALINGER];
+unsigned long sidsteMaaling = 0;
+
+// Forward declaration: definitionen står nederst i filen
+void tagMaalinger(int data[], int antal);
+
+void setup() {
+  Serial.begin(115200);
+}
+
+void loop() {
+  // millis() i stedet for delay(), så loop() ikke står stille
+  if (millis() - sidsteMaaling >= INTERVAL_MS) {
+    sidsteMaaling = millis();
+    tagMaalinger(maalinger, ANTAL_MAALINGER);
+    Serial.printf("Gennemsnit: %.1f  Største: %d\n",
+                  gennemsnit(maalinger, ANTAL_MAALINGER),
+                  stoersteVaerdi(maalinger, ANTAL_MAALINGER));
+  }
+}
+
+// Simulerer en sensor. Skift random() ud med analogRead(), når der sidder en rigtig sensor på.
+void tagMaalinger(int data[], int antal) {
+  for (int i = 0; i < antal; i++) {
+    data[i] = random(0, 4096);  // 0-4095; øvre grænse er ikke med
+  }
+}
+```
+
+<!-- BILLEDE: VS Codes Explorer med projektet foldet ud, så include/statistik.h, src/statistik.cpp og src/main.cpp ses. -->
+
+Læg mærke til:
+
+- `statistik.cpp` inkluderer sin egen header. Så opdager compileren det, hvis deklaration og definition ikke passer sammen, fx hvis du ændrer en parametertype det ene sted og glemmer det andet.
+- `statistik.cpp` har ikke brug for `Arduino.h`, fordi den kun bruger almindelig C++.
+- `tagMaalinger()` bruges kun i `main.cpp`, så den har ingen header. Den har bare en forward declaration øverst i filen.
+- Antallet sendes med som parameter. Hvorfor det er nødvendigt, ser du i afsnittet om [arrays og pointere](#arrays-og-pointere).
+
+Vil du bruge det samme modul i flere projekter, kan det i stedet ligge som et bibliotek i `lib/` (se [PlatformIO](platformio.qmd#projektets-opbygning)).
+
+## Pointere
+
+Alle variabler ligger et sted i hukommelsen, og stedet har en *adresse*: et tal. En **pointer** er en variabel, der indeholder en adresse. Man siger, at den *peger på* en anden variabel.
+
+To operatorer er nok til at komme i gang:
+
+| Skrivemåde | Betyder | Eksempel |
+|---|---|---|
+| `int* p` | `p` er en pointer til en `int` (i en erklæring) | `int* p = &maaling;` |
+| `&x` | adressen på `x` (*address-of*) | `&maaling` |
+| `*p` | værdien på den adresse, `p` peger på (*dereference*) | `*p = 42;` |
+
+```cpp
+int maaling = 21;
+int* p = &maaling;   // p indeholder adressen på maaling
+*p = 42;             // skriv 42 der, hvor p peger: nu er maaling 42
+```
+
+Bemærk, at `*` betyder to ting: i en erklæring (`int* p`) siger den, at `p` er en pointer. Foran en pointer i et udtryk (`*p = 42`) betyder den "værdien, der peges på".
+
+ESP32 er en 32-bit processor, så en adresse fylder 4 byte. En pointer fylder derfor 4 byte, uanset om den peger på en `int`, en `char` eller noget helt tredje.
+
+En pointer, der ikke peger på noget, sætter man til `nullptr`. Læser eller skriver programmet gennem en `nullptr`, går ESP32 ned med en `Guru Meditation Error` i Serial Monitor (se [Typiske fejl](#typiske-fejl)). En pointer, der aldrig har fået en værdi, er værre: den peger et tilfældigt sted hen. Så kan programmet gå ned, men det kan også bare ødelægge andre data uden nogen fejl. At programmet ikke går ned, betyder altså ikke, at pointeren er i orden.
+
+### Pointer som parameter
+
+I C++ får en funktion normalt en *kopi* af argumentet. Ændrer funktionen kopien, sker der intet med variablen hos den, der kaldte. Det kender du fra tal i C# og Python. Men pas på: i C++ bliver også objekter som `String` kopieret, i modsætning til lister i Python og klasser i C#, hvor funktionen arbejder på det samme objekt som kalderen. Arrays er undtagelsen, se [Arrays og pointere](#arrays-og-pointere).
+
+Vil du have funktionen til at ændre kalderens variabel, giver du den adressen i stedet:
+
+```cpp
+void fordobl(int* tal) {   // tal er en pointer til kalderens variabel
+  *tal = *tal * 2;         // ændrer værdien der, hvor tal peger
+}
+
+int x = 5;
+fordobl(&x);               // giv adressen på x; bagefter er x 10
+```
+
+Det bruges især, når en funktion skal give *flere* resultater tilbage. En funktion kan kun returnere én værdi, men den kan skrive i så mange variabler, som den får adresser på. I Python ville du returnere en [tuple]{lang="en"}; i C# ville du bruge `out` eller `ref`.
+
+Arduino-bibliotekerne gør det samme. `WiFi.macAddress(uint8_t* mac)` får en pointer til dit array på 6 byte og skriver MAC-adressen ind i det.
+
+### Referencer
+
+C++ har en anden og ofte nemmere måde at gøre det samme på: en **reference**, skrevet med `&` efter typen. En reference er et ekstra navn for en variabel, der findes i forvejen:
+
+```cpp
+void fordobl(int& tal) {   // tal er et andet navn for kalderens variabel
+  tal = tal * 2;           // ingen *: ændringen sker direkte hos kalderen
+}
+
+int x = 5;
+fordobl(x);                // intet &; bagefter er x 10
+```
+
+Det svarer til `ref` i C#. Forskellene til en pointer:
+
+| | Pointer `int*` | Reference `int&` |
+|---|---|---|
+| Kalderen skriver | `fordobl(&x)` | `fordobl(x)` |
+| Inde i funktionen | `*tal` | `tal` |
+| Kan være "ingenting" | Ja, `nullptr` | Nej, skal altid henvise til en variabel |
+| Kan skifte til en anden variabel | Ja | Nej |
+
+Igen betyder et tegn to ting: `&` *efter en type* (`int& tal`) er en reference, mens `&` *foran en variabel* (`&x`) er adressen.
+
+Du møder ofte `const`-referencer i Arduino-bibliotekerne, fx `WiFi.begin(const String& ssid, …)`. `const` betyder, at funktionen ikke må ændre variablen, og referencen betyder, at `String`-objektet ikke bliver kopieret. Det sparer tid og hukommelse.
+
+### Arrays og pointere
+
+Når du giver et array til en funktion, får funktionen ikke en kopi af hele arrayet. Den får en pointer til det første element. Parameteren `const int data[]` i `statistik.h` er derfor i virkeligheden det samme som `const int* data`.
+
+Det har to følger:
+
+- Funktionen kan ændre i kalderens array. Det er sådan, `tagMaalinger()` fylder `maalinger` ud. Skriv `const`, hvis funktionen kun skal læse.
+- Funktionen kan ikke se, hvor langt arrayet er. `sizeof(data)` inde i funktionen giver 4, størrelsen på en pointer, og ikke arrayets størrelse. Derfor sendes antallet med som en ekstra parameter.
+
+Det er også det, der sker, når `WIFI_SSID` fra `secrets.h`, som er et `char`-array, gives til `WiFi.begin(const char* ssid, …)`.
+
+## Eksempel: pointere og referencer
+
+Programmet viser adresse og dereference og de tre måder at give en variabel til en funktion. Det hele sker i `setup()`, så det skrives kun én gang. Åbn Serial Monitor, og tryk på **EN** på kortet, så programmet starter forfra.
+
+```{.ini filename="platformio.ini"}
+[env:esp32doit-devkit-v1]
+platform = espressif32@8.0.0
+board = esp32doit-devkit-v1
+framework = arduino
+monitor_speed = 115200
+```
+
+```{.cpp filename="src/main.cpp"}
+#include <Arduino.h>
+
+// Forward declarations: definitionerne står efter loop()
+void fordoblKopi(int tal);
+void fordoblPointer(int* tal);
+void fordoblReference(int& tal);
+
+void setup() {
+  Serial.begin(115200);
+
+  int maaling = 21;
+  int* p = &maaling;  // p peger på maaling
+
+  Serial.printf("maaling   = %d\n", maaling);
+  Serial.printf("&maaling  = %p  (adressen)\n", (void*)&maaling);
+  Serial.printf("p         = %p  (samme adresse)\n", (void*)p);
+  Serial.printf("*p        = %d  (værdien, p peger på)\n", *p);
+  Serial.printf("sizeof(int) = %u, sizeof(int*) = %u\n",
+                (unsigned)sizeof(int), (unsigned)sizeof(int*));
+
+  *p = 42;  // ændrer maaling gennem pointeren
+  Serial.printf("Efter *p = 42:          maaling = %d\n", maaling);
+
+  fordoblKopi(maaling);  // får en kopi: maaling ændres ikke
+  Serial.printf("Efter fordoblKopi:      maaling = %d\n", maaling);
+
+  fordoblPointer(&maaling);  // får adressen: maaling ændres
+  Serial.printf("Efter fordoblPointer:   maaling = %d\n", maaling);
+
+  fordoblReference(maaling);  // får en reference: maaling ændres
+  Serial.printf("Efter fordoblReference: maaling = %d\n", maaling);
+}
+
+void loop() {
+  // Intet her: eksemplet kører kun én gang i setup()
+}
+
+void fordoblKopi(int tal) {
+  tal = tal * 2;  // ændrer kun den lokale kopi
+}
+
+void fordoblPointer(int* tal) {
+  *tal = *tal * 2;  // ændrer værdien på kalderens adresse
+}
+
+void fordoblReference(int& tal) {
+  tal = tal * 2;  // tal ER kalderens variabel
+}
+```
+
+Forventet udskrift (adressen er et hextal, som er anderledes hos dig):
+
+| Linje | Værdi |
+|---|---|
+| `maaling` | 21 |
+| `*p` | 21 |
+| `sizeof(int)`, `sizeof(int*)` | 4, 4 |
+| Efter `*p = 42` | 42 |
+| Efter `fordoblKopi` | 42 (uændret) |
+| Efter `fordoblPointer` | 84 |
+| Efter `fordoblReference` | 168 |
+
+<!-- BILLEDE: Serial Monitor med hele udskriften fra pointer-eksemplet, efter et tryk på EN. -->
+
+## Øvelser
+
+1. Kør eksemplet med de tre filer. Flyt derefter definitionen af `tagMaalinger()` op over `setup()`, og slet forward-deklarationen. Bygger det stadig? Flyt den tilbage, men slet kun deklarationen. Hvilken fejl får du, og i hvilken linje?
+2. Tilføj en funktion `int mindsteVaerdi(const int data[], int antal);` til modulet `statistik`: deklarationen i `statistik.h` og definitionen i `statistik.cpp`. Skriv den mindste værdi ud i `main.cpp`.
+3. Fremprovokér fejl, og skriv ned, hvad der står i terminalen, og om fejlen kommer fra compileren eller linkeren:
+   a. Fjern `#include "statistik.h"` fra `main.cpp`.
+   b. Omdøb `stoersteVaerdi` i `statistik.cpp` (men ikke i `statistik.h`).
+   c. Flyt `statistik.cpp` fra `src/` til `include/`.
+4. Skriv `int antalSerier = 0;` i `statistik.h`, og byg. Hvilken fejl får du, og hvorfor? Ret det med `extern`, så `main.cpp` kan tælle `antalSerier` op, og skriv tallet ud sammen med gennemsnittet.
+5. Erstat `gennemsnit()` og `stoersteVaerdi()` med én funktion, der giver alle tre resultater på én gang:
+   `void beregn(const int data[], int antal, float* gns, int* mindst, int* stoerst);`
+   Kald den med adresserne på tre lokale variabler. Lav derefter en udgave med referencer i stedet for pointere. Hvilken synes du er nemmest at læse, både i funktionen og der, hvor den kaldes?
+6. *Ekstra:* Tilføj `int* q = nullptr;` og `Serial.println(*q);` sidst i `setup()` i pointer-eksemplet. Hvad står der i Serial Monitor? Find ordet i parentes efter `Guru Meditation Error`, og slå det op i ESP-IDF's side om [Fatal Errors](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/fatal-errors.html){lang="en"}. Hvad sker der bagefter? Fjern linjerne igen.
+
+<!-- TJEK: at ESP32 genstarter af sig selv efter panik er ESP-IDF's standard ("print registers and reboot"). Arduino-ESP32 3.3.x's sdkconfig er ikke tjekket; afprøv øvelse 6. Tjek også ordet i parentes: forventet er LoadProhibited, men GCC kan ved optimering erstatte en åbenlys nullptr-dereference med en fælde-instruktion, så der i stedet står fx IllegalInstruction. Står der IllegalInstruction, så skriv i øvelsen, at begge ord kan forekomme, eller gør dereferencen mindre åbenlys med `volatile int* q = nullptr;`. -->
+
+## Typiske fejl
+
+- **`'…' was not declared in this scope`:** Fejlen kommer fra compileren. Funktionen bliver kaldt, før compileren har set en deklaration: forward-deklarationen mangler, eller `#include` af header-filen mangler.
+- **`undefined reference to '…'`:** Fejlen kommer fra linkeren. Deklarationen findes, men definitionen gør ikke: `.cpp`-filen ligger ikke i `src/`, funktionsnavnet er stavet forskelligt de to steder, eller parametrene er ikke ens i deklaration og definition.
+- **`multiple definition of '…'`:** Også fra linkeren. Der står en almindelig variabel eller en funktion med krop i en header-fil, som inkluderes af flere `.cpp`-filer. Flyt definitionen til en `.cpp`-fil, og lad kun deklarationen stå i headeren (for en variabel med `extern`).
+- **Fejl om ting, der er defineret to gange, i samme fil:** `#pragma once` mangler øverst i header-filen.
+- **`fatal error: statistik.h: No such file or directory`:** Header-filen ligger ikke i `include/`, eller navnet er stavet forkert.
+- **Funktionen ændrer ikke variablen:** Parameteren er en almindelig kopi (`int tal`). Brug `int* tal` og kald med `&x`, eller brug `int& tal`.
+- **`Guru Meditation Error` og genstart:** Programmet har læst eller skrevet gennem en pointer, der er `nullptr` (eller som peger et tilfældigt sted hen, fordi den aldrig har fået en værdi; den kan også ødelægge data uden at give en fejl). Giv altid en pointer en værdi, når du erklærer den, og tjek for `nullptr`, før du bruger en pointer, der kan være tom.
+- **Mærkelige værdier fra en pointer:** Pointeren peger på en lokal variabel i en funktion, der er afsluttet. Så findes variablen ikke længere. Returner aldrig adressen på en lokal variabel.
+- **Forkert antal elementer:** `sizeof` på en array-parameter giver størrelsen på en pointer (4), ikke arrayets. Send antallet med som parameter.
+
+<!-- BILLEDE: PlatformIO's terminal med en "undefined reference to"-fejl fra linkeren (fx fra øvelse 3b). -->
+
+## Læs videre
+
+### Learn C++
+
+[learncpp.com](https://www.learncpp.com/){lang="en"} er et gratis, grundigt kursus i C++. Tre lektioner passer til denne side:
+
+- [2.7 Forward declarations and definitions](https://www.learncpp.com/cpp-tutorial/forward-declarations/){lang="en"}: deklaration, definition og reglen om, at noget kun må defineres én gang ([one definition rule]{lang="en"}).
+- [2.11 Header files](https://www.learncpp.com/cpp-tutorial/header-files/){lang="en"}: hvad der hører i en header-fil, med en god liste over "best practices", fx at en `.cpp`-fil skal inkludere sin egen header.
+- [12.7 Introduction to pointers](https://www.learncpp.com/cpp-tutorial/introduction-to-pointers/){lang="en"}: adresse, dereference og pointere, der ikke peger på noget gyldigt.
+
+Læs dem med disse forbehold, fordi de er skrevet til programmer på en pc:
+
+- Eksemplerne har deres egen `main()` og skriver med `std::cout`. På ESP32 skriver du koden i `setup()` og bruger `Serial.println()` eller `Serial.printf()`.
+- Afsnittene om at sætte søgestier op i Visual Studio og Code::Blocks gælder ikke for dig. PlatformIO har allerede lagt `include/` på søgestien.
+- Lektion 2.11 siger, at standardbibliotekets headers skrives uden `.h`, fx `<iostream>`. Det gælder C++'s standardbibliotek. `Arduino.h` og bibliotekernes headers skrives med `.h`.
+- Lektion 12.7 siger, at en forkert pointer "nok" får programmet til at gå ned. På ESP32 giver en `nullptr` en `Guru Meditation Error`, men en pointer med en tilfældig adresse kan også bare ødelægge andre data uden at give en fejl.
+
+## Kilder
+
+- PlatformIO: Convert Arduino file to C++ manually (forward declarations), <https://docs.platformio.org/en/latest/faq/ino-to-cpp.html>
+- PlatformIO: `include_dir` (lægges på `CPPPATH`), <https://docs.platformio.org/en/latest/projectconf/sections/platformio/options/directory/include_dir.html>
+- PlatformIO: `build_src_filter` (alle filer i `src/` oversættes), <https://docs.platformio.org/en/latest/projectconf/sections/env/options/build/build_src_filter.html>
+- PlatformIO: kildekode til `pio project init` (teksten i `include/README`), <https://github.com/platformio/platformio-core/blob/develop/platformio/project/commands/init.py>
+- Arduino CLI: Sketch build process (prototyper genereres kun for `.ino`), <https://arduino.github.io/arduino-cli/1.6/sketch-build-process/>
+- cppreference: Implementation defined behavior control (`#pragma once`), <https://en.cppreference.com/w/cpp/preprocessor/impl>
+- cppreference: Reference declaration, <https://en.cppreference.com/w/cpp/language/reference>
+- cppreference: Storage class specifiers (linkage for `const` og `extern`), <https://en.cppreference.com/w/cpp/language/storage_duration>
+- Arduino-ESP32: kildekode til `WiFiSTA.h` (`begin()` og `macAddress()`), <https://github.com/espressif/arduino-esp32/blob/master/libraries/WiFi/src/WiFiSTA.h>
+- Arduino-ESP32: kildekode til `WMath.cpp` (`random()`), <https://github.com/espressif/arduino-esp32/blob/master/cores/esp32/WMath.cpp>
+- Arduino-ESP32: ADC (12 bit, 0–4095), <https://docs.espressif.com/projects/arduino-esp32/en/latest/api/adc.html>
+- ESP-IDF: Fatal Errors (Guru Meditation, LoadProhibited), <https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/fatal-errors.html>
+- Espressif: ESP32 Datasheet (32-bit Xtensa LX6), <https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf>
+- Learn C++: 2.7, 2.11 og 12.7, <https://www.learncpp.com/>
