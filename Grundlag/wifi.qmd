@@ -1,0 +1,254 @@
+---
+title: "WiFi"
+subtitle: "Forbind ESP32 til et trådløst netværk"
+date: 2026-11-23
+maalpinde: [14, 15, 19]
+draft: true
+---
+
+<!-- IKKE KOMPILERET: eksemplerne er tjekket mod dokumentationen, men ikke kompileret eller testet på hardware. -->
+
+En IoT-enhed skal på nettet, før den kan sende målinger til en server eller hente klokken. På ESP32 sker det næsten altid over WiFi. Det er få linjer kode at forbinde, men der er tre ting, der går galt igen og igen: programmet hænger for evigt, hvis netværket ikke findes, forbindelsen forsvinder midt i det hele, og WiFi-passwordet ender på GitHub. Denne side viser, hvordan du undgår alle tre.
+
+## Formål
+
+- Du kan forbinde ESP32 til et WiFi-netværk i [station mode]{lang="en"} og skrive IP-adresse og signalstyrke ud.
+- Du kan vente på forbindelsen med en tidsgrænse, så programmet ikke hænger.
+- Du kan opdage, at forbindelsen er tabt, og forbinde igen uden at blokere `loop()`.
+- Du kan holde SSID og password ude af den kode, der kommer i git.
+
+## Målpinde
+
+Siden arbejder med målpind 14, 15 og 19 (se [Læringsmål](../laeringsmaal.qmd)).
+
+## Forudsætninger
+
+- Du kan oprette et PlatformIO-projekt til ESP32-DEVKIT-V1 og uploade et program.
+- Du kan åbne Serial Monitor i PlatformIO.
+- Du kender `millis()` fra [Debouncing](debouncing.qmd).
+- Hardware: ESP32-DEVKIT-V1 og et USB-kabel. Et WiFi-netværk på 2,4 GHz, som du kender navn og password på, fx dit eget eller et hotspot på din telefon.
+
+## Station mode
+
+ESP32 kan bruge WiFi på to måder:
+
+- **Station mode (STA):** ESP32 er en klient på et netværk, der findes i forvejen, ligesom din telefon eller bærbare. Det er det, denne side handler om.
+- **Access point mode (AP):** ESP32 laver selv et netværk, som andre kan forbinde til. Det kommer på en senere side i del 2.
+
+Et netværk har et navn, et **SSID** ([Service Set Identifier]{lang="en"}), og et password. Når ESP32 er forbundet, får den en IP-adresse fra routeren, ligesom alle andre enheder på netværket.
+
+### Kun 2,4 GHz
+
+ESP32 har kun en radio til **2,4 GHz**-båndet og understøtter standarderne 802.11 b, g og n. Den kan ikke se netværk på 5 GHz. Mange routere sender det samme SSID på begge bånd, og så går det godt. Men hvis netværket kun findes på 5 GHz, finder ESP32 det simpelthen ikke. Det gælder også hotspots på telefoner: nogle telefoner bruger 5 GHz, medmindre du slår en indstilling til (på iPhone hedder den "Maksimér kompatibilitet").
+
+<!-- TJEK: "Maksimér kompatibilitet" er den danske iPhone-betegnelse efter hukommelsen; ikke slået op. Fjern parentesen, hvis den er forkert. -->
+
+Netværk, hvor man logger ind med brugernavn *og* password (WPA2-Enterprise, fx eduroam), kræver en anden opsætning end den, der vises her. Brug et almindeligt netværk med ét password.
+
+### Sådan forbinder man
+
+Biblioteket `WiFi.h` følger med Arduino-frameworket til ESP32, så det skal ikke stå i `lib_deps`. Forbindelsen laves i tre trin:
+
+1. `WiFi.mode(WIFI_STA)` sætter ESP32 i station mode.
+2. `WiFi.begin(ssid, password)` starter forbindelsen.
+3. `WiFi.status()` fortæller, hvordan det går. Når den giver `WL_CONNECTED`, er ESP32 på nettet og har en IP-adresse.
+
+Det vigtige er, at `WiFi.begin()` **ikke venter**. Den sætter forbindelsen i gang og vender tilbage med det samme. Det tager typisk et par sekunder at blive forbundet, så programmet skal selv vente og spørge `WiFi.status()`.
+
+Mange eksempler på nettet venter sådan:
+
+```cpp
+while (WiFi.status() != WL_CONNECTED) {
+  delay(500);
+}
+```
+
+Det virker, når alt er i orden. Men hvis SSID'et er stavet forkert, eller routeren er slukket, kører løkken for evigt, og ESP32 laver ingenting andet. Sæt derfor altid en tidsgrænse på.
+
+### Status-koder
+
+`WiFi.status()` giver en værdi af typen `wl_status_t`. De vigtigste:
+
+| Værdi | Tal | Betyder |
+|---|---|---|
+| `WL_IDLE_STATUS` | 0 | ESP32 er i gang med at forbinde |
+| `WL_NO_SSID_AVAIL` | 1 | Netværket blev ikke fundet: forkert SSID, for langt væk eller 5 GHz |
+| `WL_CONNECTED` | 3 | Forbundet, med IP-adresse |
+| `WL_CONNECT_FAILED` | 4 | Forbindelsen mislykkedes |
+| `WL_CONNECTION_LOST` | 5 | Forbindelsen blev tabt |
+| `WL_DISCONNECTED` | 6 | Ikke forbundet |
+
+Skriv tallet ud, når forbindelsen fejler. Det er det første spor, når du skal finde fejlen.
+
+<!-- TJEK: Hvilken kode et forkert password giver, er ikke beskrevet i dokumentationen. Det kan være 4, 6 eller noget andet afhængigt af kerneversion; prøv det på hardware (øvelse 2). -->
+
+### Signalstyrke (RSSI)
+
+`WiFi.RSSI()` giver signalstyrken fra routeren i dBm ([Received Signal Strength Indicator]{lang="en"}). Tallet er altid negativt, og jo tættere på 0, jo bedre. Som tommelfingerregel:
+
+| RSSI | Signal |
+|---|---|
+| -30 til -60 dBm | Godt |
+| -60 til -70 dBm | Brugbart |
+| -70 til -80 dBm | Svagt, forbindelsen kan falde ud |
+| under -80 dBm | Meget svagt |
+
+<!-- TJEK: Grænserne i tabellen er en almindelig tommelfingerregel, ikke fra Espressifs dokumentation. -->
+
+`WiFi.RSSI()` giver 0, når ESP32 ikke er forbundet. RSSI er et godt værktøj til fejlfinding: hvis forbindelsen falder ud, så se, om signalet er svagt. RSSI bruges også i projektopgaven om positionsbestemmelse, hvor signalstyrken bruges til at gætte på afstand.
+
+### Når forbindelsen bliver tabt
+
+WiFi-forbindelser falder ud: routeren genstarter, nogen går forbi med en mikrobølgeovn, eller ESP32 er for langt væk. Arduino-frameworket forsøger selv at forbinde igen, fordi automatisk genforbindelse (`setAutoReconnect`) er slået til som standard. Det klarer de fleste udfald.
+
+Men det er en god idé, at programmet selv holder øje. Programmet skal vide, om det kan sende data lige nu, og hvis det automatiske forsøg ikke lykkes, kan programmet selv bede om et nyt forsøg med `WiFi.reconnect()`. Det skal ske uden at blokere `loop()`, så knapper og sensorer stadig bliver læst, mens ESP32 er offline. Brug `millis()` til at tjekke med et fast interval, præcis som ezButton gør på [Debouncing](debouncing.qmd)-siden.
+
+<!-- TJEK: Om WiFi.reconnect() oven i den automatiske genforbindelse kan forstyrre den, er ikke beskrevet i dokumentationen. Intervallet på 30 s er valgt for at give den automatiske genforbindelse tid først. -->
+
+## SSID og password hører ikke til i git
+
+Står passwordet direkte i `main.cpp`, kommer det med, når du committer og pusher til GitHub. Så kan alle med adgang til repoet læse det, og det forsvinder ikke igen, selv om du sletter det senere: det ligger stadig i historikken.
+
+Løsningen er at lægge SSID og password i en fil for sig, som git ignorerer:
+
+- `include/secrets.h` indeholder de rigtige værdier. Den står i `.gitignore` og bliver aldrig committet.
+- `include/secrets_eksempel.h` har samme indhold, men med falske værdier. Den bliver committet, så andre kan se, hvad de skal udfylde.
+
+PlatformIO lægger automatisk mappen `include/` på søgestien, så `main.cpp` kan skrive `#include "secrets.h"`.
+
+Det gør det også nemt at skifte netværk: man retter ét sted, uden at røre koden. Det er netop det krav, projektopgaverne stiller til konfiguration af WiFi SSID og password.
+
+## Eksempel: forbind med tidsgrænse og genforbindelse
+
+Programmet forbinder i `setup()` og venter højst 20 sekunder. I `loop()` tjekker det hvert 30. sekund, om forbindelsen stadig er der, og beder om et nyt forsøg, hvis den ikke er. Hvert 5. sekund skriver det signalstyrken ud.
+
+```{.ini filename="platformio.ini"}
+[env:esp32doit-devkit-v1]
+platform = espressif32
+board = esp32doit-devkit-v1
+framework = arduino
+monitor_speed = 115200
+```
+
+```{.cpp filename="include/secrets_eksempel.h"}
+// Kopiér denne fil til secrets.h, og skriv jeres eget netværk ind.
+// secrets.h står i .gitignore og må ikke committes.
+#pragma once
+
+const char WIFI_SSID[]     = "netvaerkets-navn";
+const char WIFI_PASSWORD[] = "hemmeligt-password";
+```
+
+```{.txt filename=".gitignore"}
+.pio
+include/secrets.h
+```
+
+```{.cpp filename="src/main.cpp"}
+#include <Arduino.h>
+#include <WiFi.h>
+#include "secrets.h"   // WIFI_SSID og WIFI_PASSWORD
+
+// Konfiguration
+const unsigned long FORBIND_TIMEOUT_MS = 20000;  // max ventetid i setup()
+const unsigned long TJEK_INTERVAL_MS   = 30000;  // hvor tit loop() tjekker forbindelsen
+const unsigned long RSSI_INTERVAL_MS   = 5000;   // hvor tit signalstyrken skrives ud
+
+unsigned long sidsteTjek = 0;
+unsigned long sidsteRssi = 0;
+
+// Starter forbindelsen og venter højst timeoutMs.
+// Returnerer true, hvis ESP32 kom på nettet.
+bool forbindWiFi(unsigned long timeoutMs) {
+  WiFi.mode(WIFI_STA);
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);  // vender tilbage med det samme
+  Serial.printf("Forbinder til %s", WIFI_SSID);
+
+  unsigned long start = millis();
+  while (WiFi.status() != WL_CONNECTED && millis() - start < timeoutMs) {
+    delay(500);  // OK her: setup() har ikke andet at lave endnu
+    Serial.print(".");
+  }
+  Serial.println();
+  return WiFi.status() == WL_CONNECTED;
+}
+
+void skrivForbindelse() {
+  Serial.print("Forbundet. IP-adresse: ");
+  Serial.println(WiFi.localIP());
+  Serial.printf("Signalstyrke: %d dBm\n", WiFi.RSSI());
+}
+
+void setup() {
+  Serial.begin(115200);
+
+  if (forbindWiFi(FORBIND_TIMEOUT_MS)) {
+    skrivForbindelse();
+  } else {
+    // Vi giver ikke op: loop() prøver igen senere
+    Serial.printf("Ingen forbindelse. Status: %d\n", WiFi.status());
+  }
+}
+
+void loop() {
+  unsigned long nu = millis();
+
+  // Tjek forbindelsen med fast interval, uden at blokere loop()
+  if (nu - sidsteTjek >= TJEK_INTERVAL_MS) {
+    sidsteTjek = nu;
+    if (WiFi.status() != WL_CONNECTED) {
+      Serial.printf("WiFi er nede (status %d). Prøver igen.\n", WiFi.status());
+      WiFi.reconnect();
+    }
+  }
+
+  // Skriv signalstyrken ud, når vi er forbundet
+  if (WiFi.status() == WL_CONNECTED && nu - sidsteRssi >= RSSI_INTERVAL_MS) {
+    sidsteRssi = nu;
+    Serial.printf("RSSI: %d dBm\n", WiFi.RSSI());
+  }
+
+  // Her kan programmet læse sensorer og knapper, også mens WiFi er nede
+}
+```
+
+Kopiér `secrets_eksempel.h` til `secrets.h` i samme mappe, og ret SSID og password. Upload og åbn Serial Monitor. Du skulle se prikker, mens ESP32 forbinder, og derefter IP-adressen.
+
+## Øvelser
+
+1. Kør eksemplet. Skriv IP-adressen og RSSI ned. Find ESP32 i routerens liste over enheder eller med en netværksscanner på din telefon, og kontrollér, at IP-adressen passer.
+2. Stav SSID'et forkert i `secrets.h`, og kør igen. Hvilken status-kode får du? Gør det samme med et forkert password. Er koden den samme?
+3. Gå rundt med ESP32 (fx tilsluttet en bærbar), og se, hvordan RSSI ændrer sig. Hvor langt væk kan du komme, før forbindelsen falder ud? Hvad var RSSI lige før?
+4. Sluk dit hotspot eller din router, mens programmet kører, og tænd igen efter et minut. Hvad skriver programmet? Hvor lang tid går der, før ESP32 er på nettet igen?
+5. Lad den indbyggede lysdiode på GPIO 2 vise forbindelsen: tændt, når ESP32 er forbundet, og blink, mens den ikke er. Brug `millis()` til blinket, ikke `delay()`.
+6. *Ekstra:* Kør `git status` i dit projekt, og kontrollér, at `include/secrets.h` ikke er med, men at `include/secrets_eksempel.h` er. Aflever et skærmbillede.
+
+## Typiske fejl
+
+- **Programmet hænger efter "Forbinder til":** Der er en `while`-løkke uden tidsgrænse. Brug en tidsgrænse som i eksemplet.
+- **Status 1 (`WL_NO_SSID_AVAIL`):** SSID'et er stavet forkert (der skelnes mellem store og små bogstaver), netværket er for langt væk, eller det sender kun på 5 GHz.
+- **Forbinder aldrig til skolens netværk:** Netværket bruger brugernavn og password (WPA2-Enterprise) eller en login-side i browseren. Brug et andet netværk, fx et hotspot.
+- **`secrets.h: No such file or directory`:** Filen ligger ikke i `include/`, eller den hedder stadig `secrets_eksempel.h`.
+- **Passwordet ligger alligevel på GitHub:** `secrets.h` blev committet, før den kom i `.gitignore`. `.gitignore` virker kun på filer, git ikke kender i forvejen. Fjern den med `git rm --cached include/secrets.h`, og skift passwordet, for det ligger stadig i historikken.
+- **Analog aflæsning giver mærkelige tal, når WiFi er tændt:** Benene på ADC2 kan ikke læses analogt, mens WiFi kører. Brug et ben på ADC1 (GPIO 32–39).
+- **RSSI er 0:** ESP32 er ikke forbundet.
+
+## Læs videre
+
+Random Nerd Tutorials gennemgår mange flere funktioner i [ESP32 Useful Wi-Fi Library Functions (Arduino IDE)](https://randomnerdtutorials.com/esp32-useful-wi-fi-functions-arduino/){lang="en"}: scanning efter netværk, fast IP-adresse, hostname, MAC-adresse og WiFi-events, hvor ESP32 selv kalder en funktion, når forbindelsen kommer eller går. Læs den kritisk:
+
+- Artiklens første eksempel venter med en `while`-løkke uden tidsgrænse.
+- I afsnittet om events nævner teksten `SYSTEM_EVENT_AP_STADISCONNECTED`. Det event handler om klienter på ESP32's *eget* access point. Det rigtige event for station mode er `ARDUINO_EVENT_WIFI_STA_DISCONNECTED`, som artiklens kode også bruger. Navnene med `SYSTEM_EVENT_` er fra en ældre version af frameworket.
+- Event-eksemplet kalder `WiFi.begin()` igen med det samme ved hvert udfald, uden pause eller grænse for antal forsøg.
+
+Senere i forløbet bygger vi videre på denne side: tid fra internettet med NTP, MQTT og WiFi i access point mode.
+
+## Kilder
+
+- Arduino-ESP32: Wi-Fi API, <https://docs.espressif.com/projects/arduino-esp32/en/latest/api/wifi.html>
+- Arduino-ESP32: kildekode til `WiFiSTA.h` og `WiFiType.h` (`wl_status_t`, `WIFI_STA`), <https://github.com/espressif/arduino-esp32/tree/master/libraries/WiFi/src>
+- Arduino-ESP32 2.x: `WiFiSTA.cpp` (automatisk genforbindelse er slået til som standard), <https://github.com/espressif/arduino-esp32/blob/release/v2.x/libraries/WiFi/src/WiFiSTA.cpp>
+- ESP-IDF: Wi-Fi Driver, Overview (2,4 GHz, 802.11 b/g/n), <https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/wifi-driver/overview.html>
+- PlatformIO: `include_dir`, <https://docs.platformio.org/en/latest/projectconf/sections/platformio/options/directory/include_dir.html>
+- Random Nerd Tutorials: ESP32 Useful Wi-Fi Library Functions, <https://randomnerdtutorials.com/esp32-useful-wi-fi-functions-arduino/>
+- Random Nerd Tutorials: ESP32 Pinout Reference (ADC2 og WiFi), <https://randomnerdtutorials.com/esp32-pinout-reference-gpios/>
