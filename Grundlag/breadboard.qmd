@@ -82,7 +82,7 @@ Løsninger:
 <!-- TJEK: om lokalets boards kan skilles ad og sættes sammen igen (skinnerne sidder ofte på med en lås eller med klæbebagside). -->
 
 ::: {.billede-mangler}
-ESP32-DEVKIT-V1 på ét board (med det ene frie hul i hver række) og på to boards side om side. Se lignende billeder: [DroneBot Workshop-forum](https://forum.dronebotworkshop.com/tools-test-equipment/esp32-board-too-fat-for-my-breadboard/).
+ESP32-DEVKIT-V1 på ét board (med det ene frie hul i hver række) og på to boards side om side. Eksempel: [ESP32 på to boards, hvor de inderste strømskinner er taget af (DroneBot Workshop-forum)](https://forum.dronebotworkshop.com/wp-content/uploads/wpforo/attachments/3027/3174-esp32widebreadboard.jpg).
 :::
 
 <!-- LÆRER: hvilken løsning I bruger i lokalet. -->
@@ -107,7 +107,7 @@ ESP32-DEVKIT-V1 på ét board (med det ene frie hul i hver række) og på to boa
 <!-- TJEK: hvilken skala (SOL/STR) og hvilket hul på lokalets tænger der passer til lokalets ledning. -->
 
 ::: {.billede-mangler}
-Tangen med hullet til 22 AWG massiv kerne markeret. Se lignende billeder: [Adafruit](https://learn.adafruit.com/breadboards-for-beginners/diy-jumper-wires?view=all) [Ben Eaters værktøjsliste](https://eater.net/breadboards).
+Tangen med hullet til 22 AWG massiv kerne markeret. Eksempel: Adafruits [ledning i tangens hul](https://cdn-learn.adafruit.com/assets/assets/000/035/583/medium640/components_strip1.jpg?1473207960) og [efter afisolering](https://cdn-learn.adafruit.com/assets/assets/000/035/584/medium640/components_strip2.jpg?1473208002), hvor AWG-skalaen kan ses.
 :::
 
 <!-- LÆRER: hvilke tænger lokalet har (mærke/model), og eventuelle regler for brugen af dem. -->
@@ -127,11 +127,11 @@ Et kort stykke ledning kan være svært at holde, når den anden ende skal afiso
 <!-- TJEK: afprøv trinene med lokalets ledning og tænger. Kilderne siger mellem ca. 6 mm (1/4 tomme) og 1 cm afisolering; tjek, at ca. 8 mm passer til dybden på lokalets boards. Beskriv evt. Makes greb præcist (fx to snit med tangen og vrid stykket isolering af), hvis I bruger det. -->
 
 ::: {.billede-mangler}
-Grebet ved klipning og afisolering af den anden ende. Se lignende billeder: [Adafruit](https://learn.adafruit.com/breadboards-for-beginners/diy-jumper-wires?view=all) [Make](https://makezine.com/projects/perfect-jumper-wires/).
+Grebet ved klipning og afisolering af den anden ende. Eksempel: Adafruits [greb om ledningen ved tangen](https://cdn-learn.adafruit.com/assets/assets/000/035/583/medium640/components_strip1.jpg?1473207960).
 :::
 
 ::: {.billede-mangler}
-En ledning før og efter bøjning, lagt ved siden af boardet. Se lignende billeder: [Adafruit](https://learn.adafruit.com/breadboards-for-beginners/diy-jumper-wires?view=all) [Make](https://makezine.com/projects/perfect-jumper-wires/).
+En ledning før og efter bøjning, lagt ved siden af boardet. Eksempel: Adafruits [færdige ledning](https://cdn-learn.adafruit.com/assets/assets/000/035/588/medium640/components_strip6.jpg?1473208085) (lige, ikke bøjet; vores skal bøjes 90 grader).
 :::
 
 <!-- LÆRER: dine egne tricks (fx at måle med en anden ledning, eller at bruge en skabelon). -->
@@ -170,11 +170,11 @@ Trykknappen over renden med ledninger på to diagonale ben.
 :::
 
 ::: {.billede-mangler}
-Det færdige board set ovenfra, så alle ledninger kan følges. Se lignende billeder: [Ben Eater](https://eater.net/breadboards).
+Det færdige board set ovenfra, så alle ledninger kan følges. Eksempel: Adafruits [pæne board set ovenfra](https://cdn-learn.adafruit.com/assets/assets/000/035/462/medium800/components_9vbb.jpg?1473033412) (kun en modstand og en lysdiode, uden ledninger).
 :::
 
 ::: {.billede-mangler}
-Et rodet board med lange, løse ledninger til sammenligning.
+Et rodet board med lange, løse ledninger til sammenligning. Eksempel: Adafruits [rod med krokodillenæb](https://cdn-learn.adafruit.com/assets/assets/000/035/460/medium800/components_9valli.jpg?1473032776) (ikke breadboard, men samme pointe).
 :::
 
 <!-- LÆRER: tilføj eller udskift med en opstilling, I faktisk bruger i forløbet. -->
