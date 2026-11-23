@@ -1,1 +1,22 @@
 /* css styles */
+
+/* Synlig pladsholder for et foto, læreren selv skal tage:
+   ::: {.billede-mangler}
+   Hvad billedet skal vise. [Eksempel hos …](url)
+   :::
+   Fjern boksen, når det rigtige billede er sat ind. */
+.billede-mangler {
+  border: 2px dashed #d97706;
+  background: #fff7ed;
+  border-radius: 6px;
+  padding: 0.6rem 0.9rem;
+  margin: 1rem 0;
+}
+.billede-mangler::before {
+  content: "📷 Foto mangler";
+  display: block;
+  font-weight: 600;
+  color: #b45309;
+  margin-bottom: 0.25rem;
+}
+.billede-mangler p:last-child { margin-bottom: 0; }

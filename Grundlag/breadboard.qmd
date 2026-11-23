@@ -1,0 +1,234 @@
+---
+title: "Breadboard med tilpassede ledninger"
+subtitle: "Pæne, flade og pålidelige opstillinger"
+date: 2026-11-23
+maalpinde: [9, 12, 18]
+draft: true
+---
+
+<!-- IKKE KOMPILERET: siden har ingen kode. Fakta om breadboards, ledninger og ESP32-DEVKIT-V1 er tjekket mod kilderne, men ikke afprøvet på lokalets boards og ledninger. -->
+
+<!--
+TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
+1. Tjek, om lokalets ESP32-DEVKIT-V1 er 30-pin-udgaven (15 ben i hver side). Sæt et modul i et af lokalets breadboards, og tæl de frie huller i rækkerne på hver side (TJEK i afsnittet om ESP32-DEVKIT-V1).
+2. Prøv løsningen med to boards side om side på lokalets boards: kan den inderste strømskinne tages af på hvert board, og sidder de godt sammen? (TJEK samme sted.)
+3. Mål med multimeter, om strømskinnerne på lokalets boards er delt på midten (TJEK i afsnittet om strømskinner).
+4. Tjek, at lokalets ledning er 22 AWG massiv kerne, og hvilken skala (SOL/STR) og hvilket hul på lokalets tænger der passer (TJEK i afsnittet om ledning og værktøj).
+5. Tjek, at for tynd ledning faktisk sidder løst i lokalets boards, eller slet påstanden (TJEK i afsnittet om ledning).
+6. Tjek, at ca. 8 mm afisolering passer til lokalets boards: ledningen skal sidde fast, og der må ikke stikke blankt kobber op (TJEK i teknikafsnittet).
+7. Afprøv trinene i teknikafsnittet (klip ved mærket + 8 mm, afisolér, bøj), og beskriv evt. Makes greb med at afisolere midt på ledningen, før den klippes af rullen (TJEK i teknikafsnittet).
+8. Afprøv knappen i eksemplet med to diagonale ben på lokalets trykknapper: knappen må kun give forbindelse, når den trykkes (TJEK i eksemplet).
+9. Tjek, at 220 Ω passer til lokalets lysdioder (TJEK i eksemplet).
+10. Læs SparkFuns breadboard-guides, og tilføj dem eventuelt som kilder (TJEK nederst på siden).
+11. BILLEDE: et pænt bygget board med ESP32 (eksemplet, slutresultat).
+12. BILLEDE: tangen med 22 AWG-hullet (massiv kerne) markeret.
+13. BILLEDE: grebet ved afisolering og klipning i teknikafsnittet.
+14. BILLEDE: en ledning før og efter bøjning, lagt ved siden af boardet.
+15. BILLEDE: ESP32-DEVKIT-V1 på ét board og på to boards side om side.
+16. BILLEDE: trykknappen over renden med ledninger på to diagonale ben.
+17. BILLEDE: et rodet board med løse, lange ledninger (til sammenligning).
+18. Udfyld eller slet alle LÆRER-pladsholdere.
+19. Fjern IKKE KOMPILERET, denne tjekliste og alle TJEK-, BILLEDE- og LÆRER-kommentarer, og sæt draft: false.
+-->
+
+Et breadboard lader dig bygge et kredsløb uden at lodde. Men et board fyldt med lange, løse ledninger er svært at overskue, ledningerne hopper ud, og fejl er svære at finde. Klipper du i stedet ledningerne til i præcis den længde, der skal bruges, og lader dem ligge fladt på boardet, kan du se hele kredsløbet på én gang, og det holder, når du flytter det.
+
+<!-- LÆRER: et par linjer om, hvorfor du lægger vægt på pæne boards i lokalet (fx at det er nemmere at hjælpe, når man kan se koblingen). -->
+
+## Formål
+
+- Du kan forklare, hvordan hullerne i et breadboard er forbundet indvendigt.
+- Du kan vælge den rigtige ledning og det rigtige værktøj.
+- Du kan klippe, afisolere og bøje en ledning, så den passer præcis mellem to huller og ligger fladt.
+- Du kan bygge en opstilling med ESP32-DEVKIT-V1, som er nem at overskue og fejlfinde på.
+
+## Målpinde
+
+Siden arbejder med målpind 9, 12 og 18 (se [Læringsmål](../laeringsmaal.qmd)).
+
+## Forudsætninger
+
+- Du ved, hvad GND og 3,3 V er på ESP32-DEVKIT-V1.
+- Hardware: et breadboard, en ESP32-DEVKIT-V1, ledning med massiv kerne, afisoleringstang og sidebider.
+- Til eksemplet: en trykknap, en lysdiode og en modstand på 220 Ω. Se også [Debouncing](debouncing.qmd), som bruger samme knap.
+
+<!-- LÆRER: hvor værktøj og ledninger ligger i lokalet, og hvordan de afleveres igen. -->
+
+## Sådan er et breadboard forbundet
+
+Under hullerne sidder metalclips med fjedre, der griber om benet på en komponent eller enden af en ledning. Hullerne sidder med 2,54 mm (0,1 tomme) mellem hinanden.
+
+- **Rækker:** I midterfeltet er hver række på fem huller forbundet. Alt, hvad du sætter i de fem huller, er koblet sammen.
+- **Midterrenden:** Rækkerne er afbrudt ved renden på midten. Derfor kan en chip eller et modul sidde hen over renden uden at benene på de to sider kortsluttes.
+- **Strømskinner:** Langs kanterne sidder lange skinner ([power rails]{lang="en"}), typisk markeret med rød (+) og blå eller sort (−). Alle hullerne langs én streg er forbundet.
+- **Skinnerne er ikke altid gennemgående:** På mange store boards er skinnerne delt på midten, så strøm sat på i den ene ende ikke når den anden ende. Et hul i den røde og blå streg kan være et tegn på det, men det sikre er at måle med et multimeter. Sæt en kort ledning over delingen, hvis du vil have skinnen hele vejen.
+- **Siderne er ikke forbundet:** Skinnerne i venstre og højre side har ingen forbindelse til hinanden. Vil du have 3,3 V og GND i begge sider, skal du selv sætte to ledninger på.
+
+<!-- TJEK: om strømskinnerne på lokalets boards er delt på midten. Mål med multimeter på et par boards. -->
+
+<!-- LÆRER: hvilke boards lokalet har (størrelse, mærke), og om skinnerne er delt. -->
+
+## ESP32-DEVKIT-V1 er bred
+
+ESP32-DEVKIT-V1 (30-pin-udgaven) har to stiklister med 15 ben, én i hver side. Der findes også en 36-pin-udgave med 18 ben i hver side. Modulet er så bredt, at det på et almindeligt breadboard dækker de fleste af de fem huller i rækkerne på begge sider af renden. På den ene side er der typisk kun ét frit hul i hver række, og på den anden side er der intet.
+
+<!-- TJEK: om lokalets moduler er 30-pin-udgaven, og tæl de frie huller i rækkerne på hver side med lokalets ESP32-DEVKIT-V1 og boards. Kilderne er brugerberetninger og siger "ét hul på den ene side og intet på den anden" eller "højst ét på hver side". Bredden varierer mellem kloner. -->
+
+Løsninger:
+
+- **To boards side om side:** Tag den inderste strømskinne af på hvert af to boards, og sæt de to boards sammen. Lad ESP32 sidde med én stikliste i hvert board. Så er der frie huller i rækkerne på begge sider. Lim eventuelt de to boards på et stykke pap, så de ikke glider fra hinanden.
+- **Brug kun den ene side:** Sæt modulet helt ude i den ene ende af boardet, og brug de ben, der står i rækkerne med det frie hul. Det rækker, når der kun skal få komponenter på.
+
+<!-- TJEK: om lokalets boards kan skilles ad og sættes sammen igen (skinnerne sidder ofte på med en lås eller med klæbebagside). -->
+
+::: {.billede-mangler}
+ESP32-DEVKIT-V1 på ét board (med det ene frie hul i hver række) og på to boards side om side. Se lignende billeder: [DroneBot Workshop-forum](https://forum.dronebotworkshop.com/tools-test-equipment/esp32-board-too-fat-for-my-breadboard/).
+:::
+
+<!-- LÆRER: hvilken løsning I bruger i lokalet. -->
+
+## Ledning og værktøj
+
+### Ledning
+
+- Brug **22 AWG** ledning med **massiv kerne** (én tråd kobber, ca. 0,64 mm). Den passer til fjedrene og holder formen, når den bøjes.
+- **Ikke flertrådet** ledning: de tynde tråde spredes, kan kortslutte til nabohullet, og fjedrene griber dårligt om dem.
+- **Ikke for tyk:** tykkere ledning bøjer fjedrene, så hullet bagefter giver dårlig forbindelse til tyndere ben.
+- **Ikke for tynd:** for tynd ledning er svær at afisolere og knækker let. Den kan også sidde løst i hullet.
+
+<!-- TJEK: at den indkøbte ledning er 22 AWG massiv kerne (står på rullen eller i ordren). Tjek også, om for tynd ledning faktisk sidder løst i lokalets boards; det står ikke i kilderne. -->
+
+### Værktøj
+
+- **Afisoleringstang** med huller til hver ledningstykkelse. Brug hullet til **22 AWG massiv kerne** (mærket SOL eller SOLID, hvis tangen har to skalaer). Et for lille hul skærer hak i kobberet, så ledningen senere knækker ved hakket. Et for stort hul tager ikke isoleringen.
+- **Sidebider** (lille, spids) til at klippe ledningen af.
+- **Spidstang**, gerne med glatte kæber, til at bøje ledningen. Fjedrene i boardet ødelægges let, især med en spidstang (DigiKey). Sæt helst ledningen i med fingrene: tag fat i isoleringen lige over hullet, og tryk lige ned. Vrid aldrig i hullet.
+
+<!-- TJEK: hvilken skala (SOL/STR) og hvilket hul på lokalets tænger der passer til lokalets ledning. -->
+
+::: {.billede-mangler}
+Tangen med hullet til 22 AWG massiv kerne markeret. Se lignende billeder: [Adafruit](https://learn.adafruit.com/breadboards-for-beginners/diy-jumper-wires?view=all) [Ben Eaters værktøjsliste](https://eater.net/breadboards).
+:::
+
+<!-- LÆRER: hvilke tænger lokalet har (mærke/model), og eventuelle regler for brugen af dem. -->
+
+## Teknikken: en ledning i præcis længde
+
+1. **Find de to huller**, ledningen skal gå imellem. Planlæg, så ledningen går lige, og helst langs rækkerne eller på tværs af dem.
+2. **Afisolér ca. 8 mm** i den ene ende med det rigtige hul på tangen.
+3. **Bøj 90 grader** lige ved kanten af isoleringen, og sæt enden i det første hul.
+4. **Læg ledningen fladt** hen over boardet til det andet hul. Sæt et mærke med neglen eller tangen der, hvor ledningen skal bøjes ned.
+5. **Klip ledningen af** ca. 8 mm uden for mærket.
+6. **Afisolér den nye ende** op til mærket.
+7. **Bøj 90 grader ned** ved mærket, og **tryk ledningen i.** Den skal ligge fladt mod boardet, uden blankt kobber over hullerne.
+
+Et kort stykke ledning kan være svært at holde, når den anden ende skal afisoleres. Make beskriver et trick, hvor man afisolerer, før ledningen klippes af rullen (se Læs videre).
+
+<!-- TJEK: afprøv trinene med lokalets ledning og tænger. Kilderne siger mellem ca. 6 mm (1/4 tomme) og 1 cm afisolering; tjek, at ca. 8 mm passer til dybden på lokalets boards. Beskriv evt. Makes greb præcist (fx to snit med tangen og vrid stykket isolering af), hvis I bruger det. -->
+
+::: {.billede-mangler}
+Grebet ved klipning og afisolering af den anden ende. Se lignende billeder: [Adafruit](https://learn.adafruit.com/breadboards-for-beginners/diy-jumper-wires?view=all) [Make](https://makezine.com/projects/perfect-jumper-wires/).
+:::
+
+::: {.billede-mangler}
+En ledning før og efter bøjning, lagt ved siden af boardet. Se lignende billeder: [Adafruit](https://learn.adafruit.com/breadboards-for-beginners/diy-jumper-wires?view=all) [Make](https://makezine.com/projects/perfect-jumper-wires/).
+:::
+
+<!-- LÆRER: dine egne tricks (fx at måle med en anden ledning, eller at bruge en skabelon). -->
+
+## Regler for et pænt board
+
+- **Korte ledninger:** fra hul til hul ad den korteste pæne vej. Ingen løkker: lange løkker opfanger støj og er svære at følge.
+- **Fladt og tæt på boardet:** ledningerne ligger ned mod boardet. Ingen buer i luften.
+- **Rette vinkler:** ledningerne går lige og bøjer 90 grader. Så kan du følge dem med øjnene. Bøj kun én gang på samme sted, så kobberet ikke bliver træt og knækker.
+- **Uden om komponenter:** før ledninger rundt om eller mellem chips og moduler, ikke hen over dem. Så kan du skifte en komponent uden at rive ledninger op.
+- **Farvekode:**
+  - rød: 3,3 V (plus)
+  - sort: GND
+  - andre farver: signaler, fx én farve til input og en anden til output
+  - bruger du også 5 V fra VIN, så giv den en anden farve (fx orange), så den ikke forveksles med 3,3 V. ESP32's indgange tåler kun 3,3 V.
+
+<!-- LÆRER: lokalets farvekode for signaler (fx gul = input, grøn = output, blå = I2C), hvis I har en. -->
+
+Et pænt board er også et bedre grundlag for fejlfinding: når hver ledning kan ses, kan du sammenligne opstillingen med dit diagram, hul for hul.
+
+## Eksempel: et pænt opbygget board
+
+Her bygges en knap og en lysdiode til ESP32-DEVKIT-V1. Koblingen til knappen er den samme som på siden om [Debouncing](debouncing.qmd).
+
+1. **Sæt ESP32 i** hen over renden (eller over to boards, se ovenfor). Tryk den forsigtigt ned, så benene ikke bøjes.
+2. **Strøm til skinnerne:** én kort rød ledning fra 3V3 til den røde skinne og én kort sort ledning fra GND til den blå skinne.
+3. **Skinnerne i begge sider:** hvis du skal bruge strøm i den anden side, så sæt én rød og én sort ledning over til den anden sides skinner. Er skinnerne delt på midten, så forbind også de to halvdele.
+4. **Knappen:** sæt den hen over renden. En almindelig trykknap har fire ben, der indvendigt er forbundet to og to. Brug derfor to ben, der sidder diagonalt over for hinanden: så er du sikker på, at forbindelsen går gennem kontakten. En kort sort ledning fra det ene af de to ben til GND-skinnen, og en signalledning (fx gul) fra det andet til GPIO 18.
+5. **Lysdioden:** en signalledning (fx grøn) fra GPIO 19 til en række, hvor formodstanden (fx 220 Ω) sidder med det ene ben. Modstandens andet ben går i en ny række sammen med lysdiodens lange ben (anode). Det korte ben (katode) sidder i sin egen række og går med en kort sort ledning til GND.
+6. **Kontrollér** opstillingen mod dit diagram, før du sætter USB i: følg hver ledning og sig højt, hvad den forbinder.
+
+<!-- TJEK: afprøv knappen med diagonale ben på lokalets trykknapper (multimeter: forbindelse kun, når knappen trykkes). Tjek også, at formodstanden passer til lysdioderne i lokalet. 220 Ω giver ca. (3,3 V − 2 V) / 220 Ω ≈ 6 mA for en rød lysdiode. -->
+
+::: {.billede-mangler}
+Trykknappen over renden med ledninger på to diagonale ben.
+:::
+
+::: {.billede-mangler}
+Det færdige board set ovenfra, så alle ledninger kan følges. Se lignende billeder: [Ben Eater](https://eater.net/breadboards).
+:::
+
+::: {.billede-mangler}
+Et rodet board med lange, løse ledninger til sammenligning.
+:::
+
+<!-- LÆRER: tilføj eller udskift med en opstilling, I faktisk bruger i forløbet. -->
+
+## Øvelser
+
+1. Mål med et multimeter (gennemgangstest, det der bipper) på dit eget board: er rækkerne på fem huller forbundet? Er strømskinnerne gennemgående, eller er de delt på midten? Skriv svaret ned.
+2. Lav fem ledninger i forskellige længder, der passer præcis mellem to huller og ligger fladt. Vis dem til læreren.
+3. Byg eksemplet ovenfor. Tag et billede ovenfra, og tjek, at du kan følge hver ledning på billedet.
+4. Byg opstillingen fra siden om [Debouncing](debouncing.qmd) på et pænt board, og kør programmet.
+5. *Ekstra:* Byg en opstilling med ESP32-DEVKIT-V1 på to boards side om side, med en knap og en lysdiode på hver side af modulet.
+
+<!-- LÆRER: tilpas øvelserne til forløbet og de opstillinger, eleverne skal bygge. -->
+
+## Typiske fejl
+
+- **Intet virker i den ene ende af boardet:** strømskinnen er delt på midten. Mål med multimeter, og sæt en ledning over delingen.
+- **Intet virker i den anden side:** skinnerne i venstre og højre side er ikke forbundet.
+- **Knappen er altid trykket:** GND og GPIO sidder på to ben af knappen, der er forbundet indvendigt. Brug to diagonale ben.
+- **Ledningen falder ud eller giver kun forbindelse nogle gange:** for lidt afisoleret, for tynd ledning, eller fjedrene i hullet er slidt af tykke ben. Brug et andet hul.
+- **Kortslutning til nabohullet:** for meget blankt kobber stikker op, eller der er brugt flertrådet ledning.
+- **Ledningen knækker ved enden:** tangen har skåret et hak i kobberet. Brug det rigtige hul på tangen.
+- **To ben kortsluttet:** en komponent sidder med to ben i samme række på fem, i stedet for hen over renden eller i hver sin række.
+
+<!-- LÆRER: de fejl, du oftest ser i lokalet. -->
+
+## Læs videre
+
+### Ben Eaters tips
+
+Ben Eater bygger store kredsløb på breadboards med meget pæne ledninger. På [eater.net/breadboards](https://eater.net/breadboards){lang="en"} har han en video med tips og en liste over det værktøj, han bruger. Hackaday har skrevet om videoen i [Ben Eater's Breadboarding Tips](https://hackaday.com/2021/01/05/ben-eaters-breadboarding-tips){lang="en"}. Han afisolerer ca. 0,3 tomme (ca. 7,6 mm), altså omtrent de 8 mm, der står på denne side. Se billederne på siderne der; de er ikke kopieret hertil.
+
+### En skabelon til ledninger
+
+Hackaday viser i [3D Printed Breadboard Helper](https://hackaday.com/2020/02/23/3d-printed-breadboard-helper-makes-wiring-neater-and-easier){lang="en"} en 3D-printet skabelon, der gør det hurtigere at måle, afisolere og klippe ledninger til den rigtige længde. Bøjningen sker stadig i hånden.
+
+### Andre kilder om teknikken
+
+- Adafruit viser trinnene med fotos i [DIY Jumper Wires](https://learn.adafruit.com/breadboards-for-beginners/diy-jumper-wires?view=all){lang="en"}. Her klippes ledningen til, før den anden ende afisoleres, ligesom på denne side.
+- Make: [How to Make Perfect Jumper Wires](https://makezine.com/projects/perfect-jumper-wires/){lang="en"} afisolerer først og klipper bagefter, så man har en lang ledning at holde i. Artiklen viser ikke grebet i detaljer og afisolerer kun 1/4 tomme (ca. 6 mm), lidt mindre end de andre kilder.
+- Virginia Tech fraråder i [Wiring Tips](https://opel.ece.vt.edu/reference/wire.html){lang="en"} skarpe bøjninger ("avoid sharp bends"). På denne side bøjer vi alligevel 90 grader, fordi ledningen så ligger fladt. Bøj kun én gang på samme sted.
+
+## Kilder
+
+- Ben Eater: Breadboards, <https://eater.net/breadboards>
+- Hackaday: Ben Eater's Breadboarding Tips, <https://hackaday.com/2021/01/05/ben-eaters-breadboarding-tips>
+- Hackaday: 3D Printed Breadboard Helper, <https://hackaday.com/2020/02/23/3d-printed-breadboard-helper-makes-wiring-neater-and-easier>
+- Adafruit: Breadboards for Beginners, DIY Jumper Wires, <https://learn.adafruit.com/breadboards-for-beginners/diy-jumper-wires?view=all>
+- Make: How to Make Perfect Jumper Wires, <https://makezine.com/projects/perfect-jumper-wires/>
+- Virginia Tech OpEL: Wiring Tips, <https://opel.ece.vt.edu/reference/wire.html>
+- DigiKey: Definitive guide to breadboarding circuits, <https://forum.digikey.com/t/definitive-guide-to-breadboarding-circuits/36584>
+- All About Circuits: The best wire for breadboarding, <https://www.allaboutcircuits.com/news/the-best-wire-for-breadboarding/>
+- NYU ITP: Setting Up a Breadboard, <https://itp.nyu.edu/physcomp/?p=855>
+- DroneBot Workshop forum: ESP32 board too fat for my breadboard, <https://forum.dronebotworkshop.com/tools-test-equipment/esp32-board-too-fat-for-my-breadboard/>
+- Random Nerd Tutorials: ESP32 Pinout Reference (30- og 36-pin-udgaven af DEVKIT V1), <https://randomnerdtutorials.com/esp32-pinout-reference-gpios/>
+
+<!-- TJEK: SparkFuns "How to Use a Breadboard" og "Working with Wire" kunne ikke hentes (HTTP 403), så de er ikke brugt som kilder. Tilføj dem, hvis du har læst dem. -->
