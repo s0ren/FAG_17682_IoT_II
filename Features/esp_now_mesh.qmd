@@ -253,7 +253,7 @@ void loop() {
 
 Upload, åbn Serial Monitor, og tryk på EN-knappen på ESP32, hvis du ikke nåede at se den første linje. Skriv MAC-adressen ned.
 
-<!-- BILLEDE: Serial Monitor for modtageren med linjen "Modtager. MAC-adresse: …, kanal: 1" og et par modtagne beskeder. -->
+<!-- BILLEDE: Serial Monitor for modtageren med linjen "Modtager. MAC-adresse: …, kanal: 1" og et par modtagne beskeder. Se fx: https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2024/06/ESP-NOW-ESP32-Receiver-Message-Print.png?quality=100&strip=all&ssl=1 (RNT: modtagne beskeder, men et andet format end vores) -->
 
 ## Eksempel: afsender
 
@@ -362,7 +362,7 @@ void loop() {
 }
 ```
 
-<!-- BILLEDE: Serial Monitor for afsenderen med "Sendt nr. …" og "kvitteret af modtageren", og gerne et par "IKKE kvitteret", mens modtageren var slukket. -->
+<!-- BILLEDE: Serial Monitor for afsenderen med "Sendt nr. …" og "kvitteret af modtageren", og gerne et par "IKKE kvitteret", mens modtageren var slukket. Se fx: https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2024/06/ESP-NOW-ESP32-Sender-Message-Print.png?quality=100&strip=all&ssl=1 (RNT: "Delivery Success"; ingen fejlede afsendelser) -->
 
 Sådan virker det:
 

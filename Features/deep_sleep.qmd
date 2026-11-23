@@ -69,7 +69,7 @@ Tallene ovenfor gælder for ESP32-*chippen*. Udviklingskortet DEVKIT-V1 har fler
 Hvis du måler strømmen til hele kortet, ser du derfor milliampere, ikke mikroampere, også i deep sleep. Det betyder ikke, at deep sleep ikke virker. Til et rigtigt batteriprodukt bruger man et kort uden USB-chip og lysdiode, eller sin egen printplade.
 
 <!-- TJEK: siden siger "milliampere" for hele kortet i deep sleep uden et konkret tal. Mål på skolens kort, og indsæt gerne tallet. -->
-<!-- BILLEDE: DEVKIT-V1 set fra oven med USB-chip, spændingsregulator og strøm-LED markeret. -->
+<!-- BILLEDE: DEVKIT-V1 set fra oven med USB-chip, spændingsregulator og strøm-LED markeret. Se fx: ../images/esp32_devkit_v1_komponenter.png (sitets eget billede fra forsiden: CP2102 og spændingsregulator er markeret, strøm-LED er ikke) -->
 
 ### Light sleep
 
@@ -259,7 +259,7 @@ Vækket af: timer
 Sover i 10 s
 ```
 
-<!-- BILLEDE: Serial Monitor med tre-fire opvågninger fra timer-eksemplet, hvor tælleren stiger og årsagen er "timer". -->
+<!-- BILLEDE: Serial Monitor med tre-fire opvågninger fra timer-eksemplet, hvor tælleren stiger og årsagen er "timer". Se fx: https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2019/04/ESP32_timer_wake-up_demonstration.png?quality=100&strip=all&ssl=1 (RNT: "Boot number" og "Wakeup caused by timer" i Arduino IDE) -->
 
 `delay(500)` er her i orden: det er en engangsventetid i `setup()`, ikke i `loop()`.
 
@@ -267,7 +267,7 @@ Sover i 10 s
 
 Knappen sidder mellem **GPIO 33** og **GND**, ligesom på debouncing-siden, bare på et ben, der kan vække. ESP32 vågner, når der trykkes, og ellers hvert 30. sekund. Den lysdiode, der sidder på GPIO 2, blinker kort, når det var knappen.
 
-<!-- BILLEDE: breadboard med DEVKIT-V1 og en trykknap mellem GPIO 33 og GND. -->
+<!-- BILLEDE: breadboard med DEVKIT-V1 og en trykknap mellem GPIO 33 og GND. Se fx: https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2019/04/esp32-pushbutton-33.png?quality=100&strip=all&ssl=1 (RNT, Fritzing: knap på GPIO 33, men med pull-down-modstand til 3,3 V; vores side bruger pull-up og knap til GND) -->
 
 `platformio.ini` er den samme som i eksemplet ovenfor.
 

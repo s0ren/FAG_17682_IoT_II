@@ -86,7 +86,7 @@ Se skærmbillederne i PlatformIO's [Quick Start](https://docs.platformio.org/en/
 
 <!-- TJEK: feltnavnene Name/Board/Framework/Location og fluebenet "Use default location" (standard: Dokumenter\PlatformIO\Projects) er ikke beskrevet i PlatformIO's docs; de er efter hukommelsen. -->
 
-<!-- BILLEDE: dialogen "Project Wizard" i PIO Home, udfyldt med navn, board "DOIT ESP32 DEVKIT V1", framework "Arduino" og en Location uden æøå. -->
+<!-- BILLEDE: dialogen "Project Wizard" i PIO Home, udfyldt med navn, board "DOIT ESP32 DEVKIT V1", framework "Arduino" og en Location uden æøå. Se fx: https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2020/09/PlatformIO-Create-New-Project-ESP32.png?quality=100&strip=all&ssl=1 (Random Nerd Tutorials: samme dialog med DOIT ESP32 DEVKIT V1 og Arduino) -->
 
 ### Lås platformens version
 
@@ -129,7 +129,7 @@ blink_test/
 | `.pio/` | Alt det, PlatformIO laver selv: oversatte filer, den færdige firmware og bibliotekerne fra `lib_deps` (i `.pio/libdeps/`). Kan altid laves igen. |
 | `.vscode/` | Filer, som PlatformIO genererer til VS Code, fx stier til header-filer, så autofuldførelse virker. |
 
-<!-- BILLEDE: VS Codes Explorer med et nyoprettet projekt foldet ud, så platformio.ini, src/main.cpp, include/, lib/ og .pio/ kan ses. -->
+<!-- BILLEDE: VS Codes Explorer med et nyoprettet projekt foldet ud, så platformio.ini, src/main.cpp, include/, lib/ og .pio/ kan ses. Se fx: https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2020/09/PlatfomIO-project-created-folder-structure.png?quality=100&strip=all&ssl=1 (RNT: Explorer med .pio, include, lib, src, test, platformio.ini) -->
 
 ### .gitignore
 
@@ -162,7 +162,7 @@ Nederst i VS Code, i statuslinjen, har PlatformIO en række små knapper. Fra ve
 
 De samme kommandoer findes under PlatformIO-ikonet i venstre side under **Project Tasks**, sorteret efter miljø. Se skærmbilledet i PlatformIO's dokumentation under [PlatformIO Toolbar](https://docs.platformio.org/en/latest/integration/ide/vscode.html#platformio-toolbar){lang="en"} og [Task Explorer](https://docs.platformio.org/en/latest/integration/ide/vscode.html#task-explorer){lang="en"}.
 
-<!-- BILLEDE: statuslinjen nederst i VS Code med PlatformIO-knapperne, hvor hver knap har en dansk pil/etiket (Home, Build, Upload, Clean, Serial Monitor, Terminal). -->
+<!-- BILLEDE: statuslinjen nederst i VS Code med PlatformIO-knapperne, hvor hver knap har en dansk pil/etiket (Home, Build, Upload, Clean, Serial Monitor, Terminal). Se fx: https://docs.platformio.org/en/latest/_images/platformio-ide-vscode-toolbar.png (PlatformIO-docs: kun ikonerne, uden etiketter) -->
 
 **Clean** bruger du, når en build opfører sig mærkeligt, fx efter du har skiftet platformens version eller flyttet filer. Ellers er der ingen grund til det: så skal alt bare oversættes igen.
 
@@ -207,7 +207,7 @@ På Windows hedder serielle porte `COM3`, `COM4` osv. Sådan finder du den, kort
 
 Espressif viser det med skærmbilleder under [Check Port on Windows](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/establish-serial-connection.html#check-port-on-windows){lang="en"}.
 
-<!-- BILLEDE: Enhedshåndtering på dansk Windows med "Porte (COM og LPT)" foldet ud og ESP32-kortets port markeret. -->
+<!-- BILLEDE: Enhedshåndtering på dansk Windows med "Porte (COM og LPT)" foldet ud og ESP32-kortets port markeret. Se fx: https://docs.espressif.com/projects/esp-idf/en/stable/esp32/_images/esp32-devkitc-in-device-manager.png (Espressif: engelsk Windows, "Silicon Labs CP210x USB to UART Bridge (COM3)") -->
 
 PlatformIO finder normalt selv porten. Har du flere serielle enheder tilsluttet, og vælger den forkert, så skriv porten i `platformio.ini`:
 
@@ -228,7 +228,7 @@ A fatal error occurred: Failed to connect to ESP32: ...
 
 Resten af linjen afhænger af esptool-versionen, fx `Timed out waiting for packet header`, `No serial data received` eller `Wrong boot mode detected`.
 
-<!-- BILLEDE: terminalen i VS Code under en mislykket upload, med "Connecting......" og "A fatal error occurred: Failed to connect to ESP32" synlige. -->
+<!-- BILLEDE: terminalen i VS Code under en mislykket upload, med "Connecting......" og "A fatal error occurred: Failed to connect to ESP32" synlige. Se fx: https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2019/02/timed-out-waiting-for-packet-header.png?quality=100&strip=all&ssl=1 (RNT: samme fejl, men i Arduino IDE, ikke PlatformIO) -->
 
 Løsningen er at sætte kortet i upload-tilstand i hånden med knapperne ved USB-stikket:
 
@@ -305,7 +305,7 @@ PlatformIO's egen dokumentation har kun et enkelt skærmbillede af bibliotekssid
 
 <!-- TJEK: trinnene og knapnavnene (Libraries, Add to Project, dialogen med valg af projekt og knappen "Add") står ikke i PlatformIO's docs. De bygger på Random Nerd Tutorials og en tredjepartsvejledning. Prøv dem i PIO Home, og ret knapnavnene. Tjek også, at versionen, der skrives, har formen @^x.y.z. -->
 
-<!-- BILLEDE: dialogen "Add to Project" i PIO Home for ezButton, med elevens projekt valgt i listen. Gerne også et udsnit af platformio.ini bagefter med den nye lib_deps-linje. -->
+<!-- BILLEDE: dialogen "Add to Project" i PIO Home for ezButton, med elevens projekt valgt i listen. Gerne også et udsnit af platformio.ini bagefter med den nye lib_deps-linje. Se fx: https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2020/09/PlatformIO-VS-Code-Add-Library-to-Project-Choose-Project.png?quality=100&strip=all&ssl=1 (RNT: dialogen hedder "Add project dependency", med projektvalg og knappen Add; eksemplet er Adafruit BME280) -->
 
 ### Måde 2: skriv lib_deps selv
 
