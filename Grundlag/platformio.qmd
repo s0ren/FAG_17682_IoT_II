@@ -10,7 +10,7 @@ draft: true
 
 <!--
 TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
-1. Kompilér og upload begge eksempler med platform = espressif32@8.0.0.
+1. Kompilér og upload testprogrammet med platform = espressif32@8.0.0. Byg det igen med arduinogetstarted/ezButton@^1.0.6 i lib_deps.
 2. Hvor meget fylder den første download af espressif32@8.0.0? Ret "flere hundrede MB".
 3. Beder VS Code om "Reload Window", når PlatformIO Core er installeret? (ren installation)
 4. Project Wizard: passer feltnavnene (Name/Board/Framework/Location) og fluebenet "Use default location"?
@@ -43,6 +43,7 @@ Siden arbejder med målpind 17, 20 og 24 (se [Læringsmål](../laeringsmaal.qmd)
 - En computer med Windows, macOS eller Linux, hvor du må installere programmer. Vejledningen her går ud fra Windows.
 - Internetforbindelse. Første gang henter PlatformIO flere hundrede MB.
 - Hardware: ESP32-DEVKIT-V1 og et USB-kabel, der kan overføre data (se [USB-kablet](#usb-kablet)).
+- Git installeret og grundlæggende kendskab til `git init` og `git status` (bruges i øvelse 4).
 
 <!-- TJEK: "flere hundrede MB" er et skøn ud fra toolchain + Arduino-core; ikke målt for espressif32@8.0.0. -->
 
@@ -282,9 +283,9 @@ void loop() {
 
 Klik **Upload** og derefter **Serial Monitor**. Lysdioden skal blinke, og der skal komme en linje hvert sekund. Ser du ikke linjen `PlatformIO virker!`, er det fordi programmet startede, før Serial Monitor var åben. Tryk på **EN**, så starter programmet forfra.
 
-## Eksempel: et bibliotek med lib_deps
+## Biblioteker med lib_deps
 
-Biblioteker fra nettet står i `lib_deps` i `platformio.ini`. Når du bygger, henter PlatformIO dem fra [PlatformIO-registret](https://registry.platformio.org/) og lægger dem i `.pio/libdeps/`. Du skal ikke kopiere filer selv.
+Biblioteker fra nettet står i `lib_deps` i `platformio.ini`. Senest når du bygger, henter PlatformIO dem fra [PlatformIO-registret](https://registry.platformio.org/) og lægger dem i `.pio/libdeps/`. Du skal ikke kopiere filer selv.
 
 Du kan få linjen i `lib_deps` på to måder: vælge biblioteket i PIO Home, eller skrive linjen selv. Begge dele ender med *den samme linje* i `platformio.ini`, og det er kun den linje, der tæller. PIO Home er bare en hjælp til at finde det rigtige navn og den nyeste version.
 
@@ -294,7 +295,7 @@ Eksemplet er biblioteket ezButton, som siden om [Debouncing](debouncing.qmd) bru
 
 1. Åbn **PIO Home** (huset i statuslinjen), og klik på **Libraries** i menuen til venstre.
 2. Søg efter `ezButton`.
-3. Klik på biblioteket i resultatlisten. Tjek, at ejeren er **ArduinoGetStarted**; der kan være flere biblioteker med lignende navne.
+3. Klik på biblioteket i resultatlisten. Tjek, at ejeren er `arduinogetstarted` (vises som "Arduino Get Started"); der kan være flere biblioteker med lignende navne. **Add to Project** henter biblioteket med det samme.
 4. Klik **Add to Project**.
 5. Vælg dit projekt i dialogen, og klik **Add**.
 
