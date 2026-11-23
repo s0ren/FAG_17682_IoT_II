@@ -18,9 +18,10 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 6. Hvilken USB-chip har skolens kort: CP2102 eller CH340? Ret afsnittet om USB.
 7. Virker driver-linkene til Silicon Labs og WCH? Henter Windows selv driveren på skolens maskiner?
 8. Hvornår må BOOT slippes under upload? Prøv på skolens kort.
+9. PIO Home → Libraries → Add to Project: passer trinnene og knapnavnene (dialogen, knappen "Add"), og skriver den lib_deps-linjen på formen arduinogetstarted/ezButton@^1.0.6?
 Skærmbilleder, der mangler (se BILLEDE-kommentarerne):
-9. Project Wizard udfyldt. 10. Explorer med nyt projekt. 11. PlatformIO-knapperne i statuslinjen. 12. Enhedshåndtering med COM-porten. 13. Terminalen ved en mislykket upload.
-14. Når alt er testet: fjern IKKE KOMPILERET, denne tjekliste og TJEK-/BILLEDE-kommentarerne.
+10. Project Wizard udfyldt. 11. Explorer med nyt projekt. 12. PlatformIO-knapperne i statuslinjen. 13. Enhedshåndtering med COM-porten. 14. Terminalen ved en mislykket upload. 15. Dialogen "Add to Project" for ezButton (og platformio.ini med den nye linje).
+16. Når alt er testet: fjern IKKE KOMPILERET, denne tjekliste og TJEK-/BILLEDE-kommentarerne.
 -->
 
 Før du kan skrive den første linje kode til ESP32, skal du have et værktøj, der kan oversætte koden og lægge den over på kortet. I faget bruger vi PlatformIO, som er en udvidelse til Visual Studio Code (VS Code). PlatformIO henter selv compiler, Arduino-framework og biblioteker, så alle i klassen bygger med præcis de samme versioner. Denne side fører dig fra en tom computer til et ESP32-kort, der blinker og skriver i Serial Monitor.
@@ -30,7 +31,7 @@ Før du kan skrive den første linje kode til ESP32, skal du have et værktøj, 
 - Du kan installere VS Code og PlatformIO på din egen computer.
 - Du kan oprette et PlatformIO-projekt til ESP32-DEVKIT-V1 med Arduino-frameworket og forklare, hvad de forskellige filer og mapper bruges til.
 - Du kan bygge, uploade og åbne Serial Monitor, og du kan sætte `monitor_speed`.
-- Du kan tilføje et bibliotek med `lib_deps`.
+- Du kan tilføje et bibliotek, både fra PIO Home og ved at skrive det i `lib_deps`.
 - Du kan finde fejlen, når upload ikke virker: forkert kabel, manglende driver, forkert port eller kortet, der ikke vil gå i upload-tilstand.
 
 ## Målpinde
@@ -283,9 +284,31 @@ Klik **Upload** og derefter **Serial Monitor**. Lysdioden skal blinke, og der sk
 
 ## Eksempel: et bibliotek med lib_deps
 
-Biblioteker fra nettet skriver du i `lib_deps` i `platformio.ini`. Når du bygger, henter PlatformIO dem fra [PlatformIO-registret](https://registry.platformio.org/) og lægger dem i `.pio/libdeps/`. Du skal ikke kopiere filer selv.
+Biblioteker fra nettet står i `lib_deps` i `platformio.ini`. Når du bygger, henter PlatformIO dem fra [PlatformIO-registret](https://registry.platformio.org/) og lægger dem i `.pio/libdeps/`. Du skal ikke kopiere filer selv.
 
-Siden om [Debouncing](debouncing.qmd) bruger biblioteket ezButton:
+Du kan få linjen i `lib_deps` på to måder: vælge biblioteket i PIO Home, eller skrive linjen selv. Begge dele ender med *den samme linje* i `platformio.ini`, og det er kun den linje, der tæller. PIO Home er bare en hjælp til at finde det rigtige navn og den nyeste version.
+
+Eksemplet er biblioteket ezButton, som siden om [Debouncing](debouncing.qmd) bruger.
+
+### Måde 1: vælg biblioteket i PIO Home
+
+1. Åbn **PIO Home** (huset i statuslinjen), og klik på **Libraries** i menuen til venstre.
+2. Søg efter `ezButton`.
+3. Klik på biblioteket i resultatlisten. Tjek, at ejeren er **ArduinoGetStarted**; der kan være flere biblioteker med lignende navne.
+4. Klik **Add to Project**.
+5. Vælg dit projekt i dialogen, og klik **Add**.
+
+PlatformIO skriver nu en linje i `lib_deps` i projektets `platformio.ini` med ejer, navn og den nyeste version, fx `arduinogetstarted/ezButton@^1.0.6`. Åbn filen, og se efter.
+
+PlatformIO's egen dokumentation har kun et enkelt skærmbillede af bibliotekssiden i PIO Home under [Library Manager](https://docs.platformio.org/en/latest/home/index.html#library-manager){lang="en"} og beskriver ikke trinnene. Random Nerd Tutorials viser hele forløbet med skærmbilleder under *Installing ESP32/ESP8266 Libraries on PlatformIO IDE* i artiklen under [Læs videre](#læs-videre).
+
+<!-- TJEK: trinnene og knapnavnene (Libraries, Add to Project, dialogen med valg af projekt og knappen "Add") står ikke i PlatformIO's docs. De bygger på Random Nerd Tutorials og en tredjepartsvejledning. Prøv dem i PIO Home, og ret knapnavnene. Tjek også, at versionen, der skrives, har formen @^x.y.z. -->
+
+<!-- BILLEDE: dialogen "Add to Project" i PIO Home for ezButton, med elevens projekt valgt i listen. Gerne også et udsnit af platformio.ini bagefter med den nye lib_deps-linje. -->
+
+### Måde 2: skriv lib_deps selv
+
+Du kan også skrive linjen direkte i `platformio.ini`. Det er hurtigere, når du allerede kender navnet, fx fra en opgave eller en side her på sitet:
 
 ```{.ini filename="platformio.ini"}
 [env:esp32doit-devkit-v1]
@@ -318,7 +341,7 @@ Biblioteker, der følger med Arduino-frameworket, som `WiFi.h`, skal *ikke* i `l
 1. Installer VS Code og PlatformIO, og opret projektet `blink_test`. Byg det. Hvor lang tid tager den første build, og hvor lang tid tager den næste? Forklar forskellen.
 2. Find kortets COM-port i Enhedshåndtering. Upload testprogrammet, og åbn Serial Monitor. Aflever et skærmbillede af Serial Monitor.
 3. Ret `monitor_speed` til 9600, men lad `Serial.begin(115200)` stå. Hvad ser du i Serial Monitor? Ret det tilbage.
-4. Tilføj ezButton med `lib_deps`, og byg. Find biblioteket i `.pio/libdeps/`. Kør derefter `git init` og `git status` i projektmappen. Kommer `.pio/` med? Hvorfor ikke?
+4. Tilføj ezButton fra PIO Home med **Add to Project**. Se i `platformio.ini`, hvilken linje der er kommet i `lib_deps`, og sammenlign den med linjen i [Måde 2](#måde-2-skriv-lib_deps-selv). Byg projektet. Find biblioteket i `.pio/libdeps/`. Kør derefter `git init` og `git status` i projektmappen. Kommer `.pio/` med? Hvorfor ikke?
 5. Ret `INTERVAL_MS` til 200, og upload igen. Upload så en gang, mens du holder BOOT-knappen nede, som beskrevet under [BOOT-knappen](#failed-to-connect-boot-knappen). Virker det også?
 6. *Ekstra:* Klik **Clean**, og byg igen. Sammenlign tiden med de to builds fra øvelse 1. Hvad blev slettet af Clean, og hvad lå der stadig i `.platformio` i din brugermappe?
 
