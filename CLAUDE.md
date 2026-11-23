@@ -49,7 +49,7 @@ Content may go beyond the objectives or leave some out, and the teacher decides.
 
 ## Conventions
 
-- Code and examples use the **Arduino framework in PlatformIO** on the ESP32-DEVKIT-V1. Link to the ESP-IDF documentation only where it says something the Arduino docs don't (e.g. which GPIOs can wake the ESP32 from deep sleep).
+- Code and examples use the **Arduino framework in PlatformIO** on the ESP32-DEVKIT-V1. The platform is pinned to `platform = espressif32@8.0.0` (Arduino-ESP32 core 3.3.x) on every page, so students get the core the pages are checked against. Link to the ESP-IDF documentation only where it says something the Arduino docs don't (e.g. which GPIOs can wake the ESP32 from deep sleep).
 
 - Write content in Danish, for apprentices on the Datatekniker programme. Mark English passages with `{lang="en"}` (span or div) so spell checking and hyphenation use the right language.
 - Store images locally next to the page (e.g. an `images/` folder) rather than linking to remote URLs, since Typst needs local files. Avoid spaces in image file names: Typst can't find them.

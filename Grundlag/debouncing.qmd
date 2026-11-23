@@ -63,7 +63,7 @@ Programmet tæller, hver gang benet skifter fra `HIGH` til `LOW`. Prøv det før
 
 ```{.ini filename="platformio.ini"}
 [env:esp32doit-devkit-v1]
-platform = espressif32
+platform = espressif32@8.0.0
 board = esp32doit-devkit-v1
 framework = arduino
 monitor_speed = 115200
@@ -103,7 +103,7 @@ Biblioteket [ezButton](https://github.com/ArduinoGetStarted/button) laver deboun
 
 ```{.ini filename="platformio.ini"}
 [env:esp32doit-devkit-v1]
-platform = espressif32
+platform = espressif32@8.0.0
 board = esp32doit-devkit-v1
 framework = arduino
 monitor_speed = 115200
@@ -148,20 +148,6 @@ Sådan virker det:
 
 Man kan debounce ved at vente med `delay(50)` efter et tryk. Men mens `delay()` venter, står resten af din `loop()` stille: andre knapper bliver ikke læst, og din kode kan hverken sende data eller behandle beskeder, der kommer ind (fx fra MQTT). ESP32 selv kører videre, for WiFi kører i baggrunden i sin egen opgave ([task]{lang="en"}), men dit program venter. ezButton bruger i stedet `millis()` og blokerer aldrig, så `loop()` kan blive ved med at lave andre ting. Det bliver vigtigt, når programmet også skal bruge WiFi eller MQTT.
 
-## Læs videre
-
-### Debouncing uden bibliotek
-
-ESP32IO, der ligesom ArduinoGetStarted står bag ezButton, viser i [ESP32 - Button - Debounce](https://esp32io.com/tutorials/esp32-button-debounce){lang="en"} først, hvordan man debouncer med `millis()` helt uden bibliotek. Det er i princippet det, ezButton gør for dig inde i `knap.loop()`. Artiklen har også et koblingsdiagram og et eksempel med tre knapper (GPIO 21, 22 og 23), som kan bruges til øvelse 4.
-
-Bemærk, at en kommentar i koden siger "fra LOW til HIGH" om et tryk. Med `INPUT_PULLUP` er et tryk et skift fra `HIGH` til `LOW`, og det er også det, koden faktisk tjekker.
-
-### Debouncing med interrupts
-
-Random Nerd Tutorials viser en anden måde at gøre det på i [ESP32 GPIO Interrupts with Arduino IDE](https://randomnerdtutorials.com/esp32-gpio-interrupts-arduino/){lang="en"}. Her aflæser programmet ikke knappen i `loop()`. I stedet kalder ESP32 en lille funktion, en *interrupt service routine* (ISR), i det øjeblik benet skifter. Debouncingen sker i ISR'en med `millis()` og også 50 ms, men på en anden måde end ezButton: ISR'en reagerer straks på den første kant og ignorerer så nye kanter i 50 ms, mens ezButton venter, til signalet har været stabilt i 50 ms. Artiklen bruger også GPIO 18 og `INPUT_PULLUP`, så du kan bruge den samme kobling.
-
-Læs artiklen kritisk: med `INPUT_PULLUP` giver et tryk et skift fra `HIGH` til `LOW`. Se, hvilken interrupt-type (`RISING`, `FALLING`, `HIGH` …) eksemplerne bruger, og overvej, om det passer til det (se øvelse 6).
-
 ## Øvelser
 
 1. Kør eksemplet *uden debouncing*. Tryk ti gange, og skriv ned, hvor mange tryk programmet tæller. Prøv også at trykke meget let og meget hårdt.
@@ -179,6 +165,20 @@ Læs artiklen kritisk: med `INPUT_PULLUP` giver et tryk et skift fra `HIGH` til 
 - **Tryk bliver ikke set:** Der står et `delay()` et andet sted i `loop()`, så `knap.loop()` kaldes for sjældent til at opdage korte tryk.
 - **Benet svæver:** Knappen sidder på GPIO 34–39, som ikke har en intern pull-up. Brug et andet ben, eller sæt en ekstern modstand på.
 - **ESP32 starter ikke programmet:** Knappen sidder på GPIO 0 og holdes nede ved opstart. Så går ESP32 i upload-tilstand i stedet for at køre programmet. Undgå strapping pins til knapper.
+
+## Læs videre
+
+### Debouncing uden bibliotek
+
+ESP32IO, der ligesom ArduinoGetStarted står bag ezButton, viser i [ESP32 - Button - Debounce](https://esp32io.com/tutorials/esp32-button-debounce){lang="en"} først, hvordan man debouncer med `millis()` helt uden bibliotek. Det er i princippet det, ezButton gør for dig inde i `knap.loop()`. Artiklen har også et koblingsdiagram og et eksempel med tre knapper (GPIO 21, 22 og 23), som kan bruges til øvelse 4.
+
+Bemærk, at en kommentar i koden siger "fra LOW til HIGH" om et tryk. Med `INPUT_PULLUP` er et tryk et skift fra `HIGH` til `LOW`, og det er også det, koden faktisk tjekker.
+
+### Debouncing med interrupts
+
+Random Nerd Tutorials viser en anden måde at gøre det på i [ESP32 GPIO Interrupts with Arduino IDE](https://randomnerdtutorials.com/esp32-gpio-interrupts-arduino/){lang="en"}. Her aflæser programmet ikke knappen i `loop()`. I stedet kalder ESP32 en lille funktion, en *interrupt service routine* (ISR), i det øjeblik benet skifter. Debouncingen sker i ISR'en med `millis()` og også 50 ms, men på en anden måde end ezButton: ISR'en reagerer straks på den første kant og ignorerer så nye kanter i 50 ms, mens ezButton venter, til signalet har været stabilt i 50 ms. Artiklen bruger også GPIO 18 og `INPUT_PULLUP`, så du kan bruge den samme kobling.
+
+Læs artiklen kritisk: med `INPUT_PULLUP` giver et tryk et skift fra `HIGH` til `LOW`. Se, hvilken interrupt-type (`RISING`, `FALLING`, `HIGH` …) eksemplerne bruger, og overvej, om det passer til det (se øvelse 6).
 
 ## Kilder
 

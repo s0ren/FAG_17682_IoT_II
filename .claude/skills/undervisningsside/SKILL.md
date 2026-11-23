@@ -48,12 +48,14 @@ Use these sections, in this order, with these headings. Leave a section out only
 6. `## Eksempel` (or several `## Eksempel: …`): complete code that the student can paste into a new PlatformIO project (see Code).
 7. `## Øvelser`: numbered, from easy to harder. The last one may be marked *Ekstra*. Each exercise says what to observe or hand in.
 8. `## Typiske fejl`: short list of mistakes and how to spot them.
-9. `## Kilder`: links to the documentation the page is based on.
+9. `## Læs videre` (optional): one or two good tutorials (e.g. Random Nerd Tutorials, ESP32IO) that add something, with a `###` per article. Read them first and point out errors in them. Exercises may refer to this section.
+10. `## Kilder`: links to the documentation the page is based on.
 
 ## Code
 
 - **Arduino framework in PlatformIO** on the **ESP32-DEVKIT-V1**. Every example shows both files:
-  - `platformio.ini` with `[env:esp32doit-devkit-v1]`, `platform = espressif32`, `board = esp32doit-devkit-v1`, `framework = arduino`, `monitor_speed = 115200`, plus `lib_deps` if a library is used (pin the major version, e.g. `@^1.0.6`).
+  - `platformio.ini` with `[env:esp32doit-devkit-v1]`, `platform = espressif32@8.0.0`, `board = esp32doit-devkit-v1`, `framework = arduino`, `monitor_speed = 115200`, plus `lib_deps` if a library is used (pin the major version, e.g. `@^1.0.6`).
+  - The platform is pinned to `espressif32@8.0.0`, which ships Arduino-ESP32 core 3.3.x. Check facts against core 3.x (the `master` branch of arduino-esp32), not 2.x. Change the pin only when the teacher decides to, and then on all pages.
   - `src/main.cpp` starting with `#include <Arduino.h>`.
 - Code blocks get a language and a file name: ```` ```{.cpp filename="src/main.cpp"} ```` and ```` ```{.ini filename="platformio.ini"} ````.
 - Follow the requirements the assignments set for the students' own code: configuration (pins, times, thresholds) as named constants at the top, short functions, Danish comments that explain *why*.

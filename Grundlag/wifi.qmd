@@ -8,6 +8,16 @@ draft: true
 
 <!-- IKKE KOMPILERET: eksemplerne er tjekket mod dokumentationen, men ikke kompileret eller testet på hardware. -->
 
+<!--
+TJEKLISTE TIL LÆREREN (afprøves på hardware, før draft: true fjernes):
+1. Kompilér og upload eksemplet med platform = espressif32@8.0.0. Virker include/secrets.h + secrets_eksempel.h som beskrevet?
+2. Forkert password: hvilken statuskode giver det, 4 eller 6? Ret tabellen og øvelse 2 efter resultatet.
+3. Router slukket og tændt igen (øvelse 4): kommer forbindelsen tilbage af sig selv? Forstyrrer WiFi.reconnect() efter 30 s den automatiske genforbindelse?
+4. RSSI-grænserne (-60, -70, -80 dBm) er en tommelfingerregel. Passer de i lokalet?
+5. iPhone-hotspot: hedder indstillingen "Maksimer kompatibilitet" under Internetdeling på elevernes telefoner?
+6. Når alt er testet: fjern IKKE KOMPILERET, denne tjekliste og TJEK-kommentarerne nedenfor.
+-->
+
 En IoT-enhed skal på nettet, før den kan sende målinger til en server eller hente klokken. På ESP32 sker det næsten altid over WiFi. Det er få linjer kode at forbinde, men der er tre ting, der går galt igen og igen: programmet hænger for evigt, hvis netværket ikke findes, forbindelsen forsvinder midt i det hele, og WiFi-passwordet ender på GitHub. Denne side viser, hvordan du undgår alle tre.
 
 ## Formål
@@ -39,9 +49,8 @@ Et netværk har et navn, et **SSID** ([Service Set Identifier]{lang="en"}), og e
 
 ### Kun 2,4 GHz
 
-ESP32 har kun en radio til **2,4 GHz**-båndet og understøtter standarderne 802.11 b, g og n. Den kan ikke se netværk på 5 GHz. Mange routere sender det samme SSID på begge bånd, og så går det godt. Men hvis netværket kun findes på 5 GHz, finder ESP32 det simpelthen ikke. Det gælder også hotspots på telefoner: nogle telefoner bruger 5 GHz, medmindre du slår en indstilling til (på iPhone hedder den "Maksimér kompatibilitet").
+ESP32 har kun en radio til **2,4 GHz**-båndet og understøtter standarderne 802.11 b, g og n. Den kan ikke se netværk på 5 GHz. Mange routere sender det samme SSID på begge bånd, og så går det godt. Men hvis netværket kun findes på 5 GHz, finder ESP32 det simpelthen ikke. Det gælder også hotspots på telefoner: nogle telefoner bruger 5 GHz, medmindre du slår en indstilling til (på iPhone hedder den "Maksimer kompatibilitet" og findes under Internetdeling).
 
-<!-- TJEK: "Maksimér kompatibilitet" er den danske iPhone-betegnelse efter hukommelsen; ikke slået op. Fjern parentesen, hvis den er forkert. -->
 
 Netværk, hvor man logger ind med brugernavn *og* password (WPA2-Enterprise, fx eduroam), kræver en anden opsætning end den, der vises her. Brug et almindeligt netværk med ét password.
 
@@ -71,16 +80,16 @@ Det virker, når alt er i orden. Men hvis SSID'et er stavet forkert, eller route
 
 | Værdi | Tal | Betyder |
 |---|---|---|
-| `WL_IDLE_STATUS` | 0 | ESP32 er i gang med at forbinde |
+| `WL_IDLE_STATUS` | 0 | Koblet til routeren, men har endnu ikke fået en IP-adresse (varer kort) |
 | `WL_NO_SSID_AVAIL` | 1 | Netværket blev ikke fundet: forkert SSID, for langt væk eller 5 GHz |
 | `WL_CONNECTED` | 3 | Forbundet, med IP-adresse |
 | `WL_CONNECT_FAILED` | 4 | Forbindelsen mislykkedes |
 | `WL_CONNECTION_LOST` | 5 | Forbindelsen blev tabt |
-| `WL_DISCONNECTED` | 6 | Ikke forbundet |
+| `WL_DISCONNECTED` | 6 | Ikke forbundet. Det er også status, mens ESP32 er i gang med at forbinde |
 
 Skriv tallet ud, når forbindelsen fejler. Det er det første spor, når du skal finde fejlen.
 
-<!-- TJEK: Hvilken kode et forkert password giver, er ikke beskrevet i dokumentationen. Det kan være 4, 6 eller noget andet afhængigt af kerneversion; prøv det på hardware (øvelse 2). -->
+<!-- TJEK: Et forkert password giver efter kildekoden status 4 eller 6 (nyere ESP-IDF melder det ofte som handshake-timeout, som giver 6). Prøv det på hardware (øvelse 2). -->
 
 ### Signalstyrke (RSSI)
 
@@ -99,9 +108,9 @@ Skriv tallet ud, når forbindelsen fejler. Det er det første spor, når du skal
 
 ### Når forbindelsen bliver tabt
 
-WiFi-forbindelser falder ud: routeren genstarter, nogen går forbi med en mikrobølgeovn, eller ESP32 er for langt væk. Arduino-frameworket forsøger selv at forbinde igen, fordi automatisk genforbindelse (`setAutoReconnect`) er slået til som standard. Det klarer de fleste udfald.
+WiFi-forbindelser falder ud: routeren genstarter, nogen går forbi med en mikrobølgeovn, eller ESP32 er for langt væk. Arduino-frameworket forsøger selv at forbinde igen, fordi automatisk genforbindelse (`setAutoReconnect`) er slået til som standard. Den prøver igen ved de fleste udfald, også hvis routeren er slukket eller for langt væk. Men den giver op ved et forkert password, og den fortæller ikke dit program, hvad der sker.
 
-Men det er en god idé, at programmet selv holder øje. Programmet skal vide, om det kan sende data lige nu, og hvis det automatiske forsøg ikke lykkes, kan programmet selv bede om et nyt forsøg med `WiFi.reconnect()`. Det skal ske uden at blokere `loop()`, så knapper og sensorer stadig bliver læst, mens ESP32 er offline. Brug `millis()` til at tjekke med et fast interval, præcis som ezButton gør på [Debouncing](debouncing.qmd)-siden.
+Men det er en god idé, at programmet selv holder øje. Programmet skal vide, om det kan sende data lige nu, og hvis den automatiske genforbindelse har givet op, kan programmet selv bede om et nyt forsøg med `WiFi.reconnect()`. Det skal ske uden at blokere `loop()`, så knapper og sensorer stadig bliver læst, mens ESP32 er offline. Brug `millis()` til at tjekke med et fast interval, præcis som ezButton gør på [Debouncing](debouncing.qmd)-siden.
 
 <!-- TJEK: Om WiFi.reconnect() oven i den automatiske genforbindelse kan forstyrre den, er ikke beskrevet i dokumentationen. Intervallet på 30 s er valgt for at give den automatiske genforbindelse tid først. -->
 
@@ -124,7 +133,7 @@ Programmet forbinder i `setup()` og venter højst 20 sekunder. I `loop()` tjekke
 
 ```{.ini filename="platformio.ini"}
 [env:esp32doit-devkit-v1]
-platform = espressif32
+platform = espressif32@8.0.0
 board = esp32doit-devkit-v1
 framework = arduino
 monitor_speed = 115200
@@ -230,12 +239,12 @@ Kopiér `secrets_eksempel.h` til `secrets.h` i samme mappe, og ret SSID og passw
 - **Forbinder aldrig til skolens netværk:** Netværket bruger brugernavn og password (WPA2-Enterprise) eller en login-side i browseren. Brug et andet netværk, fx et hotspot.
 - **`secrets.h: No such file or directory`:** Filen ligger ikke i `include/`, eller den hedder stadig `secrets_eksempel.h`.
 - **Passwordet ligger alligevel på GitHub:** `secrets.h` blev committet, før den kom i `.gitignore`. `.gitignore` virker kun på filer, git ikke kender i forvejen. Fjern den med `git rm --cached include/secrets.h`, og skift passwordet, for det ligger stadig i historikken.
-- **Analog aflæsning giver mærkelige tal, når WiFi er tændt:** Benene på ADC2 kan ikke læses analogt, mens WiFi kører. Brug et ben på ADC1 (GPIO 32–39).
+- **Analog aflæsning giver 0, når WiFi er tændt:** Benene på ADC2 kan ikke læses analogt, mens WiFi kører, og `analogRead()` giver så 0 uden fejlmeddelelse. Brug et ben på ADC1: GPIO 32–36 eller 39 (34–39 kan kun bruges som input).
 - **RSSI er 0:** ESP32 er ikke forbundet.
 
 ## Læs videre
 
-Random Nerd Tutorials gennemgår mange flere funktioner i [ESP32 Useful Wi-Fi Library Functions (Arduino IDE)](https://randomnerdtutorials.com/esp32-useful-wi-fi-functions-arduino/){lang="en"}: scanning efter netværk, fast IP-adresse, hostname, MAC-adresse og WiFi-events, hvor ESP32 selv kalder en funktion, når forbindelsen kommer eller går. Læs den kritisk:
+Random Nerd Tutorials gennemgår mange flere funktioner i [ESP32 Useful Wi-Fi Library Functions (Arduino IDE)](https://randomnerdtutorials.com/esp32-useful-wi-fi-functions-arduino/){lang="en"}: scanning efter netværk, fast IP-adresse, hostname, flere netværk med WiFiMulti og WiFi-events, hvor ESP32 selv kalder en funktion, når forbindelsen kommer eller går. Læs den kritisk:
 
 - Artiklens første eksempel venter med en `while`-løkke uden tidsgrænse.
 - I afsnittet om events nævner teksten `SYSTEM_EVENT_AP_STADISCONNECTED`. Det event handler om klienter på ESP32's *eget* access point. Det rigtige event for station mode er `ARDUINO_EVENT_WIFI_STA_DISCONNECTED`, som artiklens kode også bruger. Navnene med `SYSTEM_EVENT_` er fra en ældre version af frameworket.
@@ -247,8 +256,9 @@ Senere i forløbet bygger vi videre på denne side: tid fra internettet med NTP,
 
 - Arduino-ESP32: Wi-Fi API, <https://docs.espressif.com/projects/arduino-esp32/en/latest/api/wifi.html>
 - Arduino-ESP32: kildekode til `WiFiSTA.h` og `WiFiType.h` (`wl_status_t`, `WIFI_STA`), <https://github.com/espressif/arduino-esp32/tree/master/libraries/WiFi/src>
-- Arduino-ESP32 2.x: `WiFiSTA.cpp` (automatisk genforbindelse er slået til som standard), <https://github.com/espressif/arduino-esp32/blob/release/v2.x/libraries/WiFi/src/WiFiSTA.cpp>
-- ESP-IDF: Wi-Fi Driver, Overview (2,4 GHz, 802.11 b/g/n), <https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/wifi-driver/overview.html>
+- Arduino-ESP32 3.x: `STA.cpp` (statuskoder og automatisk genforbindelse, som er slået til som standard), <https://github.com/espressif/arduino-esp32/blob/master/libraries/WiFi/src/STA.cpp>
+- Espressif: ESP32 Datasheet (2,4 GHz), <https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf>
+- ESP-IDF: Wi-Fi Driver, Overview (802.11 b/g/n), <https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/wifi-driver/overview.html>
 - PlatformIO: `include_dir`, <https://docs.platformio.org/en/latest/projectconf/sections/platformio/options/directory/include_dir.html>
 - Random Nerd Tutorials: ESP32 Useful Wi-Fi Library Functions, <https://randomnerdtutorials.com/esp32-useful-wi-fi-functions-arduino/>
 - Random Nerd Tutorials: ESP32 Pinout Reference (ADC2 og WiFi), <https://randomnerdtutorials.com/esp32-pinout-reference-gpios/>
