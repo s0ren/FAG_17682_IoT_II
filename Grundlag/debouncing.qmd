@@ -55,7 +55,7 @@ Valg af ben på ESP32-DEVKIT-V1:
 | 18, 19, 21–23, 25–27, 32, 33 | Ja |
 | 6–11 | Nej: forbundet til den interne flash |
 | 34–39 | Kun med en ekstern modstand: de har ingen intern pull-up |
-| 0, 2, 4, 5, 12, 15 | Helst ikke: de påvirker, hvordan ESP32 starter op ([strapping pins]{lang="en"}) |
+| 0, 2, 5, 12, 15 | Helst ikke: de påvirker, hvordan ESP32 starter op ([strapping pins]{lang="en"}) |
 
 ## Eksempel: uden debouncing
 
@@ -146,19 +146,19 @@ Sådan virker det:
 
 ### Hvorfor ikke bare `delay()`?
 
-Man kan debounce ved at vente med `delay(50)` efter et tryk. Men mens `delay()` venter, laver ESP32 ingenting: den læser ikke andre knapper, sender ikke data og svarer ikke på netværket. ezButton bruger i stedet `millis()` og blokerer aldrig, så `loop()` kan blive ved med at lave andre ting. Det bliver vigtigt, når programmet også skal bruge WiFi eller MQTT.
+Man kan debounce ved at vente med `delay(50)` efter et tryk. Men mens `delay()` venter, står resten af din `loop()` stille: andre knapper bliver ikke læst, og din kode kan hverken sende data eller behandle beskeder, der kommer ind (fx fra MQTT). ESP32 selv kører videre, for WiFi kører i baggrunden i sin egen opgave ([task]{lang="en"}), men dit program venter. ezButton bruger i stedet `millis()` og blokerer aldrig, så `loop()` kan blive ved med at lave andre ting. Det bliver vigtigt, når programmet også skal bruge WiFi eller MQTT.
 
 ## Læs videre
 
 ### Debouncing uden bibliotek
 
-ESP32IO, som har lavet ezButton, viser i [ESP32 - Button - Debounce](https://esp32io.com/tutorials/esp32-button-debounce){lang="en"} først, hvordan man debouncer med `millis()` helt uden bibliotek. Det er i princippet det, ezButton gør for dig inde i `knap.loop()`. Artiklen har også et koblingsdiagram og et eksempel med tre knapper (GPIO 21, 22 og 23), som kan bruges til øvelse 4.
+ESP32IO, der ligesom ArduinoGetStarted står bag ezButton, viser i [ESP32 - Button - Debounce](https://esp32io.com/tutorials/esp32-button-debounce){lang="en"} først, hvordan man debouncer med `millis()` helt uden bibliotek. Det er i princippet det, ezButton gør for dig inde i `knap.loop()`. Artiklen har også et koblingsdiagram og et eksempel med tre knapper (GPIO 21, 22 og 23), som kan bruges til øvelse 4.
 
 Bemærk, at en kommentar i koden siger "fra LOW til HIGH" om et tryk. Med `INPUT_PULLUP` er et tryk et skift fra `HIGH` til `LOW`, og det er også det, koden faktisk tjekker.
 
 ### Debouncing med interrupts
 
-Random Nerd Tutorials viser en anden måde at gøre det på i [ESP32 GPIO Interrupts with Arduino IDE](https://randomnerdtutorials.com/esp32-gpio-interrupts-arduino/){lang="en"}. Her aflæser programmet ikke knappen i `loop()`. I stedet kalder ESP32 en lille funktion, en *interrupt service routine* (ISR), i det øjeblik benet skifter. Debouncingen sker i ISR'en med `millis()` og et vindue på 50 ms, ligesom ezButton. Artiklen bruger også GPIO 18 og `INPUT_PULLUP`, så du kan bruge den samme kobling.
+Random Nerd Tutorials viser en anden måde at gøre det på i [ESP32 GPIO Interrupts with Arduino IDE](https://randomnerdtutorials.com/esp32-gpio-interrupts-arduino/){lang="en"}. Her aflæser programmet ikke knappen i `loop()`. I stedet kalder ESP32 en lille funktion, en *interrupt service routine* (ISR), i det øjeblik benet skifter. Debouncingen sker i ISR'en med `millis()` og også 50 ms, men på en anden måde end ezButton: ISR'en reagerer straks på den første kant og ignorerer så nye kanter i 50 ms, mens ezButton venter, til signalet har været stabilt i 50 ms. Artiklen bruger også GPIO 18 og `INPUT_PULLUP`, så du kan bruge den samme kobling.
 
 Læs artiklen kritisk: med `INPUT_PULLUP` giver et tryk et skift fra `HIGH` til `LOW`. Se, hvilken interrupt-type (`RISING`, `FALLING`, `HIGH` …) eksemplerne bruger, og overvej, om det passer til det (se øvelse 6).
 
@@ -169,7 +169,7 @@ Læs artiklen kritisk: med `INPUT_PULLUP` giver et tryk et skift fra `HIGH` til 
 3. Lad knappen tænde og slukke den indbyggede lysdiode på GPIO 2: hvert tryk skifter mellem tændt og slukket.
 4. Tilføj en knap mere på GPIO 19, så den ene tænder og den anden slukker lysdioden. Brug to `ezButton`-objekter.
 5. *Ekstra:* Skeln mellem et kort og et langt tryk (over ét sekund). Gem `millis()`, når `isPressed()` er sand, og beregn trykkets længde, når `isReleased()` er sand.
-6. *Ekstra:* Prøv eksemplet *med debouncing* fra artiklen om interrupts (se [Debouncing med interrupts](#debouncing-med-interrupts)). Tæller det, når du trykker, når du slipper, eller hele tiden? Ret interrupt-typen, så der tælles præcis én gang per tryk, og forklar hvorfor.
+6. *Ekstra:* Prøv eksemplet *med debouncing* fra artiklen om interrupts (se [Debouncing med interrupts](#debouncing-med-interrupts)). Tæller det, når du trykker, når du slipper, eller hele tiden? Ret interrupt-typen, så der tælles ved trykket, og forklar hvorfor. Prøv derefter at holde knappen nede i et par sekunder, før du slipper: tælles der stadig kun én gang? Hvis ikke, hvad skyldes det, og hvordan ville ezButtons metode undgå det? (Med typen `HIGH` kører ISR'en igen og igen, så længe knappen er sluppet. Det belaster processoren, så lad det ikke køre længe.)
 
 ## Typiske fejl
 
@@ -178,7 +178,7 @@ Læs artiklen kritisk: med `INPUT_PULLUP` giver et tryk et skift fra `HIGH` til 
 - **Knappen virker baglæns:** Med pull-up er et tryk `LOW`. Brug `isPressed()` i stedet for at sammenligne med `HIGH`/`LOW` selv.
 - **Tryk bliver ikke set:** Der står et `delay()` et andet sted i `loop()`, så `knap.loop()` kaldes for sjældent til at opdage korte tryk.
 - **Benet svæver:** Knappen sidder på GPIO 34–39, som ikke har en intern pull-up. Brug et andet ben, eller sæt en ekstern modstand på.
-- **ESP32 starter ikke eller kan ikke uploade:** Knappen sidder på en strapping pin (fx GPIO 0, 2 eller 12) og holdes nede ved opstart.
+- **ESP32 starter ikke programmet:** Knappen sidder på GPIO 0 og holdes nede ved opstart. Så går ESP32 i upload-tilstand i stedet for at køre programmet. Undgå strapping pins til knapper.
 
 ## Kilder
 
@@ -189,5 +189,7 @@ Læs artiklen kritisk: med `INPUT_PULLUP` giver et tryk et skift fra `HIGH` til 
 - PlatformIO: ESP32-DEVKIT-V1, <https://docs.platformio.org/en/latest/boards/espressif32/esp32doit-devkit-v1.html>
 - Arduino-ESP32: GPIO, <https://docs.espressif.com/projects/arduino-esp32/en/latest/api/gpio.html>
 - ESP-IDF: GPIO, <https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/gpio.html>
+- Espressif: ESP32 Datasheet (strapping pins), <https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf>
+- esptool: Boot Mode Selection, <https://docs.espressif.com/projects/esptool/en/latest/esp32/advanced-topics/boot-mode-selection.html>
 - Random Nerd Tutorials: ESP32 Pinout Reference, <https://randomnerdtutorials.com/esp32-pinout-reference-gpios/>
 - Random Nerd Tutorials: ESP32 GPIO Interrupts with Arduino IDE, <https://randomnerdtutorials.com/esp32-gpio-interrupts-arduino/>

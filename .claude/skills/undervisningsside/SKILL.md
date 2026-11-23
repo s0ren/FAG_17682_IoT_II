@@ -57,9 +57,9 @@ Use these sections, in this order, with these headings. Leave a section out only
   - `src/main.cpp` starting with `#include <Arduino.h>`.
 - Code blocks get a language and a file name: ```` ```{.cpp filename="src/main.cpp"} ```` and ```` ```{.ini filename="platformio.ini"} ````.
 - Follow the requirements the assignments set for the students' own code: configuration (pins, times, thresholds) as named constants at the top, short functions, Danish comments that explain *why*.
-- Avoid `delay()` in `loop()` unless the point is to show why it is a problem; prefer `millis()`.
+- Avoid `delay()` in `loop()` unless the point is to show why it is a problem; prefer `millis()`. Be precise about why: on the ESP32, `delay()` is `vTaskDelay()`, so only the task running `loop()` pauses; WiFi and other tasks keep running.
 - `Serial.begin(115200)` to match `monitor_speed`.
-- GPIO choice on the DEVKIT-V1: prefer 18, 19, 21, 22, 23, 25, 26, 27, 32, 33. Don't use 6–11 (internal flash; on some modules also 16–17). 34–39 are input only and have no internal pull-up/pull-down. 0, 2, 4, 5, 12 and 15 are strapping pins that affect boot. ADC2 pins can't be read as analog while WiFi is on. The on-board LED is GPIO 2. (Sources: Random Nerd Tutorials' ESP32 pinout reference and the ESP-IDF GPIO page, checked 2026-11-22.)
+- GPIO choice on the DEVKIT-V1: prefer 18, 19, 21, 22, 23, 25, 26, 27, 32, 33. Don't use 6–11 (internal flash; on some modules also 16–17). 34–39 are input only and have no internal pull-up/pull-down. 0, 2, 5, 12 and 15 are the strapping pins that affect boot (Espressif's ESP32 datasheet; Random Nerd Tutorials wrongly adds GPIO 4). With a button to GND, only GPIO 0 actually breaks boot (it enters download mode). ADC2 pins can't be read as analog while WiFi is on. The on-board LED is GPIO 2. (Sources: Espressif ESP32 datasheet, esptool boot mode docs, ESP-IDF GPIO page and Random Nerd Tutorials' pinout reference, checked 2026-11-23.)
 
 ## Checking the facts
 
