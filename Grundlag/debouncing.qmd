@@ -3,7 +3,7 @@ title: "Debouncing"
 subtitle: "Stabil aflæsning af knapper"
 date: 2026-11-22
 maalpinde: [11, 19, 23]
-draft: true
+draft: false
 ---
 
 <!-- IKKE KOMPILERET: eksemplerne er tjekket mod dokumentationen, men ikke kompileret eller testet på hardware. -->

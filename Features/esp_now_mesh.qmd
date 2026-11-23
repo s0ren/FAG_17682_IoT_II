@@ -3,7 +3,7 @@ title: "ESP-NOW og ESP-MESH"
 subtitle: "Beskeder direkte mellem ESP32-enheder"
 date: 2026-11-23
 maalpinde: [4, 13, 15, 19]
-draft: true
+draft: false
 ---
 
 <!-- IKKE KOMPILERET: eksemplerne er tjekket mod dokumentationen, men ikke kompileret eller testet på hardware. -->

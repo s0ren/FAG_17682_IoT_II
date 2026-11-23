@@ -3,7 +3,7 @@ title: "WiFi"
 subtitle: "Forbind ESP32 til et trådløst netværk"
 date: 2026-11-23
 maalpinde: [14, 15, 19]
-draft: true
+draft: false
 ---
 
 <!-- IKKE KOMPILERET: eksemplerne er tjekket mod dokumentationen, men ikke kompileret eller testet på hardware. -->

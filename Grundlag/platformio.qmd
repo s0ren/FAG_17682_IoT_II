@@ -3,7 +3,7 @@ title: "PlatformIO"
 subtitle: "Opsætning af VS Code og PlatformIO til ESP32"
 date: 2026-11-23
 maalpinde: [17, 20, 24]
-draft: true
+draft: false
 ---
 
 <!-- IKKE KOMPILERET: eksemplerne er tjekket mod dokumentationen, men ikke kompileret eller testet på hardware. -->

@@ -3,7 +3,7 @@ title: "Deep Sleep"
 subtitle: "Spar strøm, og vågn på timer, knap eller berøring"
 date: 2026-11-23
 maalpinde: [17, 18, 19]
-draft: true
+draft: false
 ---
 
 <!-- IKKE KOMPILERET: eksemplerne er tjekket mod dokumentationen, men ikke kompileret eller testet på hardware. -->
