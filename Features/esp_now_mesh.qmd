@@ -1,0 +1,488 @@
+---
+title: "ESP-NOW og ESP-MESH"
+subtitle: "Beskeder direkte mellem ESP32-enheder"
+date: 2026-11-23
+maalpinde: [4, 13, 15, 19]
+draft: true
+---
+
+<!-- IKKE KOMPILERET: eksemplerne er tjekket mod dokumentationen, men ikke kompileret eller testet på hardware. -->
+
+<!--
+TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
+1. Kompilér og upload modtageren og afsenderen med platform = espressif32@8.0.0. Kompilerer begge uden advarsler (printf af uint32_t med %lu og cast, og af (int)WiFi.channel() med %d)?
+2. Kommer beskederne frem, og skriver afsenderen "kvitteret" ved unicast og "IKKE kvitteret", når modtageren er slukket?
+3. Broadcast (øvelse 3): hvad giver onSent ved broadcast, når der ingen modtager er? Ret afsnittet "Kvittering" og beskrivelsen af onSent() efter resultatet (TJEK nedenfor).
+4. Forskellig kanal på afsender og modtager (øvelse 2): kommer der ingenting igennem, som siden siger?
+5. Rækkevidde (øvelse 5): mål rækkevidden indendørs i lokalet, og skriv evt. et tal ind i tabellen "Begrænsninger" (TJEK nedenfor).
+6. Antal krypterede peers i core 3.3: dokumentationen siger 7, esp_now.h siger 6. Kald ESP_NOW.getEncryptedPeerCount(), eller tilføj krypterede peers, til add() fejler, og ret "typisk 6–7" (TJEK nedenfor).
+7. Kryptering: virker det som beskrevet, at en modtager ikke får krypterede beskeder fra en afsender, den ikke har tilføjet som peer med samme LMK?
+8. ESP-NOW samtidig med WiFi forbundet til en router (øvelse 6): virker det i station mode alene, eller kræves WIFI_AP_STA, som Random Nerd Tutorials skriver? (TJEK nedenfor)
+9. painlessMesh 1.5.7 med core 3.3: kompilerer og virker et af bibliotekets eksempler? (TJEK nedenfor)
+10. painlessMesh setRoot(): findes den i 1.5.7, og bruger examples/bridge den som beskrevet? (TJEK nedenfor)
+11. BILLEDE: skærmbilleder af Serial Monitor for modtager og afsender (se BILLEDE-kommentarerne).
+12. Når alt er testet: fjern IKKE KOMPILERET, denne tjekliste og TJEK- og BILLEDE-kommentarerne.
+-->
+
+I [projektopgaven om positionsbestemmelse](../Opgaver/Projektopgave_wifi_position.qmd) skal flere målestationer dele deres målinger med hinanden. De kunne alle sammen gå på WiFi og sende til MQTT-serveren, men så skal der være en router i nærheden, og hver station skal bruge tid på at forbinde. ESP-NOW er Espressifs egen protokol, hvor to ESP32'ere sender korte beskeder direkte til hinanden, uden router og uden at forbinde først. ESP-MESH går et skridt videre: enhederne bygger selv et netværk, hvor beskeder kan hoppe fra enhed til enhed, og denne side giver dig grundlaget for begge.
+
+## Formål
+
+- Du kan forklare, hvad ESP-NOW er, og hvornår det er et bedre valg end WiFi og MQTT, og hvornår det ikke er.
+- Du kan finde en ESP32's MAC-adresse og bruge den til at sende en besked til netop den enhed.
+- Du kan sende og modtage ESP-NOW-beskeder med biblioteket `ESP32_NOW.h` i Arduino-ESP32 3.x, både til én enhed og som broadcast.
+- Du kan forklare, hvorfor alle enheder skal være på samme WiFi-kanal, og finde fejlen, når de ikke er det.
+- Du kan forklare idéen i et mesh-netværk og forskellen på ESP-WIFI-MESH og biblioteket painlessMesh.
+
+## Målpinde
+
+Siden arbejder med målpind 4, 13, 15 og 19 (se [Læringsmål](../laeringsmaal.qmd)).
+
+## Forudsætninger
+
+- Du kan oprette et PlatformIO-projekt til ESP32-DEVKIT-V1 og uploade et program (se [PlatformIO](../Grundlag/platformio.qmd)).
+- Du kender [WiFi](../Grundlag/wifi.qmd)-siden: station mode og RSSI.
+- Du kender `millis()` fra [Debouncing](../Grundlag/debouncing.qmd).
+- Du kender `struct` fra C++.
+- Hardware: to ESP32-DEVKIT-V1 og to USB-kabler. Det er nemmest med én computer pr. ESP32, eller to Serial Monitor-vinduer på samme computer.
+
+## ESP-NOW
+
+ESP-NOW sender korte beskeder direkte fra én ESP32 til en anden over WiFi-radioen. Der er ingen router, ingen IP-adresser og ingen forbindelse, der skal oprettes først. Espressif kalder det en [connectionless]{lang="en"} protokol: afsenderen sender bare, og modtageren tager imod, hvis den lytter på samme kanal.
+
+Det giver tre fordele i forhold til WiFi og MQTT:
+
+- Der skal ikke være en router.
+- En besked kan sendes, lige så snart ESP32 er startet. Der går ikke sekunder med at forbinde.
+- En afsender kan spare strøm: den kan vågne, sende og sove igen uden at bruge tid på at forbinde. En modtager skal derimod lytte hele tiden.
+
+Til gengæld kommer data ikke selv på internettet. Skal målingerne til MQTT-serveren, skal mindst én enhed også være på WiFi (se [Kanal og WiFi](#kanal-og-wifi)).
+
+### MAC-adresser
+
+En ESP-NOW-besked sendes til en **MAC-adresse**. Det er en adresse på seks byte, som er brændt ind i hver ESP32 fra fabrikken, fx `24:6F:28:A1:B2:C3`. Den skrives tit som seks hextal adskilt af kolon.
+
+En ESP32 har faktisk flere MAC-adresser: én til station mode (STA) og en anden til access point mode (AP). Eksemplerne på siden bruger station mode, så det er STA-adressen, du skal bruge. Den får du med `WiFi.macAddress()`.
+
+### Peers, unicast og broadcast
+
+En enhed, du vil sende til, skal først registreres som en **peer** (en modpart). En peer er en MAC-adresse plus en kanal og evt. en krypteringsnøgle. Der er to slags afsendelse:
+
+- **Unicast:** beskeden sendes til én bestemt MAC-adresse. Modtageren kvitterer.
+- **Broadcast:** beskeden sendes til adressen `FF:FF:FF:FF:FF:FF`, og alle ESP-NOW-enheder på kanalen modtager den. Ingen kvitterer. Broadcast er praktisk, når enhederne ikke kender hinandens adresser endnu.
+
+For at *modtage* behøver du ikke registrere afsenderen som peer, så længe beskederne ikke er krypteret.
+
+### Kvittering
+
+Ved unicast sender modtagerens radio automatisk en kvittering ([acknowledgement]{lang="en"}, ACK) tilbage. Afsenderen får så at vide, om beskeden kom frem. Bemærk to ting:
+
+- Kvitteringen betyder, at modtagerens *radio* fik beskeden. Den siger ikke, at programmet på modtageren nåede at behandle den. Har det betydning, skal programmet selv sende et svar.
+- Ved broadcast er der ingen kvittering. Afsenderen kan ikke vide, om nogen hørte beskeden.
+
+<!-- TJEK: Hvad onSent() rapporterer ved broadcast (altid success, når pakken er sendt?), står ikke direkte i ESP-IDF-dokumentationen. Prøv det med øvelse 3. -->
+
+Espressif foreslår at give beskederne et løbenummer, så modtageren kan smide dubletter væk. Løbenummeret kan også vise, om der mangler beskeder. Det gør eksemplerne nedenfor.
+
+### Kanal og WiFi {#kanal-og-wifi}
+
+WiFi på 2,4 GHz er delt op i kanaler (1–13 i Danmark). ESP32 har kun én radio, og den kan kun lytte på én kanal ad gangen. Derfor gælder:
+
+> **Alle ESP-NOW-enheder, der skal tale sammen, skal være på samme kanal.**
+
+Er afsender og modtager på hver sin kanal, kommer der ingenting igennem, og der kommer ingen fejlmeddelelse om det. Afsenderen ser bare, at unicast-beskederne ikke bliver kvitteret.
+
+Hvis ingen af enhederne er på WiFi, vælger du selv kanalen med `WiFi.setChannel()`. Det gør eksemplerne.
+
+Hvis en enhed *også* er forbundet til en router i station mode, er det routeren, der bestemmer kanalen. Så kan du ikke selv vælge, og alle de andre ESP-NOW-enheder skal sættes til routerens kanal. Du kan se kanalen med `WiFi.channel()`, når enheden er forbundet. Pas på: mange routere skifter selv kanal, hvis der er meget støj, og så holder opstillingen op med at virke.
+
+<!-- TJEK: Random Nerd Tutorials skriver, at en ESP32, der både er på WiFi og modtager ESP-NOW, skal være i WIFI_AP_STA. Det står ikke i Espressifs dokumentation, som kun kræver samme kanal. Prøv med øvelse 6. -->
+
+Når du registrerer en peer, angiver du også en kanal. Kanal 0 betyder "den kanal, enheden er på lige nu". Angiver du et andet tal, skal det passe med den kanal, enheden faktisk er på, ellers fejler afsendelsen.
+
+### Begrænsninger
+
+| | ESP-NOW |
+|---|---|
+| Størrelse pr. besked | 250 byte (ESP-NOW v1). Arduino-ESP32 3.3 understøtter v2 med op til 1470 byte, men en enhed med v1 kan kun modtage 250 byte. |
+| Antal peers | Højst 20, heraf kun få krypterede (typisk 6–7) |
+| Kanal | Alle enheder på samme kanal |
+| Rækkevidde | Nogenlunde som almindeligt WiFi, da det er den samme radio. Random Nerd Tutorials målte op til ca. 220 m i åbent terræn. Indendørs er det meget mindre, for vægge og kroppe dæmper signalet. |
+| Kvittering | Kun ved unicast, og kun fra radioen, ikke fra programmet |
+| Hastighed | 1 Mbit/s som standard. Send ikke en ny besked, før `onSent()` er kaldt for den forrige, ellers kan kvitteringerne komme i forkert rækkefølge. |
+
+<!-- TJEK: Rækkevidden er ikke opgivet i meter i Espressifs dokumentation. Mål den i lokalet med øvelse 5, og skriv evt. et tal ind. -->
+<!-- TJEK: Antal krypterede peers: ESP-IDF v5.5-dokumentationen siger "the default is 7", men esp_now.h i release/v5.5 har #define ESP_NOW_MAX_ENCRYPT_PEER_NUM 6. Kald ESP_NOW.getEncryptedPeerCount() på hardware, eller tilføj krypterede peers, indtil add() fejler, og skriv det rigtige tal ind. -->
+
+Hold dig til højst 250 byte, så er du sikker på, at alle enheder kan modtage beskeden. `ESP_NOW.getMaxDataLen()` fortæller, hvor meget din enhed kan sende. Er beskeden længere, klipper biblioteket den over. `send()` returnerer så færre byte end det, du bad om, så sammenlign returværdien med længden af beskeden. Det gør afsender-eksemplet.
+
+### Kryptering
+
+ESP-NOW-beskeder er ikke krypteret som standard. Alle med en ESP32 eller en WiFi-sniffer på kanalen kan læse dem, og alle kan sende beskeder, der ligner jeres.
+
+ESP-NOW kan kryptere unicast-beskeder med to nøgler på hver 16 byte:
+
+- **PMK** ([Primary Master Key]{lang="en"}) er fælles for enheden og gives til `ESP_NOW.begin(pmk)`.
+- **LMK** ([Local Master Key]{lang="en"}) hører til hver peer og gives, når peeren oprettes.
+
+Både afsender og modtager skal have samme PMK, og de skal have registreret hinanden som peers med samme LMK. Broadcast kan ikke krypteres. Nøglerne er hemmeligheder, ligesom WiFi-passwordet, så de skal ud af koden og ikke i git (se [WiFi](../Grundlag/wifi.qmd)).
+
+### ESP-NOW i Arduino-ESP32 3.x {#esp-now-core3}
+
+Der er to måder at bruge ESP-NOW på fra Arduino:
+
+- **Biblioteket `ESP32_NOW.h`** kom med Arduino-ESP32 3.0. Det er en C++-indpakning med klassen `ESP_NOW_Peer` og objektet `ESP_NOW`. Espressifs egne Arduino-eksempler bruger det, og det gør denne side også.
+- **ESP-IDF's C-funktioner fra `esp_now.h`** (`esp_now_init()`, `esp_now_add_peer()`, `esp_now_send()` …). Dem bruger de fleste vejledninger på nettet.
+
+Hvis du bruger C-funktionerne, så pas på callback-funktionerne. De har ændret sig to gange, og eksempler fra nettet er tit skrevet til den gamle version:
+
+| Callback | Core 2.x | Core 3.x |
+|---|---|---|
+| Modtag | `void f(const uint8_t *mac, const uint8_t *data, int len)` | `void f(const esp_now_recv_info_t *info, const uint8_t *data, int len)` (fra 3.0) |
+| Afsendt | `void f(const uint8_t *mac, esp_now_send_status_t status)` | `void f(const wifi_tx_info_t *tx_info, esp_now_send_status_t status)` (fra 3.3, som bygger på ESP-IDF 5.5) |
+
+I `esp_now_recv_info_t` står afsenderens MAC-adresse i `src_addr` og modtageradressen i `des_addr`. Med `ESP32_NOW.h` slipper du for at holde styr på det, fordi biblioteket selv registrerer de rigtige callbacks.
+
+### Klassen ESP_NOW_Peer
+
+`ESP_NOW_Peer` er lavet til at blive arvet fra. Konstruktøren og metoderne `add()` og `send()` er `protected`, så du kan ikke bruge dem direkte. Du laver i stedet din egen klasse, der arver fra `ESP_NOW_Peer`, og giver den offentlige metoder, der kalder `add()` og `send()`. I klassen kan du overskrive to callbacks:
+
+- `onSent(bool success)` kaldes efter hver afsendelse. Ved unicast er `success` `true`, hvis modtagerens radio kvitterede, og ellers `false`. Ved broadcast betyder den noget andet (se øvelse 3).
+- `onReceive(const uint8_t *data, size_t len, bool broadcast)` kaldes, når der kommer en besked fra netop denne peer.
+
+Beskeder fra afsendere, der *ikke* er registreret som peer, går i stedet til en funktion, du giver til `ESP_NOW.onNewPeer()`. Navnet antyder, at den bruges til at registrere nye peers, og det gør Espressifs eksempler. Men en modtager, der bare skal lytte, kan også nøjes med den, for så kommer alle beskeder dertil. Det gør modtager-eksemplet.
+
+Callbacks kaldes af WiFi-opgaven ([task]{lang="en"}), ikke af `loop()`. Espressif skriver, at de skal være korte. Lav derfor ikke netværk, `delay()` eller lange beregninger i dem, og helst heller ikke `Serial.print()`, som tager tid og forsinker WiFi-opgaven: gem data, og lad `loop()` gøre arbejdet.
+
+## Eksempel: modtager
+
+Start med modtageren, for afsenderen skal kende dens MAC-adresse. Modtageren skriver sin MAC-adresse ud ved opstart og derefter hver besked, der kommer.
+
+Callback-funktionen lægger beskeden i en kø (en FreeRTOS-[queue]{lang="en"}), og `loop()` tager den ud og skriver den. Køen sørger for, at beskeder ikke bliver overskrevet, hvis der kommer flere, før `loop()` når at hente dem, og at callback og `loop()` ikke rører de samme data på samme tid.
+
+```{.ini filename="platformio.ini"}
+[env:esp32doit-devkit-v1]
+platform = espressif32@8.0.0
+board = esp32doit-devkit-v1
+framework = arduino
+monitor_speed = 115200
+```
+
+```{.cpp filename="src/main.cpp"}
+#include <Arduino.h>
+#include <WiFi.h>
+#include <ESP32_NOW.h>
+
+// Konfiguration
+const uint8_t KANAL = 1;          // WiFi-kanal; skal være den samme på alle enheder
+const int KOE_LAENGDE = 10;       // hvor mange beskeder der kan vente på loop()
+
+// Beskedens format. Skal være defineret helt ens hos afsender og modtager.
+struct Besked {
+  uint32_t nummer;     // løbenummer, så vi kan se, om der mangler beskeder
+  uint32_t oppetidMs;  // afsenderens millis(), da beskeden blev sendt
+};
+
+// Det, callback-funktionen lægger i køen til loop()
+struct Modtaget {
+  uint8_t afsender[6];  // afsenderens MAC-adresse
+  bool broadcast;       // true, hvis beskeden var sendt til alle
+  Besked besked;
+};
+
+QueueHandle_t koe;
+
+// Kaldes af ESP_NOW-biblioteket for hver besked fra en afsender, der ikke er
+// registreret som peer. Vi registrerer ingen peers, så alle beskeder kommer her.
+// Kører i WiFi-opgaven: kopier data over i køen, og intet andet.
+void modtagBesked(const esp_now_recv_info_t *info, const uint8_t *data, int len, void *arg) {
+  if (len != sizeof(Besked)) {
+    return;  // ikke vores format, fx fra en anden gruppe på samme kanal
+  }
+  Modtaget m;
+  memcpy(m.afsender, info->src_addr, 6);
+  m.broadcast = memcmp(info->des_addr, ESP_NOW.BROADCAST_ADDR, 6) == 0;
+  memcpy(&m.besked, data, sizeof(Besked));
+  xQueueSend(koe, &m, 0);  // 0 = vent ikke; er køen fuld, smides beskeden væk
+}
+
+void startWiFi() {
+  WiFi.mode(WIFI_STA);    // station mode, men vi forbinder ikke til en router
+  WiFi.setChannel(KANAL);
+  while (!WiFi.STA.started()) {
+    delay(100);  // OK her: setup() har ikke andet at lave endnu
+  }
+}
+
+void skrivMac(const uint8_t *mac) {
+  Serial.printf("%02X:%02X:%02X:%02X:%02X:%02X",
+                mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
+}
+
+void setup() {
+  Serial.begin(115200);
+  koe = xQueueCreate(KOE_LAENGDE, sizeof(Modtaget));
+
+  startWiFi();
+  Serial.printf("Modtager. MAC-adresse: %s, kanal: %d\n",
+                WiFi.macAddress().c_str(), (int)WiFi.channel());
+
+  if (!ESP_NOW.begin()) {
+    Serial.println("ESP-NOW kunne ikke starte. Genstarter om 5 s.");
+    delay(5000);
+    ESP.restart();
+  }
+  ESP_NOW.onNewPeer(modtagBesked, nullptr);
+}
+
+void loop() {
+  Modtaget m;
+  // Hent alle ventende beskeder; 0 = vent ikke, hvis køen er tom
+  while (xQueueReceive(koe, &m, 0) == pdTRUE) {
+    Serial.print("Fra ");
+    skrivMac(m.afsender);
+    Serial.printf(" %s: nr. %lu, afsenderens oppetid %lu ms\n",
+                  m.broadcast ? "(broadcast)" : "(unicast)",
+                  (unsigned long)m.besked.nummer,
+                  (unsigned long)m.besked.oppetidMs);
+  }
+
+  // Her kan programmet lave andet, fx måle
+}
+```
+
+Upload, åbn Serial Monitor, og tryk på EN-knappen på ESP32, hvis du ikke nåede at se den første linje. Skriv MAC-adressen ned.
+
+<!-- BILLEDE: Serial Monitor for modtageren med linjen "Modtager. MAC-adresse: …, kanal: 1" og et par modtagne beskeder. -->
+
+## Eksempel: afsender
+
+Afsenderen sender en besked hvert andet sekund til modtagerens MAC-adresse og skriver ud, om den blev kvitteret. Ret `MODTAGER_MAC` til den adresse, modtageren skrev ud. `24:6F:28:A1:B2:C3` skrives som `{0x24, 0x6F, 0x28, 0xA1, 0xB2, 0xC3}`.
+
+`platformio.ini` er den samme som for modtageren. `ESP32_NOW.h` følger med Arduino-ESP32, så der skal ikke noget i `lib_deps`.
+
+```{.ini filename="platformio.ini"}
+[env:esp32doit-devkit-v1]
+platform = espressif32@8.0.0
+board = esp32doit-devkit-v1
+framework = arduino
+monitor_speed = 115200
+```
+
+```{.cpp filename="src/main.cpp"}
+#include <Arduino.h>
+#include <WiFi.h>
+#include <ESP32_NOW.h>
+
+// Konfiguration
+const uint8_t KANAL = 1;  // skal være den samme som modtagerens
+const uint8_t MODTAGER_MAC[6] = {0x24, 0x6F, 0x28, 0xA1, 0xB2, 0xC3};  // ret til jeres modtager
+const unsigned long SEND_INTERVAL_MS = 2000;
+
+// Beskedens format. Skal være defineret helt ens hos afsender og modtager.
+struct Besked {
+  uint32_t nummer;
+  uint32_t oppetidMs;
+};
+
+// Sættes af onSent() i WiFi-opgaven og læses i loop()
+volatile bool kvitteringKlar = false;
+volatile bool sidsteKvitteret = false;
+
+// ESP_NOW_Peer kan ikke bruges direkte: konstruktøren, add() og send() er
+// protected. Derfor en lille klasse, der arver og gør dem tilgængelige.
+class ModtagerPeer : public ESP_NOW_Peer {
+public:
+  ModtagerPeer(const uint8_t *mac, uint8_t kanal)
+      : ESP_NOW_Peer(mac, kanal, WIFI_IF_STA, nullptr) {}  // nullptr = ingen kryptering
+
+  bool tilfoej() {
+    return add();
+  }
+
+  bool sendBesked(const Besked &besked) {
+    // send() giver antal byte, der er sat i kø til afsendelse, eller 0 ved fejl.
+    // Færre byte end sizeof(besked) betyder, at beskeden er klippet over.
+    return send((const uint8_t *)&besked, sizeof(besked)) == sizeof(besked);
+  }
+
+  // Kaldes af WiFi-opgaven, når modtagerens radio har kvitteret, eller ikke.
+  // Hold den kort: sæt kun flag, og skriv ud i loop().
+  void onSent(bool success) override {
+    sidsteKvitteret = success;
+    kvitteringKlar = true;
+  }
+};
+
+ModtagerPeer modtager(MODTAGER_MAC, KANAL);
+uint32_t naesteNummer = 0;
+unsigned long sidsteSend = 0;
+
+void startWiFi() {
+  WiFi.mode(WIFI_STA);
+  WiFi.setChannel(KANAL);
+  while (!WiFi.STA.started()) {
+    delay(100);  // OK her: setup() har ikke andet at lave endnu
+  }
+}
+
+void setup() {
+  Serial.begin(115200);
+
+  startWiFi();
+  Serial.printf("Afsender. MAC-adresse: %s, kanal: %d\n",
+                WiFi.macAddress().c_str(), (int)WiFi.channel());
+
+  // ESP-NOW skal startes, før peeren kan tilføjes
+  if (!ESP_NOW.begin() || !modtager.tilfoej()) {
+    Serial.println("ESP-NOW eller peer kunne ikke startes. Genstarter om 5 s.");
+    delay(5000);
+    ESP.restart();
+  }
+}
+
+void loop() {
+  unsigned long nu = millis();
+
+  if (nu - sidsteSend >= SEND_INTERVAL_MS) {
+    sidsteSend = nu;
+    Besked besked = {naesteNummer, (uint32_t)nu};
+    if (modtager.sendBesked(besked)) {
+      Serial.printf("Sendt nr. %lu\n", (unsigned long)besked.nummer);
+    } else {
+      Serial.println("send() fejlede");
+    }
+    naesteNummer++;
+  }
+
+  if (kvitteringKlar) {
+    kvitteringKlar = false;
+    Serial.println(sidsteKvitteret ? "  kvitteret af modtageren" : "  IKKE kvitteret");
+  }
+}
+```
+
+<!-- BILLEDE: Serial Monitor for afsenderen med "Sendt nr. …" og "kvitteret af modtageren", og gerne et par "IKKE kvitteret", mens modtageren var slukket. -->
+
+Sådan virker det:
+
+- `WiFi.mode(WIFI_STA)` og `WiFi.setChannel()` tænder radioen på den rigtige kanal. Der forbindes ikke til nogen router.
+- `ESP_NOW.begin()` starter ESP-NOW. Uden argument er der ingen PMK.
+- `modtager.tilfoej()` registrerer modtageren som peer. Først derefter kan der sendes til den.
+- `sendBesked()` sender hele `struct`'en som bytes. Det virker, fordi begge enheder er ESP32 og bruger samme compiler, så `struct`'en ligger ens i hukommelsen. Ville du sende til en anden type enhed, skulle formatet aftales mere præcist.
+- At `send()` lykkes, betyder kun, at beskeden er sat i kø. Om den kom frem, får du at vide i `onSent()`.
+
+## ESP-MESH
+
+Med ESP-NOW taler to enheder direkte sammen, så de skal være inden for rækkevidde af hinanden. Et **mesh-netværk** løser det ved at lade enhederne sende beskeder videre for hinanden. En besked fra en enhed langt væk kan hoppe fra enhed til enhed, til den når frem.
+
+Et mesh-netværk er:
+
+- **selvorganiserende:** enhederne finder selv ud af, hvem der skal forbindes til hvem.
+- **selvhelende:** forsvinder en enhed, finder de andre en ny vej uden om den.
+
+### ESP-WIFI-MESH
+
+ESP-WIFI-MESH (tidligere kaldt ESP-MESH) er Espressifs mesh-protokol. Den bygger et træ af enheder ([nodes]{lang="en"}):
+
+- **Rod-noden** ([root]{lang="en"}) sidder øverst og er den eneste, der er forbundet til routeren og dermed til resten af netværket, fx MQTT-serveren. Der er kun én rod.
+- **Mellemliggende noder** har en forælder over sig og kan have børn under sig. De sender trafik videre begge veje.
+- **Blade** ([leaf]{lang="en"}) har ingen børn.
+
+Roden kan vælges automatisk, så den enhed, der har det stærkeste signal til routeren, bliver rod. Den kan også vælges fast. Er roden valgt automatisk og forsvinder, vælger enhederne en ny. Når mesh-netværket er forbundet til en router, skal hele netværket bruge routerens kanal.
+
+ESP-WIFI-MESH er en funktion i **ESP-IDF**, Espressifs eget framework. Arduino-ESP32 har intet bibliotek til det og ingen eksempler, så det er ikke noget, vi bruger med Arduino-frameworket i PlatformIO.
+
+### painlessMesh
+
+[painlessMesh](https://gitlab.com/painlessMesh/painlessMesh) er et Arduino-bibliotek, der laver et mesh-netværk mellem ESP32- og ESP8266-enheder. Det er **ikke** ESP-WIFI-MESH, men en selvstændig løsning:
+
+- Som standard er der ingen rod. Alle noder er lige, og de organiserer sig selv. Man kan selv udpege en rod med `setRoot()`, fx den node, der også er på routeren (se bibliotekets eksempel `bridge`).
+
+<!-- TJEK: setRoot()/setContainsRoot() og bridge-eksemplet er ikke nævnt i painlessMesh' README. Bekræft i kildekoden og examples/bridge på GitLab, at de findes i 1.5.7 og virker som beskrevet. -->
+- Beskeder er tekst, typisk JSON. Hver node har et id-nummer, og en besked sendes enten til alle eller til et bestemt id.
+- Det er ikke et IP-netværk. Noderne har ikke IP-adresser, du kan bruge.
+- Hele mesh-netværket kører på én kanal. Skal det også på en router, skal det være routerens kanal.
+- Det bruger både station mode og access point mode på samme tid og holder radioen travlt beskæftiget.
+
+Biblioteket er i PlatformIO-registret og henter selv sine afhængigheder (ArduinoJson, TaskScheduler og AsyncTCP). Ældre vejledninger skriver, at painlessMesh ikke virker med Arduino-ESP32 3.x. Den nyeste version er 1.5.7 (oktober 2025), som bruger en nyere AsyncTCP. Om den virker med core 3.x, har vi ikke afprøvet.
+
+```{.ini filename="platformio.ini (udsnit)"}
+lib_deps = painlessmesh/painlessMesh@^1.5.7
+```
+
+<!-- TJEK: Om painlessMesh 1.5.7 kompilerer og virker med espressif32@8.0.0 (core 3.3), er ikke afprøvet. Kompilér et af bibliotekets eksempler. -->
+
+### Hvad skal man vælge?
+
+| | ESP-NOW | painlessMesh | WiFi og MQTT |
+|---|---|---|---|
+| Kræver router | Nej | Nej | Ja |
+| Rækkevidde | Direkte mellem to enheder | Beskeder hopper videre | Hver enhed skal kunne nå routeren |
+| Beskedformat | Bytes, højst 250 (v1) | Tekst, typisk JSON | Tekst eller bytes, større beskeder |
+| Opstart | Med det samme | Skal først finde de andre noder | Skal forbinde til router og server |
+| Kompleksitet | Lav | Mellem | Lav, men kræver server |
+| Med i Arduino-ESP32 | Ja | Nej, bibliotek | Ja (MQTT kræver et bibliotek) |
+
+Tabellen er et udgangspunkt. Hvad der passer til jeres opstilling, afhænger af, hvor langt der er mellem enhederne, hvad de ellers skal bruge radioen til, og hvordan data skal videre til MQTT-serveren. Det skal I selv undersøge og begrunde.
+
+## Øvelser
+
+1. Kør modtageren og afsenderen på hver sin ESP32. Skriv begge MAC-adresser ned. Kommer alle beskeder frem? Sluk modtageren (træk USB-kablet ud), og se, hvad afsenderen skriver. Tænd den igen.
+2. Sæt `KANAL` til 1 på modtageren og 6 på afsenderen. Hvad sker der? Hvordan ville du opdage fejlen, hvis du ikke vidste, hvad du havde ændret?
+3. Lav afsenderen om til at sende broadcast: brug `ESP_NOW.BROADCAST_ADDR` i stedet for `MODTAGER_MAC`. Skriver modtageren "(broadcast)"? Hvad skriver afsenderens `onSent()` nu, og hvad skriver den, når modtageren er slukket? Forklar forskellen fra unicast.
+4. Lad modtageren holde styr på løbenumrene og skrive en advarsel, når der mangler et nummer. Hvad sker der med numrene, når afsenderen genstarter, og hvordan kan modtageren se det?
+5. Mål rækkevidden: bær afsenderen (fx tilsluttet en bærbar) væk fra modtageren, gennem en dør og ud på gangen. Hvornår begynder der at mangle beskeder? Udvid modtagerens callback, så den også gemmer signalstyrken `info->rx_ctrl->rssi`, og skriv den ud. Hvad var RSSI, lige før beskederne forsvandt?
+6. *Ekstra:* Lad modtageren også forbinde til et WiFi-netværk (brug koden fra [WiFi](../Grundlag/wifi.qmd)-siden), og skriv kanalen ud med `WiFi.channel()`. Hvad skal du ændre på afsenderen, for at beskederne stadig kommer frem? Hvad sker der, hvis routeren skifter kanal?
+7. *Ekstra:* Tilføj en tredje ESP32 som afsender. Hvordan kan modtageren kende forskel på de to? Hvad ville du gøre, hvis modtageren også skulle sende svar tilbage til dem?
+
+## Typiske fejl
+
+- **Der kommer ingenting igennem:** Enhederne er ikke på samme kanal. Skriv `WiFi.channel()` ud på begge, og sammenlign.
+- **Afsenderen skriver "IKKE kvitteret" hver gang:** MAC-adressen er forkert, modtageren er slukket, eller den er på en anden kanal. Tjek, at du har brugt modtagerens STA-adresse (`WiFi.macAddress()`) og ikke AP-adressen.
+- **`send()` fejler med det samme:** `ESP_NOW.begin()` eller `add()` er ikke kaldt, eller de fejlede. Tjek returværdierne i `setup()`.
+- **Modtageren ignorerer beskederne:** `struct Besked` er ikke defineret ens på de to enheder, så længden passer ikke. Kopier den samme definition til begge projekter.
+- **Eksempel fra nettet kompilerer ikke:** Callback-funktionerne har den gamle signatur fra core 2.x (se tabellen under [ESP-NOW i Arduino-ESP32 3.x](#esp-now-core3)).
+- **Data i lange beskeder er forkerte i slutningen:** Beskeden er over den største længde, og biblioteket har klippet den over. Tjek, om `send()` returnerer hele længden, og hold dig under 250 byte.
+- **ESP32 genstarter, når der kommer beskeder:** Der sker noget langvarigt eller blokerende i en callback, fx netværk, `delay()` eller at vente på en kø. Flyt arbejdet til `loop()`.
+- **Beskederne virker, indtil WiFi forbinder:** Routeren har flyttet enheden til sin egen kanal. Se [Kanal og WiFi](#kanal-og-wifi).
+
+## Læs videre
+
+### Espressifs egne eksempler
+
+Arduino-ESP32 har flere eksempler til `ESP32_NOW.h`. De er skrevet til core 3.x og er det bedste sted at se mere af biblioteket. Du finder dem i [libraries/ESP_NOW/examples](https://github.com/espressif/arduino-esp32/tree/master/libraries/ESP_NOW/examples){lang="en"}:
+
+- **ESP_NOW_Broadcast_Master** og **ESP_NOW_Broadcast_Slave:** en afsender sender broadcast, og modtageren registrerer automatisk afsenderne som peers med `onNewPeer()`.
+- **ESP_NOW_Network:** flere enheder finder hinanden med broadcast, vælger selv en "master" ud fra deres MAC-adresser, og sender derefter unicast. Eksemplet viser også kryptering med PMK og LMK. Det er relevant for projektopgaven, men læs det først, når du har fået eksemplerne her til at virke.
+
+Eksemplerne kalder deres enheder *master* og *slave*. På denne side hedder de afsender og modtager.
+
+### ESP-NOW hos Random Nerd Tutorials
+
+[Getting Started with ESP-NOW (ESP32 with Arduino IDE)](https://randomnerdtutorials.com/esp-now-esp32-arduino-ide/){lang="en"} forklarer ESP-NOW grundigt med figurer og bruger ESP-IDF's C-funktioner i stedet for `ESP32_NOW.h`. Så kan du se, hvad biblioteket gør for dig. Læs den kritisk:
+
+- Callback-funktionerne har signaturerne fra core 2.x. Koden kompilerer alligevel på core 3.x, fordi den caster funktionerne til den nye type, fx `esp_now_recv_cb_t(OnDataRecv)`. Det skjuler, at typerne ikke passer: på core 3.x er første parameter ikke en MAC-adresse, men en pointer til `esp_now_recv_info_t` (og til `wifi_tx_info_t` i send-callbacken). Det går kun godt, fordi koden ikke bruger den parameter. Brug signaturerne fra tabellen ovenfor.
+- Teksten siger, at send-callbacken fortæller, om beskeden blev "successfully delivered". Det er kun radioens kvittering, ikke programmets.
+
+Artiklen [ESP32: ESP-NOW Web Server Sensor Dashboard (ESP-NOW + Wi-Fi)](https://randomnerdtutorials.com/esp32-esp-now-wi-fi-web-server/){lang="en"} viser, hvordan en modtager både er på WiFi og modtager ESP-NOW, og hvordan afsenderne finder routerens kanal ved at scanne efter netværket. Den har de samme gamle callbacks. Den skriver også, at modtageren skal være i `WIFI_AP_STA`. Det krav står ikke i Espressifs dokumentation, som kun kræver, at kanalen er den samme (se øvelse 6).
+
+### painlessMesh hos Random Nerd Tutorials
+
+[ESP-MESH with ESP32 and ESP8266: Getting Started (painlessMesh library)](https://randomnerdtutorials.com/esp-mesh-esp32-esp8266-painlessmesh/){lang="en"} viser et lille painlessMesh-netværk. Bemærk, at artiklen er fra 2020: den bruger painlessMesh 1.4.5 og skriver, at man skal nedgradere til core 2.0.x. Det kan vi ikke, fordi platformen er låst til `espressif32@8.0.0`. Prøv i stedet version 1.5.7 (se [painlessMesh](#painlessmesh)). Titlen siger "ESP-MESH", men painlessMesh er ikke Espressifs ESP-WIFI-MESH.
+
+## Kilder
+
+- Arduino-ESP32: ESP-NOW API, <https://docs.espressif.com/projects/arduino-esp32/en/latest/api/espnow.html>
+- Arduino-ESP32: kildekode til `ESP32_NOW.h` og `ESP32_NOW.cpp`, <https://github.com/espressif/arduino-esp32/tree/master/libraries/ESP_NOW/src>
+- Arduino-ESP32: ESP-NOW-eksempler, <https://github.com/espressif/arduino-esp32/tree/master/libraries/ESP_NOW/examples>
+- Arduino-ESP32: release 3.3.0 (bygger på ESP-IDF 5.5, ESP-NOW v2), <https://github.com/espressif/arduino-esp32/releases/tag/3.3.0>
+- Arduino-ESP32: `WiFiGeneric.h` (`setChannel()`, `channel()`), <https://github.com/espressif/arduino-esp32/blob/master/libraries/WiFi/src/WiFiGeneric.h>
+- ESP-IDF v5.5: ESP-NOW, <https://docs.espressif.com/projects/esp-idf/en/v5.5/esp32/api-reference/network/esp_now.html>
+- ESP-IDF v5.5: `esp_now.h` (callback-typer), <https://github.com/espressif/esp-idf/blob/release/v5.5/components/esp_wifi/include/esp_now.h>
+- ESP-IDF v4.4: `esp_now.h` (de gamle callback-typer fra core 2.x), <https://github.com/espressif/esp-idf/blob/release/v4.4/components/esp_wifi/include/esp_now.h>
+- ESP-IDF: ESP-WIFI-MESH, <https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/esp-wifi-mesh.html>
+- painlessMesh: kildekode, README og versioner, <https://gitlab.com/painlessMesh/painlessMesh>
+- Random Nerd Tutorials: Getting Started with ESP-NOW, <https://randomnerdtutorials.com/esp-now-esp32-arduino-ide/>
+- Random Nerd Tutorials: ESP-NOW + Wi-Fi Web Server, <https://randomnerdtutorials.com/esp32-esp-now-wi-fi-web-server/>
+- Random Nerd Tutorials: ESP-MESH with painlessMesh, <https://randomnerdtutorials.com/esp-mesh-esp32-esp8266-painlessmesh/>

@@ -1,0 +1,600 @@
+---
+title: "Filsystem på ESP32"
+subtitle: "Gem filer i flash med LittleFS"
+date: 2026-11-23
+maalpinde: [17, 19, 22]
+draft: true
+---
+
+<!-- IKKE KOMPILERET: eksemplerne er tjekket mod dokumentationen, men ikke kompileret eller testet på hardware. -->
+
+<!--
+TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
+1. Kompilér og upload eksemplet "Læs, skriv og tilføj" med platform = espressif32@8.0.0 og board_build.filesystem = littlefs. Tryk EN et par gange: tæller opstartstælleren op, og vokser /log.txt med én linje pr. opstart?
+2. Pladsen i udskriften (TJEK under eksempel 1): giver LittleFS.totalBytes() 1441792 med standardpartitionstabellen, og er usedBytes() 8192 både på et nyformateret filsystem og med antal.txt og log.txt? Ret udskriften og teksten, hvis tallene er andre.
+3. Findes opgaven "Upload Filesystem Image" under Project Tasks → esp32doit-devkit-v1 → Platform i VS Code med espressif32@8.0.0 (TJEK under "Filer fra data/-mappen")? Henter PlatformIO selv mklittlefs første gang?
+4. Lukker PlatformIO selv Serial Monitor før Upload Filesystem Image (TJEK under Typiske fejl)? Hvis ja, kan trin 1 og rådet i Typiske fejl forkortes.
+5. Upload data/hilsen.txt med Upload Filesystem Image, og kør eksemplet "Filer fra data/-mappen".
+6. Bekræft, at Upload Filesystem Image sletter filer, programmet selv har skrevet, fx /log.txt fra eksempel 1 (TJEK efter advarslen).
+7. Kør cache-eksemplet: træk jumperen fra GPIO 18 til GND, vent et par målinger, fjern den igen. Bliver cachen sendt i rigtig rækkefølge og slettet? Overlever cachen et tryk på EN, mens jumperen sidder i?
+8. Prøv board_build.partitions = no_ota.csv: stiger totalBytes() til omkring 1,9 MB? Skal filsystemet formateres igen (begin(true) gør det)?
+Skærmbilleder, der mangler (se BILLEDE-kommentarerne):
+9. Explorer med data/-mappen ved siden af src/. 10. Project Tasks med Platform → Upload Filesystem Image. 11. Serial Monitor under cache-eksemplet, hvor netværket forsvinder og kommer igen.
+12. Når alt er testet: fjern IKKE KOMPILERET, denne tjekliste og TJEK-/BILLEDE-kommentarerne.
+-->
+
+En ESP32, der sender målinger til en server, mister indimellem netforbindelsen. Hvis målingerne kun ligger i RAM, er de væk, så snart strømmen går eller kortet genstarter. ESP32-DEVKIT-V1 har 4 MB flash-hukommelse, og en del af den kan bruges som et lille filsystem, hvor programmet gemmer filer, der overlever en genstart. Det er det, du skal bruge til krav 3 i den [afsluttende opgave](../Opgaver/afsluttende_opgave/index.qmd): når nettet mangler, gemmes målingerne i en fil på ESP32, og når nettet kommer igen, sendes de.
+
+## Formål
+
+- Du kan forklare, hvordan flash-hukommelsen på ESP32 er delt op i partitioner, og hvor filsystemet ligger.
+- Du kan sætte et PlatformIO-projekt op til LittleFS og montere filsystemet med `LittleFS.begin(true)`.
+- Du kan skrive, læse og tilføje til filer, liste filerne og se, hvor meget plads der er brugt og ledigt.
+- Du kan lægge filer fra projektets `data/`-mappe over på ESP32 med **Upload Filesystem Image**.
+- Du kan gemme målinger i en cache-fil som [JSON Lines]{lang="en"}, når netværket mangler, og sende dem, når det kommer igen.
+- Du kan forklare, hvorfor man ikke skal skrive til flash for tit.
+
+## Målpinde
+
+Siden arbejder med målpind 17, 19 og 22 (se [Læringsmål](../laeringsmaal.qmd)).
+
+## Forudsætninger
+
+- Du kan oprette et PlatformIO-projekt til ESP32-DEVKIT-V1, uploade og åbne Serial Monitor (se [PlatformIO](../Grundlag/platformio.qmd)).
+- Du kender `millis()` i stedet for `delay()` (se [Debouncing](../Grundlag/debouncing.qmd)).
+- Til cache-eksemplet: en ledning ([jumper]{lang="en"}), der kan sættes mellem GPIO 18 og GND. Den bruges til at lade, som om netværket forsvinder.
+- Til øvelse 6: [WiFi](../Grundlag/wifi.qmd) og [Lokal MQTT server](lokal_mqtt.qmd).
+
+## Flash, partitioner og filsystem
+
+### Partitionstabellen
+
+Flash-hukommelsen er delt op i *partitioner*, ligesom en harddisk. Hvor de ligger, og hvor store de er, står i en *partitionstabel*: en lille tabel, der ligger på adresse `0x8000` i flash. Foran den ligger [bootloaderen]{lang="en"} (fra `0x1000`), det lille program, der starter dit program.
+
+Når du bruger Arduino-frameworket og ikke vælger andet, bruger PlatformIO tabellen `default.csv`. Den ser sådan ud for et kort med 4 MB flash:
+
+| Navn | Type | Subtype | Start | Størrelse | Bruges til |
+|---|---|---|---|---|---|
+| `nvs` | data | nvs | `0x9000` | 20 KB | Små nøgle/værdi-data, fx WiFi-indstillinger og biblioteket Preferences |
+| `otadata` | data | ota | `0xE000` | 8 KB | Hvilken af de to app-partitioner, der skal startes |
+| `app0` | app | ota_0 | `0x10000` | 1280 KB | Dit program |
+| `app1` | app | ota_1 | `0x150000` | 1280 KB | Plads til en ny version af programmet ved opdatering over netværket (OTA) |
+| `spiffs` | data | spiffs | `0x290000` | 1408 KB | **Filsystemet** |
+| `coredump` | data | coredump | `0x3F0000` | 64 KB | Fejlinformation, hvis programmet går ned |
+
+Filsystemet har altså omkring 1,4 MB. Bemærk, at partitionen hedder `spiffs` og har subtypen `spiffs`, selvom vi bruger LittleFS. Subtypen siger egentlig SPIFFS, men det er ligegyldigt: `LittleFS.begin()` finder partitionen ud fra navnet (`spiffs`, når du ikke angiver andet) og ser ikke på subtypen. Tabellerne i Arduino-ESP32 hedder bare stadig sådan af historiske grunde.
+
+En almindelig **Upload** skriver kun programmet og de små opstartsdele (bootloader, partitionstabel og OTA-data). Filsystemet bliver ikke rørt, så filerne overlever, når du uploader en ny version af dit program.
+
+### En anden partitionstabel
+
+Er 1,4 MB for lidt, kan du vælge en anden af de tabeller, der følger med Arduino-ESP32, med `board_build.partitions` i `platformio.ini`:
+
+```{.ini filename="platformio.ini"}
+board_build.partitions = no_ota.csv
+```
+
+| Tabel | Program | Filsystem | Bemærk |
+|---|---|---|---|
+| `default.csv` | 1280 KB (×2) | 1408 KB | Standard, med plads til OTA |
+| `no_ota.csv` | 2048 KB | 1920 KB | Ingen opdatering over netværket |
+| `huge_app.csv` | 3072 KB | 896 KB | Til store programmer, ingen OTA |
+
+Når du skifter tabel, flytter filsystemet, og de gamle filer kan ikke længere læses. Bliv ved `default.csv`, medmindre du har brug for andet: OTA er en god måde at opdatere enhederne på (målpind 14), og 1,4 MB er mange tusinde målinger.
+
+### LittleFS, ikke SPIFFS
+
+Der findes flere filsystemer til ESP32. I ældre vejledninger ser du ofte SPIFFS. Brug **LittleFS** i stedet:
+
+- Espressif skriver, at SPIFFS ikke længere bliver udviklet eller vedligeholdt.
+- SPIFFS har ingen mapper og bliver langsomt, når partitionen er over ca. 70 % fyldt.
+- LittleFS har mapper, spreder skrivningerne ud over hele partitionen ([wear leveling]{lang="en"}, se nedenfor) og er bygget til at tåle, at strømmen forsvinder midt i en skrivning: filsystemet vender så tilbage til den sidste gode tilstand.
+
+Koden er næsten ens: begge bruger det samme `File`-objekt fra Arduinos `FS.h`. Du skifter bare `SPIFFS` ud med `LittleFS`.
+
+### Slid på flash
+
+Flash kan ikke skrives oven i. Før der kan skrives nyt, skal en hel blok på 4 KB slettes, og hver blok kan kun slettes et begrænset antal gange: Espressif skriver typisk 100.000 gange eller mere. LittleFS spreder skrivningerne ud over de ledige blokke, så det samme sted ikke bliver slidt op, men det hjælper kun, hvis der er ledig plads at sprede på.
+
+Espressif nævner et eksempel fra virkeligheden, hvor et program, der skrev til flash hvert halve sekund, kunne ødelægge flashen på få dage. Derfor:
+
+- Skriv kun, når det er nødvendigt. I eksemplet nedenfor skrives der kun til filen, når netværket mangler.
+- Skriv ikke i hvert gennemløb af `loop()`. Brug et interval med `millis()`, eller saml flere målinger i RAM og skriv dem samlet.
+- Lad der være god plads ledig i filsystemet.
+
+## Filer i LittleFS
+
+### Opsætning i platformio.ini
+
+PlatformIO bruger SPIFFS, når det bygger et filsystem-[image]{lang="en"} (en fil med hele filsystemets indhold, klar til at blive skrevet direkte til flash), medmindre du skriver andet. Tilføj derfor altid denne linje, når du bruger LittleFS:
+
+```{.ini filename="platformio.ini"}
+board_build.filesystem = littlefs
+```
+
+Linjen bestemmer kun, hvilket filsystem PlatformIO laver, når du uploader `data/`-mappen (se nedenfor). I koden er det `#include <LittleFS.h>`, der bestemmer det. LittleFS følger med Arduino-ESP32, så den skal *ikke* i `lib_deps`.
+
+### Montér filsystemet
+
+Før filsystemet kan bruges, skal det *monteres* ([mount]{lang="en"}) i `setup()`:
+
+```cpp
+if (!LittleFS.begin(true)) {
+  Serial.println("LittleFS kunne ikke monteres");
+}
+```
+
+`begin()` har fire parametre, som alle har standardværdier:
+
+| Parameter | Standard | Betydning |
+|---|---|---|
+| `formatOnFail` | `false` | Formatér partitionen, hvis den ikke kan monteres |
+| `basePath` | `"/littlefs"` | Hvor filsystemet monteres internt. Du skal ikke bruge den. |
+| `maxOpenFiles` | `10` | Findes for at ligne `SPIFFS.begin()`, men LittleFS bruger den ikke |
+| `partitionLabel` | `"spiffs"` | Navnet på partitionen i partitionstabellen |
+
+Med `begin(true)` bliver partitionen formateret, hvis den ikke kan monteres. Det sker første gang, fordi partitionen er tom, og efter et skift af partitionstabel. Bagsiden er, at *alle filer slettes*, hvis filsystemet en dag ikke kan monteres af en anden grund. Til en cache er det i orden: hellere en tom cache end et program, der ikke kører.
+
+### Stier og tilstande
+
+Stier starter altid med `/`, fx `/log.txt`. En fil åbnes med `LittleFS.open(sti, tilstand)`, og tilstanden bestemmer, hvad der sker:
+
+| Tilstand | Konstant | Hvad der sker |
+|---|---|---|
+| `"r"` | `FILE_READ` | Læs. Standard, hvis du ikke angiver en tilstand. |
+| `"w"` | `FILE_WRITE` | Skriv. Filen oprettes, og **det gamle indhold slettes**. |
+| `"a"` | `FILE_APPEND` | Tilføj ([append]{lang="en"}). Filen oprettes, hvis den ikke findes, og det nye skrives til sidst. |
+
+`open()` giver et `File`-objekt. Det er falsk (`if (!fil)`), hvis filen ikke kunne åbnes, så tjek det altid. Et `File` virker som `Serial`: du skriver med `print()` og `println()` og læser med `available()`, `read()` og `readStringUntil()`. Husk `close()`, når du er færdig: først da er dataene sikkert skrevet til flash. Holder du en fil åben i længere tid, kan du kalde `flush()` for at skrive det, der er skrevet indtil nu, ud uden at lukke filen.
+
+Andre nyttige funktioner:
+
+- `LittleFS.exists(sti)`: findes filen?
+- `LittleFS.remove(sti)`: slet filen.
+- `LittleFS.rename(fra, til)`: omdøb filen.
+- `LittleFS.mkdir(sti)`: opret en mappe.
+- `fil.size()`: filens størrelse i bytes.
+- `LittleFS.totalBytes()` og `LittleFS.usedBytes()`: filsystemets størrelse og hvor meget der er brugt. Ledig plads er forskellen.
+
+## Eksempel: læs, skriv og tilføj
+
+Programmet tæller, hvor mange gange ESP32 er startet. Tallet ligger i `/antal.txt`, som *overskrives* ved hver opstart. Samtidig *tilføjes* en linje til `/log.txt`. Til sidst listes filerne, og pladsen vises. Alt sker i `setup()`, så tryk på **EN** for at køre det igen.
+
+```{.ini filename="platformio.ini"}
+[env:esp32doit-devkit-v1]
+platform = espressif32@8.0.0
+board = esp32doit-devkit-v1
+framework = arduino
+monitor_speed = 115200
+board_build.filesystem = littlefs
+```
+
+```{.cpp filename="src/main.cpp"}
+#include <Arduino.h>
+#include <LittleFS.h>
+
+// Konfiguration
+const char *ANTAL_FIL = "/antal.txt";  // antal opstarter, overskrives hver gang
+const char *LOG_FIL = "/log.txt";      // én linje pr. opstart, vokser
+
+// Læser antal opstarter. Giver 0, hvis filen ikke findes endnu.
+int laesAntal() {
+  if (!LittleFS.exists(ANTAL_FIL)) {
+    return 0;
+  }
+  File fil = LittleFS.open(ANTAL_FIL, FILE_READ);
+  if (!fil) {
+    return 0;
+  }
+  // Tallet er gemt med et linjeskift efter, så readStringUntil stopper der
+  String tekst = fil.readStringUntil('\n');
+  fil.close();
+  return tekst.toInt();
+}
+
+// Overskriver filen med det nye tal
+void skrivAntal(int antal) {
+  File fil = LittleFS.open(ANTAL_FIL, FILE_WRITE);  // sletter det gamle indhold
+  if (!fil) {
+    Serial.println("Kunne ikke skrive antal");
+    return;
+  }
+  fil.println(antal);
+  fil.close();  // først nu er tallet sikkert gemt
+}
+
+// Tilføjer en linje til sidst i filen
+void tilfoejLinje(const char *sti, const String &linje) {
+  File fil = LittleFS.open(sti, FILE_APPEND);  // opretter filen, hvis den mangler
+  if (!fil) {
+    Serial.printf("Kunne ikke åbne %s\n", sti);
+    return;
+  }
+  fil.println(linje);
+  fil.close();
+}
+
+// Skriver hele filens indhold i Serial Monitor
+void udskrivFil(const char *sti) {
+  File fil = LittleFS.open(sti, FILE_READ);
+  if (!fil) {
+    Serial.printf("%s findes ikke\n", sti);
+    return;
+  }
+  Serial.printf("--- %s (%u bytes) ---\n", sti, (unsigned)fil.size());
+  while (fil.available()) {
+    Serial.write(fil.read());
+  }
+  fil.close();
+}
+
+// Lister filerne i en mappe med deres størrelse
+void listFiler(const char *mappe) {
+  File rod = LittleFS.open(mappe);
+  if (!rod || !rod.isDirectory()) {
+    Serial.printf("%s er ikke en mappe\n", mappe);
+    return;
+  }
+  Serial.printf("--- Filer i %s ---\n", mappe);
+  File fil = rod.openNextFile();
+  while (fil) {
+    Serial.printf("%-20s %6u bytes\n", fil.name(), (unsigned)fil.size());
+    fil = rod.openNextFile();
+  }
+}
+
+// Viser, hvor meget af filsystemet der er brugt
+void visPlads() {
+  size_t total = LittleFS.totalBytes();
+  size_t brugt = LittleFS.usedBytes();
+  Serial.printf("Plads: %u bytes i alt, %u brugt, %u ledig\n",
+                (unsigned)total, (unsigned)brugt, (unsigned)(total - brugt));
+}
+
+void setup() {
+  Serial.begin(115200);
+
+  // true: formatér, hvis partitionen ikke kan monteres (fx første gang)
+  if (!LittleFS.begin(true)) {
+    Serial.println("LittleFS kunne ikke monteres");
+    return;
+  }
+
+  int antal = laesAntal() + 1;
+  skrivAntal(antal);
+  tilfoejLinje(LOG_FIL, "Opstart nr. " + String(antal));
+
+  udskrivFil(LOG_FIL);
+  listFiler("/");
+  visPlads();
+}
+
+void loop() {
+}
+```
+
+Efter tre opstarter skal Serial Monitor vise noget i retning af:
+
+```
+--- /log.txt (45 bytes) ---
+Opstart nr. 1
+Opstart nr. 2
+Opstart nr. 3
+--- Filer i / ---
+antal.txt                 3 bytes
+log.txt                  45 bytes
+Plads: 1441792 bytes i alt, 8192 brugt, 1433600 ledig
+```
+
+`name()` giver kun filnavnet uden mappe, fx `log.txt`. Tallene for pladsen afhænger af partitionen. Selv et tomt filsystem bruger 8192 bytes (2 blokke à 4 KB) til LittleFS' egen mappe-information. Meget små filer gemmes direkte i den, så de ikke bruger flere blokke. Først når en fil vokser, får den sine egne blokke på 4 KB.
+
+<!-- TJEK: tallene i udskriften er beregnet ud fra kildekoden (usedBytes = antal brugte blokke × 4096, partitionen er 0x160000 bytes), ikke aflæst på et kort. Kontrollér, at "brugt" er 8192 både på et nyformateret filsystem og med de to små filer. Ret udskriften efter en kørsel. -->
+
+`println()` afslutter linjen med `\r\n`. Derfor er hver linje i loggen 15 bytes og ikke 14.
+
+## Eksempel: filer fra data/-mappen
+
+Nogle gange skal en fil ligge på ESP32 fra start, fx en konfigurationsfil eller en webside. Dem lægger du i en mappe, der hedder `data`, ved siden af `src`:
+
+```
+mit_projekt/
+├── data/
+│   └── hilsen.txt
+├── src/
+│   └── main.cpp
+└── platformio.ini
+```
+
+<!-- BILLEDE: VS Codes Explorer med data/-mappen (med hilsen.txt) på samme niveau som src/. -->
+
+Sådan kommer filerne over på ESP32:
+
+1. Luk Serial Monitor, så porten er fri.
+2. Klik på PlatformIO-ikonet i venstre side.
+3. Under **Project Tasks → esp32doit-devkit-v1 → Platform**, klik **Upload Filesystem Image**.
+
+PlatformIO laver et LittleFS-image af hele `data/`-mappen (med værktøjet `mklittlefs`) og skriver det til filsystem-partitionen. Fra kommandolinjen hedder det `pio run --target uploadfs`. Der findes også **Build Filesystem Image**, der kun laver imaget uden at uploade.
+
+<!-- TJEK: opgavenavnene "Build Filesystem Image" og "Upload Filesystem Image" er bekræftet i kildekoden til platform-espressif32 (develop-grenen), og Random Nerd Tutorials viser dem under "Platform". Ikke afprøvet med espressif32@8.0.0. -->
+
+<!-- BILLEDE: PlatformIO's Project Tasks foldet ud, med Platform → Upload Filesystem Image markeret. -->
+
+::: {.callout-warning}
+## Upload Filesystem Image overskriver alt
+
+Imaget erstatter *hele* filsystemet. Filer, som programmet selv har skrevet på ESP32, fx en cache med målinger, bliver slettet. Har du glemt `board_build.filesystem = littlefs`, bliver imaget et SPIFFS-image, som LittleFS ikke kan læse, og så formaterer `begin(true)` partitionen, og filerne fra `data/` er væk.
+:::
+
+<!-- TJEK: at Upload Filesystem Image sletter filer, programmet selv har skrevet, følger af, at hele partitionen overskrives med imaget (esptool skriver det på partitionens startadresse). Afprøv det. -->
+
+Læg en fil `data/hilsen.txt` med en linje tekst, upload den, og kør så dette program.
+
+```{.ini filename="platformio.ini"}
+[env:esp32doit-devkit-v1]
+platform = espressif32@8.0.0
+board = esp32doit-devkit-v1
+framework = arduino
+monitor_speed = 115200
+board_build.filesystem = littlefs
+```
+
+```{.cpp filename="src/main.cpp"}
+#include <Arduino.h>
+#include <LittleFS.h>
+
+// Konfiguration
+const char *HILSEN_FIL = "/hilsen.txt";  // lægges op fra data/hilsen.txt
+
+void setup() {
+  Serial.begin(115200);
+
+  // false: formatér IKKE, så vi kan se, hvis imaget ikke er uploadet rigtigt
+  if (!LittleFS.begin(false)) {
+    Serial.println("LittleFS kunne ikke monteres. Er Upload Filesystem Image kørt?");
+    return;
+  }
+
+  File fil = LittleFS.open(HILSEN_FIL, FILE_READ);
+  if (!fil) {
+    Serial.println("hilsen.txt findes ikke");
+    return;
+  }
+  while (fil.available()) {
+    Serial.write(fil.read());
+  }
+  fil.close();
+}
+
+void loop() {
+}
+```
+
+Her bruges `begin(false)` med vilje: hvis filsystemet ikke kan monteres, vil du hellere have en fejlbesked end en tom, nyformateret partition.
+
+## Eksempel: cache, når netværket mangler
+
+### JSON Lines
+
+En cache skal kunne vokse én måling ad gangen, uden at hele filen skrives om. Det passer godt med formatet [JSON Lines]{lang="en"} (filendelse `.jsonl`): hver linje er ét komplet JSON-objekt, og linjerne er adskilt af `\n`:
+
+```{.json filename="/cache.jsonl"}
+{"tid_ms":15004,"temp":21.4}
+{"tid_ms":20004,"temp":22.1}
+{"tid_ms":25004,"temp":20.8}
+```
+
+Det giver tre fordele:
+
+- En ny måling er bare én linje mere med `FILE_APPEND`. Filen skal ikke åbnes og skrives om, som hvis den var ét stort JSON-array.
+- Hver linje kan sendes for sig, fx som én MQTT-besked, uden at programmet skal forstå JSON.
+- Går strømmen midt i en skrivning, er det højst den sidste linje, der er ødelagt. De andre kan stadig læses.
+
+Bemærk, at filen som helhed *ikke* er gyldig JSON. Det er kun hver linje.
+
+### Programmet
+
+Programmet laver en (simuleret) temperaturmåling hvert 5. sekund og bygger en JSON-linje.
+
+- Er netværket der, sendes først det, der ligger i cachen, og derefter den nye måling. Så bevares rækkefølgen.
+- Mangler netværket, tilføjes målingen til `/cache.jsonl`.
+
+For at kunne afprøve det uden en server lader programmet, som om netværket er nede, når GPIO 18 er forbundet til GND med en ledning. "Afsendelse" er bare en udskrift i Serial Monitor. De to funktioner `netvaerkOk()` og `sendMaaling()` er de eneste, du skal skifte ud for at bruge rigtig WiFi og MQTT (øvelse 6).
+
+```{.ini filename="platformio.ini"}
+[env:esp32doit-devkit-v1]
+platform = espressif32@8.0.0
+board = esp32doit-devkit-v1
+framework = arduino
+monitor_speed = 115200
+board_build.filesystem = littlefs
+```
+
+```{.cpp filename="src/main.cpp"}
+#include <Arduino.h>
+#include <LittleFS.h>
+
+// Konfiguration
+const int NET_PIN = 18;                        // ledning til GND = "netværket er nede"
+const unsigned long MAALE_INTERVAL_MS = 5000;  // kort interval, så man kan følge med
+const char *CACHE_FIL = "/cache.jsonl";        // én JSON-linje pr. måling
+const size_t MIN_LEDIG_BYTES = 16 * 1024;      // gem ikke mere, når pladsen er under dette
+
+unsigned long sidsteMaaling = 0;
+
+// Simuleret netværk. Skiftes ud med fx WiFi.status() == WL_CONNECTED.
+bool netvaerkOk() {
+  return digitalRead(NET_PIN) == HIGH;  // pull-up: HIGH, når ledningen ikke sidder i
+}
+
+// Simuleret afsendelse. Skiftes ud med fx en MQTT-publish.
+// Giver false, hvis beskeden ikke kom af sted.
+bool sendMaaling(const String &linje) {
+  if (!netvaerkOk()) {
+    return false;
+  }
+  Serial.print("Sendt:  ");
+  Serial.println(linje);
+  return true;
+}
+
+// Simuleret sensor: 20,0-24,9 grader
+float laesTemperatur() {
+  return 20.0f + random(0, 50) / 10.0f;
+}
+
+// Bygger én måling som JSON, uden linjeskift
+String lavJsonLinje(unsigned long tid, float temperatur) {
+  char buffer[64];
+  snprintf(buffer, sizeof(buffer), "{\"tid_ms\":%lu,\"temp\":%.1f}", tid, temperatur);
+  return String(buffer);
+}
+
+// Tilføjer en måling til cachen, hvis der er plads
+void gemICache(const String &linje) {
+  size_t ledig = LittleFS.totalBytes() - LittleFS.usedBytes();
+  if (ledig < MIN_LEDIG_BYTES) {
+    Serial.println("Cachen er fuld: målingen kasseres");
+    return;
+  }
+  File fil = LittleFS.open(CACHE_FIL, FILE_APPEND);
+  if (!fil) {
+    Serial.println("Kunne ikke åbne cachen");
+    return;
+  }
+  fil.print(linje);
+  fil.print('\n');  // \n er JSON Lines' linjeskift; println() ville også tilføje \r
+  fil.close();      // først nu er målingen sikkert gemt
+  Serial.print("Cachet: ");
+  Serial.println(linje);
+}
+
+// Sender alle målinger i cachen og sletter filen, når alt er sendt
+void toemCache() {
+  if (!LittleFS.exists(CACHE_FIL)) {
+    return;  // intet at sende
+  }
+  File fil = LittleFS.open(CACHE_FIL, FILE_READ);
+  if (!fil) {
+    return;
+  }
+  int antalSendt = 0;
+  bool altSendt = true;
+  while (fil.available()) {
+    String linje = fil.readStringUntil('\n');
+    linje.trim();  // fjerner evt. \r og mellemrum
+    if (linje.length() == 0) {
+      continue;    // tomme linjer springes over
+    }
+    if (!sendMaaling(linje)) {
+      altSendt = false;  // netværket forsvandt undervejs
+      break;
+    }
+    antalSendt++;
+  }
+  fil.close();
+
+  if (altSendt) {
+    LittleFS.remove(CACHE_FIL);
+    Serial.printf("Cachen er tømt: %d målinger sendt\n", antalSendt);
+  } else {
+    // Filen beholdes. De linjer, der nåede at blive sendt, sendes igen næste gang.
+    Serial.printf("Afbrudt efter %d målinger, cachen beholdes\n", antalSendt);
+  }
+}
+
+void setup() {
+  Serial.begin(115200);
+  pinMode(NET_PIN, INPUT_PULLUP);
+
+  if (!LittleFS.begin(true)) {
+    Serial.println("LittleFS kunne ikke monteres");
+    return;
+  }
+
+  // Ligger der målinger fra før en genstart?
+  if (LittleFS.exists(CACHE_FIL)) {
+    File fil = LittleFS.open(CACHE_FIL, FILE_READ);
+    Serial.printf("Cache fra før genstart: %u bytes\n", (unsigned)fil.size());
+    fil.close();
+  }
+}
+
+void loop() {
+  if (millis() - sidsteMaaling >= MAALE_INTERVAL_MS) {
+    sidsteMaaling = millis();
+    String linje = lavJsonLinje(millis(), laesTemperatur());
+
+    if (netvaerkOk()) {
+      toemCache();  // gamle målinger først, så rækkefølgen bevares
+    }
+    if (!sendMaaling(linje)) {
+      gemICache(linje);
+    }
+  }
+}
+```
+
+<!-- BILLEDE: Serial Monitor under cache-eksemplet: et par "Sendt", derefter "Cachet" mens ledningen sidder i, og til sidst "Sendt" for de cachede målinger og "Cachen er tømt". -->
+
+Sådan virker det:
+
+- Der skrives kun til flash, mens netværket er nede. Så længe alt virker, rører programmet ikke filen. Det holder sliddet nede.
+- `MIN_LEDIG_BYTES` sørger for, at cachen ikke fylder filsystemet helt op. Hellere miste de nyeste målinger end at få et fuldt filsystem, hvor intet andet kan gemmes.
+- Cachen slettes først, når *alle* linjer er sendt. Forsvinder netværket midt i, sendes de første linjer igen næste gang. Serveren kan altså få en måling to gange, men ingen går tabt.
+- `tid_ms` er tiden siden opstart. Den starter forfra ved hver genstart, så i en rigtig løsning skal målingen have et rigtigt tidspunkt, fx fra en tidsserver (NTP). Ellers ved serveren ikke, hvornår de cachede målinger blev taget.
+
+## Øvelser
+
+1. Kør eksemplet *læs, skriv og tilføj*. Tryk på **EN** fem gange. Hvor stor er `/log.txt` nu, og passer det med 15 bytes pr. linje? Hvor meget plads er brugt?
+2. Ret `FILE_APPEND` til `FILE_WRITE` i `tilfoejLinje()`, og upload. Hvad sker der med loggen? Ret det tilbage. Upload derefter et helt andet program (fx testprogrammet fra [PlatformIO](../Grundlag/platformio.qmd)) og så dette igen. Er tælleren nulstillet?
+3. Lav `data/hilsen.txt`, og kør eksemplet *filer fra data/-mappen*. Upload derefter eksemplet fra øvelse 1 igen uden at uploade filsystemet. Findes `hilsen.txt` stadig? Kør så **Upload Filesystem Image** igen. Hvad skete der med `/log.txt`?
+4. Kør cache-eksemplet. Sæt ledningen fra GPIO 18 til GND i et halvt minut, og fjern den igen. Kommer målingerne frem i den rigtige rækkefølge? Gentag, men tryk på **EN**, mens ledningen sidder i. Overlever cachen genstarten?
+5. Regn ud: hvor mange bytes fylder én linje i cachen? Hvor mange målinger kan filsystemet rumme med `default.csv` og `MIN_LEDIG_BYTES`? Hvor længe kan ESP32 være uden net, hvis den måler én gang i minuttet? Og hvis den måler hvert sekund, hvad betyder det så for sliddet på flashen?
+6. *Ekstra:* Skift `netvaerkOk()` og `sendMaaling()` ud med rigtig WiFi og MQTT (se [WiFi](../Grundlag/wifi.qmd) og [Lokal MQTT server](lokal_mqtt.qmd)), så målingerne sendes til brokeren. Afprøv det ved at slukke brokeren eller access pointet.
+7. *Ekstra:* Skift til `board_build.partitions = no_ota.csv`. Hvor meget plads er der nu i filsystemet? Hvad sker der med filerne fra før?
+
+## Typiske fejl
+
+- **`LittleFS kunne ikke monteres`:** Partitionstabellen har ingen filsystem-partition med navnet `spiffs`, eller du har kaldt `begin(false)` på en partition, der aldrig er formateret. Brug `begin(true)` første gang.
+- **Filerne fra `data/` er væk:** `board_build.filesystem = littlefs` mangler i `platformio.ini`, så PlatformIO har uploadet et SPIFFS-image. Eller `data/` ligger det forkerte sted: den skal ligge ved siden af `src/`, ikke inde i den.
+- **Upload Filesystem Image fejler:** Serial Monitor eller et andet program har porten åben. Luk den.
+  <!-- TJEK: lukker PlatformIO IDE selv Serial Monitor før Upload Filesystem Image, som ved almindelig Upload? Så er rådet (og trin 1 under "Filer fra data/-mappen") overflødigt for Serial Monitor. -->
+- **Cachen er pludselig tom:** Du har kørt Upload Filesystem Image, som overskriver hele filsystemet. Eller filen er åbnet med `FILE_WRITE` i stedet for `FILE_APPEND`.
+- **Filen findes ikke:** Stien mangler `/` i starten, fx `"log.txt"` i stedet for `"/log.txt"`.
+- **De sidste data mangler efter en genstart:** Kortet genstartede eller mistede strømmen, mens filen stadig var åben, så dataene nåede ikke at blive skrevet til flash. Luk filen med `close()` (eller kald `flush()`), så snart du har skrevet.
+- **Programmet hænger et sekund ved læsning:** `readStringUntil('\n')` venter op til et sekund, hvis den sidste linje ikke slutter med `\n`. Skriv altid linjeskift efter hver linje.
+- **Koden fra en vejledning bruger `SPIFFS`:** Skift `SPIFFS` ud med `LittleFS` og `#include <SPIFFS.h>` med `#include <LittleFS.h>`. Resten er som regel ens.
+
+## Læs videre
+
+### LittleFS i PlatformIO
+
+Random Nerd Tutorials viser i [ESP32 with VS Code and PlatformIO: Upload Files to Filesystem (LittleFS)](https://randomnerdtutorials.com/esp32-vs-code-platformio-littlefs/){lang="en"}, hvordan man laver `data/`-mappen og uploader den, med skærmbilleder af **Platform → Build Filesystem Image** og **Upload Filesystem Image**.
+
+Læs den med tre forbehold. Eksemplet bruger `Serial.begin(9600)`, men artiklen nævner ikke, at `monitor_speed` så skal være 9600; brug hellere 115200 som her på sitet. Artiklen viser ikke hele `platformio.ini`, så platformens version er ikke låst. Og den skriver, at SPIFFS "kan blive fjernet" fra Arduino-ESP32, uden at give en kilde. Det, Espressif faktisk skriver, er, at SPIFFS ikke længere udvikles eller vedligeholdes.
+
+### Gem data i en fil
+
+[ESP32: Write Data to a File (LittleFS)](https://randomnerdtutorials.com/esp32-write-data-littlefs-arduino/){lang="en"}, også fra Random Nerd Tutorials, har hjælpefunktioner til alle filoperationerne (mapper, omdøb, slet) og viser, hvordan man med `LittleFS.exists()` undgår at overskrive en fil ved genstart. Artiklen bruger Arduino IDE, men koden virker i PlatformIO, når du tilføjer `#include <Arduino.h>` og `board_build.filesystem = littlefs`.
+
+Læg mærke til to ting. Eksemplerne venter med `delay(30000)` i `loop()`, så programmet ikke kan andet imens; brug `millis()` som i cache-eksemplet. Og artiklen siger ikke noget om slid på flash. Eksemplet skriver hvert 30. sekund, hele døgnet, og læser hele filen hver gang.
+
+## Kilder
+
+- Arduino-ESP32: `LittleFS.h` (`begin()` og standardværdier, `totalBytes()`, `usedBytes()`), <https://github.com/espressif/arduino-esp32/blob/master/libraries/LittleFS/src/LittleFS.h>
+- Arduino-ESP32: `FS.h` (`File`, `FILE_READ`/`FILE_WRITE`/`FILE_APPEND`, `open()`, `exists()`, `remove()`), <https://github.com/espressif/arduino-esp32/blob/master/libraries/FS/src/FS.h>
+- Arduino-ESP32: `vfs_api.cpp` (hvad `open()` gør i de forskellige tilstande), <https://github.com/espressif/arduino-esp32/blob/master/libraries/FS/src/vfs_api.cpp>
+- Arduino-ESP32: LittleFS-eksempel (`LITTLEFS_test.ino`), <https://github.com/espressif/arduino-esp32/blob/master/libraries/LittleFS/examples/LITTLEFS_test/LITTLEFS_test.ino>
+- Arduino-ESP32: partitionstabeller (`default.csv`, `no_ota.csv`, `huge_app.csv`), <https://github.com/espressif/arduino-esp32/tree/master/tools/partitions>
+- Arduino-ESP32: Partition Table, <https://docs.espressif.com/projects/arduino-esp32/en/latest/tutorials/partition_table.html>
+- PlatformIO: Espressif 32 (Partition Tables, Uploading files to file system, `board_build.filesystem`), <https://docs.platformio.org/en/latest/platforms/espressif32.html>
+- PlatformIO: DOIT ESP32 DEVKIT V1 (4 MB flash), <https://docs.platformio.org/en/latest/boards/espressif32/esp32doit-devkit-v1.html>
+- PlatformIO: kildekoden til platform-espressif32 (`buildfs`/`uploadfs`, "Upload Filesystem Image", `mklittlefs`), <https://github.com/platformio/platform-espressif32/blob/develop/builder/main.py>
+- ESP-IDF: Partition Tables (adresser for bootloader og partitionstabel), <https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/partition-tables.html>
+- ESP-IDF: File System Considerations (SPIFFS vedligeholdes ikke, LittleFS, slid på flash), <https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/file-system-considerations.html>
+- littlefs: README (strømsvigt, wear leveling), <https://github.com/littlefs-project/littlefs>
+- littlefs: DESIGN.md (små filer gemmes som [inline files]{lang="en"} i mappens metadata), <https://github.com/littlefs-project/littlefs/blob/master/DESIGN.md>
+- esp_littlefs: `esp_littlefs.c` (`usedBytes()` regnes i hele blokke, partitionen findes ud fra navnet), <https://github.com/joltwallet/esp_littlefs/blob/master/src/esp_littlefs.c>
+- JSON Lines, <https://jsonlines.org/>
+- Random Nerd Tutorials: ESP32 with VS Code and PlatformIO: Upload Files to Filesystem (LittleFS), <https://randomnerdtutorials.com/esp32-vs-code-platformio-littlefs/>
+- Random Nerd Tutorials: ESP32: Write Data to a File (LittleFS), <https://randomnerdtutorials.com/esp32-write-data-littlefs-arduino/>
