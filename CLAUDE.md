@@ -39,6 +39,7 @@ Content may go beyond the objectives or leave some out, and the teacher decides.
 - `about.qmd`: "Om sitet": how the site is organised and who is behind it. In the navbar.
 - `styles.css`: extra CSS for the HTML output
 - `todo.md`: the teacher's local list of open tasks. Ignored by git (`.gitignore`) and not rendered: `project: render` in `_quarto.yml` only builds `**/*.qmd`, so `.md` files are notes. Write pages as `.qmd`.
+- `.claude/`: Claude Code setup for the site. `skills/undervisningsside/` holds the rules for teaching pages; `agents/skribent.md` writes one page by those rules (no shell, edits only its own page), and `agents/faktatjekker.md` reviews a finished page against official docs without editing it.
 - `laeringsmaal.qmd`: "Læringsmål" in the navbar. It includes the subject description from `_fagbeskrivelse/` with `{{< include >}}`, so the målpinde exist in one place only.
 - `_typst/typst-show.typ`: a copy of Quarto's Typst partial (set with `template-partials` in `_quarto.yml`). The only change is that the PDF date line also shows "Ændret". Re-copy it from `/opt/quarto/share/formats/typst/pandoc/quarto/` if a Quarto update breaks the PDFs.
 - `_scripts/`: helper scripts run by Quarto (`git_mtime.py`, see Conventions). Not rendered.
