@@ -148,6 +148,20 @@ Sådan virker det:
 
 Man kan debounce ved at vente med `delay(50)` efter et tryk. Men mens `delay()` venter, laver ESP32 ingenting: den læser ikke andre knapper, sender ikke data og svarer ikke på netværket. ezButton bruger i stedet `millis()` og blokerer aldrig, så `loop()` kan blive ved med at lave andre ting. Det bliver vigtigt, når programmet også skal bruge WiFi eller MQTT.
 
+## Læs videre
+
+### Debouncing uden bibliotek
+
+ESP32IO, som har lavet ezButton, viser i [ESP32 - Button - Debounce](https://esp32io.com/tutorials/esp32-button-debounce){lang="en"} først, hvordan man debouncer med `millis()` helt uden bibliotek. Det er i princippet det, ezButton gør for dig inde i `knap.loop()`. Artiklen har også et koblingsdiagram og et eksempel med tre knapper (GPIO 21, 22 og 23), som kan bruges til øvelse 4.
+
+Bemærk, at en kommentar i koden siger "fra LOW til HIGH" om et tryk. Med `INPUT_PULLUP` er et tryk et skift fra `HIGH` til `LOW`, og det er også det, koden faktisk tjekker.
+
+### Debouncing med interrupts
+
+Random Nerd Tutorials viser en anden måde at gøre det på i [ESP32 GPIO Interrupts with Arduino IDE](https://randomnerdtutorials.com/esp32-gpio-interrupts-arduino/){lang="en"}. Her aflæser programmet ikke knappen i `loop()`. I stedet kalder ESP32 en lille funktion, en *interrupt service routine* (ISR), i det øjeblik benet skifter. Debouncingen sker i ISR'en med `millis()` og et vindue på 50 ms, ligesom ezButton. Artiklen bruger også GPIO 18 og `INPUT_PULLUP`, så du kan bruge den samme kobling.
+
+Læs artiklen kritisk: med `INPUT_PULLUP` giver et tryk et skift fra `HIGH` til `LOW`. Se, hvilken interrupt-type (`RISING`, `FALLING`, `HIGH` …) eksemplerne bruger, og overvej, om det passer til det (se øvelse 6).
+
 ## Øvelser
 
 1. Kør eksemplet *uden debouncing*. Tryk ti gange, og skriv ned, hvor mange tryk programmet tæller. Prøv også at trykke meget let og meget hårdt.
@@ -155,6 +169,7 @@ Man kan debounce ved at vente med `delay(50)` efter et tryk. Men mens `delay()` 
 3. Lad knappen tænde og slukke den indbyggede lysdiode på GPIO 2: hvert tryk skifter mellem tændt og slukket.
 4. Tilføj en knap mere på GPIO 19, så den ene tænder og den anden slukker lysdioden. Brug to `ezButton`-objekter.
 5. *Ekstra:* Skeln mellem et kort og et langt tryk (over ét sekund). Gem `millis()`, når `isPressed()` er sand, og beregn trykkets længde, når `isReleased()` er sand.
+6. *Ekstra:* Prøv eksemplet *med debouncing* fra artiklen om interrupts (se [Debouncing med interrupts](#debouncing-med-interrupts)). Tæller det, når du trykker, når du slipper, eller hele tiden? Ret interrupt-typen, så der tælles præcis én gang per tryk, og forklar hvorfor.
 
 ## Typiske fejl
 
@@ -169,8 +184,10 @@ Man kan debounce ved at vente med `delay(50)` efter et tryk. Men mens `delay()` 
 
 - ezButton: kildekode og README, <https://github.com/ArduinoGetStarted/button>
 - ezButton: vejledning, <https://arduinogetstarted.com/tutorials/arduino-button-library>
+- ESP32IO: ESP32 - Button - Debounce, <https://esp32io.com/tutorials/esp32-button-debounce>
 - ezButton i PlatformIO-registret, <https://registry.platformio.org/libraries/arduinogetstarted/ezButton>
 - PlatformIO: ESP32-DEVKIT-V1, <https://docs.platformio.org/en/latest/boards/espressif32/esp32doit-devkit-v1.html>
 - Arduino-ESP32: GPIO, <https://docs.espressif.com/projects/arduino-esp32/en/latest/api/gpio.html>
 - ESP-IDF: GPIO, <https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/gpio.html>
 - Random Nerd Tutorials: ESP32 Pinout Reference, <https://randomnerdtutorials.com/esp32-pinout-reference-gpios/>
+- Random Nerd Tutorials: ESP32 GPIO Interrupts with Arduino IDE, <https://randomnerdtutorials.com/esp32-gpio-interrupts-arduino/>
