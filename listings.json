@@ -1,9 +1,37 @@
 [
   {
+    "listing": "/laeringsmaal.html",
+    "items": [
+      "/Opgaver/Projektopgave_wifi_position_checkliste.html",
+      "/Grundlag/debouncing.html",
+      "/Features/deep_sleep.html",
+      "/Features/esp_now_mesh.html",
+      "/Features/index.html",
+      "/Features/filsystem.html",
+      "/Grundlag/index.html",
+      "/Grundlag/cpp_intro.html",
+      "/Features/lokal_mqtt.html",
+      "/Opgaver/index.html",
+      "/Grundlag/platformio.html",
+      "/Opgaver/Projektopgave_wifi_position.html",
+      "/Opgaver/Projektopgave_Smiley.html",
+      "/Grundlag/wifi.html"
+    ]
+  },
+  {
     "listing": "/Opgaver/index.html",
     "items": [
       "/Opgaver/Projektopgave_wifi_position.html",
       "/Opgaver/Projektopgave_Smiley.html"
+    ]
+  },
+  {
+    "listing": "/Grundlag/index.html",
+    "items": [
+      "/Grundlag/debouncing.html",
+      "/Grundlag/cpp_intro.html",
+      "/Grundlag/platformio.html",
+      "/Grundlag/wifi.html"
     ]
   }
 ]

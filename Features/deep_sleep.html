@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="da" xml:lang="da"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.20">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Søren Magnusson">
+
+<title>Deep Sleep – FAG 17682_IoT_II</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-17888a1159294d3eb470f19f6f52f5a5.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-1958bf8fe25c7117446dee592769f80d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Ingen resultater",
+    "search-matching-documents-text": "Matchende dokumenter",
+    "search-copy-link-title": "Kopier link for at søge",
+    "search-hide-matches-text": "Skjul yderligere resultater",
+    "search-more-match-text": "andet resultat i dette dokument",
+    "search-more-matches-text": "andre resultater i dette dokument",
+    "search-clear-button-title": "Ryd",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Fortryd",
+    "search-submit-button-title": "Indsend",
+    "search-label": "Søg"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">FAG 17682_IoT_II</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Søg"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Skift navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Hjem</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../laeringsmaal.html" aria-current="page"> 
+<span class="menu-text">Læringsmål</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">Om sitet</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Skift sidebjælke" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Features/index.html">Features</a></li><li class="breadcrumb-item"><a href="../Features/deep_sleep.html">Deep Sleep</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Skift sidebjælke" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Om sitet</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Referencer/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Referencemanualer</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../laeringsmaal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Læringsmål</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Features/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Features</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Skift sektion">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Features/deep_sleep.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Deep Sleep</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Features/esp_now_mesh.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ESP-NOW og ESP-MESH</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Features/filsystem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Filsystem på ESP32</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Features/lokal_mqtt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lokal MQTT server</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Grundlag/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Grundlag</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Skift sektion">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/cpp_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Intro til C++</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/debouncing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Debouncing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/platformio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">PlatformIO</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/wifi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">WiFi</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Opgaver/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Opgaver</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Skift sektion">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Opgaver/Projektopgave_Smiley.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Projektopgave, Smiley feedback panel</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Opgaver/Projektopgave_wifi_position.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Projektopgave, Positionsbestemmelse af enheder uden GPS dækning</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Opgaver/Projektopgave_wifi_position_checkliste.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Checkliste: Positionsbestemmelse af enheder uden GPS dækning</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">På denne side</h2>
+   
+  <ul>
+  <li><a href="#formål" id="toc-formål" class="nav-link active" data-scroll-target="#formål">Formål</a></li>
+  <li><a href="#målpinde" id="toc-målpinde" class="nav-link" data-scroll-target="#målpinde">Målpinde</a></li>
+  <li><a href="#forudsætninger" id="toc-forudsætninger" class="nav-link" data-scroll-target="#forudsætninger">Forudsætninger</a></li>
+  <li><a href="#hvorfor-sove" id="toc-hvorfor-sove" class="nav-link" data-scroll-target="#hvorfor-sove">Hvorfor sove?</a>
+  <ul class="collapse">
+  <li><a href="#strømmåling-på-devkit-v1" id="toc-strømmåling-på-devkit-v1" class="nav-link" data-scroll-target="#strømmåling-på-devkit-v1">Strømmåling på DEVKIT-V1</a></li>
+  <li><a href="#light-sleep" id="toc-light-sleep" class="nav-link" data-scroll-target="#light-sleep">Light sleep</a></li>
+  </ul></li>
+  <li><a href="#hvad-sker-der-i-deep-sleep" id="toc-hvad-sker-der-i-deep-sleep" class="nav-link" data-scroll-target="#hvad-sker-der-i-deep-sleep">Hvad sker der i deep sleep?</a>
+  <ul class="collapse">
+  <li><a href="#rtc-hukommelse-rtc_data_attr" id="toc-rtc-hukommelse-rtc_data_attr" class="nav-link" data-scroll-target="#rtc-hukommelse-rtc_data_attr">RTC-hukommelse: RTC_DATA_ATTR</a></li>
+  <li><a href="#hvad-vækkede-mig" id="toc-hvad-vækkede-mig" class="nav-link" data-scroll-target="#hvad-vækkede-mig">Hvad vækkede mig?</a></li>
+  </ul></li>
+  <li><a href="#vækkekilder" id="toc-vækkekilder" class="nav-link" data-scroll-target="#vækkekilder">Vækkekilder</a>
+  <ul class="collapse">
+  <li><a href="#timer" id="toc-timer" class="nav-link" data-scroll-target="#timer">Timer</a></li>
+  <li><a href="#knap-ext0" id="toc-knap-ext0" class="nav-link" data-scroll-target="#knap-ext0">Knap: ext0</a></li>
+  <li><a href="#knap-ext1" id="toc-knap-ext1" class="nav-link" data-scroll-target="#knap-ext1">Knap: ext1</a></li>
+  <li><a href="#touch" id="toc-touch" class="nav-link" data-scroll-target="#touch">Touch</a></li>
+  <li><a href="#hvilke-ben-kan-vække" id="toc-hvilke-ben-kan-vække" class="nav-link" data-scroll-target="#hvilke-ben-kan-vække">Hvilke ben kan vække?</a></li>
+  </ul></li>
+  <li><a href="#eksempel-vågn-på-timer" id="toc-eksempel-vågn-på-timer" class="nav-link" data-scroll-target="#eksempel-vågn-på-timer">Eksempel: vågn på timer</a></li>
+  <li><a href="#eksempel-vågn-på-knap-eller-timer" id="toc-eksempel-vågn-på-knap-eller-timer" class="nav-link" data-scroll-target="#eksempel-vågn-på-knap-eller-timer">Eksempel: vågn på knap eller timer</a></li>
+  <li><a href="#øvelser" id="toc-øvelser" class="nav-link" data-scroll-target="#øvelser">Øvelser</a></li>
+  <li><a href="#typiske-fejl" id="toc-typiske-fejl" class="nav-link" data-scroll-target="#typiske-fejl">Typiske fejl</a></li>
+  <li><a href="#læs-videre" id="toc-læs-videre" class="nav-link" data-scroll-target="#læs-videre">Læs videre</a>
+  <ul class="collapse">
+  <li><a href="#random-nerd-tutorials" id="toc-random-nerd-tutorials" class="nav-link" data-scroll-target="#random-nerd-tutorials">Random Nerd Tutorials</a></li>
+  </ul></li>
+  <li><a href="#kilder" id="toc-kilder" class="nav-link" data-scroll-target="#kilder">Kilder</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Features/index.html">Features</a></li><li class="breadcrumb-item"><a href="../Features/deep_sleep.html">Deep Sleep</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Deep Sleep</h1>
+<p class="subtitle lead">Spar strøm, og vågn på timer, knap eller berøring</p>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Forfatter</div>
+  <div class="quarto-title-meta-heading">Uddannelse</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Søren Magnusson </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Data, TEC
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Udgivet</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">23. november 2026</p>
+    </div>
+  </div>
+  
+    <div>
+    <div class="quarto-title-meta-heading">Ændret</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">23. november 2026</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- IKKE KOMPILERET: eksemplerne er tjekket mod dokumentationen, men ikke kompileret eller testet på hardware. -->
+<!--
+TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
+1. Upload eksemplet "vågn på timer". Tæller "Opstart nr." op ved hver opvågning, og står der "timer" som årsag (og "ikke fra deep sleep" første gang)?
+2. Tryk på EN-knappen under eksemplet: starter tælleren forfra fra 1? (Siden påstår, at RTC-hukommelsen nulstilles ved EN.)
+3. Upload eksemplet "vågn på knap eller timer" med knap mellem GPIO 33 og GND. Vågner kortet på tryk (årsag "knap (ext0)") og ellers efter 30 s (årsag "timer")?
+4. Hold knappen nede, mens kortet går i dvale: vågner det straks igen, som siden siger?
+5. Ext1 (øvelse 4): vågner ESP32 med ESP_EXT1_WAKEUP_ALL_LOW og den interne pull-up på GPIO 33, uden at RTC_PERIPH holdes tændt? Dokumentationen siger ja (HOLD-funktionen); afprøv på skolens kort. (Se TJEK ved ext1.)
+6. Touch-uddraget: virker tærsklen 40 på GPIO 27 (T7) med en løs ledning? Hvilke værdier giver touchRead(T7) urørt og rørt på skolens kort? (Se TJEK ved touch.)
+7. Upload mens kortet sover: virker upload uden at trykke på knapper? Ret eller fjern punktet om upload under Typiske fejl efter resultatet. (Se TJEK under Typiske fejl.)
+8. Mål strømmen på DEVKIT-V1 i deep sleep (fx med et USB-strømmeter eller et multimeter i serie med VIN). Ret tallene i afsnittet om strømmåling og regnestykket, hvis de er langt fra. (Se TJEK ved strømmåling.)
+9. TJEK: strømtallene for selve chippen (ca. 100-250 mA aktiv med WiFi, ca. 10 µA i deep sleep) er ikke læst direkte i databladets tabel "Power Consumption by Power Modes". Sammenlign i en PDF-læser.
+10. BILLEDE: Serial Monitor med tre-fire opvågninger fra timer-eksemplet.
+11. BILLEDE: breadboard med knap mellem GPIO 33 og GND.
+12. BILLEDE: DEVKIT-V1 med USB-chip, spændingsregulator og strøm-LED markeret.
+13. Når alt er testet: fjern IKKE KOMPILERET, denne tjekliste og TJEK-/BILLEDE-kommentarerne.
+-->
+<p>En temperaturføler i et drivhus skal måske kun sende en måling hvert tiende minut. Resten af tiden har den intet at lave, men en ESP32, der kører <code>loop()</code> med WiFi tændt, bruger strøm hele tiden og tømmer et batteri på et døgn eller to. I <em>deep sleep</em> slukker ESP32 næsten hele chippen og vågner igen, når en timer udløber, eller når der trykkes på en knap. Så kan det samme batteri holde i måneder.</p>
+<section id="formål" class="level2">
+<h2 class="anchored" data-anchor-id="formål">Formål</h2>
+<ul>
+<li>Du kan forklare, hvorfor deep sleep er vigtigt for batteridrevne IoT-enheder.</li>
+<li>Du kan forklare, hvad der sker med programmet og variablerne, når ESP32 går i deep sleep og vågner igen.</li>
+<li>Du kan gemme en værdi i RTC-hukommelsen med <code>RTC_DATA_ATTR</code>, så den overlever deep sleep.</li>
+<li>Du kan vække ESP32 med en timer, med en knap (ext0 og ext1) og med berøring (touch), og finde ud af, hvad der vækkede den.</li>
+<li>Du kan vælge et ben, der kan vække ESP32.</li>
+</ul>
+</section>
+<section id="målpinde" class="level2">
+<h2 class="anchored" data-anchor-id="målpinde">Målpinde</h2>
+<p>Siden arbejder med målpind 17, 18 og 19 (se <a href="../laeringsmaal.html">Læringsmål</a>).</p>
+</section>
+<section id="forudsætninger" class="level2">
+<h2 class="anchored" data-anchor-id="forudsætninger">Forudsætninger</h2>
+<ul>
+<li><a href="../Grundlag/platformio.html">PlatformIO</a>: du kan oprette et projekt til ESP32-DEVKIT-V1, uploade og åbne Serial Monitor.</li>
+<li><a href="../Grundlag/debouncing.html">Debouncing</a>: du kan koble en knap til GND og bruge en intern pull-up.</li>
+<li>Hardware: ESP32-DEVKIT-V1, en trykknap, et breadboard og et par ledninger.</li>
+</ul>
+</section>
+<section id="hvorfor-sove" class="level2">
+<h2 class="anchored" data-anchor-id="hvorfor-sove">Hvorfor sove?</h2>
+<p>ESP32 bruger meget mere strøm, når den er vågen, end når den sover:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Tilstand</th>
+<th>Strømforbrug for selve chippen (ca.)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Aktiv med WiFi</td>
+<td>100–250 mA (mest, mens den sender)</td>
+</tr>
+<tr class="even">
+<td>Deep sleep (kun RTC-timer og RTC-hukommelse tændt)</td>
+<td>ca. 10 µA</td>
+</tr>
+</tbody>
+</table>
+<!-- TJEK: tallene er fra Espressifs ESP-IDF- og low-power-sider og sekundære kopier af databladets tabel "Power Consumption by Power Modes". Databladet (PDF) kunne ikke læses direkte. Sammenlign med tabellen i databladet. -->
+<p>Det er en faktor 10.000 eller mere. En sensor, der kun er vågen et par sekunder ad gangen, bruger derfor næsten al sin strøm i de sekunder, hvor den er vågen. Reglen er: vågn, mål, send, sov igen, så hurtigt som muligt.</p>
+<section id="strømmåling-på-devkit-v1" class="level3">
+<h3 class="anchored" data-anchor-id="strømmåling-på-devkit-v1">Strømmåling på DEVKIT-V1</h3>
+<p>Tallene ovenfor gælder for ESP32-<em>chippen</em>. Udviklingskortet DEVKIT-V1 har flere komponenter, der bruger strøm, også når chippen sover:</p>
+<ul>
+<li>USB-serielchippen (CP2102 eller CH340), som Serial Monitor og upload går igennem.</li>
+<li>Spændingsregulatoren, der laver 3,3 V af de 5 V fra USB.</li>
+<li>Den røde lysdiode, der lyser, så længe kortet har strøm.</li>
+</ul>
+<p>Hvis du måler strømmen til hele kortet, ser du derfor milliampere, ikke mikroampere, også i deep sleep. Det betyder ikke, at deep sleep ikke virker. Til et rigtigt batteriprodukt bruger man et kort uden USB-chip og lysdiode, eller sin egen printplade.</p>
+<!-- TJEK: siden siger "milliampere" for hele kortet i deep sleep uden et konkret tal. Mål på skolens kort, og indsæt gerne tallet. -->
+<!-- BILLEDE: DEVKIT-V1 set fra oven med USB-chip, spændingsregulator og strøm-LED markeret. -->
+</section>
+<section id="light-sleep" class="level3">
+<h3 class="anchored" data-anchor-id="light-sleep">Light sleep</h3>
+<p>Der findes også <em>light sleep</em> (<code>esp_light_sleep_start()</code>): CPU og RAM sættes på pause, men beholder deres indhold, og programmet fortsætter på linjen efter kaldet, når chippen vågner. Den sparer mindre strøm end deep sleep. Resten af siden handler om deep sleep.</p>
+</section>
+</section>
+<section id="hvad-sker-der-i-deep-sleep" class="level2">
+<h2 class="anchored" data-anchor-id="hvad-sker-der-i-deep-sleep">Hvad sker der i deep sleep?</h2>
+<p>Når programmet kalder <code>esp_deep_sleep_start()</code>, slukker ESP32 for CPU’erne, det meste af RAM og de fleste <span lang="en">peripherals</span> (de indbyggede enheder som WiFi, UART og timere). Kun RTC-delen er tændt. RTC står for <em>real-time clock</em>: en lille del af chippen med sit eget ur, lidt hukommelse og den logik, der kan vække chippen igen.</p>
+<p>Det har tre vigtige konsekvenser:</p>
+<ol type="1">
+<li><strong>Funktionen vender aldrig tilbage.</strong> Kode efter <code>esp_deep_sleep_start()</code> bliver ikke kørt.</li>
+<li><strong>Programmet starter forfra, når chippen vågner.</strong> Det kører <code>setup()</code> fra toppen, ligesom efter et tryk på EN-knappen. Derfor står al logikken typisk i <code>setup()</code>, og <code>loop()</code> er tom.</li>
+<li><strong>Almindelige variabler er væk.</strong> RAM har været slukket, så en global variabel har sin startværdi igen. WiFi skal også forbindes på ny.</li>
+</ol>
+<pre><code>setup(): vågn → læs årsag → mål og send → sæt vækkekilde → esp_deep_sleep_start()
+   ↑                                                                    │
+   └──────────────── timer, knap eller touch vækker chippen ───────────┘</code></pre>
+<section id="rtc-hukommelse-rtc_data_attr" class="level3">
+<h3 class="anchored" data-anchor-id="rtc-hukommelse-rtc_data_attr">RTC-hukommelse: RTC_DATA_ATTR</h3>
+<p>RTC-delen har en lille hukommelse (nogle få KB), som har strøm under deep sleep. Skriv <code>RTC_DATA_ATTR</code> foran en global variabel, så ligger den dér og beholder sin værdi:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>RTC_DATA_ATTR <span class="dt">int</span> antalOpstarter <span class="op">=</span> <span class="dv">0</span><span class="op">;</span>  <span class="co">// overlever deep sleep</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>= 0</code> sker kun, når chippen får strøm første gang (eller nulstilles), ikke ved hver opvågning. Ved strømsvigt og ved tryk på EN-knappen starter værdien forfra. Skal en værdi overleve det, skal den gemmes i flash, fx i et filsystem.</p>
+<!-- TJEK: at RTC_DATA_ATTR-variabler nulstilles ved tryk på EN (Random Nerd Tutorials siger det; ESP-IDF-siden nævner det ikke direkte). Se tjekliste punkt 2. -->
+</section>
+<section id="hvad-vækkede-mig" class="level3">
+<h3 class="anchored" data-anchor-id="hvad-vækkede-mig">Hvad vækkede mig?</h3>
+<p><code>esp_sleep_get_wakeup_cause()</code> fortæller, hvorfor programmet startede. Den returnerer fx:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Værdi</th>
+<th>Betyder</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>ESP_SLEEP_WAKEUP_TIMER</code></td>
+<td>Timeren udløb</td>
+</tr>
+<tr class="even">
+<td><code>ESP_SLEEP_WAKEUP_EXT0</code></td>
+<td>Et ben vækkede chippen (ext0)</td>
+</tr>
+<tr class="odd">
+<td><code>ESP_SLEEP_WAKEUP_EXT1</code></td>
+<td>Et eller flere ben vækkede chippen (ext1)</td>
+</tr>
+<tr class="even">
+<td><code>ESP_SLEEP_WAKEUP_TOUCHPAD</code></td>
+<td>En touch-pin blev rørt</td>
+</tr>
+<tr class="odd">
+<td><code>ESP_SLEEP_WAKEUP_UNDEFINED</code></td>
+<td>Ikke fra deep sleep: første opstart, EN-knappen eller upload</td>
+</tr>
+</tbody>
+</table>
+<p>Så kan programmet gøre noget forskelligt, alt efter om det var timeren (send en måling) eller en knap (vis status).</p>
+</section>
+</section>
+<section id="vækkekilder" class="level2">
+<h2 class="anchored" data-anchor-id="vækkekilder">Vækkekilder</h2>
+<p>Før <code>esp_deep_sleep_start()</code> skal du slå mindst én vækkekilde til. Ellers sover ESP32, til den får strøm igen eller nogen trykker på EN. Du kan godt slå flere kilder til på én gang, fx både timer og knap.</p>
+<section id="timer" class="level3">
+<h3 class="anchored" data-anchor-id="timer">Timer</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>esp_sleep_enable_timer_wakeup<span class="op">(</span><span class="dv">30</span><span class="bu">ULL</span> <span class="op">*</span> <span class="dv">1000000</span><span class="bu">ULL</span><span class="op">);</span>  <span class="co">// 30 s, angivet i mikrosekunder</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Tiden er i <strong>mikrosekunder</strong> og har typen <code>uint64_t</code>. Skriv <code>ULL</code> efter tallene, så beregningen sker med 64-bit tal. Uden <code>ULL</code> bliver fx <code>40 * 60 * 1000000</code> regnet som <code>int</code>, som højst kan være ca. 2,1 milliarder. 40 minutter i mikrosekunder er 2,4 milliarder, så tallet løber over, og ESP32 sover i en helt forkert tid.</p>
+</section>
+<section id="knap-ext0" class="level3">
+<h3 class="anchored" data-anchor-id="knap-ext0">Knap: ext0</h3>
+<p>Med <em>ext0</em> vækker ét ben chippen, når det får et bestemt niveau (<code>0</code> = LOW, <code>1</code> = HIGH):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>esp_sleep_enable_ext0_wakeup<span class="op">(</span>GPIO_NUM_33<span class="op">,</span> <span class="dv">0</span><span class="op">);</span>  <span class="co">// vågn, når GPIO 33 bliver LOW</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>rtc_gpio_pullup_en<span class="op">(</span>GPIO_NUM_33<span class="op">);</span>              <span class="co">// pull-up, der virker under søvn</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>rtc_gpio_pulldown_dis<span class="op">(</span>GPIO_NUM_33<span class="op">);</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>pinMode(..., INPUT_PULLUP)</code> virker ikke under deep sleep, fordi den almindelige GPIO-del er slukket. Pull-up’en skal i stedet slås til med <code>rtc_gpio_pullup_en()</code> fra <code>driver/rtc_io.h</code>. Med ext0 holder ESP32 automatisk RTC-<span lang="en">peripherals</span> tændt, så den interne pull-up virker. Benet har typen <code>gpio_num_t</code>, så skriv <code>GPIO_NUM_33</code> og ikke bare <code>33</code>.</p>
+</section>
+<section id="knap-ext1" class="level3">
+<h3 class="anchored" data-anchor-id="knap-ext1">Knap: ext1</h3>
+<p>Med <em>ext1</em> kan flere ben vække chippen. Benene angives som en bitmaske, hvor bit nummer <em>n</em> står for GPIO <em>n</em>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">uint64_t</span> MASKE <span class="op">=</span> <span class="op">(</span><span class="dv">1</span><span class="bu">ULL</span> <span class="op">&lt;&lt;</span> <span class="dv">33</span><span class="op">)</span> <span class="op">|</span> <span class="op">(</span><span class="dv">1</span><span class="bu">ULL</span> <span class="op">&lt;&lt;</span> <span class="dv">32</span><span class="op">);</span>  <span class="co">// GPIO 33 og GPIO 32</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>esp_sleep_enable_ext1_wakeup_io<span class="op">(</span>MASKE<span class="op">,</span> ESP_EXT1_WAKEUP_ANY_HIGH<span class="op">);</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
+<p>På den almindelige ESP32 er der kun to muligheder:</p>
+<ul>
+<li><code>ESP_EXT1_WAKEUP_ANY_HIGH</code>: vågn, når <em>et hvilket som helst</em> af benene bliver HIGH. Kræver knapper til 3,3 V og pull-down.</li>
+<li><code>ESP_EXT1_WAKEUP_ALL_LOW</code>: vågn, når <em>alle</em> benene er LOW på én gang.</li>
+</ul>
+<p><code>ESP_EXT1_WAKEUP_ANY_LOW</code> findes kun på nyere chips (ESP32-S2, S3, C6, H2), ikke på ESP32. Har du to knapper til GND (som på <a href="../Grundlag/debouncing.html">Debouncing</a>-siden), vågner ESP32 med <code>ALL_LOW</code> kun, når begge holdes nede. Til én knap til GND virker <code>ALL_LOW</code> fint.</p>
+<p>Når ESP32 er vågnet af ext1, kan du med <code>esp_sleep_get_ext1_wakeup_status()</code> få en bitmaske over, hvilke ben der vækkede den.</p>
+<!-- TJEK: ESP-IDF v5.5 og kommentaren i Arduino-eksemplet ExternalWakeUp siger, at pull-up/pull-down sat med rtc_gpio_* holdes med HOLD-funktionen under søvn, når RTC_PERIPH er slukket. Så øvelse 4 (ext1 + ALL_LOW + intern pull-up) bør virke. Afprøv på skolens kort, se tjekliste punkt 5. -->
+</section>
+<section id="touch" class="level3">
+<h3 class="anchored" data-anchor-id="touch">Touch</h3>
+<p>ESP32 har ti touch-ben (T0–T9), der kan mærke, når en finger rører en ledning eller en metalflade. De kan også vække chippen:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">int</span> TOUCH_TAERSKEL <span class="op">=</span> <span class="dv">40</span><span class="op">;</span>           <span class="co">// under denne værdi tæller det som berøring</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>touchSleepWakeUpEnable<span class="op">(</span>T7<span class="op">,</span> TOUCH_TAERSKEL<span class="op">);</span>  <span class="co">// T7 = GPIO 27</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>touchRead(T7)</code> giver en værdi, der <em>falder</em>, når benet røres. Tærsklen skal ligge mellem værdien urørt og rørt. Brug T7 (GPIO 27), T8 (GPIO 33) eller T9 (GPIO 32). T0–T6 sidder på GPIO 4, 0, 2, 15, 13, 12 og 14, og fire af dem er strapping pins (se tabellen herunder). På de ældste ESP32-udgaver (revision 0 og 1) kan touch ikke bruges sammen med ext0.</p>
+<!-- TJEK: tærsklen 40 er fra Arduino-ESP32's eksempel TouchWakeUp. Tjek værdierne på skolens kort med touchRead(T7). -->
+</section>
+<section id="hvilke-ben-kan-vække" class="level3">
+<h3 class="anchored" data-anchor-id="hvilke-ben-kan-vække">Hvilke ben kan vække?</h3>
+<p>Kun <strong>RTC-GPIO’er</strong> kan vække ESP32 fra deep sleep, fordi kun RTC-delen har strøm. På ESP32 er det GPIO <strong>0, 2, 4, 12–15, 25–27 og 32–39</strong> (<a href="https://docs.espressif.com/projects/esp-idf/en/v5.5/esp32/api-reference/system/sleep_modes.html#external-wakeup-ext0">ESP-IDF: Sleep Modes</a>). Sammen med reglerne fra <a href="../Grundlag/debouncing.html">Debouncing</a>-siden giver det:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Ben</th>
+<th>Til en vække-knap?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>25, 26, 27, 32, 33</td>
+<td>Ja: RTC-GPIO, intern pull-up/pull-down</td>
+</tr>
+<tr class="even">
+<td>34–39</td>
+<td>Kun med en ekstern modstand: de har ingen intern pull-up/pull-down</td>
+</tr>
+<tr class="odd">
+<td>0, 2, 12, 15</td>
+<td>Helst ikke: de er strapping pins, og 2 er lysdioden</td>
+</tr>
+<tr class="even">
+<td>4, 13, 14</td>
+<td>Kan bruges: RTC-GPIO, intern pull-up/pull-down</td>
+</tr>
+<tr class="odd">
+<td>18, 19, 21, 22, 23</td>
+<td>Nej: de er ikke RTC-GPIO’er og kan ikke vække</td>
+</tr>
+</tbody>
+</table>
+<p>Bemærk, at GPIO 18, som debouncing-siden bruger, <strong>ikke</strong> kan vække ESP32. Flyt knappen til GPIO 33.</p>
+</section>
+</section>
+<section id="eksempel-vågn-på-timer" class="level2">
+<h2 class="anchored" data-anchor-id="eksempel-vågn-på-timer">Eksempel: vågn på timer</h2>
+<p>Programmet vågner hvert 10. sekund, tæller opstarter i RTC-hukommelsen og skriver, hvad der vækkede det.</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>platformio.ini</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" data-filename="platformio.ini"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[env:esp32doit-devkit-v1]</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="dt">platform </span><span class="ot">=</span><span class="st"> espressif32@8.0.0</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="dt">board </span><span class="ot">=</span><span class="st"> esp32doit-devkit-v1</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="dt">framework </span><span class="ot">=</span><span class="st"> arduino</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="dt">monitor_speed </span><span class="ot">=</span><span class="st"> </span><span class="dv">115200</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>src/main.cpp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" data-filename="src/main.cpp"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;Arduino.h&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">"esp_sleep.h"</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">// Konfiguration</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">uint64_t</span> SOVETID_S <span class="op">=</span> <span class="dv">10</span><span class="op">;</span>              <span class="co">// sekunder mellem opvågninger</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">uint64_t</span> US_PR_SEKUND <span class="op">=</span> <span class="dv">1000000</span><span class="bu">ULL</span><span class="op">;</span>   <span class="co">// timeren regner i mikrosekunder</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co">// Ligger i RTC-hukommelsen, så værdien overlever deep sleep</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>RTC_DATA_ATTR <span class="dt">int</span> antalOpstarter <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> skrivVaekkeaarsag<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">esp_sleep_wakeup_cause_t</span> aarsag <span class="op">=</span> esp_sleep_get_wakeup_cause<span class="op">();</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  <span class="cf">switch</span> <span class="op">(</span>aarsag<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> ESP_SLEEP_WAKEUP_TIMER<span class="op">:</span> Serial<span class="op">.</span>println<span class="op">(</span><span class="st">"Vækket af: timer"</span><span class="op">);</span> <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> ESP_SLEEP_WAKEUP_EXT0<span class="op">:</span>  Serial<span class="op">.</span>println<span class="op">(</span><span class="st">"Vækket af: knap (ext0)"</span><span class="op">);</span> <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> ESP_SLEEP_WAKEUP_EXT1<span class="op">:</span>  Serial<span class="op">.</span>println<span class="op">(</span><span class="st">"Vækket af: knap (ext1)"</span><span class="op">);</span> <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> ESP_SLEEP_WAKEUP_TOUCHPAD<span class="op">:</span> Serial<span class="op">.</span>println<span class="op">(</span><span class="st">"Vækket af: touch"</span><span class="op">);</span> <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">default</span><span class="op">:</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>      <span class="co">// Første opstart, EN-knappen eller upload</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>      Serial<span class="op">.</span>printf<span class="op">(</span><span class="st">"Ikke vækket fra deep sleep (</span><span class="sc">%d</span><span class="st">)</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> aarsag<span class="op">);</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>      <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>begin<span class="op">(</span><span class="dv">115200</span><span class="op">);</span></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>  delay<span class="op">(</span><span class="dv">500</span><span class="op">);</span>  <span class="co">// giver Serial Monitor tid til at følge med efter opvågning</span></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>  antalOpstarter<span class="op">++;</span></span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>printf<span class="op">(</span><span class="st">"Opstart nr. </span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> antalOpstarter<span class="op">);</span></span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>  skrivVaekkeaarsag<span class="op">();</span></span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Her ville en rigtig sensor måle og sende data</span></span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>  esp_sleep_enable_timer_wakeup<span class="op">(</span>SOVETID_S <span class="op">*</span> US_PR_SEKUND<span class="op">);</span></span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>printf<span class="op">(</span><span class="st">"Sover i </span><span class="sc">%llu</span><span class="st"> s</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> SOVETID_S<span class="op">);</span></span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>flush<span class="op">();</span>  <span class="co">// vent, til teksten er sendt, før UART slukkes</span></span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>  esp_deep_sleep_start<span class="op">();</span></span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Herfra kommer programmet aldrig</span></span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Bliver aldrig kørt: ESP32 starter forfra i setup() efter hver opvågning</span></span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>I Serial Monitor ser det sådan ud:</p>
+<pre><code>Opstart nr. 1
+Ikke vækket fra deep sleep (0)
+Sover i 10 s
+Opstart nr. 2
+Vækket af: timer
+Sover i 10 s</code></pre>
+<!-- BILLEDE: Serial Monitor med tre-fire opvågninger fra timer-eksemplet, hvor tælleren stiger og årsagen er "timer". -->
+<p><code>delay(500)</code> er her i orden: det er en engangsventetid i <code>setup()</code>, ikke i <code>loop()</code>.</p>
+</section>
+<section id="eksempel-vågn-på-knap-eller-timer" class="level2">
+<h2 class="anchored" data-anchor-id="eksempel-vågn-på-knap-eller-timer">Eksempel: vågn på knap eller timer</h2>
+<p>Knappen sidder mellem <strong>GPIO 33</strong> og <strong>GND</strong>, ligesom på debouncing-siden, bare på et ben, der kan vække. ESP32 vågner, når der trykkes, og ellers hvert 30. sekund. Den lysdiode, der sidder på GPIO 2, blinker kort, når det var knappen.</p>
+<!-- BILLEDE: breadboard med DEVKIT-V1 og en trykknap mellem GPIO 33 og GND. -->
+<p><code>platformio.ini</code> er den samme som i eksemplet ovenfor.</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>src/main.cpp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10" data-filename="src/main.cpp"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;Arduino.h&gt;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">"esp_sleep.h"</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">"driver/rtc_io.h"</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">// Konfiguration</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">gpio_num_t</span> KNAP_PIN <span class="op">=</span> GPIO_NUM_33<span class="op">;</span>   <span class="co">// knap mellem GPIO 33 og GND (RTC-GPIO)</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">int</span> LED_PIN <span class="op">=</span> <span class="dv">2</span><span class="op">;</span>                     <span class="co">// indbygget lysdiode</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">uint64_t</span> SOVETID_S <span class="op">=</span> <span class="dv">30</span><span class="op">;</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">uint64_t</span> US_PR_SEKUND <span class="op">=</span> <span class="dv">1000000</span><span class="bu">ULL</span><span class="op">;</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">int</span> BLINK_MS <span class="op">=</span> <span class="dv">200</span><span class="op">;</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>RTC_DATA_ATTR <span class="dt">int</span> antalKnapTryk <span class="op">=</span> <span class="dv">0</span><span class="op">;</span>       <span class="co">// overlever deep sleep</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> blink<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  pinMode<span class="op">(</span>LED_PIN<span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>LED_PIN<span class="op">,</span> HIGH<span class="op">);</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>  delay<span class="op">(</span>BLINK_MS<span class="op">);</span>  <span class="co">// kort pause i setup(), før vi alligevel går i dvale</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>LED_PIN<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> haandterOpvaagning<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>  <span class="dt">esp_sleep_wakeup_cause_t</span> aarsag <span class="op">=</span> esp_sleep_get_wakeup_cause<span class="op">();</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(</span>aarsag <span class="op">==</span> ESP_SLEEP_WAKEUP_EXT0<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>    antalKnapTryk<span class="op">++;</span></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>    Serial<span class="op">.</span>printf<span class="op">(</span><span class="st">"Knap trykket (</span><span class="sc">%d</span><span class="st"> gange i alt)</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> antalKnapTryk<span class="op">);</span></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>    blink<span class="op">();</span></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>aarsag <span class="op">==</span> ESP_SLEEP_WAKEUP_TIMER<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>    Serial<span class="op">.</span>println<span class="op">(</span><span class="st">"Timer: tid til en måling"</span><span class="op">);</span></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>    Serial<span class="op">.</span>println<span class="op">(</span><span class="st">"Første opstart"</span><span class="op">);</span></span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> gaaISeng<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Vågn, når knappen trykker benet LOW</span></span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>  esp_sleep_enable_ext0_wakeup<span class="op">(</span>KNAP_PIN<span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>  <span class="co">// INPUT_PULLUP virker ikke i deep sleep; RTC-delen skal selv holde benet HIGH</span></span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>  rtc_gpio_pullup_en<span class="op">(</span>KNAP_PIN<span class="op">);</span></span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a>  rtc_gpio_pulldown_dis<span class="op">(</span>KNAP_PIN<span class="op">);</span></span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Vågn også efter et stykke tid, selv om ingen trykker</span></span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a>  esp_sleep_enable_timer_wakeup<span class="op">(</span>SOVETID_S <span class="op">*</span> US_PR_SEKUND<span class="op">);</span></span>
+<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>println<span class="op">(</span><span class="st">"Sover ..."</span><span class="op">);</span></span>
+<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>flush<span class="op">();</span></span>
+<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a>  esp_deep_sleep_start<span class="op">();</span></span>
+<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb10-51"><a href="#cb10-51" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>begin<span class="op">(</span><span class="dv">115200</span><span class="op">);</span></span>
+<span id="cb10-52"><a href="#cb10-52" aria-hidden="true" tabindex="-1"></a>  delay<span class="op">(</span><span class="dv">500</span><span class="op">);</span></span>
+<span id="cb10-53"><a href="#cb10-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-54"><a href="#cb10-54" aria-hidden="true" tabindex="-1"></a>  haandterOpvaagning<span class="op">();</span></span>
+<span id="cb10-55"><a href="#cb10-55" aria-hidden="true" tabindex="-1"></a>  gaaISeng<span class="op">();</span></span>
+<span id="cb10-56"><a href="#cb10-56" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb10-57"><a href="#cb10-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-58"><a href="#cb10-58" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb10-59"><a href="#cb10-59" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Bliver aldrig kørt</span></span>
+<span id="cb10-60"><a href="#cb10-60" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Bemærk:</p>
+<ul>
+<li>Du behøver ikke at debounce knappen her. Så snart benet bliver LOW, vågner chippen. Når programmet er startet, er prellet forbi.</li>
+<li>Holdes knappen nede, mens <code>gaaISeng()</code> kører, er benet allerede LOW, og ESP32 vågner med det samme igen. Det ses som mange “Knap trykket” i træk.</li>
+<li>Efter opvågning er benet stadig sat op som RTC-ben. Skal du <em>læse</em> knappen med <code>digitalRead()</code>, så kald først <code>pinMode(KNAP_PIN, INPUT_PULLUP)</code>. <code>pinMode()</code> sætter benet tilbage til et almindeligt GPIO og kalder selv <code>rtc_gpio_deinit()</code>, som ESP-IDF anbefaler.</li>
+</ul>
+</section>
+<section id="øvelser" class="level2">
+<h2 class="anchored" data-anchor-id="øvelser">Øvelser</h2>
+<ol type="1">
+<li>Kør eksemplet <em>vågn på timer</em>. Skriv ned, hvad der står efter tre opvågninger. Tryk så på EN-knappen: hvad sker der med tælleren, og hvilken årsag står der?</li>
+<li>Fjern <code>RTC_DATA_ATTR</code> foran <code>antalOpstarter</code>, og kør igen. Forklar, hvad du ser, og hvorfor.</li>
+<li>Kør eksemplet <em>vågn på knap eller timer</em> med knappen på GPIO 33. Flyt så knappen til GPIO 18 (og ret <code>KNAP_PIN</code>). Hvad sker der, når du bygger eller trykker, og hvorfor?</li>
+<li>Skift ext0 ud med ext1 og <code>ESP_EXT1_WAKEUP_ALL_LOW</code> for den samme knap. Brug <code>esp_sleep_get_ext1_wakeup_status()</code> til at skrive, hvilket ben der vækkede chippen.</li>
+<li>Lav et program, der vågner på touch på GPIO 27 (T7). Skriv først et lille testprogram, der viser <code>touchRead(T7)</code> i <code>loop()</code>, så du kan vælge en tærskel. Skriv efter opvågning, at det var touch.</li>
+<li>Regn på batterilevetid. Et batteri har 2000 mAh. En sensor er vågen 2 s med WiFi (regn med 120 mA) og sover så i 598 s.
+<ol type="a">
+<li>Hvor længe holder batteriet, hvis den sover med 10 µA (chippen alene)?</li>
+<li>Hvor længe holder det, hvis DEVKIT-V1 bruger 10 mA, mens den sover?</li>
+<li>Hvor længe holder det uden deep sleep (120 mA hele tiden)? Gennemsnitsstrøm = (strøm vågen × tid vågen + strøm sovende × tid sovende) / samlet tid.</li>
+</ol></li>
+<li><em>Ekstra:</em> Forbind til WiFi (se <a href="../Grundlag/wifi.html">WiFi</a>), skriv signalstyrken (RSSI) og opstartsnummeret, og gå i deep sleep i 60 s. Mål, hvor lang tid der går fra opvågning til forbindelse (brug <code>millis()</code>), og overvej, hvad det betyder for batteriet.</li>
+</ol>
+<!-- Facit til øvelse 6 (vises ikke): a) (2·120 + 598·0,01)/600 ≈ 0,41 mA → ca. 4900 h ≈ 200 døgn. b) (240 + 5980)/600 ≈ 10,4 mA → ca. 190 h ≈ 8 døgn. c) 2000/120 ≈ 17 h. -->
+</section>
+<section id="typiske-fejl" class="level2">
+<h2 class="anchored" data-anchor-id="typiske-fejl">Typiske fejl</h2>
+<ul>
+<li><strong>Kode efter <code>esp_deep_sleep_start()</code> bliver aldrig kørt:</strong> det er meningen. Alt, der skal ske, skal ske før.</li>
+<li><strong>Den sidste linje i Serial Monitor mangler eller er halv:</strong> brug <code>Serial.flush()</code> før <code>esp_deep_sleep_start()</code>.</li>
+<li><strong>En tæller starter altid forfra:</strong> variablen mangler <code>RTC_DATA_ATTR</code>, eller nogen har trykket på EN.</li>
+<li><strong>ESP32 vågner aldrig:</strong> der er ikke slået nogen vækkekilde til, eller knappen sidder på et ben, der ikke er en RTC-GPIO (fx GPIO 18).</li>
+<li><strong>ESP32 vågner med det samme igen og igen:</strong> vække-niveauet passer ikke til koblingen (fx <code>1</code> med en knap til GND), pull-up’en er ikke slået til med <code>rtc_gpio_pullup_en()</code>, så benet svæver, eller knappen holdes nede.</li>
+<li><strong>Timeren vågner alt for tidligt eller forkert:</strong> tiden er angivet i millisekunder eller sekunder i stedet for mikrosekunder, eller beregningen er løbet over, fordi <code>ULL</code> mangler.</li>
+<li><strong><code>digitalRead()</code> på vække-benet virker ikke efter opvågning:</strong> <code>pinMode()</code> mangler. Benet er stadig et RTC-ben, til du kalder <code>pinMode(KNAP_PIN, INPUT_PULLUP)</code>.</li>
+<li><strong>Hvis upload fejler, mens kortet sover:</strong> hold BOOT-knappen nede, mens upload starter, eller tryk på EN lige før (se <a href="../Grundlag/platformio.html">PlatformIO</a>).</li>
+<li><strong>Strømmåleren viser mange mA i deep sleep:</strong> du måler hele DEVKIT-V1-kortet med USB-chip, regulator og lysdiode, ikke kun chippen.</li>
+</ul>
+<!-- TJEK: om upload normalt virker uden knaptryk, mens ESP32 sover (auto-reset via DTR/RTS burde vække den). Se tjekliste punkt 7. -->
+</section>
+<section id="læs-videre" class="level2">
+<h2 class="anchored" data-anchor-id="læs-videre">Læs videre</h2>
+<p>Under <a href="../Features/index.html#deepsleep">DeepSleep på Features-siden</a> er der links til Arduino-ESP32’s dokumentation og til artiklen nedenfor.</p>
+<section id="random-nerd-tutorials" class="level3">
+<h3 class="anchored" data-anchor-id="random-nerd-tutorials">Random Nerd Tutorials</h3>
+<p><a href="https://randomnerdtutorials.com/esp32-deep-sleep-arduino-ide-wake-up-sources/" lang="en">ESP32 Deep Sleep with Arduino IDE and Wake Up Sources</a> gennemgår de samme vækkekilder med fulde eksempler og har billeder af databladets tabel over strømforbrug og af hvilke ben der er RTC-GPIO’er. Den bruger også <code>esp_sleep_enable_ext1_wakeup_io()</code> og nævner korrekt, at <code>ANY_LOW</code> ikke findes på ESP32.</p>
+<p>Læs den kritisk:</p>
+<ul>
+<li>Touch-eksemplet bruger både GPIO 15 (T3) og GPIO 27 (T7). GPIO 15 er en strapping pin, så brug kun T7.</li>
+<li>Ext1-eksemplet med to knapper bruger GPIO 2 og 15. Det er strapping pins, og GPIO 2 er også lysdioden. Brug hellere 25–27, 32 og 33.</li>
+<li>Ext0-eksemplet bruger både en ekstern 10 kΩ pull-down og den interne. Én af dem er nok.</li>
+<li>I ext1-eksemplet regnes benets nummer ud med <code>log(...)/log(2)</code> (kommatal). Det er mere sikkert at løbe bitmasken igennem med <code>1ULL &lt;&lt; n</code>.</li>
+<li>Kun timer-eksemplet kalder <code>Serial.flush()</code> før søvn.</li>
+</ul>
+</section>
+</section>
+<section id="kilder" class="level2">
+<h2 class="anchored" data-anchor-id="kilder">Kilder</h2>
+<ul>
+<li>Arduino-ESP32: Deep Sleep, <a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/api/deepsleep.html" class="uri">https://docs.espressif.com/projects/arduino-esp32/en/latest/api/deepsleep.html</a></li>
+<li>Arduino-ESP32: eksemplet ExternalWakeUp, <a href="https://github.com/espressif/arduino-esp32/blob/master/libraries/ESP32/examples/DeepSleep/ExternalWakeUp/ExternalWakeUp.ino" class="uri">https://github.com/espressif/arduino-esp32/blob/master/libraries/ESP32/examples/DeepSleep/ExternalWakeUp/ExternalWakeUp.ino</a></li>
+<li>Arduino-ESP32: eksemplet TouchWakeUp, <a href="https://github.com/espressif/arduino-esp32/blob/master/libraries/ESP32/examples/DeepSleep/TouchWakeUp/TouchWakeUp.ino" class="uri">https://github.com/espressif/arduino-esp32/blob/master/libraries/ESP32/examples/DeepSleep/TouchWakeUp/TouchWakeUp.ino</a></li>
+<li>Arduino-ESP32: Touch, <a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/api/touch.html" class="uri">https://docs.espressif.com/projects/arduino-esp32/en/latest/api/touch.html</a></li>
+<li>ESP-IDF v5.5: Sleep Modes (ESP32), <a href="https://docs.espressif.com/projects/esp-idf/en/v5.5/esp32/api-reference/system/sleep_modes.html" class="uri">https://docs.espressif.com/projects/esp-idf/en/v5.5/esp32/api-reference/system/sleep_modes.html</a></li>
+<li>ESP IoT Solution: ESP32 Low-Power Management, <a href="https://docs.espressif.com/projects/esp-iot-solution/en/latest/low_power_solution/esp32_lowpower_solution.html" class="uri">https://docs.espressif.com/projects/esp-iot-solution/en/latest/low_power_solution/esp32_lowpower_solution.html</a></li>
+<li>Espressif: ESP32 Datasheet (strømforbrug, RTC og strapping pins), <a href="https://documentation.espressif.com/esp32_datasheet_en.pdf" class="uri">https://documentation.espressif.com/esp32_datasheet_en.pdf</a></li>
+<li>Random Nerd Tutorials: ESP32 Deep Sleep with Arduino IDE and Wake Up Sources, <a href="https://randomnerdtutorials.com/esp32-deep-sleep-arduino-ide-wake-up-sources/" class="uri">https://randomnerdtutorials.com/esp32-deep-sleep-arduino-ide-wake-up-sources/</a></li>
+<li>Random Nerd Tutorials: ESP32 Pinout Reference, <a href="https://randomnerdtutorials.com/esp32-pinout-reference-gpios/" class="uri">https://randomnerdtutorials.com/esp32-pinout-reference-gpios/</a></li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Kopieret!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Kopieret!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/s0ren\.github\.io\/FAG_17682_IoT_II\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

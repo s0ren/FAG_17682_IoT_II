@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="da" xml:lang="da"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.20">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Søren Magnusson">
+
+<title>ESP-NOW og ESP-MESH – FAG 17682_IoT_II</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-17888a1159294d3eb470f19f6f52f5a5.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-1958bf8fe25c7117446dee592769f80d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Ingen resultater",
+    "search-matching-documents-text": "Matchende dokumenter",
+    "search-copy-link-title": "Kopier link for at søge",
+    "search-hide-matches-text": "Skjul yderligere resultater",
+    "search-more-match-text": "andet resultat i dette dokument",
+    "search-more-matches-text": "andre resultater i dette dokument",
+    "search-clear-button-title": "Ryd",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Fortryd",
+    "search-submit-button-title": "Indsend",
+    "search-label": "Søg"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">FAG 17682_IoT_II</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Søg"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Skift navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Hjem</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../laeringsmaal.html" aria-current="page"> 
+<span class="menu-text">Læringsmål</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">Om sitet</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Skift sidebjælke" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Features/index.html">Features</a></li><li class="breadcrumb-item"><a href="../Features/esp_now_mesh.html">ESP-NOW og ESP-MESH</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Skift sidebjælke" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Om sitet</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Referencer/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Referencemanualer</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../laeringsmaal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Læringsmål</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Features/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Features</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Skift sektion">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Features/deep_sleep.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Deep Sleep</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Features/esp_now_mesh.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">ESP-NOW og ESP-MESH</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Features/filsystem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Filsystem på ESP32</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Features/lokal_mqtt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lokal MQTT server</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Grundlag/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Grundlag</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Skift sektion">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/cpp_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Intro til C++</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/debouncing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Debouncing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/platformio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">PlatformIO</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/wifi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">WiFi</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Opgaver/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Opgaver</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Skift sektion">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Opgaver/Projektopgave_Smiley.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Projektopgave, Smiley feedback panel</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Opgaver/Projektopgave_wifi_position.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Projektopgave, Positionsbestemmelse af enheder uden GPS dækning</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Opgaver/Projektopgave_wifi_position_checkliste.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Checkliste: Positionsbestemmelse af enheder uden GPS dækning</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">På denne side</h2>
+   
+  <ul>
+  <li><a href="#formål" id="toc-formål" class="nav-link active" data-scroll-target="#formål">Formål</a></li>
+  <li><a href="#målpinde" id="toc-målpinde" class="nav-link" data-scroll-target="#målpinde">Målpinde</a></li>
+  <li><a href="#forudsætninger" id="toc-forudsætninger" class="nav-link" data-scroll-target="#forudsætninger">Forudsætninger</a></li>
+  <li><a href="#esp-now" id="toc-esp-now" class="nav-link" data-scroll-target="#esp-now">ESP-NOW</a>
+  <ul class="collapse">
+  <li><a href="#mac-adresser" id="toc-mac-adresser" class="nav-link" data-scroll-target="#mac-adresser">MAC-adresser</a></li>
+  <li><a href="#peers-unicast-og-broadcast" id="toc-peers-unicast-og-broadcast" class="nav-link" data-scroll-target="#peers-unicast-og-broadcast">Peers, unicast og broadcast</a></li>
+  <li><a href="#kvittering" id="toc-kvittering" class="nav-link" data-scroll-target="#kvittering">Kvittering</a></li>
+  <li><a href="#kanal-og-wifi" id="toc-kanal-og-wifi" class="nav-link" data-scroll-target="#kanal-og-wifi">Kanal og WiFi</a></li>
+  <li><a href="#begrænsninger" id="toc-begrænsninger" class="nav-link" data-scroll-target="#begrænsninger">Begrænsninger</a></li>
+  <li><a href="#kryptering" id="toc-kryptering" class="nav-link" data-scroll-target="#kryptering">Kryptering</a></li>
+  <li><a href="#esp-now-core3" id="toc-esp-now-core3" class="nav-link" data-scroll-target="#esp-now-core3">ESP-NOW i Arduino-ESP32 3.x</a></li>
+  <li><a href="#klassen-esp_now_peer" id="toc-klassen-esp_now_peer" class="nav-link" data-scroll-target="#klassen-esp_now_peer">Klassen ESP_NOW_Peer</a></li>
+  </ul></li>
+  <li><a href="#eksempel-modtager" id="toc-eksempel-modtager" class="nav-link" data-scroll-target="#eksempel-modtager">Eksempel: modtager</a></li>
+  <li><a href="#eksempel-afsender" id="toc-eksempel-afsender" class="nav-link" data-scroll-target="#eksempel-afsender">Eksempel: afsender</a></li>
+  <li><a href="#esp-mesh" id="toc-esp-mesh" class="nav-link" data-scroll-target="#esp-mesh">ESP-MESH</a>
+  <ul class="collapse">
+  <li><a href="#esp-wifi-mesh" id="toc-esp-wifi-mesh" class="nav-link" data-scroll-target="#esp-wifi-mesh">ESP-WIFI-MESH</a></li>
+  <li><a href="#painlessmesh" id="toc-painlessmesh" class="nav-link" data-scroll-target="#painlessmesh">painlessMesh</a></li>
+  <li><a href="#hvad-skal-man-vælge" id="toc-hvad-skal-man-vælge" class="nav-link" data-scroll-target="#hvad-skal-man-vælge">Hvad skal man vælge?</a></li>
+  </ul></li>
+  <li><a href="#øvelser" id="toc-øvelser" class="nav-link" data-scroll-target="#øvelser">Øvelser</a></li>
+  <li><a href="#typiske-fejl" id="toc-typiske-fejl" class="nav-link" data-scroll-target="#typiske-fejl">Typiske fejl</a></li>
+  <li><a href="#læs-videre" id="toc-læs-videre" class="nav-link" data-scroll-target="#læs-videre">Læs videre</a>
+  <ul class="collapse">
+  <li><a href="#espressifs-egne-eksempler" id="toc-espressifs-egne-eksempler" class="nav-link" data-scroll-target="#espressifs-egne-eksempler">Espressifs egne eksempler</a></li>
+  <li><a href="#esp-now-hos-random-nerd-tutorials" id="toc-esp-now-hos-random-nerd-tutorials" class="nav-link" data-scroll-target="#esp-now-hos-random-nerd-tutorials">ESP-NOW hos Random Nerd Tutorials</a></li>
+  <li><a href="#painlessmesh-hos-random-nerd-tutorials" id="toc-painlessmesh-hos-random-nerd-tutorials" class="nav-link" data-scroll-target="#painlessmesh-hos-random-nerd-tutorials">painlessMesh hos Random Nerd Tutorials</a></li>
+  </ul></li>
+  <li><a href="#kilder" id="toc-kilder" class="nav-link" data-scroll-target="#kilder">Kilder</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Features/index.html">Features</a></li><li class="breadcrumb-item"><a href="../Features/esp_now_mesh.html">ESP-NOW og ESP-MESH</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">ESP-NOW og ESP-MESH</h1>
+<p class="subtitle lead">Beskeder direkte mellem ESP32-enheder</p>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Forfatter</div>
+  <div class="quarto-title-meta-heading">Uddannelse</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Søren Magnusson </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Data, TEC
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Udgivet</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">23. november 2026</p>
+    </div>
+  </div>
+  
+    <div>
+    <div class="quarto-title-meta-heading">Ændret</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">23. november 2026</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- IKKE KOMPILERET: eksemplerne er tjekket mod dokumentationen, men ikke kompileret eller testet på hardware. -->
+<!--
+TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
+1. Kompilér og upload modtageren og afsenderen med platform = espressif32@8.0.0. Kompilerer begge uden advarsler (printf af uint32_t med %lu og cast, og af (int)WiFi.channel() med %d)?
+2. Kommer beskederne frem, og skriver afsenderen "kvitteret" ved unicast og "IKKE kvitteret", når modtageren er slukket?
+3. Broadcast (øvelse 3): hvad giver onSent ved broadcast, når der ingen modtager er? Ret afsnittet "Kvittering" og beskrivelsen af onSent() efter resultatet (TJEK nedenfor).
+4. Forskellig kanal på afsender og modtager (øvelse 2): kommer der ingenting igennem, som siden siger?
+5. Rækkevidde (øvelse 5): mål rækkevidden indendørs i lokalet, og skriv evt. et tal ind i tabellen "Begrænsninger" (TJEK nedenfor).
+6. Antal krypterede peers i core 3.3: dokumentationen siger 7, esp_now.h siger 6. Kald ESP_NOW.getEncryptedPeerCount(), eller tilføj krypterede peers, til add() fejler, og ret "typisk 6–7" (TJEK nedenfor).
+7. Kryptering: virker det som beskrevet, at en modtager ikke får krypterede beskeder fra en afsender, den ikke har tilføjet som peer med samme LMK?
+8. ESP-NOW samtidig med WiFi forbundet til en router (øvelse 6): virker det i station mode alene, eller kræves WIFI_AP_STA, som Random Nerd Tutorials skriver? (TJEK nedenfor)
+9. painlessMesh 1.5.7 med core 3.3: kompilerer og virker et af bibliotekets eksempler? (TJEK nedenfor)
+10. painlessMesh setRoot(): findes den i 1.5.7, og bruger examples/bridge den som beskrevet? (TJEK nedenfor)
+11. BILLEDE: skærmbilleder af Serial Monitor for modtager og afsender (se BILLEDE-kommentarerne).
+12. Når alt er testet: fjern IKKE KOMPILERET, denne tjekliste og TJEK- og BILLEDE-kommentarerne.
+-->
+<p>I <a href="../Opgaver/Projektopgave_wifi_position.html">projektopgaven om positionsbestemmelse</a> skal flere målestationer dele deres målinger med hinanden. De kunne alle sammen gå på WiFi og sende til MQTT-serveren, men så skal der være en router i nærheden, og hver station skal bruge tid på at forbinde. ESP-NOW er Espressifs egen protokol, hvor to ESP32’ere sender korte beskeder direkte til hinanden, uden router og uden at forbinde først. ESP-MESH går et skridt videre: enhederne bygger selv et netværk, hvor beskeder kan hoppe fra enhed til enhed, og denne side giver dig grundlaget for begge.</p>
+<section id="formål" class="level2">
+<h2 class="anchored" data-anchor-id="formål">Formål</h2>
+<ul>
+<li>Du kan forklare, hvad ESP-NOW er, og hvornår det er et bedre valg end WiFi og MQTT, og hvornår det ikke er.</li>
+<li>Du kan finde en ESP32’s MAC-adresse og bruge den til at sende en besked til netop den enhed.</li>
+<li>Du kan sende og modtage ESP-NOW-beskeder med biblioteket <code>ESP32_NOW.h</code> i Arduino-ESP32 3.x, både til én enhed og som broadcast.</li>
+<li>Du kan forklare, hvorfor alle enheder skal være på samme WiFi-kanal, og finde fejlen, når de ikke er det.</li>
+<li>Du kan forklare idéen i et mesh-netværk og forskellen på ESP-WIFI-MESH og biblioteket painlessMesh.</li>
+</ul>
+</section>
+<section id="målpinde" class="level2">
+<h2 class="anchored" data-anchor-id="målpinde">Målpinde</h2>
+<p>Siden arbejder med målpind 4, 13, 15 og 19 (se <a href="../laeringsmaal.html">Læringsmål</a>).</p>
+</section>
+<section id="forudsætninger" class="level2">
+<h2 class="anchored" data-anchor-id="forudsætninger">Forudsætninger</h2>
+<ul>
+<li>Du kan oprette et PlatformIO-projekt til ESP32-DEVKIT-V1 og uploade et program (se <a href="../Grundlag/platformio.html">PlatformIO</a>).</li>
+<li>Du kender <a href="../Grundlag/wifi.html">WiFi</a>-siden: station mode og RSSI.</li>
+<li>Du kender <code>millis()</code> fra <a href="../Grundlag/debouncing.html">Debouncing</a>.</li>
+<li>Du kender <code>struct</code> fra C++.</li>
+<li>Hardware: to ESP32-DEVKIT-V1 og to USB-kabler. Det er nemmest med én computer pr. ESP32, eller to Serial Monitor-vinduer på samme computer.</li>
+</ul>
+</section>
+<section id="esp-now" class="level2">
+<h2 class="anchored" data-anchor-id="esp-now">ESP-NOW</h2>
+<p>ESP-NOW sender korte beskeder direkte fra én ESP32 til en anden over WiFi-radioen. Der er ingen router, ingen IP-adresser og ingen forbindelse, der skal oprettes først. Espressif kalder det en <span lang="en">connectionless</span> protokol: afsenderen sender bare, og modtageren tager imod, hvis den lytter på samme kanal.</p>
+<p>Det giver tre fordele i forhold til WiFi og MQTT:</p>
+<ul>
+<li>Der skal ikke være en router.</li>
+<li>En besked kan sendes, lige så snart ESP32 er startet. Der går ikke sekunder med at forbinde.</li>
+<li>En afsender kan spare strøm: den kan vågne, sende og sove igen uden at bruge tid på at forbinde. En modtager skal derimod lytte hele tiden.</li>
+</ul>
+<p>Til gengæld kommer data ikke selv på internettet. Skal målingerne til MQTT-serveren, skal mindst én enhed også være på WiFi (se <a href="#kanal-og-wifi">Kanal og WiFi</a>).</p>
+<section id="mac-adresser" class="level3">
+<h3 class="anchored" data-anchor-id="mac-adresser">MAC-adresser</h3>
+<p>En ESP-NOW-besked sendes til en <strong>MAC-adresse</strong>. Det er en adresse på seks byte, som er brændt ind i hver ESP32 fra fabrikken, fx <code>24:6F:28:A1:B2:C3</code>. Den skrives tit som seks hextal adskilt af kolon.</p>
+<p>En ESP32 har faktisk flere MAC-adresser: én til station mode (STA) og en anden til access point mode (AP). Eksemplerne på siden bruger station mode, så det er STA-adressen, du skal bruge. Den får du med <code>WiFi.macAddress()</code>.</p>
+</section>
+<section id="peers-unicast-og-broadcast" class="level3">
+<h3 class="anchored" data-anchor-id="peers-unicast-og-broadcast">Peers, unicast og broadcast</h3>
+<p>En enhed, du vil sende til, skal først registreres som en <strong>peer</strong> (en modpart). En peer er en MAC-adresse plus en kanal og evt. en krypteringsnøgle. Der er to slags afsendelse:</p>
+<ul>
+<li><strong>Unicast:</strong> beskeden sendes til én bestemt MAC-adresse. Modtageren kvitterer.</li>
+<li><strong>Broadcast:</strong> beskeden sendes til adressen <code>FF:FF:FF:FF:FF:FF</code>, og alle ESP-NOW-enheder på kanalen modtager den. Ingen kvitterer. Broadcast er praktisk, når enhederne ikke kender hinandens adresser endnu.</li>
+</ul>
+<p>For at <em>modtage</em> behøver du ikke registrere afsenderen som peer, så længe beskederne ikke er krypteret.</p>
+</section>
+<section id="kvittering" class="level3">
+<h3 class="anchored" data-anchor-id="kvittering">Kvittering</h3>
+<p>Ved unicast sender modtagerens radio automatisk en kvittering (<span lang="en">acknowledgement</span>, ACK) tilbage. Afsenderen får så at vide, om beskeden kom frem. Bemærk to ting:</p>
+<ul>
+<li>Kvitteringen betyder, at modtagerens <em>radio</em> fik beskeden. Den siger ikke, at programmet på modtageren nåede at behandle den. Har det betydning, skal programmet selv sende et svar.</li>
+<li>Ved broadcast er der ingen kvittering. Afsenderen kan ikke vide, om nogen hørte beskeden.</li>
+</ul>
+<!-- TJEK: Hvad onSent() rapporterer ved broadcast (altid success, når pakken er sendt?), står ikke direkte i ESP-IDF-dokumentationen. Prøv det med øvelse 3. -->
+<p>Espressif foreslår at give beskederne et løbenummer, så modtageren kan smide dubletter væk. Løbenummeret kan også vise, om der mangler beskeder. Det gør eksemplerne nedenfor.</p>
+</section>
+<section id="kanal-og-wifi" class="level3">
+<h3 class="anchored" data-anchor-id="kanal-og-wifi">Kanal og WiFi</h3>
+<p>WiFi på 2,4 GHz er delt op i kanaler (1–13 i Danmark). ESP32 har kun én radio, og den kan kun lytte på én kanal ad gangen. Derfor gælder:</p>
+<blockquote class="blockquote">
+<p><strong>Alle ESP-NOW-enheder, der skal tale sammen, skal være på samme kanal.</strong></p>
+</blockquote>
+<p>Er afsender og modtager på hver sin kanal, kommer der ingenting igennem, og der kommer ingen fejlmeddelelse om det. Afsenderen ser bare, at unicast-beskederne ikke bliver kvitteret.</p>
+<p>Hvis ingen af enhederne er på WiFi, vælger du selv kanalen med <code>WiFi.setChannel()</code>. Det gør eksemplerne.</p>
+<p>Hvis en enhed <em>også</em> er forbundet til en router i station mode, er det routeren, der bestemmer kanalen. Så kan du ikke selv vælge, og alle de andre ESP-NOW-enheder skal sættes til routerens kanal. Du kan se kanalen med <code>WiFi.channel()</code>, når enheden er forbundet. Pas på: mange routere skifter selv kanal, hvis der er meget støj, og så holder opstillingen op med at virke.</p>
+<!-- TJEK: Random Nerd Tutorials skriver, at en ESP32, der både er på WiFi og modtager ESP-NOW, skal være i WIFI_AP_STA. Det står ikke i Espressifs dokumentation, som kun kræver samme kanal. Prøv med øvelse 6. -->
+<p>Når du registrerer en peer, angiver du også en kanal. Kanal 0 betyder “den kanal, enheden er på lige nu”. Angiver du et andet tal, skal det passe med den kanal, enheden faktisk er på, ellers fejler afsendelsen.</p>
+</section>
+<section id="begrænsninger" class="level3">
+<h3 class="anchored" data-anchor-id="begrænsninger">Begrænsninger</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>ESP-NOW</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Størrelse pr. besked</td>
+<td>250 byte (ESP-NOW v1). Arduino-ESP32 3.3 understøtter v2 med op til 1470 byte, men en enhed med v1 kan kun modtage 250 byte.</td>
+</tr>
+<tr class="even">
+<td>Antal peers</td>
+<td>Højst 20, heraf kun få krypterede (typisk 6–7)</td>
+</tr>
+<tr class="odd">
+<td>Kanal</td>
+<td>Alle enheder på samme kanal</td>
+</tr>
+<tr class="even">
+<td>Rækkevidde</td>
+<td>Nogenlunde som almindeligt WiFi, da det er den samme radio. Random Nerd Tutorials målte op til ca. 220 m i åbent terræn. Indendørs er det meget mindre, for vægge og kroppe dæmper signalet.</td>
+</tr>
+<tr class="odd">
+<td>Kvittering</td>
+<td>Kun ved unicast, og kun fra radioen, ikke fra programmet</td>
+</tr>
+<tr class="even">
+<td>Hastighed</td>
+<td>1 Mbit/s som standard. Send ikke en ny besked, før <code>onSent()</code> er kaldt for den forrige, ellers kan kvitteringerne komme i forkert rækkefølge.</td>
+</tr>
+</tbody>
+</table>
+<!-- TJEK: Rækkevidden er ikke opgivet i meter i Espressifs dokumentation. Mål den i lokalet med øvelse 5, og skriv evt. et tal ind. -->
+<!-- TJEK: Antal krypterede peers: ESP-IDF v5.5-dokumentationen siger "the default is 7", men esp_now.h i release/v5.5 har #define ESP_NOW_MAX_ENCRYPT_PEER_NUM 6. Kald ESP_NOW.getEncryptedPeerCount() på hardware, eller tilføj krypterede peers, indtil add() fejler, og skriv det rigtige tal ind. -->
+<p>Hold dig til højst 250 byte, så er du sikker på, at alle enheder kan modtage beskeden. <code>ESP_NOW.getMaxDataLen()</code> fortæller, hvor meget din enhed kan sende. Er beskeden længere, klipper biblioteket den over. <code>send()</code> returnerer så færre byte end det, du bad om, så sammenlign returværdien med længden af beskeden. Det gør afsender-eksemplet.</p>
+</section>
+<section id="kryptering" class="level3">
+<h3 class="anchored" data-anchor-id="kryptering">Kryptering</h3>
+<p>ESP-NOW-beskeder er ikke krypteret som standard. Alle med en ESP32 eller en WiFi-sniffer på kanalen kan læse dem, og alle kan sende beskeder, der ligner jeres.</p>
+<p>ESP-NOW kan kryptere unicast-beskeder med to nøgler på hver 16 byte:</p>
+<ul>
+<li><strong>PMK</strong> (<span lang="en">Primary Master Key</span>) er fælles for enheden og gives til <code>ESP_NOW.begin(pmk)</code>.</li>
+<li><strong>LMK</strong> (<span lang="en">Local Master Key</span>) hører til hver peer og gives, når peeren oprettes.</li>
+</ul>
+<p>Både afsender og modtager skal have samme PMK, og de skal have registreret hinanden som peers med samme LMK. Broadcast kan ikke krypteres. Nøglerne er hemmeligheder, ligesom WiFi-passwordet, så de skal ud af koden og ikke i git (se <a href="../Grundlag/wifi.html">WiFi</a>).</p>
+</section>
+<section id="esp-now-core3" class="level3">
+<h3 class="anchored" data-anchor-id="esp-now-core3">ESP-NOW i Arduino-ESP32 3.x</h3>
+<p>Der er to måder at bruge ESP-NOW på fra Arduino:</p>
+<ul>
+<li><strong>Biblioteket <code>ESP32_NOW.h</code></strong> kom med Arduino-ESP32 3.0. Det er en C++-indpakning med klassen <code>ESP_NOW_Peer</code> og objektet <code>ESP_NOW</code>. Espressifs egne Arduino-eksempler bruger det, og det gør denne side også.</li>
+<li><strong>ESP-IDF’s C-funktioner fra <code>esp_now.h</code></strong> (<code>esp_now_init()</code>, <code>esp_now_add_peer()</code>, <code>esp_now_send()</code> …). Dem bruger de fleste vejledninger på nettet.</li>
+</ul>
+<p>Hvis du bruger C-funktionerne, så pas på callback-funktionerne. De har ændret sig to gange, og eksempler fra nettet er tit skrevet til den gamle version:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Callback</th>
+<th>Core 2.x</th>
+<th>Core 3.x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Modtag</td>
+<td><code>void f(const uint8_t *mac, const uint8_t *data, int len)</code></td>
+<td><code>void f(const esp_now_recv_info_t *info, const uint8_t *data, int len)</code> (fra 3.0)</td>
+</tr>
+<tr class="even">
+<td>Afsendt</td>
+<td><code>void f(const uint8_t *mac, esp_now_send_status_t status)</code></td>
+<td><code>void f(const wifi_tx_info_t *tx_info, esp_now_send_status_t status)</code> (fra 3.3, som bygger på ESP-IDF 5.5)</td>
+</tr>
+</tbody>
+</table>
+<p>I <code>esp_now_recv_info_t</code> står afsenderens MAC-adresse i <code>src_addr</code> og modtageradressen i <code>des_addr</code>. Med <code>ESP32_NOW.h</code> slipper du for at holde styr på det, fordi biblioteket selv registrerer de rigtige callbacks.</p>
+</section>
+<section id="klassen-esp_now_peer" class="level3">
+<h3 class="anchored" data-anchor-id="klassen-esp_now_peer">Klassen ESP_NOW_Peer</h3>
+<p><code>ESP_NOW_Peer</code> er lavet til at blive arvet fra. Konstruktøren og metoderne <code>add()</code> og <code>send()</code> er <code>protected</code>, så du kan ikke bruge dem direkte. Du laver i stedet din egen klasse, der arver fra <code>ESP_NOW_Peer</code>, og giver den offentlige metoder, der kalder <code>add()</code> og <code>send()</code>. I klassen kan du overskrive to callbacks:</p>
+<ul>
+<li><code>onSent(bool success)</code> kaldes efter hver afsendelse. Ved unicast er <code>success</code> <code>true</code>, hvis modtagerens radio kvitterede, og ellers <code>false</code>. Ved broadcast betyder den noget andet (se øvelse 3).</li>
+<li><code>onReceive(const uint8_t *data, size_t len, bool broadcast)</code> kaldes, når der kommer en besked fra netop denne peer.</li>
+</ul>
+<p>Beskeder fra afsendere, der <em>ikke</em> er registreret som peer, går i stedet til en funktion, du giver til <code>ESP_NOW.onNewPeer()</code>. Navnet antyder, at den bruges til at registrere nye peers, og det gør Espressifs eksempler. Men en modtager, der bare skal lytte, kan også nøjes med den, for så kommer alle beskeder dertil. Det gør modtager-eksemplet.</p>
+<p>Callbacks kaldes af WiFi-opgaven (<span lang="en">task</span>), ikke af <code>loop()</code>. Espressif skriver, at de skal være korte. Lav derfor ikke netværk, <code>delay()</code> eller lange beregninger i dem, og helst heller ikke <code>Serial.print()</code>, som tager tid og forsinker WiFi-opgaven: gem data, og lad <code>loop()</code> gøre arbejdet.</p>
+</section>
+</section>
+<section id="eksempel-modtager" class="level2">
+<h2 class="anchored" data-anchor-id="eksempel-modtager">Eksempel: modtager</h2>
+<p>Start med modtageren, for afsenderen skal kende dens MAC-adresse. Modtageren skriver sin MAC-adresse ud ved opstart og derefter hver besked, der kommer.</p>
+<p>Callback-funktionen lægger beskeden i en kø (en FreeRTOS-<span lang="en">queue</span>), og <code>loop()</code> tager den ud og skriver den. Køen sørger for, at beskeder ikke bliver overskrevet, hvis der kommer flere, før <code>loop()</code> når at hente dem, og at callback og <code>loop()</code> ikke rører de samme data på samme tid.</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>platformio.ini</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-filename="platformio.ini"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[env:esp32doit-devkit-v1]</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">platform </span><span class="ot">=</span><span class="st"> espressif32@8.0.0</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="dt">board </span><span class="ot">=</span><span class="st"> esp32doit-devkit-v1</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="dt">framework </span><span class="ot">=</span><span class="st"> arduino</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="dt">monitor_speed </span><span class="ot">=</span><span class="st"> </span><span class="dv">115200</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>src/main.cpp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-filename="src/main.cpp"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;Arduino.h&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;WiFi.h&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;ESP32_NOW.h&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">// Konfiguration</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">uint8_t</span> KANAL <span class="op">=</span> <span class="dv">1</span><span class="op">;</span>          <span class="co">// WiFi-kanal; skal være den samme på alle enheder</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">int</span> KOE_LAENGDE <span class="op">=</span> <span class="dv">10</span><span class="op">;</span>       <span class="co">// hvor mange beskeder der kan vente på loop()</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">// Beskedens format. Skal være defineret helt ens hos afsender og modtager.</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> Besked <span class="op">{</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">uint32_t</span> nummer<span class="op">;</span>     <span class="co">// løbenummer, så vi kan se, om der mangler beskeder</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">uint32_t</span> oppetidMs<span class="op">;</span>  <span class="co">// afsenderens millis(), da beskeden blev sendt</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">// Det, callback-funktionen lægger i køen til loop()</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> Modtaget <span class="op">{</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="dt">uint8_t</span> afsender<span class="op">[</span><span class="dv">6</span><span class="op">];</span>  <span class="co">// afsenderens MAC-adresse</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  <span class="dt">bool</span> broadcast<span class="op">;</span>       <span class="co">// true, hvis beskeden var sendt til alle</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>  Besked besked<span class="op">;</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="dt">QueueHandle_t</span> koe<span class="op">;</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="co">// Kaldes af ESP_NOW-biblioteket for hver besked fra en afsender, der ikke er</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="co">// registreret som peer. Vi registrerer ingen peers, så alle beskeder kommer her.</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="co">// Kører i WiFi-opgaven: kopier data over i køen, og intet andet.</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> modtagBesked<span class="op">(</span><span class="at">const</span> <span class="dt">esp_now_recv_info_t</span> <span class="op">*</span>info<span class="op">,</span> <span class="at">const</span> <span class="dt">uint8_t</span> <span class="op">*</span>data<span class="op">,</span> <span class="dt">int</span> len<span class="op">,</span> <span class="dt">void</span> <span class="op">*</span>arg<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(</span>len <span class="op">!=</span> <span class="kw">sizeof</span><span class="op">(</span>Besked<span class="op">))</span> <span class="op">{</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span><span class="op">;</span>  <span class="co">// ikke vores format, fx fra en anden gruppe på samme kanal</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>  Modtaget m<span class="op">;</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>  memcpy<span class="op">(</span>m<span class="op">.</span>afsender<span class="op">,</span> info<span class="op">-&gt;</span>src_addr<span class="op">,</span> <span class="dv">6</span><span class="op">);</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>  m<span class="op">.</span>broadcast <span class="op">=</span> memcmp<span class="op">(</span>info<span class="op">-&gt;</span>des_addr<span class="op">,</span> ESP_NOW<span class="op">.</span>BROADCAST_ADDR<span class="op">,</span> <span class="dv">6</span><span class="op">)</span> <span class="op">==</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>  memcpy<span class="op">(&amp;</span>m<span class="op">.</span>besked<span class="op">,</span> data<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>Besked<span class="op">));</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>  xQueueSend<span class="op">(</span>koe<span class="op">,</span> <span class="op">&amp;</span>m<span class="op">,</span> <span class="dv">0</span><span class="op">);</span>  <span class="co">// 0 = vent ikke; er køen fuld, smides beskeden væk</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> startWiFi<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>  WiFi<span class="op">.</span>mode<span class="op">(</span>WIFI_STA<span class="op">);</span>    <span class="co">// station mode, men vi forbinder ikke til en router</span></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>  WiFi<span class="op">.</span>setChannel<span class="op">(</span>KANAL<span class="op">);</span></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> <span class="op">(!</span>WiFi<span class="op">.</span>STA<span class="op">.</span>started<span class="op">())</span> <span class="op">{</span></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>    delay<span class="op">(</span><span class="dv">100</span><span class="op">);</span>  <span class="co">// OK her: setup() har ikke andet at lave endnu</span></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> skrivMac<span class="op">(</span><span class="at">const</span> <span class="dt">uint8_t</span> <span class="op">*</span>mac<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>printf<span class="op">(</span><span class="st">"</span><span class="sc">%02X</span><span class="st">:</span><span class="sc">%02X</span><span class="st">:</span><span class="sc">%02X</span><span class="st">:</span><span class="sc">%02X</span><span class="st">:</span><span class="sc">%02X</span><span class="st">:</span><span class="sc">%02X</span><span class="st">"</span><span class="op">,</span></span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>                mac<span class="op">[</span><span class="dv">0</span><span class="op">],</span> mac<span class="op">[</span><span class="dv">1</span><span class="op">],</span> mac<span class="op">[</span><span class="dv">2</span><span class="op">],</span> mac<span class="op">[</span><span class="dv">3</span><span class="op">],</span> mac<span class="op">[</span><span class="dv">4</span><span class="op">],</span> mac<span class="op">[</span><span class="dv">5</span><span class="op">]);</span></span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>begin<span class="op">(</span><span class="dv">115200</span><span class="op">);</span></span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>  koe <span class="op">=</span> xQueueCreate<span class="op">(</span>KOE_LAENGDE<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>Modtaget<span class="op">));</span></span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>  startWiFi<span class="op">();</span></span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>printf<span class="op">(</span><span class="st">"Modtager. MAC-adresse: </span><span class="sc">%s</span><span class="st">, kanal: </span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span></span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>                WiFi<span class="op">.</span>macAddress<span class="op">().</span>c_str<span class="op">(),</span> <span class="op">(</span><span class="dt">int</span><span class="op">)</span>WiFi<span class="op">.</span>channel<span class="op">());</span></span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(!</span>ESP_NOW<span class="op">.</span>begin<span class="op">())</span> <span class="op">{</span></span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>    Serial<span class="op">.</span>println<span class="op">(</span><span class="st">"ESP-NOW kunne ikke starte. Genstarter om 5 s."</span><span class="op">);</span></span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>    delay<span class="op">(</span><span class="dv">5000</span><span class="op">);</span></span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>    ESP<span class="op">.</span>restart<span class="op">();</span></span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>  ESP_NOW<span class="op">.</span>onNewPeer<span class="op">(</span>modtagBesked<span class="op">,</span> <span class="kw">nullptr</span><span class="op">);</span></span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a>  Modtaget m<span class="op">;</span></span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Hent alle ventende beskeder; 0 = vent ikke, hvis køen er tom</span></span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> <span class="op">(</span>xQueueReceive<span class="op">(</span>koe<span class="op">,</span> <span class="op">&amp;</span>m<span class="op">,</span> <span class="dv">0</span><span class="op">)</span> <span class="op">==</span> pdTRUE<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a>    Serial<span class="op">.</span>print<span class="op">(</span><span class="st">"Fra "</span><span class="op">);</span></span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a>    skrivMac<span class="op">(</span>m<span class="op">.</span>afsender<span class="op">);</span></span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a>    Serial<span class="op">.</span>printf<span class="op">(</span><span class="st">" </span><span class="sc">%s</span><span class="st">: nr. </span><span class="sc">%lu</span><span class="st">, afsenderens oppetid </span><span class="sc">%lu</span><span class="st"> ms</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span></span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a>                  m<span class="op">.</span>broadcast <span class="op">?</span> <span class="st">"(broadcast)"</span> <span class="op">:</span> <span class="st">"(unicast)"</span><span class="op">,</span></span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a>                  <span class="op">(</span><span class="dt">unsigned</span> <span class="dt">long</span><span class="op">)</span>m<span class="op">.</span>besked<span class="op">.</span>nummer<span class="op">,</span></span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a>                  <span class="op">(</span><span class="dt">unsigned</span> <span class="dt">long</span><span class="op">)</span>m<span class="op">.</span>besked<span class="op">.</span>oppetidMs<span class="op">);</span></span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Her kan programmet lave andet, fx måle</span></span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Upload, åbn Serial Monitor, og tryk på EN-knappen på ESP32, hvis du ikke nåede at se den første linje. Skriv MAC-adressen ned.</p>
+<!-- BILLEDE: Serial Monitor for modtageren med linjen "Modtager. MAC-adresse: …, kanal: 1" og et par modtagne beskeder. -->
+</section>
+<section id="eksempel-afsender" class="level2">
+<h2 class="anchored" data-anchor-id="eksempel-afsender">Eksempel: afsender</h2>
+<p>Afsenderen sender en besked hvert andet sekund til modtagerens MAC-adresse og skriver ud, om den blev kvitteret. Ret <code>MODTAGER_MAC</code> til den adresse, modtageren skrev ud. <code>24:6F:28:A1:B2:C3</code> skrives som <code>{0x24, 0x6F, 0x28, 0xA1, 0xB2, 0xC3}</code>.</p>
+<p><code>platformio.ini</code> er den samme som for modtageren. <code>ESP32_NOW.h</code> følger med Arduino-ESP32, så der skal ikke noget i <code>lib_deps</code>.</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>platformio.ini</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-filename="platformio.ini"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[env:esp32doit-devkit-v1]</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="dt">platform </span><span class="ot">=</span><span class="st"> espressif32@8.0.0</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="dt">board </span><span class="ot">=</span><span class="st"> esp32doit-devkit-v1</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="dt">framework </span><span class="ot">=</span><span class="st"> arduino</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="dt">monitor_speed </span><span class="ot">=</span><span class="st"> </span><span class="dv">115200</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>src/main.cpp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" data-filename="src/main.cpp"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;Arduino.h&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;WiFi.h&gt;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;ESP32_NOW.h&gt;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">// Konfiguration</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">uint8_t</span> KANAL <span class="op">=</span> <span class="dv">1</span><span class="op">;</span>  <span class="co">// skal være den samme som modtagerens</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">uint8_t</span> MODTAGER_MAC<span class="op">[</span><span class="dv">6</span><span class="op">]</span> <span class="op">=</span> <span class="op">{</span><span class="bn">0x24</span><span class="op">,</span> <span class="bn">0x6F</span><span class="op">,</span> <span class="bn">0x28</span><span class="op">,</span> <span class="bn">0xA1</span><span class="op">,</span> <span class="bn">0xB2</span><span class="op">,</span> <span class="bn">0xC3</span><span class="op">};</span>  <span class="co">// ret til jeres modtager</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">unsigned</span> <span class="dt">long</span> SEND_INTERVAL_MS <span class="op">=</span> <span class="dv">2000</span><span class="op">;</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">// Beskedens format. Skal være defineret helt ens hos afsender og modtager.</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> Besked <span class="op">{</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">uint32_t</span> nummer<span class="op">;</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">uint32_t</span> oppetidMs<span class="op">;</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co">// Sættes af onSent() i WiFi-opgaven og læses i loop()</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="at">volatile</span> <span class="dt">bool</span> kvitteringKlar <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="at">volatile</span> <span class="dt">bool</span> sidsteKvitteret <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="co">// ESP_NOW_Peer kan ikke bruges direkte: konstruktøren, add() og send() er</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="co">// protected. Derfor en lille klasse, der arver og gør dem tilgængelige.</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> ModtagerPeer <span class="op">:</span> <span class="kw">public</span> ESP_NOW_Peer <span class="op">{</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span><span class="op">:</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>  ModtagerPeer<span class="op">(</span><span class="at">const</span> <span class="dt">uint8_t</span> <span class="op">*</span>mac<span class="op">,</span> <span class="dt">uint8_t</span> kanal<span class="op">)</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>      <span class="op">:</span> ESP_NOW_Peer<span class="op">(</span>mac<span class="op">,</span> kanal<span class="op">,</span> WIFI_IF_STA<span class="op">,</span> <span class="kw">nullptr</span><span class="op">)</span> <span class="op">{}</span>  <span class="co">// nullptr = ingen kryptering</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>  <span class="dt">bool</span> tilfoej<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> add<span class="op">();</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>  <span class="dt">bool</span> sendBesked<span class="op">(</span><span class="at">const</span> Besked <span class="op">&amp;</span>besked<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>    <span class="co">// send() giver antal byte, der er sat i kø til afsendelse, eller 0 ved fejl.</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Færre byte end sizeof(besked) betyder, at beskeden er klippet over.</span></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> send<span class="op">((</span><span class="at">const</span> <span class="dt">uint8_t</span> <span class="op">*)&amp;</span>besked<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>besked<span class="op">))</span> <span class="op">==</span> <span class="kw">sizeof</span><span class="op">(</span>besked<span class="op">);</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Kaldes af WiFi-opgaven, når modtagerens radio har kvitteret, eller ikke.</span></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Hold den kort: sæt kun flag, og skriv ud i loop().</span></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>  <span class="dt">void</span> onSent<span class="op">(</span><span class="dt">bool</span> success<span class="op">)</span> <span class="kw">override</span> <span class="op">{</span></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>    sidsteKvitteret <span class="op">=</span> success<span class="op">;</span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>    kvitteringKlar <span class="op">=</span> <span class="kw">true</span><span class="op">;</span></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>ModtagerPeer modtager<span class="op">(</span>MODTAGER_MAC<span class="op">,</span> KANAL<span class="op">);</span></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a><span class="dt">uint32_t</span> naesteNummer <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a><span class="dt">unsigned</span> <span class="dt">long</span> sidsteSend <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> startWiFi<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>  WiFi<span class="op">.</span>mode<span class="op">(</span>WIFI_STA<span class="op">);</span></span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>  WiFi<span class="op">.</span>setChannel<span class="op">(</span>KANAL<span class="op">);</span></span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> <span class="op">(!</span>WiFi<span class="op">.</span>STA<span class="op">.</span>started<span class="op">())</span> <span class="op">{</span></span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>    delay<span class="op">(</span><span class="dv">100</span><span class="op">);</span>  <span class="co">// OK her: setup() har ikke andet at lave endnu</span></span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>begin<span class="op">(</span><span class="dv">115200</span><span class="op">);</span></span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a>  startWiFi<span class="op">();</span></span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>printf<span class="op">(</span><span class="st">"Afsender. MAC-adresse: </span><span class="sc">%s</span><span class="st">, kanal: </span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span></span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a>                WiFi<span class="op">.</span>macAddress<span class="op">().</span>c_str<span class="op">(),</span> <span class="op">(</span><span class="dt">int</span><span class="op">)</span>WiFi<span class="op">.</span>channel<span class="op">());</span></span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a>  <span class="co">// ESP-NOW skal startes, før peeren kan tilføjes</span></span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(!</span>ESP_NOW<span class="op">.</span>begin<span class="op">()</span> <span class="op">||</span> <span class="op">!</span>modtager<span class="op">.</span>tilfoej<span class="op">())</span> <span class="op">{</span></span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a>    Serial<span class="op">.</span>println<span class="op">(</span><span class="st">"ESP-NOW eller peer kunne ikke startes. Genstarter om 5 s."</span><span class="op">);</span></span>
+<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a>    delay<span class="op">(</span><span class="dv">5000</span><span class="op">);</span></span>
+<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a>    ESP<span class="op">.</span>restart<span class="op">();</span></span>
+<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a>  <span class="dt">unsigned</span> <span class="dt">long</span> nu <span class="op">=</span> millis<span class="op">();</span></span>
+<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(</span>nu <span class="op">-</span> sidsteSend <span class="op">&gt;=</span> SEND_INTERVAL_MS<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a>    sidsteSend <span class="op">=</span> nu<span class="op">;</span></span>
+<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a>    Besked besked <span class="op">=</span> <span class="op">{</span>naesteNummer<span class="op">,</span> <span class="op">(</span><span class="dt">uint32_t</span><span class="op">)</span>nu<span class="op">};</span></span>
+<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>modtager<span class="op">.</span>sendBesked<span class="op">(</span>besked<span class="op">))</span> <span class="op">{</span></span>
+<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a>      Serial<span class="op">.</span>printf<span class="op">(</span><span class="st">"Sendt nr. </span><span class="sc">%lu\n</span><span class="st">"</span><span class="op">,</span> <span class="op">(</span><span class="dt">unsigned</span> <span class="dt">long</span><span class="op">)</span>besked<span class="op">.</span>nummer<span class="op">);</span></span>
+<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a>      Serial<span class="op">.</span>println<span class="op">(</span><span class="st">"send() fejlede"</span><span class="op">);</span></span>
+<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a>    naesteNummer<span class="op">++;</span></span>
+<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(</span>kvitteringKlar<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a>    kvitteringKlar <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a>    Serial<span class="op">.</span>println<span class="op">(</span>sidsteKvitteret <span class="op">?</span> <span class="st">"  kvitteret af modtageren"</span> <span class="op">:</span> <span class="st">"  IKKE kvitteret"</span><span class="op">);</span></span>
+<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<!-- BILLEDE: Serial Monitor for afsenderen med "Sendt nr. …" og "kvitteret af modtageren", og gerne et par "IKKE kvitteret", mens modtageren var slukket. -->
+<p>Sådan virker det:</p>
+<ul>
+<li><code>WiFi.mode(WIFI_STA)</code> og <code>WiFi.setChannel()</code> tænder radioen på den rigtige kanal. Der forbindes ikke til nogen router.</li>
+<li><code>ESP_NOW.begin()</code> starter ESP-NOW. Uden argument er der ingen PMK.</li>
+<li><code>modtager.tilfoej()</code> registrerer modtageren som peer. Først derefter kan der sendes til den.</li>
+<li><code>sendBesked()</code> sender hele <code>struct</code>’en som bytes. Det virker, fordi begge enheder er ESP32 og bruger samme compiler, så <code>struct</code>’en ligger ens i hukommelsen. Ville du sende til en anden type enhed, skulle formatet aftales mere præcist.</li>
+<li>At <code>send()</code> lykkes, betyder kun, at beskeden er sat i kø. Om den kom frem, får du at vide i <code>onSent()</code>.</li>
+</ul>
+</section>
+<section id="esp-mesh" class="level2">
+<h2 class="anchored" data-anchor-id="esp-mesh">ESP-MESH</h2>
+<p>Med ESP-NOW taler to enheder direkte sammen, så de skal være inden for rækkevidde af hinanden. Et <strong>mesh-netværk</strong> løser det ved at lade enhederne sende beskeder videre for hinanden. En besked fra en enhed langt væk kan hoppe fra enhed til enhed, til den når frem.</p>
+<p>Et mesh-netværk er:</p>
+<ul>
+<li><strong>selvorganiserende:</strong> enhederne finder selv ud af, hvem der skal forbindes til hvem.</li>
+<li><strong>selvhelende:</strong> forsvinder en enhed, finder de andre en ny vej uden om den.</li>
+</ul>
+<section id="esp-wifi-mesh" class="level3">
+<h3 class="anchored" data-anchor-id="esp-wifi-mesh">ESP-WIFI-MESH</h3>
+<p>ESP-WIFI-MESH (tidligere kaldt ESP-MESH) er Espressifs mesh-protokol. Den bygger et træ af enheder (<span lang="en">nodes</span>):</p>
+<ul>
+<li><strong>Rod-noden</strong> (<span lang="en">root</span>) sidder øverst og er den eneste, der er forbundet til routeren og dermed til resten af netværket, fx MQTT-serveren. Der er kun én rod.</li>
+<li><strong>Mellemliggende noder</strong> har en forælder over sig og kan have børn under sig. De sender trafik videre begge veje.</li>
+<li><strong>Blade</strong> (<span lang="en">leaf</span>) har ingen børn.</li>
+</ul>
+<p>Roden kan vælges automatisk, så den enhed, der har det stærkeste signal til routeren, bliver rod. Den kan også vælges fast. Er roden valgt automatisk og forsvinder, vælger enhederne en ny. Når mesh-netværket er forbundet til en router, skal hele netværket bruge routerens kanal.</p>
+<p>ESP-WIFI-MESH er en funktion i <strong>ESP-IDF</strong>, Espressifs eget framework. Arduino-ESP32 har intet bibliotek til det og ingen eksempler, så det er ikke noget, vi bruger med Arduino-frameworket i PlatformIO.</p>
+</section>
+<section id="painlessmesh" class="level3">
+<h3 class="anchored" data-anchor-id="painlessmesh">painlessMesh</h3>
+<p><a href="https://gitlab.com/painlessMesh/painlessMesh">painlessMesh</a> er et Arduino-bibliotek, der laver et mesh-netværk mellem ESP32- og ESP8266-enheder. Det er <strong>ikke</strong> ESP-WIFI-MESH, men en selvstændig løsning:</p>
+<ul>
+<li>Som standard er der ingen rod. Alle noder er lige, og de organiserer sig selv. Man kan selv udpege en rod med <code>setRoot()</code>, fx den node, der også er på routeren (se bibliotekets eksempel <code>bridge</code>).</li>
+</ul>
+<!-- TJEK: setRoot()/setContainsRoot() og bridge-eksemplet er ikke nævnt i painlessMesh' README. Bekræft i kildekoden og examples/bridge på GitLab, at de findes i 1.5.7 og virker som beskrevet. -->
+<ul>
+<li>Beskeder er tekst, typisk JSON. Hver node har et id-nummer, og en besked sendes enten til alle eller til et bestemt id.</li>
+<li>Det er ikke et IP-netværk. Noderne har ikke IP-adresser, du kan bruge.</li>
+<li>Hele mesh-netværket kører på én kanal. Skal det også på en router, skal det være routerens kanal.</li>
+<li>Det bruger både station mode og access point mode på samme tid og holder radioen travlt beskæftiget.</li>
+</ul>
+<p>Biblioteket er i PlatformIO-registret og henter selv sine afhængigheder (ArduinoJson, TaskScheduler og AsyncTCP). Ældre vejledninger skriver, at painlessMesh ikke virker med Arduino-ESP32 3.x. Den nyeste version er 1.5.7 (oktober 2025), som bruger en nyere AsyncTCP. Om den virker med core 3.x, har vi ikke afprøvet.</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>platformio.ini (udsnit)</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" data-filename="platformio.ini (udsnit)"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dt">lib_deps </span><span class="ot">=</span><span class="st"> painlessmesh/painlessMesh@^1.5.7</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<!-- TJEK: Om painlessMesh 1.5.7 kompilerer og virker med espressif32@8.0.0 (core 3.3), er ikke afprøvet. Kompilér et af bibliotekets eksempler. -->
+</section>
+<section id="hvad-skal-man-vælge" class="level3">
+<h3 class="anchored" data-anchor-id="hvad-skal-man-vælge">Hvad skal man vælge?</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>ESP-NOW</th>
+<th>painlessMesh</th>
+<th>WiFi og MQTT</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Kræver router</td>
+<td>Nej</td>
+<td>Nej</td>
+<td>Ja</td>
+</tr>
+<tr class="even">
+<td>Rækkevidde</td>
+<td>Direkte mellem to enheder</td>
+<td>Beskeder hopper videre</td>
+<td>Hver enhed skal kunne nå routeren</td>
+</tr>
+<tr class="odd">
+<td>Beskedformat</td>
+<td>Bytes, højst 250 (v1)</td>
+<td>Tekst, typisk JSON</td>
+<td>Tekst eller bytes, større beskeder</td>
+</tr>
+<tr class="even">
+<td>Opstart</td>
+<td>Med det samme</td>
+<td>Skal først finde de andre noder</td>
+<td>Skal forbinde til router og server</td>
+</tr>
+<tr class="odd">
+<td>Kompleksitet</td>
+<td>Lav</td>
+<td>Mellem</td>
+<td>Lav, men kræver server</td>
+</tr>
+<tr class="even">
+<td>Med i Arduino-ESP32</td>
+<td>Ja</td>
+<td>Nej, bibliotek</td>
+<td>Ja (MQTT kræver et bibliotek)</td>
+</tr>
+</tbody>
+</table>
+<p>Tabellen er et udgangspunkt. Hvad der passer til jeres opstilling, afhænger af, hvor langt der er mellem enhederne, hvad de ellers skal bruge radioen til, og hvordan data skal videre til MQTT-serveren. Det skal I selv undersøge og begrunde.</p>
+</section>
+</section>
+<section id="øvelser" class="level2">
+<h2 class="anchored" data-anchor-id="øvelser">Øvelser</h2>
+<ol type="1">
+<li>Kør modtageren og afsenderen på hver sin ESP32. Skriv begge MAC-adresser ned. Kommer alle beskeder frem? Sluk modtageren (træk USB-kablet ud), og se, hvad afsenderen skriver. Tænd den igen.</li>
+<li>Sæt <code>KANAL</code> til 1 på modtageren og 6 på afsenderen. Hvad sker der? Hvordan ville du opdage fejlen, hvis du ikke vidste, hvad du havde ændret?</li>
+<li>Lav afsenderen om til at sende broadcast: brug <code>ESP_NOW.BROADCAST_ADDR</code> i stedet for <code>MODTAGER_MAC</code>. Skriver modtageren “(broadcast)”? Hvad skriver afsenderens <code>onSent()</code> nu, og hvad skriver den, når modtageren er slukket? Forklar forskellen fra unicast.</li>
+<li>Lad modtageren holde styr på løbenumrene og skrive en advarsel, når der mangler et nummer. Hvad sker der med numrene, når afsenderen genstarter, og hvordan kan modtageren se det?</li>
+<li>Mål rækkevidden: bær afsenderen (fx tilsluttet en bærbar) væk fra modtageren, gennem en dør og ud på gangen. Hvornår begynder der at mangle beskeder? Udvid modtagerens callback, så den også gemmer signalstyrken <code>info-&gt;rx_ctrl-&gt;rssi</code>, og skriv den ud. Hvad var RSSI, lige før beskederne forsvandt?</li>
+<li><em>Ekstra:</em> Lad modtageren også forbinde til et WiFi-netværk (brug koden fra <a href="../Grundlag/wifi.html">WiFi</a>-siden), og skriv kanalen ud med <code>WiFi.channel()</code>. Hvad skal du ændre på afsenderen, for at beskederne stadig kommer frem? Hvad sker der, hvis routeren skifter kanal?</li>
+<li><em>Ekstra:</em> Tilføj en tredje ESP32 som afsender. Hvordan kan modtageren kende forskel på de to? Hvad ville du gøre, hvis modtageren også skulle sende svar tilbage til dem?</li>
+</ol>
+</section>
+<section id="typiske-fejl" class="level2">
+<h2 class="anchored" data-anchor-id="typiske-fejl">Typiske fejl</h2>
+<ul>
+<li><strong>Der kommer ingenting igennem:</strong> Enhederne er ikke på samme kanal. Skriv <code>WiFi.channel()</code> ud på begge, og sammenlign.</li>
+<li><strong>Afsenderen skriver “IKKE kvitteret” hver gang:</strong> MAC-adressen er forkert, modtageren er slukket, eller den er på en anden kanal. Tjek, at du har brugt modtagerens STA-adresse (<code>WiFi.macAddress()</code>) og ikke AP-adressen.</li>
+<li><strong><code>send()</code> fejler med det samme:</strong> <code>ESP_NOW.begin()</code> eller <code>add()</code> er ikke kaldt, eller de fejlede. Tjek returværdierne i <code>setup()</code>.</li>
+<li><strong>Modtageren ignorerer beskederne:</strong> <code>struct Besked</code> er ikke defineret ens på de to enheder, så længden passer ikke. Kopier den samme definition til begge projekter.</li>
+<li><strong>Eksempel fra nettet kompilerer ikke:</strong> Callback-funktionerne har den gamle signatur fra core 2.x (se tabellen under <a href="#esp-now-core3">ESP-NOW i Arduino-ESP32 3.x</a>).</li>
+<li><strong>Data i lange beskeder er forkerte i slutningen:</strong> Beskeden er over den største længde, og biblioteket har klippet den over. Tjek, om <code>send()</code> returnerer hele længden, og hold dig under 250 byte.</li>
+<li><strong>ESP32 genstarter, når der kommer beskeder:</strong> Der sker noget langvarigt eller blokerende i en callback, fx netværk, <code>delay()</code> eller at vente på en kø. Flyt arbejdet til <code>loop()</code>.</li>
+<li><strong>Beskederne virker, indtil WiFi forbinder:</strong> Routeren har flyttet enheden til sin egen kanal. Se <a href="#kanal-og-wifi">Kanal og WiFi</a>.</li>
+</ul>
+</section>
+<section id="læs-videre" class="level2">
+<h2 class="anchored" data-anchor-id="læs-videre">Læs videre</h2>
+<section id="espressifs-egne-eksempler" class="level3">
+<h3 class="anchored" data-anchor-id="espressifs-egne-eksempler">Espressifs egne eksempler</h3>
+<p>Arduino-ESP32 har flere eksempler til <code>ESP32_NOW.h</code>. De er skrevet til core 3.x og er det bedste sted at se mere af biblioteket. Du finder dem i <a href="https://github.com/espressif/arduino-esp32/tree/master/libraries/ESP_NOW/examples" lang="en">libraries/ESP_NOW/examples</a>:</p>
+<ul>
+<li><strong>ESP_NOW_Broadcast_Master</strong> og <strong>ESP_NOW_Broadcast_Slave:</strong> en afsender sender broadcast, og modtageren registrerer automatisk afsenderne som peers med <code>onNewPeer()</code>.</li>
+<li><strong>ESP_NOW_Network:</strong> flere enheder finder hinanden med broadcast, vælger selv en “master” ud fra deres MAC-adresser, og sender derefter unicast. Eksemplet viser også kryptering med PMK og LMK. Det er relevant for projektopgaven, men læs det først, når du har fået eksemplerne her til at virke.</li>
+</ul>
+<p>Eksemplerne kalder deres enheder <em>master</em> og <em>slave</em>. På denne side hedder de afsender og modtager.</p>
+</section>
+<section id="esp-now-hos-random-nerd-tutorials" class="level3">
+<h3 class="anchored" data-anchor-id="esp-now-hos-random-nerd-tutorials">ESP-NOW hos Random Nerd Tutorials</h3>
+<p><a href="https://randomnerdtutorials.com/esp-now-esp32-arduino-ide/" lang="en">Getting Started with ESP-NOW (ESP32 with Arduino IDE)</a> forklarer ESP-NOW grundigt med figurer og bruger ESP-IDF’s C-funktioner i stedet for <code>ESP32_NOW.h</code>. Så kan du se, hvad biblioteket gør for dig. Læs den kritisk:</p>
+<ul>
+<li>Callback-funktionerne har signaturerne fra core 2.x. Koden kompilerer alligevel på core 3.x, fordi den caster funktionerne til den nye type, fx <code>esp_now_recv_cb_t(OnDataRecv)</code>. Det skjuler, at typerne ikke passer: på core 3.x er første parameter ikke en MAC-adresse, men en pointer til <code>esp_now_recv_info_t</code> (og til <code>wifi_tx_info_t</code> i send-callbacken). Det går kun godt, fordi koden ikke bruger den parameter. Brug signaturerne fra tabellen ovenfor.</li>
+<li>Teksten siger, at send-callbacken fortæller, om beskeden blev “successfully delivered”. Det er kun radioens kvittering, ikke programmets.</li>
+</ul>
+<p>Artiklen <a href="https://randomnerdtutorials.com/esp32-esp-now-wi-fi-web-server/" lang="en">ESP32: ESP-NOW Web Server Sensor Dashboard (ESP-NOW + Wi-Fi)</a> viser, hvordan en modtager både er på WiFi og modtager ESP-NOW, og hvordan afsenderne finder routerens kanal ved at scanne efter netværket. Den har de samme gamle callbacks. Den skriver også, at modtageren skal være i <code>WIFI_AP_STA</code>. Det krav står ikke i Espressifs dokumentation, som kun kræver, at kanalen er den samme (se øvelse 6).</p>
+</section>
+<section id="painlessmesh-hos-random-nerd-tutorials" class="level3">
+<h3 class="anchored" data-anchor-id="painlessmesh-hos-random-nerd-tutorials">painlessMesh hos Random Nerd Tutorials</h3>
+<p><a href="https://randomnerdtutorials.com/esp-mesh-esp32-esp8266-painlessmesh/" lang="en">ESP-MESH with ESP32 and ESP8266: Getting Started (painlessMesh library)</a> viser et lille painlessMesh-netværk. Bemærk, at artiklen er fra 2020: den bruger painlessMesh 1.4.5 og skriver, at man skal nedgradere til core 2.0.x. Det kan vi ikke, fordi platformen er låst til <code>espressif32@8.0.0</code>. Prøv i stedet version 1.5.7 (se <a href="#painlessmesh">painlessMesh</a>). Titlen siger “ESP-MESH”, men painlessMesh er ikke Espressifs ESP-WIFI-MESH.</p>
+</section>
+</section>
+<section id="kilder" class="level2">
+<h2 class="anchored" data-anchor-id="kilder">Kilder</h2>
+<ul>
+<li>Arduino-ESP32: ESP-NOW API, <a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/api/espnow.html" class="uri">https://docs.espressif.com/projects/arduino-esp32/en/latest/api/espnow.html</a></li>
+<li>Arduino-ESP32: kildekode til <code>ESP32_NOW.h</code> og <code>ESP32_NOW.cpp</code>, <a href="https://github.com/espressif/arduino-esp32/tree/master/libraries/ESP_NOW/src" class="uri">https://github.com/espressif/arduino-esp32/tree/master/libraries/ESP_NOW/src</a></li>
+<li>Arduino-ESP32: ESP-NOW-eksempler, <a href="https://github.com/espressif/arduino-esp32/tree/master/libraries/ESP_NOW/examples" class="uri">https://github.com/espressif/arduino-esp32/tree/master/libraries/ESP_NOW/examples</a></li>
+<li>Arduino-ESP32: release 3.3.0 (bygger på ESP-IDF 5.5, ESP-NOW v2), <a href="https://github.com/espressif/arduino-esp32/releases/tag/3.3.0" class="uri">https://github.com/espressif/arduino-esp32/releases/tag/3.3.0</a></li>
+<li>Arduino-ESP32: <code>WiFiGeneric.h</code> (<code>setChannel()</code>, <code>channel()</code>), <a href="https://github.com/espressif/arduino-esp32/blob/master/libraries/WiFi/src/WiFiGeneric.h" class="uri">https://github.com/espressif/arduino-esp32/blob/master/libraries/WiFi/src/WiFiGeneric.h</a></li>
+<li>ESP-IDF v5.5: ESP-NOW, <a href="https://docs.espressif.com/projects/esp-idf/en/v5.5/esp32/api-reference/network/esp_now.html" class="uri">https://docs.espressif.com/projects/esp-idf/en/v5.5/esp32/api-reference/network/esp_now.html</a></li>
+<li>ESP-IDF v5.5: <code>esp_now.h</code> (callback-typer), <a href="https://github.com/espressif/esp-idf/blob/release/v5.5/components/esp_wifi/include/esp_now.h" class="uri">https://github.com/espressif/esp-idf/blob/release/v5.5/components/esp_wifi/include/esp_now.h</a></li>
+<li>ESP-IDF v4.4: <code>esp_now.h</code> (de gamle callback-typer fra core 2.x), <a href="https://github.com/espressif/esp-idf/blob/release/v4.4/components/esp_wifi/include/esp_now.h" class="uri">https://github.com/espressif/esp-idf/blob/release/v4.4/components/esp_wifi/include/esp_now.h</a></li>
+<li>ESP-IDF: ESP-WIFI-MESH, <a href="https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/esp-wifi-mesh.html" class="uri">https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/esp-wifi-mesh.html</a></li>
+<li>painlessMesh: kildekode, README og versioner, <a href="https://gitlab.com/painlessMesh/painlessMesh" class="uri">https://gitlab.com/painlessMesh/painlessMesh</a></li>
+<li>Random Nerd Tutorials: Getting Started with ESP-NOW, <a href="https://randomnerdtutorials.com/esp-now-esp32-arduino-ide/" class="uri">https://randomnerdtutorials.com/esp-now-esp32-arduino-ide/</a></li>
+<li>Random Nerd Tutorials: ESP-NOW + Wi-Fi Web Server, <a href="https://randomnerdtutorials.com/esp32-esp-now-wi-fi-web-server/" class="uri">https://randomnerdtutorials.com/esp32-esp-now-wi-fi-web-server/</a></li>
+<li>Random Nerd Tutorials: ESP-MESH with painlessMesh, <a href="https://randomnerdtutorials.com/esp-mesh-esp32-esp8266-painlessmesh/" class="uri">https://randomnerdtutorials.com/esp-mesh-esp32-esp8266-painlessmesh/</a></li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Kopieret!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Kopieret!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/s0ren\.github\.io\/FAG_17682_IoT_II\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

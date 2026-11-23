@@ -1,32 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://s0ren.github.io/FAG_17682_IoT_II/Referencer/index.html</loc>
-    <lastmod>2026-11-22T17:34:35.000Z</lastmod>
+    <loc>https://s0ren.github.io/FAG_17682_IoT_II/laeringsmaal.html</loc>
+    <lastmod>2026-11-22T20:34:10.000Z</lastmod>
   </url>
   <url>
-    <loc>https://s0ren.github.io/FAG_17682_IoT_II/Opgaver/Projektopgave_wifi_position.html</loc>
-    <lastmod>2026-11-22T18:53:50.000Z</lastmod>
+    <loc>https://s0ren.github.io/FAG_17682_IoT_II/about.html</loc>
+    <lastmod>2026-11-22T19:42:16.000Z</lastmod>
   </url>
   <url>
     <loc>https://s0ren.github.io/FAG_17682_IoT_II/Opgaver/index.html</loc>
     <lastmod>2026-11-22T18:53:50.000Z</lastmod>
   </url>
   <url>
-    <loc>https://s0ren.github.io/FAG_17682_IoT_II/Features/lokal_mqtt.html</loc>
-    <lastmod>2026-11-22T19:11:49.000Z</lastmod>
+    <loc>https://s0ren.github.io/FAG_17682_IoT_II/Opgaver/Projektopgave_wifi_position.html</loc>
+    <lastmod>2026-11-22T18:53:50.000Z</lastmod>
   </url>
   <url>
-    <loc>https://s0ren.github.io/FAG_17682_IoT_II/about.html</loc>
-    <lastmod>2026-11-22T17:34:35.000Z</lastmod>
+    <loc>https://s0ren.github.io/FAG_17682_IoT_II/Grundlag/wifi.html</loc>
+    <lastmod>2026-11-23T05:47:32.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://s0ren.github.io/FAG_17682_IoT_II/Grundlag/index.html</loc>
+    <lastmod>2026-11-22T20:34:11.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://s0ren.github.io/FAG_17682_IoT_II/Grundlag/cpp_intro.html</loc>
+    <lastmod>2026-11-23T05:47:32.000Z</lastmod>
   </url>
   <url>
     <loc>https://s0ren.github.io/FAG_17682_IoT_II/Features/index.html</loc>
     <lastmod>2026-11-22T17:34:35.000Z</lastmod>
   </url>
   <url>
-    <loc>https://s0ren.github.io/FAG_17682_IoT_II/index.html</loc>
+    <loc>https://s0ren.github.io/FAG_17682_IoT_II/Features/esp_now_mesh.html</loc>
+    <lastmod>2026-11-23T05:47:32.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://s0ren.github.io/FAG_17682_IoT_II/Features/deep_sleep.html</loc>
+    <lastmod>2026-11-23T05:47:32.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://s0ren.github.io/FAG_17682_IoT_II/Features/filsystem.html</loc>
+    <lastmod>2026-11-23T05:47:32.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://s0ren.github.io/FAG_17682_IoT_II/Features/lokal_mqtt.html</loc>
     <lastmod>2026-11-22T19:11:49.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://s0ren.github.io/FAG_17682_IoT_II/Grundlag/debouncing.html</loc>
+    <lastmod>2026-11-23T05:47:32.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://s0ren.github.io/FAG_17682_IoT_II/Grundlag/platformio.html</loc>
+    <lastmod>2026-11-23T05:47:32.000Z</lastmod>
   </url>
   <url>
     <loc>https://s0ren.github.io/FAG_17682_IoT_II/Opgaver/Projektopgave_Smiley.html</loc>
@@ -35,5 +63,13 @@
   <url>
     <loc>https://s0ren.github.io/FAG_17682_IoT_II/Opgaver/Projektopgave_wifi_position_checkliste.html</loc>
     <lastmod>2026-11-22T18:53:50.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://s0ren.github.io/FAG_17682_IoT_II/Referencer/index.html</loc>
+    <lastmod>2026-11-22T17:34:35.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://s0ren.github.io/FAG_17682_IoT_II/index.html</loc>
+    <lastmod>2026-11-22T19:11:49.000Z</lastmod>
   </url>
 </urlset>
