@@ -332,7 +332,7 @@ Gratis program, der viser alle topics som et træ: <https://mqtt-explorer.com/>
 3. *Username* og *Password* fra læreren
 4. *Advanced* → *Certificates* → *Server Certificate (CA)*: vælg [`ca.crt`](ca.crt)
 
-- Brug et navn, der står i certifikatet: `wilsons.local`, `wilsons.home`, `wilsons` eller `192.168.0.33`
+- Brug `wilsons.local`: det navn står i certifikatet
 - Slå aldrig certifikattjekket fra
 - Detaljer: [Lokal MQTT server](lokal_mqtt.qmd)
 
@@ -385,7 +385,7 @@ Alle øvelserne står på [Intro til MQTT](mqtt_intro.qmd#øvelser).
 
 | Symptom | Sandsynlig årsag |
 |---|---|
-| `wilsons.local` kan ikke findes | Prøv `wilsons.home` eller `192.168.0.33` |
+| `wilsons.local` kan ikke findes | Er du på klasselokalets net? Prøv `ping wilsons.local`, ellers spørg læreren |
 | Klienter smider hinanden af | Samme client-id to steder |
 | Besked på 8883 kommer aldrig frem | ACL: elever skriver kun i `elever/<navn>/` og `test/` |
 | Certifikatfejl | Forkert navn, eller `ca.crt` mangler |

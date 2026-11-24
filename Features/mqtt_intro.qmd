@@ -14,9 +14,9 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 2. Kør C#-eksemplet (Program.cs) i et nyt "dotnet new console"-projekt med .NET 8 eller nyere og "dotnet add package MQTTnet --version 5.2.0.1603" mod wilsons.local:1883. Kompilerer det uden advarsler? Skriver det "Forbundet som csharp-…", kommer hilsenen tilbage i konsollen, og ses den i MQTT Explorer og i weblog'en (elever/<navn>/csharp/hilsen.jsonl)? Kommer en besked fra MQTT Explorer frem i konsollen? (øvelse 10)
 3. TJEK: C# med TLS på 8883: Forbind med ImportFromPemFile("ca.crt"), WithTlsOptions(o => o.WithTrustChain(ca).WithRevocationMode(X509RevocationMode.NoCheck)) og WithCredentials mod wilsons.local:8883 med et elevlogin. Godtages certifikatet på Windows (og evt. macOS/Linux)? Afvises forbindelsen uden WithTrustChain? Afvises den uden NoCheck (RevocationStatusUnknown, jf. MQTTnet issue #1920)? Læst i kildekoden, ikke afprøvet. Tjek også, at "tid" i JSON'en har kolon på en dansk pc.
 4. Kompilér og upload ESP32-eksemplet med platform = espressif32@8.0.0 og knolleary/PubSubClient@^2.8, med et potentiometer på GPIO 32. Kommer en måling hvert 5. sekund frem i weblog'en? Flader spaending_mv ud ved ca. 3100 mV i potentiometerets ene ende?
-5. TJEK: Kan ESP32 slå "wilsons.local" og "wilsons.home" op på skolens net? Siden bruger 192.168.0.33 i MQTT_HOST, fordi intet navn er afprøvet; lokal_mqtt.qmd bruger "wilsons.local". Vælg ét navn, der virker, og brug det samme på begge sider. Ret også punktet om .local under Typiske fejl.
+5. TJEK: Kan ESP32 slå "wilsons.local" op på skolens net? En pc kan (afprøvet 24. nov. 2026). MQTT_HOST er nu "wilsons.local" som på lokal_mqtt.qmd, fordi IP-adressen .33 ikke passede (wilsons havde .203). wilsons.home virker ikke.
 6. TJEK: Passer tiderne for mqtt.connect() (ca. 3 s uden maskine på adressen, op til 15 s, hvis maskinen svarer, men MQTT ikke gør)? Tallene er fra kildekoden (NetworkClient og PubSubClient), ikke målt. Ret MQTT_HOST til en forkert IP (øvelse 6), og se i Serial Monitor.
-7. TJEK: Læreren skriver http://wilsons:8080. Virker det korte navn "wilsons" uden .local/.home på elevernes maskiner på skolens net? Siden bruger wilsons.local og nævner wilsons.home og 192.168.0.33.
+7. Det korte navn "wilsons" og wilsons.home virker ikke pålideligt på skolens net (afprøvet 24. nov. 2026). Siden bruger kun wilsons.local. Ret http://wilsons:8080 i din egen vejledning.
 8. TJEK: MQTT Explorer (0.4.0-beta.6 på mqtt-explorer.com): passer feltnavnene "Encryption (tls)", "Validate certificate", "Advanced", "Certificates" og "Server Certificate (CA)" i den version, eleverne installerer? Hedder knappen "Connect", og passer beskrivelsen af Publish-feltet, retain og skraldespanden til at slette et retained topic? Forbind på 8883 med ca.crt og et elevlogin, og bekræft, at certifikatet godtages med "Validate certificate" slået til.
 9. TJEK: Viser MQTT Explorer $SYS-topics fra wilsons på port 1883? (Mosquitto sender dem som standard hvert 10. sekund.)
 10. Retained-øvelsen (øvelse 5): Bliver en retained besked i weblog'en logget igen, når mqtt-logger genstarter? Ud fra koden (mqtt_logger.py) burde den, og siden siger det. Slet testbeskederne bagefter.
@@ -143,9 +143,8 @@ En linje i weblog'en ser sådan ud:
 
 Bemærk, at din JSON står *inde i* en tekst (`"payload": "{\"button\"…}"`) med `\` foran hvert `"`. Loggeren ved ikke, at payload'en er JSON, så den gemmer den som tekst. Vil du læse den i et program, skal du altså parse to gange: først linjen, derefter payload'en.
 
-Weblog'en er den nemmeste måde at se, at en besked faktisk nåede brokeren. Den viser kun det, der er kommet frem, ikke det, der blev afvist. Navnene på serveren (`wilsons.local`, `wilsons.home` og `192.168.0.33`) og flere skærmbilleder står på [Lokal MQTT server](lokal_mqtt.qmd).
+Weblog'en er den nemmeste måde at se, at en besked faktisk nåede brokeren. Den viser kun det, der er kommet frem, ikke det, der blev afvist. Mere om serveren `wilsons.local` og flere skærmbilleder står på [Lokal MQTT server](lokal_mqtt.qmd).
 
-<!-- TJEK: Læreren skriver http://wilsons:8080. Det korte navn virker kun, hvis netværket tilføjer et domæne (fx .home) selv. Siden bruger wilsons.local. -->
 
 <!-- BILLEDE: Weblog'en på wilsons.local:8080, åbnet på en elevs fil fra Python-eksemplet (fx `elever/anna/python/temperatur.jsonl`) med nogle linjer JSON. Se lignende billeder: [Lokal MQTT server](lokal_mqtt.qmd). -->
 
@@ -202,7 +201,7 @@ Programmet abonnerer på alt under dit eget område og skriver hver besked ud. R
 import paho.mqtt.client as mqtt
 
 # Konfiguration
-BROKER = "wilsons.local"        # eller wilsons.home / 192.168.0.33
+BROKER = "wilsons.local"
 PORT = 1883                     # uden TLS og login; se Lokal MQTT server for 8883
 BRUGERNAVN = "anna"             # dit eget brugernavn
 TOPIC = f"elever/{BRUGERNAVN}/#"
@@ -306,7 +305,7 @@ lib_deps = knolleary/PubSubClient@^2.8
 #include "secrets.h"   // WIFI_SSID og WIFI_PASSWORD (se WiFi-siden)
 
 // Konfiguration
-const char* MQTT_HOST = "192.168.0.33";          // wilsons' IP-adresse; et navn kræver, at ESP32 kan slå det op
+const char* MQTT_HOST = "wilsons.local";         // brokeren (samme navn som på Lokal MQTT server)
 const uint16_t MQTT_PORT = 1883;                 // uden TLS; se Lokal MQTT server for 8883
 const char* BRUGERNAVN = "anna";                 // dit eget brugernavn
 const int MAALE_PIN = 32;                      // potentiometer, ADC1
@@ -407,7 +406,7 @@ void loop() {
 }
 ```
 
-<!-- TJEK: Om ESP32 kan slå "wilsons.local" eller "wilsons.home" op på skolens net, er ikke afprøvet. Indtil da bruger eksemplet IP-adressen. Brug samme navn som i ESP32-eksemplet på Lokal MQTT server (der står "wilsons.local"). -->
+<!-- TJEK: Om ESP32 kan slå "wilsons.local" op på skolens net, er ikke afprøvet (en pc kan). wilsons.home virker ikke, og IP-adressen er ikke fast. -->
 
 Sådan virker det:
 
@@ -449,7 +448,7 @@ using MQTTnet;
 using MQTTnet.Protocol;
 
 // Konfiguration
-const string Broker = "wilsons.local";   // eller wilsons.home / 192.168.0.33
+const string Broker = "wilsons.local";
 const int Port = 1883;                   // uden TLS og login; se Lokal MQTT server for 8883
 const string Brugernavn = "anna";        // dit eget brugernavn
 
@@ -520,7 +519,7 @@ På port 8883 skal klienten bruge TLS, logge ind og stole på skolens CA i `ca.c
 - Indlæs `ca.crt` i en `X509Certificate2Collection` med `ImportFromPemFile("ca.crt")`.
 - Giv den til options-builderen med `WithTlsOptions(o => o.WithTrustChain(ca).WithRevocationMode(X509RevocationMode.NoCheck))`. `WithTlsOptions` slår TLS til, og `WithTrustChain` gør, at certifikatet kun godtages, hvis det er underskrevet af vores CA.
 - `WithRevocationMode(X509RevocationMode.NoCheck)` er nødvendig, fordi .NET ellers prøver at slå op på nettet, om servercertifikatet er tilbagekaldt. Vores certifikat har ingen adresse til det opslag, så forbindelsen ville blive afvist. Det er stadig sikkert: klienten stoler kun på vores egen CA.
-- Forbind med et navn, der står i certifikatet (`wilsons.local`, `wilsons.home`, `wilsons` eller `192.168.0.33`). Ellers afvises forbindelsen, selv om CA'en er rigtig.
+- Forbind til `wilsons.local`, som står i certifikatet. Ellers afvises forbindelsen, selv om CA'en er rigtig.
 - Sæt brugernavn og kode med `WithCredentials(brugernavn, kode)`, og skift porten til 8883. Læs koden fra tastaturet eller en miljøvariabel, så den ikke står i koden.
 - `ca.crt` findes i den mappe, programmet køres fra. Med `dotnet run` er det projektmappen. Kører du fra Visual Studio eller Rider, er det `bin/Debug/net8.0`, så sæt filen til *Copy to Output Directory*, eller brug `Path.Combine(AppContext.BaseDirectory, "ca.crt")`.
 
@@ -539,7 +538,7 @@ Hent det fra <https://mqtt-explorer.com/>. Det findes til Windows (Microsoft Sto
 ### Forbind til wilsons på port 1883
 
 1. Opret en ny forbindelse, og skriv fx `wilsons` under *Name*.
-2. *Host*: `wilsons.local` (eller `wilsons.home` / `192.168.0.33`). *Port*: `1883`. *Protocol*: `mqtt`.
+2. *Host*: `wilsons.local`. *Port*: `1883`. *Protocol*: `mqtt`.
 3. Lad *Encryption (tls)* være slået fra, og lad *Username* og *Password* være tomme.
 4. Tryk *Connect*.
 
@@ -567,7 +566,7 @@ På port 8883 er forbindelsen krypteret, og du skal logge ind. Du skal bruge sko
 3. Udfyld *Username* og *Password*.
 4. Gå til *Advanced* → *Certificates*, og vælg `ca.crt` under *Server Certificate (CA)*. Gå tilbage, og tryk *Connect*.
 
-Brug et af navnene i certifikatet (`wilsons.local`, `wilsons.home`, `wilsons` eller `192.168.0.33`, se [Lokal MQTT server](lokal_mqtt.qmd)), ellers bliver forbindelsen afvist.
+Brug `wilsons.local`, som står i certifikatet (se [Lokal MQTT server](lokal_mqtt.qmd)), ellers bliver forbindelsen afvist.
 
 <!-- TJEK: Feltnavnene er læst i MQTT Explorers kildekode (Certificates.tsx og ConnectionSettings.tsx på master). Bekræft i den version, eleverne installerer (0.4.0-beta.6), og at ca.crt godtages med Validate certificate slået til. -->
 
@@ -593,7 +592,7 @@ Brug et af navnene i certifikatet (`wilsons.local`, `wilsons.home`, `wilsons` el
 - **Python: ingen beskeder, selv om subscriberen er forbundet:** `subscribe()` er kaldt før `connect()` eller uden for `on_connect`, eller der kører ingen netværksløkke (`loop_forever()` eller `loop_start()`).
 - **C#: `MqttFactory` eller `MQTTnet.Client` findes ikke:** Koden er skrevet til MQTTnet 4 eller ældre. Brug `new MqttClientFactory()` og kun `using MQTTnet;` (se [C#-eksemplet](#eksempel-csharp)).
 - **C#: forbindelsen "lykkes", men der kommer intet:** I MQTTnet 5 kaster `ConnectAsync` ikke en undtagelse, når brokeren afviser forbindelsen, fx ved forkert kode på 8883. Tjek `ResultCode` i svaret.
-- **Navnet `wilsons.local` kan ikke findes:** Din maskine kan ikke slå `.local`-navne op (det kræver mDNS), eller netværket sender dem ikke videre. Prøv `wilsons.home` eller `192.168.0.33`.
+- **Navnet `wilsons.local` kan ikke findes:** Din maskine kan ikke slå `.local`-navne op (det kræver mDNS), eller netværket sender dem ikke videre. Tjek, at du er på klasselokalets net, og prøv `ping wilsons.local`. Virker det stadig ikke, så spørg læreren.
 - **Forbindelsen falder ud hvert øjeblik:** To klienter bruger samme client-id og smider hinanden af. Eller `mqtt.loop()` kaldes for sjældent på ESP32, fx fordi der er et langt `delay()` i `loop()`, så keep-alive udløber.
 - **ESP32: `publish()` giver `false`:** Der er ingen forbindelse, eller beskeden er over 256 bytes inklusive topic. Kald `mqtt.setBufferSize()`.
 - **ESP32: `state=-2`:** Ingen forbindelse til brokeren: forkert navn eller IP, forkert port, eller brokeren er nede.

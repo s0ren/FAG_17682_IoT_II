@@ -11,14 +11,14 @@ draft: false
 <!--
 TJEKLISTE TIL LÆREREN (afprøves, før IKKE KOMPILERET og TJEK-kommentarerne fjernes):
 1. Upload ESP32-eksemplet med platform = espressif32@8.0.0 og en elevbruger. Kommer "OK" i Serial Monitor, og dukker beskederne op på http://wilsons.local:8080/elever/<brugernavn>/status.jsonl?
-2. TJEK: kan ESP32 (core 3.3) slå wilsons.local op via mqtt.setServer("wilsons.local", ...)? LWIP_DNS_SUPPORT_MDNS_QUERIES er efter faktatjekket sandsynligvis slået til, men multicast kan være blokeret i skolens WiFi. Din egen knap-demo bruger MDNS.queryHost() i stedet. Virker wilsons.home? Ret konstanten MQTT_HOST og afsnittet "Typiske fejl" (rc=-2 uden TLS-fejl) efter resultatet.
-3. TJEK: virker ESP32 med MQTT_HOST = "192.168.0.33"? Klienten tjekker så certifikatet mod IP-adressen, og det kræver, at mbedTLS i core 3.3 kan matche en IP i Subject Alternative Name.
+2. TJEK: kan ESP32 (core 3.3) slå wilsons.local op via mqtt.setServer("wilsons.local", ...)? En pc på skolens net kan (afprøvet 24. nov. 2026), men ESP32 er ikke afprøvet. Din egen knap-demo bruger MDNS.queryHost() i stedet. wilsons.home og det korte navn wilsons virker ikke på skolens net, så siden nævner dem ikke mere. Ret afsnittet "Typiske fejl" (rc=-2 uden TLS-fejl) efter resultatet.
+3. wilsons havde 24. nov. 2026 IP-adressen 192.168.0.203, ikke 192.168.0.33, som står i certifikatet. Siden nævner derfor ingen IP-adresse. Får Pi'en fast IP .33 i routeren, kan IP-adressen komme tilbage som reserve.
 4. Send en besked med mosquitto_pub til elever/<brugernavn>/kommando. Skriver ESP32 den ud?
 5. TJEK: hvilken rc giver PubSubClient ved forkert kode på 8883: 4 eller 5? Står der rc=5, så fjern "(eller rc=4)" i "Typiske fejl".
 6. TJEK: hvor længe blokerer mqtt.connect() under TLS-håndtrykket (RSA 4096)? Siden siger "et par sekunder".
 7. TJEK: Windows-installeren fra mosquitto.org: kommer mosquitto_pub/mosquitto_sub med, og skal mappen selv lægges i PATH?
 8. TJEK: afsnittet "Din egen broker under udvikling" er skjult, fordi linket til mqtt_moquitto_docker_compose gav 404 (23. nov. 2026). Tjek repoet for nøgler og koder, gør det offentligt, og tag afsnittet ud af kommentaren.
-9. TJEK: har Pi'en fået fast IP 192.168.0.33 i routeren? Ellers holder rådene om at bruge IP-adressen ikke.
+9. TJEK: giv Pi'en fast IP 192.168.0.33 i routeren (24. nov. 2026 havde den .203). Din egen knap-demo har .33 som reserve-IP, og certifikatet gælder kun .33.
 10. TJEK: CORS. Tilføj "add_header Access-Control-Allow-Origin *;" i "location ~ \.jsonl$" i nginx på wilsons, og afprøv med curl -I på en .jsonl-fil. Står headeren i svaret, kan siden igen nævne, at filerne kan hentes fra JavaScript.
 11. Kør mqtt_tls.py med forkert kode: skriver den "Forbindelse afvist" og "Ikke forbundet, ikke sendt" uden traceback?
 12. BILLEDE: nye skærmbilleder af weblog'en på wilsons.local:8080 (de tre nuværende viser den gamle adresse).
@@ -86,16 +86,15 @@ Brokeren gemmer ikke beskederne selv. Er der ingen, der abonnerer, når beskeden
 
 | | |
 |---|---|
-| Værtsnavn | `wilsons.local` (mDNS), `wilsons.home` (routerens DNS) |
-| IP-adresse | `192.168.0.33` |
+| Værtsnavn | `wilsons.local` |
 | Port 1883 | MQTT uden kryptering og uden login. Åben for alle |
 | Port 8883 | MQTT over TLS. Kræver brugernavn og adgangskode |
 | Port 8080 | Weblog'en: <http://wilsons.local:8080/> |
 | CA-certifikat | [ca.crt](ca.crt) (gyldigt til november 2036) |
 
-<!-- TJEK: har Pi'en fået fast IP-adresse 192.168.0.33 i routeren? Din vejledning har det stadig som åbent punkt. Indtil da kan adressen skifte, og så virker rådene om at bruge IP-adressen ikke, fordi certifikatet kun gælder 192.168.0.33. -->
+<!-- TJEK: Pi'en havde 192.168.0.203 den 24. nov. 2026, ikke 192.168.0.33 fra certifikatet. Siden nævner ingen IP-adresse, før den har fast IP i routeren. wilsons.home og wilsons virker ikke på skolens net. -->
 
-Brug `wilsons.local`, hvis det virker på din maskine. Ellers `wilsons.home` eller IP-adressen. Den gamle server (`wilson.local`, `192.168.0.161`) fra tidligere forløb findes ikke mere.
+Brug altid `wilsons.local`. Kan din maskine ikke finde navnet, så se [Typiske fejl](#typiske-fejl). Den gamle server (`wilson.local`, `192.168.0.161`) fra tidligere forløb findes ikke mere.
 
 ### Port 1883: åben for alle
 
@@ -126,7 +125,7 @@ Når du forbinder på port 8883, skal din klient være sikker på, at den taler 
 
 - Skolen har sin egen lille certifikatudsteder ([certificate authority]{lang="en"}, CA). Dens offentlige certifikat er [ca.crt](ca.crt).
 - CA'en har underskrevet brokerens certifikat. Når du forbinder, sender brokeren sit certifikat, og din klient tjekker underskriften med `ca.crt`.
-- Klienten tjekker også, at navnet, du forbinder til, står i brokerens certifikat. Det gør det for `wilsons.local`, `wilsons.home`, `wilsons` og `192.168.0.33`. Forbinder du til et andet navn, bliver forbindelsen afvist.
+- Klienten tjekker også, at navnet, du forbinder til, står i brokerens certifikat. Brug derfor `wilsons.local`. Forbinder du til et andet navn, bliver forbindelsen afvist.
 
 `ca.crt` er ikke hemmelig. Den indeholder ingen nøgle, kun det offentlige certifikat, så du må gerne committe den til git. Hent den med højreklik på linket og "Gem link som", og læg den i samme mappe som dit program.
 
@@ -486,7 +485,7 @@ void loop() {
 }
 ```
 
-<!-- TJEK: Kan arduino-esp32 core 3.3 slå wilsons.local op, når navnet gives til mqtt.setServer()? Network.hostByName() bruger lwip_getaddrinfo og har ingen særlig håndtering af .local; det virker kun, hvis CONFIG_LWIP_DNS_SUPPORT_MDNS_QUERIES er slået til i frameworkets prækompilerede ESP-IDF. Faktatjekket fandt, at Kconfig-standarden i ESP-IDF 5.5 er "default y", og at esp32-arduino-lib-builder's configs/defconfig.common ikke ændrer den, så det virker sandsynligvis. Multicast kan dog være blokeret i skolens WiFi. Lærerens egen knap-demo slår navnet op med MDNS.queryHost() og forbinder til IP-adressen med NetworkClientSecure::connect(ip, port, host, CA, nullptr, nullptr). Afprøv, og ret MQTT_HOST til wilsons.home, hvis .local ikke virker. -->
+<!-- TJEK: Kan arduino-esp32 core 3.3 slå wilsons.local op, når navnet gives til mqtt.setServer()? Network.hostByName() bruger lwip_getaddrinfo og har ingen særlig håndtering af .local; det virker kun, hvis CONFIG_LWIP_DNS_SUPPORT_MDNS_QUERIES er slået til i frameworkets prækompilerede ESP-IDF. Faktatjekket fandt, at Kconfig-standarden i ESP-IDF 5.5 er "default y", og at esp32-arduino-lib-builder's configs/defconfig.common ikke ændrer den, så det virker sandsynligvis. Multicast kan dog være blokeret i skolens WiFi. Lærerens egen knap-demo slår navnet op med MDNS.queryHost() og forbinder til IP-adressen med NetworkClientSecure::connect(ip, port, host, CA, nullptr, nullptr). Afprøv. wilsons.home virker ikke på skolens net (24. nov. 2026), så hvis .local ikke virker, er MDNS.queryHost() løsningen. -->
 
 Kopiér `secrets_eksempel.h` til `secrets.h`, og udfyld den. Upload og åbn Serial Monitor. Efter WiFi skulle der stå `Forbinder til wilsons.local:8883 ... OK` og derefter en `Sendt`-linje hvert 10. sekund. Find dine beskeder i weblog'en under `elever/<brugernavn>/status.jsonl`.
 
@@ -524,12 +523,12 @@ mosquitto_pub -h wilsons.local -p 8883 --cafile ca.crt \
 
 - **Beskeder på 8883 dukker aldrig op, men der er ingen fejl:** ACL'en har smidt dem væk. Du må kun skrive i `elever/<dit brugernavn>/` og `test/`. Tjek stavning og store/små bogstaver i både topic og brugernavn.
 - **`Not authorized`, eller ESP32 skriver `rc=5` (eller `rc=4`):** forkert brugernavn eller adgangskode, eller du har glemt login på port 8883.
-- **`CERTIFICATE_VERIFY_FAILED ... Hostname mismatch`:** du forbinder til et navn, der ikke står i certifikatet. Brug `wilsons.local`, `wilsons.home` eller `192.168.0.33`.
+- **`CERTIFICATE_VERIFY_FAILED ... Hostname mismatch`:** du forbinder til et navn, der ikke står i certifikatet. Brug `wilsons.local`.
 - **`self-signed certificate in certificate chain`:** klienten bruger ikke vores `ca.crt`. Angiv `cafile="ca.crt"` eller `--cafile ca.crt`, og tjek, at filen ligger i den mappe, programmet kører fra.
 - **`CA cert does not include key usage extension`:** du har en gammel `ca.crt`. Python 3.13 og nyere afviser den. Hent den nye.
 - **Certifikatfejl med en `ca.crt`, der før virkede:** CA'en blev udskiftet 23. nov. 2026. Hent den nye, og byg ESP32-programmet igen med den nye `ca_cert.h`.
-- **`wilsons.local` kan ikke findes:** mDNS virker ikke på din maskine eller på netværket. Brug `wilsons.home` eller `192.168.0.33`.
-- **ESP32 skriver `rc=-2`:** ESP32 fik ikke forbindelse til brokeren. Står der også en TLS-fejl, er det certifikatet (forkert eller gammel `ca_cert.h`, eller et navn, der ikke står i certifikatet). Står der `rc=-2` uden en TLS-fejl, kan ESP32 sandsynligvis ikke slå navnet op: prøv `wilsons.home`.
+- **`wilsons.local` kan ikke findes:** mDNS virker ikke på din maskine eller på netværket. Tjek, at du er på klasselokalets net, og prøv `ping wilsons.local`. Virker det stadig ikke, så spørg læreren.
+- **ESP32 skriver `rc=-2`:** ESP32 fik ikke forbindelse til brokeren. Står der også en TLS-fejl, er det certifikatet (forkert eller gammel `ca_cert.h`, eller et navn, der ikke står i certifikatet). Står der `rc=-2` uden en TLS-fejl, kan ESP32 sandsynligvis ikke slå navnet op: spørg læreren.
 - **ESP32 hænger i "Forbinder til WiFi":** forkert SSID eller adgangskode i `secrets.h`, eller netværket er kun på 5 GHz. ESP32 kan kun bruge 2,4 GHz (se [WiFi](../Grundlag/wifi.qmd)).
 - **`publish()` på ESP32 giver `false`, selv om der er forbindelse:** beskeden er for stor. PubSubClient har som standard en buffer på 256 bytes til hele beskeden, topic'et inklusive. Gør payloaden mindre, eller kald `mqtt.setBufferSize(512)` i `setup()`.
 - **Forbindelsen falder ud hele tiden, når to enheder kører:** de bruger samme client-id. Brokeren smider den gamle forbindelse ud, når en ny kommer med samme id. Giv hver enhed sit eget id, som i eksemplet.
