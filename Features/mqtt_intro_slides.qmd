@@ -342,7 +342,7 @@ Et værktøj, læreren har lavet, så det er synligt, hvad der sker på brokeren
 
 - En logger på wilsons abonnerer på `#` og gemmer **alle** beskeder, også dem fra port 8883
 - Hver besked bliver én linje i en fil pr. topic, og `#.jsonl` samler dem alle
-- En webserver (nginx) viser filerne: <http://wilsons.local:8080/>
+- En webserver (nginx) viser filerne: <http://wilsons.local/>
 - Virker i enhver browser og kræver ingen installation
 - Viser historikken: også beskeder, der blev sendt, før du kiggede
 - Til fejlsøgning: kom min besked frem, på det rigtige topic og med det rigtige indhold?
@@ -353,7 +353,7 @@ Et værktøj, læreren har lavet, så det er synligt, hvad der sker på brokeren
 
 ![Filen `button.jsonl`: én linje pr. besked. (Skærmbilledet er fra den gamle server, wilson.local.)](images/weblog_topic_button.png){width="760" fig-alt="Browser med filen test/esp32/button.jsonl fra weblog'en: én linje JSON pr. MQTT-besked med timestamp, topic og payload."}
 
-- Topic `elever/anna/esp32/maaling` → <http://wilsons.local:8080/elever/anna/esp32/maaling.jsonl>
+- Topic `elever/anna/esp32/maaling` → <http://wilsons.local/elever/anna/esp32/maaling.jsonl>
 - Hver linje: `timestamp`, `topic` og `payload` (din besked som tekst). Alle beskeder: `%23.jsonl`
 - Hent med Python: `requests.get(url).text.splitlines()` og `json.loads()` pr. linje
 
@@ -363,7 +363,7 @@ Et værktøj, læreren har lavet, så det er synligt, hvad der sker på brokeren
 2. `mqtt.publish()` sender den til `elever/anna/esp32/maaling` på wilsons
 3. Brokeren sender den videre til alle abonnenter: din `subscriber.py`, MQTT Explorer og loggeren
 4. Loggeren skriver den som én linje i `elever/anna/esp32/maaling.jsonl`
-5. nginx viser filen på <http://wilsons.local:8080/>, hvor alle kan læse den
+5. nginx viser filen på <http://wilsons.local/>, hvor alle kan læse den
 6. Et Python-program kan hente filen og lave en graf eller statistik
 
 Fejlsøg i samme rækkefølge: sendes der (Serial Monitor)? Kommer den frem (MQTT Explorer)? Er den logget (weblog'en)?

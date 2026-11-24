@@ -16,7 +16,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 4. Kompilér og upload ESP32-eksemplet med platform = espressif32@8.0.0 og knolleary/PubSubClient@^2.8, med et potentiometer på GPIO 32. Kommer en måling hvert 5. sekund frem i weblog'en? Flader spaending_mv ud ved ca. 3100 mV i potentiometerets ene ende?
 5. TJEK: Kan ESP32 slå "wilsons.local" op på skolens net? En pc kan (afprøvet 24. nov. 2026). MQTT_HOST er "wilsons.local" som på lokal_mqtt.qmd; 192.168.0.33 (fast IP fra 24. nov.) nævnes som reserve. wilsons.home virker ikke.
 6. TJEK: Passer tiderne for mqtt.connect() (ca. 3 s uden maskine på adressen, op til 15 s, hvis maskinen svarer, men MQTT ikke gør)? Tallene er fra kildekoden (NetworkClient og PubSubClient), ikke målt. Ret MQTT_HOST til en forkert IP (øvelse 6), og se i Serial Monitor.
-7. Det korte navn "wilsons" og wilsons.home virker ikke pålideligt på skolens net (afprøvet 24. nov. 2026). Siden bruger wilsons.local og 192.168.0.33. Ret http://wilsons:8080 i din egen vejledning.
+7. Det korte navn "wilsons" og wilsons.home virker ikke pålideligt på skolens net (afprøvet 24. nov. 2026). Siden bruger wilsons.local og 192.168.0.33. Weblog'en er flyttet til port 80: ret http://wilsons:8080 til http://wilsons.local/ i din egen vejledning.
 8. TJEK: MQTT Explorer (0.4.0-beta.6 på mqtt-explorer.com): passer feltnavnene "Encryption (tls)", "Validate certificate", "Advanced", "Certificates" og "Server Certificate (CA)" i den version, eleverne installerer? Hedder knappen "Connect", og passer beskrivelsen af Publish-feltet, retain og skraldespanden til at slette et retained topic? Forbind på 8883 med ca.crt og et elevlogin, og bekræft, at certifikatet godtages med "Validate certificate" slået til.
 9. TJEK: Viser MQTT Explorer $SYS-topics fra wilsons på port 1883? (Mosquitto sender dem som standard hvert 10. sekund.)
 10. Retained-øvelsen (øvelse 5): Bliver en retained besked i weblog'en logget igen, når mqtt-logger genstarter? Ud fra koden (mqtt_logger.py) burde den, og siden siger det. Slet testbeskederne bagefter.
@@ -24,7 +24,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 12. BILLEDE: MQTT Explorers forbindelsesvindue udfyldt til wilsons.local, port 1883.
 13. BILLEDE: MQTT Explorers topic-træ med elever/<navn>/… foldet ud og en JSON-besked valgt.
 14. BILLEDE: MQTT Explorers Certificates-dialog med ca.crt valgt som Server Certificate (CA).
-15. BILLEDE: weblog'en på wilsons.local:8080 med en elevs .jsonl-fil fra Python-eksemplet.
+15. BILLEDE: weblog'en på wilsons.local med en elevs .jsonl-fil fra Python-eksemplet.
 16. Når alt er testet: fjern IKKE TESTET PÅ HARDWARE, denne tjekliste og TJEK-kommentarerne, og gør billedboksene til billeder eller til BILLEDE-kommentarer.
 -->
 
@@ -70,7 +70,7 @@ flowchart LR
   E["ESP32<br>(publisher)"] -- "publish<br>elever/anna/temperatur" --> B(("Broker<br>wilsons"))
   B -- "elever/anna/temperatur" --> P["Python-program<br>(subscriber)"]
   B -- "elever/anna/temperatur" --> X["MQTT Explorer<br>(subscriber)"]
-  B -- "alt (#)" --> L["Loggeren<br>→ weblog :8080"]
+  B -- "alt (#)" --> L["Loggeren<br>→ weblog"]
 ```
 
 Det vigtige er, at publisher og subscriber ikke kender hinanden. ESP32 ved ikke, hvem der lytter, eller om nogen gør. Man kan tilføje en ny subscriber uden at røre ESP32-koden. Den samme enhed kan også være både publisher og subscriber, fx en ESP32, der sender målinger og samtidig abonnerer på et topic, der tænder en lysdiode.
@@ -133,7 +133,7 @@ Hold beskederne små, især fra ESP32 (se [PubSubClient](#eksempel-esp32-sender-
 
 ### JSON Lines i weblog'en
 
-På skolens broker kører en *logger*, der abonnerer på `#` og gemmer hver besked som én linje i en fil. Filerne kan ses i en browser på <http://wilsons.local:8080/>. Formatet hedder [JSON Lines]{lang="en"} (`.jsonl`): hver linje er ét JSON-objekt (se også [JSON Lines på siden om filsystemet](filsystem.qmd#json-lines)). Der er én fil pr. topic, fx `elever/anna/python/temperatur.jsonl`, og én fil med det hele, `#.jsonl`. I adresselinjen skal `#` skrives som `%23`: <http://wilsons.local:8080/%23.jsonl>.
+På skolens broker kører en *logger*, der abonnerer på `#` og gemmer hver besked som én linje i en fil. Filerne kan ses i en browser på <http://wilsons.local/>. Formatet hedder [JSON Lines]{lang="en"} (`.jsonl`): hver linje er ét JSON-objekt (se også [JSON Lines på siden om filsystemet](filsystem.qmd#json-lines)). Der er én fil pr. topic, fx `elever/anna/python/temperatur.jsonl`, og én fil med det hele, `#.jsonl`. I adresselinjen skal `#` skrives som `%23`: <http://wilsons.local/%23.jsonl>.
 
 En linje i weblog'en ser sådan ud:
 
@@ -147,7 +147,7 @@ Weblog'en er den nemmeste måde at se, at en besked faktisk nåede brokeren. Den
 
 
 ::: {.billede-mangler}
-Weblog'en på wilsons.local:8080, åbnet på en elevs fil fra Python-eksemplet (fx `elever/anna/python/temperatur.jsonl`) med nogle linjer JSON. Se lignende billeder: [Lokal MQTT server](lokal_mqtt.qmd).
+Weblog'en på wilsons.local, åbnet på en elevs fil fra Python-eksemplet (fx `elever/anna/python/temperatur.jsonl`) med nogle linjer JSON. Se lignende billeder: [Lokal MQTT server](lokal_mqtt.qmd).
 :::
 
 ## QoS, retained, keep-alive og Last Will

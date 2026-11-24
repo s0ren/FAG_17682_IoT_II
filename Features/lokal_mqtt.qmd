@@ -10,7 +10,7 @@ draft: false
 
 <!--
 TJEKLISTE TIL LÆREREN (afprøves, før IKKE TESTET PÅ HARDWARE og TJEK-kommentarerne fjernes):
-1. Upload ESP32-eksemplet med platform = espressif32@8.0.0 og en elevbruger. Kommer "OK" i Serial Monitor, og dukker beskederne op på http://wilsons.local:8080/elever/<brugernavn>/status.jsonl?
+1. Upload ESP32-eksemplet med platform = espressif32@8.0.0 og en elevbruger. Kommer "OK" i Serial Monitor, og dukker beskederne op på http://wilsons.local/elever/<brugernavn>/status.jsonl?
 2. TJEK: kan ESP32 (core 3.3) slå wilsons.local op via mqtt.setServer("wilsons.local", ...)? En pc på skolens net kan (afprøvet 24. nov. 2026), men ESP32 er ikke afprøvet. Din egen knap-demo bruger MDNS.queryHost() i stedet. wilsons.home og det korte navn wilsons virker ikke på skolens net, så siden nævner dem ikke mere. Ret afsnittet "Typiske fejl" (rc=-2 uden TLS-fejl) efter resultatet.
 3. TJEK: virker ESP32 over TLS med MQTT_HOST = "192.168.0.33"? Klienten tjekker så certifikatet mod IP-adressen, og det kræver, at mbedTLS i core 3.3 kan matche en IP i Subject Alternative Name. (Fra en pc virker TLS på .33.)
 4. Send en besked med mosquitto_pub til elever/<brugernavn>/kommando. Skriver ESP32 den ud?
@@ -19,9 +19,9 @@ TJEKLISTE TIL LÆREREN (afprøves, før IKKE TESTET PÅ HARDWARE og TJEK-komment
 7. TJEK: Windows-installeren fra mosquitto.org: kommer mosquitto_pub/mosquitto_sub med, og skal mappen selv lægges i PATH?
 8. TJEK: afsnittet "Din egen broker under udvikling" er skjult, fordi linket til mqtt_moquitto_docker_compose gav 404 (23. nov. 2026). Tjek repoet for nøgler og koder, gør det offentligt, og tag afsnittet ud af kommentaren.
 9. Pi'en har fast IP 192.168.0.33 i routeren (bekræftet 24. nov. 2026). Siden nævner den som reserve, når wilsons.local ikke virker.
-10. TJEK: CORS. Tilføj "add_header Access-Control-Allow-Origin *;" i "location ~ \.jsonl$" i nginx på wilsons, og afprøv med curl -I på en .jsonl-fil. Står headeren i svaret, kan siden igen nævne, at filerne kan hentes fra JavaScript.
+10. CORS er løst (24. nov. 2026, Docker-udgaven): curl -I på en .jsonl-fil giver "Access-Control-Allow-Origin: *". Siden kan igen nævne, at filerne kan hentes fra JavaScript.
 11. Kør mqtt_tls.py med forkert kode: skriver den "Forbindelse afvist" og "Ikke forbundet, ikke sendt" uden traceback?
-12. BILLEDE: nye skærmbilleder af weblog'en på wilsons.local:8080 (de tre nuværende viser den gamle adresse).
+12. BILLEDE: nye skærmbilleder af weblog'en på wilsons.local (de tre nuværende viser den gamle adresse).
 13. BILLEDE: terminal med mosquitto_sub -v, der viser beskeder fra test/#.
 14. BILLEDE: Serial Monitor fra ESP32-eksemplet med "Forbinder til wilsons.local:8883 ... OK" og et par "Sendt"-linjer.
 15. Når alt er testet: fjern IKKE TESTET PÅ HARDWARE, denne tjekliste og TJEK-/BILLEDE-kommentarerne.
@@ -90,7 +90,7 @@ Brokeren gemmer ikke beskederne selv. Er der ingen, der abonnerer, når beskeden
 | IP-adresse | `192.168.0.33` |
 | Port 1883 | MQTT uden kryptering og uden login. Åben for alle |
 | Port 8883 | MQTT over TLS. Kræver brugernavn og adgangskode |
-| Port 8080 | Weblog'en: <http://wilsons.local:8080/> |
+| Port 80 | Weblog'en: <http://wilsons.local/> |
 | CA-certifikat | [ca.crt](ca.crt) (gyldigt til november 2036) |
 
 <!-- wilsons.home og det korte navn wilsons virker ikke på skolens net (afprøvet 24. nov. 2026), så siden nævner dem ikke. -->
@@ -145,7 +145,7 @@ Loggeren på wilsons abonnerer på alle topics og gemmer hver besked som én lin
 - **Pr. topic:** `<topic>.jsonl`. Beskeder på `test/esp32/button` havner i `test/esp32/button.jsonl`.
 - **Alle beskeder samlet:** `#.jsonl`.
 
-Filerne kan ses i browseren på <http://wilsons.local:8080/>, hvor du kan klikke dig ned gennem mapperne. Den samlede fil hedder `#.jsonl`, men `#` betyder noget særligt i en URL, så i adresselinjen skal du skrive `%23` i stedet: <http://wilsons.local:8080/%23.jsonl>.
+Filerne kan ses i browseren på <http://wilsons.local/>, hvor du kan klikke dig ned gennem mapperne. Den samlede fil hedder `#.jsonl`, men `#` betyder noget særligt i en URL, så i adresselinjen skal du skrive `%23` i stedet: <http://wilsons.local/%23.jsonl>.
 
 ![Mappeoversigten for `test/esp32/` i weblog'en. Skærmbillederne er taget på den gamle server; adressen er nu wilsons.local.](images/weblog_mappeoversigt.png){width="500" fig-alt="Browser på wilsons.local:8080/test/esp32/ med en mappeoversigt (Index of /test/esp32/), der viser filen button.jsonl med dato og størrelse. Skærmbilledet viser den gamle adresse wilson.local."}
 
@@ -154,7 +154,7 @@ Filerne kan ses i browseren på <http://wilsons.local:8080/>, hvor du kan klikke
 ![Filen `#.jsonl` med alle beskeder fra alle topics.](images/weblog_alle_topics.png){width="500" fig-alt="Browser på %23.jsonl i weblog'en med beskeder fra flere topics: test/rpi, test/sikker og test/esp32/button. Hver linje har timestamp, topic og payload. Skærmbilledet viser den gamle IP-adresse 192.168.0.161."}
 
 ::: {.billede-mangler}
-Nye skærmbilleder af de tre visninger på wilsons.local:8080, så adressen passer med teksten.
+Nye skærmbilleder af de tre visninger på wilsons.local, så adressen passer med teksten.
 :::
 
 ### JSON Lines
@@ -177,7 +177,7 @@ Filerne er almindelige filer på en webserver, så de kan hentes med et hvilket 
 import json
 import urllib.request
 
-URL = "http://wilsons.local:8080/test/esp32/button.jsonl"
+URL = "http://wilsons.local/test/esp32/button.jsonl"
 
 with urllib.request.urlopen(URL) as svar:
     linjer = svar.read().decode("utf-8").splitlines()
@@ -193,7 +193,7 @@ for linje in linjer:
 
 Der er ingen automatisk oprydning i loggen, så filerne vokser hele tiden.
 
-<!-- TJEK: CORS. I nginx-opsætningen (pi_setup/nginx/mqtt-logs) står "add_header Access-Control-Allow-Origin *" kun i "location /". .jsonl-filerne rammer "location ~ \.jsonl$", som ikke arver add_header, så fetch() fra JavaScript på en anden side bliver blokeret. Tilføj headeren i .jsonl-blokken, afprøv med curl -I http://wilsons.local:8080/test/esp32/button.jsonl, og skriv derefter evt. på siden, at filerne også kan hentes fra JavaScript. -->
+<!-- TJEK: CORS er løst i Docker-udgaven (24. nov. 2026): curl -I http://wilsons.local/test/cors.jsonl gav "Access-Control-Allow-Origin: *" og "Content-Type: text/plain; charset=utf-8". Skriv evt. på siden, at filerne også kan hentes med fetch() fra JavaScript. Weblog'en findes også på https://wilsons.local/, men browserne stoler først på den, når skolens ca.crt er importeret (ikke løst endnu). -->
 
 
 ## Eksempel: kommandolinjen
@@ -518,7 +518,7 @@ mosquitto_pub -h wilsons.local -p 8883 --cafile ca.crt \
 
 ## Øvelser
 
-1. Åbn weblog'en på <http://wilsons.local:8080/>. Find `#.jsonl`, og find ud af, hvilke topics der er blevet sendt til i dag.
+1. Åbn weblog'en på <http://wilsons.local/>. Find `#.jsonl`, og find ud af, hvilke topics der er blevet sendt til i dag.
 2. Start `mosquitto_sub` på `test/#` uden TLS. Send en besked til `test/<dit navn>/hej` med `mosquitto_pub` fra en anden terminal. Kommer den frem i din abonnent? Find den bagefter i weblog'en.
 3. Gør det samme med TLS på port 8883 og dit eget brugernavn. Send derefter til `elever/<en anden elevs navn>/hej` og til `andet/hej`. Hvad sker der i abonnenten? Får `mosquitto_pub` en fejl? Forklar, hvad du ser.
 4. Fjern `--cafile ca.crt` fra kommandoen med `-p 8883`. Hvilken fejl får du? Skriv fejlmeddelelsen ned, og forklar med afsnittet om [ca.crt](#ca-crt), hvorfor forbindelsen bliver afvist.
