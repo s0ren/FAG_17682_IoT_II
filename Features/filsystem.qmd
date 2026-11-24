@@ -305,7 +305,9 @@ mit_projekt/
 └── platformio.ini
 ```
 
-<!-- BILLEDE: VS Codes Explorer med data/-mappen (med hilsen.txt) på samme niveau som src/. Se fx: https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2024/06/create-txt-file-vs-code-esp32.png?quality=100&strip=all&ssl=1 (RNT: data/text.txt på samme niveau som src/) -->
+::: {.billede-mangler}
+VS Codes Explorer med data/-mappen (med hilsen.txt) på samme niveau som src/. Se lignende billeder: <https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2024/06/create-txt-file-vs-code-esp32.png?quality=100&strip=all&ssl=1> (RNT: data/text.txt på samme niveau som src/)
+:::
 
 Sådan kommer filerne over på ESP32:
 
@@ -317,7 +319,9 @@ PlatformIO laver et LittleFS-image af hele `data/`-mappen (med værktøjet `mkli
 
 <!-- TJEK: opgavenavnene "Build Filesystem Image" og "Upload Filesystem Image" er bekræftet i kildekoden til platform-espressif32 (develop-grenen), og Random Nerd Tutorials viser dem under "Platform". Ikke afprøvet med espressif32@8.0.0. -->
 
-<!-- BILLEDE: PlatformIO's Project Tasks foldet ud, med Platform → Upload Filesystem Image markeret. Se fx: https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2024/06/upload-filesystem-image-esp32-vs-code.png?quality=100&strip=all&ssl=1 (RNT: Platform → Build/Upload Filesystem Image markeret) -->
+::: {.billede-mangler}
+PlatformIO's Project Tasks foldet ud, med Platform → Upload Filesystem Image markeret. Se lignende billeder: <https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2024/06/upload-filesystem-image-esp32-vs-code.png?quality=100&strip=all&ssl=1> (RNT: Platform → Build/Upload Filesystem Image markeret)
+:::
 
 ::: {.callout-warning}
 ## Upload Filesystem Image overskriver alt
@@ -534,7 +538,9 @@ void loop() {
 }
 ```
 
-<!-- BILLEDE: Serial Monitor under cache-eksemplet: et par "Sendt", derefter "Cachet" mens ledningen sidder i, og til sidst "Sendt" for de cachede målinger og "Cachen er tømt". Se fx: https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2023/07/ESP32-LittleFS-Append-Data.png?quality=100&strip=all&ssl=1 (RNT: append og read til en LittleFS-fil; ikke cache med netværk) -->
+::: {.billede-mangler}
+Serial Monitor under cache-eksemplet: et par "Sendt", derefter "Cachet" mens ledningen sidder i, og til sidst "Sendt" for de cachede målinger og "Cachen er tømt". Se lignende billeder: <https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2023/07/ESP32-LittleFS-Append-Data.png?quality=100&strip=all&ssl=1> (RNT: append og read til en LittleFS-fil; ikke cache med netværk)
+:::
 
 Sådan virker det:
 

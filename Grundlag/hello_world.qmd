@@ -59,7 +59,9 @@ Almindelige variabler starter forfra med deres startværdi. En tæller, der var 
 
 **EN** står for *enable*. Den slukker chippen et øjeblik, og når du slipper den, starter den forfra. Det er altså reset-knappen. Den anden knap, **BOOT** (GPIO 0), bruges mest ved upload: holdes den nede ved opstart, går ESP32 i upload-tilstand (se [PlatformIO](platformio.qmd#failed-to-connect-boot-knappen)).
 
-<!-- BILLEDE: ESP32-DEVKIT-V1 set ovenfra med pile til knapperne EN og BOOT ved USB-stikket og til den lille blå lysdiode (GPIO 2) og den røde strømlysdiode. Se lignende billeder: [Random Nerd Tutorials: ESP32 Pinout Reference](https://randomnerdtutorials.com/esp32-pinout-reference-gpios/). -->
+::: {.billede-mangler}
+ESP32-DEVKIT-V1 set ovenfra med pile til knapperne EN og BOOT ved USB-stikket og til den lille blå lysdiode (GPIO 2) og den røde strømlysdiode. Se lignende billeder: [Random Nerd Tutorials: ESP32 Pinout Reference](https://randomnerdtutorials.com/esp32-pinout-reference-gpios/).
+:::
 
 ## Serial: ESP32 skriver til din computer
 
@@ -113,7 +115,9 @@ Hej fra ESP32!
 
 <!-- TJEK: de præcise opstartslinjer (rst:/boot:-værdierne efter et tryk på EN) er ikke afprøvet på skolens kort. esptool-dokumentationen bekræfter kun, at ROM'en skriver en "rst:… boot:…"-linje ved 115200 baud. -->
 
-<!-- BILLEDE: Serial Monitor i VS Code efter et tryk på EN: opstartslinjerne fra ROM'en og til sidst "Hej fra ESP32!". Se lignende billeder: [Random Nerd Tutorials: Getting Started with VS Code and PlatformIO IDE](https://randomnerdtutorials.com/vs-code-platformio-ide-esp32-esp8266-arduino/). -->
+::: {.billede-mangler}
+Serial Monitor i VS Code efter et tryk på EN: opstartslinjerne fra ROM'en og til sidst "Hej fra ESP32!". Se lignende billeder: [Random Nerd Tutorials: Getting Started with VS Code and PlatformIO IDE](https://randomnerdtutorials.com/vs-code-platformio-ide-esp32-esp8266-arduino/).
+:::
 
 ## Eksempel: blink med delay()
 
@@ -217,7 +221,9 @@ Læg mærke til:
 
 <!-- TJEK: 220 Ω til lysdioderne er ikke afprøvet med lokalets lysdioder (samme TJEK som på siden om breadboard). -->
 
-<!-- BILLEDE: Opstillingen til øvelse 4: ESP32-DEVKIT-V1 på breadboard med to lysdioder og to modstande på GPIO 22 og 23, med korte, flade ledninger. Se lignende billeder: [ESP32IO: ESP32 - LED - Blink Without Delay](https://esp32io.com/tutorials/esp32-led-blink-without-delay). -->
+::: {.billede-mangler}
+Opstillingen til øvelse 4: ESP32-DEVKIT-V1 på breadboard med to lysdioder og to modstande på GPIO 22 og 23, med korte, flade ledninger. Se lignende billeder: [ESP32IO: ESP32 - LED - Blink Without Delay](https://esp32io.com/tutorials/esp32-led-blink-without-delay).
+:::
 
 ## Typiske fejl
 

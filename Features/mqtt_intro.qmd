@@ -146,7 +146,9 @@ Bemærk, at din JSON står *inde i* en tekst (`"payload": "{\"button\"…}"`) me
 Weblog'en er den nemmeste måde at se, at en besked faktisk nåede brokeren. Den viser kun det, der er kommet frem, ikke det, der blev afvist. Serverens navn og IP-adresse (`wilsons.local` og `192.168.0.33`) og flere skærmbilleder står på [Lokal MQTT server](lokal_mqtt.qmd).
 
 
-<!-- BILLEDE: Weblog'en på wilsons.local:8080, åbnet på en elevs fil fra Python-eksemplet (fx `elever/anna/python/temperatur.jsonl`) med nogle linjer JSON. Se lignende billeder: [Lokal MQTT server](lokal_mqtt.qmd). -->
+::: {.billede-mangler}
+Weblog'en på wilsons.local:8080, åbnet på en elevs fil fra Python-eksemplet (fx `elever/anna/python/temperatur.jsonl`) med nogle linjer JSON. Se lignende billeder: [Lokal MQTT server](lokal_mqtt.qmd).
+:::
 
 ## QoS, retained, keep-alive og Last Will
 
@@ -544,7 +546,9 @@ Hent det fra <https://mqtt-explorer.com/>. Det findes til Windows (Microsoft Sto
 
 Som standard abonnerer MQTT Explorer på `#` og `$SYS/#`, så du ser alt på brokeren. Under *Advanced* kan du ændre abonnementerne og se dit *MQTT Client ID*. MQTT Explorer laver selv et unikt id, der starter med `mqtt-explorer-`.
 
-<!-- BILLEDE: MQTT Explorers forbindelsesvindue udfyldt med Host `wilsons.local`, Port `1883` og Encryption (tls) slået fra. Se lignende billeder: [mqtt-explorer.com](https://mqtt-explorer.com/). -->
+::: {.billede-mangler}
+MQTT Explorers forbindelsesvindue udfyldt med Host `wilsons.local`, Port `1883` og Encryption (tls) slået fra. Se lignende billeder: [mqtt-explorer.com](https://mqtt-explorer.com/).
+:::
 
 ### Se topic-træet og send en testbesked
 
@@ -555,7 +559,9 @@ Som standard abonnerer MQTT Explorer på `#` og `$SYS/#`, så du ser alt på bro
 
 <!-- TJEK: $SYS-topics fra wilsons bør vises på port 1883 (Mosquitto sender dem som standard hvert 10. sekund); bekræft i MQTT Explorer. -->
 
-<!-- BILLEDE: MQTT Explorers topic-træ med `elever/<navn>/python/temperatur` foldet ud og en JSON-besked valgt i panelet til højre. Se lignende billeder: [mqtt-explorer.com](https://mqtt-explorer.com/). -->
+::: {.billede-mangler}
+MQTT Explorers topic-træ med `elever/<navn>/python/temperatur` foldet ud og en JSON-besked valgt i panelet til højre. Se lignende billeder: [mqtt-explorer.com](https://mqtt-explorer.com/).
+:::
 
 ### Forbind på port 8883 med TLS og login
 
@@ -570,7 +576,9 @@ Brug `wilsons.local` eller `192.168.0.33`, som står i certifikatet (se [Lokal M
 
 <!-- TJEK: Feltnavnene er læst i MQTT Explorers kildekode (Certificates.tsx og ConnectionSettings.tsx på master). Bekræft i den version, eleverne installerer (0.4.0-beta.6), og at ca.crt godtages med Validate certificate slået til. -->
 
-<!-- BILLEDE: MQTT Explorers Certificates-dialog med `ca.crt` valgt under Server Certificate (CA). Se lignende billeder: [mqtt-explorer.com](https://mqtt-explorer.com/). -->
+::: {.billede-mangler}
+MQTT Explorers Certificates-dialog med `ca.crt` valgt under Server Certificate (CA). Se lignende billeder: [mqtt-explorer.com](https://mqtt-explorer.com/).
+:::
 
 ## Øvelser
 

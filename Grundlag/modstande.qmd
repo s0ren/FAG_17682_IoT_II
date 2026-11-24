@@ -116,7 +116,9 @@ Bemærk, at 220 Ω altså har forskellige farver med 4 og 5 bånd. Tæl båndene
 
 <!-- TJEK: om lokalets modstande har 4 eller 5 bånd, og hvilken farve legemet har (beige med 4 bånd eller blå med 5 bånd er det almindelige). -->
 
-<!-- BILLEDE: Lokalets modstande: en 220 Ω med 4 bånd og en 220 Ω med 5 bånd, side om side, så farverne kan sammenlignes. Se lignende billeder: [Electronics Tutorials: Resistor Colour Code](https://www.electronics-tutorials.ws/resistor/res_2.html). -->
+::: {.billede-mangler}
+Lokalets modstande: en 220 Ω med 4 bånd og en 220 Ω med 5 bånd, side om side, så farverne kan sammenlignes. Se lignende billeder: [Electronics Tutorials: Resistor Colour Code](https://www.electronics-tutorials.ws/resistor/res_2.html).
+:::
 
 ### Hvilken vej skal den læses?
 
@@ -128,7 +130,9 @@ En modstand har ingen top eller bund, så du skal selv finde ud af, hvor du skal
 
 Det er sværest med 5-båndsmodstande, hvor tolerancen er brun, og første ciffer også kan være brunt. Eksempel: **brun, sort, sort, brun, brun** er 100 × 10 = 1 kΩ. Læst fra den anden ende er det **brun, brun, sort, sort, brun** = 110 × 1 = 110 Ω. Begge dele er rigtige værdier. Når du er i tvivl, så mål modstanden med et multimeter.
 
-<!-- BILLEDE: En blå 5-båndsmodstand med brun i begge ender, tæt på, så det ses, at det er svært at vide, hvilken vej den skal læses. Se lignende billeder: [EEPower: Resistor Color Code](https://eepower.com/resistor-guide/resistor-standards-and-codes/resistor-color-code/). -->
+::: {.billede-mangler}
+En blå 5-båndsmodstand med brun i begge ender, tæt på, så det ses, at det er svært at vide, hvilken vej den skal læses. Se lignende billeder: [EEPower: Resistor Color Code](https://eepower.com/resistor-guide/resistor-standards-and-codes/resistor-color-code/).
+:::
 
 ## Standardværdier: E12 og E24
 
@@ -177,7 +181,9 @@ Farvekoden kan være svær at læse, især i dårligt lys eller på blå modstan
 3. Hold ikke om begge ben med fingrene. Din krop er også en modstand, og ved store værdier (over ca. 100 kΩ) kan den påvirke målingen.
 4. Sammenlign med farvekoden: Den målte værdi skal ligge inden for tolerancen.
 
-<!-- BILLEDE: Et af lokalets multimetre, der måler en løs modstand, med displayet tydeligt. Se lignende billeder: [Wikipedia: Multimeter](https://en.wikipedia.org/wiki/Multimeter). -->
+::: {.billede-mangler}
+Et af lokalets multimetre, der måler en løs modstand, med displayet tydeligt. Se lignende billeder: [Wikipedia: Multimeter](https://en.wikipedia.org/wiki/Multimeter).
+:::
 
 ## Farvekode-beregner {#farvekode-beregner}
 

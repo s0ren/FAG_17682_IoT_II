@@ -65,7 +65,9 @@ Kontakter beskrives også ud fra, hvad de gør, når ingen rører dem:
 
 Vippe- og skydekontakter har ofte tre ben: det midterste er fælles (COM) og forbindes til enten det ene eller det andet yderben. Det kaldes en omskifter ([SPDT]{lang="en"}). De har ingen hvilestilling, så NO og NC giver ikke mening for dem. En endestopkontakt ([micro switch]{lang="en"}) fjedrer derimod tilbage og har derfor tit benene mærket COM, NO og NC.
 
-<!-- BILLEDE: En trykknap, en vippekontakt og en skydekontakt side om side, fra lokalets kasser. Se lignende billeder: [ESP32IO: ESP32 - Button](https://esp32io.com/tutorials/esp32-button). -->
+::: {.billede-mangler}
+En trykknap, en vippekontakt og en skydekontakt side om side, fra lokalets kasser. Se lignende billeder: [ESP32IO: ESP32 - Button](https://esp32io.com/tutorials/esp32-button).
+:::
 
 ### Trykknappen har fire ben
 
@@ -84,7 +86,9 @@ Der er kun forbindelse mellem A og B, mens du trykker.
 
 Brug derfor to ben, der sidder **diagonalt** over for hinanden. Så går forbindelsen helt sikkert gennem kontakten, uanset hvordan knappen er drejet. Vælger du to ben, der er forbundet indvendigt, er "knappen" altid trykket.
 
-<!-- BILLEDE: En trykknap set fra siden og fra neden, med de to par forbundne ben markeret. Se lignende billeder: [ESP32IO: ESP32 - Button](https://esp32io.com/tutorials/esp32-button) (afsnittet om knappens ben). -->
+::: {.billede-mangler}
+En trykknap set fra siden og fra neden, med de to par forbundne ben markeret. Se lignende billeder: [ESP32IO: ESP32 - Button](https://esp32io.com/tutorials/esp32-button) (afsnittet om knappens ben).
+:::
 
 ### Knappen på breadboardet
 
@@ -162,7 +166,9 @@ Knappen sidder mellem **GPIO 18** og **GND**, på to diagonale ben. Lysdioden er
 
 <!-- TJEK: at den indbyggede lysdiode på lokalets boards sidder på GPIO 2 og lyser ved HIGH. -->
 
-<!-- BILLEDE: Eksemplets opstilling: ESP32-DEVKIT-V1 og en trykknap over renden, med ledninger fra to diagonale ben til GPIO 18 og GND. Se lignende billeder på siden om [Breadboard](breadboard.qmd). -->
+::: {.billede-mangler}
+Eksemplets opstilling: ESP32-DEVKIT-V1 og en trykknap over renden, med ledninger fra to diagonale ben til GPIO 18 og GND. Se lignende billeder på siden om [Breadboard](breadboard.qmd).
+:::
 
 ```{.ini filename="platformio.ini"}
 [env:esp32doit-devkit-v1]

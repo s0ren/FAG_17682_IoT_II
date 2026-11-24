@@ -95,7 +95,9 @@ To ting er værd at hæfte sig ved: ESP32 kan **ikke** bruge WiFi på 5 GHz, og 
 
 <!-- TJEK: farverne på lysdioderne (typisk rød for strøm og blå for GPIO 2) og at VIN ligger på ca. 5 V, når kortet får strøm fra USB, er ikke bekræftet i en officiel kilde for DOIT-kortet. Se tjekliste punkt 4. -->
 
-<!-- BILLEDE: Nærbillede af et af skolens kort set fra oven, hvor USB-chippens navn kan læses, og hvor spændingsregulatoren og de to lysdioder (strøm og GPIO 2) er markeret. Se lignende billede: [Random Nerd Tutorials: Getting Started with the ESP32](https://randomnerdtutorials.com/getting-started-with-esp32/). -->
+::: {.billede-mangler}
+Nærbillede af et af skolens kort set fra oven, hvor USB-chippens navn kan læses, og hvor spændingsregulatoren og de to lysdioder (strøm og GPIO 2) er markeret. Se lignende billede: [Random Nerd Tutorials: Getting Started with the ESP32](https://randomnerdtutorials.com/getting-started-with-esp32/).
+:::
 
 Strømmen må kun komme ét sted fra ad gangen: enten USB eller en ekstern forsyning på `VIN` eller `3V3`. Espressif advarer om, at kort og strømforsyning kan tage skade, hvis man bruger flere på én gang. Advarslen står ved deres eget udviklingskort (ESP32-DevKitC), men det samme gælder i praksis for DEVKIT-V1.
 
@@ -160,7 +162,9 @@ Benene sidder forskelligt på de to udgaver, så brug et pinout-diagram, der pas
 
 <!-- TJEK: hvilken udgave har skolen (30 eller 36 ben)? At 30-ben-udgaven mangler netop GPIO 6–11, er fra en kommentar på Random Nerd Tutorials, ikke fra DOIT. Se tjekliste punkt 4. -->
 
-<!-- BILLEDE: Skolens kort set fra en vinkel, så teksten ved benene kan læses (fx `D18`, `VP`, `VN`, `VIN`). Har skolen begge udgaver, så gerne én af hver ved siden af hinanden. Se lignende diagram: [Random Nerd Tutorials: ESP32 Pinout Reference](https://randomnerdtutorials.com/esp32-pinout-reference-gpios/). -->
+::: {.billede-mangler}
+Skolens kort set fra en vinkel, så teksten ved benene kan læses (fx `D18`, `VP`, `VN`, `VIN`). Har skolen begge udgaver, så gerne én af hver ved siden af hinanden. Se lignende diagram: [Random Nerd Tutorials: ESP32 Pinout Reference](https://randomnerdtutorials.com/esp32-pinout-reference-gpios/).
+:::
 
 ### Pinout-diagram
 
@@ -300,7 +304,9 @@ Sådan virker det:
 - `esp_partition_find()` giver en [iterator]{lang="en"}, som `esp_partition_next()` flytter videre, til den bliver `NULL`. Listen skal passe med `default.csv`-tabellen ovenfor.
 - `delay(1000)` i `setup()` er her med vilje og er ufarlig: den kører kun én gang. I `loop()` bruges `millis()`, så programmet ikke står stille.
 
-<!-- BILLEDE: Skærmbillede af Serial Monitor i VS Code med udskriften fra eksemplet: chipmodel, flash, heap og partitionslisten med "kører nu" ved `app0`. -->
+::: {.billede-mangler}
+Skærmbillede af Serial Monitor i VS Code med udskriften fra eksemplet: chipmodel, flash, heap og partitionslisten med "kører nu" ved `app0`.
+:::
 
 ## Øvelser
 

@@ -73,14 +73,13 @@ The code can't be compiled in the dev container (no PlatformIO there, by the tea
 - At the top of the body, add `<!-- IKKE KOMPILERET: eksemplerne er tjekket mod dokumentationen, men ikke kompileret eller testet på hardware. -->` until the teacher has tested them.
 - Right below it, keep one comment block that starts with `TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):` and numbers every hardware test, TJEK point and BILLEDE point on the page, ending with a step to remove IKKE KOMPILERET, the checklist and the TJEK/BILLEDE comments. Update it whenever the page changes.
 - Where the teacher's own photo or screenshot would help (3–5 per page at most; more for very visual topics), mark the spot. Link to pages with similar pictures instead of copying or embedding images.
-  - On a draft (`draft: true`), use a visible box so the teacher sees it on the page:
+  - Use a visible box, on drafts and published pages alike (students may see it), so the teacher sees what to photograph:
     ```
     ::: {.billede-mangler}
     What the picture should show. Se lignende billeder: [Source](url).
     :::
     ```
-    (styled in `styles.css` as an orange "📷 Foto mangler" box).
-  - On a published page (`draft: false`), students must not see these boxes: use `<!-- BILLEDE: what it should show -->` instead. When a draft is published, turn every remaining box into such a comment.
+    (styled in `styles.css` as an orange "📷 Foto mangler" box). Replace the box with the image when the photo exists.
 
 ## When several agents write pages at the same time
 

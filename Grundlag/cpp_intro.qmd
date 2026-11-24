@@ -240,7 +240,9 @@ void tagMaalinger(int data[], int antal) {
 }
 ```
 
-<!-- BILLEDE: VS Codes Explorer med projektet foldet ud, så include/statistik.h, src/statistik.cpp og src/main.cpp ses. Se fx: https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2020/09/PlatfomIO-project-created-folder-structure.png?quality=100&strip=all&ssl=1 (RNT: mappestrukturen, men med lukkede mapper og uden vores filer) -->
+::: {.billede-mangler}
+VS Codes Explorer med projektet foldet ud, så include/statistik.h, src/statistik.cpp og src/main.cpp ses. Se lignende billeder: <https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2020/09/PlatfomIO-project-created-folder-structure.png?quality=100&strip=all&ssl=1> (RNT: mappestrukturen, men med lukkede mapper og uden vores filer)
+:::
 
 Læg mærke til:
 
@@ -406,7 +408,9 @@ Forventet udskrift (adressen er et hextal, som er anderledes hos dig):
 | Efter `fordoblPointer` | 84 |
 | Efter `fordoblReference` | 168 |
 
-<!-- BILLEDE: Serial Monitor med hele udskriften fra pointer-eksemplet, efter et tryk på EN. Se fx: https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2020/09/Platformio-VS-Code-Serial-Monitor-ESP32.png?quality=100&strip=all&ssl=1 (RNT: Serial Monitor i PlatformIO, men med et andet program) -->
+::: {.billede-mangler}
+Serial Monitor med hele udskriften fra pointer-eksemplet, efter et tryk på EN. Se lignende billeder: <https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2020/09/Platformio-VS-Code-Serial-Monitor-ESP32.png?quality=100&strip=all&ssl=1> (RNT: Serial Monitor i PlatformIO, men med et andet program)
+:::
 
 ## Øvelser
 
@@ -436,7 +440,9 @@ Forventet udskrift (adressen er et hextal, som er anderledes hos dig):
 - **Mærkelige værdier fra en pointer:** Pointeren peger på en lokal variabel i en funktion, der er afsluttet. Så findes variablen ikke længere. Returner aldrig adressen på en lokal variabel.
 - **Forkert antal elementer:** `sizeof` på en array-parameter giver størrelsen på en pointer (4), ikke arrayets. Send antallet med som parameter.
 
-<!-- BILLEDE: PlatformIO's terminal med en "undefined reference to"-fejl fra linkeren (fx fra øvelse 3b). -->
+::: {.billede-mangler}
+PlatformIO's terminal med en "undefined reference to"-fejl fra linkeren (fx fra øvelse 3b).
+:::
 
 ## Læs videre
 

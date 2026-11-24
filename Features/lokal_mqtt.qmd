@@ -153,7 +153,9 @@ Filerne kan ses i browseren på <http://wilsons.local:8080/>, hvor du kan klikke
 
 ![Filen `#.jsonl` med alle beskeder fra alle topics.](images/weblog_alle_topics.png){width="500" fig-alt="Browser på %23.jsonl i weblog'en med beskeder fra flere topics: test/rpi, test/sikker og test/esp32/button. Hver linje har timestamp, topic og payload. Skærmbilledet viser den gamle IP-adresse 192.168.0.161."}
 
-<!-- BILLEDE: nye skærmbilleder af de tre visninger på wilsons.local:8080, så adressen passer med teksten. -->
+::: {.billede-mangler}
+Nye skærmbilleder af de tre visninger på wilsons.local:8080, så adressen passer med teksten.
+:::
 
 ### JSON Lines
 
@@ -218,7 +220,9 @@ mosquitto_pub -h wilsons.local -t test/usikker -m "Hej uden TLS"
 
 Uden `-p` bruges port 1883 (eller 8883, hvis du angiver `--cafile`). Sæt `#`-topics i anførselstegn, så din shell ikke tolker tegnet.
 
-<!-- BILLEDE: terminal med mosquitto_sub -v, der viser et par beskeder fra test/#. -->
+::: {.billede-mangler}
+Terminal med mosquitto_sub -v, der viser et par beskeder fra test/#.
+:::
 
 ### Med TLS og login (port 8883)
 
@@ -490,7 +494,9 @@ void loop() {
 
 Kopiér `secrets_eksempel.h` til `secrets.h`, og udfyld den. Upload og åbn Serial Monitor. Efter WiFi skulle der stå `Forbinder til wilsons.local:8883 ... OK` og derefter en `Sendt`-linje hvert 10. sekund. Find dine beskeder i weblog'en under `elever/<brugernavn>/status.jsonl`.
 
-<!-- BILLEDE: Serial Monitor fra eksemplet med "Forbinder til wilsons.local:8883 ... OK" og et par "Sendt"-linjer. -->
+::: {.billede-mangler}
+Serial Monitor fra eksemplet med "Forbinder til wilsons.local:8883 ... OK" og et par "Sendt"-linjer.
+:::
 
 Sådan virker det:
 
