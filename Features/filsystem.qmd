@@ -10,13 +10,13 @@ draft: false
 
 <!--
 TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
-1. Kompilér og upload eksemplet "Læs, skriv og tilføj" med platform = espressif32@8.0.0 og board_build.filesystem = littlefs. Tryk EN et par gange: tæller opstartstælleren op, og vokser /log.txt med én linje pr. opstart?
-2. Pladsen i udskriften (TJEK under eksempel 1): giver LittleFS.totalBytes() 1441792 med standardpartitionstabellen, og er usedBytes() 8192 både på et nyformateret filsystem og med antal.txt og log.txt? Ret udskriften og teksten, hvis tallene er andre.
-3. Findes opgaven "Upload Filesystem Image" under Project Tasks → esp32doit-devkit-v1 → Platform i VS Code med espressif32@8.0.0 (TJEK under "Filer fra data/-mappen")? Henter PlatformIO selv mklittlefs første gang?
+1. AFPRØVET 24. nov. 2026: opstartstælleren tæller op, og /log.txt vokser med én linje pr. opstart.
+2. DELVIS AFPRØVET 24. nov. 2026: totalBytes() = 1441792 og usedBytes() = 8192 med antal.txt og log.txt. Mangler: et nyformateret filsystem.
+3. Findes opgaven "Upload Filesystem Image" under Project Tasks → esp32doit-devkit-v1 → Platform i VS Code med espressif32@8.0.0 (TJEK under "Filer fra data/-mappen")? Henter PlatformIO selv mklittlefs første gang? (AFPRØVET 24. nov. 2026 fra kommandolinjen: pio run -t uploadfs virker, og mklittlefs hentes selv. Navnet i VS Code er ikke set.)
 4. Lukker PlatformIO selv Serial Monitor før Upload Filesystem Image (TJEK under Typiske fejl)? Hvis ja, kan trin 1 og rådet i Typiske fejl forkortes.
-5. Upload data/hilsen.txt med Upload Filesystem Image, og kør eksemplet "Filer fra data/-mappen".
+5. AFPRØVET 24. nov. 2026: hilsen.txt uploades og læses af eksemplet.
 6. Bekræft, at Upload Filesystem Image sletter filer, programmet selv har skrevet, fx /log.txt fra eksempel 1 (TJEK efter advarslen).
-7. Kør cache-eksemplet: hold knappen på GPIO 33 nede (eller sæt en ledning fra GPIO 33 til GND) et par målinger, og slip. Bliver cachen sendt i rigtig rækkefølge og slettet? Overlever cachen et tryk på EN, mens knappen holdes nede?
+7. AFPRØVET 24. nov. 2026: 6 målinger blev cachet og sendt i rigtig rækkefølge, da knappen blev sluppet ("Cachen er tømt: 6 målinger sendt"). Mangler: Overlever cachen et tryk på EN, mens knappen holdes nede?
 8. Prøv board_build.partitions = no_ota.csv: stiger totalBytes() til omkring 1,9 MB? Skal filsystemet formateres igen (begin(true) gør det)?
 Skærmbilleder, der mangler (se BILLEDE-kommentarerne):
 9. Explorer med data/-mappen ved siden af src/. 10. Project Tasks med Platform → Upload Filesystem Image. 11. Serial Monitor under cache-eksemplet, hvor netværket forsvinder og kommer igen.

@@ -10,12 +10,12 @@ draft: false
 
 <!--
 TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
-1. Kompilér og upload testprogrammet med platform = espressif32@8.0.0. Byg det igen med arduinogetstarted/ezButton@^1.0.6 i lib_deps.
+1. AFPRØVET 24. nov. 2026: testprogrammet virker ("PlatformIO virker!", lysdioden blinker), og ezButton@^1.0.6 i lib_deps bygger (debouncing-eksemplet).
 2. Hvor meget fylder den første download af espressif32@8.0.0? Ret "flere hundrede MB".
 3. Beder VS Code om "Reload Window", når PlatformIO Core er installeret? (ren installation)
 4. Project Wizard: passer feltnavnene (Name/Board/Framework/Location) og fluebenet "Use default location"?
 5. Skriver guiden platform = espressif32 uden version?
-6. Hvilken USB-chip har skolens kort: CP2102 eller CH340? Ret afsnittet om USB.
+6. DELVIS AFPRØVET 24. nov. 2026: to kort har en CH9102 (USB-ID 1a86:55d4), hverken CP2102 eller CH340. Afsnittet om USB er rettet. Mangler: tjek flere af lokalets kort, og hvad porten hedder i Enhedshåndtering.
 7. Virker driver-linkene til Silicon Labs og WCH? Henter Windows selv driveren på skolens maskiner?
 8. Hvornår må BOOT slippes under upload? Prøv på skolens kort.
 9. PIO Home → Libraries → Add to Project: passer trinnene og knapnavnene (dialogen, knappen "Add"), og skriver den lib_deps-linjen på formen arduinogetstarted/ezButton@^1.0.6?
@@ -192,14 +192,17 @@ Mange USB-kabler, især dem der følger med powerbanks og små apparater, kan ku
 
 ### USB-serielchippen og driveren
 
-ESP32 har ikke selv USB. På DEVKIT-V1 sidder der en lille chip ved USB-stikket, som oversætter mellem USB og ESP32's serielle port (UART). Det originale DOIT-design bruger en **CP2102** fra Silicon Labs, men mange kopier bruger en **CH340** fra WCH. Navnet står på chippen, hvis du kigger med lup.
+ESP32 har ikke selv USB. På DEVKIT-V1 sidder der en lille chip ved USB-stikket, som oversætter mellem USB og ESP32's serielle port (UART). Det originale DOIT-design bruger en **CP2102** fra Silicon Labs, men mange kopier bruger en **CH340** eller en nyere **CH9102**, begge fra WCH. Navnet står på chippen, hvis du kigger med lup. Skolens kort, vi har afprøvet, har en CH9102.
 
-<!-- TJEK: hvilken USB-serielchip sidder på skolens kort? Tjek et par stykker og ret afsnittet, så det passer. -->
+<!-- TJEK: to af skolens kort har CH9102 (USB-ID 1a86:55d4, afprøvet 24. nov. 2026 på Linux, hvor den vises som /dev/ttyACM0). Tjek et par kort mere i lokalet. -->
 
 Windows 10 og 11 installerer som regel driveren selv, når du sætter kortet i. Hvis der ikke dukker en port op:
 
 - CP2102: hent driveren *CP210x USB to UART Bridge VCP Drivers* fra [Silicon Labs](https://www.silabs.com/developer-tools/usb-to-uart-bridge-vcp-drivers).
 - CH340: hent driveren fra producenten WCH, [CH341SER](https://www.wch-ic.com/downloads/CH341SER_EXE.html).
+- CH9102: driveren fra WCH hedder [CH343SER](https://www.wch-ic.com/downloads/CH343SER_EXE.html).
+
+<!-- TJEK: CH343SER-linket svarer (200), men siden kunne ikke læses automatisk. Tjek, at den nævner CH9102, og om Windows' indbyggede USB-seriel-driver er nok (chippen er en USB CDC-enhed). -->
 
 <!-- TJEK: Silicon Labs-siden og WCH-siden kunne ikke hentes ved faktatjekket (403 / tom side). Tjek, at linkene virker. At Windows 10/11 selv henter driveren, er Espressifs formulering ("drivers should be bundled with an operating system"), ikke afprøvet på skolens maskiner. -->
 
@@ -209,7 +212,9 @@ På Windows hedder serielle porte `COM3`, `COM4` osv. Sådan finder du den, kort
 
 1. Åbn **Enhedshåndtering** (højreklik på Start-knappen).
 2. Fold **Porte (COM og LPT)** ud.
-3. Tag kortet ud og sæt det i igen. Den port, der forsvinder og kommer igen, er din. Den hedder fx *Silicon Labs CP210x USB to UART Bridge (COM3)* eller *USB-SERIAL CH340 (COM5)*.
+3. Tag kortet ud og sæt det i igen. Den port, der forsvinder og kommer igen, er din. Den hedder fx *Silicon Labs CP210x USB to UART Bridge (COM3)* eller *USB-SERIAL CH340 (COM5)*. En CH9102 kan hedde *USB-Enhanced-SERIAL CH9102* eller, uden WCH's driver, *USB-serielt enhed*.
+
+<!-- TJEK: navnet på en CH9102-port i dansk Windows, med og uden CH343SER. -->
 
 Espressif viser det med skærmbilleder under [Check Port on Windows](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/establish-serial-connection.html#check-port-on-windows){lang="en"}.
 

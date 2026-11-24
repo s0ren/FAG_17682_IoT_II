@@ -10,16 +10,16 @@ draft: false
 
 <!--
 TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
-1. Kompilér og upload modtageren og afsenderen med platform = espressif32@8.0.0. Kompilerer begge uden advarsler (printf af uint32_t med %lu og cast, og af (int)WiFi.channel() med %d)?
-2. Kommer beskederne frem, og skriver afsenderen "kvitteret" ved unicast og "IKKE kvitteret", når modtageren er slukket?
+1. AFPRØVET 24. nov. 2026: begge kompilerer uden advarsler.
+2. AFPRØVET 24. nov. 2026: beskederne kommer frem, og afsenderen skriver "kvitteret af modtageren" ved unicast. "IKKE kvitteret" kom med en forkert MAC-adresse (modtageren ikke slukket).
 3. Broadcast (øvelse 3): hvad giver onSent ved broadcast, når der ingen modtager er? Ret afsnittet "Kvittering" og beskrivelsen af onSent() efter resultatet (TJEK nedenfor).
 4. Forskellig kanal på afsender og modtager (øvelse 2): kommer der ingenting igennem, som siden siger?
 5. Rækkevidde (øvelse 5): mål rækkevidden indendørs i lokalet, og skriv evt. et tal ind i tabellen "Begrænsninger" (TJEK nedenfor).
 6. Antal krypterede peers i core 3.3: dokumentationen siger 7, esp_now.h siger 6. Kald ESP_NOW.getEncryptedPeerCount(), eller tilføj krypterede peers, til add() fejler, og ret "typisk 6–7" (TJEK nedenfor).
 7. Kryptering: virker det som beskrevet, at en modtager ikke får krypterede beskeder fra en afsender, den ikke har tilføjet som peer med samme LMK?
 8. ESP-NOW samtidig med WiFi forbundet til en router (øvelse 6): virker det i station mode alene, eller kræves WIFI_AP_STA, som Random Nerd Tutorials skriver? (TJEK nedenfor)
-9. painlessMesh 1.5.7 med core 3.3: kompilerer og virker et af bibliotekets eksempler? (TJEK nedenfor)
-10. painlessMesh setRoot(): findes den i 1.5.7, og bruger examples/bridge den som beskrevet? (TJEK nedenfor)
+9. DELVIS AFPRØVET 24. nov. 2026: examples/basic og examples/bridge kompilerer med core 3.3 (kun advarsler inde i AsyncTCP og TaskScheduler). Ikke kørt på hardware.
+10. AFPRØVET 24. nov. 2026: setRoot() og setContainsRoot() findes i 1.5.7 (mesh.hpp), og examples/bridge kalder begge.
 11. BILLEDE: skærmbilleder af Serial Monitor for modtager og afsender (se BILLEDE-kommentarerne).
 12. Når alt er testet: fjern IKKE TESTET PÅ HARDWARE, denne tjekliste og TJEK- og BILLEDE-kommentarerne.
 -->

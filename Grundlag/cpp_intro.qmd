@@ -10,8 +10,8 @@ draft: false
 
 <!--
 TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
-1. Kompilér og upload eksemplet med de tre filer (include/statistik.h, src/statistik.cpp, src/main.cpp) med platform = espressif32@8.0.0. Kommer der en linje i Serial Monitor hvert andet sekund?
-2. Kompilér og upload pointer-eksemplet. Passer udskriften med tabellen under eksemplet (21, 42, 42, 84, 168), og skriver %p en adresse ud?
+1. AFPRØVET 24. nov. 2026: eksemplet med de tre filer virker og skriver gennemsnit og største værdi i Serial Monitor.
+2. AFPRØVET 24. nov. 2026: udskriften passer (21, 42, 42, 84, 168), og %p skriver en adresse (fx 0x3ffb210c); sizeof(int) og sizeof(int*) er 4.
 3. Øvelse 3 og 4: passer fejlteksterne på siden ("was not declared in this scope", "undefined reference to", "multiple definition of") med det, PlatformIO's terminal viser?
 4. TJEK (øvelse 6): genstarter ESP32 af sig selv efter en Guru Meditation Error med Arduino-ESP32 3.3.x? Står der LoadProhibited eller noget andet (fx IllegalInstruction) i parentesen? Hvis IllegalInstruction: nævn begge ord i øvelsen, eller brug volatile int* q = nullptr;.
 5. Tjek i den renderede side, at diagrammet under "Header-filer og kildefiler" står lige (┐, ┼ og ┘ under hinanden).

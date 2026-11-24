@@ -10,9 +10,9 @@ draft: false
 
 <!--
 TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
-1. Kompilér og upload de tre eksempler (Hello World, blink med delay(), blink med millis()) med platform = espressif32@8.0.0. Skriver de det forventede i Serial Monitor?
-2. TJEK (opstart): står der linjer som "rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)" i Serial Monitor, når der trykkes på EN? Ret eksemplet på siden, så det passer med skolens kort.
-3. TJEK (lysdioden): sidder den blå lysdiode på skolens kort på GPIO 2, og lyser den ved HIGH?
+1. AFPRØVET 24. nov. 2026: alle tre eksempler virker med espressif32@8.0.0 og skriver det forventede i Serial Monitor; den blå lysdiode blinker.
+2. AFPRØVET 24. nov. 2026: ved reset står der "rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)" og derefter "Hej fra ESP32!" (reset via RTS, svarer til EN).
+3. AFPRØVET 24. nov. 2026: den blå lysdiode sidder på GPIO 2 og lyser ved HIGH.
 4. TJEK (øvelse 4): passer 220 Ω til lokalets lysdioder (samme TJEK som på siden om breadboard)?
 Billeder, der mangler (se de orange bokse):
 5. ESP32-DEVKIT-V1 set ovenfra med EN, BOOT og den blå lysdiode markeret.
@@ -115,8 +115,6 @@ rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
 Hej fra ESP32!
 ```
 
-<!-- TJEK: de præcise opstartslinjer (rst:/boot:-værdierne efter et tryk på EN) er ikke afprøvet på skolens kort. esptool-dokumentationen bekræfter kun, at ROM'en skriver en "rst:… boot:…"-linje ved 115200 baud. -->
-
 ::: {.billede-mangler}
 Serial Monitor i VS Code efter et tryk på EN: opstartslinjerne fra ROM'en og til sidst "Hej fra ESP32!". Se lignende billeder: [Random Nerd Tutorials: Getting Started with VS Code and PlatformIO IDE](https://randomnerdtutorials.com/vs-code-platformio-ide-esp32-esp8266-arduino/).
 :::
@@ -124,8 +122,6 @@ Serial Monitor i VS Code efter et tryk på EN: opstartslinjerne fra ROM'en og ti
 ## Eksempel: blink med delay()
 
 Den lille blå lysdiode på DEVKIT-V1 sidder på GPIO 2. I Arduino-frameworket for dette kort hedder ben 2 også `LED_BUILTIN`. Sådan blinker man den på den simple måde:
-
-<!-- TJEK: at den blå lysdiode på skolens kort sidder på GPIO 2 og lyser ved HIGH (gælder det originale DOIT-design, men kloner kan afvige). -->
 
 ```{.ini filename="platformio.ini"}
 [env:esp32doit-devkit-v1]

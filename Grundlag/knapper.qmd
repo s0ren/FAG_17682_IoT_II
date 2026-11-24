@@ -10,8 +10,8 @@ draft: false
 
 <!--
 TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
-1. Kør eksemplet med en knap på GPIO 33 til GND: lysdioden på GPIO 2 lyser, kun mens knappen holdes nede, og Serial Monitor viser skiftene.
-2. Tjek, at den indbyggede lysdiode på lokalets ESP32-DEVKIT-V1 sidder på GPIO 2 og lyser ved HIGH (TJEK i eksemplet).
+1. AFPRØVET 24. nov. 2026: lysdioden på GPIO 2 lyser kun, mens knappen holdes nede, og Serial Monitor viser skiftene (5 tryk gav 10 Trykket/Sluppet pga. prel).
+2. AFPRØVET 24. nov. 2026: den indbyggede lysdiode sidder på GPIO 2 og lyser ved HIGH.
 3. Afprøv øvelse 1 (svævende ben med INPUT): skifter værdien faktisk, når man rører ledningen? Ret teksten, hvis lokalets boards opfører sig anderledes (TJEK i afsnittet om svævende ben).
 4. Afprøv øvelse 2 (ekstern 10 kΩ pull-down, knap til 3V3) og øvelse 3 (to knapper).
 5. Afprøv øvelse 4 (INPUT_PULLUP på GPIO 34): kommer der en log-linje fra gpio i Serial Monitor? Nævn den i så fald på siden (TJEK ved tabellen over ben).
@@ -163,8 +163,6 @@ Af strapping-benene er **GPIO 0** det farlige for en knap til GND. Er GPIO 0 `LO
 ## Eksempel: lysdioden lyser, mens knappen holdes nede
 
 Knappen sidder mellem **GPIO 33** og **GND**, på to diagonale ben, som i [standardopstillingen](standardopstilling.qmd). Lysdioden er den indbyggede på **GPIO 2**, så den skal ikke kobles på.
-
-<!-- TJEK: at den indbyggede lysdiode på lokalets boards sidder på GPIO 2 og lyser ved HIGH. -->
 
 ::: {.billede-mangler}
 Eksemplets opstilling: ESP32-DEVKIT-V1 og en trykknap over renden, med ledninger fra to diagonale ben til GPIO 33 og GND. Se lignende billeder på siden om [Breadboard](breadboard.qmd).

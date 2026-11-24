@@ -10,12 +10,12 @@ draft: false
 
 <!--
 TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
-1. Kompilér og upload eksemplet med platform = espressif32@8.0.0. Skriver det model (ESP32-D0WDQ6, ESP32-D0WDQ6-V3, ESP32-D0WD eller ESP32-D0WD-V3), 2 kerner, 240 MHz, flash 4194304 bytes og PSRAM 0? Passer partitionslisten med default.csv, og er app0 markeret "kører nu"?
-2. Notér "Heap i alt" og "Heap ledig" på skolens kort. Passer "et par hundrede KB" i afsnittet om SRAM (TJEK dér)? Hvor meget falder den ledige heap i øvelse 2, når WiFi.mode(WIFI_STA) kaldes?
+1. AFPRØVET 24. nov. 2026: ESP32-D0WD-V3 (revision 300), 2 kerner, 240 MHz, flash 4194304 bytes, PSRAM 0, partitionerne fra default.csv med app0 "kører nu".
+2. DELVIS AFPRØVET 24. nov. 2026: Heap i alt 377808 bytes, ledig 331020 bytes, så "et par hundrede KB" passer. Mangler: faldet i øvelse 2 med WiFi.
 3. Øvelse 3: med board_build.partitions = no_ota.csv forventes "Plads til ny version" = 2097152 bytes (og 3145728 med huge_app.csv). Når der kun er én OTA-partition (app0 = ota_0), returnerer esp_ota_get_next_update_partition() den partition, programmet kører fra, så tallet er størrelsen på app0, ikke 0. Bekræft, og ret teksten, hvis ikke.
 4. Skolens kort (TJEK under "Kortets dele" og "30 eller 36 ben"): 30 eller 36 ben? Hvilken farve har strøm-lysdioden og lysdioden på GPIO 2? Måler VIN ca. 5 V, når kortet får strøm fra USB? (USB-chippen tjekkes allerede på PlatformIO-siden.)
 5. EN-knappen (TJEK under "Læs videre"): Random Nerd Tutorials skriver, at EN slår 3,3 V-regulatoren fra. Espressif kalder benet CHIP_PU (chippens enable). Mål evt. 3V3-benet, mens EN holdes nede, og ret teksten.
-6. ADC-området: giver analogReadMilliVolts() ca. 3100 mV som største værdi med standardindstillingen (11 dB, bekræftet i esp32-hal-adc.c)?
+6. AFPRØVET 24. nov. 2026: største værdi var 3145 mV (rå 4095), mindste 142 mV (rå 0), se potentiometer-siden.
 7. Strømforsyning (TJEK under "Kortets dele"): Espressifs advarsel mod at bruge USB og ekstern forsyning samtidig gælder deres DevKitC. Tjek evt. diagrammet for DOIT-kortet (er der en diode mellem USB-5 V og VIN?), og ret teksten, hvis der er noget at tilføje.
 Billeder, der mangler (se de orange bokse):
 8. Nærbillede af skolens kort med USB-chip, regulator og de to lysdioder. Det erstatter også billedet fra Random Nerd Tutorials under "Kortets dele" (../images/esp32_devkit_v1_komponenter.png bruges også på forsiden).

@@ -10,9 +10,9 @@ draft: false
 
 <!--
 TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
-1. Upload eksemplet "vågn på timer". Tæller "Opstart nr." op ved hver opvågning, og står der "timer" som årsag (og "ikke fra deep sleep" første gang)?
+1. AFPRØVET 24. nov. 2026: "Opstart nr." tæller op, årsagen er "timer", og første gang står der "Ikke vækket fra deep sleep (0)".
 2. Tryk på EN-knappen under eksemplet: starter tælleren forfra fra 1? (Siden påstår, at RTC-hukommelsen nulstilles ved EN.)
-3. Upload eksemplet "vågn på knap eller timer" med knap mellem GPIO 33 og GND. Vågner kortet på tryk (årsag "knap (ext0)") og ellers efter 30 s (årsag "timer")?
+3. AFPRØVET 24. nov. 2026: 3 tryk gav 3 opvågninger med "Knap trykket (1/2/3 gange i alt)", og timeren vækker hvert 30. s.
 4. Hold knappen nede, mens kortet går i dvale: vågner det straks igen, som siden siger?
 5. Ext1 (øvelse 4): vågner ESP32 med ESP_EXT1_WAKEUP_ALL_LOW og den interne pull-up på GPIO 33, uden at RTC_PERIPH holdes tændt? Dokumentationen siger ja (HOLD-funktionen); afprøv på skolens kort. (Se TJEK ved ext1.)
 6. Touch-uddraget: virker tærsklen 40 på GPIO 27 (T7) med en løs ledning? Hvilke værdier giver touchRead(T7) urørt og rørt på skolens kort? (Se TJEK ved touch.)
