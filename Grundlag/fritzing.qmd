@@ -1,0 +1,279 @@
+---
+title: "Fritzing"
+subtitle: "Diagrammer over breadboard-opstillinger"
+date: 2026-11-24
+maalpinde: [9, 18]
+draft: true
+---
+
+<!-- IKKE KOMPILERET: siden har ingen kode. Menuer og fakta om Fritzing er tjekket mod Fritzings kildekode (fritzing-app, develop-grenen) og andre kilder, men ikke afprøvet i Fritzing 1.0.7 på lokalets pc'er. -->
+
+<!--
+TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
+1. Udfyld LÆRER-kommentaren om, hvorfor installationsfilen hedder .msee på ItsLearning (afsnittet om installation).
+2. Installér 1-Windows-Fritzing-1.0.7.msi på en elev-pc: kræver den administratorrettigheder, og kommer der en advarsel fra Windows (SmartScreen)? (TJEK i afsnittet om installation.)
+3. Tjek prisen og betingelserne på fritzing.org/download, og om 1.0.8 skal bruges i stedet for 1.0.7 (TJEK i afsnittet om fritzing.org).
+4. Tjek genvejene i 1.0.7: Welcome Ctrl+1, Breadboard Ctrl+2, Schematic Ctrl+3, PCB Ctrl+4 (TJEK i afsnittet "Hvad er Fritzing?").
+5. Tjek, at Window-menuen i 1.0.7 har punkterne Parts og Inspector (TJEK samme sted).
+6. Åbn linket fritzing.org/learning/get-started/palette-window i en browser, og tjek, at det virker (TJEK ved den første billedboks).
+7. Tjek, at Bin-menuen sidder som en lille knap i toppen af Parts-vinduet ved søgefeltet, og at den indeholder Import... og Save Bin (TJEK i afsnittet om Component Bin).
+8. Åbn TEC_IoT1.fzbz i 1.0.7: kommer den som en ny fane, spørger Fritzing om at gemme den, og er den der stadig efter genstart? (TJEK samme sted.)
+9. Tjek, om ESP32 DOIT DEVKIT V1 er i TEC_IoT1.fzbz, eller om den kan findes ved at søge i Parts-vinduet uden binnen (TJEK i afsnittet om ESP32-delen).
+10. Tjek, at ESP32-delen i binnen har de rigtige ben (30 ben, GND, 3V3, GPIO 18 og GPIO 19 de rigtige steder) (TJEK samme sted).
+11. Tjek, at breadboardets huller markeres grønt, når et ben sidder i dem (TJEK i eksemplet, trin 2).
+12. Tjek, at træk i midten af en ledning laver et knæk (ikke en kurve) med standardindstillingerne, og at dobbeltklik også laver et knæk (TJEK i eksemplet, trin 6).
+13. Tjek, at endepunkterne på en ledning er grønne, når de er forbundet, og røde, når de ikke er (TJEK i afsnittet "Er ledningen forbundet?").
+14. Tjek, at eksport-dialogen til PNG viser 270 dpi som standard, og at 300 dpi giver en passende filstørrelse til logbogen (TJEK i afsnittet om eksport).
+15. Indsæt link til TEC_IoT1.fzbz og installationsfilen på ItsLearning (LÆRER-pladsholdere).
+16. BILLEDE: Fritzings vindue med Breadboard-visningen, Parts og Inspector.
+17. BILLEDE: Bin-menuen i Parts-vinduet med Import... markeret, og TEC_IoT1-binnen åben som ny fane.
+18. BILLEDE: den færdige knap-opstilling i Breadboard-visningen.
+19. BILLEDE: samme opstilling i Schematic-visningen med stiplede ratsnest-linjer.
+20. BILLEDE: en ledning med grønne og en med røde endepunkter, og højreklik-menuen Wire Color (ét samlet billede eller to).
+21. BILLEDE: eksport-dialogen med dpi-valg.
+22. Udfyld eller slet alle LÆRER-pladsholdere.
+23. Fjern IKKE KOMPILERET, denne tjekliste og alle TJEK-, BILLEDE- og LÆRER-kommentarer, gør billedboksene til BILLEDE-kommentarer, og sæt draft: false.
+-->
+
+Når du har bygget en opstilling på et breadboard, skal den kunne bygges igen: af dig selv om en måned, af en makker, eller af læreren, der skal rette din aflevering. Et foto af et board med ti ledninger er svært at læse. Fritzing er et tegneprogram, hvor du tegner opstillingen, som den ser ud på breadboardet, og får et pænt billede, du kan sætte ind i logbogen, porteføljen eller afleveringen.
+
+## Formål
+
+- Du kan installere Fritzing og åbne lærerens samling af dele (TEC_IoT1.fzbz).
+- Du kan finde dele i Parts-vinduet og placere dem på et breadboard i Fritzing.
+- Du kan trække ledninger, give dem den rigtige farve og tjekke, at de er forbundet.
+- Du kan eksportere tegningen som et billede og sætte det ind i din logbog.
+
+## Målpinde
+
+Siden arbejder med målpind 9 (opbygge og dokumentere en mindre IoT-løsning) og målpind 18 (opbygge en mindre prototype) (se [Læringsmål](../laeringsmaal.qmd)).
+
+## Forudsætninger
+
+- En Windows-pc, hvor du må installere programmer.
+- Du ved, hvordan et breadboard er forbundet indvendigt (se [Breadboard](breadboard.qmd)).
+- Du har bygget en opstilling med en knap eller en lysdiode, fx fra [Knapper](knapper.qmd), [Lysdioder](lysdioder.qmd) eller [Debouncing](debouncing.qmd).
+
+## Hvad er Fritzing?
+
+Fritzing er et program til at tegne elektronik. Det har tre visninger af den samme opstilling, med faneblade øverst i vinduet:
+
+| Visning | Hvad den viser | Brug hos os |
+|---|---|---|
+| **Breadboard** | Delene og ledningerne, som de ser ud på et rigtigt breadboard | Den vigtigste: dokumentation af opstillingen |
+| **Schematic** | Et diagram med symboler ([schematic]{lang="en"}) | Til at forklare kredsløbet |
+| **PCB** | Et printkort ([printed circuit board]{lang="en"}) | Bruges ikke i faget |
+
+De tre visninger hænger sammen: forbinder du to ben i Breadboard-visningen, ved Fritzing, at de er forbundet, også i de andre visninger. I Schematic-visningen vises forbindelsen først som en tynd stiplet linje, et såkaldt [ratsnest]{lang="en"}. Den fortæller, hvilke ben der skal forbindes, men du skal selv trække ledningen, hvis diagrammet skal se pænt ud. Du skifter visning med fanerne eller med *View → Show Breadboard* (Ctrl+2), *Show Schematic* (Ctrl+3) og *Show PCB* (Ctrl+4). Ctrl+1 er fanen *Welcome*, som Fritzing viser, når det starter.
+
+<!-- TJEK: genvejene i 1.0.7. Ifølge kildekoden (mainwindow_menu.cpp) tildeles Ctrl+1 til Ctrl+5 i rækkefølge, og Welcome får kun Ctrl+1, når Welcome-fanen findes; ellers rykker Breadboard op på Ctrl+1 osv. -->
+
+
+På denne side bruger vi næsten kun Breadboard-visningen. Det er den, der ligner det, du har bygget, og det gør det nemt at sammenligne tegning og board hul for hul.
+
+Til højre i vinduet sidder to vigtige vinduer:
+
+- **Parts:** alle de dele, du kan trække ind på tegningen, sorteret i *bins* (samlinger). Øverst er en søgning.
+- **Inspector:** egenskaberne for den del, du har valgt, fx modstandens værdi eller lysdiodens farve.
+
+Kan du ikke se dem, så slå dem til i menuen *Window*.
+
+<!-- TJEK: at Window-menuen i 1.0.7 har punkterne Parts og Inspector. Fritzings gamle guides siger det, men det kunne ikke bekræftes i kildekoden (mainwindow_menu.cpp). -->
+
+::: {.billede-mangler}
+Fritzings vindue med Breadboard-visningen åben, Parts-vinduet og Inspector til højre, og fanerne Breadboard, Schematic og PCB øverst. Se lignende billeder: [Fritzing: Parts-vinduet (palette window)](https://fritzing.org/learning/get-started/palette-window) (ældre version af Fritzing, hvor knapperne sad i bunden af Parts-vinduet).
+:::
+
+<!-- TJEK: at linket til fritzing.org/learning/get-started/palette-window virker i en browser (fritzing.org svarer 403 på automatiske hentninger). -->
+
+## Installation på Windows
+
+Læreren har lagt installationsfilen til Fritzing **1.0.7** på ItsLearning.
+
+<!-- LÆRER: link til installationsfilen på ItsLearning. -->
+
+1. Hent filen **1-Windows-Fritzing-1.0.7.msee**.
+2. Omdøb den til **1-Windows-Fritzing-1.0.7.msi**: ret kun endelsen fra `.msee` til `.msi`. Kan du ikke se endelsen, så slå *Filtypenavne* til under *Vis* i Stifinder.
+3. Dobbeltklik på `.msi`-filen, og følg installationen.
+4. Start Fritzing fra Start-menuen.
+
+Læreren har ændret endelsen for at kunne dele filen på ItsLearning. Filen er den samme; den skal bare hedde `.msi` igen, før Windows vil installere den.
+
+<!-- LÆRER: skriv kort, hvorfor filen er omdøbt (fx at ItsLearning eller mailfiltre blokerer .msi-filer), eller slet denne kommentar. -->
+
+<!-- TJEK: om installationen kræver administratorrettigheder på elevernes pc'er, og om Windows SmartScreen advarer om filen. Skriv i så fald, hvad eleven skal trykke. -->
+
+### Fritzing fra fritzing.org
+
+Den officielle kilde til Fritzing er <https://fritzing.org/download>. Fritzing er open source: kildekoden er under licensen GNU GPL v3, og tegningerne af delene under Creative Commons BY-SA 3.0. De færdige installationsfiler på fritzing.org er dog ikke gratis: man betaler et mindre beløb for at hente dem, og pengene går til udviklingen. Det er tilladt efter GPL-licensen. Kildekoden ligger gratis på [GitHub](https://github.com/fritzing/fritzing-app), men det er besværligt at bygge programmet selv.
+
+Den nyeste version er 1.0.8 (august 2026). Til faget er 1.0.7 fra ItsLearning nok.
+
+<!-- TJEK: fritzing.org kunne ikke hentes (HTTP 403). Ifølge Wikipedia er beløbet 8 € eller 25 €, og ifølge udgivelsesnoten til 1.0.7 får nylige købere opdateringer uden ekstra betaling. Tjek pris og betingelser på fritzing.org/download, og om I skal skifte til 1.0.8. -->
+
+## Dele og søgning
+
+Delene i Parts-vinduet er delt op i *bins*, med en fane hver. **Core** er Fritzings egne standarddele (modstande, lysdioder, knapper, breadboards, Arduino-boards …). **Mine** er dine egne dele.
+
+Vil du finde en bestemt del, så klik på søgningen (luppen) øverst i Parts-vinduet, skriv fx `pushbutton`, `LED`, `resistor` eller `ESP32`, og tryk Enter. Søgningen leder i alle de dele, Fritzing kender, ikke kun i den bin, du har åben. Delene hedder noget på engelsk, så søg på engelsk.
+
+Når en del er placeret, kan du ændre den i **Inspector**: en modstand fås som én del, og du skriver selv værdien (fx 220Ω). En lysdiode kan få en anden farve. Sådan er tegningen den samme som dit board.
+
+## Lærerens Component Bin: TEC_IoT1.fzbz
+
+En *Component Bin* er en fil med endelsen `.fzbz`, som samler en række dele, så de kan deles. Læreren har lavet binnen **TEC_IoT1.fzbz** med de særlige dele, vi bruger i projekterne, så du ikke skal lede efter dem.
+
+<!-- LÆRER: link til TEC_IoT1.fzbz på ItsLearning. -->
+
+<!-- LÆRER: hvilke dele der er i TEC_IoT1.fzbz (fx ESP32, sensorer, OLED-display). -->
+
+Sådan åbner du den:
+
+1. Hent **TEC_IoT1.fzbz** fra ItsLearning, og gem den et sted, du kan finde den.
+2. I Parts-vinduet: klik på den lille menuknap øverst ved søgefeltet. Det åbner menuen **Bin**.
+3. Vælg **Import...**, og vælg filen TEC_IoT1.fzbz. (*File → Open...* kan også åbne en `.fzbz`-fil.)
+4. Binnen kommer som en ny fane i Parts-vinduet.
+5. Gem binnen med **Bin → Save Bin**. Fritzing foreslår at gemme den i din egen Fritzing-mappe; sig ja til det. Fritzing har markeret binnen som ændret, så den spørger også, om du vil gemme den, når du lukker programmet.
+
+Næste gang du starter Fritzing, er binnen der stadig.
+
+<!-- TJEK: Bin-menuens placering og navnene Import... og Save Bin er taget fra kildekoden (binmanager.cpp: "Import...", "Save Bin", "Save Bin As...", "Export Bin...", "Close Bin"). Afprøv i 1.0.7, at binnen åbner som ny fane, at Fritzing spørger om at gemme den, og at den er der efter genstart. -->
+
+::: {.billede-mangler}
+Parts-vinduet med Bin-menuen åben og *Import...* markeret, og bagefter TEC_IoT1-binnen som en ny fane. Se lignende billeder: Adafruits [Using the Adafruit Library with Fritzing](https://learn.adafruit.com/using-the-adafruit-library-with-fritzing/import-the-library-into-fritzing) (ældre version af Fritzing).
+:::
+
+### ESP32-DEVKIT-V1 som del
+
+Fritzings Core-bin har ingen ESP32-boards. En del til ESP32 DOIT DEVKIT V1 (30 ben) findes som en del, brugere har lavet og delt på Fritzings forum. Brug den del, der ligger i TEC_IoT1.fzbz, så alle i klassen tegner med den samme.
+
+<!-- TJEK: om ESP32 DOIT DEVKIT V1 ligger i TEC_IoT1.fzbz, eller om den kan findes ved at søge på "ESP32" uden binnen (Core-binnen core.fzb i fritzing-parts har ingen ESP32-dele; hele del-biblioteket er ikke gennemsøgt). Tjek også, at delen har 30 ben, og at 3V3, GND, GPIO 18 og GPIO 19 sidder de rigtige steder: den udbredte forum-del havde fejl i benenes navne i sin første udgave. -->
+
+## Eksempel: tegn en opstilling
+
+Her tegnes knappen fra [Debouncing](debouncing.qmd): en trykknap mellem **GPIO 18** og **GND**. Den interne pull-up bruges, så der er ingen modstand.
+
+1. **Nyt projekt:** *File → New*. Gå til fanen **Breadboard**. Der ligger allerede et breadboard. Gem med det samme (*File → Save*), fx som `knap_gpio18.fzz`.
+2. **ESP32:** Træk ESP32-DEVKIT-V1 fra TEC_IoT1-binnen hen over renden på breadboardet, ligesom på dit rigtige board. Benene skal sidde i hullerne: når en del sidder rigtigt, bliver de huller, den er forbundet til, markeret med grønt.
+
+   <!-- TJEK: at breadboardets huller markeres grønt i 1.0.7, når et ben sidder i dem. -->
+
+3. **Knappen:** Søg efter `pushbutton`, og træk en trykknap hen over renden.
+4. **Ledninger:** Træk med musen fra et hul (eller et ben) til et andet. Så laves der en ledning. Lav:
+   - en ledning fra **GND** på ESP32 til den blå strømskinne
+   - en ledning fra den blå skinne til det ene af knappens ben
+   - en ledning fra det diagonale ben på knappen til **GPIO 18**
+5. **Farver:** Højreklik på hver ledning, og vælg **Wire Color**. Brug samme farvekode som på [Breadboard](breadboard.qmd): **rød** til 3,3 V, **sort** til GND, og en anden farve, fx gul, til signalet på GPIO 18.
+6. **Knæk på ledningen:** Træk i midten af en ledning for at lave et knæk ([bendpoint]{lang="en"}), så ledningen kan gå i rette vinkler, ligesom på boardet. Bliver ledningen buet i stedet, så fortryd (Ctrl+Z) og træk uden at holde Ctrl nede, eller dobbeltklik på ledningen for at lave et knæk.
+
+   <!-- TJEK: i 1.0.7, at træk i midten af en ledning laver et knæk med standardindstillingerne, og at dobbeltklik også laver et knæk (wire.cpp: buede ledninger, "curvy wires", afhænger af en modifier-tast eller en indstilling under Preferences). -->
+
+7. **Tjek forbindelserne:** Zoom ind, og se, at begge ender af hver ledning er grønne (se nedenfor).
+8. **Sammenlign** tegningen med dit rigtige board, hul for hul. Er der forskel, så ret enten tegningen eller boardet.
+9. **Kig i Schematic:** Skift til fanen Schematic. Du ser symbolerne for ESP32 og knappen med stiplede linjer imellem. De bekræfter, at knappen er forbundet til GPIO 18 og GND.
+10. **Gem** igen, og eksportér et billede (se nedenfor).
+
+::: {.billede-mangler}
+Den færdige knap-opstilling i Breadboard-visningen: ESP32-DEVKIT-V1 over renden, knappen med to diagonale ben, sort ledning til GND og gul ledning til GPIO 18. Se lignende billeder: [Random Nerd Tutorials: ESP32 External Wake Up from Deep Sleep](https://randomnerdtutorials.com/esp32-external-wake-up-deep-sleep/) (knap på GPIO 33, men med pull-down-modstand).
+:::
+
+::: {.billede-mangler}
+Samme opstilling i Schematic-visningen med stiplede ratsnest-linjer mellem ESP32 og knappen.
+:::
+
+### Er ledningen forbundet?
+
+Fritzing farver enderne af en ledning:
+
+- **grøn:** enden sidder i et hul eller på et ben og er forbundet
+- **rød:** enden er ikke forbundet til noget
+
+En ledning kan godt se ud, som om den sidder i hullet, selvom enden er rød. Træk enden lidt væk, og slip den igen præcis over hullet, til den bliver grøn. To ledninger, der bare ser ud til at mødes, er ikke nødvendigvis forbundet. Den sikre vej er at føre hver ledning helt hen til et hul i breadboardet, ligesom på det rigtige board.
+
+<!-- TJEK: at grøn/rød for forbundet/ikke forbundet er standardfarverne i 1.0.7 (kilde: LibreTexts' Fritzing-side, hvor forbindelser mellem breadboardets huller er røde, "they are supposed to be green"). -->
+
+::: {.billede-mangler}
+Til venstre: to ledninger tæt på hinanden, én med grønne endepunkter (forbundet) og én med et rødt endepunkt (ikke forbundet). Til højre: højreklik-menuen på en ledning med **Wire Color** åben (blue, red, black, yellow, green …). Se lignende billeder: [LibreTexts: Fritzing](https://chem.libretexts.org/Courses/University_of_Arkansas_Little_Rock/IOST_Library/Spring_2024%3A_Physical_Computing_Class/11%3A_Introduction_to_Electronics_and_First_Circuit/11.05%3A_Fritzing) (figur 11 viser røde forbindelser).
+:::
+
+## Eksportér et billede
+
+Fritzing gemmer tegningen som en `.fzz`-fil. Den kan kun åbnes i Fritzing. Til logbogen skal du bruge et billede:
+
+1. Gå til den visning, du vil eksportere (normalt Breadboard). Kun den aktuelle visning eksporteres.
+2. Vælg *File → Export → as Image* og så **PNG...** eller **SVG...**.
+3. Vælger du PNG, spørger Fritzing om opløsningen i dpi. Standarden er 270 dpi. Vælg 300 dpi eller mere, så ledninger og bennavne er skarpe.
+4. Gem billedet i samme mappe som din logbog, fx `images/knap_gpio18.png`.
+
+SVG er vektorgrafik: streger og tekst forbliver skarpe, uanset hvor meget man zoomer. (Nogle dele, som brugerne selv har lavet, har dog et almindeligt billede indbygget, og det kan blive sløret.) PNG er det sikre valg, hvis du er i tvivl, fordi alle programmer kan vise det.
+
+I en markdown- eller Quarto-logbog sætter du billedet ind sådan:
+
+```{.markdown filename="logbog.qmd"}
+![Knap på GPIO 18 til GND, tegnet i Fritzing](images/knap_gpio18.png){fig-alt="ESP32-DEVKIT-V1 på et breadboard med en trykknap mellem GPIO 18 og GND"}
+```
+
+Aflever også `.fzz`-filen, når du afleverer et projekt. Så kan læreren åbne tegningen og se alle forbindelserne.
+
+<!-- TJEK: standard-dpi er 3 × 90 = 270 ifølge kildekoden (mainwindow_export.cpp, ExportParametersDialog, findes siden 2022). Tjek i 1.0.7, at dialogen kommer frem, og at 300 dpi giver en passende filstørrelse. -->
+
+::: {.billede-mangler}
+Menuen *File → Export → as Image* og dialogen, hvor opløsningen (dpi) vælges.
+:::
+
+<!-- LÆRER: hvordan logbog og afleveringer skal se ud (markdown, Word, PDF), og om .fzz-filen skal med. -->
+
+## Øvelser
+
+1. Installér Fritzing, og åbn TEC_IoT1.fzbz. Gem binnen, luk Fritzing, og start det igen. Er binnen der stadig?
+2. Tegn opstillingen fra [Debouncing](debouncing.qmd) (knap på GPIO 18 til GND), som beskrevet i eksemplet. Tjek, at alle ledningsender er grønne. Eksportér som PNG, og sæt billedet ind i din logbog.
+3. Tegn opstillingen fra [Lysdioder](lysdioder.qmd): en lysdiode med en formodstand på 220 Ω fra GPIO 19 til GND. Sæt modstandens værdi og lysdiodens farve i Inspector, så de passer til dine dele. Vend lysdioden rigtigt (det lange ben, anoden, mod modstanden). Se [Modstande](modstande.qmd), hvis du er i tvivl om værdien.
+4. Kig på opstillingen fra øvelse 3 i Schematic-visningen. Træk ledninger langs de stiplede linjer, så diagrammet bliver pænt, og eksportér også det som billede.
+5. Byt `.fzz`-fil med en makker. Byg makkerens opstilling på dit eget board kun ud fra tegningen. Virker den? Hvis ikke: var fejlen i tegningen eller i opbygningen?
+6. *Ekstra:* Tegn knap og lysdiode i samme opstilling (eksemplet på [Breadboard](breadboard.qmd)), og eksportér som SVG. Åbn SVG-filen i en browser, og zoom ind. Sammenlign med PNG-filen.
+
+<!-- LÆRER: tilpas øvelserne, fx hvilke opstillinger der skal tegnes til afleveringer. -->
+
+## Typiske fejl
+
+- **Ledningen er ikke forbundet:** enden er rød. Træk den, og slip den præcis over hullet, til den bliver grøn.
+- **Forkert række:** ledningen sidder i rækken ved siden af det ben, den skal til. På tegningen ser det næsten rigtigt ud. Zoom ind, og følg ledningen hen til hullet, og tjek i Schematic-visningen, at den stiplede linje går til det rigtige ben.
+- **Knappen er altid forbundet:** ledningerne sidder på to ben, der er forbundet inde i knappen. Brug to diagonale ben, ligesom på boardet.
+- **Delen mangler:** binnen er ikke åbnet, eller den blev ikke gemt og er væk efter genstart. Åbn TEC_IoT1.fzbz igen, og vælg *Save Bin*.
+- **Søgningen finder intet:** delen hedder noget andet på engelsk. Prøv et kortere ord, fx `button` i stedet for `pushbutton`.
+- **Forkert farve på ledninger:** alle ledninger har standardfarven. Giv 3,3 V rød og GND sort, så tegningen kan læses.
+- **Billedet er sløret:** PNG er eksporteret med for lav opløsning. Eksportér igen med 300 dpi, eller brug SVG.
+- **Tegning og board passer ikke sammen:** du har rettet boardet, men ikke tegningen. Ret altid begge, før du afleverer.
+- **Installationen starter ikke:** filen hedder stadig `.msee`. Omdøb den til `.msi`.
+
+<!-- LÆRER: de fejl, du oftest ser i elevernes tegninger. -->
+
+## Læs videre
+
+### Adafruits dele i Fritzing
+
+Adafruit viser i [Using the Adafruit Library with Fritzing](https://learn.adafruit.com/using-the-adafruit-library-with-fritzing){lang="en"}, hvordan man åbner en `.fzbz`-bin med *File → Open*, gemmer den med *Save Bin* og genstarter Fritzing. Det er samme fremgangsmåde som med TEC_IoT1.fzbz.
+
+Guiden er gammel: den er skrevet til Fritzing 0.7.5. Fritzing 1.0.7 kommer selv med mange flere Adafruit-dele, så du behøver normalt ikke hente Adafruits bin.
+
+### ESP32 DOIT DEVKIT V1 på Fritzings forum
+
+I tråden [Doit esp32 devkit v1](https://forum.fritzing.org/t/doit-esp32-devkit-v1/6158){lang="en"} har brugere lavet og rettet en del til vores board. Tråden viser, at dele fra andre brugere kan have fejl: den første udgave havde forkerte navne på benene. Tjek derfor altid, at benene på en del passer med dit rigtige board, før du stoler på tegningen.
+
+## Kilder
+
+- Fritzing: kildekode og licens (fritzing-app), <https://github.com/fritzing/fritzing-app>
+- Fritzing: Bin-menuen (Import..., Save Bin), `src/partsbinpalette/binmanager/binmanager.cpp`, <https://github.com/fritzing/fritzing-app/blob/develop/src/partsbinpalette/binmanager/binmanager.cpp>
+- Fritzing: eksport som billede (PNG, JPG, SVG, PDF og dpi), `src/mainwindow/mainwindow_export.cpp`, <https://github.com/fritzing/fritzing-app/blob/develop/src/mainwindow/mainwindow_export.cpp>
+- Fritzing: View-menuen og *File → Open* af `.fzbz`, `src/mainwindow/mainwindow_menu.cpp`, <https://github.com/fritzing/fritzing-app/blob/develop/src/mainwindow/mainwindow_menu.cpp>
+- Fritzing: ledningsfarver, `src/items/wire.cpp`, <https://github.com/fritzing/fritzing-app/blob/develop/src/items/wire.cpp>
+- Fritzing: Core-binnen, <https://github.com/fritzing/fritzing-parts/blob/develop/bins/core.fzb>
+- Fritzing: download, <https://fritzing.org/download>
+- Fritzing-forum: Fritzing 1.0.7 Released, <https://forum.fritzing.org/t/fritzing-1-0-7-released/34003>
+- Fritzing-blog: Fritzing 1.0.8 released, <https://blog.fritzing.org/>
+- Fritzing-forum: Doit esp32 devkit v1, <https://forum.fritzing.org/t/doit-esp32-devkit-v1/6158>
+- LibreTexts: Fritzing (røde forbindelser, der skulle være grønne), <https://chem.libretexts.org/Courses/University_of_Arkansas_Little_Rock/IOST_Library/Spring_2024%3A_Physical_Computing_Class/11%3A_Introduction_to_Electronics_and_First_Circuit/11.05%3A_Fritzing>
+- Fritzing: Parts-vinduet (palette window), <https://fritzing.org/learning/get-started/palette-window>
+- Random Nerd Tutorials: ESP32 External Wake Up from Deep Sleep, <https://randomnerdtutorials.com/esp32-external-wake-up-deep-sleep/>
+- Wikipedia: Fritzing (licens og betaling), <https://en.wikipedia.org/wiki/Fritzing>
+- Adafruit: Using the Adafruit Library with Fritzing, <https://learn.adafruit.com/using-the-adafruit-library-with-fritzing/import-the-library-into-fritzing>
