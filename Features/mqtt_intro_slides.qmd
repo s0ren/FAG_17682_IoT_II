@@ -24,10 +24,16 @@ og tekst til højst ca. 8 punkter pr. slide. Kør _scripts/slide_hoejde.py efter
 ## Hvad er MQTT?
 
 - En lille protokol til at sende beskeder mellem enheder over netværket
-- Lavet til telemetri over dårlige forbindelser, nu en åben OASIS-standard
-- Bruges meget i IoT: sensorer, ESP32, Raspberry Pi, apps
+- Lavet til telemetri over dårlige forbindelser, nu en åben OASIS-standard (version 3.1.1 og 5)
+- Kører oven på TCP, normalt på port **1883** uden kryptering og **8883** med TLS
+- Meget lille hoved: en besked kan fylde få bytes ud over selve indholdet
+- Bruges meget i IoT: sensorer, ESP32, Raspberry Pi, hjemmeautomatisering, apps
 - Klienterne taler aldrig direkte sammen, men går gennem en **broker**
-- Skolens broker hedder **wilsons** ([Lokal MQTT server](lokal_mqtt.qmd))
+- Skolens broker hedder **wilsons** og kører Mosquitto ([Lokal MQTT server](lokal_mqtt.qmd))
+
+::: {.callout-note appearance="simple"}
+Alle, der forbinder til brokeren, er **klienter**: ESP32, Python-programmer, MQTT Explorer og weblog'ens logger.
+:::
 
 ## Publish/subscribe
 
@@ -41,8 +47,10 @@ flowchart LR
   B --> L[Logger<br>weblog]
 ```
 
-- En **publisher** sender til et topic, en **subscriber** abonnerer på topics
-- Brokeren sender hver besked videre til alle, der abonnerer
+- En **publisher** sender en besked til et topic, en **subscriber** abonnerer på topics
+- Brokeren sender hver besked videre til alle, der abonnerer på et passende topic
+- Publisher og subscriber kender ikke hinanden; de kender kun brokeren og topic'et
+- Én klient kan både sende og abonnere
 
 ## Hvorfor ikke bare HTTP?
 
@@ -52,8 +60,10 @@ flowchart LR
 | Ny forbindelse pr. forespørgsel | Én forbindelse, der holdes åben |
 | Afsender skal kende modtageren | Afsender kender kun topic'et |
 | Store headers | Lille hoved, få bytes pr. besked |
+| Serveren kan ikke selv sende til klienten | Brokeren sender, så snart der er nyt |
+| Én modtager pr. forespørgsel | Mange abonnenter får den samme besked |
 
-Godt til små enheder, der sender ofte og skal spare strøm og data.
+Godt til små enheder, der sender ofte og skal spare strøm og data. HTTP er stadig godt til at *hente* data, fx fra weblog'en.
 
 ## Topics
 
@@ -64,7 +74,13 @@ Godt til små enheder, der sender ofte og skal spare strøm og data.
 - Der skelnes mellem store og små bogstaver
 - Brug kun `a-z`, `0-9`, `-` og `_` (ingen mellemrum eller æøå)
 - Byg fra det generelle til det specifikke: hvem → enhed → måling
+- Ingen `/` i starten: `/elever/anna` og `elever/anna` er to forskellige topics
 - På wilsons (port 8883) må elever skrive i `elever/<brugernavn>/#` og `test/#`
+
+| Godt | Mindre godt |
+|---|---|
+| `elever/anna/stue/temperatur` | `Anna Temp` (mellemrum, ingen struktur) |
+| `elever/anna/esp32/knap` | `/elever/anna/knap` (`/` i starten) |
 
 ## Wildcards
 
@@ -77,7 +93,9 @@ Kun når man **abonnerer**, aldrig når man sender.
 | `elever/anna/#` | alt under `elever/anna/` | `elever/bo/temp` |
 | `#` | alt (undtagen `$SYS/...`) | |
 
-`+` er ét niveau, `#` er resten og skal stå til sidst.
+- `+` er præcis ét niveau og kan stå hvor som helst
+- `#` er resten af stien (også ingen niveauer) og skal stå til sidst
+- MQTT Explorer abonnerer på `#`, så den ser alt
 
 ## Beskeder og JSON
 
@@ -88,22 +106,11 @@ Kun når man **abonnerer**, aldrig når man sender.
 {"device": "esp32-a1b2c3", "nr": 12, "spaending_mv": 1650, "rssi": -58}
 ```
 
+- Skriv enheden i navnet (`spaending_mv`, `temperatur_c`), så modtageren ikke skal gætte
+- Send tal som tal, ikke som tekst: `1650`, ikke `"1650"`
 - Python: `json.dumps()` / `json.loads()`
 - C#: `JsonSerializer.Serialize()` / `Deserialize()`
-- ESP32: `snprintf()` til en `char`-buffer
-
-## Weblog'en: JSON Lines
-
-wilsons gemmer hver besked som én linje i en fil pr. topic:
-
-<http://wilsons.local:8080/elever/anna/esp32/maaling.jsonl>
-
-```json
-{"timestamp": "2026-11-23T15:00:37.091592", "topic": "elever/anna/esp32/maaling", "payload": "{\"nr\":12, ...}"}
-```
-
-- `#.jsonl` har alle beskeder fra alle topics (skriv `%23.jsonl` i adresselinjen)
-- Weblog'en er åben for alle på nettet: send ikke hemmeligheder
+- ESP32: `snprintf()` til en `char`-buffer, eller biblioteket ArduinoJson
 
 ## QoS: hvor sikkert skal beskeden frem?
 
@@ -114,14 +121,83 @@ wilsons gemmer hver besked som én linje i en fil pr. topic:
 | 2 | Fire-vejs håndtryk | Præcis én gang, men langsomst |
 
 - QoS gælder hver strækning: afsender → broker og broker → abonnent
+- Abonnenten får højst den QoS, den selv har bedt om
+- **QoS 0** til målinger, der kommer igen om lidt (temperatur hvert 5. sekund)
+- **QoS 1** til hændelser, der ikke må forsvinde (et knaptryk, en alarm)
 - PubSubClient (ESP32) sender kun med QoS 0
 
-## Retained, Last Will og client-id
+## Retained og Last Will
 
-- **Retained:** brokeren gemmer den seneste besked på et topic og giver den straks til nye abonnenter
-- **Last Will:** en besked, brokeren sender for dig, hvis du forsvinder uden at sige farvel
-- **Keep-alive:** klienten sender ping, så brokeren ved, den lever
-- **Client-id skal være unikt:** to klienter med samme id smider hinanden af igen og igen
+**Retained**
+
+- Brokeren gemmer den *seneste* besked på et topic, når den sendes med retain
+- En ny abonnent får den straks, i stedet for at vente på den næste
+- Godt til tilstande: `elever/anna/lampe` = `taendt`
+- Slettes ved at sende en tom besked med retain til samme topic
+
+**Last Will**
+
+- Klienten giver brokeren en besked, når den forbinder: "send denne, hvis jeg forsvinder"
+- Brokeren sender den, hvis forbindelsen dør uden et farvel, fx når strømmen går
+- Typisk: `elever/anna/esp32/status` = `offline` (retained)
+
+## Keep-alive og client-id
+
+**Keep-alive**
+
+- Klienten lover at sige noget mindst hvert *n* sekund, ellers sender den et ping
+- Hører brokeren intet i 1,5 × keep-alive, regner den klienten for død (og sender evt. Last Will)
+- Derfor skal `mqtt.loop()` / `loop_forever()` kaldes ofte
+
+**Client-id**
+
+- Hver klient har et id. Forbinder en ny klient med samme id, smider brokeren den gamle af
+- To ESP32'er med samme id smider hinanden af igen og igen
+- Lav id'et unikt: MAC-adressen på ESP32, et tilfældigt tal i C# og Python
+
+# Kode: ESP32
+
+## ESP32: opsætning
+
+```{.ini filename="platformio.ini"}
+[env:esp32doit-devkit-v1]
+platform = espressif32@8.0.0
+board = esp32doit-devkit-v1
+framework = arduino
+monitor_speed = 115200
+lib_deps = knolleary/PubSubClient@^2.8
+```
+
+- Potentiometer: yderben til 3V3 og GND, midterben til **GPIO 32** (ADC1 virker med WiFi)
+- WiFi-navn og -kode i `include/secrets.h`, som står i `.gitignore` ([WiFi](../Grundlag/wifi.qmd))
+- `PubSubClient mqtt(netKlient);` oven på en `WiFiClient`: QoS 0, højst 256 bytes pr. besked
+
+## ESP32: loop() uden at blokere
+
+```{.cpp filename="src/main.cpp (uddrag)"}
+void loop() {
+  unsigned long nu = millis();
+  if (mqtt.connected()) {
+    mqtt.loop();                                   // ping og modtagelse
+  } else if (WiFi.status() == WL_CONNECTED && nu - sidsteForsoeg >= 5000) {
+    sidsteForsoeg = nu;
+    mqtt.connect(klientId);                        // ét forsøg, ingen while
+  }
+  if (mqtt.connected() && nu - sidsteSend >= 5000) {
+    sidsteSend = nu;
+    sendMaaling();                                 // snprintf + mqtt.publish
+  }
+}
+```
+
+## ESP32: sådan virker det
+
+- `mqtt.loop()` skal kaldes ofte: den sender keep-alive-ping og tager imod beskeder
+- Genforbind med ét forsøg hvert 5. sekund, ikke en `while`-løkke med `delay()`: så kan resten af `loop()` blive ved med at læse knapper og sensorer
+- `mqtt.publish(topic, payload)` giver `false`, hvis vi ikke er forbundet, eller beskeden er over 256 bytes (`mqtt.setBufferSize()` giver mere plads)
+- `mqtt.state()` fortæller, hvorfor et forsøg fejlede: `-2` = kunne ikke nå brokeren, `4`/`5` = login afvist
+- Client-id laves ud fra MAC-adressen, så to ESP32'er aldrig har samme id
+- På port 8883 skiftes `WiFiClient` ud med `WiFiClientSecure` og `ca.crt` ([Lokal MQTT server](lokal_mqtt.qmd))
 
 # Kode: Python
 
@@ -159,7 +235,16 @@ while True:
     time.sleep(2)
 ```
 
-# Kode: C#
+## Python: sådan virker det
+
+- `on_connect` kaldes, når brokeren har sagt ja. Abonnér her, så abonnementet kommer igen efter en genforbindelse
+- `on_message` kaldes for hver besked. `msg.topic` er det rigtige topic, ikke dit wildcard
+- `msg.payload` er bytes: `.decode()` gør dem til tekst, `json.loads()` til en ordbog
+- `loop_forever()` venter på beskeder og forbinder selv igen, hvis forbindelsen falder ud
+- `loop_start()` kører netværket i en baggrundstråd, så din egen `while`-løkke kan sende
+- `CallbackAPIVersion.VERSION2`: mange eksempler på nettet bruger den gamle version 1
+
+# Kode: C\#
 
 ## C#: MQTTnet 5
 
@@ -210,6 +295,20 @@ Console.ReadLine();   // lyt, til der trykkes Enter
 await client.DisconnectAsync();
 ```
 
+## C# sammenlignet med Python
+
+| Python (paho-mqtt) | C# (MQTTnet 5) |
+|---|---|
+| `mqtt.Client(...)` | `new MqttClientFactory().CreateMqttClient()` |
+| `on_message` | `ApplicationMessageReceivedAsync` |
+| `client.connect(...)` + `on_connect` | `await client.ConnectAsync(options)` |
+| `client.subscribe(topic)` | `await client.SubscribeAsync(topic)` |
+| `client.publish(topic, json, qos=1)` | `await client.PublishStringAsync(topic, json, ...)` |
+| `loop_forever()` forbinder selv igen | Du skal selv genforbinde (`DisconnectedAsync`) |
+
+- Begreberne er de samme: kun navnene er anderledes
+- MQTTnet bruger MQTT 5 som standard, paho bruger 3.1.1. Mosquitto kan begge dele
+
 # Værktøjer
 
 ## MQTT Explorer
@@ -220,8 +319,11 @@ Gratis program, der viser alle topics som et træ: <https://mqtt-explorer.com/>
 2. *Encryption (tls)* fra, *Username*/*Password* tomme
 3. *Connect*: abonnerer som standard på `#` og `$SYS/#`
 
-- Fold `elever` ud, og klik på et topic: sidste besked, historik og graf over tal
-- *Publish*-feltet til højre: skriv topic og besked, og send en testbesked
+- Fold `elever` ud, og klik på et topic: sidste besked, QoS, retained og historik
+- JSON vises pænt opstillet. Tal kan vises som en graf
+- *Publish*-feltet til højre: skriv topic og besked, og send en testbesked (evt. med retain)
+- Et retained topic slettes med skraldespanden ved topic'et
+- Det bedste værktøj til at se, om din ESP32 eller dit program faktisk sender
 
 ## MQTT Explorer med TLS (port 8883)
 
@@ -234,40 +336,37 @@ Gratis program, der viser alle topics som et træ: <https://mqtt-explorer.com/>
 - Slå aldrig certifikattjekket fra
 - Detaljer: [Lokal MQTT server](lokal_mqtt.qmd)
 
-# Kode: ESP32
+## Weblog'en på wilsons
 
-## ESP32: opsætning
+Et værktøj, læreren har lavet, så det er synligt, hvad der sker på brokeren.
 
-```{.ini filename="platformio.ini"}
-[env:esp32doit-devkit-v1]
-platform = espressif32@8.0.0
-board = esp32doit-devkit-v1
-framework = arduino
-monitor_speed = 115200
-lib_deps = knolleary/PubSubClient@^2.8
-```
+- En logger på wilsons abonnerer på `#` og gemmer **alle** beskeder, også dem fra port 8883
+- Hver besked bliver én linje i en fil pr. topic, og `#.jsonl` samler dem alle
+- En webserver (nginx) viser filerne: <http://wilsons.local:8080/>
+- Virker i enhver browser og kræver ingen installation
+- Viser historikken: også beskeder, der blev sendt, før du kiggede
+- Til fejlsøgning: kom min besked frem, på det rigtige topic og med det rigtige indhold?
+- Til data: hent filen med Python og lav en graf eller statistik
+- Åben for alle på skolens net: send ikke hemmeligheder
 
-- Potentiometer: yderben til 3V3 og GND, midterben til **GPIO 32** (ADC1 virker med WiFi)
-- WiFi-navn og -kode i `include/secrets.h`, som står i `.gitignore` ([WiFi](../Grundlag/wifi.qmd))
-- `PubSubClient mqtt(netKlient);` oven på en `WiFiClient`: QoS 0, højst 256 bytes pr. besked
+## Weblog'en: filerne
 
-## ESP32: loop() uden at blokere
+![Filen `button.jsonl`: én linje pr. besked. (Skærmbilledet er fra den gamle server, wilson.local.)](images/weblog_topic_button.png){width="760" fig-alt="Browser med filen test/esp32/button.jsonl fra weblog'en: én linje JSON pr. MQTT-besked med timestamp, topic og payload."}
 
-```{.cpp filename="src/main.cpp (uddrag)"}
-void loop() {
-  unsigned long nu = millis();
-  if (mqtt.connected()) {
-    mqtt.loop();                                   // ping og modtagelse
-  } else if (WiFi.status() == WL_CONNECTED && nu - sidsteForsoeg >= 5000) {
-    sidsteForsoeg = nu;
-    mqtt.connect(klientId);                        // ét forsøg, ingen while
-  }
-  if (mqtt.connected() && nu - sidsteSend >= 5000) {
-    sidsteSend = nu;
-    sendMaaling();                                 // snprintf + mqtt.publish
-  }
-}
-```
+- Topic `elever/anna/esp32/maaling` → <http://wilsons.local:8080/elever/anna/esp32/maaling.jsonl>
+- Hver linje: `timestamp`, `topic` og `payload` (din besked som tekst). Alle beskeder: `%23.jsonl`
+- Hent med Python: `requests.get(url).text.splitlines()` og `json.loads()` pr. linje
+
+## Hele vejen: fra måling til weblog
+
+1. ESP32 måler spændingen og laver en JSON-tekst
+2. `mqtt.publish()` sender den til `elever/anna/esp32/maaling` på wilsons
+3. Brokeren sender den videre til alle abonnenter: din `subscriber.py`, MQTT Explorer og loggeren
+4. Loggeren skriver den som én linje i `elever/anna/esp32/maaling.jsonl`
+5. nginx viser filen på <http://wilsons.local:8080/>, hvor alle kan læse den
+6. Et Python-program kan hente filen og lave en graf eller statistik
+
+Fejlsøg i samme rækkefølge: sendes der (Serial Monitor)? Kommer den frem (MQTT Explorer)? Er den logget (weblog'en)?
 
 # Prøv selv
 
