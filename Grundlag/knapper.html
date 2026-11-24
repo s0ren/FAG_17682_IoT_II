@@ -296,6 +296,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../Grundlag/standardopstilling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Standardopstillingen</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../Grundlag/wifi.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">WiFi</span></a>
   </div>
@@ -417,7 +423,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- IKKE KOMPILERET: eksemplerne er tjekket mod dokumentationen, men ikke kompileret eller testet på hardware. -->
 <!--
 TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
-1. Kør eksemplet med en knap på GPIO 18 til GND: lysdioden på GPIO 2 lyser, kun mens knappen holdes nede, og Serial Monitor viser skiftene.
+1. Kør eksemplet med en knap på GPIO 33 til GND: lysdioden på GPIO 2 lyser, kun mens knappen holdes nede, og Serial Monitor viser skiftene.
 2. Tjek, at den indbyggede lysdiode på lokalets ESP32-DEVKIT-V1 sidder på GPIO 2 og lyser ved HIGH (TJEK i eksemplet).
 3. Afprøv øvelse 1 (svævende ben med INPUT): skifter værdien faktisk, når man rører ledningen? Ret teksten, hvis lokalets boards opfører sig anderledes (TJEK i afsnittet om svævende ben).
 4. Afprøv øvelse 2 (ekstern 10 kΩ pull-down, knap til 3V3) og øvelse 3 (to knapper).
@@ -428,7 +434,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 9. Når siden om modstande findes, link til den under Forudsætninger (TJEK der).
 10. BILLEDE: en trykknap set fra siden og fra neden, med de parvis forbundne ben markeret.
 11. BILLEDE: trykknap, vippekontakt og skydekontakt side om side.
-12. BILLEDE: eksemplets opstilling (knap over renden, diagonale ben til GPIO 18 og GND).
+12. BILLEDE: eksemplets opstilling (knap over renden, diagonale ben til GPIO 33 og GND).
 13. BILLEDE: øvelse 2 med den eksterne pull-down-modstand.
 14. Fjern IKKE KOMPILERET, denne tjekliste og alle TJEK- og BILLEDE-kommentarer, gør billede-mangler-boksene til BILLEDE-kommentarer eller rigtige billeder, og sæt draft: false.
 -->
@@ -496,7 +502,9 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 <li><strong>NC</strong> (<span lang="en">normally closed</span>): forbindelse i hvile, afbrudt når den aktiveres. Bruges fx til nødstop, fordi en knækket ledning så opdages som “stop” i stedet for at blive overset.</li>
 </ul>
 <p>Vippe- og skydekontakter har ofte tre ben: det midterste er fælles (COM) og forbindes til enten det ene eller det andet yderben. Det kaldes en omskifter (<span lang="en">SPDT</span>). De har ingen hvilestilling, så NO og NC giver ikke mening for dem. En endestopkontakt (<span lang="en">micro switch</span>) fjedrer derimod tilbage og har derfor tit benene mærket COM, NO og NC.</p>
-<!-- BILLEDE: En trykknap, en vippekontakt og en skydekontakt side om side, fra lokalets kasser. Se lignende billeder: [ESP32IO: ESP32 - Button](https://esp32io.com/tutorials/esp32-button). -->
+<div class="billede-mangler">
+<p>En trykknap, en vippekontakt og en skydekontakt side om side, fra lokalets kasser. Se lignende billeder: <a href="https://esp32io.com/tutorials/esp32-button">ESP32IO: ESP32 - Button</a>.</p>
+</div>
 <section id="trykknappen-har-fire-ben" class="level3">
 <h3 class="anchored" data-anchor-id="trykknappen-har-fire-ben">Trykknappen har fire ben</h3>
 <p>Den almindelige trykknap til breadboards (6 x 6 mm) har fire ben, men den er kun én kontakt. Benene er forbundet indvendigt to og to:</p>
@@ -508,7 +516,9 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
   B ●──────┴──────● B     B-benene er altid forbundet</code></pre>
 <p>Der er kun forbindelse mellem A og B, mens du trykker.</p>
 <p>Brug derfor to ben, der sidder <strong>diagonalt</strong> over for hinanden. Så går forbindelsen helt sikkert gennem kontakten, uanset hvordan knappen er drejet. Vælger du to ben, der er forbundet indvendigt, er “knappen” altid trykket.</p>
-<!-- BILLEDE: En trykknap set fra siden og fra neden, med de to par forbundne ben markeret. Se lignende billeder: [ESP32IO: ESP32 - Button](https://esp32io.com/tutorials/esp32-button) (afsnittet om knappens ben). -->
+<div class="billede-mangler">
+<p>En trykknap set fra siden og fra neden, med de to par forbundne ben markeret. Se lignende billeder: <a href="https://esp32io.com/tutorials/esp32-button">ESP32IO: ESP32 - Button</a> (afsnittet om knappens ben).</p>
+</div>
 </section>
 <section id="knappen-på-breadboardet" class="level3">
 <h3 class="anchored" data-anchor-id="knappen-på-breadboardet">Knappen på breadboardet</h3>
@@ -617,9 +627,11 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 </section>
 <section id="eksempel-lysdioden-lyser-mens-knappen-holdes-nede" class="level2">
 <h2 class="anchored" data-anchor-id="eksempel-lysdioden-lyser-mens-knappen-holdes-nede">Eksempel: lysdioden lyser, mens knappen holdes nede</h2>
-<p>Knappen sidder mellem <strong>GPIO 18</strong> og <strong>GND</strong>, på to diagonale ben. Lysdioden er den indbyggede på <strong>GPIO 2</strong>, så den skal ikke kobles på.</p>
+<p>Knappen sidder mellem <strong>GPIO 33</strong> og <strong>GND</strong>, på to diagonale ben, som i <a href="../Grundlag/standardopstilling.html">standardopstillingen</a>. Lysdioden er den indbyggede på <strong>GPIO 2</strong>, så den skal ikke kobles på.</p>
 <!-- TJEK: at den indbyggede lysdiode på lokalets boards sidder på GPIO 2 og lyser ved HIGH. -->
-<!-- BILLEDE: Eksemplets opstilling: ESP32-DEVKIT-V1 og en trykknap over renden, med ledninger fra to diagonale ben til GPIO 18 og GND. Se lignende billeder på siden om [Breadboard](breadboard.qmd). -->
+<div class="billede-mangler">
+<p>Eksemplets opstilling: ESP32-DEVKIT-V1 og en trykknap over renden, med ledninger fra to diagonale ben til GPIO 33 og GND. Se lignende billeder på siden om Breadboard.</p>
+</div>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>platformio.ini</strong></pre>
@@ -637,7 +649,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" data-filename="src/main.cpp"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;Arduino.h&gt;</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">// Konfiguration</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">int</span> KNAP_PIN <span class="op">=</span> <span class="dv">18</span><span class="op">;</span>  <span class="co">// knap mellem GPIO 18 og GND</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">int</span> KNAP_PIN <span class="op">=</span> <span class="dv">33</span><span class="op">;</span>  <span class="co">// knap mellem GPIO 33 og GND</span></span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">int</span> LED_PIN <span class="op">=</span> <span class="dv">2</span><span class="op">;</span>    <span class="co">// den indbyggede lysdiode</span></span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> forrigeTilstand <span class="op">=</span> HIGH<span class="op">;</span>  <span class="co">// HIGH = ikke trykket (pull-up)</span></span>
@@ -672,8 +684,8 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 <h2 class="anchored" data-anchor-id="øvelser">Øvelser</h2>
 <ol type="1">
 <li><strong>Det svævende ben:</strong> Ret <code>INPUT_PULLUP</code> til <code>INPUT</code> i eksemplet, og tag ledningen fra GND af knappen, så benet kun er forbundet til en løs ledning. Rør ved den løse ende af ledningen med fingeren, og hold øje med lysdioden og Serial Monitor. Skriv ned, hvad du ser, og forklar hvorfor. Sæt <code>INPUT_PULLUP</code> tilbage bagefter.</li>
-<li><strong>Ekstern pull-down:</strong> Byg knappen om, så den sidder mellem GPIO 18 og <strong>3V3</strong>, og sæt en modstand på 10 kΩ fra GPIO 18 til GND. Brug <code>pinMode(KNAP_PIN, INPUT)</code>. Ret programmet, så lysdioden stadig lyser, mens knappen holdes nede. Hvad læses nu, når knappen er trykket? Tegn diagrammet, og aflever det sammen med koden.</li>
-<li><strong>To knapper:</strong> Tilføj en knap mere på GPIO 19 til GND med <code>INPUT_PULLUP</code>. Lysdioden må kun lyse, når <em>begge</em> knapper holdes nede. Lav derefter en udgave, hvor den lyser, når <em>mindst én</em> er trykket. Brug konstanter til begge ben og en lille funktion <code>erTrykket(pin)</code>, der returnerer <code>true</code>, når knappen på <code>pin</code> er trykket.</li>
+<li><strong>Ekstern pull-down:</strong> Byg knappen om, så den sidder mellem GPIO 33 og <strong>3V3</strong>, og sæt en modstand på 10 kΩ fra GPIO 33 til GND. Brug <code>pinMode(KNAP_PIN, INPUT)</code>. Ret programmet, så lysdioden stadig lyser, mens knappen holdes nede. Hvad læses nu, når knappen er trykket? Tegn diagrammet, og aflever det sammen med koden.</li>
+<li><strong>To knapper:</strong> Tilføj en knap mere på GPIO 18 til GND med <code>INPUT_PULLUP</code>. Lysdioden må kun lyse, når <em>begge</em> knapper holdes nede. Lav derefter en udgave, hvor den lyser, når <em>mindst én</em> er trykket. Brug konstanter til begge ben og en lille funktion <code>erTrykket(pin)</code>, der returnerer <code>true</code>, når knappen på <code>pin</code> er trykket.</li>
 <li><strong>Et ben uden pull-up:</strong> Flyt knappen til GPIO 34 med <code>INPUT_PULLUP</code>. Virker den? Forklar hvorfor ikke, og få den til at virke med en ekstern modstand på 10 kΩ til 3V3.</li>
 <li><em>Ekstra:</em> Læs BOOT-knappen på ESP32-DEVKIT-V1 som input på GPIO 0, mens programmet kører, og lad den tænde lysdioden. Hold derefter BOOT nede, mens du trykker på EN. Hvad sker der, og hvorfor? (Brug ikke BOOT-knappen i dine egne projekter.)</li>
 </ol>

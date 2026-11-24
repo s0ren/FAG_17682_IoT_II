@@ -296,6 +296,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../Grundlag/standardopstilling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Standardopstillingen</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../Grundlag/wifi.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">WiFi</span></a>
   </div>
@@ -421,7 +427,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Ændret</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">23. november 2026</p>
+      <p class="date-modified">24. november 2026</p>
     </div>
   </div>
     
@@ -520,7 +526,9 @@ Skærmbilleder, der mangler (se BILLEDE-kommentarerne):
 </ol>
 <p>Se skærmbillederne i PlatformIO’s <a href="https://docs.platformio.org/en/latest/integration/ide/vscode.html#quick-start" lang="en">Quick Start</a> under trin 1 (PIO Home) og trin 2 (New Project).</p>
 <!-- TJEK: feltnavnene Name/Board/Framework/Location og fluebenet "Use default location" (standard: Dokumenter\PlatformIO\Projects) er ikke beskrevet i PlatformIO's docs; de er efter hukommelsen. -->
-<!-- BILLEDE: dialogen "Project Wizard" i PIO Home, udfyldt med navn, board "DOIT ESP32 DEVKIT V1", framework "Arduino" og en Location uden æøå. Se fx: https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2020/09/PlatformIO-Create-New-Project-ESP32.png?quality=100&strip=all&ssl=1 (Random Nerd Tutorials: samme dialog med DOIT ESP32 DEVKIT V1 og Arduino) -->
+<div class="billede-mangler">
+<p>Dialogen “Project Wizard” i PIO Home, udfyldt med navn, board “DOIT ESP32 DEVKIT V1”, framework “Arduino” og en Location uden æøå. Se lignende billeder: <a href="https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2020/09/PlatformIO-Create-New-Project-ESP32.png?quality=100&amp;strip=all&amp;ssl=1" class="uri">https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2020/09/PlatformIO-Create-New-Project-ESP32.png?quality=100&amp;strip=all&amp;ssl=1</a> (Random Nerd Tutorials: samme dialog med DOIT ESP32 DEVKIT V1 og Arduino)</p>
+</div>
 <section id="lås-platformens-version" class="level3">
 <h3 class="anchored" data-anchor-id="lås-platformens-version">Lås platformens version</h3>
 <p>Guiden skriver <code>platform = espressif32</code> i <code>platformio.ini</code>. Uden versionsnummer bruger PlatformIO den version, der allerede er installeret på computeren, eller den nyeste, hvis der ikke er nogen. Så kan to elever, der har installeret med en måneds mellemrum, få forskellige versioner af Arduino-frameworket. Ret derfor linjen til:</p>
@@ -586,7 +594,9 @@ Skærmbilleder, der mangler (se BILLEDE-kommentarerne):
 </tr>
 </tbody>
 </table>
-<!-- BILLEDE: VS Codes Explorer med et nyoprettet projekt foldet ud, så platformio.ini, src/main.cpp, include/, lib/ og .pio/ kan ses. Se fx: https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2020/09/PlatfomIO-project-created-folder-structure.png?quality=100&strip=all&ssl=1 (RNT: Explorer med .pio, include, lib, src, test, platformio.ini) -->
+<div class="billede-mangler">
+<p>VS Codes Explorer med et nyoprettet projekt foldet ud, så platformio.ini, src/main.cpp, include/, lib/ og .pio/ kan ses. Se lignende billeder: <a href="https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2020/09/PlatfomIO-project-created-folder-structure.png?quality=100&amp;strip=all&amp;ssl=1" class="uri">https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2020/09/PlatfomIO-project-created-folder-structure.png?quality=100&amp;strip=all&amp;ssl=1</a> (RNT: Explorer med .pio, include, lib, src, test, platformio.ini)</p>
+</div>
 <section id="gitignore" class="level3">
 <h3 class="anchored" data-anchor-id="gitignore">.gitignore</h3>
 <p>Det, der kommer i git, er det, en anden skal bruge for at bygge projektet: <code>platformio.ini</code>, <code>src/</code>, <code>include/</code>, <code>lib/</code> og <code>test/</code>. <code>.pio/</code> skal ikke med. Den fylder meget, og PlatformIO laver den igen ved næste build. Det samme gælder de filer i <code>.vscode/</code>, der indeholder stier fra din egen computer.</p>
@@ -654,7 +664,9 @@ Skærmbilleder, der mangler (se BILLEDE-kommentarerne):
 </tbody>
 </table>
 <p>De samme kommandoer findes under PlatformIO-ikonet i venstre side under <strong>Project Tasks</strong>, sorteret efter miljø. Se skærmbilledet i PlatformIO’s dokumentation under <a href="https://docs.platformio.org/en/latest/integration/ide/vscode.html#platformio-toolbar" lang="en">PlatformIO Toolbar</a> og <a href="https://docs.platformio.org/en/latest/integration/ide/vscode.html#task-explorer" lang="en">Task Explorer</a>.</p>
-<!-- BILLEDE: statuslinjen nederst i VS Code med PlatformIO-knapperne, hvor hver knap har en dansk pil/etiket (Home, Build, Upload, Clean, Serial Monitor, Terminal). Se fx: https://docs.platformio.org/en/latest/_images/platformio-ide-vscode-toolbar.png (PlatformIO-docs: kun ikonerne, uden etiketter) -->
+<div class="billede-mangler">
+<p>Statuslinjen nederst i VS Code med PlatformIO-knapperne, hvor hver knap har en dansk pil/etiket (Home, Build, Upload, Clean, Serial Monitor, Terminal). Se lignende billeder: <a href="https://docs.platformio.org/en/latest/_images/platformio-ide-vscode-toolbar.png" class="uri">https://docs.platformio.org/en/latest/_images/platformio-ide-vscode-toolbar.png</a> (PlatformIO-docs: kun ikonerne, uden etiketter)</p>
+</div>
 <p><strong>Clean</strong> bruger du, når en build opfører sig mærkeligt, fx efter du har skiftet platformens version eller flyttet filer. Ellers er der ingen grund til det: så skal alt bare oversættes igen.</p>
 <section id="monitor_speed" class="level3">
 <h3 class="anchored" data-anchor-id="monitor_speed">monitor_speed</h3>
@@ -695,7 +707,9 @@ Skærmbilleder, der mangler (se BILLEDE-kommentarerne):
 <li>Tag kortet ud og sæt det i igen. Den port, der forsvinder og kommer igen, er din. Den hedder fx <em>Silicon Labs CP210x USB to UART Bridge (COM3)</em> eller <em>USB-SERIAL CH340 (COM5)</em>.</li>
 </ol>
 <p>Espressif viser det med skærmbilleder under <a href="https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/establish-serial-connection.html#check-port-on-windows" lang="en">Check Port on Windows</a>.</p>
-<!-- BILLEDE: Enhedshåndtering på dansk Windows med "Porte (COM og LPT)" foldet ud og ESP32-kortets port markeret. Se fx: https://docs.espressif.com/projects/esp-idf/en/stable/esp32/_images/esp32-devkitc-in-device-manager.png (Espressif: engelsk Windows, "Silicon Labs CP210x USB to UART Bridge (COM3)") -->
+<div class="billede-mangler">
+<p>Enhedshåndtering på dansk Windows med “Porte (COM og LPT)” foldet ud og ESP32-kortets port markeret. Se lignende billeder: <a href="https://docs.espressif.com/projects/esp-idf/en/stable/esp32/_images/esp32-devkitc-in-device-manager.png" class="uri">https://docs.espressif.com/projects/esp-idf/en/stable/esp32/_images/esp32-devkitc-in-device-manager.png</a> (Espressif: engelsk Windows, “Silicon Labs CP210x USB to UART Bridge (COM3)”)</p>
+</div>
 <p>PlatformIO finder normalt selv porten. Har du flere serielle enheder tilsluttet, og vælger den forkert, så skriv porten i <code>platformio.ini</code>:</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
@@ -711,7 +725,9 @@ Skærmbilleder, der mangler (se BILLEDE-kommentarerne):
 <p>Ved upload nulstiller værktøjet <code>esptool</code> normalt ESP32 og sætter den i upload-tilstand (<span lang="en">download mode</span>) automatisk. Mens det sker, skriver det <code>Connecting....</code> med flere og flere prikker. Nogle kort når ikke at skifte, og så ender upload med en fejl, der begynder sådan:</p>
 <pre><code>A fatal error occurred: Failed to connect to ESP32: ...</code></pre>
 <p>Resten af linjen afhænger af esptool-versionen, fx <code>Timed out waiting for packet header</code>, <code>No serial data received</code> eller <code>Wrong boot mode detected</code>.</p>
-<!-- BILLEDE: terminalen i VS Code under en mislykket upload, med "Connecting......" og "A fatal error occurred: Failed to connect to ESP32" synlige. Se fx: https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2019/02/timed-out-waiting-for-packet-header.png?quality=100&strip=all&ssl=1 (RNT: samme fejl, men i Arduino IDE, ikke PlatformIO) -->
+<div class="billede-mangler">
+<p>Terminalen i VS Code under en mislykket upload, med “Connecting……” og “A fatal error occurred: Failed to connect to ESP32” synlige. Se lignende billeder: <a href="https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2019/02/timed-out-waiting-for-packet-header.png?quality=100&amp;strip=all&amp;ssl=1" class="uri">https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2019/02/timed-out-waiting-for-packet-header.png?quality=100&amp;strip=all&amp;ssl=1</a> (RNT: samme fejl, men i Arduino IDE, ikke PlatformIO)</p>
+</div>
 <p>Løsningen er at sætte kortet i upload-tilstand i hånden med knapperne ved USB-stikket:</p>
 <ol type="1">
 <li>Start upload.</li>
@@ -784,7 +800,9 @@ Skærmbilleder, der mangler (se BILLEDE-kommentarerne):
 <p>PlatformIO skriver nu en linje i <code>lib_deps</code> i projektets <code>platformio.ini</code> med ejer, navn og den nyeste version, fx <code>arduinogetstarted/ezButton@^1.0.6</code>. Åbn filen, og se efter.</p>
 <p>PlatformIO’s egen dokumentation har kun et enkelt skærmbillede af bibliotekssiden i PIO Home under <a href="https://docs.platformio.org/en/latest/home/index.html#library-manager" lang="en">Library Manager</a> og beskriver ikke trinnene. Random Nerd Tutorials viser hele forløbet med skærmbilleder under <em>Installing ESP32/ESP8266 Libraries on PlatformIO IDE</em> i artiklen under <a href="#læs-videre">Læs videre</a>.</p>
 <!-- TJEK: trinnene og knapnavnene (Libraries, Add to Project, dialogen med valg af projekt og knappen "Add") står ikke i PlatformIO's docs. De bygger på Random Nerd Tutorials og en tredjepartsvejledning. Prøv dem i PIO Home, og ret knapnavnene. Tjek også, at versionen, der skrives, har formen @^x.y.z. -->
-<!-- BILLEDE: dialogen "Add to Project" i PIO Home for ezButton, med elevens projekt valgt i listen. Gerne også et udsnit af platformio.ini bagefter med den nye lib_deps-linje. Se fx: https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2020/09/PlatformIO-VS-Code-Add-Library-to-Project-Choose-Project.png?quality=100&strip=all&ssl=1 (RNT: dialogen hedder "Add project dependency", med projektvalg og knappen Add; eksemplet er Adafruit BME280) -->
+<div class="billede-mangler">
+<p>Dialogen “Add to Project” i PIO Home for ezButton, med elevens projekt valgt i listen. Gerne også et udsnit af platformio.ini bagefter med den nye lib_deps-linje. Se lignende billeder: <a href="https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2020/09/PlatformIO-VS-Code-Add-Library-to-Project-Choose-Project.png?quality=100&amp;strip=all&amp;ssl=1" class="uri">https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2020/09/PlatformIO-VS-Code-Add-Library-to-Project-Choose-Project.png?quality=100&amp;strip=all&amp;ssl=1</a> (RNT: dialogen hedder “Add project dependency”, med projektvalg og knappen Add; eksemplet er Adafruit BME280)</p>
+</div>
 </section>
 <section id="måde-2-skriv-lib_deps-selv" class="level3">
 <h3 class="anchored" data-anchor-id="måde-2-skriv-lib_deps-selv">Måde 2: skriv lib_deps selv</h3>

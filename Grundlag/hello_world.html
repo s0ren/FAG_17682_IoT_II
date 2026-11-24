@@ -296,6 +296,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../Grundlag/standardopstilling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Standardopstillingen</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../Grundlag/wifi.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">WiFi</span></a>
   </div>
@@ -423,7 +429,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 Billeder, der mangler (se de orange bokse):
 5. ESP32-DEVKIT-V1 set ovenfra med EN, BOOT og den blå lysdiode markeret.
 6. Serial Monitor efter et tryk på EN: opstartslinjerne fra ROM'en og derefter "Hej fra ESP32!".
-7. Opstillingen til øvelse 4: to lysdioder med modstande på GPIO 22 og 23.
+7. Øvelse 4 bruger standardopstillingen (lysdiode på GPIO 19) og den indbyggede lysdiode på GPIO 2.
 8. Når alt er testet: fjern IKKE KOMPILERET, denne tjekliste og TJEK-kommentarerne, gør de orange bokse til BILLEDE-kommentarer eller rigtige billeder, og sæt draft: false.
 -->
 <p>Det første program på et nyt stykke hardware er altid det samme: få det til at sige noget, og få noget til at blinke. Så ved du, at værktøjerne virker, at programmet kommer over på kortet, og at du kan se, hvad det laver. På denne side skriver du dit første program til ESP32-DEVKIT-V1. Det skriver tekst i Serial Monitor og blinker med lysdioden, der sidder på kortet.</p>
@@ -464,7 +470,9 @@ Billeder, der mangler (se de orange bokse):
 </ol>
 <p>Almindelige variabler starter forfra med deres startværdi. En tæller, der var nået til 57, er 0 igen efter en reset.</p>
 <p><strong>EN</strong> står for <em>enable</em>. Den slukker chippen et øjeblik, og når du slipper den, starter den forfra. Det er altså reset-knappen. Den anden knap, <strong>BOOT</strong> (GPIO 0), bruges mest ved upload: holdes den nede ved opstart, går ESP32 i upload-tilstand (se <a href="../Grundlag/platformio.html#failed-to-connect-boot-knappen">PlatformIO</a>).</p>
-<!-- BILLEDE: ESP32-DEVKIT-V1 set ovenfra med pile til knapperne EN og BOOT ved USB-stikket og til den lille blå lysdiode (GPIO 2) og den røde strømlysdiode. Se lignende billeder: [Random Nerd Tutorials: ESP32 Pinout Reference](https://randomnerdtutorials.com/esp32-pinout-reference-gpios/). -->
+<div class="billede-mangler">
+<p>ESP32-DEVKIT-V1 set ovenfra med pile til knapperne EN og BOOT ved USB-stikket og til den lille blå lysdiode (GPIO 2) og den røde strømlysdiode. Se lignende billeder: <a href="https://randomnerdtutorials.com/esp32-pinout-reference-gpios/">Random Nerd Tutorials: ESP32 Pinout Reference</a>.</p>
+</div>
 </section>
 </section>
 <section id="serial-esp32-skriver-til-din-computer" class="level2">
@@ -514,7 +522,9 @@ Billeder, der mangler (se de orange bokse):
 ...
 Hej fra ESP32!</code></pre>
 <!-- TJEK: de præcise opstartslinjer (rst:/boot:-værdierne efter et tryk på EN) er ikke afprøvet på skolens kort. esptool-dokumentationen bekræfter kun, at ROM'en skriver en "rst:… boot:…"-linje ved 115200 baud. -->
-<!-- BILLEDE: Serial Monitor i VS Code efter et tryk på EN: opstartslinjerne fra ROM'en og til sidst "Hej fra ESP32!". Se lignende billeder: [Random Nerd Tutorials: Getting Started with VS Code and PlatformIO IDE](https://randomnerdtutorials.com/vs-code-platformio-ide-esp32-esp8266-arduino/). -->
+<div class="billede-mangler">
+<p>Serial Monitor i VS Code efter et tryk på EN: opstartslinjerne fra ROM’en og til sidst “Hej fra ESP32!”. Se lignende billeder: <a href="https://randomnerdtutorials.com/vs-code-platformio-ide-esp32-esp8266-arduino/">Random Nerd Tutorials: Getting Started with VS Code and PlatformIO IDE</a>.</p>
+</div>
 </section>
 <section id="eksempel-blink-med-delay" class="level2">
 <h2 class="anchored" data-anchor-id="eksempel-blink-med-delay">Eksempel: blink med delay()</h2>
@@ -618,12 +628,11 @@ Hej fra ESP32!</code></pre>
 <li>Kør Hello World. Tryk på <strong>EN</strong> et par gange, og se, hvad der står i Serial Monitor hver gang. Ret teksten, så den skriver dit navn.</li>
 <li>Kør blink med <code>millis()</code>. Ret <code>BLINK_MS</code>, så lysdioden blinker hurtigt (100 ms) og langsomt (2000 ms). Hvor hurtigt kan den blinke, før du ikke længere kan se, at den blinker?</li>
 <li>Lav en tæller: hvert sekund skal programmet skrive <code>Tæller: 1</code>, <code>Tæller: 2</code> osv. i Serial Monitor med <code>Serial.printf()</code>. Brug <code>millis()</code>, ikke <code>delay()</code>. Tryk på <strong>EN</strong>. Hvad sker der med tælleren?</li>
-<li>Sæt to lysdioder på breadboardet: hver med en modstand på 220 Ω fra GPIO 22 og GPIO 23 til lysdiodens lange ben (anoden), og det korte ben til GND. Lad den ene blinke hvert 300 ms og den anden hvert 700 ms. Du skal bruge en <code>sidsteSkift</code> og en <code>ledTaendt</code> til hver lysdiode. Aflever koden og en kort video.</li>
+<li>Brug lysdioden på GPIO 19 fra <a href="../Grundlag/standardopstilling.html">standardopstillingen</a> og den indbyggede lysdiode på GPIO 2. Lad den ene blinke hvert 300 ms og den anden hvert 700 ms. Du skal bruge en <code>sidsteSkift</code> og en <code>ledTaendt</code> til hver lysdiode. Aflever koden og en kort video.</li>
 <li><em>Ekstra:</em> Prøv at løse øvelse 4 med <code>delay()</code> i stedet. Hvordan ser koden ud, og hvad sker der, hvis tiderne ændres til 300 ms og 710 ms, eller der også skal læses en knap? Skriv to-tre linjer om forskellen.</li>
 <li><em>Ekstra:</em> Saml koden til én lysdiode i en funktion, fx <code>void blink(int pin, unsigned long interval, unsigned long&amp; sidsteSkift, bool&amp; taendt)</code>, så <code>loop()</code> bare kalder den to gange. Referencerne (<code>&amp;</code>) forklares på siden <a href="../Grundlag/cpp_intro.html#referencer">Intro til C++</a>.</li>
 </ol>
 <!-- TJEK: 220 Ω til lysdioderne er ikke afprøvet med lokalets lysdioder (samme TJEK som på siden om breadboard). -->
-<!-- BILLEDE: Opstillingen til øvelse 4: ESP32-DEVKIT-V1 på breadboard med to lysdioder og to modstande på GPIO 22 og 23, med korte, flade ledninger. Se lignende billeder: [ESP32IO: ESP32 - LED - Blink Without Delay](https://esp32io.com/tutorials/esp32-led-blink-without-delay). -->
 </section>
 <section id="typiske-fejl" class="level2">
 <h2 class="anchored" data-anchor-id="typiske-fejl">Typiske fejl</h2>

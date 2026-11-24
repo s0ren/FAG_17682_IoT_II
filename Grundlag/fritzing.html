@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="da" xml:lang="da"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.20">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Søren Magnusson">
+
+<title>Fritzing – FAG 17682_IoT_II</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-17888a1159294d3eb470f19f6f52f5a5.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-1958bf8fe25c7117446dee592769f80d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Ingen resultater",
+    "search-matching-documents-text": "Matchende dokumenter",
+    "search-copy-link-title": "Kopier link for at søge",
+    "search-hide-matches-text": "Skjul yderligere resultater",
+    "search-more-match-text": "andet resultat i dette dokument",
+    "search-more-matches-text": "andre resultater i dette dokument",
+    "search-clear-button-title": "Ryd",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Fortryd",
+    "search-submit-button-title": "Indsend",
+    "search-label": "Søg"
+  }
+}</script>
+<meta name="quarto:status" content="draft">
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><div id="quarto-draft-alert" class="alert alert-warning"><i class="bi bi-pencil-square"></i>Udkast</div>
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">FAG 17682_IoT_II</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Søg"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Skift navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Hjem</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../laeringsmaal.html" aria-current="page"> 
+<span class="menu-text">Læringsmål</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">Om sitet</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Skift sidebjælke" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Grundlag/index.html">Grundlag</a></li><li class="breadcrumb-item"><a href="../Grundlag/fritzing.html">Fritzing</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Skift sidebjælke" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Om sitet</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Referencer/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Referencemanualer</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../laeringsmaal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Læringsmål</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Features/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Features</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Skift sektion">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Features/deep_sleep.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Deep Sleep</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Features/esp_now_mesh.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ESP-NOW og ESP-MESH</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Features/filsystem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Filsystem på ESP32</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Features/lokal_mqtt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lokal MQTT-server</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Features/mqtt_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Intro til MQTT</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Features/mqtt_intro_slides.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Intro til MQTT (slides)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Grundlag/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Grundlag</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Skift sektion">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/cpp_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Intro til C++</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/debouncing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Debouncing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/esp32_specs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ESP32-DEVKIT-V1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/hello_world.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hello World på ESP32</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/knapper.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Knapper og kontakter</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/lysdioder.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lysdioder (LED’er)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/modstande.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Modstande og farvekoder</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/platformio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">PlatformIO</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/potentiometer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Drejepotentiometer</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/standardopstilling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Standardopstillingen</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/wifi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">WiFi</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Opgaver/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Opgaver</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Skift sektion">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Opgaver/Projektopgave_Smiley.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Projektopgave, Smiley feedback panel</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Opgaver/Projektopgave_wifi_position.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Projektopgave, Positionsbestemmelse af enheder uden GPS dækning</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Opgaver/Projektopgave_wifi_position_checkliste.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Checkliste: Positionsbestemmelse af enheder uden GPS dækning</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">På denne side</h2>
+   
+  <ul>
+  <li><a href="#formål" id="toc-formål" class="nav-link active" data-scroll-target="#formål">Formål</a></li>
+  <li><a href="#målpinde" id="toc-målpinde" class="nav-link" data-scroll-target="#målpinde">Målpinde</a></li>
+  <li><a href="#forudsætninger" id="toc-forudsætninger" class="nav-link" data-scroll-target="#forudsætninger">Forudsætninger</a></li>
+  <li><a href="#hvad-er-fritzing" id="toc-hvad-er-fritzing" class="nav-link" data-scroll-target="#hvad-er-fritzing">Hvad er Fritzing?</a></li>
+  <li><a href="#installation-på-windows" id="toc-installation-på-windows" class="nav-link" data-scroll-target="#installation-på-windows">Installation på Windows</a>
+  <ul class="collapse">
+  <li><a href="#fritzing-fra-fritzing.org" id="toc-fritzing-fra-fritzing.org" class="nav-link" data-scroll-target="#fritzing-fra-fritzing.org">Fritzing fra fritzing.org</a></li>
+  </ul></li>
+  <li><a href="#dele-og-søgning" id="toc-dele-og-søgning" class="nav-link" data-scroll-target="#dele-og-søgning">Dele og søgning</a></li>
+  <li><a href="#lærerens-component-bin-tec_iot1.fzbz" id="toc-lærerens-component-bin-tec_iot1.fzbz" class="nav-link" data-scroll-target="#lærerens-component-bin-tec_iot1.fzbz">Lærerens Component Bin: TEC_IoT1.fzbz</a>
+  <ul class="collapse">
+  <li><a href="#esp32-devkit-v1-som-del" id="toc-esp32-devkit-v1-som-del" class="nav-link" data-scroll-target="#esp32-devkit-v1-som-del">ESP32-DEVKIT-V1 som del</a></li>
+  </ul></li>
+  <li><a href="#eksempel-tegn-en-opstilling" id="toc-eksempel-tegn-en-opstilling" class="nav-link" data-scroll-target="#eksempel-tegn-en-opstilling">Eksempel: tegn en opstilling</a>
+  <ul class="collapse">
+  <li><a href="#er-ledningen-forbundet" id="toc-er-ledningen-forbundet" class="nav-link" data-scroll-target="#er-ledningen-forbundet">Er ledningen forbundet?</a></li>
+  </ul></li>
+  <li><a href="#eksportér-et-billede" id="toc-eksportér-et-billede" class="nav-link" data-scroll-target="#eksportér-et-billede">Eksportér et billede</a></li>
+  <li><a href="#øvelser" id="toc-øvelser" class="nav-link" data-scroll-target="#øvelser">Øvelser</a></li>
+  <li><a href="#typiske-fejl" id="toc-typiske-fejl" class="nav-link" data-scroll-target="#typiske-fejl">Typiske fejl</a></li>
+  <li><a href="#læs-videre" id="toc-læs-videre" class="nav-link" data-scroll-target="#læs-videre">Læs videre</a>
+  <ul class="collapse">
+  <li><a href="#adafruits-dele-i-fritzing" id="toc-adafruits-dele-i-fritzing" class="nav-link" data-scroll-target="#adafruits-dele-i-fritzing">Adafruits dele i Fritzing</a></li>
+  <li><a href="#esp32-doit-devkit-v1-på-fritzings-forum" id="toc-esp32-doit-devkit-v1-på-fritzings-forum" class="nav-link" data-scroll-target="#esp32-doit-devkit-v1-på-fritzings-forum">ESP32 DOIT DEVKIT V1 på Fritzings forum</a></li>
+  </ul></li>
+  <li><a href="#kilder" id="toc-kilder" class="nav-link" data-scroll-target="#kilder">Kilder</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Grundlag/index.html">Grundlag</a></li><li class="breadcrumb-item"><a href="../Grundlag/fritzing.html">Fritzing</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Fritzing</h1>
+<p class="subtitle lead">Diagrammer over breadboard-opstillinger</p>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Forfatter</div>
+  <div class="quarto-title-meta-heading">Uddannelse</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Søren Magnusson </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Data, TEC
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Udgivet</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">24. november 2026</p>
+    </div>
+  </div>
+  
+    <div>
+    <div class="quarto-title-meta-heading">Ændret</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">24. november 2026</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- IKKE KOMPILERET: siden har ingen kode. Menuer og fakta om Fritzing er tjekket mod Fritzings kildekode (fritzing-app, develop-grenen) og andre kilder, men ikke afprøvet i Fritzing 1.0.7 på lokalets pc'er. -->
+<!--
+TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
+1. Udfyld LÆRER-kommentaren om, hvorfor installationsfilen hedder .msee på ItsLearning (afsnittet om installation).
+2. Installér 1-Windows-Fritzing-1.0.7.msi på en elev-pc: kræver den administratorrettigheder, og kommer der en advarsel fra Windows (SmartScreen)? (TJEK i afsnittet om installation.)
+3. Tjek prisen og betingelserne på fritzing.org/download, og om 1.0.8 skal bruges i stedet for 1.0.7 (TJEK i afsnittet om fritzing.org).
+4. Tjek genvejene i 1.0.7: Welcome Ctrl+1, Breadboard Ctrl+2, Schematic Ctrl+3, PCB Ctrl+4 (TJEK i afsnittet "Hvad er Fritzing?").
+5. Tjek, at Window-menuen i 1.0.7 har punkterne Parts og Inspector (TJEK samme sted).
+6. Åbn linket fritzing.org/learning/get-started/palette-window i en browser, og tjek, at det virker (TJEK ved den første billedboks).
+7. Tjek, at Bin-menuen sidder som en lille knap i toppen af Parts-vinduet ved søgefeltet, og at den indeholder Import... og Save Bin (TJEK i afsnittet om Component Bin).
+8. Åbn TEC_IoT1.fzbz i 1.0.7: kommer den som en ny fane, spørger Fritzing om at gemme den, og er den der stadig efter genstart? (TJEK samme sted.)
+9. Tjek, om ESP32 DOIT DEVKIT V1 er i TEC_IoT1.fzbz, eller om den kan findes ved at søge i Parts-vinduet uden binnen (TJEK i afsnittet om ESP32-delen).
+10. Tjek, at ESP32-delen i binnen har de rigtige ben (30 ben, GND, 3V3, GPIO 33 og GPIO 19 de rigtige steder) (TJEK samme sted).
+11. Tjek, at breadboardets huller markeres grønt, når et ben sidder i dem (TJEK i eksemplet, trin 2).
+12. Tjek, at træk i midten af en ledning laver et knæk (ikke en kurve) med standardindstillingerne, og at dobbeltklik også laver et knæk (TJEK i eksemplet, trin 6).
+13. Tjek, at endepunkterne på en ledning er grønne, når de er forbundet, og røde, når de ikke er (TJEK i afsnittet "Er ledningen forbundet?").
+14. Tjek, at eksport-dialogen til PNG viser 270 dpi som standard, og at 300 dpi giver en passende filstørrelse til logbogen (TJEK i afsnittet om eksport).
+15. Indsæt link til TEC_IoT1.fzbz og installationsfilen på ItsLearning (LÆRER-pladsholdere).
+16. BILLEDE: Fritzings vindue med Breadboard-visningen, Parts og Inspector.
+17. BILLEDE: Bin-menuen i Parts-vinduet med Import... markeret, og TEC_IoT1-binnen åben som ny fane.
+18. BILLEDE: den færdige knap-opstilling i Breadboard-visningen.
+19. BILLEDE: samme opstilling i Schematic-visningen med stiplede ratsnest-linjer.
+20. BILLEDE: en ledning med grønne og en med røde endepunkter, og højreklik-menuen Wire Color (ét samlet billede eller to).
+21. BILLEDE: eksport-dialogen med dpi-valg.
+22. Udfyld eller slet alle LÆRER-pladsholdere.
+23. Fjern IKKE KOMPILERET, denne tjekliste og alle TJEK-, BILLEDE- og LÆRER-kommentarer, gør billedboksene til BILLEDE-kommentarer, og sæt draft: false.
+-->
+<p>Når du har bygget en opstilling på et breadboard, skal den kunne bygges igen: af dig selv om en måned, af en makker, eller af læreren, der skal rette din aflevering. Et foto af et board med ti ledninger er svært at læse. Fritzing er et tegneprogram, hvor du tegner opstillingen, som den ser ud på breadboardet, og får et pænt billede, du kan sætte ind i logbogen, porteføljen eller afleveringen.</p>
+<section id="formål" class="level2">
+<h2 class="anchored" data-anchor-id="formål">Formål</h2>
+<ul>
+<li>Du kan installere Fritzing og åbne lærerens samling af dele (TEC_IoT1.fzbz).</li>
+<li>Du kan finde dele i Parts-vinduet og placere dem på et breadboard i Fritzing.</li>
+<li>Du kan trække ledninger, give dem den rigtige farve og tjekke, at de er forbundet.</li>
+<li>Du kan eksportere tegningen som et billede og sætte det ind i din logbog.</li>
+</ul>
+</section>
+<section id="målpinde" class="level2">
+<h2 class="anchored" data-anchor-id="målpinde">Målpinde</h2>
+<p>Siden arbejder med målpind 9 (opbygge og dokumentere en mindre IoT-løsning) og målpind 18 (opbygge en mindre prototype) (se <a href="../laeringsmaal.html">Læringsmål</a>).</p>
+</section>
+<section id="forudsætninger" class="level2">
+<h2 class="anchored" data-anchor-id="forudsætninger">Forudsætninger</h2>
+<ul>
+<li>En Windows-pc, hvor du må installere programmer.</li>
+<li>Du ved, hvordan et breadboard er forbundet indvendigt (se Breadboard).</li>
+<li>Du har bygget en opstilling med en knap eller en lysdiode, fx fra <a href="../Grundlag/knapper.html">Knapper</a>, <a href="../Grundlag/lysdioder.html">Lysdioder</a> eller <a href="../Grundlag/debouncing.html">Debouncing</a>.</li>
+</ul>
+</section>
+<section id="hvad-er-fritzing" class="level2">
+<h2 class="anchored" data-anchor-id="hvad-er-fritzing">Hvad er Fritzing?</h2>
+<p>Fritzing er et program til at tegne elektronik. Det har tre visninger af den samme opstilling, med faneblade øverst i vinduet:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Visning</th>
+<th>Hvad den viser</th>
+<th>Brug hos os</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Breadboard</strong></td>
+<td>Delene og ledningerne, som de ser ud på et rigtigt breadboard</td>
+<td>Den vigtigste: dokumentation af opstillingen</td>
+</tr>
+<tr class="even">
+<td><strong>Schematic</strong></td>
+<td>Et diagram med symboler (<span lang="en">schematic</span>)</td>
+<td>Til at forklare kredsløbet</td>
+</tr>
+<tr class="odd">
+<td><strong>PCB</strong></td>
+<td>Et printkort (<span lang="en">printed circuit board</span>)</td>
+<td>Bruges ikke i faget</td>
+</tr>
+</tbody>
+</table>
+<p>De tre visninger hænger sammen: forbinder du to ben i Breadboard-visningen, ved Fritzing, at de er forbundet, også i de andre visninger. I Schematic-visningen vises forbindelsen først som en tynd stiplet linje, et såkaldt <span lang="en">ratsnest</span>. Den fortæller, hvilke ben der skal forbindes, men du skal selv trække ledningen, hvis diagrammet skal se pænt ud. Du skifter visning med fanerne eller med <em>View → Show Breadboard</em> (Ctrl+2), <em>Show Schematic</em> (Ctrl+3) og <em>Show PCB</em> (Ctrl+4). Ctrl+1 er fanen <em>Welcome</em>, som Fritzing viser, når det starter.</p>
+<!-- TJEK: genvejene i 1.0.7. Ifølge kildekoden (mainwindow_menu.cpp) tildeles Ctrl+1 til Ctrl+5 i rækkefølge, og Welcome får kun Ctrl+1, når Welcome-fanen findes; ellers rykker Breadboard op på Ctrl+1 osv. -->
+<p>På denne side bruger vi næsten kun Breadboard-visningen. Det er den, der ligner det, du har bygget, og det gør det nemt at sammenligne tegning og board hul for hul.</p>
+<p>Til højre i vinduet sidder to vigtige vinduer:</p>
+<ul>
+<li><strong>Parts:</strong> alle de dele, du kan trække ind på tegningen, sorteret i <em>bins</em> (samlinger). Øverst er en søgning.</li>
+<li><strong>Inspector:</strong> egenskaberne for den del, du har valgt, fx modstandens værdi eller lysdiodens farve.</li>
+</ul>
+<p>Kan du ikke se dem, så slå dem til i menuen <em>Window</em>.</p>
+<!-- TJEK: at Window-menuen i 1.0.7 har punkterne Parts og Inspector. Fritzings gamle guides siger det, men det kunne ikke bekræftes i kildekoden (mainwindow_menu.cpp). -->
+<div class="billede-mangler">
+<p>Fritzings vindue med Breadboard-visningen åben, Parts-vinduet og Inspector til højre, og fanerne Breadboard, Schematic og PCB øverst. Se lignende billeder: <a href="https://fritzing.org/learning/get-started/palette-window">Fritzing: Parts-vinduet (palette window)</a> (ældre version af Fritzing, hvor knapperne sad i bunden af Parts-vinduet).</p>
+</div>
+<!-- TJEK: at linket til fritzing.org/learning/get-started/palette-window virker i en browser (fritzing.org svarer 403 på automatiske hentninger). -->
+</section>
+<section id="installation-på-windows" class="level2">
+<h2 class="anchored" data-anchor-id="installation-på-windows">Installation på Windows</h2>
+<p>Læreren har lagt installationsfilen til Fritzing <strong>1.0.7</strong> på ItsLearning.</p>
+<!-- LÆRER: link til installationsfilen på ItsLearning. -->
+<ol type="1">
+<li>Hent filen <strong>1-Windows-Fritzing-1.0.7.msee</strong>.</li>
+<li>Omdøb den til <strong>1-Windows-Fritzing-1.0.7.msi</strong>: ret kun endelsen fra <code>.msee</code> til <code>.msi</code>. Kan du ikke se endelsen, så slå <em>Filtypenavne</em> til under <em>Vis</em> i Stifinder.</li>
+<li>Dobbeltklik på <code>.msi</code>-filen, og følg installationen.</li>
+<li>Start Fritzing fra Start-menuen.</li>
+</ol>
+<p>Læreren har ændret endelsen for at kunne dele filen på ItsLearning. Filen er den samme; den skal bare hedde <code>.msi</code> igen, før Windows vil installere den.</p>
+<!-- LÆRER: skriv kort, hvorfor filen er omdøbt (fx at ItsLearning eller mailfiltre blokerer .msi-filer), eller slet denne kommentar. -->
+<!-- TJEK: om installationen kræver administratorrettigheder på elevernes pc'er, og om Windows SmartScreen advarer om filen. Skriv i så fald, hvad eleven skal trykke. -->
+<section id="fritzing-fra-fritzing.org" class="level3">
+<h3 class="anchored" data-anchor-id="fritzing-fra-fritzing.org">Fritzing fra fritzing.org</h3>
+<p>Den officielle kilde til Fritzing er <a href="https://fritzing.org/download" class="uri">https://fritzing.org/download</a>. Fritzing er open source: kildekoden er under licensen GNU GPL v3, og tegningerne af delene under Creative Commons BY-SA 3.0. De færdige installationsfiler på fritzing.org er dog ikke gratis: man betaler et mindre beløb for at hente dem, og pengene går til udviklingen. Det er tilladt efter GPL-licensen. Kildekoden ligger gratis på <a href="https://github.com/fritzing/fritzing-app">GitHub</a>, men det er besværligt at bygge programmet selv.</p>
+<p>Den nyeste version er 1.0.8 (august 2026). Til faget er 1.0.7 fra ItsLearning nok.</p>
+<!-- TJEK: fritzing.org kunne ikke hentes (HTTP 403). Ifølge Wikipedia er beløbet 8 € eller 25 €, og ifølge udgivelsesnoten til 1.0.7 får nylige købere opdateringer uden ekstra betaling. Tjek pris og betingelser på fritzing.org/download, og om I skal skifte til 1.0.8. -->
+</section>
+</section>
+<section id="dele-og-søgning" class="level2">
+<h2 class="anchored" data-anchor-id="dele-og-søgning">Dele og søgning</h2>
+<p>Delene i Parts-vinduet er delt op i <em>bins</em>, med en fane hver. <strong>Core</strong> er Fritzings egne standarddele (modstande, lysdioder, knapper, breadboards, Arduino-boards …). <strong>Mine</strong> er dine egne dele.</p>
+<p>Vil du finde en bestemt del, så klik på søgningen (luppen) øverst i Parts-vinduet, skriv fx <code>pushbutton</code>, <code>LED</code>, <code>resistor</code> eller <code>ESP32</code>, og tryk Enter. Søgningen leder i alle de dele, Fritzing kender, ikke kun i den bin, du har åben. Delene hedder noget på engelsk, så søg på engelsk.</p>
+<p>Når en del er placeret, kan du ændre den i <strong>Inspector</strong>: en modstand fås som én del, og du skriver selv værdien (fx 220Ω). En lysdiode kan få en anden farve. Sådan er tegningen den samme som dit board.</p>
+</section>
+<section id="lærerens-component-bin-tec_iot1.fzbz" class="level2">
+<h2 class="anchored" data-anchor-id="lærerens-component-bin-tec_iot1.fzbz">Lærerens Component Bin: TEC_IoT1.fzbz</h2>
+<p>En <em>Component Bin</em> er en fil med endelsen <code>.fzbz</code>, som samler en række dele, så de kan deles. Læreren har lavet binnen <strong>TEC_IoT1.fzbz</strong> med de særlige dele, vi bruger i projekterne, så du ikke skal lede efter dem.</p>
+<!-- LÆRER: link til TEC_IoT1.fzbz på ItsLearning. -->
+<!-- LÆRER: hvilke dele der er i TEC_IoT1.fzbz (fx ESP32, sensorer, OLED-display). -->
+<p>Sådan åbner du den:</p>
+<ol type="1">
+<li>Hent <strong>TEC_IoT1.fzbz</strong> fra ItsLearning, og gem den et sted, du kan finde den.</li>
+<li>I Parts-vinduet: klik på den lille menuknap øverst ved søgefeltet. Det åbner menuen <strong>Bin</strong>.</li>
+<li>Vælg <strong>Import…</strong>, og vælg filen TEC_IoT1.fzbz. (<em>File → Open…</em> kan også åbne en <code>.fzbz</code>-fil.)</li>
+<li>Binnen kommer som en ny fane i Parts-vinduet.</li>
+<li>Gem binnen med <strong>Bin → Save Bin</strong>. Fritzing foreslår at gemme den i din egen Fritzing-mappe; sig ja til det. Fritzing har markeret binnen som ændret, så den spørger også, om du vil gemme den, når du lukker programmet.</li>
+</ol>
+<p>Næste gang du starter Fritzing, er binnen der stadig.</p>
+<!-- TJEK: Bin-menuens placering og navnene Import... og Save Bin er taget fra kildekoden (binmanager.cpp: "Import...", "Save Bin", "Save Bin As...", "Export Bin...", "Close Bin"). Afprøv i 1.0.7, at binnen åbner som ny fane, at Fritzing spørger om at gemme den, og at den er der efter genstart. -->
+<div class="billede-mangler">
+<p>Parts-vinduet med Bin-menuen åben og <em>Import…</em> markeret, og bagefter TEC_IoT1-binnen som en ny fane. Se lignende billeder: Adafruits <a href="https://learn.adafruit.com/using-the-adafruit-library-with-fritzing/import-the-library-into-fritzing">Using the Adafruit Library with Fritzing</a> (ældre version af Fritzing).</p>
+</div>
+<section id="esp32-devkit-v1-som-del" class="level3">
+<h3 class="anchored" data-anchor-id="esp32-devkit-v1-som-del">ESP32-DEVKIT-V1 som del</h3>
+<p>Fritzings Core-bin har ingen ESP32-boards. En del til ESP32 DOIT DEVKIT V1 (30 ben) findes som en del, brugere har lavet og delt på Fritzings forum. Brug den del, der ligger i TEC_IoT1.fzbz, så alle i klassen tegner med den samme.</p>
+<!-- TJEK: om ESP32 DOIT DEVKIT V1 ligger i TEC_IoT1.fzbz, eller om den kan findes ved at søge på "ESP32" uden binnen (Core-binnen core.fzb i fritzing-parts har ingen ESP32-dele; hele del-biblioteket er ikke gennemsøgt). Tjek også, at delen har 30 ben, og at 3V3, GND, GPIO 33 og GPIO 19 sidder de rigtige steder: den udbredte forum-del havde fejl i benenes navne i sin første udgave. -->
+</section>
+</section>
+<section id="eksempel-tegn-en-opstilling" class="level2">
+<h2 class="anchored" data-anchor-id="eksempel-tegn-en-opstilling">Eksempel: tegn en opstilling</h2>
+<p>Her tegnes knappen fra <a href="../Grundlag/debouncing.html">Debouncing</a> og <a href="../Grundlag/standardopstilling.html">standardopstillingen</a>: en trykknap mellem <strong>GPIO 33</strong> og <strong>GND</strong>. Den interne pull-up bruges, så der er ingen modstand.</p>
+<ol type="1">
+<li><p><strong>Nyt projekt:</strong> <em>File → New</em>. Gå til fanen <strong>Breadboard</strong>. Der ligger allerede et breadboard. Gem med det samme (<em>File → Save</em>), fx som <code>knap_gpio33.fzz</code>.</p></li>
+<li><p><strong>ESP32:</strong> Træk ESP32-DEVKIT-V1 fra TEC_IoT1-binnen hen over renden på breadboardet, ligesom på dit rigtige board. Benene skal sidde i hullerne: når en del sidder rigtigt, bliver de huller, den er forbundet til, markeret med grønt.</p>
+<!-- TJEK: at breadboardets huller markeres grønt i 1.0.7, når et ben sidder i dem. --></li>
+<li><p><strong>Knappen:</strong> Søg efter <code>pushbutton</code>, og træk en trykknap hen over renden.</p></li>
+<li><p><strong>Ledninger:</strong> Træk med musen fra et hul (eller et ben) til et andet. Så laves der en ledning. Lav:</p>
+<ul>
+<li>en ledning fra <strong>GND</strong> på ESP32 til den blå strømskinne</li>
+<li>en ledning fra den blå skinne til det ene af knappens ben</li>
+<li>en ledning fra det diagonale ben på knappen til <strong>GPIO 33</strong></li>
+</ul></li>
+<li><p><strong>Farver:</strong> Højreklik på hver ledning, og vælg <strong>Wire Color</strong>. Brug samme farvekode som på Breadboard: <strong>rød</strong> til 3,3 V, <strong>sort</strong> til GND, og en anden farve, fx gul, til signalet på GPIO 33.</p></li>
+<li><p><strong>Knæk på ledningen:</strong> Træk i midten af en ledning for at lave et knæk (<span lang="en">bendpoint</span>), så ledningen kan gå i rette vinkler, ligesom på boardet. Bliver ledningen buet i stedet, så fortryd (Ctrl+Z) og træk uden at holde Ctrl nede, eller dobbeltklik på ledningen for at lave et knæk.</p>
+<!-- TJEK: i 1.0.7, at træk i midten af en ledning laver et knæk med standardindstillingerne, og at dobbeltklik også laver et knæk (wire.cpp: buede ledninger, "curvy wires", afhænger af en modifier-tast eller en indstilling under Preferences). --></li>
+<li><p><strong>Tjek forbindelserne:</strong> Zoom ind, og se, at begge ender af hver ledning er grønne (se nedenfor).</p></li>
+<li><p><strong>Sammenlign</strong> tegningen med dit rigtige board, hul for hul. Er der forskel, så ret enten tegningen eller boardet.</p></li>
+<li><p><strong>Kig i Schematic:</strong> Skift til fanen Schematic. Du ser symbolerne for ESP32 og knappen med stiplede linjer imellem. De bekræfter, at knappen er forbundet til GPIO 33 og GND.</p></li>
+<li><p><strong>Gem</strong> igen, og eksportér et billede (se nedenfor).</p></li>
+</ol>
+<div class="billede-mangler">
+<p>Den færdige knap-opstilling i Breadboard-visningen: ESP32-DEVKIT-V1 over renden, knappen med to diagonale ben, sort ledning til GND og gul ledning til GPIO 33. Se lignende billeder: <a href="https://randomnerdtutorials.com/esp32-external-wake-up-deep-sleep/">Random Nerd Tutorials: ESP32 External Wake Up from Deep Sleep</a> (knap på GPIO 33, men med pull-down-modstand).</p>
+</div>
+<div class="billede-mangler">
+<p>Samme opstilling i Schematic-visningen med stiplede ratsnest-linjer mellem ESP32 og knappen.</p>
+</div>
+<section id="er-ledningen-forbundet" class="level3">
+<h3 class="anchored" data-anchor-id="er-ledningen-forbundet">Er ledningen forbundet?</h3>
+<p>Fritzing farver enderne af en ledning:</p>
+<ul>
+<li><strong>grøn:</strong> enden sidder i et hul eller på et ben og er forbundet</li>
+<li><strong>rød:</strong> enden er ikke forbundet til noget</li>
+</ul>
+<p>En ledning kan godt se ud, som om den sidder i hullet, selvom enden er rød. Træk enden lidt væk, og slip den igen præcis over hullet, til den bliver grøn. To ledninger, der bare ser ud til at mødes, er ikke nødvendigvis forbundet. Den sikre vej er at føre hver ledning helt hen til et hul i breadboardet, ligesom på det rigtige board.</p>
+<!-- TJEK: at grøn/rød for forbundet/ikke forbundet er standardfarverne i 1.0.7 (kilde: LibreTexts' Fritzing-side, hvor forbindelser mellem breadboardets huller er røde, "they are supposed to be green"). -->
+<div class="billede-mangler">
+<p>Til venstre: to ledninger tæt på hinanden, én med grønne endepunkter (forbundet) og én med et rødt endepunkt (ikke forbundet). Til højre: højreklik-menuen på en ledning med <strong>Wire Color</strong> åben (blue, red, black, yellow, green …). Se lignende billeder: <a href="https://chem.libretexts.org/Courses/University_of_Arkansas_Little_Rock/IOST_Library/Spring_2024%3A_Physical_Computing_Class/11%3A_Introduction_to_Electronics_and_First_Circuit/11.05%3A_Fritzing">LibreTexts: Fritzing</a> (figur 11 viser røde forbindelser).</p>
+</div>
+</section>
+</section>
+<section id="eksportér-et-billede" class="level2">
+<h2 class="anchored" data-anchor-id="eksportér-et-billede">Eksportér et billede</h2>
+<p>Fritzing gemmer tegningen som en <code>.fzz</code>-fil. Den kan kun åbnes i Fritzing. Til logbogen skal du bruge et billede:</p>
+<ol type="1">
+<li>Gå til den visning, du vil eksportere (normalt Breadboard). Kun den aktuelle visning eksporteres.</li>
+<li>Vælg <em>File → Export → as Image</em> og så <strong>PNG…</strong> eller <strong>SVG…</strong>.</li>
+<li>Vælger du PNG, spørger Fritzing om opløsningen i dpi. Standarden er 270 dpi. Vælg 300 dpi eller mere, så ledninger og bennavne er skarpe.</li>
+<li>Gem billedet i samme mappe som din logbog, fx <code>images/knap_gpio33.png</code>.</li>
+</ol>
+<p>SVG er vektorgrafik: streger og tekst forbliver skarpe, uanset hvor meget man zoomer. (Nogle dele, som brugerne selv har lavet, har dog et almindeligt billede indbygget, og det kan blive sløret.) PNG er det sikre valg, hvis du er i tvivl, fordi alle programmer kan vise det.</p>
+<p>I en markdown- eller Quarto-logbog sætter du billedet ind sådan:</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>logbog.qmd</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-filename="logbog.qmd"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="al">![Knap på GPIO 33 til GND, tegnet i Fritzing](images/knap_gpio33.png)</span>{fig-alt="ESP32-DEVKIT-V1 på et breadboard med en trykknap mellem GPIO 33 og GND"}</span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Aflever også <code>.fzz</code>-filen, når du afleverer et projekt. Så kan læreren åbne tegningen og se alle forbindelserne.</p>
+<!-- TJEK: standard-dpi er 3 × 90 = 270 ifølge kildekoden (mainwindow_export.cpp, ExportParametersDialog, findes siden 2022). Tjek i 1.0.7, at dialogen kommer frem, og at 300 dpi giver en passende filstørrelse. -->
+<div class="billede-mangler">
+<p>Menuen <em>File → Export → as Image</em> og dialogen, hvor opløsningen (dpi) vælges.</p>
+</div>
+<!-- LÆRER: hvordan logbog og afleveringer skal se ud (markdown, Word, PDF), og om .fzz-filen skal med. -->
+</section>
+<section id="øvelser" class="level2">
+<h2 class="anchored" data-anchor-id="øvelser">Øvelser</h2>
+<ol type="1">
+<li>Installér Fritzing, og åbn TEC_IoT1.fzbz. Gem binnen, luk Fritzing, og start det igen. Er binnen der stadig?</li>
+<li>Tegn opstillingen fra <a href="../Grundlag/debouncing.html">Debouncing</a> (knap på GPIO 33 til GND), som beskrevet i eksemplet. Tjek, at alle ledningsender er grønne. Eksportér som PNG, og sæt billedet ind i din logbog.</li>
+<li>Tegn opstillingen fra <a href="../Grundlag/lysdioder.html">Lysdioder</a>: en lysdiode med en formodstand på 220 Ω fra GPIO 19 til GND. Sæt modstandens værdi og lysdiodens farve i Inspector, så de passer til dine dele. Vend lysdioden rigtigt (det lange ben, anoden, mod modstanden). Se <a href="../Grundlag/modstande.html">Modstande</a>, hvis du er i tvivl om værdien.</li>
+<li>Kig på opstillingen fra øvelse 3 i Schematic-visningen. Træk ledninger langs de stiplede linjer, så diagrammet bliver pænt, og eksportér også det som billede.</li>
+<li>Byt <code>.fzz</code>-fil med en makker. Byg makkerens opstilling på dit eget board kun ud fra tegningen. Virker den? Hvis ikke: var fejlen i tegningen eller i opbygningen?</li>
+<li><em>Ekstra:</em> Tegn knap og lysdiode i samme opstilling (eksemplet på Breadboard), og eksportér som SVG. Åbn SVG-filen i en browser, og zoom ind. Sammenlign med PNG-filen.</li>
+</ol>
+<!-- LÆRER: tilpas øvelserne, fx hvilke opstillinger der skal tegnes til afleveringer. -->
+</section>
+<section id="typiske-fejl" class="level2">
+<h2 class="anchored" data-anchor-id="typiske-fejl">Typiske fejl</h2>
+<ul>
+<li><strong>Ledningen er ikke forbundet:</strong> enden er rød. Træk den, og slip den præcis over hullet, til den bliver grøn.</li>
+<li><strong>Forkert række:</strong> ledningen sidder i rækken ved siden af det ben, den skal til. På tegningen ser det næsten rigtigt ud. Zoom ind, og følg ledningen hen til hullet, og tjek i Schematic-visningen, at den stiplede linje går til det rigtige ben.</li>
+<li><strong>Knappen er altid forbundet:</strong> ledningerne sidder på to ben, der er forbundet inde i knappen. Brug to diagonale ben, ligesom på boardet.</li>
+<li><strong>Delen mangler:</strong> binnen er ikke åbnet, eller den blev ikke gemt og er væk efter genstart. Åbn TEC_IoT1.fzbz igen, og vælg <em>Save Bin</em>.</li>
+<li><strong>Søgningen finder intet:</strong> delen hedder noget andet på engelsk. Prøv et kortere ord, fx <code>button</code> i stedet for <code>pushbutton</code>.</li>
+<li><strong>Forkert farve på ledninger:</strong> alle ledninger har standardfarven. Giv 3,3 V rød og GND sort, så tegningen kan læses.</li>
+<li><strong>Billedet er sløret:</strong> PNG er eksporteret med for lav opløsning. Eksportér igen med 300 dpi, eller brug SVG.</li>
+<li><strong>Tegning og board passer ikke sammen:</strong> du har rettet boardet, men ikke tegningen. Ret altid begge, før du afleverer.</li>
+<li><strong>Installationen starter ikke:</strong> filen hedder stadig <code>.msee</code>. Omdøb den til <code>.msi</code>.</li>
+</ul>
+<!-- LÆRER: de fejl, du oftest ser i elevernes tegninger. -->
+</section>
+<section id="læs-videre" class="level2">
+<h2 class="anchored" data-anchor-id="læs-videre">Læs videre</h2>
+<section id="adafruits-dele-i-fritzing" class="level3">
+<h3 class="anchored" data-anchor-id="adafruits-dele-i-fritzing">Adafruits dele i Fritzing</h3>
+<p>Adafruit viser i <a href="https://learn.adafruit.com/using-the-adafruit-library-with-fritzing" lang="en">Using the Adafruit Library with Fritzing</a>, hvordan man åbner en <code>.fzbz</code>-bin med <em>File → Open</em>, gemmer den med <em>Save Bin</em> og genstarter Fritzing. Det er samme fremgangsmåde som med TEC_IoT1.fzbz.</p>
+<p>Guiden er gammel: den er skrevet til Fritzing 0.7.5. Fritzing 1.0.7 kommer selv med mange flere Adafruit-dele, så du behøver normalt ikke hente Adafruits bin.</p>
+</section>
+<section id="esp32-doit-devkit-v1-på-fritzings-forum" class="level3">
+<h3 class="anchored" data-anchor-id="esp32-doit-devkit-v1-på-fritzings-forum">ESP32 DOIT DEVKIT V1 på Fritzings forum</h3>
+<p>I tråden <a href="https://forum.fritzing.org/t/doit-esp32-devkit-v1/6158" lang="en">Doit esp32 devkit v1</a> har brugere lavet og rettet en del til vores board. Tråden viser, at dele fra andre brugere kan have fejl: den første udgave havde forkerte navne på benene. Tjek derfor altid, at benene på en del passer med dit rigtige board, før du stoler på tegningen.</p>
+</section>
+</section>
+<section id="kilder" class="level2">
+<h2 class="anchored" data-anchor-id="kilder">Kilder</h2>
+<ul>
+<li>Fritzing: kildekode og licens (fritzing-app), <a href="https://github.com/fritzing/fritzing-app" class="uri">https://github.com/fritzing/fritzing-app</a></li>
+<li>Fritzing: Bin-menuen (Import…, Save Bin), <code>src/partsbinpalette/binmanager/binmanager.cpp</code>, <a href="https://github.com/fritzing/fritzing-app/blob/develop/src/partsbinpalette/binmanager/binmanager.cpp" class="uri">https://github.com/fritzing/fritzing-app/blob/develop/src/partsbinpalette/binmanager/binmanager.cpp</a></li>
+<li>Fritzing: eksport som billede (PNG, JPG, SVG, PDF og dpi), <code>src/mainwindow/mainwindow_export.cpp</code>, <a href="https://github.com/fritzing/fritzing-app/blob/develop/src/mainwindow/mainwindow_export.cpp" class="uri">https://github.com/fritzing/fritzing-app/blob/develop/src/mainwindow/mainwindow_export.cpp</a></li>
+<li>Fritzing: View-menuen og <em>File → Open</em> af <code>.fzbz</code>, <code>src/mainwindow/mainwindow_menu.cpp</code>, <a href="https://github.com/fritzing/fritzing-app/blob/develop/src/mainwindow/mainwindow_menu.cpp" class="uri">https://github.com/fritzing/fritzing-app/blob/develop/src/mainwindow/mainwindow_menu.cpp</a></li>
+<li>Fritzing: ledningsfarver, <code>src/items/wire.cpp</code>, <a href="https://github.com/fritzing/fritzing-app/blob/develop/src/items/wire.cpp" class="uri">https://github.com/fritzing/fritzing-app/blob/develop/src/items/wire.cpp</a></li>
+<li>Fritzing: Core-binnen, <a href="https://github.com/fritzing/fritzing-parts/blob/develop/bins/core.fzb" class="uri">https://github.com/fritzing/fritzing-parts/blob/develop/bins/core.fzb</a></li>
+<li>Fritzing: download, <a href="https://fritzing.org/download" class="uri">https://fritzing.org/download</a></li>
+<li>Fritzing-forum: Fritzing 1.0.7 Released, <a href="https://forum.fritzing.org/t/fritzing-1-0-7-released/34003" class="uri">https://forum.fritzing.org/t/fritzing-1-0-7-released/34003</a></li>
+<li>Fritzing-blog: Fritzing 1.0.8 released, <a href="https://blog.fritzing.org/" class="uri">https://blog.fritzing.org/</a></li>
+<li>Fritzing-forum: Doit esp32 devkit v1, <a href="https://forum.fritzing.org/t/doit-esp32-devkit-v1/6158" class="uri">https://forum.fritzing.org/t/doit-esp32-devkit-v1/6158</a></li>
+<li>LibreTexts: Fritzing (røde forbindelser, der skulle være grønne), <a href="https://chem.libretexts.org/Courses/University_of_Arkansas_Little_Rock/IOST_Library/Spring_2024%3A_Physical_Computing_Class/11%3A_Introduction_to_Electronics_and_First_Circuit/11.05%3A_Fritzing" class="uri">https://chem.libretexts.org/Courses/University_of_Arkansas_Little_Rock/IOST_Library/Spring_2024%3A_Physical_Computing_Class/11%3A_Introduction_to_Electronics_and_First_Circuit/11.05%3A_Fritzing</a></li>
+<li>Fritzing: Parts-vinduet (palette window), <a href="https://fritzing.org/learning/get-started/palette-window" class="uri">https://fritzing.org/learning/get-started/palette-window</a></li>
+<li>Random Nerd Tutorials: ESP32 External Wake Up from Deep Sleep, <a href="https://randomnerdtutorials.com/esp32-external-wake-up-deep-sleep/" class="uri">https://randomnerdtutorials.com/esp32-external-wake-up-deep-sleep/</a></li>
+<li>Wikipedia: Fritzing (licens og betaling), <a href="https://en.wikipedia.org/wiki/Fritzing" class="uri">https://en.wikipedia.org/wiki/Fritzing</a></li>
+<li>Adafruit: Using the Adafruit Library with Fritzing, <a href="https://learn.adafruit.com/using-the-adafruit-library-with-fritzing/import-the-library-into-fritzing" class="uri">https://learn.adafruit.com/using-the-adafruit-library-with-fritzing/import-the-library-into-fritzing</a></li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Kopieret!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Kopieret!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/s0ren\.github\.io\/FAG_17682_IoT_II\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

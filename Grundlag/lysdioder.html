@@ -325,6 +325,12 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../Grundlag/standardopstilling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Standardopstillingen</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../Grundlag/wifi.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">WiFi</span></a>
   </div>
@@ -501,7 +507,9 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 </ul>
 <p>Er benene klippet af, så kig efter den flade kant på plastikken. Inde i lysdioden er katodens metalstykke typisk det største, men det passer ikke på alle typer, så den flade kant er det sikreste.</p>
 <!-- TJEK: "langt ben = anode, flad kant = katode" er standard for 5 mm-lysdioder, men det kunne ikke bekræftes i de hentede kilder (Wikipedia og Adafruit siger det ikke i tekst; SparkFuns LED-guide gav HTTP 403). Tjek mod databladet for lokalets lysdioder. -->
-<!-- BILLEDE: En 5 mm lysdiode tæt på, hvor det lange ben (anode) og den flade kant ved katoden kan ses. Se lignende billeder: [Wikipedia: Light-emitting diode](https://en.wikipedia.org/wiki/Light-emitting_diode). -->
+<div class="billede-mangler">
+<p>En 5 mm lysdiode tæt på, hvor det lange ben (anode) og den flade kant ved katoden kan ses. Se lignende billeder: <a href="https://en.wikipedia.org/wiki/Light-emitting_diode">Wikipedia: Light-emitting diode</a>.</p>
+</div>
 <section id="spændingsfald-vf" class="level3">
 <h3 class="anchored" data-anchor-id="spændingsfald-vf">Spændingsfald (Vf)</h3>
 <p>Når der går strøm gennem en lysdiode, ligger der en næsten fast spænding over den. Den hedder <em>forward voltage</em>, Vf (<span lang="en">forward voltage</span>), og den afhænger af farven, fordi forskellige farver laves af forskellige materialer:</p>
@@ -578,7 +586,9 @@ R = \frac{3{,}3\ \text{V} - 2{,}0\ \text{V}}{0{,}006\ \text{A}} = \frac{1{,}3\ \
 <pre><code>GPIO 19 ── 220 Ω ── anode (langt ben) ▶| katode (kort ben, flad kant) ── GND</code></pre>
 <p>Det er ligegyldigt, om modstanden sidder før eller efter lysdioden: strømmen er den samme i hele kredsen. Det vigtige er, at den er der.</p>
 <p>Brug et af de ben, der er sikre som udgang: 18, 19, 21, 22, 23, 25, 26, 27, 32 eller 33. Ben 34–39 kan kun bruges som indgang, og 6–11 er forbundet til den interne flash.</p>
-<!-- BILLEDE: En lysdiode med 220 Ω formodstand på breadboardet, koblet til GPIO 19 og GND på ESP32-DEVKIT-V1. Se lignende billeder: [ESP32IO: LED - Blink Without Delay](https://esp32io.com/tutorials/esp32-led-blink-without-delay). -->
+<div class="billede-mangler">
+<p>En lysdiode med 220 Ω formodstand på breadboardet, koblet til GPIO 19 og GND på ESP32-DEVKIT-V1. Se lignende billeder: <a href="https://esp32io.com/tutorials/esp32-led-blink-without-delay">ESP32IO: LED - Blink Without Delay</a>.</p>
+</div>
 </section>
 </section>
 <section id="den-indbyggede-lysdiode" class="level2">
@@ -657,7 +667,7 @@ duty 75 %:  ‾‾‾|_‾‾‾|_‾‾‾|_   lyser kraftigt</code></pre>
 </section>
 <section id="eksempel-blink-med-millis" class="level2">
 <h2 class="anchored" data-anchor-id="eksempel-blink-med-millis">Eksempel: blink med <code>millis()</code></h2>
-<p>En ekstern lysdiode på GPIO 19 blinker, og den indbyggede lysdiode blinker i modtakt. Programmet bruger <code>millis()</code> i stedet for <code>delay()</code>, så <code>loop()</code> aldrig står stille og kan nå at lave andre ting.</p>
+<p>En ekstern lysdiode på GPIO 19 (som i <a href="../Grundlag/standardopstilling.html">standardopstillingen</a>) blinker, og den indbyggede lysdiode blinker i modtakt. Programmet bruger <code>millis()</code> i stedet for <code>delay()</code>, så <code>loop()</code> aldrig står stille og kan nå at lave andre ting.</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>platformio.ini</strong></pre>
@@ -809,7 +819,9 @@ duty 75 %:  ‾‾‾|_‾‾‾|_‾‾‾|_   lyser kraftigt</code></pre>
 <li>Med fælles anode er alt omvendt: skriv <code>255 - værdi</code> i stedet for <code>værdi</code> med <code>analogWrite()</code>, eller <code>256 - værdi</code> med <code>ledcWrite()</code> ved 8 bit.</li>
 </ul>
 <!-- TJEK: hvilken type RGB-lysdiode lokalet har, og hvilket ben der er det fælles (benrækkefølgen varierer mellem fabrikater; se databladet). -->
-<!-- BILLEDE: En RGB-lysdiode med de fire ben markeret (R, fælles, G, B) for den type, lokalet har. Se lignende billeder: [Random Nerd Tutorials: ESP32 PWM with Arduino IDE](https://randomnerdtutorials.com/esp32-pwm-arduino-ide/). -->
+<div class="billede-mangler">
+<p>En RGB-lysdiode med de fire ben markeret (R, fælles, G, B) for den type, lokalet har. Se lignende billeder: <a href="https://randomnerdtutorials.com/esp32-pwm-arduino-ide/">Random Nerd Tutorials: ESP32 PWM with Arduino IDE</a>.</p>
+</div>
 </section>
 <section id="øvelser" class="level2">
 <h2 class="anchored" data-anchor-id="øvelser">Øvelser</h2>
@@ -822,7 +834,9 @@ duty 75 %:  ‾‾‾|_‾‾‾|_‾‾‾|_   lyser kraftigt</code></pre>
 <li><em>Ekstra:</em> Byg en RGB-lysdiode på, og lad den skifte mellem rød, grøn, blå og hvid. Find ud af, om jeres er med fælles katode eller fælles anode.</li>
 <li><em>Ekstra:</em> Prøv <code>ledcFade(LED_PIN, 0, 255, 2000)</code>. Kald den én gang i <code>setup()</code> efter <code>ledcAttach()</code> (står den direkte i <code>loop()</code>, starter fadet forfra hver gang, og så ser du ingen fade). Lad <code>loop()</code> blinke den indbyggede lysdiode imens. Kører <code>loop()</code> videre, mens lysdioden fader? Hvordan kan du se det?</li>
 </ol>
-<!-- BILLEDE: Trafiklyset fra øvelse 4: tre lysdioder med formodstande på GPIO 25, 26 og 27. -->
+<div class="billede-mangler">
+<p>Trafiklyset fra øvelse 4: tre lysdioder med formodstande på GPIO 25, 26 og 27.</p>
+</div>
 </section>
 <section id="typiske-fejl" class="level2">
 <h2 class="anchored" data-anchor-id="typiske-fejl">Typiske fejl</h2>

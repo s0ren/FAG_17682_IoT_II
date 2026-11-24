@@ -299,6 +299,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../Grundlag/standardopstilling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Standardopstillingen</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../Grundlag/wifi.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">WiFi</span></a>
   </div>
@@ -369,6 +375,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#eksempel-python-abonnerer" id="toc-eksempel-python-abonnerer" class="nav-link" data-scroll-target="#eksempel-python-abonnerer">Eksempel: Python abonnerer</a></li>
   <li><a href="#eksempel-python-sender-json" id="toc-eksempel-python-sender-json" class="nav-link" data-scroll-target="#eksempel-python-sender-json">Eksempel: Python sender JSON</a></li>
+  <li><a href="#eksempel-esp32-sender-en-måling" id="toc-eksempel-esp32-sender-en-måling" class="nav-link" data-scroll-target="#eksempel-esp32-sender-en-måling">Eksempel: ESP32 sender en måling</a>
+  <ul class="collapse">
+  <li><a href="#hvorfor-ingen-while-løkke-ved-genforbindelse" id="toc-hvorfor-ingen-while-løkke-ved-genforbindelse" class="nav-link" data-scroll-target="#hvorfor-ingen-while-løkke-ved-genforbindelse">Hvorfor ingen <code>while</code>-løkke ved genforbindelse?</a></li>
+  </ul></li>
   <li><a href="#eksempel-csharp" id="toc-eksempel-csharp" class="nav-link" data-scroll-target="#eksempel-csharp">Eksempel: C</a>
   <ul class="collapse">
   <li><a href="#c-med-tls-på-port-8883" id="toc-c-med-tls-på-port-8883" class="nav-link" data-scroll-target="#c-med-tls-på-port-8883">C# med TLS på port 8883</a></li>
@@ -379,10 +389,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#forbind-til-wilsons-på-port-1883" id="toc-forbind-til-wilsons-på-port-1883" class="nav-link" data-scroll-target="#forbind-til-wilsons-på-port-1883">Forbind til wilsons på port 1883</a></li>
   <li><a href="#se-topic-træet-og-send-en-testbesked" id="toc-se-topic-træet-og-send-en-testbesked" class="nav-link" data-scroll-target="#se-topic-træet-og-send-en-testbesked">Se topic-træet og send en testbesked</a></li>
   <li><a href="#forbind-på-port-8883-med-tls-og-login" id="toc-forbind-på-port-8883-med-tls-og-login" class="nav-link" data-scroll-target="#forbind-på-port-8883-med-tls-og-login">Forbind på port 8883 med TLS og login</a></li>
-  </ul></li>
-  <li><a href="#eksempel-esp32-sender-en-måling" id="toc-eksempel-esp32-sender-en-måling" class="nav-link" data-scroll-target="#eksempel-esp32-sender-en-måling">Eksempel: ESP32 sender en måling</a>
-  <ul class="collapse">
-  <li><a href="#hvorfor-ingen-while-løkke-ved-genforbindelse" id="toc-hvorfor-ingen-while-løkke-ved-genforbindelse" class="nav-link" data-scroll-target="#hvorfor-ingen-while-løkke-ved-genforbindelse">Hvorfor ingen <code>while</code>-løkke ved genforbindelse?</a></li>
   </ul></li>
   <li><a href="#øvelser" id="toc-øvelser" class="nav-link" data-scroll-target="#øvelser">Øvelser</a></li>
   <li><a href="#typiske-fejl" id="toc-typiske-fejl" class="nav-link" data-scroll-target="#typiske-fejl">Typiske fejl</a></li>
@@ -448,11 +454,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 1. Kør subscriber.py og publisher.py mod wilsons.local:1883 med paho-mqtt 2.x. Kommer beskederne frem i subscriberen, i MQTT Explorer og i weblog'en (elever/<navn>/python/temperatur.jsonl)?
 2. Kør C#-eksemplet (Program.cs) i et nyt "dotnet new console"-projekt med .NET 8 eller nyere og "dotnet add package MQTTnet --version 5.2.0.1603" mod wilsons.local:1883. Kompilerer det uden advarsler? Skriver det "Forbundet som csharp-…", kommer hilsenen tilbage i konsollen, og ses den i MQTT Explorer og i weblog'en (elever/<navn>/csharp/hilsen.jsonl)? Kommer en besked fra MQTT Explorer frem i konsollen? (øvelse 10)
-3. TJEK: C# med TLS på 8883: Forbind med ImportFromPemFile("ca.crt"), WithTlsOptions(o => o.WithTrustChain(ca)) og WithCredentials mod wilsons.local:8883 med et elevlogin. Godtages certifikatet på Windows (og evt. macOS/Linux)? Afvises forbindelsen uden WithTrustChain? Læst i kildekoden, ikke afprøvet.
+3. TJEK: C# med TLS på 8883: Forbind med ImportFromPemFile("ca.crt"), WithTlsOptions(o => o.WithTrustChain(ca).WithRevocationMode(X509RevocationMode.NoCheck)) og WithCredentials mod wilsons.local:8883 med et elevlogin. Godtages certifikatet på Windows (og evt. macOS/Linux)? Afvises forbindelsen uden WithTrustChain? Afvises den uden NoCheck (RevocationStatusUnknown, jf. MQTTnet issue #1920)? Læst i kildekoden, ikke afprøvet. Tjek også, at "tid" i JSON'en har kolon på en dansk pc.
 4. Kompilér og upload ESP32-eksemplet med platform = espressif32@8.0.0 og knolleary/PubSubClient@^2.8, med et potentiometer på GPIO 32. Kommer en måling hvert 5. sekund frem i weblog'en? Flader spaending_mv ud ved ca. 3100 mV i potentiometerets ene ende?
-5. TJEK: Kan ESP32 slå "wilsons.local" og "wilsons.home" op på skolens net? Siden bruger 192.168.0.33 i MQTT_HOST, fordi intet navn er afprøvet; lokal_mqtt.qmd bruger "wilsons.local". Vælg ét navn, der virker, og brug det samme på begge sider. Ret også punktet om .local under Typiske fejl.
+5. TJEK: Kan ESP32 slå "wilsons.local" op på skolens net? En pc kan (afprøvet 24. nov. 2026). MQTT_HOST er "wilsons.local" som på lokal_mqtt.qmd; 192.168.0.33 (fast IP fra 24. nov.) nævnes som reserve. wilsons.home virker ikke.
 6. TJEK: Passer tiderne for mqtt.connect() (ca. 3 s uden maskine på adressen, op til 15 s, hvis maskinen svarer, men MQTT ikke gør)? Tallene er fra kildekoden (NetworkClient og PubSubClient), ikke målt. Ret MQTT_HOST til en forkert IP (øvelse 6), og se i Serial Monitor.
-7. TJEK: Læreren skriver http://wilsons:8080. Virker det korte navn "wilsons" uden .local/.home på elevernes maskiner på skolens net? Siden bruger wilsons.local og nævner wilsons.home og 192.168.0.33.
+7. Det korte navn "wilsons" og wilsons.home virker ikke pålideligt på skolens net (afprøvet 24. nov. 2026). Siden bruger wilsons.local og 192.168.0.33. Ret http://wilsons:8080 i din egen vejledning.
 8. TJEK: MQTT Explorer (0.4.0-beta.6 på mqtt-explorer.com): passer feltnavnene "Encryption (tls)", "Validate certificate", "Advanced", "Certificates" og "Server Certificate (CA)" i den version, eleverne installerer? Hedder knappen "Connect", og passer beskrivelsen af Publish-feltet, retain og skraldespanden til at slette et retained topic? Forbind på 8883 med ca.crt og et elevlogin, og bekræft, at certifikatet godtages med "Validate certificate" slået til.
 9. TJEK: Viser MQTT Explorer $SYS-topics fra wilsons på port 1883? (Mosquitto sender dem som standard hvert 10. sekund.)
 10. Retained-øvelsen (øvelse 5): Bliver en retained besked i weblog'en logget igen, når mqtt-logger genstarter? Ud fra koden (mqtt_logger.py) burde den, og siden siger det. Slet testbeskederne bagefter.
@@ -605,9 +611,10 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 <p>En linje i weblog’en ser sådan ud:</p>
 <pre><code>{"timestamp": "2026-11-23T15:00:37.091592", "topic": "test/esp32/button", "payload": "{\"button\":\"pressed\",\"count\":1}"}</code></pre>
 <p>Bemærk, at din JSON står <em>inde i</em> en tekst (<code>"payload": "{\"button\"…}"</code>) med <code>\</code> foran hvert <code>"</code>. Loggeren ved ikke, at payload’en er JSON, så den gemmer den som tekst. Vil du læse den i et program, skal du altså parse to gange: først linjen, derefter payload’en.</p>
-<p>Weblog’en er den nemmeste måde at se, at en besked faktisk nåede brokeren. Den viser kun det, der er kommet frem, ikke det, der blev afvist. Navnene på serveren (<code>wilsons.local</code>, <code>wilsons.home</code> og <code>192.168.0.33</code>) og flere skærmbilleder står på <a href="../Features/lokal_mqtt.html">Lokal MQTT server</a>.</p>
-<!-- TJEK: Læreren skriver http://wilsons:8080. Det korte navn virker kun, hvis netværket tilføjer et domæne (fx .home) selv. Siden bruger wilsons.local. -->
-<!-- BILLEDE: Weblog'en på wilsons.local:8080, åbnet på en elevs fil fra Python-eksemplet (fx `elever/anna/python/temperatur.jsonl`) med nogle linjer JSON. Se lignende billeder: [Lokal MQTT server](lokal_mqtt.qmd). -->
+<p>Weblog’en er den nemmeste måde at se, at en besked faktisk nåede brokeren. Den viser kun det, der er kommet frem, ikke det, der blev afvist. Serverens navn og IP-adresse (<code>wilsons.local</code> og <code>192.168.0.33</code>) og flere skærmbilleder står på <a href="../Features/lokal_mqtt.html">Lokal MQTT server</a>.</p>
+<div class="billede-mangler">
+<p>Weblog’en på wilsons.local:8080, åbnet på en elevs fil fra Python-eksemplet (fx <code>elever/anna/python/temperatur.jsonl</code>) med nogle linjer JSON. Se lignende billeder: <a href="../Features/lokal_mqtt.html">Lokal MQTT server</a>.</p>
+</div>
 </section>
 </section>
 <section id="qos-retained-keep-alive-og-last-will" class="level2">
@@ -684,7 +691,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" data-filename="subscriber.py"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> paho.mqtt.client <span class="im">as</span> mqtt</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Konfiguration</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>BROKER <span class="op">=</span> <span class="st">"wilsons.local"</span>        <span class="co"># eller wilsons.home / 192.168.0.33</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>BROKER <span class="op">=</span> <span class="st">"wilsons.local"</span>        <span class="co"># eller 192.168.0.33</span></span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>PORT <span class="op">=</span> <span class="dv">1883</span>                     <span class="co"># uden TLS og login; se Lokal MQTT server for 8883</span></span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>BRUGERNAVN <span class="op">=</span> <span class="st">"anna"</span>             <span class="co"># dit eget brugernavn</span></span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>TOPIC <span class="op">=</span> <span class="ss">f"elever/</span><span class="sc">{</span>BRUGERNAVN<span class="sc">}</span><span class="ss">/#"</span></span>
@@ -733,7 +740,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> paho.mqtt.client <span class="im">as</span> mqtt</span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Konfiguration</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>BROKER <span class="op">=</span> <span class="st">"wilsons.local"</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>BROKER <span class="op">=</span> <span class="st">"wilsons.local"</span>        <span class="co"># eller 192.168.0.33</span></span>
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>PORT <span class="op">=</span> <span class="dv">1883</span></span>
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>BRUGERNAVN <span class="op">=</span> <span class="st">"anna"</span>             <span class="co"># dit eget brugernavn</span></span>
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>TOPIC <span class="op">=</span> <span class="ss">f"elever/</span><span class="sc">{</span>BRUGERNAVN<span class="sc">}</span><span class="ss">/python/temperatur"</span></span>
@@ -766,262 +773,133 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 </ul>
 <p>Lærerens demoer <code>publisher_demo.py</code> og <code>subscriber_demo.py</code> gør det samme og kan også bruge TLS på port 8883. De er beskrevet på <a href="../Features/lokal_mqtt.html">Lokal MQTT server</a>.</p>
 </section>
-<section id="eksempel-csharp" class="level2">
-<h2 class="anchored" data-anchor-id="eksempel-csharp">Eksempel: C</h2>
-<p>Kender du C# bedre end Python, kan du lave det samme i C#. Programmet her gør både det, <code>subscriber.py</code> og <code>publisher.py</code> gør: det abonnerer på dit eget område, skriver hver besked ud og sender én JSON-besked. Sammenlign det med Python-eksemplerne ovenfor: begreberne er de samme, kun navnene er anderledes.</p>
-<p>Biblioteket hedder <a href="https://github.com/dotnet/MQTTnet">MQTTnet</a> og hentes fra NuGet. Version 5 kræver .NET 8 eller nyere. Lav et nyt konsolprogram, og tilføj pakken:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">dotnet</span> new console <span class="at">-n</span> MqttHilsen</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> MqttHilsen</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="ex">dotnet</span> add package MQTTnet <span class="at">--version</span> 5.2.0.1603</span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>Pas på gamle eksempler.</strong> Version 5 ændrede en del navne, og de fleste eksempler på nettet er skrevet til version 4 eller ældre. Ser du <code>new MqttFactory()</code>, <code>using MQTTnet.Client;</code> eller <code>ManagedMqttClient</code>, er eksemplet gammelt. I version 5 hedder fabrikken <code>MqttClientFactory</code>, klienten ligger direkte i navnerummet <code>MQTTnet</code>, og den “managed” klient, der selv genforbinder, er fjernet. Payload’en er nu en <code>ReadOnlySequence&lt;byte&gt;</code>, så læs den som tekst med <code>ConvertPayloadToString()</code>.</p>
-<p>Erstat indholdet af <code>Program.cs</code> med koden herunder, ret <code>Brugernavn</code>, og kør med <code>dotnet run</code>.</p>
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>Program.cs</strong></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" data-filename="Program.cs"><pre class="sourceCode csharp code-with-copy"><code class="sourceCode cs"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> System<span class="op">.</span><span class="fu">Text</span><span class="op">.</span><span class="fu">Json</span><span class="op">;</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> MQTTnet<span class="op">;</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> MQTTnet<span class="op">.</span><span class="fu">Protocol</span><span class="op">;</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">// Konfiguration</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="dt">const</span> <span class="dt">string</span> Broker <span class="op">=</span> <span class="st">"wilsons.local"</span><span class="op">;</span>   <span class="co">// eller wilsons.home / 192.168.0.33</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="dt">const</span> <span class="dt">int</span> Port <span class="op">=</span> <span class="dv">1883</span><span class="op">;</span>                   <span class="co">// uden TLS og login; se Lokal MQTT server for 8883</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="dt">const</span> <span class="dt">string</span> Brugernavn <span class="op">=</span> <span class="st">"anna"</span><span class="op">;</span>        <span class="co">// dit eget brugernavn</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="dt">string</span> abonnerTopic <span class="op">=</span> $<span class="st">"elever/{Brugernavn}/#"</span><span class="op">;</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="dt">string</span> sendTopic <span class="op">=</span> $<span class="st">"elever/{Brugernavn}/csharp/hilsen"</span><span class="op">;</span></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co">// Unikt client-id: to klienter med samme id smider hinanden af</span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="dt">string</span> klientId <span class="op">=</span> $<span class="st">"csharp-{Brugernavn}-{Guid.NewGuid().ToString("</span>N<span class="st">")[..8]}"</span><span class="op">;</span></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="dt">var</span> factory <span class="op">=</span> <span class="kw">new</span> <span class="fu">MqttClientFactory</span><span class="op">();</span></span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="dt">var</span> client <span class="op">=</span> factory<span class="op">.</span><span class="fu">CreateMqttClient</span><span class="op">();</span></span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="co">// Sæt modtageren på før ConnectAsync, så ingen beskeder går tabt</span></span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>client<span class="op">.</span><span class="fu">ApplicationMessageReceivedAsync</span> <span class="op">+=</span> e <span class="op">=&gt;</span></span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    <span class="dt">var</span> besked <span class="op">=</span> e<span class="op">.</span><span class="fu">ApplicationMessage</span><span class="op">;</span></span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    <span class="dt">string</span> tekst <span class="op">=</span> besked<span class="op">.</span><span class="fu">ConvertPayloadToString</span><span class="op">()</span> <span class="op">??</span> <span class="st">""</span><span class="op">;</span>   <span class="co">// UTF-8; null, hvis beskeden er tom</span></span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>    <span class="dt">string</span> retained <span class="op">=</span> besked<span class="op">.</span><span class="fu">Retain</span> <span class="op">?</span> <span class="st">" (retained)"</span> <span class="op">:</span> <span class="st">""</span><span class="op">;</span></span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>    Console<span class="op">.</span><span class="fu">WriteLine</span><span class="op">(</span>$<span class="st">"{besked.Topic}: {tekst}{retained}"</span><span class="op">);</span></span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> Task<span class="op">.</span><span class="fu">CompletedTask</span><span class="op">;</span></span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
-<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a><span class="dt">var</span> options <span class="op">=</span> <span class="kw">new</span> <span class="fu">MqttClientOptionsBuilder</span><span class="op">()</span></span>
-<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">WithTcpServer</span><span class="op">(</span>Broker<span class="op">,</span> Port<span class="op">)</span></span>
-<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">WithClientId</span><span class="op">(</span>klientId<span class="op">)</span></span>
-<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">Build</span><span class="op">();</span></span>
-<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a><span class="co">// Kaster en undtagelse, hvis brokeren ikke kan nås. Afviser brokeren os, får vi en ResultCode.</span></span>
-<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a><span class="dt">var</span> svar <span class="op">=</span> await client<span class="op">.</span><span class="fu">ConnectAsync</span><span class="op">(</span>options<span class="op">);</span></span>
-<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a><span class="kw">if</span> <span class="op">(</span>svar<span class="op">.</span><span class="fu">ResultCode</span> <span class="op">!=</span> MqttClientConnectResultCode<span class="op">.</span><span class="fu">Success</span><span class="op">)</span></span>
-<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>    Console<span class="op">.</span><span class="fu">WriteLine</span><span class="op">(</span>$<span class="st">"Forbindelse afvist: {svar.ResultCode}"</span><span class="op">);</span></span>
-<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span><span class="op">;</span></span>
-<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a>Console<span class="op">.</span><span class="fu">WriteLine</span><span class="op">(</span>$<span class="st">"Forbundet som {klientId}. Abonnerer på {abonnerTopic}"</span><span class="op">);</span></span>
-<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a>await client<span class="op">.</span><span class="fu">SubscribeAsync</span><span class="op">(</span>abonnerTopic<span class="op">);</span></span>
-<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a><span class="co">// Et anonymt objekt bliver til JSON: {"fra":"…","tekst":"Hej fra C#","tid":"…"}</span></span>
-<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a><span class="dt">string</span> json <span class="op">=</span> JsonSerializer<span class="op">.</span><span class="fu">Serialize</span><span class="op">(</span><span class="kw">new</span></span>
-<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a>    fra <span class="op">=</span> klientId<span class="op">,</span></span>
-<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a>    tekst <span class="op">=</span> <span class="st">"Hej fra C#"</span><span class="op">,</span></span>
-<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a>    tid <span class="op">=</span> DateTime<span class="op">.</span><span class="fu">Now</span><span class="op">.</span><span class="fu">ToString</span><span class="op">(</span><span class="st">"HH:mm:ss"</span><span class="op">),</span></span>
-<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a><span class="op">});</span></span>
-<span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a>await client<span class="op">.</span><span class="fu">PublishStringAsync</span><span class="op">(</span>sendTopic<span class="op">,</span> json<span class="op">,</span> MqttQualityOfServiceLevel<span class="op">.</span><span class="fu">AtLeastOnce</span><span class="op">);</span></span>
-<span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a>Console<span class="op">.</span><span class="fu">WriteLine</span><span class="op">(</span>$<span class="st">"Sendt til {sendTopic}: {json}"</span><span class="op">);</span></span>
-<span id="cb8-53"><a href="#cb8-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-54"><a href="#cb8-54" aria-hidden="true" tabindex="-1"></a><span class="co">// Bliv ved med at lytte, til brugeren trykker Enter</span></span>
-<span id="cb8-55"><a href="#cb8-55" aria-hidden="true" tabindex="-1"></a>Console<span class="op">.</span><span class="fu">WriteLine</span><span class="op">(</span><span class="st">"Tryk Enter for at stoppe."</span><span class="op">);</span></span>
-<span id="cb8-56"><a href="#cb8-56" aria-hidden="true" tabindex="-1"></a>Console<span class="op">.</span><span class="fu">ReadLine</span><span class="op">();</span></span>
-<span id="cb8-57"><a href="#cb8-57" aria-hidden="true" tabindex="-1"></a>await client<span class="op">.</span><span class="fu">DisconnectAsync</span><span class="op">();</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>Sådan virker det, sammenlignet med Python:</p>
-<ul>
-<li><code>ApplicationMessageReceivedAsync</code> svarer til <code>on_message</code>. MQTTnet kalder den på en baggrundstråd, én besked ad gangen, mens hovedprogrammet venter i <code>Console.ReadLine()</code>. Du behøver altså ikke en <code>loop_forever()</code>.</li>
-<li><code>ConnectAsync</code> venter, til brokeren har svaret. Derfor kan <code>SubscribeAsync</code> kaldes lige efter, i stedet for i en <code>on_connect</code>.</li>
-<li>Abonnér-topic’et <code>elever/&lt;brugernavn&gt;/#</code> passer også med <code>sendTopic</code>, så du ser din egen besked komme tilbage fra brokeren.</li>
-<li><code>PublishStringAsync</code> sender teksten som UTF-8. Her bruges QoS 1, så <code>await</code> venter på brokerens kvittering. Standard er QoS 0 og ingen retain, ligesom i paho.</li>
-<li>MQTTnet forbinder som standard med MQTT version 5, mens paho bruger 3.1.1. Mosquitto kan begge dele, så det mærker du ikke her.</li>
-<li>Programmet genforbinder ikke selv, hvis forbindelsen falder ud. Det gør paho’s <code>loop_forever()</code>. I MQTTnet 5 skal du selv gøre det, fx i eventet <code>DisconnectedAsync</code>.</li>
-</ul>
-<section id="c-med-tls-på-port-8883" class="level3">
-<h3 class="anchored" data-anchor-id="c-med-tls-på-port-8883">C# med TLS på port 8883</h3>
-<p>På port 8883 skal klienten bruge TLS, logge ind og stole på skolens CA i <code>ca.crt</code> (se <a href="../Features/lokal_mqtt.html#ca-crt">Lokal MQTT server</a>). I MQTTnet indlæser du <code>ca.crt</code> i en <code>X509Certificate2Collection</code> med <code>ImportFromPemFile("ca.crt")</code> og giver den til <code>WithTlsOptions(o =&gt; o.WithTrustChain(ca))</code> på options-builderen. <code>WithTlsOptions</code> slår TLS til, og <code>WithTrustChain</code> gør, at certifikatet kun godtages, hvis det er underskrevet af vores CA. Brugernavn og kode sættes med <code>WithCredentials(brugernavn, kode)</code>, og porten skiftes til 8883. Læs koden fra tastaturet eller en miljøvariabel, så den ikke står i koden. Læg <code>ca.crt</code> i projektmappen, og kør <code>dotnet run</code> derfra, så filen kan findes. Mange eksempler på nettet bruger <code>WithCertificateValidationHandler(_ =&gt; true)</code> eller <code>WithAllowUntrustedCertificates()</code>: det slår certifikattjekket fra, så du ikke kan vide, om du taler med den rigtige broker. Brug dem ikke.</p>
-<!-- TJEK: TLS-opsætningen (ImportFromPemFile + WithTlsOptions(o => o.WithTrustChain(ca)) + WithCredentials) er læst i MQTTnets kildekode (MqttClientTlsOptionsBuilder: UseTls er true som standard; MqttTcpChannel: TrustChain bruges som CustomRootTrust) og i samplet Connect_Using_TLS_With_CA_File, men ikke afprøvet mod wilsons. Bekræft på Windows og evt. macOS, at forbindelsen godtages med den nye ca.crt, og at den afvises uden WithTrustChain. -->
-</section>
-</section>
-<section id="mqtt-explorer" class="level2">
-<h2 class="anchored" data-anchor-id="mqtt-explorer">MQTT Explorer</h2>
-<p><a href="https://mqtt-explorer.com/">MQTT Explorer</a> er et gratis program, der forbinder til en broker og viser alle topics som et træ. Det er det bedste værktøj til at se, hvad der foregår: du kan se hver besked, når den kommer, se tidligere værdier, tegne en graf over tal og selv sende en testbesked.</p>
-<section id="installér" class="level3">
-<h3 class="anchored" data-anchor-id="installér">Installér</h3>
-<p>Hent det fra <a href="https://mqtt-explorer.com/" class="uri">https://mqtt-explorer.com/</a>. Det findes til Windows (Microsoft Store eller som <code>.exe</code>), macOS (App Store eller <code>.dmg</code>) og Linux (Snap, AppImage eller <code>.deb</code>).</p>
-</section>
-<section id="forbind-til-wilsons-på-port-1883" class="level3">
-<h3 class="anchored" data-anchor-id="forbind-til-wilsons-på-port-1883">Forbind til wilsons på port 1883</h3>
-<ol type="1">
-<li>Opret en ny forbindelse, og skriv fx <code>wilsons</code> under <em>Name</em>.</li>
-<li><em>Host</em>: <code>wilsons.local</code> (eller <code>wilsons.home</code> / <code>192.168.0.33</code>). <em>Port</em>: <code>1883</code>. <em>Protocol</em>: <code>mqtt</code>.</li>
-<li>Lad <em>Encryption (tls)</em> være slået fra, og lad <em>Username</em> og <em>Password</em> være tomme.</li>
-<li>Tryk <em>Connect</em>.</li>
-</ol>
-<p>Som standard abonnerer MQTT Explorer på <code>#</code> og <code>$SYS/#</code>, så du ser alt på brokeren. Under <em>Advanced</em> kan du ændre abonnementerne og se dit <em>MQTT Client ID</em>. MQTT Explorer laver selv et unikt id, der starter med <code>mqtt-explorer-</code>.</p>
-<!-- BILLEDE: MQTT Explorers forbindelsesvindue udfyldt med Host `wilsons.local`, Port `1883` og Encryption (tls) slået fra. Se lignende billeder: [mqtt-explorer.com](https://mqtt-explorer.com/). -->
-</section>
-<section id="se-topic-træet-og-send-en-testbesked" class="level3">
-<h3 class="anchored" data-anchor-id="se-topic-træet-og-send-en-testbesked">Se topic-træet og send en testbesked</h3>
-<ul>
-<li>Fold <code>elever</code> ud i træet til venstre, og find dit eget område. Klik på et topic for at se den sidste besked, dens QoS, om den er retained, og en historik med tidligere værdier. JSON vises pænt opstillet.</li>
-<li>Er værdien et tal, eller har JSON’en tal i sig, kan du lave en graf over dem.</li>
-<li>I <em>Publish</em>-feltet til højre skriver du et topic, fx <code>elever/anna/test</code>, og en besked, og trykker <em>Publish</em>. Der kan du også slå <em>retain</em> til.</li>
-<li>Et retained topic kan slettes med skraldespanden ved topic’et.</li>
-</ul>
-<!-- TJEK: $SYS-topics fra wilsons bør vises på port 1883 (Mosquitto sender dem som standard hvert 10. sekund); bekræft i MQTT Explorer. -->
-<!-- BILLEDE: MQTT Explorers topic-træ med `elever/<navn>/python/temperatur` foldet ud og en JSON-besked valgt i panelet til højre. Se lignende billeder: [mqtt-explorer.com](https://mqtt-explorer.com/). -->
-</section>
-<section id="forbind-på-port-8883-med-tls-og-login" class="level3">
-<h3 class="anchored" data-anchor-id="forbind-på-port-8883-med-tls-og-login">Forbind på port 8883 med TLS og login</h3>
-<p>På port 8883 er forbindelsen krypteret, og du skal logge ind. Du skal bruge skolens CA-certifikat, <a href="ca.crt"><code>ca.crt</code></a>, og dit brugernavn og din kode fra læreren. Detaljerne står på <a href="../Features/lokal_mqtt.html">Lokal MQTT server</a>. I MQTT Explorer:</p>
-<ol type="1">
-<li>Lav en ny forbindelse: <em>Host</em> <code>wilsons.local</code>, <em>Port</em> <code>8883</code>.</li>
-<li>Slå <em>Encryption (tls)</em> til, og lad <em>Validate certificate</em> være slået til. Slå aldrig certifikattjekket fra: så kan du ikke vide, om du taler med den rigtige broker.</li>
-<li>Udfyld <em>Username</em> og <em>Password</em>.</li>
-<li>Gå til <em>Advanced</em> → <em>Certificates</em>, og vælg <code>ca.crt</code> under <em>Server Certificate (CA)</em>. Gå tilbage, og tryk <em>Connect</em>.</li>
-</ol>
-<p>Brug et af navnene i certifikatet (<code>wilsons.local</code>, <code>wilsons.home</code>, <code>wilsons</code> eller <code>192.168.0.33</code>, se <a href="../Features/lokal_mqtt.html">Lokal MQTT server</a>), ellers bliver forbindelsen afvist.</p>
-<!-- TJEK: Feltnavnene er læst i MQTT Explorers kildekode (Certificates.tsx og ConnectionSettings.tsx på master). Bekræft i den version, eleverne installerer (0.4.0-beta.6), og at ca.crt godtages med Validate certificate slået til. -->
-<!-- BILLEDE: MQTT Explorers Certificates-dialog med `ca.crt` valgt under Server Certificate (CA). Se lignende billeder: [mqtt-explorer.com](https://mqtt-explorer.com/). -->
-</section>
-</section>
 <section id="eksempel-esp32-sender-en-måling" class="level2">
 <h2 class="anchored" data-anchor-id="eksempel-esp32-sender-en-måling">Eksempel: ESP32 sender en måling</h2>
 <p>ESP32 læser spændingen fra et potentiometer og sender den som JSON hvert 5. sekund. Biblioteket hedder <a href="https://github.com/knolleary/pubsubclient">PubSubClient</a>, og PlatformIO henter det fra <code>lib_deps</code>.</p>
-<p><strong>Kobling:</strong> Potentiometerets to yderben til <strong>3V3</strong> og <strong>GND</strong>, midterbenet til <strong>GPIO 32</strong>. GPIO 32 ligger på ADC1, som kan læses, mens WiFi er tændt (det kan ADC2 ikke, se <a href="../Grundlag/wifi.html">WiFi</a>). ADC’en kan som standard kun måle op til ca. 3100 mV, så i den ene ende af potentiometeret står målingen stille, selv om du drejer videre.</p>
+<p><strong>Kobling:</strong> Potentiometerets to yderben til <strong>3V3</strong> og <strong>GND</strong>, midterbenet til <strong>GPIO 32</strong>, som i <a href="../Grundlag/standardopstilling.html">standardopstillingen</a>. GPIO 32 ligger på ADC1, som kan læses, mens WiFi er tændt (det kan ADC2 ikke, se <a href="../Grundlag/wifi.html">WiFi</a>). ADC’en kan som standard kun måle op til ca. 3100 mV, så i den ene ende af potentiometeret står målingen stille, selv om du drejer videre.</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>platformio.ini</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9" data-filename="platformio.ini"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[env:esp32doit-devkit-v1]</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="dt">platform </span><span class="ot">=</span><span class="st"> espressif32@8.0.0</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="dt">board </span><span class="ot">=</span><span class="st"> esp32doit-devkit-v1</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="dt">framework </span><span class="ot">=</span><span class="st"> arduino</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="dt">monitor_speed </span><span class="ot">=</span><span class="st"> </span><span class="dv">115200</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="dt">lib_deps </span><span class="ot">=</span><span class="st"> knolleary/PubSubClient@^2.8</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" data-filename="platformio.ini"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[env:esp32doit-devkit-v1]</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="dt">platform </span><span class="ot">=</span><span class="st"> espressif32@8.0.0</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="dt">board </span><span class="ot">=</span><span class="st"> esp32doit-devkit-v1</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="dt">framework </span><span class="ot">=</span><span class="st"> arduino</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="dt">monitor_speed </span><span class="ot">=</span><span class="st"> </span><span class="dv">115200</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="dt">lib_deps </span><span class="ot">=</span><span class="st"> knolleary/PubSubClient@^2.8</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><code>include/secrets.h</code> er den samme som på <a href="../Grundlag/wifi.html">WiFi</a>-siden, med <code>WIFI_SSID</code> og <code>WIFI_PASSWORD</code>, og den står i <code>.gitignore</code>. Port 1883 kræver ikke login, så der skal ikke være en MQTT-kode i filen.</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>src/main.cpp</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10" data-filename="src/main.cpp"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;Arduino.h&gt;</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;WiFi.h&gt;</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;PubSubClient.h&gt;</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">"secrets.h"</span><span class="pp">   </span><span class="co">// WIFI_SSID og WIFI_PASSWORD (se WiFi-siden)</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">// Konfiguration</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">char</span><span class="op">*</span> MQTT_HOST <span class="op">=</span> <span class="st">"192.168.0.33"</span><span class="op">;</span>          <span class="co">// wilsons' IP-adresse; et navn kræver, at ESP32 kan slå det op</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">uint16_t</span> MQTT_PORT <span class="op">=</span> <span class="dv">1883</span><span class="op">;</span>                 <span class="co">// uden TLS; se Lokal MQTT server for 8883</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">char</span><span class="op">*</span> BRUGERNAVN <span class="op">=</span> <span class="st">"anna"</span><span class="op">;</span>                 <span class="co">// dit eget brugernavn</span></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">int</span> MAALE_PIN <span class="op">=</span> <span class="dv">32</span><span class="op">;</span>                      <span class="co">// potentiometer, ADC1</span></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">unsigned</span> <span class="dt">long</span> SEND_INTERVAL_MS <span class="op">=</span> <span class="dv">5000</span><span class="op">;</span>     <span class="co">// hvor tit der sendes en måling</span></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">unsigned</span> <span class="dt">long</span> MQTT_FORSOEG_MS <span class="op">=</span> <span class="dv">5000</span><span class="op">;</span>      <span class="co">// ventetid mellem forsøg på at forbinde</span></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">unsigned</span> <span class="dt">long</span> WIFI_TIMEOUT_MS <span class="op">=</span> <span class="dv">20000</span><span class="op">;</span>     <span class="co">// max ventetid på WiFi i setup()</span></span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>WiFiClient netKlient<span class="op">;</span>            <span class="co">// TCP-forbindelsen</span></span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>PubSubClient mqtt<span class="op">(</span>netKlient<span class="op">);</span>    <span class="co">// MQTT oven på TCP-forbindelsen</span></span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="dt">char</span> klientId<span class="op">[</span><span class="dv">24</span><span class="op">];</span>               <span class="co">// fx "esp32-a1b2c3d4e5f6"</span></span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="dt">char</span> topic<span class="op">[</span><span class="dv">64</span><span class="op">];</span>                  <span class="co">// fx "elever/anna/esp32/maaling"</span></span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="dt">unsigned</span> <span class="dt">long</span> sidsteSend <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="dt">unsigned</span> <span class="dt">long</span> sidsteForsoeg <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a><span class="dt">unsigned</span> <span class="dt">long</span> antalSendt <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a><span class="co">// Client-id ud fra MAC-adressen, så to ESP32'er aldrig har samme id.</span></span>
-<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a><span class="co">// getEfuseMac() har MAC'ens første byte nederst, så bytes står i omvendt</span></span>
-<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a><span class="co">// rækkefølge i forhold til WiFi.macAddress(). Id'et er stadig unikt.</span></span>
-<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> lavKlientId<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>  <span class="dt">uint64_t</span> mac <span class="op">=</span> ESP<span class="op">.</span>getEfuseMac<span class="op">();</span></span>
-<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>  snprintf<span class="op">(</span>klientId<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>klientId<span class="op">),</span> <span class="st">"esp32-</span><span class="sc">%04x%08x</span><span class="st">"</span><span class="op">,</span></span>
-<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>           <span class="op">(</span><span class="dt">unsigned</span> <span class="dt">int</span><span class="op">)(</span><span class="dt">uint16_t</span><span class="op">)(</span>mac <span class="op">&gt;&gt;</span> <span class="dv">32</span><span class="op">),</span> <span class="op">(</span><span class="dt">unsigned</span> <span class="dt">int</span><span class="op">)(</span><span class="dt">uint32_t</span><span class="op">)</span>mac<span class="op">);</span></span>
-<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a><span class="co">// Som på WiFi-siden: vent højst timeoutMs, så programmet ikke hænger</span></span>
-<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a><span class="dt">bool</span> forbindWiFi<span class="op">(</span><span class="dt">unsigned</span> <span class="dt">long</span> timeoutMs<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>  WiFi<span class="op">.</span>mode<span class="op">(</span>WIFI_STA<span class="op">);</span></span>
-<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>  WiFi<span class="op">.</span>begin<span class="op">(</span>WIFI_SSID<span class="op">,</span> WIFI_PASSWORD<span class="op">);</span></span>
-<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>printf<span class="op">(</span><span class="st">"Forbinder til </span><span class="sc">%s</span><span class="st">"</span><span class="op">,</span> WIFI_SSID<span class="op">);</span></span>
-<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>  <span class="dt">unsigned</span> <span class="dt">long</span> start <span class="op">=</span> millis<span class="op">();</span></span>
-<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> <span class="op">(</span>WiFi<span class="op">.</span>status<span class="op">()</span> <span class="op">!=</span> WL_CONNECTED <span class="op">&amp;&amp;</span> millis<span class="op">()</span> <span class="op">-</span> start <span class="op">&lt;</span> timeoutMs<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a>    delay<span class="op">(</span><span class="dv">500</span><span class="op">);</span>  <span class="co">// OK her: setup() har ikke andet at lave endnu</span></span>
-<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a>    Serial<span class="op">.</span>print<span class="op">(</span><span class="st">"."</span><span class="op">);</span></span>
-<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
-<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>println<span class="op">();</span></span>
-<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> WiFi<span class="op">.</span>status<span class="op">()</span> <span class="op">==</span> WL_CONNECTED<span class="op">;</span></span>
-<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a><span class="co">// Ét forsøg på at forbinde til brokeren. Ingen while-løkke: loop() prøver igen senere.</span></span>
-<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a><span class="dt">bool</span> forbindMqtt<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>printf<span class="op">(</span><span class="st">"Forbinder til MQTT </span><span class="sc">%s</span><span class="st">:</span><span class="sc">%u</span><span class="st"> som </span><span class="sc">%s</span><span class="st"> ... "</span><span class="op">,</span> MQTT_HOST<span class="op">,</span> MQTT_PORT<span class="op">,</span> klientId<span class="op">);</span></span>
-<span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(</span>mqtt<span class="op">.</span><span class="fu">connect</span><span class="op">(</span>klientId<span class="op">))</span> <span class="op">{</span></span>
-<span id="cb10-51"><a href="#cb10-51" aria-hidden="true" tabindex="-1"></a>    Serial<span class="op">.</span>println<span class="op">(</span><span class="st">"OK"</span><span class="op">);</span></span>
-<span id="cb10-52"><a href="#cb10-52" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="kw">true</span><span class="op">;</span></span>
-<span id="cb10-53"><a href="#cb10-53" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
-<span id="cb10-54"><a href="#cb10-54" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>printf<span class="op">(</span><span class="st">"fejl, state=</span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> mqtt<span class="op">.</span>state<span class="op">());</span></span>
-<span id="cb10-55"><a href="#cb10-55" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="kw">false</span><span class="op">;</span></span>
-<span id="cb10-56"><a href="#cb10-56" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb10-57"><a href="#cb10-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-58"><a href="#cb10-58" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> sendMaaling<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb10-59"><a href="#cb10-59" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> millivolt <span class="op">=</span> analogReadMilliVolts<span class="op">(</span>MAALE_PIN<span class="op">);</span></span>
-<span id="cb10-60"><a href="#cb10-60" aria-hidden="true" tabindex="-1"></a>  antalSendt<span class="op">++;</span></span>
-<span id="cb10-61"><a href="#cb10-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-62"><a href="#cb10-62" aria-hidden="true" tabindex="-1"></a>  <span class="dt">char</span> payload<span class="op">[</span><span class="dv">128</span><span class="op">];</span></span>
-<span id="cb10-63"><a href="#cb10-63" aria-hidden="true" tabindex="-1"></a>  snprintf<span class="op">(</span>payload<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>payload<span class="op">),</span></span>
-<span id="cb10-64"><a href="#cb10-64" aria-hidden="true" tabindex="-1"></a>           <span class="st">"{</span><span class="sc">\"</span><span class="st">device</span><span class="sc">\"</span><span class="st">:</span><span class="sc">\"%s\"</span><span class="st">,</span><span class="sc">\"</span><span class="st">nr</span><span class="sc">\"</span><span class="st">:</span><span class="sc">%lu</span><span class="st">,</span><span class="sc">\"</span><span class="st">spaending_mv</span><span class="sc">\"</span><span class="st">:</span><span class="sc">%d</span><span class="st">,</span><span class="sc">\"</span><span class="st">rssi</span><span class="sc">\"</span><span class="st">:</span><span class="sc">%d</span><span class="st">,</span><span class="sc">\"</span><span class="st">uptime_ms</span><span class="sc">\"</span><span class="st">:</span><span class="sc">%lu</span><span class="st">}"</span><span class="op">,</span></span>
-<span id="cb10-65"><a href="#cb10-65" aria-hidden="true" tabindex="-1"></a>           klientId<span class="op">,</span> antalSendt<span class="op">,</span> millivolt<span class="op">,</span> WiFi<span class="op">.</span>RSSI<span class="op">(),</span> millis<span class="op">());</span></span>
-<span id="cb10-66"><a href="#cb10-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-67"><a href="#cb10-67" aria-hidden="true" tabindex="-1"></a>  <span class="co">// publish() giver false, hvis vi ikke er forbundet, eller beskeden er for stor</span></span>
-<span id="cb10-68"><a href="#cb10-68" aria-hidden="true" tabindex="-1"></a>  <span class="dt">bool</span> ok <span class="op">=</span> mqtt<span class="op">.</span>publish<span class="op">(</span>topic<span class="op">,</span> payload<span class="op">);</span></span>
-<span id="cb10-69"><a href="#cb10-69" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>printf<span class="op">(</span><span class="st">"</span><span class="sc">%s</span><span class="st"> </span><span class="sc">%s</span><span class="st"> </span><span class="sc">%s\n</span><span class="st">"</span><span class="op">,</span> ok <span class="op">?</span> <span class="st">"Sendt"</span> <span class="op">:</span> <span class="st">"IKKE sendt"</span><span class="op">,</span> topic<span class="op">,</span> payload<span class="op">);</span></span>
-<span id="cb10-70"><a href="#cb10-70" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb10-71"><a href="#cb10-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-72"><a href="#cb10-72" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb10-73"><a href="#cb10-73" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>begin<span class="op">(</span><span class="dv">115200</span><span class="op">);</span></span>
-<span id="cb10-74"><a href="#cb10-74" aria-hidden="true" tabindex="-1"></a>  lavKlientId<span class="op">();</span></span>
-<span id="cb10-75"><a href="#cb10-75" aria-hidden="true" tabindex="-1"></a>  snprintf<span class="op">(</span>topic<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>topic<span class="op">),</span> <span class="st">"elever/</span><span class="sc">%s</span><span class="st">/esp32/maaling"</span><span class="op">,</span> BRUGERNAVN<span class="op">);</span></span>
-<span id="cb10-76"><a href="#cb10-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-77"><a href="#cb10-77" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(!</span>forbindWiFi<span class="op">(</span>WIFI_TIMEOUT_MS<span class="op">))</span> <span class="op">{</span></span>
-<span id="cb10-78"><a href="#cb10-78" aria-hidden="true" tabindex="-1"></a>    Serial<span class="op">.</span>printf<span class="op">(</span><span class="st">"Ingen WiFi endnu (status </span><span class="sc">%d</span><span class="st">). Prøver videre i baggrunden.</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> WiFi<span class="op">.</span>status<span class="op">());</span></span>
-<span id="cb10-79"><a href="#cb10-79" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
-<span id="cb10-80"><a href="#cb10-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-81"><a href="#cb10-81" aria-hidden="true" tabindex="-1"></a>  mqtt<span class="op">.</span>setServer<span class="op">(</span>MQTT_HOST<span class="op">,</span> MQTT_PORT<span class="op">);</span></span>
-<span id="cb10-82"><a href="#cb10-82" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(</span>WiFi<span class="op">.</span>status<span class="op">()</span> <span class="op">==</span> WL_CONNECTED<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb10-83"><a href="#cb10-83" aria-hidden="true" tabindex="-1"></a>    forbindMqtt<span class="op">();</span></span>
-<span id="cb10-84"><a href="#cb10-84" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
-<span id="cb10-85"><a href="#cb10-85" aria-hidden="true" tabindex="-1"></a>  sidsteForsoeg <span class="op">=</span> millis<span class="op">();</span></span>
-<span id="cb10-86"><a href="#cb10-86" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb10-87"><a href="#cb10-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-88"><a href="#cb10-88" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb10-89"><a href="#cb10-89" aria-hidden="true" tabindex="-1"></a>  <span class="dt">unsigned</span> <span class="dt">long</span> nu <span class="op">=</span> millis<span class="op">();</span></span>
-<span id="cb10-90"><a href="#cb10-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-91"><a href="#cb10-91" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(</span>mqtt<span class="op">.</span>connected<span class="op">())</span> <span class="op">{</span></span>
-<span id="cb10-92"><a href="#cb10-92" aria-hidden="true" tabindex="-1"></a>    mqtt<span class="op">.</span>loop<span class="op">();</span>  <span class="co">// sender keep-alive-ping og modtager beskeder; skal kaldes ofte</span></span>
-<span id="cb10-93"><a href="#cb10-93" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>WiFi<span class="op">.</span>status<span class="op">()</span> <span class="op">==</span> WL_CONNECTED <span class="op">&amp;&amp;</span> nu <span class="op">-</span> sidsteForsoeg <span class="op">&gt;=</span> MQTT_FORSOEG_MS<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb10-94"><a href="#cb10-94" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Prøv igen med fast interval i stedet for en while-løkke med delay()</span></span>
-<span id="cb10-95"><a href="#cb10-95" aria-hidden="true" tabindex="-1"></a>    sidsteForsoeg <span class="op">=</span> nu<span class="op">;</span></span>
-<span id="cb10-96"><a href="#cb10-96" aria-hidden="true" tabindex="-1"></a>    forbindMqtt<span class="op">();</span></span>
-<span id="cb10-97"><a href="#cb10-97" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
-<span id="cb10-98"><a href="#cb10-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-99"><a href="#cb10-99" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(</span>mqtt<span class="op">.</span>connected<span class="op">()</span> <span class="op">&amp;&amp;</span> nu <span class="op">-</span> sidsteSend <span class="op">&gt;=</span> SEND_INTERVAL_MS<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb10-100"><a href="#cb10-100" aria-hidden="true" tabindex="-1"></a>    sidsteSend <span class="op">=</span> nu<span class="op">;</span></span>
-<span id="cb10-101"><a href="#cb10-101" aria-hidden="true" tabindex="-1"></a>    sendMaaling<span class="op">();</span></span>
-<span id="cb10-102"><a href="#cb10-102" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
-<span id="cb10-103"><a href="#cb10-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-104"><a href="#cb10-104" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Her kan programmet læse knapper og sensorer, også mens forbindelsen er nede</span></span>
-<span id="cb10-105"><a href="#cb10-105" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" data-filename="src/main.cpp"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;Arduino.h&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;WiFi.h&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;PubSubClient.h&gt;</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">"secrets.h"</span><span class="pp">   </span><span class="co">// WIFI_SSID og WIFI_PASSWORD (se WiFi-siden)</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">// Konfiguration</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">char</span><span class="op">*</span> MQTT_HOST <span class="op">=</span> <span class="st">"wilsons.local"</span><span class="op">;</span>         <span class="co">// brokeren; virker navnet ikke, så "192.168.0.33"</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">uint16_t</span> MQTT_PORT <span class="op">=</span> <span class="dv">1883</span><span class="op">;</span>                 <span class="co">// uden TLS; se Lokal MQTT server for 8883</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">char</span><span class="op">*</span> BRUGERNAVN <span class="op">=</span> <span class="st">"anna"</span><span class="op">;</span>                 <span class="co">// dit eget brugernavn</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">int</span> MAALE_PIN <span class="op">=</span> <span class="dv">32</span><span class="op">;</span>                      <span class="co">// potentiometer, ADC1</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">unsigned</span> <span class="dt">long</span> SEND_INTERVAL_MS <span class="op">=</span> <span class="dv">5000</span><span class="op">;</span>     <span class="co">// hvor tit der sendes en måling</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">unsigned</span> <span class="dt">long</span> MQTT_FORSOEG_MS <span class="op">=</span> <span class="dv">5000</span><span class="op">;</span>      <span class="co">// ventetid mellem forsøg på at forbinde</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">unsigned</span> <span class="dt">long</span> WIFI_TIMEOUT_MS <span class="op">=</span> <span class="dv">20000</span><span class="op">;</span>     <span class="co">// max ventetid på WiFi i setup()</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>WiFiClient netKlient<span class="op">;</span>            <span class="co">// TCP-forbindelsen</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>PubSubClient mqtt<span class="op">(</span>netKlient<span class="op">);</span>    <span class="co">// MQTT oven på TCP-forbindelsen</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="dt">char</span> klientId<span class="op">[</span><span class="dv">24</span><span class="op">];</span>               <span class="co">// fx "esp32-a1b2c3d4e5f6"</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="dt">char</span> topic<span class="op">[</span><span class="dv">64</span><span class="op">];</span>                  <span class="co">// fx "elever/anna/esp32/maaling"</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="dt">unsigned</span> <span class="dt">long</span> sidsteSend <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="dt">unsigned</span> <span class="dt">long</span> sidsteForsoeg <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="dt">unsigned</span> <span class="dt">long</span> antalSendt <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="co">// Client-id ud fra MAC-adressen, så to ESP32'er aldrig har samme id.</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="co">// getEfuseMac() har MAC'ens første byte nederst, så bytes står i omvendt</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="co">// rækkefølge i forhold til WiFi.macAddress(). Id'et er stadig unikt.</span></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> lavKlientId<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>  <span class="dt">uint64_t</span> mac <span class="op">=</span> ESP<span class="op">.</span>getEfuseMac<span class="op">();</span></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>  snprintf<span class="op">(</span>klientId<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>klientId<span class="op">),</span> <span class="st">"esp32-</span><span class="sc">%04x%08x</span><span class="st">"</span><span class="op">,</span></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>           <span class="op">(</span><span class="dt">unsigned</span> <span class="dt">int</span><span class="op">)(</span><span class="dt">uint16_t</span><span class="op">)(</span>mac <span class="op">&gt;&gt;</span> <span class="dv">32</span><span class="op">),</span> <span class="op">(</span><span class="dt">unsigned</span> <span class="dt">int</span><span class="op">)(</span><span class="dt">uint32_t</span><span class="op">)</span>mac<span class="op">);</span></span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a><span class="co">// Som på WiFi-siden: vent højst timeoutMs, så programmet ikke hænger</span></span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a><span class="dt">bool</span> forbindWiFi<span class="op">(</span><span class="dt">unsigned</span> <span class="dt">long</span> timeoutMs<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>  WiFi<span class="op">.</span>mode<span class="op">(</span>WIFI_STA<span class="op">);</span></span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>  WiFi<span class="op">.</span>begin<span class="op">(</span>WIFI_SSID<span class="op">,</span> WIFI_PASSWORD<span class="op">);</span></span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>printf<span class="op">(</span><span class="st">"Forbinder til </span><span class="sc">%s</span><span class="st">"</span><span class="op">,</span> WIFI_SSID<span class="op">);</span></span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>  <span class="dt">unsigned</span> <span class="dt">long</span> start <span class="op">=</span> millis<span class="op">();</span></span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> <span class="op">(</span>WiFi<span class="op">.</span>status<span class="op">()</span> <span class="op">!=</span> WL_CONNECTED <span class="op">&amp;&amp;</span> millis<span class="op">()</span> <span class="op">-</span> start <span class="op">&lt;</span> timeoutMs<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a>    delay<span class="op">(</span><span class="dv">500</span><span class="op">);</span>  <span class="co">// OK her: setup() har ikke andet at lave endnu</span></span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>    Serial<span class="op">.</span>print<span class="op">(</span><span class="st">"."</span><span class="op">);</span></span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>println<span class="op">();</span></span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> WiFi<span class="op">.</span>status<span class="op">()</span> <span class="op">==</span> WL_CONNECTED<span class="op">;</span></span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a><span class="co">// Ét forsøg på at forbinde til brokeren. Ingen while-løkke: loop() prøver igen senere.</span></span>
+<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a><span class="dt">bool</span> forbindMqtt<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>printf<span class="op">(</span><span class="st">"Forbinder til MQTT </span><span class="sc">%s</span><span class="st">:</span><span class="sc">%u</span><span class="st"> som </span><span class="sc">%s</span><span class="st"> ... "</span><span class="op">,</span> MQTT_HOST<span class="op">,</span> MQTT_PORT<span class="op">,</span> klientId<span class="op">);</span></span>
+<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(</span>mqtt<span class="op">.</span><span class="fu">connect</span><span class="op">(</span>klientId<span class="op">))</span> <span class="op">{</span></span>
+<span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a>    Serial<span class="op">.</span>println<span class="op">(</span><span class="st">"OK"</span><span class="op">);</span></span>
+<span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="kw">true</span><span class="op">;</span></span>
+<span id="cb8-53"><a href="#cb8-53" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb8-54"><a href="#cb8-54" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>printf<span class="op">(</span><span class="st">"fejl, state=</span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> mqtt<span class="op">.</span>state<span class="op">());</span></span>
+<span id="cb8-55"><a href="#cb8-55" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb8-56"><a href="#cb8-56" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb8-57"><a href="#cb8-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-58"><a href="#cb8-58" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> sendMaaling<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb8-59"><a href="#cb8-59" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> millivolt <span class="op">=</span> analogReadMilliVolts<span class="op">(</span>MAALE_PIN<span class="op">);</span></span>
+<span id="cb8-60"><a href="#cb8-60" aria-hidden="true" tabindex="-1"></a>  antalSendt<span class="op">++;</span></span>
+<span id="cb8-61"><a href="#cb8-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-62"><a href="#cb8-62" aria-hidden="true" tabindex="-1"></a>  <span class="dt">char</span> payload<span class="op">[</span><span class="dv">128</span><span class="op">];</span></span>
+<span id="cb8-63"><a href="#cb8-63" aria-hidden="true" tabindex="-1"></a>  snprintf<span class="op">(</span>payload<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>payload<span class="op">),</span></span>
+<span id="cb8-64"><a href="#cb8-64" aria-hidden="true" tabindex="-1"></a>           <span class="st">"{</span><span class="sc">\"</span><span class="st">device</span><span class="sc">\"</span><span class="st">:</span><span class="sc">\"%s\"</span><span class="st">,</span><span class="sc">\"</span><span class="st">nr</span><span class="sc">\"</span><span class="st">:</span><span class="sc">%lu</span><span class="st">,</span><span class="sc">\"</span><span class="st">spaending_mv</span><span class="sc">\"</span><span class="st">:</span><span class="sc">%d</span><span class="st">,</span><span class="sc">\"</span><span class="st">rssi</span><span class="sc">\"</span><span class="st">:</span><span class="sc">%d</span><span class="st">,</span><span class="sc">\"</span><span class="st">uptime_ms</span><span class="sc">\"</span><span class="st">:</span><span class="sc">%lu</span><span class="st">}"</span><span class="op">,</span></span>
+<span id="cb8-65"><a href="#cb8-65" aria-hidden="true" tabindex="-1"></a>           klientId<span class="op">,</span> antalSendt<span class="op">,</span> millivolt<span class="op">,</span> WiFi<span class="op">.</span>RSSI<span class="op">(),</span> millis<span class="op">());</span></span>
+<span id="cb8-66"><a href="#cb8-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-67"><a href="#cb8-67" aria-hidden="true" tabindex="-1"></a>  <span class="co">// publish() giver false, hvis vi ikke er forbundet, eller beskeden er for stor</span></span>
+<span id="cb8-68"><a href="#cb8-68" aria-hidden="true" tabindex="-1"></a>  <span class="dt">bool</span> ok <span class="op">=</span> mqtt<span class="op">.</span>publish<span class="op">(</span>topic<span class="op">,</span> payload<span class="op">);</span></span>
+<span id="cb8-69"><a href="#cb8-69" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>printf<span class="op">(</span><span class="st">"</span><span class="sc">%s</span><span class="st"> </span><span class="sc">%s</span><span class="st"> </span><span class="sc">%s\n</span><span class="st">"</span><span class="op">,</span> ok <span class="op">?</span> <span class="st">"Sendt"</span> <span class="op">:</span> <span class="st">"IKKE sendt"</span><span class="op">,</span> topic<span class="op">,</span> payload<span class="op">);</span></span>
+<span id="cb8-70"><a href="#cb8-70" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb8-71"><a href="#cb8-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-72"><a href="#cb8-72" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb8-73"><a href="#cb8-73" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>begin<span class="op">(</span><span class="dv">115200</span><span class="op">);</span></span>
+<span id="cb8-74"><a href="#cb8-74" aria-hidden="true" tabindex="-1"></a>  lavKlientId<span class="op">();</span></span>
+<span id="cb8-75"><a href="#cb8-75" aria-hidden="true" tabindex="-1"></a>  snprintf<span class="op">(</span>topic<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>topic<span class="op">),</span> <span class="st">"elever/</span><span class="sc">%s</span><span class="st">/esp32/maaling"</span><span class="op">,</span> BRUGERNAVN<span class="op">);</span></span>
+<span id="cb8-76"><a href="#cb8-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-77"><a href="#cb8-77" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(!</span>forbindWiFi<span class="op">(</span>WIFI_TIMEOUT_MS<span class="op">))</span> <span class="op">{</span></span>
+<span id="cb8-78"><a href="#cb8-78" aria-hidden="true" tabindex="-1"></a>    Serial<span class="op">.</span>printf<span class="op">(</span><span class="st">"Ingen WiFi endnu (status </span><span class="sc">%d</span><span class="st">). Prøver videre i baggrunden.</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> WiFi<span class="op">.</span>status<span class="op">());</span></span>
+<span id="cb8-79"><a href="#cb8-79" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb8-80"><a href="#cb8-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-81"><a href="#cb8-81" aria-hidden="true" tabindex="-1"></a>  mqtt<span class="op">.</span>setServer<span class="op">(</span>MQTT_HOST<span class="op">,</span> MQTT_PORT<span class="op">);</span></span>
+<span id="cb8-82"><a href="#cb8-82" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(</span>WiFi<span class="op">.</span>status<span class="op">()</span> <span class="op">==</span> WL_CONNECTED<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb8-83"><a href="#cb8-83" aria-hidden="true" tabindex="-1"></a>    forbindMqtt<span class="op">();</span></span>
+<span id="cb8-84"><a href="#cb8-84" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb8-85"><a href="#cb8-85" aria-hidden="true" tabindex="-1"></a>  sidsteForsoeg <span class="op">=</span> millis<span class="op">();</span></span>
+<span id="cb8-86"><a href="#cb8-86" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb8-87"><a href="#cb8-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-88"><a href="#cb8-88" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb8-89"><a href="#cb8-89" aria-hidden="true" tabindex="-1"></a>  <span class="dt">unsigned</span> <span class="dt">long</span> nu <span class="op">=</span> millis<span class="op">();</span></span>
+<span id="cb8-90"><a href="#cb8-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-91"><a href="#cb8-91" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(</span>mqtt<span class="op">.</span>connected<span class="op">())</span> <span class="op">{</span></span>
+<span id="cb8-92"><a href="#cb8-92" aria-hidden="true" tabindex="-1"></a>    mqtt<span class="op">.</span>loop<span class="op">();</span>  <span class="co">// sender keep-alive-ping og modtager beskeder; skal kaldes ofte</span></span>
+<span id="cb8-93"><a href="#cb8-93" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>WiFi<span class="op">.</span>status<span class="op">()</span> <span class="op">==</span> WL_CONNECTED <span class="op">&amp;&amp;</span> nu <span class="op">-</span> sidsteForsoeg <span class="op">&gt;=</span> MQTT_FORSOEG_MS<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb8-94"><a href="#cb8-94" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Prøv igen med fast interval i stedet for en while-løkke med delay()</span></span>
+<span id="cb8-95"><a href="#cb8-95" aria-hidden="true" tabindex="-1"></a>    sidsteForsoeg <span class="op">=</span> nu<span class="op">;</span></span>
+<span id="cb8-96"><a href="#cb8-96" aria-hidden="true" tabindex="-1"></a>    forbindMqtt<span class="op">();</span></span>
+<span id="cb8-97"><a href="#cb8-97" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb8-98"><a href="#cb8-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-99"><a href="#cb8-99" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(</span>mqtt<span class="op">.</span>connected<span class="op">()</span> <span class="op">&amp;&amp;</span> nu <span class="op">-</span> sidsteSend <span class="op">&gt;=</span> SEND_INTERVAL_MS<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb8-100"><a href="#cb8-100" aria-hidden="true" tabindex="-1"></a>    sidsteSend <span class="op">=</span> nu<span class="op">;</span></span>
+<span id="cb8-101"><a href="#cb8-101" aria-hidden="true" tabindex="-1"></a>    sendMaaling<span class="op">();</span></span>
+<span id="cb8-102"><a href="#cb8-102" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb8-103"><a href="#cb8-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-104"><a href="#cb8-104" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Her kan programmet læse knapper og sensorer, også mens forbindelsen er nede</span></span>
+<span id="cb8-105"><a href="#cb8-105" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<!-- TJEK: Om ESP32 kan slå "wilsons.local" eller "wilsons.home" op på skolens net, er ikke afprøvet. Indtil da bruger eksemplet IP-adressen. Brug samme navn som i ESP32-eksemplet på Lokal MQTT server (der står "wilsons.local"). -->
+<!-- TJEK: Om ESP32 kan slå "wilsons.local" op på skolens net, er ikke afprøvet (en pc kan). Virker det ikke, så brug 192.168.0.33. -->
 <p>Sådan virker det:</p>
 <ul>
 <li><code>PubSubClient</code> sender MQTT over en almindelig <code>WiFiClient</code>. På port 8883 skiftes den ud med en <code>WiFiClientSecure</code> med <code>ca.crt</code> (se <a href="../Features/lokal_mqtt.html">Lokal MQTT server</a>).</li>
@@ -1036,6 +914,151 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 <!-- TJEK: Tiderne (3 s fra NetworkClient i core 3.x, 15 s fra MQTT_SOCKET_TIMEOUT i PubSubClient) er læst i kildekoden, ikke målt. Bekræft i øvelse 6. -->
 <p>WiFi genforbinder selv i baggrunden (se <a href="../Grundlag/wifi.html">WiFi</a>), så eksemplet venter bare på, at <code>WiFi.status()</code> bliver <code>WL_CONNECTED</code> igen.</p>
 <!-- TJEK: PubSubClients README skriver nu "This library is not maintained". Version 2.8 fra 2020 er den nyeste i PlatformIO-registret. -->
+</section>
+</section>
+<section id="eksempel-csharp" class="level2">
+<h2 class="anchored" data-anchor-id="eksempel-csharp">Eksempel: C</h2>
+<p>Kender du C# bedre end Python, kan du lave det samme i C#. Programmet her gør både det, <code>subscriber.py</code> og <code>publisher.py</code> gør: det abonnerer på dit eget område, skriver hver besked ud og sender én JSON-besked. Sammenlign det med Python-eksemplerne ovenfor: begreberne er de samme, kun navnene er anderledes.</p>
+<p>Biblioteket hedder <a href="https://github.com/dotnet/MQTTnet">MQTTnet</a> og hentes fra NuGet. Version 5 kræver .NET 8 eller nyere. Lav et nyt konsolprogram, og tilføj pakken:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">dotnet</span> new console <span class="at">-n</span> MqttHilsen</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> MqttHilsen</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="ex">dotnet</span> add package MQTTnet <span class="at">--version</span> 5.2.0.1603</span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Pas på gamle eksempler.</strong> Version 5 ændrede en del navne, og de fleste eksempler på nettet er skrevet til version 4 eller ældre. Ser du <code>new MqttFactory()</code>, <code>using MQTTnet.Client;</code> eller <code>ManagedMqttClient</code>, er eksemplet gammelt. I version 5 hedder fabrikken <code>MqttClientFactory</code>, klienten ligger direkte i navnerummet <code>MQTTnet</code>, og den “managed” klient, der selv genforbinder, er fjernet. Payload’en er nu en <code>ReadOnlySequence&lt;byte&gt;</code>, så læs den som tekst med <code>ConvertPayloadToString()</code>.</p>
+<p>Erstat indholdet af <code>Program.cs</code> med koden herunder, ret <code>Brugernavn</code>, og kør med <code>dotnet run</code>.</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Program.cs</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10" data-filename="Program.cs"><pre class="sourceCode csharp code-with-copy"><code class="sourceCode cs"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> System<span class="op">.</span><span class="fu">Text</span><span class="op">.</span><span class="fu">Json</span><span class="op">;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> MQTTnet<span class="op">;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> MQTTnet<span class="op">.</span><span class="fu">Protocol</span><span class="op">;</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">// Konfiguration</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="dt">const</span> <span class="dt">string</span> Broker <span class="op">=</span> <span class="st">"wilsons.local"</span><span class="op">;</span>   <span class="co">// eller 192.168.0.33</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="dt">const</span> <span class="dt">int</span> Port <span class="op">=</span> <span class="dv">1883</span><span class="op">;</span>                   <span class="co">// uden TLS og login; se Lokal MQTT server for 8883</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="dt">const</span> <span class="dt">string</span> Brugernavn <span class="op">=</span> <span class="st">"anna"</span><span class="op">;</span>        <span class="co">// dit eget brugernavn</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="dt">string</span> abonnerTopic <span class="op">=</span> $<span class="st">"elever/{Brugernavn}/#"</span><span class="op">;</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="dt">string</span> sendTopic <span class="op">=</span> $<span class="st">"elever/{Brugernavn}/csharp/hilsen"</span><span class="op">;</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co">// Unikt client-id: to klienter med samme id smider hinanden af</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="dt">string</span> klientId <span class="op">=</span> $<span class="st">"csharp-{Brugernavn}-{Guid.NewGuid().ToString("</span>N<span class="st">")[..8]}"</span><span class="op">;</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="dt">var</span> factory <span class="op">=</span> <span class="kw">new</span> <span class="fu">MqttClientFactory</span><span class="op">();</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="dt">var</span> client <span class="op">=</span> factory<span class="op">.</span><span class="fu">CreateMqttClient</span><span class="op">();</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="co">// Sæt modtageren på før ConnectAsync, så ingen beskeder går tabt</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>client<span class="op">.</span><span class="fu">ApplicationMessageReceivedAsync</span> <span class="op">+=</span> e <span class="op">=&gt;</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>    <span class="dt">var</span> besked <span class="op">=</span> e<span class="op">.</span><span class="fu">ApplicationMessage</span><span class="op">;</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>    <span class="dt">string</span> tekst <span class="op">=</span> besked<span class="op">.</span><span class="fu">ConvertPayloadToString</span><span class="op">()</span> <span class="op">??</span> <span class="st">""</span><span class="op">;</span>   <span class="co">// UTF-8; null, hvis beskeden er tom</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>    <span class="dt">string</span> retained <span class="op">=</span> besked<span class="op">.</span><span class="fu">Retain</span> <span class="op">?</span> <span class="st">" (retained)"</span> <span class="op">:</span> <span class="st">""</span><span class="op">;</span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>    Console<span class="op">.</span><span class="fu">WriteLine</span><span class="op">(</span>$<span class="st">"{besked.Topic}: {tekst}{retained}"</span><span class="op">);</span></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> Task<span class="op">.</span><span class="fu">CompletedTask</span><span class="op">;</span></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a><span class="dt">var</span> options <span class="op">=</span> <span class="kw">new</span> <span class="fu">MqttClientOptionsBuilder</span><span class="op">()</span></span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">WithTcpServer</span><span class="op">(</span>Broker<span class="op">,</span> Port<span class="op">)</span></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">WithClientId</span><span class="op">(</span>klientId<span class="op">)</span></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">Build</span><span class="op">();</span></span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a><span class="co">// Kaster en undtagelse, hvis brokeren ikke kan nås. Afviser brokeren os, får vi en ResultCode.</span></span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a><span class="dt">var</span> svar <span class="op">=</span> await client<span class="op">.</span><span class="fu">ConnectAsync</span><span class="op">(</span>options<span class="op">);</span></span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a><span class="kw">if</span> <span class="op">(</span>svar<span class="op">.</span><span class="fu">ResultCode</span> <span class="op">!=</span> MqttClientConnectResultCode<span class="op">.</span><span class="fu">Success</span><span class="op">)</span></span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>    Console<span class="op">.</span><span class="fu">WriteLine</span><span class="op">(</span>$<span class="st">"Forbindelse afvist: {svar.ResultCode}"</span><span class="op">);</span></span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span><span class="op">;</span></span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a>Console<span class="op">.</span><span class="fu">WriteLine</span><span class="op">(</span>$<span class="st">"Forbundet som {klientId}. Abonnerer på {abonnerTopic}"</span><span class="op">);</span></span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a>await client<span class="op">.</span><span class="fu">SubscribeAsync</span><span class="op">(</span>abonnerTopic<span class="op">);</span></span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a><span class="co">// Et anonymt objekt bliver til JSON: {"fra":"…","tekst":"Hej fra C#","tid":"…"}</span></span>
+<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a><span class="dt">string</span> json <span class="op">=</span> JsonSerializer<span class="op">.</span><span class="fu">Serialize</span><span class="op">(</span><span class="kw">new</span></span>
+<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a>    fra <span class="op">=</span> klientId<span class="op">,</span></span>
+<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a>    tekst <span class="op">=</span> <span class="st">"Hej fra C#"</span><span class="op">,</span></span>
+<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a>    tid <span class="op">=</span> DateTime<span class="op">.</span><span class="fu">Now</span><span class="op">.</span><span class="fu">ToString</span><span class="op">(</span><span class="st">"HH':'mm':'ss"</span><span class="op">),</span>   <span class="co">// ':' sikrer kolon; ellers giver dansk Windows "14.05.32"</span></span>
+<span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a><span class="op">});</span></span>
+<span id="cb10-51"><a href="#cb10-51" aria-hidden="true" tabindex="-1"></a>await client<span class="op">.</span><span class="fu">PublishStringAsync</span><span class="op">(</span>sendTopic<span class="op">,</span> json<span class="op">,</span> MqttQualityOfServiceLevel<span class="op">.</span><span class="fu">AtLeastOnce</span><span class="op">);</span></span>
+<span id="cb10-52"><a href="#cb10-52" aria-hidden="true" tabindex="-1"></a>Console<span class="op">.</span><span class="fu">WriteLine</span><span class="op">(</span>$<span class="st">"Sendt til {sendTopic}: {json}"</span><span class="op">);</span></span>
+<span id="cb10-53"><a href="#cb10-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-54"><a href="#cb10-54" aria-hidden="true" tabindex="-1"></a><span class="co">// Bliv ved med at lytte, til brugeren trykker Enter</span></span>
+<span id="cb10-55"><a href="#cb10-55" aria-hidden="true" tabindex="-1"></a>Console<span class="op">.</span><span class="fu">WriteLine</span><span class="op">(</span><span class="st">"Tryk Enter for at stoppe."</span><span class="op">);</span></span>
+<span id="cb10-56"><a href="#cb10-56" aria-hidden="true" tabindex="-1"></a>Console<span class="op">.</span><span class="fu">ReadLine</span><span class="op">();</span></span>
+<span id="cb10-57"><a href="#cb10-57" aria-hidden="true" tabindex="-1"></a>await client<span class="op">.</span><span class="fu">DisconnectAsync</span><span class="op">();</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Sådan virker det, sammenlignet med Python:</p>
+<ul>
+<li><code>ApplicationMessageReceivedAsync</code> svarer til <code>on_message</code>. MQTTnet kalder den på en baggrundstråd, én besked ad gangen, mens hovedprogrammet venter i <code>Console.ReadLine()</code>. Du behøver altså ikke en <code>loop_forever()</code>.</li>
+<li><code>ConnectAsync</code> venter, til brokeren har svaret. Derfor kan <code>SubscribeAsync</code> kaldes lige efter, i stedet for i en <code>on_connect</code>.</li>
+<li>Abonnér-topic’et <code>elever/&lt;brugernavn&gt;/#</code> passer også med <code>sendTopic</code>, så du ser din egen besked komme tilbage fra brokeren.</li>
+<li><code>PublishStringAsync</code> sender teksten som UTF-8. Her bruges QoS 1, så <code>await</code> venter på brokerens kvittering. Standard er QoS 0 og ingen retain, ligesom i paho.</li>
+<li>MQTTnet forbinder som standard med MQTT version 5, mens paho bruger 3.1.1. Mosquitto kan begge dele, så det mærker du ikke her.</li>
+<li>Programmet genforbinder ikke selv, hvis forbindelsen falder ud. Det gør paho’s <code>loop_forever()</code>. I MQTTnet 5 skal du selv gøre det, fx i eventet <code>DisconnectedAsync</code>.</li>
+</ul>
+<section id="c-med-tls-på-port-8883" class="level3">
+<h3 class="anchored" data-anchor-id="c-med-tls-på-port-8883">C# med TLS på port 8883</h3>
+<p>På port 8883 skal klienten bruge TLS, logge ind og stole på skolens CA i <code>ca.crt</code> (se <a href="../Features/lokal_mqtt.html#ca-crt">Lokal MQTT server</a>). Det kræver disse ændringer i programmet:</p>
+<ul>
+<li>Tilføj <code>using System.Security.Cryptography.X509Certificates;</code> øverst.</li>
+<li>Indlæs <code>ca.crt</code> i en <code>X509Certificate2Collection</code> med <code>ImportFromPemFile("ca.crt")</code>.</li>
+<li>Giv den til options-builderen med <code>WithTlsOptions(o =&gt; o.WithTrustChain(ca).WithRevocationMode(X509RevocationMode.NoCheck))</code>. <code>WithTlsOptions</code> slår TLS til, og <code>WithTrustChain</code> gør, at certifikatet kun godtages, hvis det er underskrevet af vores CA.</li>
+<li><code>WithRevocationMode(X509RevocationMode.NoCheck)</code> er nødvendig, fordi .NET ellers prøver at slå op på nettet, om servercertifikatet er tilbagekaldt. Vores certifikat har ingen adresse til det opslag, så forbindelsen ville blive afvist. Det er stadig sikkert: klienten stoler kun på vores egen CA.</li>
+<li>Forbind til <code>wilsons.local</code> eller <code>192.168.0.33</code>, som står i certifikatet. Ellers afvises forbindelsen, selv om CA’en er rigtig.</li>
+<li>Sæt brugernavn og kode med <code>WithCredentials(brugernavn, kode)</code>, og skift porten til 8883. Læs koden fra tastaturet eller en miljøvariabel, så den ikke står i koden.</li>
+<li><code>ca.crt</code> findes i den mappe, programmet køres fra. Med <code>dotnet run</code> er det projektmappen. Kører du fra Visual Studio eller Rider, er det <code>bin/Debug/net8.0</code>, så sæt filen til <em>Copy to Output Directory</em>, eller brug <code>Path.Combine(AppContext.BaseDirectory, "ca.crt")</code>.</li>
+</ul>
+<p>Mange eksempler på nettet bruger <code>WithCertificateValidationHandler(_ =&gt; true)</code> eller <code>WithAllowUntrustedCertificates()</code>: det slår certifikattjekket fra, så du ikke kan vide, om du taler med den rigtige broker. Brug dem ikke.</p>
+<!-- TJEK: TLS-opsætningen (ImportFromPemFile + WithTlsOptions(o => o.WithTrustChain(ca).WithRevocationMode(X509RevocationMode.NoCheck)) + WithCredentials) er læst i MQTTnets kildekode (MqttClientTlsOptionsBuilder: UseTls er true som standard; MqttTcpChannel: TrustChain bruges som CustomRootTrust) og i samplet Connect_Using_TLS_With_CA_File, men ikke afprøvet mod wilsons. Bekræft på Windows og evt. macOS, at forbindelsen godtages med den nye ca.crt, og at den afvises uden WithTrustChain. -->
+</section>
+</section>
+<section id="mqtt-explorer" class="level2">
+<h2 class="anchored" data-anchor-id="mqtt-explorer">MQTT Explorer</h2>
+<p><a href="https://mqtt-explorer.com/">MQTT Explorer</a> er et gratis program, der forbinder til en broker og viser alle topics som et træ. Det er det bedste værktøj til at se, hvad der foregår: du kan se hver besked, når den kommer, se tidligere værdier, tegne en graf over tal og selv sende en testbesked.</p>
+<section id="installér" class="level3">
+<h3 class="anchored" data-anchor-id="installér">Installér</h3>
+<p>Hent det fra <a href="https://mqtt-explorer.com/" class="uri">https://mqtt-explorer.com/</a>. Det findes til Windows (Microsoft Store eller som <code>.exe</code>), macOS (App Store eller <code>.dmg</code>) og Linux (Snap, AppImage eller <code>.deb</code>).</p>
+</section>
+<section id="forbind-til-wilsons-på-port-1883" class="level3">
+<h3 class="anchored" data-anchor-id="forbind-til-wilsons-på-port-1883">Forbind til wilsons på port 1883</h3>
+<ol type="1">
+<li>Opret en ny forbindelse, og skriv fx <code>wilsons</code> under <em>Name</em>.</li>
+<li><em>Host</em>: <code>wilsons.local</code> (eller <code>192.168.0.33</code>). <em>Port</em>: <code>1883</code>. <em>Protocol</em>: <code>mqtt</code>.</li>
+<li>Lad <em>Encryption (tls)</em> være slået fra, og lad <em>Username</em> og <em>Password</em> være tomme.</li>
+<li>Tryk <em>Connect</em>.</li>
+</ol>
+<p>Som standard abonnerer MQTT Explorer på <code>#</code> og <code>$SYS/#</code>, så du ser alt på brokeren. Under <em>Advanced</em> kan du ændre abonnementerne og se dit <em>MQTT Client ID</em>. MQTT Explorer laver selv et unikt id, der starter med <code>mqtt-explorer-</code>.</p>
+<div class="billede-mangler">
+<p>MQTT Explorers forbindelsesvindue udfyldt med Host <code>wilsons.local</code>, Port <code>1883</code> og Encryption (tls) slået fra. Se lignende billeder: <a href="https://mqtt-explorer.com/">mqtt-explorer.com</a>.</p>
+</div>
+</section>
+<section id="se-topic-træet-og-send-en-testbesked" class="level3">
+<h3 class="anchored" data-anchor-id="se-topic-træet-og-send-en-testbesked">Se topic-træet og send en testbesked</h3>
+<ul>
+<li>Fold <code>elever</code> ud i træet til venstre, og find dit eget område. Klik på et topic for at se den sidste besked, dens QoS, om den er retained, og en historik med tidligere værdier. JSON vises pænt opstillet.</li>
+<li>Er værdien et tal, eller har JSON’en tal i sig, kan du lave en graf over dem.</li>
+<li>I <em>Publish</em>-feltet til højre skriver du et topic, fx <code>elever/anna/test</code>, og en besked, og trykker <em>Publish</em>. Der kan du også slå <em>retain</em> til.</li>
+<li>Et retained topic kan slettes med skraldespanden ved topic’et.</li>
+</ul>
+<!-- TJEK: $SYS-topics fra wilsons bør vises på port 1883 (Mosquitto sender dem som standard hvert 10. sekund); bekræft i MQTT Explorer. -->
+<div class="billede-mangler">
+<p>MQTT Explorers topic-træ med <code>elever/&lt;navn&gt;/python/temperatur</code> foldet ud og en JSON-besked valgt i panelet til højre. Se lignende billeder: <a href="https://mqtt-explorer.com/">mqtt-explorer.com</a>.</p>
+</div>
+</section>
+<section id="forbind-på-port-8883-med-tls-og-login" class="level3">
+<h3 class="anchored" data-anchor-id="forbind-på-port-8883-med-tls-og-login">Forbind på port 8883 med TLS og login</h3>
+<p>På port 8883 er forbindelsen krypteret, og du skal logge ind. Du skal bruge skolens CA-certifikat, <a href="ca.crt"><code>ca.crt</code></a>, og dit brugernavn og din kode fra læreren. Detaljerne står på <a href="../Features/lokal_mqtt.html">Lokal MQTT server</a>. I MQTT Explorer:</p>
+<ol type="1">
+<li>Lav en ny forbindelse: <em>Host</em> <code>wilsons.local</code>, <em>Port</em> <code>8883</code>.</li>
+<li>Slå <em>Encryption (tls)</em> til, og lad <em>Validate certificate</em> være slået til. Slå aldrig certifikattjekket fra: så kan du ikke vide, om du taler med den rigtige broker.</li>
+<li>Udfyld <em>Username</em> og <em>Password</em>.</li>
+<li>Gå til <em>Advanced</em> → <em>Certificates</em>, og vælg <code>ca.crt</code> under <em>Server Certificate (CA)</em>. Gå tilbage, og tryk <em>Connect</em>.</li>
+</ol>
+<p>Brug <code>wilsons.local</code> eller <code>192.168.0.33</code>, som står i certifikatet (se <a href="../Features/lokal_mqtt.html">Lokal MQTT server</a>), ellers bliver forbindelsen afvist.</p>
+<!-- TJEK: Feltnavnene er læst i MQTT Explorers kildekode (Certificates.tsx og ConnectionSettings.tsx på master). Bekræft i den version, eleverne installerer (0.4.0-beta.6), og at ca.crt godtages med Validate certificate slået til. -->
+<div class="billede-mangler">
+<p>MQTT Explorers Certificates-dialog med <code>ca.crt</code> valgt under Server Certificate (CA). Se lignende billeder: <a href="https://mqtt-explorer.com/">mqtt-explorer.com</a>.</p>
+</div>
 </section>
 </section>
 <section id="øvelser" class="level2">
@@ -1061,7 +1084,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 <li><strong>Python: ingen beskeder, selv om subscriberen er forbundet:</strong> <code>subscribe()</code> er kaldt før <code>connect()</code> eller uden for <code>on_connect</code>, eller der kører ingen netværksløkke (<code>loop_forever()</code> eller <code>loop_start()</code>).</li>
 <li><strong>C#: <code>MqttFactory</code> eller <code>MQTTnet.Client</code> findes ikke:</strong> Koden er skrevet til MQTTnet 4 eller ældre. Brug <code>new MqttClientFactory()</code> og kun <code>using MQTTnet;</code> (se <a href="#eksempel-csharp">C#-eksemplet</a>).</li>
 <li><strong>C#: forbindelsen “lykkes”, men der kommer intet:</strong> I MQTTnet 5 kaster <code>ConnectAsync</code> ikke en undtagelse, når brokeren afviser forbindelsen, fx ved forkert kode på 8883. Tjek <code>ResultCode</code> i svaret.</li>
-<li><strong>Navnet <code>wilsons.local</code> kan ikke findes:</strong> Din maskine kan ikke slå <code>.local</code>-navne op (det kræver mDNS), eller netværket sender dem ikke videre. Prøv <code>wilsons.home</code> eller <code>192.168.0.33</code>.</li>
+<li><strong>Navnet <code>wilsons.local</code> kan ikke findes:</strong> Din maskine kan ikke slå <code>.local</code>-navne op (det kræver mDNS), eller netværket sender dem ikke videre. Tjek, at du er på klasselokalets net, og brug IP-adressen <code>192.168.0.33</code> i stedet.</li>
 <li><strong>Forbindelsen falder ud hvert øjeblik:</strong> To klienter bruger samme client-id og smider hinanden af. Eller <code>mqtt.loop()</code> kaldes for sjældent på ESP32, fx fordi der er et langt <code>delay()</code> i <code>loop()</code>, så keep-alive udløber.</li>
 <li><strong>ESP32: <code>publish()</code> giver <code>false</code>:</strong> Der er ingen forbindelse, eller beskeden er over 256 bytes inklusive topic. Kald <code>mqtt.setBufferSize()</code>.</li>
 <li><strong>ESP32: <code>state=-2</code>:</strong> Ingen forbindelse til brokeren: forkert navn eller IP, forkert port, eller brokeren er nede.</li>

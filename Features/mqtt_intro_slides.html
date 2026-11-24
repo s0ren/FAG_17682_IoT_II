@@ -615,7 +615,7 @@ og tekst til højst ca. 8 punkter pr. slide. Kør _scripts/slide_hoejde.py efter
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" data-filename="Program.cs (1/2)"><pre class="sourceCode csharp code-with-copy"><code class="sourceCode cs"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> System<span class="op">.</span><span class="fu">Text</span><span class="op">.</span><span class="fu">Json</span><span class="op">;</span></span>
 <span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> MQTTnet<span class="op">;</span></span>
 <span id="cb7-3"><a aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> MQTTnet<span class="op">.</span><span class="fu">Protocol</span><span class="op">;</span></span>
-<span id="cb7-4"><a aria-hidden="true" tabindex="-1"></a><span class="dt">var</span> client <span class="op">=</span> <span class="kw">new</span> <span class="fu">MqttClientFactory</span><span class="op">().</span><span class="fu">CreateMqttClient</span><span class="op">();</span></span>
+<span id="cb7-4"><a aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="dt">var</span> client <span class="op">=</span> <span class="kw">new</span> <span class="fu">MqttClientFactory</span><span class="op">().</span><span class="fu">CreateMqttClient</span><span class="op">();</span></span>
 <span id="cb7-5"><a aria-hidden="true" tabindex="-1"></a>client<span class="op">.</span><span class="fu">ApplicationMessageReceivedAsync</span> <span class="op">+=</span> e <span class="op">=&gt;</span>     <span class="co">// svarer til on_message</span></span>
 <span id="cb7-6"><a aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb7-7"><a aria-hidden="true" tabindex="-1"></a>    <span class="dt">var</span> b <span class="op">=</span> e<span class="op">.</span><span class="fu">ApplicationMessage</span><span class="op">;</span></span>
@@ -723,7 +723,7 @@ og tekst til højst ca. 8 punkter pr. slide. Kør _scripts/slide_hoejde.py efter
 <li><em>Advanced</em> → <em>Certificates</em> → <em>Server Certificate (CA)</em>: vælg <a href="ca.crt"><code>ca.crt</code></a></li>
 </ol>
 <ul>
-<li>Brug et navn, der står i certifikatet: <code>wilsons.local</code>, <code>wilsons.home</code>, <code>wilsons</code> eller <code>192.168.0.33</code></li>
+<li>Brug <code>wilsons.local</code> eller <code>192.168.0.33</code>: de står i certifikatet</li>
 <li>Slå aldrig certifikattjekket fra</li>
 <li>Detaljer: <a href="../Features/lokal_mqtt.html">Lokal MQTT server</a></li>
 </ul>
@@ -796,7 +796,7 @@ og tekst til højst ca. 8 punkter pr. slide. Kør _scripts/slide_hoejde.py efter
 <tbody>
 <tr class="odd">
 <td><code>wilsons.local</code> kan ikke findes</td>
-<td>Prøv <code>wilsons.home</code> eller <code>192.168.0.33</code></td>
+<td>Brug IP-adressen <code>192.168.0.33</code></td>
 </tr>
 <tr class="even">
 <td>Klienter smider hinanden af</td>

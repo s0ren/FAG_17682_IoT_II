@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="da" xml:lang="da"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.20">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Søren Magnusson">
+
+<title>Standardopstillingen – FAG 17682_IoT_II</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-17888a1159294d3eb470f19f6f52f5a5.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-1958bf8fe25c7117446dee592769f80d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Ingen resultater",
+    "search-matching-documents-text": "Matchende dokumenter",
+    "search-copy-link-title": "Kopier link for at søge",
+    "search-hide-matches-text": "Skjul yderligere resultater",
+    "search-more-match-text": "andet resultat i dette dokument",
+    "search-more-matches-text": "andre resultater i dette dokument",
+    "search-clear-button-title": "Ryd",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Fortryd",
+    "search-submit-button-title": "Indsend",
+    "search-label": "Søg"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">FAG 17682_IoT_II</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Søg"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Skift navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Hjem</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../laeringsmaal.html" aria-current="page"> 
+<span class="menu-text">Læringsmål</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">Om sitet</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Skift sidebjælke" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Grundlag/index.html">Grundlag</a></li><li class="breadcrumb-item"><a href="../Grundlag/standardopstilling.html">Standardopstillingen</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Skift sidebjælke" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Om sitet</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Referencer/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Referencemanualer</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../laeringsmaal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Læringsmål</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Features/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Features</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Skift sektion">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Features/deep_sleep.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Deep Sleep</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Features/esp_now_mesh.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ESP-NOW og ESP-MESH</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Features/filsystem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Filsystem på ESP32</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Features/lokal_mqtt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lokal MQTT-server</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Features/mqtt_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Intro til MQTT</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Features/mqtt_intro_slides.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Intro til MQTT (slides)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Grundlag/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Grundlag</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Skift sektion">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/cpp_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Intro til C++</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/debouncing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Debouncing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/esp32_specs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ESP32-DEVKIT-V1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/hello_world.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hello World på ESP32</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/knapper.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Knapper og kontakter</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/lysdioder.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lysdioder (LED’er)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/modstande.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Modstande og farvekoder</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/platformio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">PlatformIO</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/potentiometer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Drejepotentiometer</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/standardopstilling.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Standardopstillingen</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/wifi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">WiFi</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Opgaver/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Opgaver</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Skift sektion">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Opgaver/Projektopgave_Smiley.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Projektopgave, Smiley feedback panel</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Opgaver/Projektopgave_wifi_position.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Projektopgave, Positionsbestemmelse af enheder uden GPS dækning</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Opgaver/Projektopgave_wifi_position_checkliste.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Checkliste: Positionsbestemmelse af enheder uden GPS dækning</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">På denne side</h2>
+   
+  <ul>
+  <li><a href="#formål" id="toc-formål" class="nav-link active" data-scroll-target="#formål">Formål</a></li>
+  <li><a href="#målpinde" id="toc-målpinde" class="nav-link" data-scroll-target="#målpinde">Målpinde</a></li>
+  <li><a href="#forudsætninger" id="toc-forudsætninger" class="nav-link" data-scroll-target="#forudsætninger">Forudsætninger</a></li>
+  <li><a href="#komponenter" id="toc-komponenter" class="nav-link" data-scroll-target="#komponenter">Komponenter</a></li>
+  <li><a href="#benene" id="toc-benene" class="nav-link" data-scroll-target="#benene">Benene</a></li>
+  <li><a href="#byggevejledning" id="toc-byggevejledning" class="nav-link" data-scroll-target="#byggevejledning">Byggevejledning</a></li>
+  <li><a href="#eksempel-test-af-opstillingen" id="toc-eksempel-test-af-opstillingen" class="nav-link" data-scroll-target="#eksempel-test-af-opstillingen">Eksempel: test af opstillingen</a></li>
+  <li><a href="#øvelser" id="toc-øvelser" class="nav-link" data-scroll-target="#øvelser">Øvelser</a></li>
+  <li><a href="#typiske-fejl" id="toc-typiske-fejl" class="nav-link" data-scroll-target="#typiske-fejl">Typiske fejl</a></li>
+  <li><a href="#sider-der-bruger-opstillingen" id="toc-sider-der-bruger-opstillingen" class="nav-link" data-scroll-target="#sider-der-bruger-opstillingen">Sider, der bruger opstillingen</a></li>
+  <li><a href="#kilder" id="toc-kilder" class="nav-link" data-scroll-target="#kilder">Kilder</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Grundlag/index.html">Grundlag</a></li><li class="breadcrumb-item"><a href="../Grundlag/standardopstilling.html">Standardopstillingen</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Standardopstillingen</h1>
+<p class="subtitle lead">Én opstilling til næsten alle sider</p>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Forfatter</div>
+  <div class="quarto-title-meta-heading">Uddannelse</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Søren Magnusson </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Data, TEC
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Udgivet</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">24. november 2026</p>
+    </div>
+  </div>
+  
+    <div>
+    <div class="quarto-title-meta-heading">Ændret</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">24. november 2026</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- IKKE KOMPILERET: testprogrammet er tjekket mod dokumentationen, men ikke kompileret eller testet på hardware. Opstillingen er ikke bygget. -->
+<!--
+TJEKLISTE TIL LÆREREN (afprøves, før IKKE KOMPILERET og TJEK-kommentarerne fjernes):
+1. Byg opstillingen efter byggevejledningen på lokalets boards. Passer trinene, og er der plads til alt?
+2. TJEK: rækkefølgen af benene på lokalets ESP32-DEVKIT-V1 (30 ben). Siden går ud fra, at GPIO 32 og 33 sidder i samme side som VIN, og GPIO 19 i samme side som 3V3.
+3. Kør testprogrammet: lysdioden på GPIO 19 lyser, mens knappen holdes nede, den indbyggede lysdiode blinker, og potentiometerets spænding går fra ca. 0 til ca. 3100 mV.
+4. Lav Fritzing-diagrammet (Breadboard- og Schematic-visning), gem .fzz-filen, og eksportér et PNG. Indsæt billedet, og læg .fzz-filen på ItsLearning (LÆRER-pladsholder).
+5. Tag fotoene i de orange bokse.
+6. Fjern IKKE KOMPILERET, tjeklisten og TJEK-kommentarerne, når alt er afprøvet.
+-->
+<p>Næsten alle ESP32-programmer på sitet skal bruge en knap, en lysdiode eller et potentiometer. I stedet for at bygge noget nyt til hver side bygger du <strong>én opstilling</strong>, der har alle tre, og lader den sidde. Siderne bruger de samme ben, så du kan gå direkte til koden. Siden her viser, hvad opstillingen består af, hvordan du bygger den, og hvordan du tester, at den virker.</p>
+<section id="formål" class="level2">
+<h2 class="anchored" data-anchor-id="formål">Formål</h2>
+<ul>
+<li>Du kan bygge standardopstillingen på breadboard efter en vejledning.</li>
+<li>Du ved, hvilke ben knappen, lysdioden og potentiometeret sidder på, og hvorfor netop de ben er valgt.</li>
+<li>Du kan teste opstillingen med et lille program, før du bruger den på de andre sider.</li>
+</ul>
+</section>
+<section id="målpinde" class="level2">
+<h2 class="anchored" data-anchor-id="målpinde">Målpinde</h2>
+<p>Siden arbejder med målpind 9, 18 og 24 (se <a href="../laeringsmaal.html">Læringsmål</a>).</p>
+</section>
+<section id="forudsætninger" class="level2">
+<h2 class="anchored" data-anchor-id="forudsætninger">Forudsætninger</h2>
+<ul>
+<li>Breadboard: hvordan hullerne er forbundet, og hvordan du bygger pænt med korte ledninger.</li>
+<li><a href="../Grundlag/platformio.html">PlatformIO</a>: oprette et projekt, uploade og åbne Serial Monitor.</li>
+<li>Komponenterne forklares på <a href="../Grundlag/knapper.html">Knapper</a>, <a href="../Grundlag/lysdioder.html">Lysdioder</a>, <a href="../Grundlag/modstande.html">Modstande</a> og <a href="../Grundlag/potentiometer.html">Potentiometer</a>.</li>
+</ul>
+</section>
+<section id="komponenter" class="level2">
+<h2 class="anchored" data-anchor-id="komponenter">Komponenter</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Antal</th>
+<th>Komponent</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>ESP32-DEVKIT-V1 (30 ben)</td>
+</tr>
+<tr class="even">
+<td>1 eller 2</td>
+<td>Breadboard (se Breadboard)</td>
+</tr>
+<tr class="odd">
+<td>1</td>
+<td>Trykknap (4 ben)</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>Lysdiode, fx rød</td>
+</tr>
+<tr class="odd">
+<td>1</td>
+<td>Modstand 220 Ω (rød-rød-brun)</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>Drejepotentiometer, fx 10 kΩ</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Ledning, 22 AWG massiv kerne</td>
+</tr>
+</tbody>
+</table>
+<!-- LÆRER: hvilke komponenter der ligger i elevernes kasser (lysdiodens farve, potentiometerets værdi). -->
+</section>
+<section id="benene" class="level2">
+<h2 class="anchored" data-anchor-id="benene">Benene</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Del</th>
+<th>Ben</th>
+<th>Hvorfor dette ben?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Knap til GND</td>
+<td><strong>GPIO 33</strong></td>
+<td>Har intern pull-up, så der skal ingen modstand til. Er en RTC-GPIO, så knappen også kan vække ESP32 fra <a href="../Features/deep_sleep.html">deep sleep</a></td>
+</tr>
+<tr class="even">
+<td>Lysdiode med 220 Ω til GND</td>
+<td><strong>GPIO 19</strong></td>
+<td>Et almindeligt output-ben uden særlige funktioner ved opstart</td>
+</tr>
+<tr class="odd">
+<td>Potentiometerets midterben</td>
+<td><strong>GPIO 32</strong></td>
+<td>Ligger på ADC1, som kan måle, mens WiFi er tændt (det kan ADC2 ikke)</td>
+</tr>
+<tr class="even">
+<td>Indbygget lysdiode</td>
+<td>GPIO 2</td>
+<td>Sidder allerede på kortet</td>
+</tr>
+</tbody>
+</table>
+<p>Ingen af de tre ben er <span lang="en">strapping pins</span> (0, 2, 5, 12, 15), så opstillingen påvirker ikke, hvordan ESP32 starter. Vil du sætte flere ting på, er GPIO 18, 21, 22, 23, 25, 26 og 27 gode valg. Brug kun 25–27 til digitale ben, hvis programmet også bruger WiFi.</p>
+</section>
+<section id="byggevejledning" class="level2">
+<h2 class="anchored" data-anchor-id="byggevejledning">Byggevejledning</h2>
+<p>Byg med USB-kablet taget ud. Brug samme farver som på Breadboard: <strong>rød</strong> til 3,3 V, <strong>sort</strong> til GND, og en farve pr. signal, fx <strong>gul</strong> til knappen, <strong>grøn</strong> til lysdioden og <strong>blå</strong> til potentiometeret.</p>
+<p>På ESP32-DEVKIT-V1 sidder GPIO 32 og 33 i samme side som <strong>VIN</strong>, og GPIO 19 i samme side som <strong>3V3</strong>. Der er GND i begge sider. Opstillingen bruger derfor begge sider af modulet: knap og potentiometer i VIN-siden, lysdioden i 3V3-siden.</p>
+<!-- TJEK: rækkefølgen af benene på lokalets kort (30 ben). Fra USB-stikket og op: VIN-siden VIN, GND, D13, D12, D14, D27, D26, D25, D33, D32, D35, D34, VN, VP, EN; 3V3-siden 3V3, GND, D15, D2, D4, RX2, TX2, D5, D18, D19, D21, RX0, TX0, D22, D23. Kilde: Random Nerd Tutorials' pinout for DOIT DEVKIT V1 med 30 GPIO'er. Kloner kan afvige. -->
+<ol type="1">
+<li><strong>ESP32:</strong> Sæt modulet hen over renden, eller over to boards (se Breadboard), så der er frie huller ud for benene i begge sider.</li>
+<li><strong>Strøm:</strong> En kort rød ledning fra <strong>3V3</strong> til den røde skinne og en kort sort ledning fra <strong>GND</strong> (3V3-siden) til den blå skinne. Skal potentiometeret have 3,3 V i den anden side, så sæt en rød og en sort ledning over til skinnerne dér.</li>
+<li><strong>Knappen:</strong> Sæt trykknappen hen over renden i VIN-siden. Brug to ben, der sidder <strong>diagonalt</strong> over for hinanden. En gul ledning fra det ene ben til <strong>GPIO 33</strong> og en sort fra det andet til GND-skinnen.</li>
+<li><strong>Lysdioden:</strong> I 3V3-siden: en grøn ledning fra <strong>GPIO 19</strong> til en ledig række. Sæt modstanden på 220 Ω fra den række til en ny række. Sæt lysdiodens <strong>lange ben</strong> (anoden) i samme række som modstandens andet ben, og det <strong>korte ben</strong> (katoden) i en tredje række. En sort ledning fra katodens række til GND-skinnen.</li>
+<li><strong>Potentiometeret:</strong> Sæt det, så de tre ben sidder i hver sin række. Det ene yderben til 3,3 V-skinnen (rød), det andet yderben til GND-skinnen (sort), og midterbenet til <strong>GPIO 32</strong> (blå). Aldrig 5 V eller VIN.</li>
+<li><strong>Kontrollér:</strong> Følg hver ledning med fingeren, og sig højt, hvad den forbinder. Sammenlign med tabellen over benene. Først derefter sætter du USB i.</li>
+</ol>
+<!-- LÆRER: om I bygger på ét eller to boards, og hvor på boardet delene skal sidde. -->
+<div class="billede-mangler">
+<p>Fritzing-diagram af standardopstillingen i Breadboard-visningen: ESP32-DEVKIT-V1, knap på GPIO 33, lysdiode med 220 Ω på GPIO 19 og potentiometer på GPIO 32, med farvekoden fra siden. Tegnes som beskrevet på Fritzing. Se lignende billeder: <a href="https://randomnerdtutorials.com/esp32-adc-analog-read-arduino-ide/">Random Nerd Tutorials: ESP32 ADC</a> (potentiometer på GPIO 34).</p>
+</div>
+<div class="billede-mangler">
+<p>Samme diagram i Schematic-visningen, så forbindelserne kan læses uden at følge ledninger.</p>
+</div>
+<div class="billede-mangler">
+<p>Foto af den færdige opstilling set ovenfra, så alle ledninger kan følges.</p>
+</div>
+<!-- LÆRER: link til .fzz-filen med standardopstillingen på ItsLearning. -->
+</section>
+<section id="eksempel-test-af-opstillingen" class="level2">
+<h2 class="anchored" data-anchor-id="eksempel-test-af-opstillingen">Eksempel: test af opstillingen</h2>
+<p>Programmet tester alle dele på én gang: lysdioden på GPIO 19 lyser, mens knappen holdes nede, den indbyggede lysdiode blinker, så du kan se, at programmet kører, og potentiometerets spænding skrives i Serial Monitor to gange i sekundet.</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>platformio.ini</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-filename="platformio.ini"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[env:esp32doit-devkit-v1]</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">platform </span><span class="ot">=</span><span class="st"> espressif32@8.0.0</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="dt">board </span><span class="ot">=</span><span class="st"> esp32doit-devkit-v1</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="dt">framework </span><span class="ot">=</span><span class="st"> arduino</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="dt">monitor_speed </span><span class="ot">=</span><span class="st"> </span><span class="dv">115200</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>src/main.cpp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-filename="src/main.cpp"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;Arduino.h&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">// Standardopstillingen</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">int</span> KNAP_PIN <span class="op">=</span> <span class="dv">33</span><span class="op">;</span>        <span class="co">// knap mellem GPIO 33 og GND</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">int</span> LED_PIN <span class="op">=</span> <span class="dv">19</span><span class="op">;</span>         <span class="co">// lysdiode via 220 Ω til GND</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">int</span> POT_PIN <span class="op">=</span> <span class="dv">32</span><span class="op">;</span>         <span class="co">// potentiometerets midterben (ADC1)</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">int</span> INDBYGGET_LED <span class="op">=</span> <span class="dv">2</span><span class="op">;</span>    <span class="co">// lysdioden på kortet</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">unsigned</span> <span class="dt">long</span> BLINK_MS <span class="op">=</span> <span class="dv">500</span><span class="op">;</span>   <span class="co">// den indbyggede lysdiode blinker</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">unsigned</span> <span class="dt">long</span> UDSKRIFT_MS <span class="op">=</span> <span class="dv">500</span><span class="op">;</span> <span class="co">// så ofte skrives målingen</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="dt">unsigned</span> <span class="dt">long</span> sidsteBlink <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="dt">unsigned</span> <span class="dt">long</span> sidsteUdskrift <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="dt">bool</span> indbyggetTaendt <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>begin<span class="op">(</span><span class="dv">115200</span><span class="op">);</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  pinMode<span class="op">(</span>KNAP_PIN<span class="op">,</span> INPUT_PULLUP<span class="op">);</span>   <span class="co">// intern pull-up: trykket = LOW</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>  pinMode<span class="op">(</span>LED_PIN<span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  pinMode<span class="op">(</span>INDBYGGET_LED<span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>println<span class="op">(</span><span class="st">"Test af standardopstillingen"</span><span class="op">);</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>  <span class="dt">unsigned</span> <span class="dt">long</span> nu <span class="op">=</span> millis<span class="op">();</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Knap -&gt; lysdiode: ingen debouncing, fordi lysdioden bare følger knappen</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>  <span class="dt">bool</span> trykket <span class="op">=</span> <span class="op">(</span>digitalRead<span class="op">(</span>KNAP_PIN<span class="op">)</span> <span class="op">==</span> LOW<span class="op">);</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>LED_PIN<span class="op">,</span> trykket <span class="op">?</span> HIGH <span class="op">:</span> LOW<span class="op">);</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Den indbyggede lysdiode viser, at loop() kører</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(</span>nu <span class="op">-</span> sidsteBlink <span class="op">&gt;=</span> BLINK_MS<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>    sidsteBlink <span class="op">=</span> nu<span class="op">;</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>    indbyggetTaendt <span class="op">=</span> <span class="op">!</span>indbyggetTaendt<span class="op">;</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>    digitalWrite<span class="op">(</span>INDBYGGET_LED<span class="op">,</span> indbyggetTaendt <span class="op">?</span> HIGH <span class="op">:</span> LOW<span class="op">);</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Potentiometer og knap i Serial Monitor</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(</span>nu <span class="op">-</span> sidsteUdskrift <span class="op">&gt;=</span> UDSKRIFT_MS<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>    sidsteUdskrift <span class="op">=</span> nu<span class="op">;</span></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>    Serial<span class="op">.</span>printf<span class="op">(</span><span class="st">"Potentiometer: </span><span class="sc">%4u</span><span class="st"> mV   Knap: </span><span class="sc">%s\n</span><span class="st">"</span><span class="op">,</span></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>                  analogReadMilliVolts<span class="op">(</span>POT_PIN<span class="op">),</span></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>                  trykket <span class="op">?</span> <span class="st">"trykket"</span> <span class="op">:</span> <span class="st">"-"</span><span class="op">);</span></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Sådan skal det se ud i Serial Monitor, når du drejer på potentiometeret og trykker på knappen:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Test af standardopstillingen</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>Potentiometer:  142 mV   Knap: -</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>Potentiometer: 1655 mV   Knap: -</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>Potentiometer: 1658 mV   Knap: trykket</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>Potentiometer: 3098 mV   Knap: -</span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li><code>INPUT_PULLUP</code> slår den interne pull-up til, så knappen læses som <code>HIGH</code>, når den ikke er trykket, og <code>LOW</code>, når den er. Se <a href="../Grundlag/knapper.html">Knapper</a>.</li>
+<li><code>analogReadMilliVolts()</code> giver spændingen i millivolt, regnet om med kortets kalibrering. ADC’en kan som standard kun måle op til ca. 3100 mV, så i den ene ende står tallet stille. Se <a href="../Grundlag/potentiometer.html">Potentiometer</a>.</li>
+<li>Begge tidsstyrede ting bruger <code>millis()</code>, så knappen aflæses hele tiden. Se <a href="../Grundlag/hello_world.html">Hello World</a>.</li>
+</ul>
+</section>
+<section id="øvelser" class="level2">
+<h2 class="anchored" data-anchor-id="øvelser">Øvelser</h2>
+<ol type="1">
+<li>Byg opstillingen, og kør testprogrammet. Virker alle tre dele? Tag et billede af dit board ovenfra til din logbog.</li>
+<li>Drej potentiometeret helt i begge ender. Hvilke tal får du? Bytter du om på de to yderben, vender retningen så om?</li>
+<li>Ret programmet, så lysdioden på GPIO 19 tænder, når potentiometeret står over 1650 mV, og knappen ikke bruges.</li>
+<li>Tegn opstillingen i Fritzing (se Fritzing), og sammenlign diagrammet med dit board, ledning for ledning.</li>
+</ol>
+</section>
+<section id="typiske-fejl" class="level2">
+<h2 class="anchored" data-anchor-id="typiske-fejl">Typiske fejl</h2>
+<ul>
+<li><strong>Lysdioden lyser aldrig:</strong> den vender forkert (langt ben mod GPIO 19 via modstanden, kort ben mod GND), eller modstanden og lysdioden sidder ikke i samme række.</li>
+<li><strong>Knappen gør ingenting, eller lysdioden lyser hele tiden:</strong> knappen sidder på to ben, der altid er forbundet. Brug to diagonale ben.</li>
+<li><strong>Potentiometeret viser altid 0 eller altid ca. 3100 mV:</strong> et yderben mangler 3,3 V eller GND, eller midterbenet sidder ikke på GPIO 32. Tjek, at skinnerne har strøm i den side, potentiometeret sidder i.</li>
+<li><strong>ESP32 genstarter, når du drejer på potentiometeret:</strong> 3,3 V og GND er kortsluttet via midterbenet. Det sker, hvis midterbenet sidder direkte på en skinne. Sluk, og ret koblingen.</li>
+<li><strong>Upload fejler, efter du har bygget:</strong> tag ledningerne fra GPIO 33, 32 og 19 af én ad gangen, og prøv igen. Opstillingen bruger ingen strapping pins, så det skyldes oftest en kortslutning eller et forkert ben.</li>
+</ul>
+</section>
+<section id="sider-der-bruger-opstillingen" class="level2">
+<h2 class="anchored" data-anchor-id="sider-der-bruger-opstillingen">Sider, der bruger opstillingen</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Side</th>
+<th>Bruger</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="../Grundlag/hello_world.html">Hello World</a> (øvelse 4)</td>
+<td>lysdiode på GPIO 19</td>
+</tr>
+<tr class="even">
+<td><a href="../Grundlag/debouncing.html">Debouncing</a></td>
+<td>knap på GPIO 33</td>
+</tr>
+<tr class="odd">
+<td><a href="../Grundlag/knapper.html">Knapper</a></td>
+<td>knap på GPIO 33</td>
+</tr>
+<tr class="even">
+<td><a href="../Grundlag/lysdioder.html">Lysdioder</a></td>
+<td>lysdiode på GPIO 19 (RGB og trafiklys bygges oven i)</td>
+</tr>
+<tr class="odd">
+<td><a href="../Grundlag/potentiometer.html">Potentiometer</a></td>
+<td>potentiometer på GPIO 32</td>
+</tr>
+<tr class="even">
+<td><a href="../Features/deep_sleep.html">Deep sleep</a></td>
+<td>knap på GPIO 33</td>
+</tr>
+<tr class="odd">
+<td><a href="../Features/filsystem.html">Filsystem</a></td>
+<td>knap på GPIO 33 (simulerer, at netværket er nede)</td>
+</tr>
+<tr class="even">
+<td><a href="../Features/mqtt_intro.html">Intro til MQTT</a></td>
+<td>potentiometer på GPIO 32</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="kilder" class="level2">
+<h2 class="anchored" data-anchor-id="kilder">Kilder</h2>
+<ul>
+<li>Arduino-ESP32: GPIO (<code>pinMode</code>, <code>INPUT_PULLUP</code>), <a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/api/gpio.html" class="uri">https://docs.espressif.com/projects/arduino-esp32/en/latest/api/gpio.html</a></li>
+<li>Arduino-ESP32: ADC (<code>analogReadMilliVolts</code>), <a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/api/adc.html" class="uri">https://docs.espressif.com/projects/arduino-esp32/en/latest/api/adc.html</a></li>
+<li>ESP-IDF: GPIO og RTC-GPIO på ESP32, <a href="https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/gpio.html" class="uri">https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/gpio.html</a></li>
+<li>Random Nerd Tutorials: ESP32 Pinout Reference, <a href="https://randomnerdtutorials.com/esp32-pinout-reference-gpios/" class="uri">https://randomnerdtutorials.com/esp32-pinout-reference-gpios/</a></li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Kopieret!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Kopieret!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/s0ren\.github\.io\/FAG_17682_IoT_II\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -296,6 +296,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../Grundlag/standardopstilling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Standardopstillingen</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../Grundlag/wifi.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">WiFi</span></a>
   </div>
@@ -411,7 +417,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Ændret</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">23. november 2026</p>
+      <p class="date-modified">24. november 2026</p>
     </div>
   </div>
     
@@ -495,7 +501,9 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 </ul>
 <p>Hvis du måler strømmen til hele kortet, ser du derfor milliampere, ikke mikroampere, også i deep sleep. Det betyder ikke, at deep sleep ikke virker. Til et rigtigt batteriprodukt bruger man et kort uden USB-chip og lysdiode, eller sin egen printplade.</p>
 <!-- TJEK: siden siger "milliampere" for hele kortet i deep sleep uden et konkret tal. Mål på skolens kort, og indsæt gerne tallet. -->
-<!-- BILLEDE: DEVKIT-V1 set fra oven med USB-chip, spændingsregulator og strøm-LED markeret. Se fx: ../images/esp32_devkit_v1_komponenter.png (sitets eget billede fra forsiden: CP2102 og spændingsregulator er markeret, strøm-LED er ikke) -->
+<div class="billede-mangler">
+<p>DEVKIT-V1 set fra oven med USB-chip, spændingsregulator og strøm-LED markeret. Se lignende billeder: <a href="../images/esp32_devkit_v1_komponenter.png">esp32_devkit_v1_komponenter.png</a> (sitets eget billede fra forsiden: CP2102 og spændingsregulator er markeret, strøm-LED er ikke)</p>
+</div>
 </section>
 <section id="light-sleep" class="level3">
 <h3 class="anchored" data-anchor-id="light-sleep">Light sleep</h3>
@@ -636,7 +644,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 </tr>
 </tbody>
 </table>
-<p>Bemærk, at GPIO 18, som debouncing-siden bruger, <strong>ikke</strong> kan vække ESP32. Flyt knappen til GPIO 33.</p>
+<p>Derfor sidder knappen i <a href="../Grundlag/standardopstilling.html">standardopstillingen</a> på GPIO 33. Et ben som GPIO 18 kan <strong>ikke</strong> vække ESP32.</p>
 </section>
 </section>
 <section id="eksempel-vågn-på-timer" class="level2">
@@ -709,13 +717,17 @@ Sover i 10 s
 Opstart nr. 2
 Vækket af: timer
 Sover i 10 s</code></pre>
-<!-- BILLEDE: Serial Monitor med tre-fire opvågninger fra timer-eksemplet, hvor tælleren stiger og årsagen er "timer". Se fx: https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2019/04/ESP32_timer_wake-up_demonstration.png?quality=100&strip=all&ssl=1 (RNT: "Boot number" og "Wakeup caused by timer" i Arduino IDE) -->
+<div class="billede-mangler">
+<p>Serial Monitor med tre-fire opvågninger fra timer-eksemplet, hvor tælleren stiger og årsagen er “timer”. Se lignende billeder: <a href="https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2019/04/ESP32_timer_wake-up_demonstration.png?quality=100&amp;strip=all&amp;ssl=1" class="uri">https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2019/04/ESP32_timer_wake-up_demonstration.png?quality=100&amp;strip=all&amp;ssl=1</a> (RNT: “Boot number” og “Wakeup caused by timer” i Arduino IDE)</p>
+</div>
 <p><code>delay(500)</code> er her i orden: det er en engangsventetid i <code>setup()</code>, ikke i <code>loop()</code>.</p>
 </section>
 <section id="eksempel-vågn-på-knap-eller-timer" class="level2">
 <h2 class="anchored" data-anchor-id="eksempel-vågn-på-knap-eller-timer">Eksempel: vågn på knap eller timer</h2>
-<p>Knappen sidder mellem <strong>GPIO 33</strong> og <strong>GND</strong>, ligesom på debouncing-siden, bare på et ben, der kan vække. ESP32 vågner, når der trykkes, og ellers hvert 30. sekund. Den lysdiode, der sidder på GPIO 2, blinker kort, når det var knappen.</p>
-<!-- BILLEDE: breadboard med DEVKIT-V1 og en trykknap mellem GPIO 33 og GND. Se fx: https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2019/04/esp32-pushbutton-33.png?quality=100&strip=all&ssl=1 (RNT, Fritzing: knap på GPIO 33, men med pull-down-modstand til 3,3 V; vores side bruger pull-up og knap til GND) -->
+<p>Knappen sidder mellem <strong>GPIO 33</strong> og <strong>GND</strong>, som i <a href="../Grundlag/standardopstilling.html">standardopstillingen</a> og på debouncing-siden. ESP32 vågner, når der trykkes, og ellers hvert 30. sekund. Den lysdiode, der sidder på GPIO 2, blinker kort, når det var knappen.</p>
+<div class="billede-mangler">
+<p>Breadboard med DEVKIT-V1 og en trykknap mellem GPIO 33 og GND. Se lignende billeder: <a href="https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2019/04/esp32-pushbutton-33.png?quality=100&amp;strip=all&amp;ssl=1" class="uri">https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2019/04/esp32-pushbutton-33.png?quality=100&amp;strip=all&amp;ssl=1</a> (RNT, Fritzing: knap på GPIO 33, men med pull-down-modstand til 3,3 V; vores side bruger pull-up og knap til GND)</p>
+</div>
 <p><code>platformio.ini</code> er den samme som i eksemplet ovenfor.</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">

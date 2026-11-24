@@ -296,6 +296,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../Grundlag/standardopstilling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Standardopstillingen</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../Grundlag/wifi.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">WiFi</span></a>
   </div>
@@ -399,7 +405,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Ændret</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">23. november 2026</p>
+      <p class="date-modified">24. november 2026</p>
     </div>
   </div>
     
@@ -442,7 +448,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="kobling" class="level2">
 <h2 class="anchored" data-anchor-id="kobling">Kobling</h2>
-<p>Knappen sættes mellem <strong>GPIO 18</strong> og <strong>GND</strong>. Der skal ikke bruges en modstand, fordi ESP32 har en intern pull-up-modstand, som man slår til i programmet:</p>
+<p>Knappen sættes mellem <strong>GPIO 33</strong> og <strong>GND</strong>, som i <a href="../Grundlag/standardopstilling.html">standardopstillingen</a>. Der skal ikke bruges en modstand, fordi ESP32 har en intern pull-up-modstand, som man slår til i programmet:</p>
 <ul>
 <li>Knappen er <em>ikke trykket</em>: pull-up-modstanden trækker benet op, og det læses som <code>HIGH</code>.</li>
 <li>Knappen er <em>trykket</em>: benet forbindes til GND og læses som <code>LOW</code>.</li>
@@ -500,7 +506,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-filename="src/main.cpp"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;Arduino.h&gt;</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">// Konfiguration</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">int</span> KNAP_PIN <span class="op">=</span> <span class="dv">18</span><span class="op">;</span>   <span class="co">// knap mellem GPIO 18 og GND</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">int</span> KNAP_PIN <span class="op">=</span> <span class="dv">33</span><span class="op">;</span>   <span class="co">// knap mellem GPIO 33 og GND</span></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> forrigeTilstand <span class="op">=</span> HIGH<span class="op">;</span>  <span class="co">// HIGH = ikke trykket (pull-up)</span></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="dt">unsigned</span> <span class="dt">long</span> antalTryk <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
@@ -545,7 +551,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;ezButton.h&gt;</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">// Konfiguration</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">int</span> KNAP_PIN <span class="op">=</span> <span class="dv">18</span><span class="op">;</span>               <span class="co">// knap mellem GPIO 18 og GND</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">int</span> KNAP_PIN <span class="op">=</span> <span class="dv">33</span><span class="op">;</span>               <span class="co">// knap mellem GPIO 33 og GND</span></span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">unsigned</span> <span class="dt">long</span> DEBOUNCE_MS <span class="op">=</span> <span class="dv">50</span><span class="op">;</span>  <span class="co">// hvor længe signalet skal være stabilt</span></span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>ezButton knap<span class="op">(</span>KNAP_PIN<span class="op">);</span>  <span class="co">// bruger INPUT_PULLUP, når der ikke angives andet</span></span>
@@ -584,7 +590,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Kør eksemplet <em>uden debouncing</em>. Tryk ti gange, og skriv ned, hvor mange tryk programmet tæller. Prøv også at trykke meget let og meget hårdt.</li>
 <li>Kør eksemplet <em>med ezButton</em>. Gentag de ti tryk. Prøv derefter med <code>DEBOUNCE_MS</code> sat til 0, 5, 50 og 500. Hvad sker der ved 0? Og hvad mærker du ved 500, hvis du trykker hurtigt flere gange i træk?</li>
 <li>Lad knappen tænde og slukke den indbyggede lysdiode på GPIO 2: hvert tryk skifter mellem tændt og slukket.</li>
-<li>Tilføj en knap mere på GPIO 19, så den ene tænder og den anden slukker lysdioden. Brug to <code>ezButton</code>-objekter.</li>
+<li>Tilføj en knap mere på GPIO 18, så den ene tænder og den anden slukker lysdioden. Brug to <code>ezButton</code>-objekter.</li>
 <li><em>Ekstra:</em> Skeln mellem et kort og et langt tryk (over ét sekund). Gem <code>millis()</code>, når <code>isPressed()</code> er sand, og beregn trykkets længde, når <code>isReleased()</code> er sand.</li>
 <li><em>Ekstra:</em> Prøv eksemplet <em>med debouncing</em> fra artiklen om interrupts (se <a href="#debouncing-med-interrupts">Debouncing med interrupts</a>). Tæller det, når du trykker, når du slipper, eller hele tiden? Ret interrupt-typen, så der tælles ved trykket, og forklar hvorfor. Prøv derefter at holde knappen nede i et par sekunder, før du slipper: tælles der stadig kun én gang? Hvis ikke, hvad skyldes det, og hvordan ville ezButtons metode undgå det? (Med typen <code>HIGH</code> kører ISR’en igen og igen, så længe knappen er sluppet. Det belaster processoren, så lad det ikke køre længe.)</li>
 </ol>
@@ -609,7 +615,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="debouncing-med-interrupts" class="level3">
 <h3 class="anchored" data-anchor-id="debouncing-med-interrupts">Debouncing med interrupts</h3>
-<p>Random Nerd Tutorials viser en anden måde at gøre det på i <a href="https://randomnerdtutorials.com/esp32-gpio-interrupts-arduino/" lang="en">ESP32 GPIO Interrupts with Arduino IDE</a>. Her aflæser programmet ikke knappen i <code>loop()</code>. I stedet kalder ESP32 en lille funktion, en <em>interrupt service routine</em> (ISR), i det øjeblik benet skifter. Debouncingen sker i ISR’en med <code>millis()</code> og også 50 ms, men på en anden måde end ezButton: ISR’en reagerer straks på den første kant og ignorerer så nye kanter i 50 ms, mens ezButton venter, til signalet har været stabilt i 50 ms. Artiklen bruger også GPIO 18 og <code>INPUT_PULLUP</code>, så du kan bruge den samme kobling.</p>
+<p>Random Nerd Tutorials viser en anden måde at gøre det på i <a href="https://randomnerdtutorials.com/esp32-gpio-interrupts-arduino/" lang="en">ESP32 GPIO Interrupts with Arduino IDE</a>. Her aflæser programmet ikke knappen i <code>loop()</code>. I stedet kalder ESP32 en lille funktion, en <em>interrupt service routine</em> (ISR), i det øjeblik benet skifter. Debouncingen sker i ISR’en med <code>millis()</code> og også 50 ms, men på en anden måde end ezButton: ISR’en reagerer straks på den første kant og ignorerer så nye kanter i 50 ms, mens ezButton venter, til signalet har været stabilt i 50 ms. Artiklen bruger også GPIO 33 og <code>INPUT_PULLUP</code>, så du kan bruge den samme kobling.</p>
 <p>Læs artiklen kritisk: med <code>INPUT_PULLUP</code> giver et tryk et skift fra <code>HIGH</code> til <code>LOW</code>. Se, hvilken interrupt-type (<code>RISING</code>, <code>FALLING</code>, <code>HIGH</code> …) eksemplerne bruger, og overvej, om det passer til det (se øvelse 6).</p>
 </section>
 </section>

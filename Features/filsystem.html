@@ -296,6 +296,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../Grundlag/standardopstilling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Standardopstillingen</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../Grundlag/wifi.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">WiFi</span></a>
   </div>
@@ -412,7 +418,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Ændret</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">23. november 2026</p>
+      <p class="date-modified">24. november 2026</p>
     </div>
   </div>
     
@@ -432,7 +438,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 4. Lukker PlatformIO selv Serial Monitor før Upload Filesystem Image (TJEK under Typiske fejl)? Hvis ja, kan trin 1 og rådet i Typiske fejl forkortes.
 5. Upload data/hilsen.txt med Upload Filesystem Image, og kør eksemplet "Filer fra data/-mappen".
 6. Bekræft, at Upload Filesystem Image sletter filer, programmet selv har skrevet, fx /log.txt fra eksempel 1 (TJEK efter advarslen).
-7. Kør cache-eksemplet: træk jumperen fra GPIO 18 til GND, vent et par målinger, fjern den igen. Bliver cachen sendt i rigtig rækkefølge og slettet? Overlever cachen et tryk på EN, mens jumperen sidder i?
+7. Kør cache-eksemplet: hold knappen på GPIO 33 nede (eller sæt en ledning fra GPIO 33 til GND) et par målinger, og slip. Bliver cachen sendt i rigtig rækkefølge og slettet? Overlever cachen et tryk på EN, mens knappen holdes nede?
 8. Prøv board_build.partitions = no_ota.csv: stiger totalBytes() til omkring 1,9 MB? Skal filsystemet formateres igen (begin(true) gør det)?
 Skærmbilleder, der mangler (se BILLEDE-kommentarerne):
 9. Explorer med data/-mappen ved siden af src/. 10. Project Tasks med Platform → Upload Filesystem Image. 11. Serial Monitor under cache-eksemplet, hvor netværket forsvinder og kommer igen.
@@ -459,7 +465,7 @@ Skærmbilleder, der mangler (se BILLEDE-kommentarerne):
 <ul>
 <li>Du kan oprette et PlatformIO-projekt til ESP32-DEVKIT-V1, uploade og åbne Serial Monitor (se <a href="../Grundlag/platformio.html">PlatformIO</a>).</li>
 <li>Du kender <code>millis()</code> i stedet for <code>delay()</code> (se <a href="../Grundlag/debouncing.html">Debouncing</a>).</li>
-<li>Til cache-eksemplet: en ledning (<span lang="en">jumper</span>), der kan sættes mellem GPIO 18 og GND. Den bruges til at lade, som om netværket forsvinder.</li>
+<li>Til cache-eksemplet: <a href="../Grundlag/standardopstilling.html">standardopstillingen</a>. Knappen på GPIO 33 bruges til at lade, som om netværket forsvinder. Vil du ikke holde den nede, så sæt en ledning (<span lang="en">jumper</span>) fra GPIO 33 til GND i stedet.</li>
 <li>Til øvelse 6: <a href="../Grundlag/wifi.html">WiFi</a> og <a href="../Features/lokal_mqtt.html">Lokal MQTT server</a>.</li>
 </ul>
 </section>
@@ -850,7 +856,9 @@ Plads: 1441792 bytes i alt, 8192 brugt, 1433600 ledig</code></pre>
 ├── src/
 │   └── main.cpp
 └── platformio.ini</code></pre>
-<!-- BILLEDE: VS Codes Explorer med data/-mappen (med hilsen.txt) på samme niveau som src/. Se fx: https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2024/06/create-txt-file-vs-code-esp32.png?quality=100&strip=all&ssl=1 (RNT: data/text.txt på samme niveau som src/) -->
+<div class="billede-mangler">
+<p>VS Codes Explorer med data/-mappen (med hilsen.txt) på samme niveau som src/. Se lignende billeder: <a href="https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2024/06/create-txt-file-vs-code-esp32.png?quality=100&amp;strip=all&amp;ssl=1" class="uri">https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2024/06/create-txt-file-vs-code-esp32.png?quality=100&amp;strip=all&amp;ssl=1</a> (RNT: data/text.txt på samme niveau som src/)</p>
+</div>
 <p>Sådan kommer filerne over på ESP32:</p>
 <ol type="1">
 <li>Luk Serial Monitor, så porten er fri.</li>
@@ -859,7 +867,9 @@ Plads: 1441792 bytes i alt, 8192 brugt, 1433600 ledig</code></pre>
 </ol>
 <p>PlatformIO laver et LittleFS-image af hele <code>data/</code>-mappen (med værktøjet <code>mklittlefs</code>) og skriver det til filsystem-partitionen. Fra kommandolinjen hedder det <code>pio run --target uploadfs</code>. Der findes også <strong>Build Filesystem Image</strong>, der kun laver imaget uden at uploade.</p>
 <!-- TJEK: opgavenavnene "Build Filesystem Image" og "Upload Filesystem Image" er bekræftet i kildekoden til platform-espressif32 (develop-grenen), og Random Nerd Tutorials viser dem under "Platform". Ikke afprøvet med espressif32@8.0.0. -->
-<!-- BILLEDE: PlatformIO's Project Tasks foldet ud, med Platform → Upload Filesystem Image markeret. Se fx: https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2024/06/upload-filesystem-image-esp32-vs-code.png?quality=100&strip=all&ssl=1 (RNT: Platform → Build/Upload Filesystem Image markeret) -->
+<div class="billede-mangler">
+<p>PlatformIO’s Project Tasks foldet ud, med Platform → Upload Filesystem Image markeret. Se lignende billeder: <a href="https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2024/06/upload-filesystem-image-esp32-vs-code.png?quality=100&amp;strip=all&amp;ssl=1" class="uri">https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2024/06/upload-filesystem-image-esp32-vs-code.png?quality=100&amp;strip=all&amp;ssl=1</a> (RNT: Platform → Build/Upload Filesystem Image markeret)</p>
+</div>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -949,7 +959,7 @@ Plads: 1441792 bytes i alt, 8192 brugt, 1433600 ledig</code></pre>
 <li>Er netværket der, sendes først det, der ligger i cachen, og derefter den nye måling. Så bevares rækkefølgen.</li>
 <li>Mangler netværket, tilføjes målingen til <code>/cache.jsonl</code>.</li>
 </ul>
-<p>For at kunne afprøve det uden en server lader programmet, som om netværket er nede, når GPIO 18 er forbundet til GND med en ledning. “Afsendelse” er bare en udskrift i Serial Monitor. De to funktioner <code>netvaerkOk()</code> og <code>sendMaaling()</code> er de eneste, du skal skifte ud for at bruge rigtig WiFi og MQTT (øvelse 6).</p>
+<p>For at kunne afprøve det uden en server lader programmet, som om netværket er nede, så længe GPIO 33 er forbundet til GND: mens knappen i <a href="../Grundlag/standardopstilling.html">standardopstillingen</a> holdes nede, eller mens en ledning sidder fra GPIO 33 til GND. “Afsendelse” er bare en udskrift i Serial Monitor. De to funktioner <code>netvaerkOk()</code> og <code>sendMaaling()</code> er de eneste, du skal skifte ud for at bruge rigtig WiFi og MQTT (øvelse 6).</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>platformio.ini</strong></pre>
@@ -969,7 +979,7 @@ Plads: 1441792 bytes i alt, 8192 brugt, 1433600 ledig</code></pre>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;LittleFS.h&gt;</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co">// Konfiguration</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">int</span> NET_PIN <span class="op">=</span> <span class="dv">18</span><span class="op">;</span>                        <span class="co">// ledning til GND = "netværket er nede"</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">int</span> NET_PIN <span class="op">=</span> <span class="dv">33</span><span class="op">;</span>                        <span class="co">// knap (eller ledning) til GND = "netværket er nede"</span></span>
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">unsigned</span> <span class="dt">long</span> MAALE_INTERVAL_MS <span class="op">=</span> <span class="dv">5000</span><span class="op">;</span>  <span class="co">// kort interval, så man kan følge med</span></span>
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">char</span> <span class="op">*</span>CACHE_FIL <span class="op">=</span> <span class="st">"/cache.jsonl"</span><span class="op">;</span>        <span class="co">// én JSON-linje pr. måling</span></span>
 <span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">size_t</span> MIN_LEDIG_BYTES <span class="op">=</span> <span class="dv">16</span> <span class="op">*</span> <span class="dv">1024</span><span class="op">;</span>      <span class="co">// gem ikke mere, når pladsen er under dette</span></span>
@@ -978,7 +988,7 @@ Plads: 1441792 bytes i alt, 8192 brugt, 1433600 ledig</code></pre>
 <span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co">// Simuleret netværk. Skiftes ud med fx WiFi.status() == WL_CONNECTED.</span></span>
 <span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="dt">bool</span> netvaerkOk<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> digitalRead<span class="op">(</span>NET_PIN<span class="op">)</span> <span class="op">==</span> HIGH<span class="op">;</span>  <span class="co">// pull-up: HIGH, når ledningen ikke sidder i</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> digitalRead<span class="op">(</span>NET_PIN<span class="op">)</span> <span class="op">==</span> HIGH<span class="op">;</span>  <span class="co">// pull-up: HIGH, når knappen ikke er trykket</span></span>
 <span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
 <span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="co">// Simuleret afsendelse. Skiftes ud med fx en MQTT-publish.</span></span>
@@ -1088,7 +1098,9 @@ Plads: 1441792 bytes i alt, 8192 brugt, 1433600 ledig</code></pre>
 <span id="cb12-121"><a href="#cb12-121" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
 <span id="cb12-122"><a href="#cb12-122" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<!-- BILLEDE: Serial Monitor under cache-eksemplet: et par "Sendt", derefter "Cachet" mens ledningen sidder i, og til sidst "Sendt" for de cachede målinger og "Cachen er tømt". Se fx: https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2023/07/ESP32-LittleFS-Append-Data.png?quality=100&strip=all&ssl=1 (RNT: append og read til en LittleFS-fil; ikke cache med netværk) -->
+<div class="billede-mangler">
+<p>Serial Monitor under cache-eksemplet: et par “Sendt”, derefter “Cachet” mens knappen holdes nede, og til sidst “Sendt” for de cachede målinger og “Cachen er tømt”. Se lignende billeder: <a href="https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2023/07/ESP32-LittleFS-Append-Data.png?quality=100&amp;strip=all&amp;ssl=1" class="uri">https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2023/07/ESP32-LittleFS-Append-Data.png?quality=100&amp;strip=all&amp;ssl=1</a> (RNT: append og read til en LittleFS-fil; ikke cache med netværk)</p>
+</div>
 <p>Sådan virker det:</p>
 <ul>
 <li>Der skrives kun til flash, mens netværket er nede. Så længe alt virker, rører programmet ikke filen. Det holder sliddet nede.</li>
@@ -1104,7 +1116,7 @@ Plads: 1441792 bytes i alt, 8192 brugt, 1433600 ledig</code></pre>
 <li>Kør eksemplet <em>læs, skriv og tilføj</em>. Tryk på <strong>EN</strong> fem gange. Hvor stor er <code>/log.txt</code> nu, og passer det med 15 bytes pr. linje? Hvor meget plads er brugt?</li>
 <li>Ret <code>FILE_APPEND</code> til <code>FILE_WRITE</code> i <code>tilfoejLinje()</code>, og upload. Hvad sker der med loggen? Ret det tilbage. Upload derefter et helt andet program (fx testprogrammet fra <a href="../Grundlag/platformio.html">PlatformIO</a>) og så dette igen. Er tælleren nulstillet?</li>
 <li>Lav <code>data/hilsen.txt</code>, og kør eksemplet <em>filer fra data/-mappen</em>. Upload derefter eksemplet fra øvelse 1 igen uden at uploade filsystemet. Findes <code>hilsen.txt</code> stadig? Kør så <strong>Upload Filesystem Image</strong> igen. Hvad skete der med <code>/log.txt</code>?</li>
-<li>Kør cache-eksemplet. Sæt ledningen fra GPIO 18 til GND i et halvt minut, og fjern den igen. Kommer målingerne frem i den rigtige rækkefølge? Gentag, men tryk på <strong>EN</strong>, mens ledningen sidder i. Overlever cachen genstarten?</li>
+<li>Kør cache-eksemplet. Hold knappen nede (eller sæt en ledning fra GPIO 33 til GND) i et halvt minut, og slip igen. Kommer målingerne frem i den rigtige rækkefølge? Gentag, men tryk på <strong>EN</strong>, mens knappen holdes nede. Overlever cachen genstarten?</li>
 <li>Regn ud: hvor mange bytes fylder én linje i cachen? Hvor mange målinger kan filsystemet rumme med <code>default.csv</code> og <code>MIN_LEDIG_BYTES</code>? Hvor længe kan ESP32 være uden net, hvis den måler én gang i minuttet? Og hvis den måler hvert sekund, hvad betyder det så for sliddet på flashen?</li>
 <li><em>Ekstra:</em> Skift <code>netvaerkOk()</code> og <code>sendMaaling()</code> ud med rigtig WiFi og MQTT (se <a href="../Grundlag/wifi.html">WiFi</a> og <a href="../Features/lokal_mqtt.html">Lokal MQTT server</a>), så målingerne sendes til brokeren. Afprøv det ved at slukke brokeren eller access pointet.</li>
 <li><em>Ekstra:</em> Skift til <code>board_build.partitions = no_ota.csv</code>. Hvor meget plads er der nu i filsystemet? Hvad sker der med filerne fra før?</li>

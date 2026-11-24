@@ -19,6 +19,7 @@
       "/Grundlag/platformio.html",
       "/Opgaver/Projektopgave_wifi_position.html",
       "/Opgaver/Projektopgave_Smiley.html",
+      "/Grundlag/standardopstilling.html",
       "/Grundlag/wifi.html"
     ]
   },
@@ -27,6 +28,17 @@
     "items": [
       "/Opgaver/Projektopgave_wifi_position.html",
       "/Opgaver/Projektopgave_Smiley.html"
+    ]
+  },
+  {
+    "listing": "/Features/index.html",
+    "items": [
+      "/Features/deep_sleep.html",
+      "/Features/esp_now_mesh.html",
+      "/Features/filsystem.html",
+      "/Features/mqtt_intro.html",
+      "/Features/mqtt_intro_slides.html",
+      "/Features/lokal_mqtt.html"
     ]
   },
   {
@@ -41,18 +53,8 @@
       "/Grundlag/lysdioder.html",
       "/Grundlag/modstande.html",
       "/Grundlag/platformio.html",
+      "/Grundlag/standardopstilling.html",
       "/Grundlag/wifi.html"
-    ]
-  },
-  {
-    "listing": "/Features/index.html",
-    "items": [
-      "/Features/deep_sleep.html",
-      "/Features/esp_now_mesh.html",
-      "/Features/filsystem.html",
-      "/Features/mqtt_intro.html",
-      "/Features/mqtt_intro_slides.html",
-      "/Features/lokal_mqtt.html"
     ]
   }
 ]

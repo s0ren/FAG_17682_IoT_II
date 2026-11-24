@@ -262,6 +262,12 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../Grundlag/standardopstilling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Standardopstillingen</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../Grundlag/wifi.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">WiFi</span></a>
   </div>
@@ -369,7 +375,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Ændret</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">23. november 2026</p>
+      <p class="date-modified">24. november 2026</p>
     </div>
   </div>
     
@@ -522,12 +528,12 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 </section>
 <section id="eksempel-et-pænt-opbygget-board" class="level2">
 <h2 class="anchored" data-anchor-id="eksempel-et-pænt-opbygget-board">Eksempel: et pænt opbygget board</h2>
-<p>Her bygges en knap og en lysdiode til ESP32-DEVKIT-V1. Koblingen til knappen er den samme som på siden om <a href="../Grundlag/debouncing.html">Debouncing</a>.</p>
+<p>Her bygges en knap og en lysdiode til ESP32-DEVKIT-V1. Det er de samme ben som i <a href="../Grundlag/standardopstilling.html">standardopstillingen</a>: knappen på GPIO 33 og lysdioden på GPIO 19.</p>
 <ol type="1">
 <li><strong>Sæt ESP32 i</strong> hen over renden (eller over to boards, se ovenfor). Tryk den forsigtigt ned, så benene ikke bøjes.</li>
 <li><strong>Strøm til skinnerne:</strong> én kort rød ledning fra 3V3 til den røde skinne og én kort sort ledning fra GND til den blå skinne.</li>
 <li><strong>Skinnerne i begge sider:</strong> hvis du skal bruge strøm i den anden side, så sæt én rød og én sort ledning over til den anden sides skinner. Er skinnerne delt på midten, så forbind også de to halvdele.</li>
-<li><strong>Knappen:</strong> sæt den hen over renden. En almindelig trykknap har fire ben, der indvendigt er forbundet to og to. Brug derfor to ben, der sidder diagonalt over for hinanden: så er du sikker på, at forbindelsen går gennem kontakten. En kort sort ledning fra det ene af de to ben til GND-skinnen, og en signalledning (fx gul) fra det andet til GPIO 18.</li>
+<li><strong>Knappen:</strong> sæt den hen over renden. En almindelig trykknap har fire ben, der indvendigt er forbundet to og to. Brug derfor to ben, der sidder diagonalt over for hinanden: så er du sikker på, at forbindelsen går gennem kontakten. En kort sort ledning fra det ene af de to ben til GND-skinnen, og en signalledning (fx gul) fra det andet til GPIO 33.</li>
 <li><strong>Lysdioden:</strong> en signalledning (fx grøn) fra GPIO 19 til en række, hvor formodstanden (fx 220 Ω) sidder med det ene ben. Modstandens andet ben går i en ny række sammen med lysdiodens lange ben (anode). Det korte ben (katode) sidder i sin egen række og går med en kort sort ledning til GND.</li>
 <li><strong>Kontrollér</strong> opstillingen mod dit diagram, før du sætter USB i: følg hver ledning og sig højt, hvad den forbinder.</li>
 </ol>
