@@ -3,10 +3,13 @@ title: "Læringsmål"
 date: 2026-11-22
 listing:
   id: dækning
+  # Oversigtssider og den selvstændige checkliste har ingen målpinde
   contents:
     - "Grundlag/*.qmd"
     - "Features/*.qmd"
     - "Opgaver/**/*.qmd"
+    - "!**/index.qmd"
+    - "!Opgaver/Projektopgave_wifi_position_checkliste.qmd"
   type: table
   fields: [title, maalpinde]
   field-display-names:

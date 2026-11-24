@@ -1,6 +1,7 @@
 ---
 title: "Projektopgave, Smiley feedback panel"
 date: 2025-11-18
+maalpinde: [9, 13, 14, 18, 22]
 format: {html: default, typst: default}
 ---
 

@@ -2,6 +2,7 @@
 subtitle: Afsluttende opgave, anden del
 title: Persontælling med dataopsamling
 date: 2025-03-24
+maalpinde: [9, 10, 22, 23]
 
 draft: true
 format: {html: default, typst: default}
