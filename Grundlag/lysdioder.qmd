@@ -10,9 +10,9 @@ draft: false
 
 <!--
 TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
-1. Kompilér og kør "Eksempel: blink med millis()" på en ESP32-DEVKIT-V1 med en LED og 220 Ω på GPIO 19. Blinker den eksterne og den indbyggede LED i modtakt?
-2. Kompilér og kør "Eksempel: fade med PWM" (ledcAttach/ledcWrite) med espressif32@8.0.0. Kør også varianten med analogWrite().
-3. Tjek, at den indbyggede LED på lokalets boards sidder på GPIO 2 og lyser ved HIGH (TJEK i afsnittet om den indbyggede lysdiode).
+1. AFPRØVET 24. nov. 2026: "Eksempel: blink med millis()" virker med espressif32@8.0.0, og den eksterne LED på GPIO 19 og den indbyggede blinker i modtakt.
+2. AFPRØVET 24. nov. 2026: "Eksempel: fade med PWM" (ledcAttach/ledcWrite) fader jævnt uden flimmer med espressif32@8.0.0. Mangler: varianten med analogWrite().
+3. AFPRØVET 24. nov. 2026: den indbyggede LED sidder på GPIO 2 og lyser ved HIGH (set med knapper-eksemplet).
 4. Tjek "langt ben = anode, flad kant = katode" mod databladet for lokalets lysdioder (TJEK i afsnittet om anode og katode). Tjek tabellen med Vf mod databladet for lokalets lysdioder, især grøn (gammel gulgrøn ca. 2,1 V eller ren grøn ca. 3 V) og blå/hvid (TJEK ved tabellen).
 5. Tjek, at 220 Ω er den modstand, der ligger i lokalet til lysdioder, og at lysstyrken er god nok (TJEK i afsnittet om formodstand).
 6. Tjek, hvilke RGB-lysdioder lokalet har (fælles katode eller fælles anode), og om det fælles ben er det længste (TJEK i afsnittet om RGB).
@@ -130,7 +130,6 @@ ESP32-DEVKIT-V1 har en lille blå lysdiode på kortet, som sidder på **GPIO 2**
 
 GPIO 2 er også en [strapping pin]{lang="en"}, der påvirker opstarten. Det er fint at bruge den til den indbyggede lysdiode, men sæt ikke selv flere ting på GPIO 2.
 
-<!-- TJEK: at den indbyggede LED på lokalets boards sidder på GPIO 2 og lyser ved HIGH (ikke omvendt). LED_BUILTIN = 2 er bekræftet i Arduino-ESP32's variant doitESP32devkitV1. -->
 
 ## Tænd og sluk: `digitalWrite()`
 
