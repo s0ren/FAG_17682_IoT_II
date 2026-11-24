@@ -416,7 +416,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<!-- IKKE KOMPILERET: eksemplerne er tjekket mod dokumentationen, men ikke kompileret eller testet på hardware. -->
+<!-- IKKE TESTET PÅ HARDWARE: eksemplerne kompilerer med espressif32@8.0.0 (24. nov. 2026; projekterne ligger i demo-repoerne, se linkene under eksemplerne), men er ikke testet på hardware. -->
 <p>Når du trykker på en knap, forventer du, at programmet ser ét tryk. Men kontakterne inde i knappen er af metal, og de hopper mod hinanden et par millisekunder, før de ligger stille. ESP32 aflæser knappen tusindvis af gange i sekundet, så den kan nå at se det ene tryk som mange tryk. Det kaldes kontaktprel (<span lang="en">bounce</span>), og det at filtrere det væk kaldes <span lang="en">debouncing</span>.</p>
 <section id="formål" class="level2">
 <h2 class="anchored" data-anchor-id="formål">Formål</h2>
@@ -527,6 +527,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  forrigeTilstand <span class="op">=</span> tilstand<span class="op">;</span></span>
 <span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p>Hele projektet, med <code>platformio.ini</code>, ligger på GitHub: <a href="https://github.com/s0ren/IOT1-demo/tree/main/debouncing_uden">debouncing_uden</a>.</p>
 <p>Tryk langsomt ti gange. Med mange knapper tæller programmet mere end ti.</p>
 </section>
 <section id="eksempel-med-ezbutton" class="level2">
@@ -572,6 +573,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
 <span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p>Hele projektet, med <code>platformio.ini</code>, ligger på GitHub: <a href="https://github.com/s0ren/IOT1-demo/tree/main/debouncing_ezbutton">debouncing_ezbutton</a>.</p>
 <p>Sådan virker det:</p>
 <ul>
 <li><code>knap.loop()</code> læser benet og holder styr på tiden med <code>millis()</code>. Først når benet har haft samme værdi i <code>DEBOUNCE_MS</code> millisekunder, regnes det som en ny, stabil tilstand.</li>

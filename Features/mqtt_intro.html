@@ -449,7 +449,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<!-- IKKE KOMPILERET: eksemplerne er tjekket mod dokumentationen, men ikke kompileret eller testet på hardware. -->
+<!-- IKKE TESTET PÅ HARDWARE: eksemplerne kompilerer med espressif32@8.0.0 (24. nov. 2026; projekterne ligger i demo-repoerne, se linkene under eksemplerne), men er ikke testet på hardware. -->
 <!--
 TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 1. Kør subscriber.py og publisher.py mod wilsons.local:1883 med paho-mqtt 2.x. Kommer beskederne frem i subscriberen, i MQTT Explorer og i weblog'en (elever/<navn>/python/temperatur.jsonl)?
@@ -458,7 +458,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 4. Kompilér og upload ESP32-eksemplet med platform = espressif32@8.0.0 og knolleary/PubSubClient@^2.8, med et potentiometer på GPIO 32. Kommer en måling hvert 5. sekund frem i weblog'en? Flader spaending_mv ud ved ca. 3100 mV i potentiometerets ene ende?
 5. TJEK: Kan ESP32 slå "wilsons.local" op på skolens net? En pc kan (afprøvet 24. nov. 2026). MQTT_HOST er "wilsons.local" som på lokal_mqtt.qmd; 192.168.0.33 (fast IP fra 24. nov.) nævnes som reserve. wilsons.home virker ikke.
 6. TJEK: Passer tiderne for mqtt.connect() (ca. 3 s uden maskine på adressen, op til 15 s, hvis maskinen svarer, men MQTT ikke gør)? Tallene er fra kildekoden (NetworkClient og PubSubClient), ikke målt. Ret MQTT_HOST til en forkert IP (øvelse 6), og se i Serial Monitor.
-7. Det korte navn "wilsons" og wilsons.home virker ikke pålideligt på skolens net (afprøvet 24. nov. 2026). Siden bruger wilsons.local og 192.168.0.33. Ret http://wilsons:8080 i din egen vejledning.
+7. Det korte navn "wilsons" og wilsons.home virker ikke pålideligt på skolens net (afprøvet 24. nov. 2026). Siden bruger wilsons.local og 192.168.0.33. Weblog'en er flyttet til port 80: ret http://wilsons:8080 til http://wilsons.local/ i din egen vejledning.
 8. TJEK: MQTT Explorer (0.4.0-beta.6 på mqtt-explorer.com): passer feltnavnene "Encryption (tls)", "Validate certificate", "Advanced", "Certificates" og "Server Certificate (CA)" i den version, eleverne installerer? Hedder knappen "Connect", og passer beskrivelsen af Publish-feltet, retain og skraldespanden til at slette et retained topic? Forbind på 8883 med ca.crt og et elevlogin, og bekræft, at certifikatet godtages med "Validate certificate" slået til.
 9. TJEK: Viser MQTT Explorer $SYS-topics fra wilsons på port 1883? (Mosquitto sender dem som standard hvert 10. sekund.)
 10. Retained-øvelsen (øvelse 5): Bliver en retained besked i weblog'en logget igen, når mqtt-logger genstarter? Ud fra koden (mqtt_logger.py) burde den, og siden siger det. Slet testbeskederne bagefter.
@@ -466,8 +466,8 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 12. BILLEDE: MQTT Explorers forbindelsesvindue udfyldt til wilsons.local, port 1883.
 13. BILLEDE: MQTT Explorers topic-træ med elever/<navn>/… foldet ud og en JSON-besked valgt.
 14. BILLEDE: MQTT Explorers Certificates-dialog med ca.crt valgt som Server Certificate (CA).
-15. BILLEDE: weblog'en på wilsons.local:8080 med en elevs .jsonl-fil fra Python-eksemplet.
-16. Når alt er testet: fjern IKKE KOMPILERET, denne tjekliste og TJEK-kommentarerne, og gør billedboksene til billeder eller til BILLEDE-kommentarer.
+15. BILLEDE: weblog'en på wilsons.local med en elevs .jsonl-fil fra Python-eksemplet.
+16. Når alt er testet: fjern IKKE TESTET PÅ HARDWARE, denne tjekliste og TJEK-kommentarerne, og gør billedboksene til billeder eller til BILLEDE-kommentarer.
 -->
 <p>En temperaturføler i klasselokalet skal sende en måling hvert 5. sekund, og både en Python-app, en skærm på væggen og en database vil gerne have den. Hvis føleren selv skulle kende alle modtagerne og sende til hver af dem, ville koden skulle rettes, hver gang der kom en ny modtager. Med MQTT sender føleren i stedet sin måling ét sted hen, til en <em>broker</em>, under et emne som <code>elever/anna/temperatur</code>. Alle, der har sagt, at de er interesserede i det emne, får målingen. Det er den måde, IoT-enheder oftest sender data på, og det er det, I skal bruge i projektopgaverne.</p>
 <div class="callout callout-style-simple callout-tip">
@@ -522,7 +522,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
   E["ESP32&lt;br&gt;(publisher)"] -- "publish&lt;br&gt;elever/anna/temperatur" --&gt; B(("Broker&lt;br&gt;wilsons"))
   B -- "elever/anna/temperatur" --&gt; P["Python-program&lt;br&gt;(subscriber)"]
   B -- "elever/anna/temperatur" --&gt; X["MQTT Explorer&lt;br&gt;(subscriber)"]
-  B -- "alt (#)" --&gt; L["Loggeren&lt;br&gt;→ weblog :8080"]
+  B -- "alt (#)" --&gt; L["Loggeren&lt;br&gt;→ weblog"]
 </pre>
 </div>
 <p></p></figure><p></p>
@@ -607,13 +607,13 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 <p>Hold beskederne små, især fra ESP32 (se <a href="#eksempel-esp32-sender-en-måling">PubSubClient</a>).</p>
 <section id="json-lines-i-weblogen" class="level3">
 <h3 class="anchored" data-anchor-id="json-lines-i-weblogen">JSON Lines i weblog’en</h3>
-<p>På skolens broker kører en <em>logger</em>, der abonnerer på <code>#</code> og gemmer hver besked som én linje i en fil. Filerne kan ses i en browser på <a href="http://wilsons.local:8080/" class="uri">http://wilsons.local:8080/</a>. Formatet hedder <span lang="en">JSON Lines</span> (<code>.jsonl</code>): hver linje er ét JSON-objekt (se også <a href="../Features/filsystem.html#json-lines">JSON Lines på siden om filsystemet</a>). Der er én fil pr. topic, fx <code>elever/anna/python/temperatur.jsonl</code>, og én fil med det hele, <code>#.jsonl</code>. I adresselinjen skal <code>#</code> skrives som <code>%23</code>: <a href="http://wilsons.local:8080/%23.jsonl" class="uri">http://wilsons.local:8080/%23.jsonl</a>.</p>
+<p>På skolens broker kører en <em>logger</em>, der abonnerer på <code>#</code> og gemmer hver besked som én linje i en fil. Filerne kan ses i en browser på <a href="http://wilsons.local/" class="uri">http://wilsons.local/</a>. Formatet hedder <span lang="en">JSON Lines</span> (<code>.jsonl</code>): hver linje er ét JSON-objekt (se også <a href="../Features/filsystem.html#json-lines">JSON Lines på siden om filsystemet</a>). Der er én fil pr. topic, fx <code>elever/anna/python/temperatur.jsonl</code>, og én fil med det hele, <code>#.jsonl</code>. I adresselinjen skal <code>#</code> skrives som <code>%23</code>: <a href="http://wilsons.local/%23.jsonl" class="uri">http://wilsons.local/%23.jsonl</a>.</p>
 <p>En linje i weblog’en ser sådan ud:</p>
 <pre><code>{"timestamp": "2026-11-23T15:00:37.091592", "topic": "test/esp32/button", "payload": "{\"button\":\"pressed\",\"count\":1}"}</code></pre>
 <p>Bemærk, at din JSON står <em>inde i</em> en tekst (<code>"payload": "{\"button\"…}"</code>) med <code>\</code> foran hvert <code>"</code>. Loggeren ved ikke, at payload’en er JSON, så den gemmer den som tekst. Vil du læse den i et program, skal du altså parse to gange: først linjen, derefter payload’en.</p>
 <p>Weblog’en er den nemmeste måde at se, at en besked faktisk nåede brokeren. Den viser kun det, der er kommet frem, ikke det, der blev afvist. Serverens navn og IP-adresse (<code>wilsons.local</code> og <code>192.168.0.33</code>) og flere skærmbilleder står på <a href="../Features/lokal_mqtt.html">Lokal MQTT server</a>.</p>
 <div class="billede-mangler">
-<p>Weblog’en på wilsons.local:8080, åbnet på en elevs fil fra Python-eksemplet (fx <code>elever/anna/python/temperatur.jsonl</code>) med nogle linjer JSON. Se lignende billeder: <a href="../Features/lokal_mqtt.html">Lokal MQTT server</a>.</p>
+<p>Weblog’en på wilsons.local, åbnet på en elevs fil fra Python-eksemplet (fx <code>elever/anna/python/temperatur.jsonl</code>) med nogle linjer JSON. Se lignende billeder: <a href="../Features/lokal_mqtt.html">Lokal MQTT server</a>.</p>
 </div>
 </section>
 </section>
@@ -899,6 +899,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 <span id="cb8-104"><a href="#cb8-104" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Her kan programmet læse knapper og sensorer, også mens forbindelsen er nede</span></span>
 <span id="cb8-105"><a href="#cb8-105" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p>Hele projektet, med <code>platformio.ini</code>, ligger på GitHub: <a href="https://github.com/s0ren/IOT_del2_demo_projecter/tree/main/mqtt_intro_potentiometer">mqtt_intro_potentiometer</a>.</p>
 <!-- TJEK: Om ESP32 kan slå "wilsons.local" op på skolens net, er ikke afprøvet (en pc kan). Virker det ikke, så brug 192.168.0.33. -->
 <p>Sådan virker det:</p>
 <ul>

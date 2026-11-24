@@ -734,7 +734,7 @@ og tekst til højst ca. 8 punkter pr. slide. Kør _scripts/slide_hoejde.py efter
 <ul>
 <li>En logger på wilsons abonnerer på <code>#</code> og gemmer <strong>alle</strong> beskeder, også dem fra port 8883</li>
 <li>Hver besked bliver én linje i en fil pr. topic, og <code>#.jsonl</code> samler dem alle</li>
-<li>En webserver (nginx) viser filerne: <a href="http://wilsons.local:8080/" class="uri">http://wilsons.local:8080/</a></li>
+<li>En webserver (nginx) viser filerne: <a href="http://wilsons.local/" class="uri">http://wilsons.local/</a></li>
 <li>Virker i enhver browser og kræver ingen installation</li>
 <li>Viser historikken: også beskeder, der blev sendt, før du kiggede</li>
 <li>Til fejlsøgning: kom min besked frem, på det rigtige topic og med det rigtige indhold?</li>
@@ -746,7 +746,7 @@ og tekst til højst ca. 8 punkter pr. slide. Kør _scripts/slide_hoejde.py efter
 <h2>Weblog’en: filerne</h2>
 
 <img data-src="images/weblog_topic_button.png" alt="Browser med filen test/esp32/button.jsonl fra weblog'en: én linje JSON pr. MQTT-besked med timestamp, topic og payload." width="760" class="r-stretch quarto-figure-center"><p class="caption">Filen <code>button.jsonl</code>: én linje pr. besked. (Skærmbilledet er fra den gamle server, wilson.local.)</p><ul>
-<li>Topic <code>elever/anna/esp32/maaling</code> → <a href="http://wilsons.local:8080/elever/anna/esp32/maaling.jsonl" class="uri">http://wilsons.local:8080/elever/anna/esp32/maaling.jsonl</a></li>
+<li>Topic <code>elever/anna/esp32/maaling</code> → <a href="http://wilsons.local/elever/anna/esp32/maaling.jsonl" class="uri">http://wilsons.local/elever/anna/esp32/maaling.jsonl</a></li>
 <li>Hver linje: <code>timestamp</code>, <code>topic</code> og <code>payload</code> (din besked som tekst). Alle beskeder: <code>%23.jsonl</code></li>
 <li>Hent med Python: <code>requests.get(url).text.splitlines()</code> og <code>json.loads()</code> pr. linje</li>
 </ul>
@@ -758,7 +758,7 @@ og tekst til højst ca. 8 punkter pr. slide. Kør _scripts/slide_hoejde.py efter
 <li><code>mqtt.publish()</code> sender den til <code>elever/anna/esp32/maaling</code> på wilsons</li>
 <li>Brokeren sender den videre til alle abonnenter: din <code>subscriber.py</code>, MQTT Explorer og loggeren</li>
 <li>Loggeren skriver den som én linje i <code>elever/anna/esp32/maaling.jsonl</code></li>
-<li>nginx viser filen på <a href="http://wilsons.local:8080/" class="uri">http://wilsons.local:8080/</a>, hvor alle kan læse den</li>
+<li>nginx viser filen på <a href="http://wilsons.local/" class="uri">http://wilsons.local/</a>, hvor alle kan læse den</li>
 <li>Et Python-program kan hente filen og lave en graf eller statistik</li>
 </ol>
 <p>Fejlsøg i samme rækkefølge: sendes der (Serial Monitor)? Kommer den frem (MQTT Explorer)? Er den logget (weblog’en)?</p>

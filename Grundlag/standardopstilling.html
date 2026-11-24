@@ -409,15 +409,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<!-- IKKE KOMPILERET: testprogrammet er tjekket mod dokumentationen, men ikke kompileret eller testet på hardware. Opstillingen er ikke bygget. -->
+<!-- IKKE TESTET PÅ HARDWARE: testprogrammet kompilerer med espressif32@8.0.0 (24. nov. 2026; projektet ligger i IOT_del1_demoer), men er ikke testet på hardware. Opstillingen er ikke bygget. -->
 <!--
-TJEKLISTE TIL LÆREREN (afprøves, før IKKE KOMPILERET og TJEK-kommentarerne fjernes):
+TJEKLISTE TIL LÆREREN (afprøves, før IKKE TESTET PÅ HARDWARE og TJEK-kommentarerne fjernes):
 1. Byg opstillingen efter byggevejledningen på lokalets boards. Passer trinene, og er der plads til alt?
 2. TJEK: rækkefølgen af benene på lokalets ESP32-DEVKIT-V1 (30 ben). Siden går ud fra, at GPIO 32 og 33 sidder i samme side som VIN, og GPIO 19 i samme side som 3V3.
 3. Kør testprogrammet: lysdioden på GPIO 19 lyser, mens knappen holdes nede, den indbyggede lysdiode blinker, og potentiometerets spænding går fra ca. 0 til ca. 3100 mV.
 4. Lav Fritzing-diagrammet (Breadboard- og Schematic-visning), gem .fzz-filen, og eksportér et PNG. Indsæt billedet, og læg .fzz-filen på ItsLearning (LÆRER-pladsholder).
 5. Tag fotoene i de orange bokse.
-6. Fjern IKKE KOMPILERET, tjeklisten og TJEK-kommentarerne, når alt er afprøvet.
+6. Fjern IKKE TESTET PÅ HARDWARE, tjeklisten og TJEK-kommentarerne, når alt er afprøvet.
 -->
 <p>Næsten alle ESP32-programmer på sitet skal bruge en knap, en lysdiode eller et potentiometer. I stedet for at bygge noget nyt til hver side bygger du <strong>én opstilling</strong>, der har alle tre, og lader den sidde. Siderne bruger de samme ben, så du kan gå direkte til koden. Siden her viser, hvad opstillingen består af, hvordan du bygger den, og hvordan du tester, at den virker.</p>
 <section id="formål" class="level2">
@@ -599,12 +599,13 @@ TJEKLISTE TIL LÆREREN (afprøves, før IKKE KOMPILERET og TJEK-kommentarerne fj
 <span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Potentiometer og knap i Serial Monitor</span></span>
 <span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(</span>nu <span class="op">-</span> sidsteUdskrift <span class="op">&gt;=</span> UDSKRIFT_MS<span class="op">)</span> <span class="op">{</span></span>
 <span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>    sidsteUdskrift <span class="op">=</span> nu<span class="op">;</span></span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>    Serial<span class="op">.</span>printf<span class="op">(</span><span class="st">"Potentiometer: </span><span class="sc">%4u</span><span class="st"> mV   Knap: </span><span class="sc">%s\n</span><span class="st">"</span><span class="op">,</span></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>    Serial<span class="op">.</span>printf<span class="op">(</span><span class="st">"Potentiometer: </span><span class="sc">%4lu</span><span class="st"> mV   Knap: </span><span class="sc">%s\n</span><span class="st">"</span><span class="op">,</span></span>
 <span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>                  analogReadMilliVolts<span class="op">(</span>POT_PIN<span class="op">),</span></span>
 <span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>                  trykket <span class="op">?</span> <span class="st">"trykket"</span> <span class="op">:</span> <span class="st">"-"</span><span class="op">);</span></span>
 <span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
 <span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p>Hele projektet, med <code>platformio.ini</code>, ligger på GitHub: <a href="https://github.com/s0ren/IOT1-demo/tree/main/standardopstilling_test">standardopstilling_test</a>.</p>
 <p>Sådan skal det se ud i Serial Monitor, når du drejer på potentiometeret og trykker på knappen:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Test af standardopstillingen</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>Potentiometer:  142 mV   Knap: -</span>

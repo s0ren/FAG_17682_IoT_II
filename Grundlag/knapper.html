@@ -420,14 +420,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<!-- IKKE KOMPILERET: eksemplerne er tjekket mod dokumentationen, men ikke kompileret eller testet på hardware. -->
+<!-- IKKE TESTET PÅ HARDWARE: eksemplerne kompilerer med espressif32@8.0.0 (24. nov. 2026; projekterne ligger i demo-repoerne, se linkene under eksemplerne), men er ikke testet på hardware. -->
 <!--
 TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
-1. Kør eksemplet med en knap på GPIO 33 til GND: lysdioden på GPIO 2 lyser, kun mens knappen holdes nede, og Serial Monitor viser skiftene.
-2. Tjek, at den indbyggede lysdiode på lokalets ESP32-DEVKIT-V1 sidder på GPIO 2 og lyser ved HIGH (TJEK i eksemplet).
+1. AFPRØVET 24. nov. 2026: lysdioden på GPIO 2 lyser kun, mens knappen holdes nede, og Serial Monitor viser skiftene (5 tryk gav 10 Trykket/Sluppet pga. prel).
+2. AFPRØVET 24. nov. 2026: den indbyggede lysdiode sidder på GPIO 2 og lyser ved HIGH.
 3. Afprøv øvelse 1 (svævende ben med INPUT): skifter værdien faktisk, når man rører ledningen? Ret teksten, hvis lokalets boards opfører sig anderledes (TJEK i afsnittet om svævende ben).
 4. Afprøv øvelse 2 (ekstern 10 kΩ pull-down, knap til 3V3) og øvelse 3 (to knapper).
-5. Afprøv øvelse 4 (INPUT_PULLUP på GPIO 34): kommer der en log-linje fra gpio i Serial Monitor? Nævn den i så fald på siden (TJEK ved tabellen over ben).
+5. AFPRØVET 24. nov. 2026: pinMode(34, INPUT_PULLUP) giver "E (221) gpio: gpio_pullup_en(85): GPIO number error (input-only pad has no internal PU)" i Serial Monitor, også med standardindstillingen. Linjen er nævnt ved tabellen og under Typiske fejl.
 6. Tjek, at BOOT-knappen på lokalets boards sidder på GPIO 0 og kan læses i et kørende program (TJEK ved GPIO 0 og øvelse 5).
 7. Tjek, at lokalets trykknapper er de almindelige 6 x 6 mm med fire ben, og at to diagonale ben kun giver forbindelse, når der trykkes (multimeter).
 8. Tjek, at lokalet har 10 kΩ-modstande til øvelse 2.
@@ -436,7 +436,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 11. BILLEDE: trykknap, vippekontakt og skydekontakt side om side.
 12. BILLEDE: eksemplets opstilling (knap over renden, diagonale ben til GPIO 33 og GND).
 13. BILLEDE: øvelse 2 med den eksterne pull-down-modstand.
-14. Fjern IKKE KOMPILERET, denne tjekliste og alle TJEK- og BILLEDE-kommentarer, gør billede-mangler-boksene til BILLEDE-kommentarer eller rigtige billeder, og sæt draft: false.
+14. Fjern IKKE TESTET PÅ HARDWARE, denne tjekliste og alle TJEK- og BILLEDE-kommentarer, gør billede-mangler-boksene til BILLEDE-kommentarer eller rigtige billeder, og sæt draft: false.
 -->
 <p>En knap er det enkleste input, du kan give en ESP32: den er enten trykket eller ikke trykket. Men en knap giver ikke selv en spænding. Den forbinder bare to ben, når du trykker. Hvad ESP32 læser, når knappen <em>ikke</em> er trykket, bestemmer du med en modstand. Glemmer du den, læser programmet tilfældige værdier, og fejlen kan ligne en fejl i koden.</p>
 <section id="formål" class="level2">
@@ -621,14 +621,13 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 </tr>
 </tbody>
 </table>
-<!-- TJEK: om Arduino-ESP32 skriver en fejl- eller advarselslinje i Serial Monitor, når INPUT_PULLUP bruges på GPIO 34-39 (afprøv i øvelse 4). Nævn den i så fald her og under Typiske fejl. -->
+<p>Bruger du alligevel <code>INPUT_PULLUP</code> på GPIO 34–39, skriver Serial Monitor en fejl ved opstart, fx <code>E (221) gpio: gpio_pullup_en(85): GPIO number error (input-only pad has no internal PU)</code>.</p>
 <p>Af strapping-benene er <strong>GPIO 0</strong> det farlige for en knap til GND. Er GPIO 0 <code>LOW</code>, når ESP32 starter, går den (på DevKit-boardet) i upload-tilstand i stedet for at køre dit program. Holder du knappen nede, mens du sætter USB i eller trykker på EN, ser det ud, som om programmet er væk. Faktisk er det sådan, BOOT-knappen på ESP32-DEVKIT-V1 virker: den sidder på GPIO 0.</p>
 <!-- TJEK: at BOOT-knappen på lokalets ESP32-DEVKIT-V1 sidder på GPIO 0 (standard på DevKit-designet, men lokalets kloner er ikke målt). -->
 </section>
 <section id="eksempel-lysdioden-lyser-mens-knappen-holdes-nede" class="level2">
 <h2 class="anchored" data-anchor-id="eksempel-lysdioden-lyser-mens-knappen-holdes-nede">Eksempel: lysdioden lyser, mens knappen holdes nede</h2>
 <p>Knappen sidder mellem <strong>GPIO 33</strong> og <strong>GND</strong>, på to diagonale ben, som i <a href="../Grundlag/standardopstilling.html">standardopstillingen</a>. Lysdioden er den indbyggede på <strong>GPIO 2</strong>, så den skal ikke kobles på.</p>
-<!-- TJEK: at den indbyggede lysdiode på lokalets boards sidder på GPIO 2 og lyser ved HIGH. -->
 <div class="billede-mangler">
 <p>Eksemplets opstilling: ESP32-DEVKIT-V1 og en trykknap over renden, med ledninger fra to diagonale ben til GPIO 33 og GND. Se lignende billeder på siden om Breadboard.</p>
 </div>
@@ -677,6 +676,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 <span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
 <span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p>Hele projektet, med <code>platformio.ini</code>, ligger på GitHub: <a href="https://github.com/s0ren/IOT1-demo/tree/main/knapper_knap_led">knapper_knap_led</a>.</p>
 <p>Programmet læser knappen i hvert gennemløb af <code>loop()</code> og sætter lysdioden derefter. Der er ingen <code>delay()</code>, så lysdioden følger knappen med det samme.</p>
 <p>Programmet er bevidst lavet <strong>uden debouncing</strong>. Du ser derfor måske flere “Trykket” og “Sluppet” i Serial Monitor ved ét tryk. Det er kontaktprel, og det er emnet på siden om <a href="../Grundlag/debouncing.html">Debouncing</a>. For lysdioden betyder det ikke noget, for den blinker kun et par millisekunder, og det kan øjet ikke se. Skal programmet tælle tryk eller skifte tilstand ved hvert tryk, skal du debounce.</p>
 </section>
@@ -696,6 +696,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 <li><strong>Knappen er altid trykket:</strong> Ledningerne sidder på to ben af knappen, der er forbundet indvendigt. Brug to diagonale ben.</li>
 <li><strong>Knappen virker baglæns:</strong> Med <code>INPUT_PULLUP</code> er et tryk <code>LOW</code>, ikke <code>HIGH</code>.</li>
 <li><strong>Tilfældige værdier, når ingen trykker:</strong> Benet svæver. Der står <code>INPUT</code> uden en ekstern modstand, eller knappen sidder på GPIO 34–39, hvor <code>INPUT_PULLUP</code> ikke virker.</li>
+<li><strong><code>GPIO number error (input-only pad has no internal PU)</code> i Serial Monitor:</strong> <code>INPUT_PULLUP</code> er brugt på GPIO 34–39. Benene har ingen intern pull-up: brug en ekstern modstand, eller flyt knappen til et andet ben.</li>
 <li><strong>Programmet starter ikke efter reset:</strong> Knappen sidder på GPIO 0 og er trykket ved opstart, så ESP32 venter i upload-tilstand.</li>
 <li><strong>ESP32 genstarter, når der trykkes:</strong> Knappen kortslutter 3V3 direkte til GND. Det sker, hvis pull-down-modstanden er erstattet af en ledning, eller hvis knappen sidder mellem 3V3- og GND-skinnen, fx fordi den ikke sidder hen over renden. (En <em>manglende</em> pull-down giver ikke kortslutning, men et svævende ben.)</li>
 <li><strong>Benet er sat som <code>OUTPUT</code>:</strong> Driver programmet benet <code>HIGH</code>, mens knappen trækker det til GND, kortslutter du udgangen. ESP32 begrænser selv strømmen, men det er stadig en fejl. Brug <code>INPUT_PULLUP</code>.</li>

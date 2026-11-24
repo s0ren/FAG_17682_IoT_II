@@ -428,22 +428,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<!-- IKKE KOMPILERET: eksemplerne er tjekket mod dokumentationen, men ikke kompileret eller testet på hardware. -->
+<!-- IKKE TESTET PÅ HARDWARE: eksemplerne kompilerer med espressif32@8.0.0 (24. nov. 2026; projekterne ligger i demo-repoerne, se linkene under eksemplerne), men er ikke testet på hardware. -->
 <!--
 TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
-1. Upload eksemplet "vågn på timer". Tæller "Opstart nr." op ved hver opvågning, og står der "timer" som årsag (og "ikke fra deep sleep" første gang)?
+1. AFPRØVET 24. nov. 2026: "Opstart nr." tæller op, årsagen er "timer", og første gang står der "Ikke vækket fra deep sleep (0)".
 2. Tryk på EN-knappen under eksemplet: starter tælleren forfra fra 1? (Siden påstår, at RTC-hukommelsen nulstilles ved EN.)
-3. Upload eksemplet "vågn på knap eller timer" med knap mellem GPIO 33 og GND. Vågner kortet på tryk (årsag "knap (ext0)") og ellers efter 30 s (årsag "timer")?
+3. AFPRØVET 24. nov. 2026: 3 tryk gav 3 opvågninger med "Knap trykket (1/2/3 gange i alt)", og timeren vækker hvert 30. s.
 4. Hold knappen nede, mens kortet går i dvale: vågner det straks igen, som siden siger?
 5. Ext1 (øvelse 4): vågner ESP32 med ESP_EXT1_WAKEUP_ALL_LOW og den interne pull-up på GPIO 33, uden at RTC_PERIPH holdes tændt? Dokumentationen siger ja (HOLD-funktionen); afprøv på skolens kort. (Se TJEK ved ext1.)
 6. Touch-uddraget: virker tærsklen 40 på GPIO 27 (T7) med en løs ledning? Hvilke værdier giver touchRead(T7) urørt og rørt på skolens kort? (Se TJEK ved touch.)
-7. Upload mens kortet sover: virker upload uden at trykke på knapper? Ret eller fjern punktet om upload under Typiske fejl efter resultatet. (Se TJEK under Typiske fejl.)
+7. AFPRØVET 24. nov. 2026: upload, mens kortet sover, virkede 3 af 3 gange uden knaptryk (auto-reset vækker kortet). Punktet under Typiske fejl er rettet.
 8. Mål strømmen på DEVKIT-V1 i deep sleep (fx med et USB-strømmeter eller et multimeter i serie med VIN). Ret tallene i afsnittet om strømmåling og regnestykket, hvis de er langt fra. (Se TJEK ved strømmåling.)
 9. TJEK: strømtallene for selve chippen (ca. 100-250 mA aktiv med WiFi, ca. 10 µA i deep sleep) er ikke læst direkte i databladets tabel "Power Consumption by Power Modes". Sammenlign i en PDF-læser.
 10. BILLEDE: Serial Monitor med tre-fire opvågninger fra timer-eksemplet.
 11. BILLEDE: breadboard med knap mellem GPIO 33 og GND.
 12. BILLEDE: DEVKIT-V1 med USB-chip, spændingsregulator og strøm-LED markeret.
-13. Når alt er testet: fjern IKKE KOMPILERET, denne tjekliste og TJEK-/BILLEDE-kommentarerne.
+13. Når alt er testet: fjern IKKE TESTET PÅ HARDWARE, denne tjekliste og TJEK-/BILLEDE-kommentarerne.
 -->
 <p>En temperaturføler i et drivhus skal måske kun sende en måling hvert tiende minut. Resten af tiden har den intet at lave, men en ESP32, der kører <code>loop()</code> med WiFi tændt, bruger strøm hele tiden og tømmer et batteri på et døgn eller to. I <em>deep sleep</em> slukker ESP32 næsten hele chippen og vågner igen, når en timer udløber, eller når der trykkes på en knap. Så kan det samme batteri holde i måneder.</p>
 <section id="formål" class="level2">
@@ -710,6 +710,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 <span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Bliver aldrig kørt: ESP32 starter forfra i setup() efter hver opvågning</span></span>
 <span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p>Hele projektet, med <code>platformio.ini</code>, ligger på GitHub: <a href="https://github.com/s0ren/IOT_del2_demo_projecter/tree/main/deep_sleep_timer">deep_sleep_timer</a>.</p>
 <p>I Serial Monitor ser det sådan ud:</p>
 <pre><code>Opstart nr. 1
 Ikke vækket fra deep sleep (0)
@@ -794,6 +795,7 @@ Sover i 10 s</code></pre>
 <span id="cb10-59"><a href="#cb10-59" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Bliver aldrig kørt</span></span>
 <span id="cb10-60"><a href="#cb10-60" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p>Hele projektet, med <code>platformio.ini</code>, ligger på GitHub: <a href="https://github.com/s0ren/IOT_del2_demo_projecter/tree/main/deep_sleep_knap_timer">deep_sleep_knap_timer</a>.</p>
 <p>Bemærk:</p>
 <ul>
 <li>Du behøver ikke at debounce knappen her. Så snart benet bliver LOW, vågner chippen. Når programmet er startet, er prellet forbi.</li>
@@ -829,10 +831,9 @@ Sover i 10 s</code></pre>
 <li><strong>ESP32 vågner med det samme igen og igen:</strong> vække-niveauet passer ikke til koblingen (fx <code>1</code> med en knap til GND), pull-up’en er ikke slået til med <code>rtc_gpio_pullup_en()</code>, så benet svæver, eller knappen holdes nede.</li>
 <li><strong>Timeren vågner alt for tidligt eller forkert:</strong> tiden er angivet i millisekunder eller sekunder i stedet for mikrosekunder, eller beregningen er løbet over, fordi <code>ULL</code> mangler.</li>
 <li><strong><code>digitalRead()</code> på vække-benet virker ikke efter opvågning:</strong> <code>pinMode()</code> mangler. Benet er stadig et RTC-ben, til du kalder <code>pinMode(KNAP_PIN, INPUT_PULLUP)</code>.</li>
-<li><strong>Hvis upload fejler, mens kortet sover:</strong> hold BOOT-knappen nede, mens upload starter, eller tryk på EN lige før (se <a href="../Grundlag/platformio.html">PlatformIO</a>).</li>
+<li><strong>Upload, mens kortet sover:</strong> virker normalt uden knaptryk, for PlatformIO vækker kortet med EN, før det uploader. Fejler det alligevel, så hold BOOT-knappen nede, mens upload starter, eller tryk på EN lige før (se <a href="../Grundlag/platformio.html">PlatformIO</a>).</li>
 <li><strong>Strømmåleren viser mange mA i deep sleep:</strong> du måler hele DEVKIT-V1-kortet med USB-chip, regulator og lysdiode, ikke kun chippen.</li>
 </ul>
-<!-- TJEK: om upload normalt virker uden knaptryk, mens ESP32 sover (auto-reset via DTR/RTS burde vække den). Se tjekliste punkt 7. -->
 </section>
 <section id="læs-videre" class="level2">
 <h2 class="anchored" data-anchor-id="læs-videre">Læs videre</h2>

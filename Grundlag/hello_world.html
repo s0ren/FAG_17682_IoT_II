@@ -419,18 +419,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<!-- IKKE KOMPILERET: eksemplerne er tjekket mod dokumentationen, men ikke kompileret eller testet på hardware. -->
+<!-- IKKE TESTET PÅ HARDWARE: eksemplerne kompilerer med espressif32@8.0.0 (24. nov. 2026; projekterne ligger i demo-repoerne, se linkene under eksemplerne), men er ikke testet på hardware. -->
 <!--
 TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
-1. Kompilér og upload de tre eksempler (Hello World, blink med delay(), blink med millis()) med platform = espressif32@8.0.0. Skriver de det forventede i Serial Monitor?
-2. TJEK (opstart): står der linjer som "rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)" i Serial Monitor, når der trykkes på EN? Ret eksemplet på siden, så det passer med skolens kort.
-3. TJEK (lysdioden): sidder den blå lysdiode på skolens kort på GPIO 2, og lyser den ved HIGH?
+1. AFPRØVET 24. nov. 2026: alle tre eksempler virker med espressif32@8.0.0 og skriver det forventede i Serial Monitor; den blå lysdiode blinker.
+2. AFPRØVET 24. nov. 2026: ved reset står der "rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)" og derefter "Hej fra ESP32!" (reset via RTS, svarer til EN).
+3. AFPRØVET 24. nov. 2026: den blå lysdiode sidder på GPIO 2 og lyser ved HIGH.
 4. TJEK (øvelse 4): passer 220 Ω til lokalets lysdioder (samme TJEK som på siden om breadboard)?
 Billeder, der mangler (se de orange bokse):
 5. ESP32-DEVKIT-V1 set ovenfra med EN, BOOT og den blå lysdiode markeret.
 6. Serial Monitor efter et tryk på EN: opstartslinjerne fra ROM'en og derefter "Hej fra ESP32!".
 7. Øvelse 4 bruger standardopstillingen (lysdiode på GPIO 19) og den indbyggede lysdiode på GPIO 2.
-8. Når alt er testet: fjern IKKE KOMPILERET, denne tjekliste og TJEK-kommentarerne, gør de orange bokse til BILLEDE-kommentarer eller rigtige billeder, og sæt draft: false.
+8. Når alt er testet: fjern IKKE TESTET PÅ HARDWARE, denne tjekliste og TJEK-kommentarerne, gør de orange bokse til BILLEDE-kommentarer eller rigtige billeder, og sæt draft: false.
 -->
 <p>Det første program på et nyt stykke hardware er altid det samme: få det til at sige noget, og få noget til at blinke. Så ved du, at værktøjerne virker, at programmet kommer over på kortet, og at du kan se, hvad det laver. På denne side skriver du dit første program til ESP32-DEVKIT-V1. Det skriver tekst i Serial Monitor og blinker med lysdioden, der sidder på kortet.</p>
 <section id="formål" class="level2">
@@ -517,11 +517,11 @@ Billeder, der mangler (se de orange bokse):
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Tom: alt sker i setup(), så teksten skrives kun én gang</span></span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p>Hele projektet, med <code>platformio.ini</code>, ligger på GitHub: <a href="https://github.com/s0ren/IOT1-demo/tree/main/hello_world_serial">hello_world_serial</a>.</p>
 <p>Upload programmet, og åbn Serial Monitor. Sandsynligvis ser du ingenting, fordi programmet skrev sin linje, før Serial Monitor nåede at åbne. Tryk på <strong>EN</strong>. Nu ser du først nogle linjer fra ROM-bootloaderen og derefter <code>Hej fra ESP32!</code>.</p>
 <pre class="text"><code>rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
 ...
 Hej fra ESP32!</code></pre>
-<!-- TJEK: de præcise opstartslinjer (rst:/boot:-værdierne efter et tryk på EN) er ikke afprøvet på skolens kort. esptool-dokumentationen bekræfter kun, at ROM'en skriver en "rst:… boot:…"-linje ved 115200 baud. -->
 <div class="billede-mangler">
 <p>Serial Monitor i VS Code efter et tryk på EN: opstartslinjerne fra ROM’en og til sidst “Hej fra ESP32!”. Se lignende billeder: <a href="https://randomnerdtutorials.com/vs-code-platformio-ide-esp32-esp8266-arduino/">Random Nerd Tutorials: Getting Started with VS Code and PlatformIO IDE</a>.</p>
 </div>
@@ -529,7 +529,6 @@ Hej fra ESP32!</code></pre>
 <section id="eksempel-blink-med-delay" class="level2">
 <h2 class="anchored" data-anchor-id="eksempel-blink-med-delay">Eksempel: blink med delay()</h2>
 <p>Den lille blå lysdiode på DEVKIT-V1 sidder på GPIO 2. I Arduino-frameworket for dette kort hedder ben 2 også <code>LED_BUILTIN</code>. Sådan blinker man den på den simple måde:</p>
-<!-- TJEK: at den blå lysdiode på skolens kort sidder på GPIO 2 og lyser ved HIGH (gælder det originale DOIT-design, men kloner kan afvige). -->
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>platformio.ini</strong></pre>
@@ -564,6 +563,7 @@ Hej fra ESP32!</code></pre>
 <span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  delay<span class="op">(</span>BLINK_MS<span class="op">);</span></span>
 <span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p>Hele projektet, med <code>platformio.ini</code>, ligger på GitHub: <a href="https://github.com/s0ren/IOT1-demo/tree/main/hello_world_blink_delay">hello_world_blink_delay</a>.</p>
 <p>Det virker, og det er let at læse. Men læg mærke til, at <code>loop()</code> bruger næsten al sin tid på at vente.</p>
 <section id="hvorfor-er-delay-et-problem" class="level3">
 <h3 class="anchored" data-anchor-id="hvorfor-er-delay-et-problem">Hvorfor er delay() et problem?</h3>
@@ -615,6 +615,7 @@ Hej fra ESP32!</code></pre>
 <span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Det bliver ikke forsinket af blinket.</span></span>
 <span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p>Hele projektet, med <code>platformio.ini</code>, ligger på GitHub: <a href="https://github.com/s0ren/IOT1-demo/tree/main/hello_world_blink_millis">hello_world_blink_millis</a>.</p>
 <p>Læg mærke til:</p>
 <ul>
 <li>Tider gemmes i <code>unsigned long</code>, samme type som <code>millis()</code> returnerer. Bruger du <code>int</code>, kan der ske fejl, når tallet bliver stort.</li>

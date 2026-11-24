@@ -438,21 +438,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<!-- IKKE KOMPILERET: eksemplerne er tjekket mod dokumentationen, men ikke kompileret eller testet på hardware. -->
+<!-- IKKE TESTET PÅ HARDWARE: eksemplerne kompilerer med espressif32@8.0.0 (24. nov. 2026; projekterne ligger i demo-repoerne, se linkene under eksemplerne), men er ikke testet på hardware. -->
 <!--
 TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
-1. Kompilér og upload testprogrammet med platform = espressif32@8.0.0. Byg det igen med arduinogetstarted/ezButton@^1.0.6 i lib_deps.
+1. AFPRØVET 24. nov. 2026: testprogrammet virker ("PlatformIO virker!", lysdioden blinker), og ezButton@^1.0.6 i lib_deps bygger (debouncing-eksemplet).
 2. Hvor meget fylder den første download af espressif32@8.0.0? Ret "flere hundrede MB".
 3. Beder VS Code om "Reload Window", når PlatformIO Core er installeret? (ren installation)
 4. Project Wizard: passer feltnavnene (Name/Board/Framework/Location) og fluebenet "Use default location"?
 5. Skriver guiden platform = espressif32 uden version?
-6. Hvilken USB-chip har skolens kort: CP2102 eller CH340? Ret afsnittet om USB.
+6. DELVIS AFPRØVET 24. nov. 2026: to kort har en CH9102 (USB-ID 1a86:55d4), hverken CP2102 eller CH340. Afsnittet om USB er rettet. Mangler: tjek flere af lokalets kort, og hvad porten hedder i Enhedshåndtering.
 7. Virker driver-linkene til Silicon Labs og WCH? Henter Windows selv driveren på skolens maskiner?
 8. Hvornår må BOOT slippes under upload? Prøv på skolens kort.
 9. PIO Home → Libraries → Add to Project: passer trinnene og knapnavnene (dialogen, knappen "Add"), og skriver den lib_deps-linjen på formen arduinogetstarted/ezButton@^1.0.6?
 Skærmbilleder, der mangler (se BILLEDE-kommentarerne):
 10. Project Wizard udfyldt. 11. Explorer med nyt projekt. 12. PlatformIO-knapperne i statuslinjen. 13. Enhedshåndtering med COM-porten. 14. Terminalen ved en mislykket upload. 15. Dialogen "Add to Project" for ezButton (og platformio.ini med den nye linje).
-16. Når alt er testet: fjern IKKE KOMPILERET, denne tjekliste og TJEK-/BILLEDE-kommentarerne.
+16. Når alt er testet: fjern IKKE TESTET PÅ HARDWARE, denne tjekliste og TJEK-/BILLEDE-kommentarerne.
 -->
 <p>Før du kan skrive den første linje kode til ESP32, skal du have et værktøj, der kan oversætte koden og lægge den over på kortet. I faget bruger vi PlatformIO, som er en udvidelse til Visual Studio Code (VS Code). PlatformIO henter selv compiler, Arduino-framework og biblioteker, så alle i klassen bygger med præcis de samme versioner. Denne side fører dig fra en tom computer til et ESP32-kort, der blinker og skriver i Serial Monitor.</p>
 <section id="formål" class="level2">
@@ -689,13 +689,15 @@ Skærmbilleder, der mangler (se BILLEDE-kommentarerne):
 </section>
 <section id="usb-serielchippen-og-driveren" class="level3">
 <h3 class="anchored" data-anchor-id="usb-serielchippen-og-driveren">USB-serielchippen og driveren</h3>
-<p>ESP32 har ikke selv USB. På DEVKIT-V1 sidder der en lille chip ved USB-stikket, som oversætter mellem USB og ESP32’s serielle port (UART). Det originale DOIT-design bruger en <strong>CP2102</strong> fra Silicon Labs, men mange kopier bruger en <strong>CH340</strong> fra WCH. Navnet står på chippen, hvis du kigger med lup.</p>
-<!-- TJEK: hvilken USB-serielchip sidder på skolens kort? Tjek et par stykker og ret afsnittet, så det passer. -->
+<p>ESP32 har ikke selv USB. På DEVKIT-V1 sidder der en lille chip ved USB-stikket, som oversætter mellem USB og ESP32’s serielle port (UART). Det originale DOIT-design bruger en <strong>CP2102</strong> fra Silicon Labs, men mange kopier bruger en <strong>CH340</strong> eller en nyere <strong>CH9102</strong>, begge fra WCH. Navnet står på chippen, hvis du kigger med lup. Skolens kort, vi har afprøvet, har en CH9102.</p>
+<!-- TJEK: to af skolens kort har CH9102 (USB-ID 1a86:55d4, afprøvet 24. nov. 2026 på Linux, hvor den vises som /dev/ttyACM0). Tjek et par kort mere i lokalet. -->
 <p>Windows 10 og 11 installerer som regel driveren selv, når du sætter kortet i. Hvis der ikke dukker en port op:</p>
 <ul>
 <li>CP2102: hent driveren <em>CP210x USB to UART Bridge VCP Drivers</em> fra <a href="https://www.silabs.com/developer-tools/usb-to-uart-bridge-vcp-drivers">Silicon Labs</a>.</li>
 <li>CH340: hent driveren fra producenten WCH, <a href="https://www.wch-ic.com/downloads/CH341SER_EXE.html">CH341SER</a>.</li>
+<li>CH9102: driveren fra WCH hedder <a href="https://www.wch-ic.com/downloads/CH343SER_EXE.html">CH343SER</a>.</li>
 </ul>
+<!-- TJEK: CH343SER-linket svarer (200), men siden kunne ikke læses automatisk. Tjek, at den nævner CH9102, og om Windows' indbyggede USB-seriel-driver er nok (chippen er en USB CDC-enhed). -->
 <!-- TJEK: Silicon Labs-siden og WCH-siden kunne ikke hentes ved faktatjekket (403 / tom side). Tjek, at linkene virker. At Windows 10/11 selv henter driveren, er Espressifs formulering ("drivers should be bundled with an operating system"), ikke afprøvet på skolens maskiner. -->
 </section>
 <section id="find-com-porten" class="level3">
@@ -704,8 +706,9 @@ Skærmbilleder, der mangler (se BILLEDE-kommentarerne):
 <ol type="1">
 <li>Åbn <strong>Enhedshåndtering</strong> (højreklik på Start-knappen).</li>
 <li>Fold <strong>Porte (COM og LPT)</strong> ud.</li>
-<li>Tag kortet ud og sæt det i igen. Den port, der forsvinder og kommer igen, er din. Den hedder fx <em>Silicon Labs CP210x USB to UART Bridge (COM3)</em> eller <em>USB-SERIAL CH340 (COM5)</em>.</li>
+<li>Tag kortet ud og sæt det i igen. Den port, der forsvinder og kommer igen, er din. Den hedder fx <em>Silicon Labs CP210x USB to UART Bridge (COM3)</em> eller <em>USB-SERIAL CH340 (COM5)</em>. En CH9102 kan hedde <em>USB-Enhanced-SERIAL CH9102</em> eller, uden WCH’s driver, <em>USB-serielt enhed</em>.</li>
 </ol>
+<!-- TJEK: navnet på en CH9102-port i dansk Windows, med og uden CH343SER. -->
 <p>Espressif viser det med skærmbilleder under <a href="https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/establish-serial-connection.html#check-port-on-windows" lang="en">Check Port on Windows</a>.</p>
 <div class="billede-mangler">
 <p>Enhedshåndtering på dansk Windows med “Porte (COM og LPT)” foldet ud og ESP32-kortets port markeret. Se lignende billeder: <a href="https://docs.espressif.com/projects/esp-idf/en/stable/esp32/_images/esp32-devkitc-in-device-manager.png" class="uri">https://docs.espressif.com/projects/esp-idf/en/stable/esp32/_images/esp32-devkitc-in-device-manager.png</a> (Espressif: engelsk Windows, “Silicon Labs CP210x USB to UART Bridge (COM3)”)</p>
@@ -781,6 +784,7 @@ Skærmbilleder, der mangler (se BILLEDE-kommentarerne):
 <span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
 <span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p>Hele projektet, med <code>platformio.ini</code>, ligger på GitHub: <a href="https://github.com/s0ren/IOT1-demo/tree/main/platformio_test">platformio_test</a>.</p>
 <p>Klik <strong>Upload</strong> og derefter <strong>Serial Monitor</strong>. Lysdioden skal blinke, og der skal komme en linje hvert sekund. Ser du ikke linjen <code>PlatformIO virker!</code>, er det fordi programmet startede, før Serial Monitor var åben. Tryk på <strong>EN</strong>, så starter programmet forfra.</p>
 </section>
 <section id="biblioteker-med-lib_deps" class="level2">

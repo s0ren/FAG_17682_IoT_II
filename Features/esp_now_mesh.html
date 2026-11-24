@@ -429,21 +429,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<!-- IKKE KOMPILERET: eksemplerne er tjekket mod dokumentationen, men ikke kompileret eller testet på hardware. -->
+<!-- IKKE TESTET PÅ HARDWARE: eksemplerne kompilerer med espressif32@8.0.0 (24. nov. 2026; projekterne ligger i demo-repoerne, se linkene under eksemplerne), men er ikke testet på hardware. -->
 <!--
 TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
-1. Kompilér og upload modtageren og afsenderen med platform = espressif32@8.0.0. Kompilerer begge uden advarsler (printf af uint32_t med %lu og cast, og af (int)WiFi.channel() med %d)?
-2. Kommer beskederne frem, og skriver afsenderen "kvitteret" ved unicast og "IKKE kvitteret", når modtageren er slukket?
-3. Broadcast (øvelse 3): hvad giver onSent ved broadcast, når der ingen modtager er? Ret afsnittet "Kvittering" og beskrivelsen af onSent() efter resultatet (TJEK nedenfor).
-4. Forskellig kanal på afsender og modtager (øvelse 2): kommer der ingenting igennem, som siden siger?
+1. AFPRØVET 24. nov. 2026: begge kompilerer uden advarsler.
+2. AFPRØVET 24. nov. 2026: beskederne kommer frem, og afsenderen skriver "kvitteret af modtageren" ved unicast og "IKKE kvitteret", når modtageren ikke kører ESP-NOW (og med en forkert MAC-adresse).
+3. AFPRØVET 24. nov. 2026: ved broadcast skriver modtageren "(broadcast)", og onSent() giver altid success, også når ingen modtager lytter. Afsnittet "Kvittering" er rettet.
+4. AFPRØVET 24. nov. 2026: kanal 6 hos afsender og 1 hos modtager: intet kommer igennem, og afsenderen skriver "IKKE kvitteret".
 5. Rækkevidde (øvelse 5): mål rækkevidden indendørs i lokalet, og skriv evt. et tal ind i tabellen "Begrænsninger" (TJEK nedenfor).
-6. Antal krypterede peers i core 3.3: dokumentationen siger 7, esp_now.h siger 6. Kald ESP_NOW.getEncryptedPeerCount(), eller tilføj krypterede peers, til add() fejler, og ret "typisk 6–7" (TJEK nedenfor).
-7. Kryptering: virker det som beskrevet, at en modtager ikke får krypterede beskeder fra en afsender, den ikke har tilføjet som peer med samme LMK?
-8. ESP-NOW samtidig med WiFi forbundet til en router (øvelse 6): virker det i station mode alene, eller kræves WIFI_AP_STA, som Random Nerd Tutorials skriver? (TJEK nedenfor)
-9. painlessMesh 1.5.7 med core 3.3: kompilerer og virker et af bibliotekets eksempler? (TJEK nedenfor)
-10. painlessMesh setRoot(): findes den i 1.5.7, og bruger examples/bridge den som beskrevet? (TJEK nedenfor)
+6. AFPRØVET 24. nov. 2026: 7 krypterede peers kan tilføjes; nr. 8 giver "E (229) ESPNOW: Peer is full". Tabellen siger nu 7.
+7. AFPRØVET 24. nov. 2026: en modtager uden samme LMK får ingen krypterede beskeder, men afsenderens onSent() giver alligevel success. Det er nævnt under Kryptering.
+8. AFPRØVET 24. nov. 2026: en modtager forbundet til en router i WIFI_STA (ikke WIFI_AP_STA) fik alle beskeder fra en afsender på routerens kanal (6). Samme kanal er nok.
+9. DELVIS AFPRØVET 24. nov. 2026: examples/basic og examples/bridge kompilerer med core 3.3 (kun advarsler inde i AsyncTCP og TaskScheduler). Ikke kørt på hardware.
+10. AFPRØVET 24. nov. 2026: setRoot() og setContainsRoot() findes i 1.5.7 (mesh.hpp), og examples/bridge kalder begge.
 11. BILLEDE: skærmbilleder af Serial Monitor for modtager og afsender (se BILLEDE-kommentarerne).
-12. Når alt er testet: fjern IKKE KOMPILERET, denne tjekliste og TJEK- og BILLEDE-kommentarerne.
+12. Når alt er testet: fjern IKKE TESTET PÅ HARDWARE, denne tjekliste og TJEK- og BILLEDE-kommentarerne.
 -->
 <p>I <a href="../Opgaver/Projektopgave_wifi_position.html">projektopgaven om positionsbestemmelse</a> skal flere målestationer dele deres målinger med hinanden. De kunne alle sammen gå på WiFi og sende til MQTT-serveren, men så skal der være en router i nærheden, og hver station skal bruge tid på at forbinde. ESP-NOW er Espressifs egen protokol, hvor to ESP32’ere sender korte beskeder direkte til hinanden, uden router og uden at forbinde først. ESP-MESH går et skridt videre: enhederne bygger selv et netværk, hvor beskeder kan hoppe fra enhed til enhed, og denne side giver dig grundlaget for begge.</p>
 <section id="formål" class="level2">
@@ -499,9 +499,8 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 <p>Ved unicast sender modtagerens radio automatisk en kvittering (<span lang="en">acknowledgement</span>, ACK) tilbage. Afsenderen får så at vide, om beskeden kom frem. Bemærk to ting:</p>
 <ul>
 <li>Kvitteringen betyder, at modtagerens <em>radio</em> fik beskeden. Den siger ikke, at programmet på modtageren nåede at behandle den. Har det betydning, skal programmet selv sende et svar.</li>
-<li>Ved broadcast er der ingen kvittering. Afsenderen kan ikke vide, om nogen hørte beskeden.</li>
+<li>Ved broadcast er der ingen kvittering. Afsenderen kan ikke vide, om nogen hørte beskeden. <code>onSent()</code> bliver stadig kaldt, men giver altid success, også når ingen lytter. Eksemplets afsender skriver derfor kun “sendt som broadcast (ingen kvittering)” ved broadcast.</li>
 </ul>
-<!-- TJEK: Hvad onSent() rapporterer ved broadcast (altid success, når pakken er sendt?), står ikke direkte i ESP-IDF-dokumentationen. Prøv det med øvelse 3. -->
 <p>Espressif foreslår at give beskederne et løbenummer, så modtageren kan smide dubletter væk. Løbenummeret kan også vise, om der mangler beskeder. Det gør eksemplerne nedenfor.</p>
 </section>
 <section id="kanal-og-wifi" class="level3">
@@ -513,7 +512,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 <p>Er afsender og modtager på hver sin kanal, kommer der ingenting igennem, og der kommer ingen fejlmeddelelse om det. Afsenderen ser bare, at unicast-beskederne ikke bliver kvitteret.</p>
 <p>Hvis ingen af enhederne er på WiFi, vælger du selv kanalen med <code>WiFi.setChannel()</code>. Det gør eksemplerne.</p>
 <p>Hvis en enhed <em>også</em> er forbundet til en router i station mode, er det routeren, der bestemmer kanalen. Så kan du ikke selv vælge, og alle de andre ESP-NOW-enheder skal sættes til routerens kanal. Du kan se kanalen med <code>WiFi.channel()</code>, når enheden er forbundet. Pas på: mange routere skifter selv kanal, hvis der er meget støj, og så holder opstillingen op med at virke.</p>
-<!-- TJEK: Random Nerd Tutorials skriver, at en ESP32, der både er på WiFi og modtager ESP-NOW, skal være i WIFI_AP_STA. Det står ikke i Espressifs dokumentation, som kun kræver samme kanal. Prøv med øvelse 6. -->
+<p>Station mode (<code>WIFI_STA</code>) er nok. Nogle vejledninger, fx fra Random Nerd Tutorials, bruger <code>WIFI_AP_STA</code>, men på skolens kort modtog en ESP32 forbundet til en router alle ESP-NOW-beskeder i <code>WIFI_STA</code>, når afsenderen brugte routerens kanal.</p>
 <p>Når du registrerer en peer, angiver du også en kanal. Kanal 0 betyder “den kanal, enheden er på lige nu”. Angiver du et andet tal, skal det passe med den kanal, enheden faktisk er på, ellers fejler afsendelsen.</p>
 </section>
 <section id="begrænsninger" class="level3">
@@ -536,7 +535,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 </tr>
 <tr class="even">
 <td>Antal peers</td>
-<td>Højst 20, heraf kun få krypterede (typisk 6–7)</td>
+<td>Højst 20, heraf højst 7 krypterede</td>
 </tr>
 <tr class="odd">
 <td>Kanal</td>
@@ -557,7 +556,6 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 </tbody>
 </table>
 <!-- TJEK: Rækkevidden er ikke opgivet i meter i Espressifs dokumentation. Mål den i lokalet med øvelse 5, og skriv evt. et tal ind. -->
-<!-- TJEK: Antal krypterede peers: ESP-IDF v5.5-dokumentationen siger "the default is 7", men esp_now.h i release/v5.5 har #define ESP_NOW_MAX_ENCRYPT_PEER_NUM 6. Kald ESP_NOW.getEncryptedPeerCount() på hardware, eller tilføj krypterede peers, indtil add() fejler, og skriv det rigtige tal ind. -->
 <p>Hold dig til højst 250 byte, så er du sikker på, at alle enheder kan modtage beskeden. <code>ESP_NOW.getMaxDataLen()</code> fortæller, hvor meget din enhed kan sende. Er beskeden længere, klipper biblioteket den over. <code>send()</code> returnerer så færre byte end det, du bad om, så sammenlign returværdien med længden af beskeden. Det gør afsender-eksemplet.</p>
 </section>
 <section id="kryptering" class="level3">
@@ -568,7 +566,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 <li><strong>PMK</strong> (<span lang="en">Primary Master Key</span>) er fælles for enheden og gives til <code>ESP_NOW.begin(pmk)</code>.</li>
 <li><strong>LMK</strong> (<span lang="en">Local Master Key</span>) hører til hver peer og gives, når peeren oprettes.</li>
 </ul>
-<p>Både afsender og modtager skal have samme PMK, og de skal have registreret hinanden som peers med samme LMK. Broadcast kan ikke krypteres. Nøglerne er hemmeligheder, ligesom WiFi-passwordet, så de skal ud af koden og ikke i git (se <a href="../Grundlag/wifi.html">WiFi</a>).</p>
+<p>Både afsender og modtager skal have samme PMK, og de skal have registreret hinanden som peers med samme LMK. Broadcast kan ikke krypteres. Har modtageren ikke den rigtige LMK, smider den beskeden væk, men radioen kvitterer alligevel, så afsenderens <code>onSent()</code> giver success. En kvittering beviser altså ikke, at nøglerne passer. Nøglerne er hemmeligheder, ligesom WiFi-passwordet, så de skal ud af koden og ikke i git (se <a href="../Grundlag/wifi.html">WiFi</a>).</p>
 </section>
 <section id="esp-now-core3" class="level3">
 <h3 class="anchored" data-anchor-id="esp-now-core3">ESP-NOW i Arduino-ESP32 3.x</h3>
@@ -716,6 +714,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 <span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Her kan programmet lave andet, fx måle</span></span>
 <span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p>Hele projektet, med <code>platformio.ini</code>, ligger på GitHub: <a href="https://github.com/s0ren/IOT_del2_demo_projecter/tree/main/esp_now_modtager">esp_now_modtager</a>.</p>
 <p>Upload, åbn Serial Monitor, og tryk på EN-knappen på ESP32, hvis du ikke nåede at se den første linje. Skriv MAC-adressen ned.</p>
 <div class="billede-mangler">
 <p>Serial Monitor for modtageren med linjen “Modtager. MAC-adresse: …, kanal: 1” og et par modtagne beskeder. Se lignende billeder: <a href="https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2024/06/ESP-NOW-ESP32-Receiver-Message-Print.png?quality=100&amp;strip=all&amp;ssl=1" class="uri">https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2024/06/ESP-NOW-ESP32-Receiver-Message-Print.png?quality=100&amp;strip=all&amp;ssl=1</a> (RNT: modtagne beskeder, men et andet format end vores)</p>
@@ -826,10 +825,16 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 <span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(</span>kvitteringKlar<span class="op">)</span> <span class="op">{</span></span>
 <span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a>    kvitteringKlar <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></span>
-<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a>    Serial<span class="op">.</span>println<span class="op">(</span>sidsteKvitteret <span class="op">?</span> <span class="st">"  kvitteret af modtageren"</span> <span class="op">:</span> <span class="st">"  IKKE kvitteret"</span><span class="op">);</span></span>
-<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
-<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>memcmp<span class="op">(</span>modtager<span class="op">.</span>addr<span class="op">(),</span> ESP_NOW<span class="op">.</span>BROADCAST_ADDR<span class="op">,</span> <span class="dv">6</span><span class="op">)</span> <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a>      <span class="co">// Ved broadcast giver onSent() altid success, så kvitteringen siger intet</span></span>
+<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a>      Serial<span class="op">.</span>println<span class="op">(</span><span class="st">"  sendt som broadcast (ingen kvittering)"</span><span class="op">);</span></span>
+<span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a>      Serial<span class="op">.</span>println<span class="op">(</span>sidsteKvitteret <span class="op">?</span> <span class="st">"  kvitteret af modtageren"</span> <span class="op">:</span> <span class="st">"  IKKE kvitteret"</span><span class="op">);</span></span>
+<span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-94"><a href="#cb4-94" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb4-95"><a href="#cb4-95" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p>Hele projektet, med <code>platformio.ini</code>, ligger på GitHub: <a href="https://github.com/s0ren/IOT_del2_demo_projecter/tree/main/esp_now_afsender">esp_now_afsender</a>.</p>
 <div class="billede-mangler">
 <p>Serial Monitor for afsenderen med “Sendt nr. …” og “kvitteret af modtageren”, og gerne et par “IKKE kvitteret”, mens modtageren var slukket. Se lignende billeder: <a href="https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2024/06/ESP-NOW-ESP32-Sender-Message-Print.png?quality=100&amp;strip=all&amp;ssl=1" class="uri">https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2024/06/ESP-NOW-ESP32-Sender-Message-Print.png?quality=100&amp;strip=all&amp;ssl=1</a> (RNT: “Delivery Success”; ingen fejlede afsendelser)</p>
 </div>
@@ -947,7 +952,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 <ol type="1">
 <li>Kør modtageren og afsenderen på hver sin ESP32. Skriv begge MAC-adresser ned. Kommer alle beskeder frem? Sluk modtageren (træk USB-kablet ud), og se, hvad afsenderen skriver. Tænd den igen.</li>
 <li>Sæt <code>KANAL</code> til 1 på modtageren og 6 på afsenderen. Hvad sker der? Hvordan ville du opdage fejlen, hvis du ikke vidste, hvad du havde ændret?</li>
-<li>Lav afsenderen om til at sende broadcast: brug <code>ESP_NOW.BROADCAST_ADDR</code> i stedet for <code>MODTAGER_MAC</code>. Skriver modtageren “(broadcast)”? Hvad skriver afsenderens <code>onSent()</code> nu, og hvad skriver den, når modtageren er slukket? Forklar forskellen fra unicast.</li>
+<li>Lav afsenderen om til at sende broadcast: brug <code>ESP_NOW.BROADCAST_ADDR</code> i stedet for <code>MODTAGER_MAC</code>. Skriver modtageren “(broadcast)”? Hvad skriver afsenderen nu, og hvad skriver den, når modtageren er slukket? Forklar forskellen fra unicast.</li>
 <li>Lad modtageren holde styr på løbenumrene og skrive en advarsel, når der mangler et nummer. Hvad sker der med numrene, når afsenderen genstarter, og hvordan kan modtageren se det?</li>
 <li>Mål rækkevidden: bær afsenderen (fx tilsluttet en bærbar) væk fra modtageren, gennem en dør og ud på gangen. Hvornår begynder der at mangle beskeder? Udvid modtagerens callback, så den også gemmer signalstyrken <code>info-&gt;rx_ctrl-&gt;rssi</code>, og skriv den ud. Hvad var RSSI, lige før beskederne forsvandt?</li>
 <li><em>Ekstra:</em> Lad modtageren også forbinde til et WiFi-netværk (brug koden fra <a href="../Grundlag/wifi.html">WiFi</a>-siden), og skriv kanalen ud med <code>WiFi.channel()</code>. Hvad skal du ændre på afsenderen, for at beskederne stadig kommer frem? Hvad sker der, hvis routeren skifter kanal?</li>

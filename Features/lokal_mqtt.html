@@ -434,10 +434,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<!-- IKKE KOMPILERET: eksemplerne er tjekket mod dokumentationen og lærerens vejledning, men ESP32-eksemplet er ikke kompileret eller testet på hardware. -->
+<!-- IKKE TESTET PÅ HARDWARE: eksemplerne er tjekket mod dokumentationen og lærerens vejledning. ESP32-eksemplet kompilerer med espressif32@8.0.0 (24. nov. 2026; projektet ligger i IOT_del2_demoer), men er ikke testet på hardware. -->
 <!--
-TJEKLISTE TIL LÆREREN (afprøves, før IKKE KOMPILERET og TJEK-kommentarerne fjernes):
-1. Upload ESP32-eksemplet med platform = espressif32@8.0.0 og en elevbruger. Kommer "OK" i Serial Monitor, og dukker beskederne op på http://wilsons.local:8080/elever/<brugernavn>/status.jsonl?
+TJEKLISTE TIL LÆREREN (afprøves, før IKKE TESTET PÅ HARDWARE og TJEK-kommentarerne fjernes):
+1. Upload ESP32-eksemplet med platform = espressif32@8.0.0 og en elevbruger. Kommer "OK" i Serial Monitor, og dukker beskederne op på http://wilsons.local/elever/<brugernavn>/status.jsonl?
 2. TJEK: kan ESP32 (core 3.3) slå wilsons.local op via mqtt.setServer("wilsons.local", ...)? En pc på skolens net kan (afprøvet 24. nov. 2026), men ESP32 er ikke afprøvet. Din egen knap-demo bruger MDNS.queryHost() i stedet. wilsons.home og det korte navn wilsons virker ikke på skolens net, så siden nævner dem ikke mere. Ret afsnittet "Typiske fejl" (rc=-2 uden TLS-fejl) efter resultatet.
 3. TJEK: virker ESP32 over TLS med MQTT_HOST = "192.168.0.33"? Klienten tjekker så certifikatet mod IP-adressen, og det kræver, at mbedTLS i core 3.3 kan matche en IP i Subject Alternative Name. (Fra en pc virker TLS på .33.)
 4. Send en besked med mosquitto_pub til elever/<brugernavn>/kommando. Skriver ESP32 den ud?
@@ -446,12 +446,12 @@ TJEKLISTE TIL LÆREREN (afprøves, før IKKE KOMPILERET og TJEK-kommentarerne fj
 7. TJEK: Windows-installeren fra mosquitto.org: kommer mosquitto_pub/mosquitto_sub med, og skal mappen selv lægges i PATH?
 8. TJEK: afsnittet "Din egen broker under udvikling" er skjult, fordi linket til mqtt_moquitto_docker_compose gav 404 (23. nov. 2026). Tjek repoet for nøgler og koder, gør det offentligt, og tag afsnittet ud af kommentaren.
 9. Pi'en har fast IP 192.168.0.33 i routeren (bekræftet 24. nov. 2026). Siden nævner den som reserve, når wilsons.local ikke virker.
-10. TJEK: CORS. Tilføj "add_header Access-Control-Allow-Origin *;" i "location ~ \.jsonl$" i nginx på wilsons, og afprøv med curl -I på en .jsonl-fil. Står headeren i svaret, kan siden igen nævne, at filerne kan hentes fra JavaScript.
+10. CORS er løst (24. nov. 2026, Docker-udgaven): curl -I på en .jsonl-fil giver "Access-Control-Allow-Origin: *". Siden kan igen nævne, at filerne kan hentes fra JavaScript.
 11. Kør mqtt_tls.py med forkert kode: skriver den "Forbindelse afvist" og "Ikke forbundet, ikke sendt" uden traceback?
-12. BILLEDE: nye skærmbilleder af weblog'en på wilsons.local:8080 (de tre nuværende viser den gamle adresse).
+12. BILLEDE: nye skærmbilleder af weblog'en på wilsons.local (de tre nuværende viser den gamle adresse).
 13. BILLEDE: terminal med mosquitto_sub -v, der viser beskeder fra test/#.
 14. BILLEDE: Serial Monitor fra ESP32-eksemplet med "Forbinder til wilsons.local:8883 ... OK" og et par "Sendt"-linjer.
-15. Når alt er testet: fjern IKKE KOMPILERET, denne tjekliste og TJEK-/BILLEDE-kommentarerne.
+15. Når alt er testet: fjern IKKE TESTET PÅ HARDWARE, denne tjekliste og TJEK-/BILLEDE-kommentarerne.
 -->
 <p>I klasselokalet står en Raspberry Pi, der hedder <strong>wilsons</strong>. Den kører en MQTT-server, som alle jeres ESP32’ere, Python-programmer og bærbare kan sende data til og hente data fra. Når din ESP32 måler en temperatur, sender den målingen til wilsons, og et program på din bærbare kan modtage den med det samme. Alt, hvad der bliver sendt, bliver også gemt i en log, som du kan se i browseren. Denne side viser, hvordan du bruger serveren som klient, og hvordan du gør det sikkert.</p>
 <section id="formål" class="level2">
@@ -532,8 +532,8 @@ TJEKLISTE TIL LÆREREN (afprøves, før IKKE KOMPILERET og TJEK-kommentarerne fj
 <td>MQTT over TLS. Kræver brugernavn og adgangskode</td>
 </tr>
 <tr class="odd">
-<td>Port 8080</td>
-<td>Weblog’en: <a href="http://wilsons.local:8080/" class="uri">http://wilsons.local:8080/</a></td>
+<td>Port 80</td>
+<td>Weblog’en: <a href="http://wilsons.local/" class="uri">http://wilsons.local/</a></td>
 </tr>
 <tr class="even">
 <td>CA-certifikat</td>
@@ -600,7 +600,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før IKKE KOMPILERET og TJEK-kommentarerne fj
 <li><strong>Pr. topic:</strong> <code>&lt;topic&gt;.jsonl</code>. Beskeder på <code>test/esp32/button</code> havner i <code>test/esp32/button.jsonl</code>.</li>
 <li><strong>Alle beskeder samlet:</strong> <code>#.jsonl</code>.</li>
 </ul>
-<p>Filerne kan ses i browseren på <a href="http://wilsons.local:8080/" class="uri">http://wilsons.local:8080/</a>, hvor du kan klikke dig ned gennem mapperne. Den samlede fil hedder <code>#.jsonl</code>, men <code>#</code> betyder noget særligt i en URL, så i adresselinjen skal du skrive <code>%23</code> i stedet: <a href="http://wilsons.local:8080/%23.jsonl" class="uri">http://wilsons.local:8080/%23.jsonl</a>.</p>
+<p>Filerne kan ses i browseren på <a href="http://wilsons.local/" class="uri">http://wilsons.local/</a>, hvor du kan klikke dig ned gennem mapperne. Den samlede fil hedder <code>#.jsonl</code>, men <code>#</code> betyder noget særligt i en URL, så i adresselinjen skal du skrive <code>%23</code> i stedet: <a href="http://wilsons.local/%23.jsonl" class="uri">http://wilsons.local/%23.jsonl</a>.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><a href="images/weblog_mappeoversigt.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Mappeoversigten for test/esp32/ i weblog’en. Skærmbillederne er taget på den gamle server; adressen er nu wilsons.local."><img src="images/weblog_mappeoversigt.png" class="img-fluid figure-img" alt="Browser på wilsons.local:8080/test/esp32/ med en mappeoversigt (Index of /test/esp32/), der viser filen button.jsonl med dato og størrelse. Skærmbilledet viser den gamle adresse wilson.local." width="500"></a></p>
@@ -620,7 +620,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før IKKE KOMPILERET og TJEK-kommentarerne fj
 </figure>
 </div>
 <div class="billede-mangler">
-<p>Nye skærmbilleder af de tre visninger på wilsons.local:8080, så adressen passer med teksten.</p>
+<p>Nye skærmbilleder af de tre visninger på wilsons.local, så adressen passer med teksten.</p>
 </div>
 <section id="json-lines" class="level3">
 <h3 class="anchored" data-anchor-id="json-lines">JSON Lines</h3>
@@ -642,7 +642,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før IKKE KOMPILERET og TJEK-kommentarerne fj
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" data-filename="hent_log.py"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> urllib.request</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>URL <span class="op">=</span> <span class="st">"http://wilsons.local:8080/test/esp32/button.jsonl"</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>URL <span class="op">=</span> <span class="st">"http://wilsons.local/test/esp32/button.jsonl"</span></span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> urllib.request.urlopen(URL) <span class="im">as</span> svar:</span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    linjer <span class="op">=</span> svar.read().decode(<span class="st">"utf-8"</span>).splitlines()</span>
@@ -656,7 +656,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før IKKE KOMPILERET og TJEK-kommentarerne fj
 <span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(besked[<span class="st">"timestamp"</span>], data)</span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Der er ingen automatisk oprydning i loggen, så filerne vokser hele tiden.</p>
-<!-- TJEK: CORS. I nginx-opsætningen (pi_setup/nginx/mqtt-logs) står "add_header Access-Control-Allow-Origin *" kun i "location /". .jsonl-filerne rammer "location ~ \.jsonl$", som ikke arver add_header, så fetch() fra JavaScript på en anden side bliver blokeret. Tilføj headeren i .jsonl-blokken, afprøv med curl -I http://wilsons.local:8080/test/esp32/button.jsonl, og skriv derefter evt. på siden, at filerne også kan hentes fra JavaScript. -->
+<!-- TJEK: CORS er løst i Docker-udgaven (24. nov. 2026): curl -I http://wilsons.local/test/cors.jsonl gav "Access-Control-Allow-Origin: *" og "Content-Type: text/plain; charset=utf-8". Skriv evt. på siden, at filerne også kan hentes med fetch() fra JavaScript. Weblog'en findes også på https://wilsons.local/, men browserne stoler først på den, når skolens ca.crt er importeret (ikke løst endnu). -->
 </section>
 </section>
 <section id="eksempel-kommandolinjen" class="level2">
@@ -944,6 +944,7 @@ src/main.cpp</code></pre>
 <span id="cb14-107"><a href="#cb14-107" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Her kan programmet læse sensorer og knapper</span></span>
 <span id="cb14-108"><a href="#cb14-108" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p>Hele projektet, med <code>platformio.ini</code>, ligger på GitHub: <a href="https://github.com/s0ren/IOT_del2_demo_projecter/tree/main/lokal_mqtt_tls">lokal_mqtt_tls</a>.</p>
 <!-- TJEK: Kan arduino-esp32 core 3.3 slå wilsons.local op, når navnet gives til mqtt.setServer()? Network.hostByName() bruger lwip_getaddrinfo og har ingen særlig håndtering af .local; det virker kun, hvis CONFIG_LWIP_DNS_SUPPORT_MDNS_QUERIES er slået til i frameworkets prækompilerede ESP-IDF. Faktatjekket fandt, at Kconfig-standarden i ESP-IDF 5.5 er "default y", og at esp32-arduino-lib-builder's configs/defconfig.common ikke ændrer den, så det virker sandsynligvis. Multicast kan dog være blokeret i skolens WiFi. Lærerens egen knap-demo slår navnet op med MDNS.queryHost() og forbinder til IP-adressen med NetworkClientSecure::connect(ip, port, host, CA, nullptr, nullptr). Afprøv. wilsons.home virker ikke på skolens net (24. nov. 2026), så hvis .local ikke virker, er MDNS.queryHost() løsningen. -->
 <p>Kopiér <code>secrets_eksempel.h</code> til <code>secrets.h</code>, og udfyld den. Upload og åbn Serial Monitor. Efter WiFi skulle der stå <code>Forbinder til wilsons.local:8883 ... OK</code> og derefter en <code>Sendt</code>-linje hvert 10. sekund. Find dine beskeder i weblog’en under <code>elever/&lt;brugernavn&gt;/status.jsonl</code>.</p>
 <div class="billede-mangler">
@@ -964,7 +965,7 @@ src/main.cpp</code></pre>
 <section id="øvelser" class="level2">
 <h2 class="anchored" data-anchor-id="øvelser">Øvelser</h2>
 <ol type="1">
-<li>Åbn weblog’en på <a href="http://wilsons.local:8080/" class="uri">http://wilsons.local:8080/</a>. Find <code>#.jsonl</code>, og find ud af, hvilke topics der er blevet sendt til i dag.</li>
+<li>Åbn weblog’en på <a href="http://wilsons.local/" class="uri">http://wilsons.local/</a>. Find <code>#.jsonl</code>, og find ud af, hvilke topics der er blevet sendt til i dag.</li>
 <li>Start <code>mosquitto_sub</code> på <code>test/#</code> uden TLS. Send en besked til <code>test/&lt;dit navn&gt;/hej</code> med <code>mosquitto_pub</code> fra en anden terminal. Kommer den frem i din abonnent? Find den bagefter i weblog’en.</li>
 <li>Gør det samme med TLS på port 8883 og dit eget brugernavn. Send derefter til <code>elever/&lt;en anden elevs navn&gt;/hej</code> og til <code>andet/hej</code>. Hvad sker der i abonnenten? Får <code>mosquitto_pub</code> en fejl? Forklar, hvad du ser.</li>
 <li>Fjern <code>--cafile ca.crt</code> fra kommandoen med <code>-p 8883</code>. Hvilken fejl får du? Skriv fejlmeddelelsen ned, og forklar med afsnittet om <a href="#ca-crt">ca.crt</a>, hvorfor forbindelsen bliver afvist.</li>

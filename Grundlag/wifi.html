@@ -404,7 +404,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Ændret</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">23. november 2026</p>
+      <p class="date-modified">24. november 2026</p>
     </div>
   </div>
     
@@ -415,15 +415,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<!-- IKKE KOMPILERET: eksemplerne er tjekket mod dokumentationen, men ikke kompileret eller testet på hardware. -->
+<!-- IKKE TESTET PÅ HARDWARE: eksemplerne kompilerer med espressif32@8.0.0 (24. nov. 2026; projekterne ligger i demo-repoerne, se linkene under eksemplerne), men er ikke testet på hardware. -->
 <!--
 TJEKLISTE TIL LÆREREN (afprøves på hardware, før draft: true fjernes):
-1. Kompilér og upload eksemplet med platform = espressif32@8.0.0. Virker include/secrets.h + secrets_eksempel.h som beskrevet?
-2. Forkert password: hvilken statuskode giver det, 4 eller 6? Ret tabellen og øvelse 2 efter resultatet.
-3. Router slukket og tændt igen (øvelse 4): kommer forbindelsen tilbage af sig selv? Forstyrrer WiFi.reconnect() efter 30 s den automatiske genforbindelse?
+1. AFPRØVET 24. nov. 2026: eksemplet virker med espressif32@8.0.0, og include/secrets.h + secrets_eksempel.h virker som beskrevet (secrets.h ignoreres af git).
+2. AFPRØVET 24. nov. 2026 (ESP32-D0WD-V3, core 3.3.12): forkert password gav 4, forkert SSID gav 6 (ikke 1). Tabellen og Typiske fejl er rettet.
+3. Router slukket og tændt igen (øvelse 4): kommer forbindelsen tilbage af sig selv? Forstyrrer WiFi.reconnect() efter 30 s den automatiske genforbindelse? (Ved forkert SSID gav reconnect() fejlmeddelelsen "wifi:sta is connecting, return error", men programmet kørte videre.)
 4. RSSI-grænserne (-60, -70, -80 dBm) er en tommelfingerregel. Passer de i lokalet?
 5. iPhone-hotspot: hedder indstillingen "Maksimer kompatibilitet" under Internetdeling på elevernes telefoner?
-6. Når alt er testet: fjern IKKE KOMPILERET, denne tjekliste og TJEK-kommentarerne nedenfor.
+6. Når alt er testet: fjern IKKE TESTET PÅ HARDWARE, denne tjekliste og TJEK-kommentarerne nedenfor.
 -->
 <p>En IoT-enhed skal på nettet, før den kan sende målinger til en server eller hente klokken. På ESP32 sker det næsten altid over WiFi. Det er få linjer kode at forbinde, men der er tre ting, der går galt igen og igen: programmet hænger for evigt, hvis netværket ikke findes, forbindelsen forsvinder midt i det hele, og WiFi-passwordet ender på GitHub. Denne side viser, hvordan du undgår alle tre.</p>
 <section id="formål" class="level2">
@@ -501,7 +501,7 @@ TJEKLISTE TIL LÆREREN (afprøves på hardware, før draft: true fjernes):
 <tr class="even">
 <td><code>WL_NO_SSID_AVAIL</code></td>
 <td>1</td>
-<td>Netværket blev ikke fundet: forkert SSID, for langt væk eller 5 GHz</td>
+<td>Netværket blev ikke fundet. Ses sjældent: på skolens kort gav et forkert SSID status 6</td>
 </tr>
 <tr class="odd">
 <td><code>WL_CONNECTED</code></td>
@@ -511,7 +511,7 @@ TJEKLISTE TIL LÆREREN (afprøves på hardware, før draft: true fjernes):
 <tr class="even">
 <td><code>WL_CONNECT_FAILED</code></td>
 <td>4</td>
-<td>Forbindelsen mislykkedes</td>
+<td>Forbindelsen mislykkedes, typisk forkert password</td>
 </tr>
 <tr class="odd">
 <td><code>WL_CONNECTION_LOST</code></td>
@@ -521,12 +521,11 @@ TJEKLISTE TIL LÆREREN (afprøves på hardware, før draft: true fjernes):
 <tr class="even">
 <td><code>WL_DISCONNECTED</code></td>
 <td>6</td>
-<td>Ikke forbundet. Det er også status, mens ESP32 er i gang med at forbinde</td>
+<td>Ikke forbundet. Det er også status, mens ESP32 er i gang med at forbinde, og når netværket ikke findes (forkert SSID)</td>
 </tr>
 </tbody>
 </table>
-<p>Skriv tallet ud, når forbindelsen fejler. Det er det første spor, når du skal finde fejlen.</p>
-<!-- TJEK: Et forkert password giver efter kildekoden status 4 eller 6 (nyere ESP-IDF melder det ofte som handshake-timeout, som giver 6). Prøv det på hardware (øvelse 2). -->
+<p>Skriv tallet ud, når forbindelsen fejler. Det er det første spor, når du skal finde fejlen. På skolens kort gav et forkert password status 4 og et forkert SSID status 6. Status 6 efter tidsgrænsen betyder altså, at ESP32 stadig ikke har fundet netværket.</p>
 </section>
 <section id="signalstyrke-rssi" class="level3">
 <h3 class="anchored" data-anchor-id="signalstyrke-rssi">Signalstyrke (RSSI)</h3>
@@ -679,6 +678,7 @@ TJEKLISTE TIL LÆREREN (afprøves på hardware, før draft: true fjernes):
 <span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Her kan programmet læse sensorer og knapper, også mens WiFi er nede</span></span>
 <span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p>Hele projektet, med <code>platformio.ini</code>, ligger på GitHub: <a href="https://github.com/s0ren/IOT1-demo/tree/main/wifi_forbind">wifi_forbind</a>.</p>
 <p>Kopiér <code>secrets_eksempel.h</code> til <code>secrets.h</code> i samme mappe, og ret SSID og password. Upload og åbn Serial Monitor. Du skulle se prikker, mens ESP32 forbinder, og derefter IP-adressen.</p>
 </section>
 <section id="øvelser" class="level2">
@@ -696,7 +696,9 @@ TJEKLISTE TIL LÆREREN (afprøves på hardware, før draft: true fjernes):
 <h2 class="anchored" data-anchor-id="typiske-fejl">Typiske fejl</h2>
 <ul>
 <li><strong>Programmet hænger efter “Forbinder til”:</strong> Der er en <code>while</code>-løkke uden tidsgrænse. Brug en tidsgrænse som i eksemplet.</li>
-<li><strong>Status 1 (<code>WL_NO_SSID_AVAIL</code>):</strong> SSID’et er stavet forkert (der skelnes mellem store og små bogstaver), netværket er for langt væk, eller det sender kun på 5 GHz.</li>
+<li><strong>Status 6 (<code>WL_DISCONNECTED</code>) efter tidsgrænsen:</strong> ESP32 fandt ikke netværket. SSID’et er stavet forkert (der skelnes mellem store og små bogstaver), netværket er for langt væk, eller det sender kun på 5 GHz. Nogle gange giver det status 1 (<code>WL_NO_SSID_AVAIL</code>) i stedet.</li>
+<li><strong>Status 4 (<code>WL_CONNECT_FAILED</code>):</strong> Passwordet er forkert.</li>
+<li><strong><code>E (...) wifi:sta is connecting, return error</code> i Serial Monitor:</strong> <code>WiFi.reconnect()</code> blev kaldt, mens ESP32 stadig var i gang med at forbinde. Det er ufarligt: forsøget, der allerede er i gang, fortsætter.</li>
 <li><strong>Forbinder aldrig til skolens netværk:</strong> Netværket bruger brugernavn og password (WPA2-Enterprise) eller en login-side i browseren. Brug et andet netværk, fx et hotspot.</li>
 <li><strong><code>secrets.h: No such file or directory</code>:</strong> Filen ligger ikke i <code>include/</code>, eller den hedder stadig <code>secrets_eksempel.h</code>.</li>
 <li><strong>Passwordet ligger alligevel på GitHub:</strong> <code>secrets.h</code> blev committet, før den kom i <code>.gitignore</code>. <code>.gitignore</code> virker kun på filer, git ikke kender i forvejen. Fjern den med <code>git rm --cached include/secrets.h</code>, og skift passwordet, for det ligger stadig i historikken.</li>

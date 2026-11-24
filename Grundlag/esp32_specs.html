@@ -429,21 +429,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<!-- IKKE KOMPILERET: eksemplerne er tjekket mod dokumentationen, men ikke kompileret eller testet på hardware. -->
+<!-- IKKE TESTET PÅ HARDWARE: eksemplerne kompilerer med espressif32@8.0.0 (24. nov. 2026; projekterne ligger i demo-repoerne, se linkene under eksemplerne), men er ikke testet på hardware. -->
 <!--
 TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
-1. Kompilér og upload eksemplet med platform = espressif32@8.0.0. Skriver det model (ESP32-D0WDQ6, ESP32-D0WDQ6-V3, ESP32-D0WD eller ESP32-D0WD-V3), 2 kerner, 240 MHz, flash 4194304 bytes og PSRAM 0? Passer partitionslisten med default.csv, og er app0 markeret "kører nu"?
-2. Notér "Heap i alt" og "Heap ledig" på skolens kort. Passer "et par hundrede KB" i afsnittet om SRAM (TJEK dér)? Hvor meget falder den ledige heap i øvelse 2, når WiFi.mode(WIFI_STA) kaldes?
-3. Øvelse 3: med board_build.partitions = no_ota.csv forventes "Plads til ny version" = 2097152 bytes (og 3145728 med huge_app.csv). Når der kun er én OTA-partition (app0 = ota_0), returnerer esp_ota_get_next_update_partition() den partition, programmet kører fra, så tallet er størrelsen på app0, ikke 0. Bekræft, og ret teksten, hvis ikke.
+1. AFPRØVET 24. nov. 2026: ESP32-D0WD-V3 (revision 300), 2 kerner, 240 MHz, flash 4194304 bytes, PSRAM 0, partitionerne fra default.csv med app0 "kører nu".
+2. AFPRØVET 24. nov. 2026: Heap i alt 377808 bytes, ledig 331020 bytes uden WiFi, så "et par hundrede KB" passer. Øvelse 2: med WiFi-biblioteket linket med er der 286668 bytes ledig ved opstart, og efter WiFi.mode(WIFI_STA) 235484 bytes, i alt ca. 96 KB mindre.
+3. AFPRØVET 24. nov. 2026: "Plads til ny version" er 2097152 bytes med no_ota.csv og 3145728 med huge_app.csv (størrelsen på app0), som forventet.
 4. Skolens kort (TJEK under "Kortets dele" og "30 eller 36 ben"): 30 eller 36 ben? Hvilken farve har strøm-lysdioden og lysdioden på GPIO 2? Måler VIN ca. 5 V, når kortet får strøm fra USB? (USB-chippen tjekkes allerede på PlatformIO-siden.)
 5. EN-knappen (TJEK under "Læs videre"): Random Nerd Tutorials skriver, at EN slår 3,3 V-regulatoren fra. Espressif kalder benet CHIP_PU (chippens enable). Mål evt. 3V3-benet, mens EN holdes nede, og ret teksten.
-6. ADC-området: giver analogReadMilliVolts() ca. 3100 mV som største værdi med standardindstillingen (11 dB, bekræftet i esp32-hal-adc.c)?
+6. AFPRØVET 24. nov. 2026: største værdi var 3145 mV (rå 4095), mindste 142 mV (rå 0), se potentiometer-siden.
 7. Strømforsyning (TJEK under "Kortets dele"): Espressifs advarsel mod at bruge USB og ekstern forsyning samtidig gælder deres DevKitC. Tjek evt. diagrammet for DOIT-kortet (er der en diode mellem USB-5 V og VIN?), og ret teksten, hvis der er noget at tilføje.
 Billeder, der mangler (se de orange bokse):
 8. Nærbillede af skolens kort med USB-chip, regulator og de to lysdioder. Det erstatter også billedet fra Random Nerd Tutorials under "Kortets dele" (../images/esp32_devkit_v1_komponenter.png bruges også på forsiden).
 9. Kortets bagside eller kant, så teksten ved benene kan læses.
 10. Serial Monitor med udskriften fra eksemplet.
-11. Når alt er testet og billederne er sat ind: fjern IKKE KOMPILERET, denne tjekliste, TJEK-kommentarerne og de orange bokse (BILLEDE-punkterne).
+11. Når alt er testet og billederne er sat ind: fjern IKKE TESTET PÅ HARDWARE, denne tjekliste, TJEK-kommentarerne og de orange bokse (BILLEDE-punkterne).
 -->
 <p>Når du skal koble en sensor til ESP32, skal du vælge et ben. Vælger du forkert, kan kortet nægte at starte, en analog måling giver 0, så snart WiFi er tændt, eller du kan ødelægge benet med 5 V. Det er ikke fejl i dit program, men egenskaber ved chippen og kortet. Denne side samler, hvad ESP32-DEVKIT-V1 kan og ikke kan: chippen, kortets dele, benene og hukommelsen. Brug den som opslag, når du planlægger en kobling.</p>
 <section id="formål" class="level2">
@@ -799,7 +799,6 @@ Billeder, der mangler (se de orange bokse):
 </tbody>
 </table>
 <p>Af de 520 KB SRAM er det langtfra det hele, dit program kan bruge. Systemet, FreeRTOS og WiFi-stakken tager en god del, og noget af SRAM’en bruges til programkode, der skal køre hurtigt. Den ledige heap er typisk et par hundrede KB. Eksemplet nedenfor viser, hvor meget der er på dit kort.</p>
-<!-- TJEK: "et par hundrede KB" ledig heap er et skøn. PlatformIO's board-fil angiver 320 KB som største RAM til data. Aflæs Heap i alt og Heap ledig på skolens kort (tjekliste punkt 2). -->
 <section id="partitionstabellen" class="level3">
 <h3 class="anchored" data-anchor-id="partitionstabellen">Partitionstabellen</h3>
 <p>Flash er delt op i <em>partitioner</em>, ligesom en harddisk. Forrest ligger <span lang="en">bootloaderen</span> (fra adresse <code>0x1000</code>), det lille program, der starter dit program. På <code>0x8000</code> ligger <em>partitionstabellen</em>, som siger, hvor resten ligger. Med Arduino-frameworket bruger PlatformIO tabellen <code>default.csv</code>:</p>
@@ -971,6 +970,7 @@ Billeder, der mangler (se de orange bokse):
 <span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
 <span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p>Hele projektet, med <code>platformio.ini</code>, ligger på GitHub: <a href="https://github.com/s0ren/IOT1-demo/tree/main/esp32_specs_chipinfo">esp32_specs_chipinfo</a>.</p>
 <p>Sådan virker det:</p>
 <ul>
 <li><code>ESP.getChipModel()</code> læser chippens type fra dens indbyggede <span lang="en">eFuses</span> (en lille hukommelse, der skrives én gang på fabrikken). <code>getChipRevision()</code> giver revisionen som et tal, hvor fx <code>301</code> betyder major-version 3 og minor-version 1 (Espressif skriver v3.1).</li>
