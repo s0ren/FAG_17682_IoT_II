@@ -1,8 +1,8 @@
 ---
-title: "Intro til MQTT"
+title: "Intro til MQTT (slides)"
 subtitle: "Publish/subscribe fra klientens side"
 date: 2026-11-24
-draft: true
+draft: false
 toc: false
 format:
   revealjs:
