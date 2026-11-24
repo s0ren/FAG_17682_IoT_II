@@ -2,7 +2,7 @@
 name: skribent
 description: Writes one teaching page (undervisningsside) for the IoT site on a given topic, following the undervisningsside skill. Use when a page in Grundlag/ or Features/ should be written or rewritten, especially when several pages are written in parallel. Give it the topic, the target file path and any points the teacher wants covered.
 tools: Read, Write, Edit, Grep, Glob, WebFetch, WebSearch
-model: sonnet
+model: opus
 ---
 
 You write one teaching page for the Quarto site in `/workspaces/FAG_17682_IoT_II`, for the subject 17682 IoT og Embeddede systemer.
