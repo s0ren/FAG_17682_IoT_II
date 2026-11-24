@@ -41,15 +41,15 @@
     <lastmod>2026-11-23T20:53:30.000Z</lastmod>
   </url>
   <url>
-    <loc>https://s0ren.github.io/FAG_17682_IoT_II/Features/mqtt_intro.html</loc>
-    <lastmod>2026-11-24T05:09:08.000Z</lastmod>
+    <loc>https://s0ren.github.io/FAG_17682_IoT_II/Features/mqtt_intro_slides.html</loc>
+    <lastmod>2026-11-24T06:35:10.000Z</lastmod>
   </url>
   <url>
-    <loc>https://s0ren.github.io/FAG_17682_IoT_II/Features/index.html</loc>
+    <loc>https://s0ren.github.io/FAG_17682_IoT_II/Features/lokal_mqtt.html</loc>
     <lastmod>2026-11-24T04:26:46.000Z</lastmod>
   </url>
   <url>
-    <loc>https://s0ren.github.io/FAG_17682_IoT_II/Features/esp_now_mesh.html</loc>
+    <loc>https://s0ren.github.io/FAG_17682_IoT_II/Features/filsystem.html</loc>
     <lastmod>2026-11-23T20:53:30.000Z</lastmod>
   </url>
   <url>
@@ -57,12 +57,16 @@
     <lastmod>2026-11-23T20:53:30.000Z</lastmod>
   </url>
   <url>
-    <loc>https://s0ren.github.io/FAG_17682_IoT_II/Features/filsystem.html</loc>
+    <loc>https://s0ren.github.io/FAG_17682_IoT_II/Features/esp_now_mesh.html</loc>
     <lastmod>2026-11-23T20:53:30.000Z</lastmod>
   </url>
   <url>
-    <loc>https://s0ren.github.io/FAG_17682_IoT_II/Features/lokal_mqtt.html</loc>
+    <loc>https://s0ren.github.io/FAG_17682_IoT_II/Features/index.html</loc>
     <lastmod>2026-11-24T04:26:46.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://s0ren.github.io/FAG_17682_IoT_II/Features/mqtt_intro.html</loc>
+    <lastmod>2026-11-24T06:35:10.000Z</lastmod>
   </url>
   <url>
     <loc>https://s0ren.github.io/FAG_17682_IoT_II/Grundlag/debouncing.html</loc>

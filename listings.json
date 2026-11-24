@@ -11,6 +11,7 @@
       "/Grundlag/hello_world.html",
       "/Grundlag/cpp_intro.html",
       "/Features/mqtt_intro.html",
+      "/Features/mqtt_intro_slides.html",
       "/Grundlag/knapper.html",
       "/Features/lokal_mqtt.html",
       "/Grundlag/lysdioder.html",
@@ -50,6 +51,7 @@
       "/Features/esp_now_mesh.html",
       "/Features/filsystem.html",
       "/Features/mqtt_intro.html",
+      "/Features/mqtt_intro_slides.html",
       "/Features/lokal_mqtt.html"
     ]
   }

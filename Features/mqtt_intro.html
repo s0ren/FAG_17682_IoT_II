@@ -226,6 +226,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Intro til MQTT</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Features/mqtt_intro_slides.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Intro til MQTT (slides)</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -458,6 +464,16 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 16. Når alt er testet: fjern IKKE KOMPILERET, denne tjekliste og TJEK-kommentarerne, og gør billedboksene til billeder eller til BILLEDE-kommentarer.
 -->
 <p>En temperaturføler i klasselokalet skal sende en måling hvert 5. sekund, og både en Python-app, en skærm på væggen og en database vil gerne have den. Hvis føleren selv skulle kende alle modtagerne og sende til hver af dem, ville koden skulle rettes, hver gang der kom en ny modtager. Med MQTT sender føleren i stedet sin måling ét sted hen, til en <em>broker</em>, under et emne som <code>elever/anna/temperatur</code>. Alle, der har sagt, at de er interesserede i det emne, får målingen. Det er den måde, IoT-enheder oftest sender data på, og det er det, I skal bruge i projektopgaverne.</p>
+<div class="callout callout-style-simple callout-tip">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Slides til gennemgang i klassen: <a href="../Features/mqtt_intro_slides.html">Intro til MQTT (slides)</a></p>
+</div>
+</div>
+</div>
 <section id="formål" class="level2">
 <h2 class="anchored" data-anchor-id="formål">Formål</h2>
 <ul>
