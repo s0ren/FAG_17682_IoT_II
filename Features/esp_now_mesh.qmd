@@ -78,7 +78,7 @@ For at *modtage* behøver du ikke registrere afsenderen som peer, så længe bes
 Ved unicast sender modtagerens radio automatisk en kvittering ([acknowledgement]{lang="en"}, ACK) tilbage. Afsenderen får så at vide, om beskeden kom frem. Bemærk to ting:
 
 - Kvitteringen betyder, at modtagerens *radio* fik beskeden. Den siger ikke, at programmet på modtageren nåede at behandle den. Har det betydning, skal programmet selv sende et svar.
-- Ved broadcast er der ingen kvittering. Afsenderen kan ikke vide, om nogen hørte beskeden. `onSent()` bliver stadig kaldt, men giver altid success, også når ingen lytter. Eksemplets afsender skriver derfor "kvitteret af modtageren" ved broadcast, selvom det ikke er sandt.
+- Ved broadcast er der ingen kvittering. Afsenderen kan ikke vide, om nogen hørte beskeden. `onSent()` bliver stadig kaldt, men giver altid success, også når ingen lytter. Eksemplets afsender skriver derfor kun "sendt som broadcast (ingen kvittering)" ved broadcast.
 
 Espressif foreslår at give beskederne et løbenummer, så modtageren kan smide dubletter væk. Løbenummeret kan også vise, om der mangler beskeder. Det gør eksemplerne nedenfor.
 
@@ -358,7 +358,12 @@ void loop() {
 
   if (kvitteringKlar) {
     kvitteringKlar = false;
-    Serial.println(sidsteKvitteret ? "  kvitteret af modtageren" : "  IKKE kvitteret");
+    if (memcmp(modtager.addr(), ESP_NOW.BROADCAST_ADDR, 6) == 0) {
+      // Ved broadcast giver onSent() altid success, så kvitteringen siger intet
+      Serial.println("  sendt som broadcast (ingen kvittering)");
+    } else {
+      Serial.println(sidsteKvitteret ? "  kvitteret af modtageren" : "  IKKE kvitteret");
+    }
   }
 }
 ```
@@ -435,7 +440,7 @@ Tabellen er et udgangspunkt. Hvad der passer til jeres opstilling, afhænger af,
 
 1. Kør modtageren og afsenderen på hver sin ESP32. Skriv begge MAC-adresser ned. Kommer alle beskeder frem? Sluk modtageren (træk USB-kablet ud), og se, hvad afsenderen skriver. Tænd den igen.
 2. Sæt `KANAL` til 1 på modtageren og 6 på afsenderen. Hvad sker der? Hvordan ville du opdage fejlen, hvis du ikke vidste, hvad du havde ændret?
-3. Lav afsenderen om til at sende broadcast: brug `ESP_NOW.BROADCAST_ADDR` i stedet for `MODTAGER_MAC`. Skriver modtageren "(broadcast)"? Hvad skriver afsenderens `onSent()` nu, og hvad skriver den, når modtageren er slukket? Forklar forskellen fra unicast.
+3. Lav afsenderen om til at sende broadcast: brug `ESP_NOW.BROADCAST_ADDR` i stedet for `MODTAGER_MAC`. Skriver modtageren "(broadcast)"? Hvad skriver afsenderen nu, og hvad skriver den, når modtageren er slukket? Forklar forskellen fra unicast.
 4. Lad modtageren holde styr på løbenumrene og skrive en advarsel, når der mangler et nummer. Hvad sker der med numrene, når afsenderen genstarter, og hvordan kan modtageren se det?
 5. Mål rækkevidden: bær afsenderen (fx tilsluttet en bærbar) væk fra modtageren, gennem en dør og ud på gangen. Hvornår begynder der at mangle beskeder? Udvid modtagerens callback, så den også gemmer signalstyrken `info->rx_ctrl->rssi`, og skriv den ud. Hvad var RSSI, lige før beskederne forsvandt?
 6. *Ekstra:* Lad modtageren også forbinde til et WiFi-netværk (brug koden fra [WiFi](../Grundlag/wifi.qmd)-siden), og skriv kanalen ud med `WiFi.channel()`. Hvad skal du ændre på afsenderen, for at beskederne stadig kommer frem? Hvad sker der, hvis routeren skifter kanal?
