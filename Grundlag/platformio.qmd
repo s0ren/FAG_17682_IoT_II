@@ -291,6 +291,8 @@ void loop() {
 }
 ```
 
+Hele projektet, med `platformio.ini`, ligger på GitHub: [platformio_test](https://github.com/s0ren/IOT1-demo/tree/main/platformio_test).
+
 Klik **Upload** og derefter **Serial Monitor**. Lysdioden skal blinke, og der skal komme en linje hvert sekund. Ser du ikke linjen `PlatformIO virker!`, er det fordi programmet startede, før Serial Monitor var åben. Tryk på **EN**, så starter programmet forfra.
 
 ## Biblioteker med lib_deps

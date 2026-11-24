@@ -240,6 +240,8 @@ void tagMaalinger(int data[], int antal) {
 }
 ```
 
+Hele projektet, med `platformio.ini`, ligger på GitHub: [cpp_intro_statistik](https://github.com/s0ren/IOT1-demo/tree/main/cpp_intro_statistik).
+
 ::: {.billede-mangler}
 VS Codes Explorer med projektet foldet ud, så include/statistik.h, src/statistik.cpp og src/main.cpp ses. Se lignende billeder: <https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2020/09/PlatfomIO-project-created-folder-structure.png?quality=100&strip=all&ssl=1> (RNT: mappestrukturen, men med lukkede mapper og uden vores filer)
 :::
@@ -395,6 +397,8 @@ void fordoblReference(int& tal) {
   tal = tal * 2;  // tal ER kalderens variabel
 }
 ```
+
+Hele projektet, med `platformio.ini`, ligger på GitHub: [cpp_intro_pointere](https://github.com/s0ren/IOT1-demo/tree/main/cpp_intro_pointere).
 
 Forventet udskrift (adressen er et hextal, som er anderledes hos dig):
 

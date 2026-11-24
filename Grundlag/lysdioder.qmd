@@ -225,6 +225,8 @@ void loop() {
 }
 ```
 
+Hele projektet, med `platformio.ini`, ligger på GitHub: [lysdioder_blink_millis](https://github.com/s0ren/IOT1-demo/tree/main/lysdioder_blink_millis).
+
 ### Hvorfor ikke bare `delay()`?
 
 Med `digitalWrite(...); delay(500);` står din `loop()` stille i et halvt sekund ad gangen. Så kan den hverken læse knapper eller sende data imens. På ESP32 er `delay()` en `vTaskDelay()`, så det kun er opgaven ([task]{lang="en"}), der kører `loop()`, der venter. WiFi og andre opgaver kører videre, men din egen kode gør ikke. Se også [Debouncing](debouncing.qmd), hvor det samme princip bruges til knapper.
@@ -282,6 +284,8 @@ void loop() {
   }
 }
 ```
+
+Hele projektet, med `platformio.ini`, ligger på GitHub: [lysdioder_fade_pwm](https://github.com/s0ren/IOT1-demo/tree/main/lysdioder_fade_pwm).
 
 Et helt fade op og ned tager 2 × 255 × 10 ms ≈ 5 sekunder.
 

@@ -251,6 +251,8 @@ void loop() {
 }
 ```
 
+Hele projektet, med `platformio.ini`, ligger på GitHub: [deep_sleep_timer](https://github.com/s0ren/IOT_del2_demo_projecter/tree/main/deep_sleep_timer).
+
 I Serial Monitor ser det sådan ud:
 
 ```
@@ -340,6 +342,8 @@ void loop() {
   // Bliver aldrig kørt
 }
 ```
+
+Hele projektet, med `platformio.ini`, ligger på GitHub: [deep_sleep_knap_timer](https://github.com/s0ren/IOT_del2_demo_projecter/tree/main/deep_sleep_knap_timer).
 
 Bemærk:
 

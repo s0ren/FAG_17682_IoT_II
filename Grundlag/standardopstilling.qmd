@@ -152,6 +152,8 @@ void loop() {
 }
 ```
 
+Hele projektet, med `platformio.ini`, ligger på GitHub: [standardopstilling_test](https://github.com/s0ren/IOT1-demo/tree/main/standardopstilling_test).
+
 Sådan skal det se ud i Serial Monitor, når du drejer på potentiometeret og trykker på knappen:
 
 ```{.default}

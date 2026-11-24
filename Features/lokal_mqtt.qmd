@@ -490,6 +490,8 @@ void loop() {
 }
 ```
 
+Hele projektet, med `platformio.ini`, ligger på GitHub: [lokal_mqtt_tls](https://github.com/s0ren/IOT_del2_demo_projecter/tree/main/lokal_mqtt_tls).
+
 <!-- TJEK: Kan arduino-esp32 core 3.3 slå wilsons.local op, når navnet gives til mqtt.setServer()? Network.hostByName() bruger lwip_getaddrinfo og har ingen særlig håndtering af .local; det virker kun, hvis CONFIG_LWIP_DNS_SUPPORT_MDNS_QUERIES er slået til i frameworkets prækompilerede ESP-IDF. Faktatjekket fandt, at Kconfig-standarden i ESP-IDF 5.5 er "default y", og at esp32-arduino-lib-builder's configs/defconfig.common ikke ændrer den, så det virker sandsynligvis. Multicast kan dog være blokeret i skolens WiFi. Lærerens egen knap-demo slår navnet op med MDNS.queryHost() og forbinder til IP-adressen med NetworkClientSecure::connect(ip, port, host, CA, nullptr, nullptr). Afprøv. wilsons.home virker ikke på skolens net (24. nov. 2026), så hvis .local ikke virker, er MDNS.queryHost() løsningen. -->
 
 Kopiér `secrets_eksempel.h` til `secrets.h`, og udfyld den. Upload og åbn Serial Monitor. Efter WiFi skulle der stå `Forbinder til wilsons.local:8883 ... OK` og derefter en `Sendt`-linje hvert 10. sekund. Find dine beskeder i weblog'en under `elever/<brugernavn>/status.jsonl`.

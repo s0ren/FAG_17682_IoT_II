@@ -221,6 +221,8 @@ void loop() {
 }
 ```
 
+Hele projektet, med `platformio.ini`, ligger på GitHub: [wifi_forbind](https://github.com/s0ren/IOT1-demo/tree/main/wifi_forbind).
+
 Kopiér `secrets_eksempel.h` til `secrets.h` i samme mappe, og ret SSID og password. Upload og åbn Serial Monitor. Du skulle se prikker, mens ESP32 forbinder, og derefter IP-adressen.
 
 ## Øvelser

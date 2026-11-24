@@ -105,6 +105,8 @@ void loop() {
 }
 ```
 
+Hele projektet, med `platformio.ini`, ligger på GitHub: [hello_world_serial](https://github.com/s0ren/IOT1-demo/tree/main/hello_world_serial).
+
 Upload programmet, og åbn Serial Monitor. Sandsynligvis ser du ingenting, fordi programmet skrev sin linje, før Serial Monitor nåede at åbne. Tryk på **EN**. Nu ser du først nogle linjer fra ROM-bootloaderen og derefter `Hej fra ESP32!`.
 
 ```{.text}
@@ -155,6 +157,8 @@ void loop() {
 }
 ```
 
+Hele projektet, med `platformio.ini`, ligger på GitHub: [hello_world_blink_delay](https://github.com/s0ren/IOT1-demo/tree/main/hello_world_blink_delay).
+
 Det virker, og det er let at læse. Men læg mærke til, at `loop()` bruger næsten al sin tid på at vente.
 
 ### Hvorfor er delay() et problem?
@@ -203,6 +207,8 @@ void loop() {
   // Det bliver ikke forsinket af blinket.
 }
 ```
+
+Hele projektet, med `platformio.ini`, ligger på GitHub: [hello_world_blink_millis](https://github.com/s0ren/IOT1-demo/tree/main/hello_world_blink_millis).
 
 Læg mærke til:
 

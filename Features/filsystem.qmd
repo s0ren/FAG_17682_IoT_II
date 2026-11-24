@@ -273,6 +273,8 @@ void loop() {
 }
 ```
 
+Hele projektet, med `platformio.ini`, ligger på GitHub: [filsystem_laes_skriv](https://github.com/s0ren/IOT_del2_demo_projecter/tree/main/filsystem_laes_skriv).
+
 Efter tre opstarter skal Serial Monitor vise noget i retning af:
 
 ```
@@ -372,6 +374,8 @@ void setup() {
 void loop() {
 }
 ```
+
+Hele projektet, med `platformio.ini`, ligger på GitHub: [filsystem_data_mappe](https://github.com/s0ren/IOT_del2_demo_projecter/tree/main/filsystem_data_mappe).
 
 Her bruges `begin(false)` med vilje: hvis filsystemet ikke kan monteres, vil du hellere have en fejlbesked end en tom, nyformateret partition.
 
@@ -537,6 +541,8 @@ void loop() {
   }
 }
 ```
+
+Hele projektet, med `platformio.ini`, ligger på GitHub: [filsystem_cache](https://github.com/s0ren/IOT_del2_demo_projecter/tree/main/filsystem_cache).
 
 ::: {.billede-mangler}
 Serial Monitor under cache-eksemplet: et par "Sendt", derefter "Cachet" mens knappen holdes nede, og til sidst "Sendt" for de cachede målinger og "Cachen er tømt". Se lignende billeder: <https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2023/07/ESP32-LittleFS-Append-Data.png?quality=100&strip=all&ssl=1> (RNT: append og read til en LittleFS-fil; ikke cache med netværk)

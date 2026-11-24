@@ -211,6 +211,8 @@ void loop() {
 }
 ```
 
+Hele projektet, med `platformio.ini`, ligger på GitHub: [knapper_knap_led](https://github.com/s0ren/IOT1-demo/tree/main/knapper_knap_led).
+
 Programmet læser knappen i hvert gennemløb af `loop()` og sætter lysdioden derefter. Der er ingen `delay()`, så lysdioden følger knappen med det samme.
 
 Programmet er bevidst lavet **uden debouncing**. Du ser derfor måske flere "Trykket" og "Sluppet" i Serial Monitor ved ét tryk. Det er kontaktprel, og det er emnet på siden om [Debouncing](debouncing.qmd). For lysdioden betyder det ikke noget, for den blinker kun et par millisekunder, og det kan øjet ikke se. Skal programmet tælle tryk eller skifte tilstand ved hvert tryk, skal du debounce.

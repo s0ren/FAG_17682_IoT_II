@@ -251,6 +251,8 @@ void loop() {
 }
 ```
 
+Hele projektet, med `platformio.ini`, ligger på GitHub: [esp_now_modtager](https://github.com/s0ren/IOT_del2_demo_projecter/tree/main/esp_now_modtager).
+
 Upload, åbn Serial Monitor, og tryk på EN-knappen på ESP32, hvis du ikke nåede at se den første linje. Skriv MAC-adressen ned.
 
 ::: {.billede-mangler}
@@ -363,6 +365,8 @@ void loop() {
   }
 }
 ```
+
+Hele projektet, med `platformio.ini`, ligger på GitHub: [esp_now_afsender](https://github.com/s0ren/IOT_del2_demo_projecter/tree/main/esp_now_afsender).
 
 ::: {.billede-mangler}
 Serial Monitor for afsenderen med "Sendt nr. …" og "kvitteret af modtageren", og gerne et par "IKKE kvitteret", mens modtageren var slukket. Se lignende billeder: <https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2024/06/ESP-NOW-ESP32-Sender-Message-Print.png?quality=100&strip=all&ssl=1> (RNT: "Delivery Success"; ingen fejlede afsendelser)

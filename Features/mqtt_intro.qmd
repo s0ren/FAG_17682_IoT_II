@@ -408,6 +408,8 @@ void loop() {
 }
 ```
 
+Hele projektet, med `platformio.ini`, ligger på GitHub: [mqtt_intro_potentiometer](https://github.com/s0ren/IOT_del2_demo_projecter/tree/main/mqtt_intro_potentiometer).
+
 <!-- TJEK: Om ESP32 kan slå "wilsons.local" op på skolens net, er ikke afprøvet (en pc kan). Virker det ikke, så brug 192.168.0.33. -->
 
 Sådan virker det:
