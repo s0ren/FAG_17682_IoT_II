@@ -145,7 +145,7 @@ void loop() {
   // Potentiometer og knap i Serial Monitor
   if (nu - sidsteUdskrift >= UDSKRIFT_MS) {
     sidsteUdskrift = nu;
-    Serial.printf("Potentiometer: %4u mV   Knap: %s\n",
+    Serial.printf("Potentiometer: %4lu mV   Knap: %s\n",
                   analogReadMilliVolts(POT_PIN),
                   trykket ? "trykket" : "-");
   }
