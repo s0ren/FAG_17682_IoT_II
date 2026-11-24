@@ -4,7 +4,7 @@
     "href": "laeringsmaal.html",
     "title": "Læringsmål",
     "section": "",
-    "text": "Oplysningerne er hentet fra https://hentdata.stil.dk/uddannelser.\n\n\n\nNIVEAU\n3.0\n\n\nFAGKATEGORI\nUddannelsesspecifikke fag\n\n\nTILKNYTNING\nBundet, valgfrit niveau\n\n\nBIDRAGER TIL KOMPETENCEMÅL\n6, 25, 34, 36, 39, 40\n\n\nUNGDOM OG EUV3 TILKNYTNING\nTilknyttet\n\n\nUNGDOM OG EUV3\n3.8\n\n\n\n\n\n\nLærlingen kan redegøre for målsætningen med IoT og IIoT.\nLærlingen kan redegøre for de forskellige begreber, teknikker, standarder, modeller og processer, der typisk indgår i IoT og IIoT løsninger.\nLærlingen kan redegøre for, hvornår en enhed kan betegnes som en IoT/IIoT enhed.\nLærlingen kan redegøre for konkrete teknologier, komponenter og enheder, der kan anvendes i IoT/IIoT løsninger.\nLærlingen kan redegøre for hvilke risici og udfordringer, der skal tages i betragtning ved IoT/IIoT.\nLærlingen kan redegøre for løsningsmuligheder ud fra konkrete cases på IoT/IIoT løsninger.\nLærlingen kan redegøre for system- og integrationsmuligheder med IoT/IIoT på nuværende systemer, som f.eks. produktionssystemer.\nLærlingen kan beskrive kendte anvendelsesområder med IoT/IIoT.\nLærlingen kan opbygge og dokumentere en mindre IoT løsning, der anvender standard IoT software, hardware og enheder\nLærlingen kan udvælge relevante sensortyper og sensorsystemer i forhold til opbygning af en given IoT og IIoT løsning.\nLærlingen kan, på baggrund af sin viden om analoge og digitale outputsignaler fra forskellige sensortyper, foretage kvalitetsmåling og validering af sensor-outputs, og vurdere, om signal-outputtet er validt.\nLærlingen kan, på baggrund af sin viden om elektronik og måleteknik, foretage fejlanalyse på analoge, digitale, serielle og trådløse outputs.\nLærlingen kan, på baggrund af sin viden om tidsaktuelle IoT/IIoT datakommunikationsteknologier og protokoller, foretage valg af den datakommunikationsteknologi, der er bedst egnet i forhold til opbygning af en given IoT/IIoT løsning.\nLærlingen kan, på baggrund af sin viden om sikkerhedsproblemer foretage en risikoanalyse af mulige sikkerhedsproblemer og på baggrund heraf indføre forebyggende foranstaltninger, som fx en plan for opdatering af enhedernes firmware/software.\nLærlingen kan, på baggrund af sin viden om teknikker til fejlfinding på netværksforbindelser, foretage elementær fejlfinding på trådede og trådløse netværksforbindelser.\nLærlingen kan arbejde med IoT/IIoT relaterede opgaver, som omfatter anvendelse af designguideline til design af mindre IoT/IIoT løsninger, og viden om aktuelle industristandarder\nLærlingen kan beskrive hvilke hardwarekomponenter, der typisk indgår i et embedded system, såsom digitale og analoge interfacemuligheder og opkobling til netværk. Desuden kan lærlingen beskrive mulige programmeringssprog og tilhørende udviklingsværktøj.\nLærlingen kan, ud fra en konkret opgave og med et standard embedded system, opbygge en mindre prototype-løsning.\nLærlingen kan anvende programmeringssproget i et embedded system til at styre input og output af data. Dette sker vha. programmeringssprogets programbiblioteker.\nLærlingen kan anvende værktøjer til at kommunikere med et embedded system, og til håndtering af programudvikling.\nLærlingen kan anvende programmeringssprogets aritmetiske operatorer, kontrolstrukturer, løkker og arrays.\nLærlingen kan opbygge og programmere en IoT/IIoT embedded løsning, der integrerer en sensor med et embedded system, og hvor det udviklede program kan analysere eller bearbejde signalet/dataene inden det/de sendes på nettet.\nLærlingen kan programmere en IoT/IIoT embedded løsning, der kan foretage analyse af input værdier i forhold til referenceværdier, og udføre handlinger på baggrund af analysens resultater, samt foretage databehandling af analoge og digitale værdier.\nLærlingen kan, ud fra viden om metoder til at foretage test af og fejlfinding på et udviklet program, foretage afprøvning og fejlretning af en udviklet løsning\n\n\n\n\nTabellen viser de sider, der har angivet målpinde (feltet maalpinde øverst i siden).\n\n\n   \n    \n    \n      Sorter ved\n      Standard\n      \n        Overskrift\n      \n    \n  \n\n\n\n\n\n\nOverskrift\n\n\n\nMålpinde\n\n\n\n\n\n\n\n\nDebouncing\n\n\n11, 19, 23\n\n\n\n\n\n\nDeep Sleep\n\n\n17, 18, 19\n\n\n\n\n\n\nESP-NOW og ESP-MESH\n\n\n4, 13, 15, 19\n\n\n\n\n\n\nFilsystem på ESP32\n\n\n17, 19, 22\n\n\n\n\n\n\nIntro til C++\n\n\n17, 20, 21, 24\n\n\n\n\n\n\nLokal MQTT-server\n\n\n13, 14, 22\n\n\n\n\n\n\nPlatformIO\n\n\n17, 20, 24\n\n\n\n\n\n\nProjektopgave, Positionsbestemmelse af enheder uden GPS dækning\n\n\n5, 9, 13, 14, 22\n\n\n\n\n\n\nProjektopgave, Smiley feedback panel\n\n\n9, 13, 14, 18, 22\n\n\n\n\n\n\nWiFi\n\n\n14, 15, 19\n\n\n\n\n\n\nIngen resultater",
+    "text": "Oplysningerne er hentet fra https://hentdata.stil.dk/uddannelser.\n\n\n\nNIVEAU\n3.0\n\n\nFAGKATEGORI\nUddannelsesspecifikke fag\n\n\nTILKNYTNING\nBundet, valgfrit niveau\n\n\nBIDRAGER TIL KOMPETENCEMÅL\n6, 25, 34, 36, 39, 40\n\n\nUNGDOM OG EUV3 TILKNYTNING\nTilknyttet\n\n\nUNGDOM OG EUV3\n3.8\n\n\n\n\n\n\nLærlingen kan redegøre for målsætningen med IoT og IIoT.\nLærlingen kan redegøre for de forskellige begreber, teknikker, standarder, modeller og processer, der typisk indgår i IoT og IIoT løsninger.\nLærlingen kan redegøre for, hvornår en enhed kan betegnes som en IoT/IIoT enhed.\nLærlingen kan redegøre for konkrete teknologier, komponenter og enheder, der kan anvendes i IoT/IIoT løsninger.\nLærlingen kan redegøre for hvilke risici og udfordringer, der skal tages i betragtning ved IoT/IIoT.\nLærlingen kan redegøre for løsningsmuligheder ud fra konkrete cases på IoT/IIoT løsninger.\nLærlingen kan redegøre for system- og integrationsmuligheder med IoT/IIoT på nuværende systemer, som f.eks. produktionssystemer.\nLærlingen kan beskrive kendte anvendelsesområder med IoT/IIoT.\nLærlingen kan opbygge og dokumentere en mindre IoT løsning, der anvender standard IoT software, hardware og enheder\nLærlingen kan udvælge relevante sensortyper og sensorsystemer i forhold til opbygning af en given IoT og IIoT løsning.\nLærlingen kan, på baggrund af sin viden om analoge og digitale outputsignaler fra forskellige sensortyper, foretage kvalitetsmåling og validering af sensor-outputs, og vurdere, om signal-outputtet er validt.\nLærlingen kan, på baggrund af sin viden om elektronik og måleteknik, foretage fejlanalyse på analoge, digitale, serielle og trådløse outputs.\nLærlingen kan, på baggrund af sin viden om tidsaktuelle IoT/IIoT datakommunikationsteknologier og protokoller, foretage valg af den datakommunikationsteknologi, der er bedst egnet i forhold til opbygning af en given IoT/IIoT løsning.\nLærlingen kan, på baggrund af sin viden om sikkerhedsproblemer foretage en risikoanalyse af mulige sikkerhedsproblemer og på baggrund heraf indføre forebyggende foranstaltninger, som fx en plan for opdatering af enhedernes firmware/software.\nLærlingen kan, på baggrund af sin viden om teknikker til fejlfinding på netværksforbindelser, foretage elementær fejlfinding på trådede og trådløse netværksforbindelser.\nLærlingen kan arbejde med IoT/IIoT relaterede opgaver, som omfatter anvendelse af designguideline til design af mindre IoT/IIoT løsninger, og viden om aktuelle industristandarder\nLærlingen kan beskrive hvilke hardwarekomponenter, der typisk indgår i et embedded system, såsom digitale og analoge interfacemuligheder og opkobling til netværk. Desuden kan lærlingen beskrive mulige programmeringssprog og tilhørende udviklingsværktøj.\nLærlingen kan, ud fra en konkret opgave og med et standard embedded system, opbygge en mindre prototype-løsning.\nLærlingen kan anvende programmeringssproget i et embedded system til at styre input og output af data. Dette sker vha. programmeringssprogets programbiblioteker.\nLærlingen kan anvende værktøjer til at kommunikere med et embedded system, og til håndtering af programudvikling.\nLærlingen kan anvende programmeringssprogets aritmetiske operatorer, kontrolstrukturer, løkker og arrays.\nLærlingen kan opbygge og programmere en IoT/IIoT embedded løsning, der integrerer en sensor med et embedded system, og hvor det udviklede program kan analysere eller bearbejde signalet/dataene inden det/de sendes på nettet.\nLærlingen kan programmere en IoT/IIoT embedded løsning, der kan foretage analyse af input værdier i forhold til referenceværdier, og udføre handlinger på baggrund af analysens resultater, samt foretage databehandling af analoge og digitale værdier.\nLærlingen kan, ud fra viden om metoder til at foretage test af og fejlfinding på et udviklet program, foretage afprøvning og fejlretning af en udviklet løsning\n\n\n\n\nTabellen viser de sider, der har angivet målpinde (feltet maalpinde øverst i siden).\n\n\n   \n    \n    \n      Sorter ved\n      Standard\n      \n        Overskrift\n      \n    \n  \n\n\n\n\n\n\nOverskrift\n\n\n\nMålpinde\n\n\n\n\n\n\n\n\nDebouncing\n\n\n11, 19, 23\n\n\n\n\n\n\nDeep Sleep\n\n\n17, 18, 19\n\n\n\n\n\n\nDrejepotentiometer\n\n\n11, 19, 23\n\n\n\n\n\n\nESP-NOW og ESP-MESH\n\n\n4, 13, 15, 19\n\n\n\n\n\n\nESP32-DEVKIT-V1\n\n\n4, 17, 20\n\n\n\n\n\n\nFilsystem på ESP32\n\n\n17, 19, 22\n\n\n\n\n\n\nHello World på ESP32\n\n\n19, 20, 21\n\n\n\n\n\n\nIntro til C++\n\n\n17, 20, 21, 24\n\n\n\n\n\n\nIntro til MQTT\n\n\n2, 13, 20, 22\n\n\n\n\n\n\nKnapper og kontakter\n\n\n12, 17, 19\n\n\n\n\n\n\nLokal MQTT-server\n\n\n13, 14, 22\n\n\n\n\n\n\nLysdioder (LED’er)\n\n\n12, 18, 19\n\n\n\n\n\n\nModstande og farvekoder\n\n\n4, 12, 18\n\n\n\n\n\n\nPlatformIO\n\n\n17, 20, 24\n\n\n\n\n\n\nProjektopgave, Positionsbestemmelse af enheder uden GPS dækning\n\n\n5, 9, 13, 14, 22\n\n\n\n\n\n\nProjektopgave, Smiley feedback panel\n\n\n9, 13, 14, 18, 22\n\n\n\n\n\n\nWiFi\n\n\n14, 15, 19\n\n\n\n\n\n\nIngen resultater",
     "crumbs": [
       "Hjem",
       "Læringsmål"
@@ -26,7 +26,7 @@
     "href": "laeringsmaal.html#hvilke-sider-dækker-hvilke-målpinde",
     "title": "Læringsmål",
     "section": "",
-    "text": "Tabellen viser de sider, der har angivet målpinde (feltet maalpinde øverst i siden).\n\n\n   \n    \n    \n      Sorter ved\n      Standard\n      \n        Overskrift\n      \n    \n  \n\n\n\n\n\n\nOverskrift\n\n\n\nMålpinde\n\n\n\n\n\n\n\n\nDebouncing\n\n\n11, 19, 23\n\n\n\n\n\n\nDeep Sleep\n\n\n17, 18, 19\n\n\n\n\n\n\nESP-NOW og ESP-MESH\n\n\n4, 13, 15, 19\n\n\n\n\n\n\nFilsystem på ESP32\n\n\n17, 19, 22\n\n\n\n\n\n\nIntro til C++\n\n\n17, 20, 21, 24\n\n\n\n\n\n\nLokal MQTT-server\n\n\n13, 14, 22\n\n\n\n\n\n\nPlatformIO\n\n\n17, 20, 24\n\n\n\n\n\n\nProjektopgave, Positionsbestemmelse af enheder uden GPS dækning\n\n\n5, 9, 13, 14, 22\n\n\n\n\n\n\nProjektopgave, Smiley feedback panel\n\n\n9, 13, 14, 18, 22\n\n\n\n\n\n\nWiFi\n\n\n14, 15, 19\n\n\n\n\n\n\nIngen resultater",
+    "text": "Tabellen viser de sider, der har angivet målpinde (feltet maalpinde øverst i siden).\n\n\n   \n    \n    \n      Sorter ved\n      Standard\n      \n        Overskrift\n      \n    \n  \n\n\n\n\n\n\nOverskrift\n\n\n\nMålpinde\n\n\n\n\n\n\n\n\nDebouncing\n\n\n11, 19, 23\n\n\n\n\n\n\nDeep Sleep\n\n\n17, 18, 19\n\n\n\n\n\n\nDrejepotentiometer\n\n\n11, 19, 23\n\n\n\n\n\n\nESP-NOW og ESP-MESH\n\n\n4, 13, 15, 19\n\n\n\n\n\n\nESP32-DEVKIT-V1\n\n\n4, 17, 20\n\n\n\n\n\n\nFilsystem på ESP32\n\n\n17, 19, 22\n\n\n\n\n\n\nHello World på ESP32\n\n\n19, 20, 21\n\n\n\n\n\n\nIntro til C++\n\n\n17, 20, 21, 24\n\n\n\n\n\n\nIntro til MQTT\n\n\n2, 13, 20, 22\n\n\n\n\n\n\nKnapper og kontakter\n\n\n12, 17, 19\n\n\n\n\n\n\nLokal MQTT-server\n\n\n13, 14, 22\n\n\n\n\n\n\nLysdioder (LED’er)\n\n\n12, 18, 19\n\n\n\n\n\n\nModstande og farvekoder\n\n\n4, 12, 18\n\n\n\n\n\n\nPlatformIO\n\n\n17, 20, 24\n\n\n\n\n\n\nProjektopgave, Positionsbestemmelse af enheder uden GPS dækning\n\n\n5, 9, 13, 14, 22\n\n\n\n\n\n\nProjektopgave, Smiley feedback panel\n\n\n9, 13, 14, 18, 22\n\n\n\n\n\n\nWiFi\n\n\n14, 15, 19\n\n\n\n\n\n\nIngen resultater",
     "crumbs": [
       "Hjem",
       "Læringsmål"
@@ -509,14 +509,338 @@
     ]
   },
   {
+    "objectID": "Grundlag/lysdioder.html",
+    "href": "Grundlag/lysdioder.html",
+    "title": "Lysdioder (LED’er)",
+    "section": "",
+    "text": "En lysdiode (LED, light-emitting diode) er den enkleste måde at få ESP32 til at vise noget: tændt, slukket, blinkende eller dæmpet. Den viser, at programmet kører, at WiFi er forbundet, eller at en måling er over en grænse. Men en lysdiode kan ikke bare sættes direkte på et ben: den skal vende rigtigt, og den skal have en modstand, der begrænser strømmen, ellers kan både lysdioden og ESP32-benet tage skade.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Lysdioder (LED'er)"
+    ]
+  },
+  {
+    "objectID": "Grundlag/lysdioder.html#formål",
+    "href": "Grundlag/lysdioder.html#formål",
+    "title": "Lysdioder (LED’er)",
+    "section": "Formål",
+    "text": "Formål\n\nDu kan forklare, hvad en diode er, og finde anode og katode på en lysdiode.\nDu kan beregne en formodstand ud fra spænding, Vf og den strøm, du ønsker.\nDu kan tænde og slukke en lysdiode med digitalWrite() og få den til at blinke med millis().\nDu kan styre lysstyrken med PWM, både med analogWrite() og med LEDC-funktionerne ledcAttach() og ledcWrite() i Arduino-ESP32 3.x.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Lysdioder (LED'er)"
+    ]
+  },
+  {
+    "objectID": "Grundlag/lysdioder.html#målpinde",
+    "href": "Grundlag/lysdioder.html#målpinde",
+    "title": "Lysdioder (LED’er)",
+    "section": "Målpinde",
+    "text": "Målpinde\nSiden arbejder med målpind 12, 18 og 19 (se Læringsmål).",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Lysdioder (LED'er)"
+    ]
+  },
+  {
+    "objectID": "Grundlag/lysdioder.html#forudsætninger",
+    "href": "Grundlag/lysdioder.html#forudsætninger",
+    "title": "Lysdioder (LED’er)",
+    "section": "Forudsætninger",
+    "text": "Forudsætninger\n\nDu kan oprette et PlatformIO-projekt til ESP32-DEVKIT-V1 og uploade et program (se PlatformIO).\nDu kan bygge på et breadboard (se Breadboard med tilpassede ledninger).\nDu kender Ohms lov og kan aflæse en modstand (se Modstande).\nHardware: ESP32-DEVKIT-V1, breadboard, tre lysdioder (rød, gul og grøn), tre modstande på 220 Ω og ledninger.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Lysdioder (LED'er)"
+    ]
+  },
+  {
+    "objectID": "Grundlag/lysdioder.html#hvad-er-en-lysdiode",
+    "href": "Grundlag/lysdioder.html#hvad-er-en-lysdiode",
+    "title": "Lysdioder (LED’er)",
+    "section": "Hvad er en lysdiode?",
+    "text": "Hvad er en lysdiode?\nEn diode er en komponent, der kun lader strøm gå én vej. En lysdiode er en diode, der lyser, når der går strøm igennem den i den rigtige retning. Vender den forkert, går der ingen strøm, og den lyser ikke. Det ødelægger den ikke ved 3,3 V, men den virker heller ikke.\nDe to ben hedder:\n\nAnode (+): det lange ben. Den skal vende mod plus, altså mod ESP32-benet.\nKatode (−): det korte ben. Kanten af lysdioden er flad i den side. Den skal vende mod GND.\n\nEr benene klippet af, så kig efter den flade kant på plastikken. Inde i lysdioden er katodens metalstykke typisk det største, men det passer ikke på alle typer, så den flade kant er det sikreste.\n\n\n\nSpændingsfald (Vf)\nNår der går strøm gennem en lysdiode, ligger der en næsten fast spænding over den. Den hedder forward voltage, Vf (forward voltage), og den afhænger af farven, fordi forskellige farver laves af forskellige materialer:\n\n\n\nFarve\nVf, interval (Wikipedia)\nTypisk værdi at regne med\n\n\n\n\nRød\n1,63–2,03 V\n2,0 V\n\n\nOrange\n2,03–2,10 V\n2,0 V\n\n\nGul\n2,10–2,18 V\n2,1 V\n\n\nGrøn\n1,9–4,0 V\n2,1 V (gulgrøn) eller 3,0 V (ren grøn)\n\n\nBlå\n2,48–3,7 V\n3,0 V\n\n\nHvid\n2,8–4,2 V\n3,0 V\n\n\n\nIntervallerne er fra Wikipedias tabel over farver og materialer. Den præcise værdi står i lysdiodens datablad, og den stiger lidt med strømmen.\n\nLæg mærke til blå og hvid: Vf er næsten 3,3 V. Så er der kun få tiendedele volt tilbage til modstanden, og lysdioden kan lyse svagt eller ujævnt fra eksemplar til eksemplar. Rød, gul og gulgrøn er nemmest at bruge på 3,3 V.\n\n\nStrøm\nMange lysdioder er beregnet til højst ca. 20 mA. Men moderne lysdioder lyser fint ved 2–10 mA, og du skåner både lysdioden og ESP32. Regn derfor med 5–10 mA til en indikatorlysdiode.\n\n\nESP32-benets grænse\nEspressifs datablad for ESP32 (afsnit 5.3, DC Characteristics) siger, at et ben kan levere ca. 40 mA og stadig holde mindst 2,64 V, men kun når udgangens drivstyrke er sat til det højeste. Standard er medium. Strømmen per ben falder til ca. 29 mA, når flere ben i samme strømdomæne leverer strøm på én gang. Ben kan trække ca. 28 mA til GND. Den absolutte grænse i databladet (afsnit 5.1) er 1200 mA for alle ben tilsammen.\nDe 40 mA er altså ikke en grænse, du skal gå op til. Hold dig til højst ca. 10 mA per lysdiode. Det er en tommelfingerregel her på siden, ikke et tal fra databladet.\n\n\nFormodstand\nFormodstanden sidder i serie med lysdioden og bestemmer strømmen. Den skal “tage” den spænding, der er tilbage, når lysdioden har taget sin Vf:\n\\[\nR = \\frac{3{,}3\\ \\text{V} - V_f}{I}\n\\]\nRegneeksempel: en rød lysdiode (Vf = 2,0 V) og en ønsket strøm på 6 mA:\n\\[\nR = \\frac{3{,}3\\ \\text{V} - 2{,}0\\ \\text{V}}{0{,}006\\ \\text{A}} = \\frac{1{,}3\\ \\text{V}}{0{,}006\\ \\text{A}} \\approx 217\\ \\Omega\n\\]\nDen nærmeste standardværdi er 220 Ω. Vælg altid den nærmeste værdi over det beregnede, så strømmen bliver lidt mindre, ikke større. Med 220 Ω bliver strømmen 1,3 V / 220 Ω ≈ 5,9 mA.\nEn 220 Ω-modstand har farverne rød, rød, brun (og guld for tolerance). Brug farvekode-beregneren på siden om modstande til at tjekke din modstand.\n\n\n\nKobling\nGPIO 19 ── 220 Ω ── anode (langt ben) ▶| katode (kort ben, flad kant) ── GND\nDet er ligegyldigt, om modstanden sidder før eller efter lysdioden: strømmen er den samme i hele kredsen. Det vigtige er, at den er der.\nBrug et af de ben, der er sikre som udgang: 18, 19, 21, 22, 23, 25, 26, 27, 32 eller 33. Ben 34–39 kan kun bruges som indgang, og 6–11 er forbundet til den interne flash.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Lysdioder (LED'er)"
+    ]
+  },
+  {
+    "objectID": "Grundlag/lysdioder.html#den-indbyggede-lysdiode",
+    "href": "Grundlag/lysdioder.html#den-indbyggede-lysdiode",
+    "title": "Lysdioder (LED’er)",
+    "section": "Den indbyggede lysdiode",
+    "text": "Den indbyggede lysdiode\nESP32-DEVKIT-V1 har en lille blå lysdiode på kortet, som sidder på GPIO 2. I Arduino-ESP32 hedder benet LED_BUILTIN for dette board, så du kan skrive LED_BUILTIN i stedet for 2. Formodstanden sidder allerede på kortet.\nGPIO 2 er også en strapping pin, der påvirker opstarten. Det er fint at bruge den til den indbyggede lysdiode, men sæt ikke selv flere ting på GPIO 2.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Lysdioder (LED'er)"
+    ]
+  },
+  {
+    "objectID": "Grundlag/lysdioder.html#tænd-og-sluk-digitalwrite",
+    "href": "Grundlag/lysdioder.html#tænd-og-sluk-digitalwrite",
+    "title": "Lysdioder (LED’er)",
+    "section": "Tænd og sluk: digitalWrite()",
+    "text": "Tænd og sluk: digitalWrite()\npinMode(LED_PIN, OUTPUT);     // i setup(): benet skal være en udgang\ndigitalWrite(LED_PIN, HIGH);  // 3,3 V på benet: lysdioden lyser\ndigitalWrite(LED_PIN, LOW);   // 0 V på benet: lysdioden er slukket\nGlemmer du pinMode(..., OUTPUT), sker der ingenting: i Arduino-ESP32 3.x ændrer digitalWrite() kun benet, hvis det er sat op som GPIO. (På Arduino Uno kan lysdioden i stedet lyse svagt, men ikke på ESP32.) Sætter du build_flags = -DCORE_DEBUG_LEVEL=1 i platformio.ini, skriver core’en fejlen IO 19 is not set as GPIO. Execute pinMode(19, OUTPUT) first. i Serial Monitor.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Lysdioder (LED'er)"
+    ]
+  },
+  {
+    "objectID": "Grundlag/lysdioder.html#lysstyrke-med-pwm",
+    "href": "Grundlag/lysdioder.html#lysstyrke-med-pwm",
+    "title": "Lysdioder (LED’er)",
+    "section": "Lysstyrke med PWM",
+    "text": "Lysstyrke med PWM\nEt digitalt ben kan kun være 0 V eller 3,3 V, ikke “halvt tændt”. I stedet tænder og slukker man benet meget hurtigt. Det hedder PWM (pulse-width modulation). Øjet kan ikke se de hurtige blink, så det ser lysdioden som svagere eller kraftigere:\nduty 25 %:  ‾|___‾|___‾|___   lyser svagt\nduty 50 %:  ‾‾|__‾‾|__‾‾|__   lyser halvt\nduty 75 %:  ‾‾‾|_‾‾‾|_‾‾‾|_   lyser kraftigt\n\nFrekvens: hvor mange gange i sekundet signalet gentages. Over et par hundrede Hz ser øjet ikke blinkene. 1000–5000 Hz er fint til lysdioder.\nDuty cycle: hvor stor en del af tiden benet er tændt.\nOpløsning: hvor mange trin duty kan sættes i. Med 8 bit er der 256 trin: 0 er slukket, og 255 er næsten helt tændt (med ledcWrite() er 256 helt tændt, se tabellen nedenfor).\n\nESP32 har en særlig hardwareblok til PWM, der hedder LEDC (LED control). Den har 16 kanaler, så du kan dæmpe op til 16 ben på én gang.\n\nTo måder i Arduino-ESP32\nanalogWrite(pin, værdi) er den simple, som også findes på Arduino Uno. På ESP32 bruger den LEDC bag om ryggen med 1000 Hz og 8 bit, så værdien går fra 0 (slukket) til 255 (helt tændt).\nLEDC-funktionerne giver dig selv valget af frekvens og opløsning:\n\n\n\n\n\n\n\nFunktion\nHvad den gør\n\n\n\n\nbool ledcAttach(uint8_t pin, uint32_t freq, uint8_t resolution)\nSætter PWM op på benet. Vælger selv en ledig kanal. Giver false ved fejl.\n\n\nbool ledcWrite(uint8_t pin, uint32_t duty)\nSætter duty. Gyldigt område er 0 til 2^opløsning, hvor 2^opløsning er helt tændt (256 ved 8 bit).\n\n\nbool ledcFade(uint8_t pin, uint32_t start_duty, uint32_t target_duty, int max_fade_time_ms)\nLader hardwaren fade fra én duty til en anden.\n\n\nbool ledcDetach(uint8_t pin)\nFjerner PWM fra benet igen.\n\n\n\n\n\n\n\n\n\nAdvarselÆndret i Arduino-ESP32 3.x\n\n\n\nI version 2.x skulle man først kalde ledcSetup(kanal, freq, opløsning) og så ledcAttachPin(pin, kanal), og ledcWrite() tog en kanal. I 3.x er ledcSetup() og ledcAttachPin() fjernet og erstattet af ledcAttach(), og alle LEDC-funktioner tager nu benet i stedet for kanalen. Vores platform (espressif32@8.0.0) bruger 3.x, så gammel kode fra nettet giver kompileringsfejl.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Lysdioder (LED'er)"
+    ]
+  },
+  {
+    "objectID": "Grundlag/lysdioder.html#eksempel-blink-med-millis",
+    "href": "Grundlag/lysdioder.html#eksempel-blink-med-millis",
+    "title": "Lysdioder (LED’er)",
+    "section": "Eksempel: blink med millis()",
+    "text": "Eksempel: blink med millis()\nEn ekstern lysdiode på GPIO 19 blinker, og den indbyggede lysdiode blinker i modtakt. Programmet bruger millis() i stedet for delay(), så loop() aldrig står stille og kan nå at lave andre ting.\n\n\nplatformio.ini\n\n[env:esp32doit-devkit-v1]\nplatform = espressif32@8.0.0\nboard = esp32doit-devkit-v1\nframework = arduino\nmonitor_speed = 115200\n\n\n\nsrc/main.cpp\n\n#include &lt;Arduino.h&gt;\n\n// Konfiguration\nconst int LED_PIN = 19;               // ekstern lysdiode via 220 Ω til GND\nconst unsigned long BLINK_MS = 500;   // tid tændt og tid slukket\n\nbool ledTaendt = false;\nunsigned long sidsteSkift = 0;\n\n// Skifter begge lysdioder; den indbyggede lyser, når den eksterne er slukket\nvoid skiftLysdioder() {\n  ledTaendt = !ledTaendt;\n  digitalWrite(LED_PIN, ledTaendt ? HIGH : LOW);\n  digitalWrite(LED_BUILTIN, ledTaendt ? LOW : HIGH);\n}\n\nvoid setup() {\n  Serial.begin(115200);\n  pinMode(LED_PIN, OUTPUT);\n  pinMode(LED_BUILTIN, OUTPUT);  // GPIO 2 på ESP32-DEVKIT-V1\n}\n\nvoid loop() {\n  unsigned long nu = millis();\n\n  // Subtraktionen virker også, når millis() løber rundt (efter ca. 49 dage),\n  // fordi begge tal er unsigned long\n  if (nu - sidsteSkift &gt;= BLINK_MS) {\n    sidsteSkift = nu;\n    skiftLysdioder();\n  }\n\n  // Her kan loop() lave andre ting, fx læse knapper eller sende data\n}\n\n\nHvorfor ikke bare delay()?\nMed digitalWrite(...); delay(500); står din loop() stille i et halvt sekund ad gangen. Så kan den hverken læse knapper eller sende data imens. På ESP32 er delay() en vTaskDelay(), så det kun er opgaven (task), der kører loop(), der venter. WiFi og andre opgaver kører videre, men din egen kode gør ikke. Se også Debouncing, hvor det samme princip bruges til knapper.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Lysdioder (LED'er)"
+    ]
+  },
+  {
+    "objectID": "Grundlag/lysdioder.html#eksempel-fade-med-pwm",
+    "href": "Grundlag/lysdioder.html#eksempel-fade-med-pwm",
+    "title": "Lysdioder (LED’er)",
+    "section": "Eksempel: fade med PWM",
+    "text": "Eksempel: fade med PWM\nLysdioden på GPIO 19 bliver langsomt kraftigere og svagere igen. Koblingen er den samme som i blink-eksemplet.\n\n\nplatformio.ini\n\n[env:esp32doit-devkit-v1]\nplatform = espressif32@8.0.0\nboard = esp32doit-devkit-v1\nframework = arduino\nmonitor_speed = 115200\n\n\n\nsrc/main.cpp\n\n#include &lt;Arduino.h&gt;\n\n// Konfiguration\nconst int LED_PIN = 19;                // lysdiode via 220 Ω til GND\nconst uint32_t PWM_FREKVENS = 5000;    // Hz: så hurtigt, at øjet ikke ser blink\nconst uint8_t PWM_OPLOESNING = 8;      // bit: duty fra 0 til 255\nconst int MAKS_DUTY = 255;             // højeste duty, vi fader op til\nconst unsigned long TRIN_MS = 10;      // tid mellem hvert trin i fadet\n\nint duty = 0;\nint retning = 1;                       // +1 = op, -1 = ned\nunsigned long sidsteTrin = 0;\n\n// Ét trin op eller ned; vender ved enderne\nvoid fadeEtTrin() {\n  duty += retning;\n  if (duty &gt;= MAKS_DUTY || duty &lt;= 0) {\n    retning = -retning;\n  }\n  ledcWrite(LED_PIN, duty);\n}\n\nvoid setup() {\n  Serial.begin(115200);\n\n  // ledcAttach vælger selv en ledig LEDC-kanal til benet\n  if (!ledcAttach(LED_PIN, PWM_FREKVENS, PWM_OPLOESNING)) {\n    Serial.println(\"Fejl: PWM kunne ikke sættes op på benet\");\n  }\n}\n\nvoid loop() {\n  unsigned long nu = millis();\n\n  if (nu - sidsteTrin &gt;= TRIN_MS) {\n    sidsteTrin = nu;\n    fadeEtTrin();\n  }\n}\n\nEt helt fade op og ned tager 2 × 255 × 10 ms ≈ 5 sekunder.\nVil du bruge analogWrite() i stedet, så slet ledcAttach(...) i setup(), og skriv analogWrite(LED_PIN, duty); i stedet for ledcWrite(LED_PIN, duty);. analogWrite() sætter selv PWM op første gang, med 1000 Hz og 8 bit.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Lysdioder (LED'er)"
+    ]
+  },
+  {
+    "objectID": "Grundlag/lysdioder.html#rgb-lysdioder",
+    "href": "Grundlag/lysdioder.html#rgb-lysdioder",
+    "title": "Lysdioder (LED’er)",
+    "section": "RGB-lysdioder",
+    "text": "RGB-lysdioder\nEn RGB-lysdiode er tre lysdioder (rød, grøn og blå) i ét hus med fire ben. De tre farver deler ét ben, og det er typisk det længste. Ved at dæmpe de tre farver hver for sig med PWM kan du blande næsten alle farver.\nDer findes to typer:\n\n\n\n\n\n\n\n\nType\nFælles ben går til\nEn farve lyser, når benet er\n\n\n\n\nFælles katode\nGND\nHIGH (analogWrite() 255 = fuld styrke)\n\n\nFælles anode\n3,3 V\nLOW (analogWrite() 0 = fuld styrke, 255 = slukket)\n\n\n\nTallene i tabellen gælder for analogWrite(), hvor 255 betyder helt tændt. Med ledcWrite() ved 8 bit er helt tændt 256, og 255 er kun næsten tændt, så en farve med fælles anode kan gløde svagt ved 255.\n\nHver farve skal have sin egen formodstand. Én fælles modstand i det fælles ben giver forskellig lysstyrke afhængigt af, hvor mange farver der er tændt.\nGrøn og blå har højere Vf end rød (se tabellen), så de kan lyse svagere på 3,3 V.\nMed fælles anode er alt omvendt: skriv 255 - værdi i stedet for værdi med analogWrite(), eller 256 - værdi med ledcWrite() ved 8 bit.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Lysdioder (LED'er)"
+    ]
+  },
+  {
+    "objectID": "Grundlag/lysdioder.html#øvelser",
+    "href": "Grundlag/lysdioder.html#øvelser",
+    "title": "Lysdioder (LED’er)",
+    "section": "Øvelser",
+    "text": "Øvelser\n\nFormodstand til rød og grøn. Beregn formodstanden til en rød lysdiode (Vf = 2,0 V) og en grøn lysdiode (Vf = 2,1 V for gulgrøn, eller 3,0 V for ren grøn; brug databladet for jeres lysdioder, hvis I har det) ved 3,3 V og 5 mA. Vælg den nærmeste standardværdi over den beregnede, og beregn den strøm, der så faktisk løber. Find modstandene i kassen, og tjek farvekoderne med farvekode-beregneren. Aflever beregningerne.\nBlink. Byg koblingen, og kør Eksempel: blink med millis(). Erstat BLINK_MS med to konstanter, TAENDT_MS og SLUKKET_MS, så lysdioden er tændt i 100 ms og slukket i 900 ms.\nFade. Kør Eksempel: fade med PWM. Prøv derefter varianten med analogWrite(). Kan du se forskel? Prøv også PWM_FREKVENS = 20 Hz med ledcAttach(): hvad ser du, og hvorfor?\nTrafiklys. Sæt en rød, en gul og en grøn lysdiode på GPIO 25, 26 og 27, hver med sin egen formodstand. Lav et program, der kører den danske rækkefølge: rød, rød + gul, grøn, gul, rød … Vælg selv tiderne som konstanter øverst. Brug millis(), ikke delay(). Tip: giv hver fase et nummer, og brug en switch eller et array med tiderne. Vis det kørende trafiklys til læreren.\nEkstra: Lysstyrken ser ikke ud til at stige jævnt: forskellen mellem duty 10 og 20 er tydelig, mellem 200 og 210 næsten usynlig. Det skyldes, at øjet opfatter lysstyrke omtrent logaritmisk (det kaldes også gammakorrektion, når man retter for det). Lav fadet med en tabel (et array) af duty-værdier, der stiger mere og mere, og se, om det bliver jævnere.\nEkstra: Byg en RGB-lysdiode på, og lad den skifte mellem rød, grøn, blå og hvid. Find ud af, om jeres er med fælles katode eller fælles anode.\nEkstra: Prøv ledcFade(LED_PIN, 0, 255, 2000). Kald den én gang i setup() efter ledcAttach() (står den direkte i loop(), starter fadet forfra hver gang, og så ser du ingen fade). Lad loop() blinke den indbyggede lysdiode imens. Kører loop() videre, mens lysdioden fader? Hvordan kan du se det?",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Lysdioder (LED'er)"
+    ]
+  },
+  {
+    "objectID": "Grundlag/lysdioder.html#typiske-fejl",
+    "href": "Grundlag/lysdioder.html#typiske-fejl",
+    "title": "Lysdioder (LED’er)",
+    "section": "Typiske fejl",
+    "text": "Typiske fejl\n\nLysdioden lyser ikke: den vender forkert. Det lange ben (anode) skal mod GPIO-benet, den flade kant (katode) mod GND.\nLysdioden lyser ikke, selv om den vender rigtigt: pinMode(LED_PIN, OUTPUT) mangler, benet er et af 34–39 (kun indgang), eller begge ben på lysdioden (eller på modstanden) sidder i samme række på fem huller, så komponenten er kortsluttet. Lysdioden og modstanden skal dele én række (ét ben hver); det er sådan, de kommer i serie.\nLysdioden lyser meget kraftigt: formodstanden mangler. Så begrænses strømmen kun af benet selv, og både benet og lysdioden belastes. Tag USB ud med det samme, og sæt en modstand i.\nLysdioden lyser meget svagt: for stor modstand (fx 2,2 kΩ eller 22 kΩ i stedet for 220 Ω; tjek farvekoden), eller en blå/hvid lysdiode, hvor Vf er tæt på 3,3 V.\nledcSetup was not declared in this scope: koden er skrevet til Arduino-ESP32 2.x. Brug ledcAttach(pin, freq, opløsning) og ledcWrite(pin, duty).\nPWM-lysdioden blinker synligt: frekvensen er for lav. Brug mindst et par hundrede Hz.\nRGB-lysdioden viser “omvendte” farver: den er med fælles anode. Skriv 255 - værdi (analogWrite()) eller 256 - værdi (ledcWrite() ved 8 bit).",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Lysdioder (LED'er)"
+    ]
+  },
+  {
+    "objectID": "Grundlag/lysdioder.html#læs-videre",
+    "href": "Grundlag/lysdioder.html#læs-videre",
+    "title": "Lysdioder (LED’er)",
+    "section": "Læs videre",
+    "text": "Læs videre\n\nBlink uden delay\nESP32IO viser i ESP32 - LED - Blink Without Delay samme millis()-mønster som eksemplet ovenfor (lysdiode på GPIO 21, 220 Ω), og bagefter et eksempel, hvor en knap læses samtidig med, at lysdioden blinker. Det viser tydeligt, hvorfor delay() er et problem: med delay() bliver tryk på knappen overset.\nBemærk to småfejl: kommentaren til variablen previousButtonState siger, at den gemmer et tidspunkt, men den gemmer knappens tilstand. Og en sætning i afsnittet om delay() er rodet (“you will not see enough four times …”); meningen er, at tryk, der sker under delay(), ikke bliver set.\n\n\nPWM med LEDC\nRandom Nerd Tutorials gennemgår i ESP32 PWM with Arduino IDE både ledcAttach()/ledcWrite() og analogWrite(), med de nye funktionsnavne fra 3.x. Artiklen viser også ledcAttachChannel(), hvis du selv vil vælge kanalen.\nLæs den kritisk:\n\nArtiklen angiver ledcWrite() som void, men i 3.x giver den bool (true, når det lykkes).\nEksemplerne bruger delay(15) i loop(). Det virker, men programmet kan ikke lave andet imens. Sammenlign med millis()-løsningen på denne side.\nEksemplerne bruger GPIO 16. Det er fint på ESP32-DEVKIT-V1, men på moduler med PSRAM (WROVER) er 16 og 17 optaget. Vores sikre ben er 18, 19, 21–23, 25–27, 32 og 33.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Lysdioder (LED'er)"
+    ]
+  },
+  {
+    "objectID": "Grundlag/lysdioder.html#kilder",
+    "href": "Grundlag/lysdioder.html#kilder",
+    "title": "Lysdioder (LED’er)",
+    "section": "Kilder",
+    "text": "Kilder\n\nArduino-ESP32: LED Control (LEDC), https://docs.espressif.com/projects/arduino-esp32/en/latest/api/ledc.html\nArduino-ESP32: Migration from 2.x to 3.0 (LEDC), https://docs.espressif.com/projects/arduino-esp32/en/latest/migration_guides/2.x_to_3.0.html\nArduino-ESP32: kildekoden til LEDC og analogWrite() (1000 Hz, 8 bit), https://github.com/espressif/arduino-esp32/blob/master/cores/esp32/esp32-hal-ledc.c\nArduino-ESP32: LED_BUILTIN for DOIT ESP32 DEVKIT V1, https://github.com/espressif/arduino-esp32/blob/master/variants/doitESP32devkitV1/pins_arduino.h\nEspressif: ESP32 Datasheet, afsnit 5.1 (Absolute Maximum Ratings) og 5.3 (DC Characteristics), https://documentation.espressif.com/esp32_datasheet_en.html\nESP-IDF: GPIO (drivstyrke, standard er medium), https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/gpio.html\nPlatformIO: ESP32-DEVKIT-V1, https://docs.platformio.org/en/latest/boards/espressif32/esp32doit-devkit-v1.html\nWikipedia: Light-emitting diode physics (tabel over farver og spændingsfald), https://en.wikipedia.org/wiki/Light-emitting_diode_physics\nAdafruit: All About LEDs, Forward Voltage and KVL, https://learn.adafruit.com/all-about-leds/forward-voltage-and-kvl\nESP32IO: ESP32 - LED - Blink Without Delay, https://esp32io.com/tutorials/esp32-led-blink-without-delay\nRandom Nerd Tutorials: ESP32 PWM with Arduino IDE, https://randomnerdtutorials.com/esp32-pwm-arduino-ide/",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Lysdioder (LED'er)"
+    ]
+  },
+  {
     "objectID": "Grundlag/index.html",
     "href": "Grundlag/index.html",
     "title": "Grundlag",
     "section": "",
-    "text": "Det grundlæggende fra første del af faget: værktøjer, programmering af ESP32 og de første input og output. Brug siderne som opslag, når du skal genopfriske noget.\n\n\n\n\n\n\n   \n    \n    \n      Sorter ved\n      Standard\n      \n        Dato - Ældste\n      \n      \n        Dato - Nyeste\n      \n      \n        Overskrift\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\nOverskrift\n\n\n\nUnderoverskrift\n\n\n\nDato\n\n\n\n\n\n\n\n\nDebouncing\n\n\nStabil aflæsning af knapper\n\n\n22. november 2026\n\n\n\n\n\n\nIntro til C++\n\n\nHeader-filer, deklarationer og pointere på ESP32\n\n\n23. november 2026\n\n\n\n\n\n\nPlatformIO\n\n\nOpsætning af VS Code og PlatformIO til ESP32\n\n\n23. november 2026\n\n\n\n\n\n\nWiFi\n\n\nForbind ESP32 til et trådløst netværk\n\n\n23. november 2026\n\n\n\n\n\n\nIngen resultater",
+    "text": "Det grundlæggende fra første del af faget: værktøjer, programmering af ESP32 og de første input og output. Brug siderne som opslag, når du skal genopfriske noget.\n\n\n\n\n\n\n   \n    \n    \n      Sorter ved\n      Standard\n      \n        Dato - Ældste\n      \n      \n        Dato - Nyeste\n      \n      \n        Overskrift\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\nOverskrift\n\n\n\nUnderoverskrift\n\n\n\nDato\n\n\n\n\n\n\n\n\nDebouncing\n\n\nStabil aflæsning af knapper\n\n\n22. november 2026\n\n\n\n\n\n\nDrejepotentiometer\n\n\nAnalog aflæsning med ESP32’s ADC\n\n\n23. november 2026\n\n\n\n\n\n\nESP32-DEVKIT-V1\n\n\nChip, kort, ben og hukommelse\n\n\n23. november 2026\n\n\n\n\n\n\nHello World på ESP32\n\n\nDet første program: Serial Monitor og en blinkende lysdiode\n\n\n23. november 2026\n\n\n\n\n\n\nIntro til C++\n\n\nHeader-filer, deklarationer og pointere på ESP32\n\n\n23. november 2026\n\n\n\n\n\n\nKnapper og kontakter\n\n\nTrykknapper, pull-up og pull-down\n\n\n23. november 2026\n\n\n\n\n\n\nLysdioder (LED’er)\n\n\nTænd, sluk og dæmp en lysdiode med ESP32\n\n\n23. november 2026\n\n\n\n\n\n\nModstande og farvekoder\n\n\nAflæs, beregn og mål en modstand\n\n\n23. november 2026\n\n\n\n\n\n\nPlatformIO\n\n\nOpsætning af VS Code og PlatformIO til ESP32\n\n\n23. november 2026\n\n\n\n\n\n\nWiFi\n\n\nForbind ESP32 til et trådløst netværk\n\n\n23. november 2026\n\n\n\n\n\n\nIngen resultater",
     "crumbs": [
       "Hjem",
       "Grundlag"
+    ]
+  },
+  {
+    "objectID": "Grundlag/esp32_specs.html",
+    "href": "Grundlag/esp32_specs.html",
+    "title": "ESP32-DEVKIT-V1",
+    "section": "",
+    "text": "Når du skal koble en sensor til ESP32, skal du vælge et ben. Vælger du forkert, kan kortet nægte at starte, en analog måling giver 0, så snart WiFi er tændt, eller du kan ødelægge benet med 5 V. Det er ikke fejl i dit program, men egenskaber ved chippen og kortet. Denne side samler, hvad ESP32-DEVKIT-V1 kan og ikke kan: chippen, kortets dele, benene og hukommelsen. Brug den som opslag, når du planlægger en kobling.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "ESP32-DEVKIT-V1"
+    ]
+  },
+  {
+    "objectID": "Grundlag/esp32_specs.html#formål",
+    "href": "Grundlag/esp32_specs.html#formål",
+    "title": "ESP32-DEVKIT-V1",
+    "section": "Formål",
+    "text": "Formål\n\nDu kan forklare forskellen på ESP32-chippen, ESP-WROOM-32-modulet og DEVKIT-V1-kortet.\nDu kan nævne nøgletallene for ESP32: kerner, clockfrekvens, RAM, flash, WiFi og Bluetooth.\nDu kan vælge et ben, der passer til opgaven (digitalt, analogt, PWM, I2C, vækning fra deep sleep), og undgå de ben, der giver problemer.\nDu kan forklare, hvordan flash er delt op i partitioner, og vælge en anden partitionstabel i platformio.ini.\nDu kan få ESP32 til at skrive sine egne data ud: model, flash, ledig hukommelse og partitioner.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "ESP32-DEVKIT-V1"
+    ]
+  },
+  {
+    "objectID": "Grundlag/esp32_specs.html#målpinde",
+    "href": "Grundlag/esp32_specs.html#målpinde",
+    "title": "ESP32-DEVKIT-V1",
+    "section": "Målpinde",
+    "text": "Målpinde\nSiden arbejder med målpind 4, 17 og 20 (se Læringsmål).",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "ESP32-DEVKIT-V1"
+    ]
+  },
+  {
+    "objectID": "Grundlag/esp32_specs.html#forudsætninger",
+    "href": "Grundlag/esp32_specs.html#forudsætninger",
+    "title": "ESP32-DEVKIT-V1",
+    "section": "Forudsætninger",
+    "text": "Forudsætninger\n\nDu kan oprette et PlatformIO-projekt til ESP32-DEVKIT-V1, uploade og åbne Serial Monitor (se PlatformIO).\nHardware: ESP32-DEVKIT-V1 og et USB-kabel. Der skal ikke kobles noget til.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "ESP32-DEVKIT-V1"
+    ]
+  },
+  {
+    "objectID": "Grundlag/esp32_specs.html#chip-modul-og-kort",
+    "href": "Grundlag/esp32_specs.html#chip-modul-og-kort",
+    "title": "ESP32-DEVKIT-V1",
+    "section": "Chip, modul og kort",
+    "text": "Chip, modul og kort\nOrdet “ESP32” bruges om tre forskellige ting, der sidder inden i hinanden:\n\n\n\n\n\n\n\n\nNiveau\nHvad det er\nHvad det indeholder\n\n\n\n\nESP32-chippen\nSelve mikrocontrolleren fra Espressif, på skolens kort typisk en ESP32-D0WDQ6 eller ESP32-D0WD(-V3)\nProcessor, RAM, WiFi- og Bluetooth-radio, ADC, timere osv. Ingen flash til programmet.\n\n\nESP-WROOM-32-modulet\nDen sølvfarvede metalkasse på kortet\nESP32-chippen, 4 MB flash, en 40 MHz krystal og en antenne (det bugtede kobbermønster for enden)\n\n\nESP32-DEVKIT-V1-kortet\nUdviklingskortet fra DOIT, som du sætter i breadboardet\nModulet plus USB-stik, USB-serielchip, spændingsregulator, to knapper, lysdioder og ben med 2,54 mm afstand\n\n\n\nModulet er lavet, så en producent kan lodde det direkte på sit eget print, uden selv at skulle designe radio og antenne. Kortet er lavet, så du kan programmere modulet over USB og koble ting til på et breadboard. I et færdigt produkt ville man bruge modulet alene.\nEspressif anbefaler ikke længere ESP-WROOM-32 til nye produkter. Mange nyere kort har i stedet modulet ESP32-WROOM-32E, som har den nyere chip ESP32-D0WD-V3. Står der “32E” på dit modul, gælder siden stadig. Tjek dog flash-størrelsen i udskriften fra eksemplet nedenfor, for modulet findes med mere end 4 MB.\n\nNøgletal\nTallene gælder chippen og modulet og er fra Espressifs datablade.\n\n\n\n\nESP32 på DEVKIT-V1\n\n\n\n\nProcessor\nTo kerner, Xtensa LX6, 32 bit, op til 240 MHz\n\n\nRAM (SRAM)\n520 KB i chippen\n\n\nRTC-hukommelse\n16 KB (8 KB fast + 8 KB slow), har strøm under deep sleep\n\n\nROM\n448 KB (opstartskode og indbyggede funktioner, kan ikke ændres)\n\n\nFlash\n4 MB i modulet (til program, indstillinger og filsystem)\n\n\nPSRAM\nIngen\n\n\nWiFi\n802.11 b/g/n, kun 2,4 GHz\n\n\nBluetooth\nv4.2 Classic (BR/EDR) og Bluetooth Low Energy\n\n\nGPIO\n34 på chippen, 25 eller 31 på kortet (se 30 eller 36 ben)\n\n\nADC\n2 × 12 bit (ADC1 og ADC2), op til 18 kanaler\n\n\nDAC\n2 × 8 bit (GPIO 25 og 26)\n\n\nTouch\n10 kanaler\n\n\nPWM (LEDC)\n16 kanaler\n\n\nSeriel\n3 × UART, 2 × I2C, 4 × SPI (to af dem bruges til flash)\n\n\nSpænding\n3,3 V (chippen 2,3–3,6 V, modulet 3,0–3,6 V)\n\n\n\nTo ting er værd at hæfte sig ved: ESP32 kan ikke bruge WiFi på 5 GHz, og den har kun 520 KB RAM. Det er meget for en mikrocontroller (en Arduino Uno har 2 KB), men lidt for en computer, så store tekster og billeder skal holdes ude af RAM.\n\n\nKortets dele\n\n\n\nESP32-DEVKIT-V1 med de vigtigste dele markeret (billede: Random Nerd Tutorials).\n\n\n\nESP-WROOM-32: modulet med chippen, flash og antenne. Antennen skal være fri: læg ikke kortet med antennen ind over metal eller ledninger, hvis WiFi er ustabil.\nUSB-serielchip (CP2102 eller CH340): ESP32 har ikke selv USB. Chippen oversætter mellem USB og ESP32’s serielle port UART0 (GPIO 1 og 3). Det er den, Serial Monitor og upload går igennem. Driveren er beskrevet på PlatformIO-siden.\nSpændingsregulator: laver de 5 V fra USB om til de 3,3 V, som ESP32 bruger.\nEN (enable, ofte mærket RST): genstarter ESP32. Programmet starter forfra, præcis som når strømmen sættes til.\nBOOT: forbundet til GPIO 0. Holdes den nede, mens ESP32 starter, går den i upload-tilstand i stedet for at køre programmet. Normalt klarer USB-chippen det selv; se PlatformIO for, hvad du gør, når den ikke gør.\nLysdioder: én lyser, når kortet har strøm. Den anden sidder på GPIO 2 og kan styres fra programmet. I Arduino hedder benet også LED_BUILTIN.\nStrømben: 3V3 (3,3 V fra regulatoren, til sensorer), GND og VIN (5 V-siden).\n\n\n\nStrømmen må kun komme ét sted fra ad gangen: enten USB eller en ekstern forsyning på VIN eller 3V3. Espressif advarer om, at kort og strømforsyning kan tage skade, hvis man bruger flere på én gang. Advarslen står ved deres eget udviklingskort (ESP32-DevKitC), men det samme gælder i praksis for DEVKIT-V1.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "ESP32-DEVKIT-V1"
+    ]
+  },
+  {
+    "objectID": "Grundlag/esp32_specs.html#benene",
+    "href": "Grundlag/esp32_specs.html#benene",
+    "title": "ESP32-DEVKIT-V1",
+    "section": "Benene",
+    "text": "Benene\n\n3,3 V-logik\nESP32 arbejder med 3,3 V. Et ben, der er HIGH, giver 3,3 V, og et input læser HIGH, når spændingen er tæt på 3,3 V. Benene tåler ikke 5 V: databladet tillader højst 3,3 V + 0,3 V på et input. En sensor eller et modul, der sender 5 V-signaler (fx mange moduler lavet til Arduino Uno), skal derfor have en spændingsdeler eller en level shifter imellem. Forsyn sensorer fra 3V3, medmindre databladet for sensoren siger andet.\nEt ben kan trække en lysdiode med formodstand, men ikke en motor, et relæ eller en lang LED-strip. Dem skal du styre via en transistor eller et driver-modul.\n\n\nHvad benene kan\nNæsten alle ben er almindelige digitale ind- og udgange (pinMode(), digitalRead(), digitalWrite()). Derudover har mange ben en eller flere særlige funktioner:\n\n\n\n\n\n\n\n\nFunktion\nBen\nBemærk\n\n\n\n\nADC1 (analog ind)\n32, 33, 34, 35, 36 (VP), 39 (VN)\nKan bruges sammen med WiFi\n\n\nADC2 (analog ind)\n0, 2, 4, 12, 13, 14, 15, 25, 26, 27\nKan ikke bruges, mens WiFi er tændt\n\n\nDAC (analog ud)\n25 (DAC1), 26 (DAC2)\n8 bit: dacWrite(pin, 0–255) giver 0–3,3 V\n\n\nTouch\nT0–T9: 4, 0, 2, 15, 13, 12, 14, 27, 33, 32\ntouchRead(T7) osv.\n\n\nPWM\nAlle ben, der kan være output (ikke 34–39)\n16 kanaler, ledcAttach() og ledcWrite()\n\n\nI2C\nSDA 21, SCL 22\nStandard i Wire.begin(), kan flyttes\n\n\nSPI (VSPI)\nMOSI 23, MISO 19, SCK 18, SS 5\nStandard i SPI.begin(), kan flyttes\n\n\nUART0\nTX 1, RX 3\nBruges af Serial og USB. Lad dem være.\n\n\nUART2\nRX 4, TX 25 (standard i Arduino-ESP32 3.x)\nAngiv selv benene, fx Serial2.begin(9600, SERIAL_8N1, 16, 17). Printet skriver RX2/TX2 ved GPIO 16 og 17; det passer med 2.x, ikke med 3.x\n\n\nRTC-GPIO\n0, 2, 4, 12–15, 25–27, 32–39\nKun disse kan vække ESP32 fra deep sleep\n\n\n\nEt par forklaringer:\n\nADC (analog-to-digital converter) måler en spænding og giver et tal fra 0 til 4095 (12 bit). Med standardindstillingen kan den måle fra ca. 0,15 V til 3,1 V, så den kan ikke måle helt op til 3,3 V. Brug analogReadMilliVolts(), hvis du vil have millivolt i stedet for et råt tal. ADC2 deler hardware med WiFi-radioen, så i et IoT-projekt bør analoge sensorer altid sidde på ADC1 (se WiFi).- PWM (pulsbreddemodulation) tænder og slukker et ben hurtigt, så en lysdiode ser ud til at lyse svagere. I Arduino-ESP32 3.x hedder funktionerne ledcAttach(pin, frekvens, opløsning) og ledcWrite(pin, værdi). Ældre vejledninger bruger ledcSetup() og ledcAttachPin(), som er fjernet i 3.x.\nI2C, SPI og UART er serielle forbindelser til sensorer og moduler. Benene i tabellen er standard; ESP32 kan flytte dem til (næsten) alle andre ben, hvis du angiver benene, fx Wire.begin(SDA_PIN, SCL_PIN).\nRTC-GPIO er de ben, der hører til den del af chippen, som har strøm under deep sleep. Det er forklaret på Deep sleep-siden.\n\n\n\nBen, du skal passe på\n\n\n\n\n\n\n\nBen\nProblem\n\n\n\n\n6–11\nForbundet til flash i modulet. Rører du dem, går programmet ned. Sidder kun på 36-ben-udgaven.\n\n\n34, 35, 36, 39\nKun input. Ingen intern pull-up eller pull-down, så en knap kræver en ekstern modstand. Fine til analoge sensorer (ADC1).\n\n\n0\nStrapping pin og BOOT-knappen. LOW ved opstart giver upload-tilstand i stedet for dit program.\n\n\n2\nStrapping pin og lysdioden. Skal være LOW eller fri ved upload.\n\n\n12\nStrapping pin. HIGH ved opstart sætter flash-spændingen til 1,8 V, og så kan kortet hverken starte eller tage imod upload.\n\n\n15\nStrapping pin. LOW ved opstart slår opstartsbeskederne i Serial Monitor fra.\n\n\n5\nStrapping pin (timing for en SDIO-funktion, vi ikke bruger). Ufarlig i praksis, men husk den.\n\n\n1, 3\nUART0: Serial og upload.\n\n\n\nStrapping pins er de fem ben, som ESP32 læser i det øjeblik, den starter, for at vælge opstartstilstand. Det er kun ved opstart, de betyder noget, men en sensor eller knap, der trækker benet den forkerte vej netop dér, kan forhindre opstart eller upload.\nSikre valg til knapper, lysdioder og digitale sensorer: 18, 19, 21, 22, 23, 25, 26, 27, 32, 33. Skal knappen også kunne vække fra deep sleep, så brug 25–27, 32 eller 33. Analoge sensorer i et projekt med WiFi: 32–36 eller 39.\n\n\n30 eller 36 ben\nDEVKIT-V1 findes i to udgaver, der ligner hinanden meget:\n\n30 ben (15 i hver side): 25 GPIO-ben plus EN, VIN, 3V3 og to GND. GPIO 6–11 er ikke ført ud. Det er den udgave, der er på billedet ovenfor.\n36 ben: de samme plus GPIO 6–11 (mærket CMD, SD0–SD3, CLK). Dem kan du alligevel ikke bruge, fordi de er forbundet til flash.\n\nBenene sidder forskelligt på de to udgaver, så brug et pinout-diagram, der passer til dit kort, og læs teksten på printet ved siden af benene. Bemærk, at printet ofte skriver D18 eller bare 18, og at GPIO 36 og 39 kan stå som VP og VN.\n\n\n\n\nPinout-diagram\nEt pinout-diagram viser, hvor hvert ben sidder, og hvilke funktioner det har. Hav et ved hånden, når du kobler:\n\nRandom Nerd Tutorials: ESP32 Pinout Reference har diagrammer for både 30- og 36-ben-udgaven af DEVKIT V1. Læs dog afsnittet Læs videre først.\nEspressifs eget udviklingskort, ESP32-DevKitC, har samme chip og modul, men en anden placering af benene. Dets tabeller er gode til at slå op, hvad et GPIO kan, men ikke til at finde det fysiske ben på DEVKIT-V1.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "ESP32-DEVKIT-V1"
+    ]
+  },
+  {
+    "objectID": "Grundlag/esp32_specs.html#hukommelse",
+    "href": "Grundlag/esp32_specs.html#hukommelse",
+    "title": "ESP32-DEVKIT-V1",
+    "section": "Hukommelse",
+    "text": "Hukommelse\nESP32 har flere slags hukommelse, og de bruges til hver sin ting:\n\n\n\nHukommelse\nStørrelse\nMister indholdet ved\nBruges til\n\n\n\n\nSRAM\n520 KB\nGenstart, deep sleep, strømsvigt\nVariabler, stakke og heap (det, new og String henter plads fra), WiFi\n\n\nRTC-hukommelse\n16 KB\nAlle genstarter (EN, ESP.restart(), nedbrud) og strømsvigt. Kun deep sleep overlever\nVariabler med RTC_DATA_ATTR, der skal overleve deep sleep (Deep sleep)\n\n\nFlash\n4 MB\nIngenting\nProgrammet, indstillinger (NVS) og filsystem (Filsystem)\n\n\nPSRAM\n0 på DEVKIT-V1\n\nEkstra RAM på nogle andre moduler (fx ESP32-WROVER)\n\n\n\nAf de 520 KB SRAM er det langtfra det hele, dit program kan bruge. Systemet, FreeRTOS og WiFi-stakken tager en god del, og noget af SRAM’en bruges til programkode, der skal køre hurtigt. Den ledige heap er typisk et par hundrede KB. Eksemplet nedenfor viser, hvor meget der er på dit kort.\n\n\nPartitionstabellen\nFlash er delt op i partitioner, ligesom en harddisk. Forrest ligger bootloaderen (fra adresse 0x1000), det lille program, der starter dit program. På 0x8000 ligger partitionstabellen, som siger, hvor resten ligger. Med Arduino-frameworket bruger PlatformIO tabellen default.csv:\n\n\n\n\n\n\n\n\nPartition\nStørrelse\nIndhold\n\n\n\n\nnvs\n20 KB\nSmå nøgle/værdi-data, fx WiFi-indstillinger og biblioteket Preferences\n\n\notadata\n8 KB\nHvilken af de to app-partitioner, der skal startes\n\n\napp0\n1280 KB\nDit program\n\n\napp1\n1280 KB\nPlads til en ny version, når programmet opdateres over netværket (OTA)\n\n\nspiffs\n1408 KB\nFilsystemet (bruges også af LittleFS)\n\n\ncoredump\n64 KB\nFejlinformation, hvis programmet går ned\n\n\n\nAdresserne og en længere forklaring står på Filsystem-siden.\nDit program må altså højst fylde 1280 KB, selvom der er 4 MB flash. Bliver programmet for stort (fx med WiFi, Bluetooth og flere biblioteker på én gang), giver PlatformIO en fejl om, at programmet ikke kan være der. Så kan du vælge en anden tabel med board_build.partitions i platformio.ini:\n\n\nplatformio.ini\n\nboard_build.partitions = huge_app.csv\n\n\n\n\nTabel\nProgram\nFilsystem\nOTA\n\n\n\n\ndefault.csv\n1280 KB\n1408 KB\nJa\n\n\nno_ota.csv\n2048 KB\n1920 KB\nNej\n\n\nhuge_app.csv\n3072 KB\n896 KB\nNej\n\n\n\nTabellerne følger med Arduino-ESP32. Du kan også lave din egen: læg en CSV-fil i projektets rodmappe (ved siden af platformio.ini), og skriv dens navn i board_build.partitions. Bliv ved default.csv, medmindre du har brug for andet: uden app1 kan enheden ikke opdateres over netværket, og når tabellen skifter, er filerne i filsystemet væk.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "ESP32-DEVKIT-V1"
+    ]
+  },
+  {
+    "objectID": "Grundlag/esp32_specs.html#eksempel-esp32-fortæller-om-sig-selv",
+    "href": "Grundlag/esp32_specs.html#eksempel-esp32-fortæller-om-sig-selv",
+    "title": "ESP32-DEVKIT-V1",
+    "section": "Eksempel: ESP32 fortæller om sig selv",
+    "text": "Eksempel: ESP32 fortæller om sig selv\nProgrammet skriver chippens data og partitionstabellen ud én gang ved opstart. Derefter skriver det hvert 5. sekund, hvor meget heap der er ledig. Det bruger klassen ESP fra Arduino-ESP32 og to små funktioner fra ESP-IDF til partitionerne.\n\n\nplatformio.ini\n\n[env:esp32doit-devkit-v1]\nplatform = espressif32@8.0.0\nboard = esp32doit-devkit-v1\nframework = arduino\nmonitor_speed = 115200\n\n\n\nsrc/main.cpp\n\n#include &lt;Arduino.h&gt;\n#include &lt;esp_partition.h&gt;  // ESP-IDF: læs partitionstabellen\n#include &lt;esp_ota_ops.h&gt;    // ESP-IDF: hvilken app-partition kører lige nu\n\n// Konfiguration\nconst unsigned long HEAP_INTERVAL_MS = 5000;  // hvor tit den ledige heap skrives ud\n\nunsigned long sidsteHeapUdskrift = 0;\n\nvoid skrivChipInfo() {\n  Serial.println(\"--- Chip ---\");\n  Serial.printf(\"Model:       %s, revision %u\\n\", ESP.getChipModel(),\n                (unsigned)ESP.getChipRevision());\n  Serial.printf(\"Kerner:      %u\\n\", (unsigned)ESP.getChipCores());\n  Serial.printf(\"CPU:         %lu MHz\\n\", (unsigned long)ESP.getCpuFreqMHz());\n  Serial.printf(\"Software:    Arduino-ESP32 %s, ESP-IDF %s\\n\",\n                ESP.getCoreVersion(), ESP.getSdkVersion());\n\n  Serial.println(\"--- Hukommelse ---\");\n  Serial.printf(\"Flash:       %lu bytes\\n\", (unsigned long)ESP.getFlashChipSize());\n  Serial.printf(\"Heap i alt:  %lu bytes\\n\", (unsigned long)ESP.getHeapSize());\n  Serial.printf(\"Heap ledig:  %lu bytes\\n\", (unsigned long)ESP.getFreeHeap());\n  Serial.printf(\"PSRAM:       %lu bytes\\n\", (unsigned long)ESP.getPsramSize());\n  Serial.printf(\"Program:     %lu bytes\\n\", (unsigned long)ESP.getSketchSize());\n  // Størrelsen på den app-partition, en ny version (OTA) ville blive skrevet til\n  Serial.printf(\"Plads til ny version: %lu bytes\\n\",\n                (unsigned long)ESP.getFreeSketchSpace());\n}\n\n// Skriver alle partitioner af én type (app eller data)\nvoid skrivPartitioner(esp_partition_type_t type, const char *typeNavn) {\n  const esp_partition_t *koerende = esp_ota_get_running_partition();\n\n  esp_partition_iterator_t it = esp_partition_find(type, ESP_PARTITION_SUBTYPE_ANY, NULL);\n  for (; it != NULL; it = esp_partition_next(it)) {\n    const esp_partition_t *p = esp_partition_get(it);\n    bool koererNu = (p-&gt;address == koerende-&gt;address);\n    Serial.printf(\"%-9s %-5s 0x%06lX %5lu KB%s\\n\", p-&gt;label, typeNavn,\n                  (unsigned long)p-&gt;address, (unsigned long)(p-&gt;size / 1024),\n                  koererNu ? \"  &lt;- kører nu\" : \"\");\n  }\n  esp_partition_iterator_release(it);  // it er NULL her, og det er tilladt\n}\n\nvoid setup() {\n  Serial.begin(115200);\n  delay(1000);  // giv Serial Monitor tid til at koble på, så starten ikke går tabt\n\n  skrivChipInfo();\n\n  Serial.println(\"--- Partitioner ---\");\n  skrivPartitioner(ESP_PARTITION_TYPE_APP, \"app\");\n  skrivPartitioner(ESP_PARTITION_TYPE_DATA, \"data\");\n}\n\nvoid loop() {\n  if (millis() - sidsteHeapUdskrift &gt;= HEAP_INTERVAL_MS) {\n    sidsteHeapUdskrift = millis();\n    // getMinFreeHeap(): den laveste værdi siden opstart. Nærmer den sig 0, er der fare for nedbrud.\n    Serial.printf(\"Heap ledig: %lu bytes (laveste: %lu)\\n\",\n                  (unsigned long)ESP.getFreeHeap(), (unsigned long)ESP.getMinFreeHeap());\n  }\n}\n\nSådan virker det:\n\nESP.getChipModel() læser chippens type fra dens indbyggede eFuses (en lille hukommelse, der skrives én gang på fabrikken). getChipRevision() giver revisionen som et tal, hvor fx 301 betyder major-version 3 og minor-version 1 (Espressif skriver v3.1).\nESP.getFlashChipSize() spørger selve flash-chippen og bør give 4194304 bytes (4 MB). getPsramSize() giver 0, fordi DEVKIT-V1 ikke har PSRAM.\ngetHeapSize() og getFreeHeap() tæller kun den interne RAM, som programmet kan bruge, ikke alle 520 KB.\ngetFreeSketchSpace() er misvisende navngivet: den giver størrelsen på den app-partition, en ny version ville blive skrevet til ved OTA (app1, når programmet kører fra app0). Findes der ingen anden app-partition (no_ota.csv, huge_app.csv), giver den størrelsen på den partition, programmet kører fra. Tallet er altså ikke 0, selvom der ikke er plads til OTA.\nesp_partition_find() giver en iterator, som esp_partition_next() flytter videre, til den bliver NULL. Listen skal passe med default.csv-tabellen ovenfor.\ndelay(1000) i setup() er her med vilje og er ufarlig: den kører kun én gang. I loop() bruges millis(), så programmet ikke står stille.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "ESP32-DEVKIT-V1"
+    ]
+  },
+  {
+    "objectID": "Grundlag/esp32_specs.html#øvelser",
+    "href": "Grundlag/esp32_specs.html#øvelser",
+    "title": "ESP32-DEVKIT-V1",
+    "section": "Øvelser",
+    "text": "Øvelser\n\nKør eksemplet. Hvilken chipmodel og revision har dit kort? Passer kerner, MHz og flash med tabellen Nøgletal? Sammenlign med din sidemand: har I samme chip?\nTilføj #include &lt;WiFi.h&gt; og kaldet WiFi.mode(WIFI_STA); sidst i setup(). Hvor meget falder den ledige heap? Hvad siger det om, hvor meget RAM der er tilbage til dit eget program i et IoT-projekt?\nTilføj board_build.partitions = no_ota.csv i platformio.ini, og upload igen. Hvordan ser partitionslisten ud nu? Hvad skriver “Plads til ny version”, og hvorfor? Prøv derefter huge_app.csv, og skift tilbage til standard ved at fjerne linjen.\nTæl benene på dit kort: er det 30- eller 36-ben-udgaven? Find GPIO 18, 21, 22, 32, 34 og VIN på kortet ved hjælp af teksten på printet og et pinout-diagram.\nLad lysdioden på GPIO 2 lysdæmpe op og ned med PWM: ledcAttach(LED_BUILTIN, 5000, 8) i setup() og ledcWrite(LED_BUILTIN, værdi) med en værdi fra 0 til 255, der ændres med millis().\nEkstra: Du skal bygge en enhed med WiFi, der har et potentiometer (analogt), to knapper (den ene skal kunne vække fra deep sleep), en lysdiode og et I2C-display. Vælg et ben til hver ting, og begrund valget ud fra tabellerne på siden. Aflever en tabel med ben, funktion og begrundelse.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "ESP32-DEVKIT-V1"
+    ]
+  },
+  {
+    "objectID": "Grundlag/esp32_specs.html#typiske-fejl",
+    "href": "Grundlag/esp32_specs.html#typiske-fejl",
+    "title": "ESP32-DEVKIT-V1",
+    "section": "Typiske fejl",
+    "text": "Typiske fejl\n\nAnalog måling giver 0 eller noget mærkeligt, når WiFi er tændt: Sensoren sidder på et ADC2-ben. Flyt den til ADC1: GPIO 32–36 eller 39.\nKortet vil ikke starte eller uploade, når noget er koblet til: Noget trækker en strapping pin den forkerte vej ved opstart: GPIO 0 LOW, GPIO 2 HIGH eller GPIO 12 HIGH. Tag ledningen af, og prøv igen.\nEn lysdiode på GPIO 34–39 lyser ikke: De ben er kun input. Brug et andet ben.\nEn knap på GPIO 34–39 svæver: Der er ingen intern pull-up. Brug et andet ben, eller sæt en ekstern modstand på.\nProgrammet går ned, så snart et ben bruges: Benet er et af GPIO 6–11, som er forbundet til flash.\nEn sensor eller et ben er gået i stykker: Der er kommet 5 V på et input. Tjek sensorens udgang med et multimeter, før den kobles til.\nSerial2 virker ikke med en ældre vejledning: Vejledningen bruger GPIO 16 og 17, som var standard i Arduino-ESP32 2.x. I 3.x er standarden RX 4 og TX 25. Angiv benene selv i Serial2.begin().\nFejl om, at programmet er for stort: Programmet fylder mere end app-partitionen (1280 KB). Vælg huge_app.csv, eller fjern biblioteker, du ikke bruger.\nFilerne i filsystemet er væk: Partitionstabellen er skiftet, så filsystemet ligger et andet sted.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "ESP32-DEVKIT-V1"
+    ]
+  },
+  {
+    "objectID": "Grundlag/esp32_specs.html#læs-videre",
+    "href": "Grundlag/esp32_specs.html#læs-videre",
+    "title": "ESP32-DEVKIT-V1",
+    "section": "Læs videre",
+    "text": "Læs videre\n\nESP32 Pinout Reference\nRandom Nerd Tutorials’ ESP32 Pinout Reference: Which GPIO pins should you use? er den mest brugte oversigt over benene, med diagrammer af DEVKIT V1 og en tabel over, hvilke ben der er gode at bruge. Den er god at have åben, når du kobler, men den har nogle fejl og forældede oplysninger:\n\nDen nævner GPIO 4 som strapping pin. Det er den ikke: Espressifs datablad nævner kun 0, 2, 5, 12 og 15.\nDen skriver, at GPIO 5 og 15 skal være HIGH ved opstart. Ifølge Espressif slår GPIO 15 LOW kun opstartsbeskederne fra, og GPIO 5 styrer en funktion, vi ikke bruger. GPIO 0 og 12 er dem, der virkelig kan forhindre opstart.\nDen skriver, at UART2 sidder på GPIO 16 og 17. Det var standard i Arduino-ESP32 2.x. I 3.x er det RX 4 og TX 25, så angiv benene selv.\nDen nævner en indbygget Hall-sensor (magnetfelt). Funktionen hallRead() er fjernet i Arduino-ESP32 3.x.\nDen skriver, at EN er enable-ben til 3,3 V-regulatoren. Espressif kalder benet CHIP_PU: det tænder og slukker chippen og bruges til reset. I praksis er virkningen den samme: ESP32 genstarter.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "ESP32-DEVKIT-V1"
+    ]
+  },
+  {
+    "objectID": "Grundlag/esp32_specs.html#kilder",
+    "href": "Grundlag/esp32_specs.html#kilder",
+    "title": "ESP32-DEVKIT-V1",
+    "section": "Kilder",
+    "text": "Kilder\n\nEspressif: ESP32 Series Datasheet (kerner, hukommelse, ADC, DAC, strapping pins, RTC-GPIO, spændinger), https://documentation.espressif.com/esp32_datasheet_en.html\nEspressif: ESP32-WROOM-32 Datasheet (4 MB flash, GPIO 6–11 til flash, NRND), https://documentation.espressif.com/esp32-wroom-32_datasheet_en.html\nEspressif: ESP32-WROOM-32E & ESP32-WROOM-32UE Datasheet (ESP32-D0WD-V3), https://documentation.espressif.com/esp32-wroom-32e_esp32-wroom-32ue_datasheet_en.html\nESP-IDF: Deep-sleep Wake Stubs (RTC-hukommelse nulstilles ved alle genstarter undtagen opvågning fra deep sleep), https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/deep-sleep-stub.html\nEspressif: ESP32-DevKitC User Guide (knapper, strømforsyning, moduler med og uden PSRAM), https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html\nesptool: Boot Mode Selection (GPIO 0, 2, 12 og 15 ved opstart), https://docs.espressif.com/projects/esptool/en/latest/esp32/advanced-topics/boot-mode-selection.html\nArduino-ESP32: Esp.h og Esp.cpp (klassen ESP), https://github.com/espressif/arduino-esp32/tree/master/cores/esp32\nArduino-ESP32: benene på DOIT ESP32 DEVKIT V1 (LED_BUILTIN, SDA, SCL, T0–T9, DAC1, DAC2), https://github.com/espressif/arduino-esp32/blob/master/variants/doitESP32devkitV1/pins_arduino.h\nArduino-ESP32: HardwareSerial.h (standardben til UART1 og UART2), https://github.com/espressif/arduino-esp32/blob/master/cores/esp32/HardwareSerial.h\nArduino-ESP32: Migration from 2.x to 3.0 (Hall-sensor, LEDC, UART-ben), https://docs.espressif.com/projects/arduino-esp32/en/latest/migration_guides/2.x_to_3.0.html\nArduino-ESP32: ADC, https://docs.espressif.com/projects/arduino-esp32/en/latest/api/adc.html\nArduino-ESP32: DAC, https://docs.espressif.com/projects/arduino-esp32/en/latest/api/dac.html\nArduino-ESP32: LEDC (PWM), https://docs.espressif.com/projects/arduino-esp32/en/latest/api/ledc.html\nArduino-ESP32: partitionstabeller (default.csv, no_ota.csv, huge_app.csv), https://github.com/espressif/arduino-esp32/tree/master/tools/partitions\nESP-IDF: ADC Oneshot Mode Driver (ADC2 bruges også af WiFi), https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/adc/adc_oneshot.html\nESP-IDF: Partition Tables, https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/partition-tables.html\nESP-IDF: Partitions API (esp_partition_find() osv.), https://docs.espressif.com/projects/esp-idf/en/v5.5/esp32/api-reference/storage/partition.html\nPlatformIO: Espressif 32 (Partition Tables, board_build.partitions), https://docs.platformio.org/en/latest/platforms/espressif32.html\nPlatformIO: DOIT ESP32 DEVKIT V1 (4 MB flash, 240 MHz), https://docs.platformio.org/en/latest/boards/espressif32/esp32doit-devkit-v1.html\nRandom Nerd Tutorials: ESP32 Pinout Reference, https://randomnerdtutorials.com/esp32-pinout-reference-gpios/\nRandom Nerd Tutorials: Getting Started with the ESP32 (billedet af kortets dele), https://randomnerdtutorials.com/getting-started-with-esp32/",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "ESP32-DEVKIT-V1"
     ]
   },
   {
@@ -685,6 +1009,210 @@
       "Hjem",
       "Grundlag",
       "Intro til C++"
+    ]
+  },
+  {
+    "objectID": "Features/mqtt_intro.html",
+    "href": "Features/mqtt_intro.html",
+    "title": "Intro til MQTT",
+    "section": "",
+    "text": "En temperaturføler i klasselokalet skal sende en måling hvert 5. sekund, og både en Python-app, en skærm på væggen og en database vil gerne have den. Hvis føleren selv skulle kende alle modtagerne og sende til hver af dem, ville koden skulle rettes, hver gang der kom en ny modtager. Med MQTT sender føleren i stedet sin måling ét sted hen, til en broker, under et emne som elever/anna/temperatur. Alle, der har sagt, at de er interesserede i det emne, får målingen. Det er den måde, IoT-enheder oftest sender data på, og det er det, I skal bruge i projektopgaverne.",
+    "crumbs": [
+      "Hjem",
+      "Features",
+      "Intro til MQTT"
+    ]
+  },
+  {
+    "objectID": "Features/mqtt_intro.html#formål",
+    "href": "Features/mqtt_intro.html#formål",
+    "title": "Intro til MQTT",
+    "section": "Formål",
+    "text": "Formål\n\nDu kan forklare, hvad en broker, en publisher og en subscriber er, og hvordan publish/subscribe adskiller sig fra request/response (fx HTTP).\nDu kan opbygge topics i et hierarki og abonnere på flere topics på én gang med wildcards (+ og #).\nDu kan forklare QoS 0, 1 og 2, retained messages, keep-alive og Last Will kort, og hvorfor client-id’et skal være unikt.\nDu kan sende og modtage MQTT-beskeder med JSON fra Python (eller C#) og sende målinger fra ESP32 uden at blokere loop().\nDu kan bruge MQTT Explorer og weblog’en på skolens broker til at se, om dine beskeder er kommet frem.",
+    "crumbs": [
+      "Hjem",
+      "Features",
+      "Intro til MQTT"
+    ]
+  },
+  {
+    "objectID": "Features/mqtt_intro.html#målpinde",
+    "href": "Features/mqtt_intro.html#målpinde",
+    "title": "Intro til MQTT",
+    "section": "Målpinde",
+    "text": "Målpinde\nSiden arbejder med målpind 2, 13, 20 og 22 (se Læringsmål).",
+    "crumbs": [
+      "Hjem",
+      "Features",
+      "Intro til MQTT"
+    ]
+  },
+  {
+    "objectID": "Features/mqtt_intro.html#forudsætninger",
+    "href": "Features/mqtt_intro.html#forudsætninger",
+    "title": "Intro til MQTT",
+    "section": "Forudsætninger",
+    "text": "Forudsætninger\n\nDu kan forbinde ESP32 til WiFi og holde passwordet ude af git med secrets.h: se WiFi.\nDu kender millis() fra Debouncing.\nPython 3.9 eller nyere på din computer, og din computer er på samme net som skolens broker.\nFakta om skolens broker (navne, porte, login og certifikat) står på Lokal MQTT server. Denne side forklarer begreberne og bruger kun port 1883.\nHardware til ESP32-eksemplet: ESP32-DEVKIT-V1, et potentiometer (fx 10 kΩ), et breadboard og tre ledninger.",
+    "crumbs": [
+      "Hjem",
+      "Features",
+      "Intro til MQTT"
+    ]
+  },
+  {
+    "objectID": "Features/mqtt_intro.html#publishsubscribe",
+    "href": "Features/mqtt_intro.html#publishsubscribe",
+    "title": "Intro til MQTT",
+    "section": "Publish/subscribe",
+    "text": "Publish/subscribe\nDe fleste kender request/response fra web: en browser spørger en server (“giv mig denne side”), og serveren svarer. Klienten skal vide, hvem den spørger, og den får kun data, når den selv spørger.\nMQTT virker anderledes. Der er tre roller:\n\nBrokeren er serveren i midten. Den modtager alle beskeder og sender dem videre. På skolen hedder den wilsons og kører programmet Mosquitto.\nEn publisher sender (publish) en besked til brokeren under et topic, fx elever/anna/temperatur.\nEn subscriber abonnerer (subscribe) hos brokeren på et eller flere topics og får alle beskeder, der bliver sendt til dem.\n\n\n\n\n\n\nflowchart LR\n  E[\"ESP32&lt;br&gt;(publisher)\"] -- \"publish&lt;br&gt;elever/anna/temperatur\" --&gt; B((\"Broker&lt;br&gt;wilsons\"))\n  B -- \"elever/anna/temperatur\" --&gt; P[\"Python-program&lt;br&gt;(subscriber)\"]\n  B -- \"elever/anna/temperatur\" --&gt; X[\"MQTT Explorer&lt;br&gt;(subscriber)\"]\n  B -- \"alt (#)\" --&gt; L[\"Loggeren&lt;br&gt;→ weblog :8080\"]\n\n\n\n\n\n\nDet vigtige er, at publisher og subscriber ikke kender hinanden. ESP32 ved ikke, hvem der lytter, eller om nogen gør. Man kan tilføje en ny subscriber uden at røre ESP32-koden. Den samme enhed kan også være både publisher og subscriber, fx en ESP32, der sender målinger og samtidig abonnerer på et topic, der tænder en lysdiode.\nBåde publisher og subscriber er klienter. Det er altid klienten, der opretter forbindelsen til brokeren, og forbindelsen bliver stående. Derfor kan en ESP32 bag en router godt modtage beskeder: den har selv åbnet forbindelsen ud til brokeren, og beskederne kommer tilbage ad den.\n\nHvorfor MQTT til IoT\nMQTT er oprindeligt lavet til telemetri over dårlige forbindelser og er nu en åben OASIS-standard, der bruges meget i IoT. Den passer godt til små enheder:\n\nLille overhead. En MQTT-besked har kun et par bytes hoved ud over topic og data. Der skal ikke sendes HTTP-headere med hver gang.\nData begge veje over den samme forbindelse: målinger fra enheden og kommandoer til den.\nMange modtagere uden ekstra arbejde for enheden.\nUstabile net. QoS, keep-alive og Last Will (se nedenfor) er lavet til enheder, der falder ud og kommer igen.\n\nStandardporten er 1883 uden kryptering og 8883 med TLS. Skolens broker bruger begge, og reglerne for dem står på Lokal MQTT server.",
+    "crumbs": [
+      "Hjem",
+      "Features",
+      "Intro til MQTT"
+    ]
+  },
+  {
+    "objectID": "Features/mqtt_intro.html#topics",
+    "href": "Features/mqtt_intro.html#topics",
+    "title": "Intro til MQTT",
+    "section": "Topics",
+    "text": "Topics\nEt topic er en tekst med niveauer adskilt af /, ligesom en sti til en fil:\nelever/anna/esp32/temperatur\n│      │    │     └ hvad der måles\n│      │    └ hvilken enhed\n│      └ hvem\n└ hvad området er til\nRegler og gode vaner:\n\nTopics oprettes ikke på forhånd. Et topic findes, så snart nogen sender til det.\nDer skelnes mellem store og små bogstaver: elever/Anna og elever/anna er to forskellige topics.\nStart ikke med /. /elever/anna giver et tomt første niveau, som ikke gør gavn.\nBrug små bogstaver, tal, - og _, og undgå mellemrum og æøå. Standarden tillader dem, men de giver bøvl i filnavne og URL’er. I weblog’en bliver fx mellemrum til _.\nTopics, der starter med $, er forbeholdt brokeren. Mosquitto sender fx sin egen status under $SYS/….\n\nPå skolens broker må du på port 8883 kun skrive i elever/&lt;brugernavn&gt;/… og test/…. Port 1883 har ingen regler, men brug de samme topics dér, så din kode virker, når du skifter til 8883 (se Lokal MQTT server).\n\nWildcards\nNår du abonnerer, kan du bruge to wildcards i stedet for et niveau. Man kan kun bruge dem, når man abonnerer, aldrig når man sender.\n\n\n\n\n\n\n\n\n\n\nWildcard\nBetyder\nEksempel\nPasser med\nPasser ikke med\n\n\n\n\n+\npræcis ét niveau\nelever/+/esp32/temperatur\nelever/anna/esp32/temperatur, elever/bo/esp32/temperatur\nelever/anna/esp32/stue/temperatur\n\n\n#\nalle niveauer herfra, også ingen\nelever/anna/#\nelever/anna, elever/anna/esp32/temperatur\nelever/bo/esp32/temperatur\n\n\n\n# skal stå til sidst. Et abonnement på # alene giver alle beskeder på brokeren, undtagen dem under $. Det er sådan, loggeren bag weblog’en virker.",
+    "crumbs": [
+      "Hjem",
+      "Features",
+      "Intro til MQTT"
+    ]
+  },
+  {
+    "objectID": "Features/mqtt_intro.html#beskeder-og-json",
+    "href": "Features/mqtt_intro.html#beskeder-og-json",
+    "title": "Intro til MQTT",
+    "section": "Beskeder og JSON",
+    "text": "Beskeder og JSON\nSelve indholdet af en besked kaldes payload. For MQTT er det bare bytes: brokeren kigger ikke i det. Det er afsender og modtager, der skal være enige om formatet. Til målinger bruger man oftest JSON, fordi én besked så kan have flere værdier med navne:\n{\"device\":\"esp32-a1b2c3d4e5f6\",\"nr\":17,\"spaending_mv\":1650,\"rssi\":-58,\"uptime_ms\":85012}\nHold beskederne små, især fra ESP32 (se PubSubClient).\n\nJSON Lines i weblog’en\nPå skolens broker kører en logger, der abonnerer på # og gemmer hver besked som én linje i en fil. Filerne kan ses i en browser på http://wilsons.local:8080/. Formatet hedder JSON Lines (.jsonl): hver linje er ét JSON-objekt (se også JSON Lines på siden om filsystemet). Der er én fil pr. topic, fx elever/anna/python/temperatur.jsonl, og én fil med det hele, #.jsonl. I adresselinjen skal # skrives som %23: http://wilsons.local:8080/%23.jsonl.\nEn linje i weblog’en ser sådan ud:\n{\"timestamp\": \"2026-11-23T15:00:37.091592\", \"topic\": \"test/esp32/button\", \"payload\": \"{\\\"button\\\":\\\"pressed\\\",\\\"count\\\":1}\"}\nBemærk, at din JSON står inde i en tekst (\"payload\": \"{\\\"button\\\"…}\") med \\ foran hvert \". Loggeren ved ikke, at payload’en er JSON, så den gemmer den som tekst. Vil du læse den i et program, skal du altså parse to gange: først linjen, derefter payload’en.\nWeblog’en er den nemmeste måde at se, at en besked faktisk nåede brokeren. Den viser kun det, der er kommet frem, ikke det, der blev afvist. Navnene på serveren (wilsons.local, wilsons.home og 192.168.0.33) og flere skærmbilleder står på Lokal MQTT server.",
+    "crumbs": [
+      "Hjem",
+      "Features",
+      "Intro til MQTT"
+    ]
+  },
+  {
+    "objectID": "Features/mqtt_intro.html#qos-retained-keep-alive-og-last-will",
+    "href": "Features/mqtt_intro.html#qos-retained-keep-alive-og-last-will",
+    "title": "Intro til MQTT",
+    "section": "QoS, retained, keep-alive og Last Will",
+    "text": "QoS, retained, keep-alive og Last Will\n\nQoS\nQoS (Quality of Service) siger, hvor hårdt MQTT skal arbejde for at få en besked frem:\n\n\n\n\n\n\n\n\nQoS\nNavn i standarden\nHvad det betyder\n\n\n\n\n0\nAt most once\nSendes én gang uden kvittering. Kan gå tabt.\n\n\n1\nAt least once\nAfsenderen gemmer beskeden, til modtageren kvitterer, og sender den igen, hvis forbindelsen falder ud undervejs. Kan komme frem to gange.\n\n\n2\nExactly once\nKommer frem præcis én gang, men kræver fire pakker frem og tilbage.\n\n\n\nQoS gælder for hvert led for sig: fra publisher til broker og fra broker til subscriber. En subscriber får beskeden med den laveste af de to: sender du med QoS 1, men abonnerer modtageren med QoS 0, kommer den frem til modtageren med QoS 0. Loggeren bag weblog’en abonnerer med QoS 0.\nTil målinger, der kommer hvert par sekunder, er QoS 0 normalt fint: mister man én, kommer den næste snart. QoS 1 bruges, når en besked ikke må gå tabt, fx en alarm.\nPubSubClient (biblioteket til ESP32 nedenfor) kan kun sende med QoS 0. Det kan abonnere med QoS 0 eller 1.\n\n\nRetained messages\nNormalt gemmer brokeren ikke beskeder: er der ingen subscriber, forsvinder beskeden. Men en besked kan sendes med retain-flaget. Så gemmer brokeren den sidste besked på det topic og sender den straks til nye subscribers, når de abonnerer. Det er nyttigt til en tilstand, fx elever/anna/lampe = on: en ny app kan se tilstanden med det samme i stedet for at vente på næste ændring.\nEn retained besked bliver liggende, til den bliver erstattet. Du sletter den ved at sende en tom besked (0 bytes) med retain til samme topic. Det kan MQTT Explorer også gøre for dig.\n\n\nClean session og keep-alive\n\nClean session: Når en klient forbinder med clean session (standard i både paho-mqtt og PubSubClient), starter den forfra: brokeren husker ikke abonnementer fra sidst. Derfor abonnerer man igen, hver gang forbindelsen er kommet op (se Python-eksemplet).\nKeep-alive: Klienten lover at sige noget mindst så ofte, fx hvert 60. sekund. Har den ikke andet at sende, sender den et lille “ping”. Hører brokeren ikke noget i halvanden gang keep-alive-tiden, lukker den forbindelsen. Standard er 60 s i paho-mqtt og 15 s i PubSubClient. På ESP32 er det mqtt.loop(), der sender ping’et, så den skal kaldes ofte.\n\n\n\nLast Will\nNår en klient forbinder, kan den give brokeren en Last Will: en besked, som brokeren selv sender, hvis klienten forsvinder uden at sige farvel, fx fordi strømmen gik, eller keep-alive udløb. Typisk bruges den til at melde offline på et status-topic, så andre kan se, at enheden er væk. Sammen med retain får man et topic, der altid viser, om enheden er online.\n\n\nClient-id skal være unikt\nHver klient forbinder med et client-id. Hvis en ny klient forbinder med et id, der allerede er i brug, smider brokeren den gamle klient af. Har to elever kopieret det samme faste id, smider de skiftevis hinanden af, og begge ser forbindelsen falde ud igen og igen. Lav derfor id’et ud fra noget unikt, fx MAC-adressen på ESP32. I paho-mqtt kan du lade id’et være tomt: så finder brokeren selv på et.",
+    "crumbs": [
+      "Hjem",
+      "Features",
+      "Intro til MQTT"
+    ]
+  },
+  {
+    "objectID": "Features/mqtt_intro.html#eksempel-python-abonnerer",
+    "href": "Features/mqtt_intro.html#eksempel-python-abonnerer",
+    "title": "Intro til MQTT",
+    "section": "Eksempel: Python abonnerer",
+    "text": "Eksempel: Python abonnerer\nPython-eksemplerne bruger biblioteket paho-mqtt i version 2. Installér det med:\npip install paho-mqtt\nI version 2 bør du vælge, hvordan callbacks ser ud: mqtt.Client(mqtt.CallbackAPIVersion.VERSION2). Skriver du kun mqtt.Client(), bruger paho den gamle, forældede callback-form fra version 1, og mange eksempler på nettet er skrevet til den.\nProgrammet abonnerer på alt under dit eget område og skriver hver besked ud. Ret BRUGERNAVN til dit eget.\n\n\nsubscriber.py\n\nimport paho.mqtt.client as mqtt\n\n# Konfiguration\nBROKER = \"wilsons.local\"        # eller wilsons.home / 192.168.0.33\nPORT = 1883                     # uden TLS og login; se Lokal MQTT server for 8883\nBRUGERNAVN = \"anna\"             # dit eget brugernavn\nTOPIC = f\"elever/{BRUGERNAVN}/#\"\n\n\ndef on_connect(client, userdata, flags, reason_code, properties):\n    if reason_code.is_failure:\n        print(\"Forbindelse afvist:\", reason_code)\n        return\n    print(\"Forbundet. Abonnerer på\", TOPIC)\n    # Abonnér her, så abonnementet fornyes, hvis forbindelsen falder ud og kommer igen\n    client.subscribe(TOPIC)\n\n\ndef on_message(client, userdata, msg):\n    tekst = msg.payload.decode(errors=\"replace\")\n    retained = \" (retained)\" if msg.retain else \"\"\n    print(f\"{msg.topic}: {tekst}{retained}\")\n\n\nclient = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)\nclient.on_connect = on_connect\nclient.on_message = on_message\n\nclient.connect(BROKER, PORT, keepalive=60)\nclient.loop_forever()   # kører netværket og kalder callbacks, til du trykker Ctrl+C\n\nSådan virker det:\n\nconnect() åbner forbindelsen. Først når brokeren har svaret, kalder paho on_connect.\non_message bliver kaldt for hver besked. msg.topic er det topic, beskeden faktisk blev sendt til, ikke dit wildcard.\nloop_forever() står og venter på beskeder. Falder forbindelsen ud, forbinder den selv igen.",
+    "crumbs": [
+      "Hjem",
+      "Features",
+      "Intro til MQTT"
+    ]
+  },
+  {
+    "objectID": "Features/mqtt_intro.html#eksempel-python-sender-json",
+    "href": "Features/mqtt_intro.html#eksempel-python-sender-json",
+    "title": "Intro til MQTT",
+    "section": "Eksempel: Python sender JSON",
+    "text": "Eksempel: Python sender JSON\nProgrammet sender en (opdigtet) temperatur som JSON hvert 2. sekund. Kør det i en anden terminal, mens subscriberen kører.\n\n\npublisher.py\n\nimport json\nimport random\nimport time\n\nimport paho.mqtt.client as mqtt\n\n# Konfiguration\nBROKER = \"wilsons.local\"\nPORT = 1883\nBRUGERNAVN = \"anna\"             # dit eget brugernavn\nTOPIC = f\"elever/{BRUGERNAVN}/python/temperatur\"\nINTERVAL_S = 2\n\nclient = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)\nclient.connect(BROKER, PORT, keepalive=60)\nclient.loop_start()   # netværket kører i en tråd i baggrunden, mens løkken sender\n\ntry:\n    while True:\n        maaling = {\n            \"tid\": time.strftime(\"%H:%M:%S\"),\n            \"temperatur\": round(20 + random.uniform(-2, 2), 1),\n        }\n        info = client.publish(TOPIC, json.dumps(maaling), qos=1)\n        info.wait_for_publish(5)   # vent højst 5 s på brokerens kvittering (QoS 1)\n        print(\"Sendt:\" if info.is_published() else \"Ingen kvittering:\", maaling)\n        time.sleep(INTERVAL_S)\nexcept KeyboardInterrupt:\n    pass\nfinally:\n    client.loop_stop()\n    client.disconnect()\n\n\njson.dumps() laver Python-ordbogen om til en JSON-tekst. Modtageren bruger json.loads() til at få den tilbage.\npublish() har som standard qos=0 og retain=False. Her bruges QoS 1, så wait_for_publish() venter på brokerens kvittering.\nloop_start() er nødvendig, fordi while-løkken optager hovedtråden. Uden en netværksløkke bliver beskeder med QoS 1 ikke færdigsendt.\n\nLærerens demoer publisher_demo.py og subscriber_demo.py gør det samme og kan også bruge TLS på port 8883. De er beskrevet på Lokal MQTT server.",
+    "crumbs": [
+      "Hjem",
+      "Features",
+      "Intro til MQTT"
+    ]
+  },
+  {
+    "objectID": "Features/mqtt_intro.html#eksempel-csharp",
+    "href": "Features/mqtt_intro.html#eksempel-csharp",
+    "title": "Intro til MQTT",
+    "section": "Eksempel: C",
+    "text": "Eksempel: C\nKender du C# bedre end Python, kan du lave det samme i C#. Programmet her gør både det, subscriber.py og publisher.py gør: det abonnerer på dit eget område, skriver hver besked ud og sender én JSON-besked. Sammenlign det med Python-eksemplerne ovenfor: begreberne er de samme, kun navnene er anderledes.\nBiblioteket hedder MQTTnet og hentes fra NuGet. Version 5 kræver .NET 8 eller nyere. Lav et nyt konsolprogram, og tilføj pakken:\ndotnet new console -n MqttHilsen\ncd MqttHilsen\ndotnet add package MQTTnet --version 5.2.0.1603\nPas på gamle eksempler. Version 5 ændrede en del navne, og de fleste eksempler på nettet er skrevet til version 4 eller ældre. Ser du new MqttFactory(), using MQTTnet.Client; eller ManagedMqttClient, er eksemplet gammelt. I version 5 hedder fabrikken MqttClientFactory, klienten ligger direkte i navnerummet MQTTnet, og den “managed” klient, der selv genforbinder, er fjernet. Payload’en er nu en ReadOnlySequence&lt;byte&gt;, så læs den som tekst med ConvertPayloadToString().\nErstat indholdet af Program.cs med koden herunder, ret Brugernavn, og kør med dotnet run.\n\n\nProgram.cs\n\nusing System.Text.Json;\nusing MQTTnet;\nusing MQTTnet.Protocol;\n\n// Konfiguration\nconst string Broker = \"wilsons.local\";   // eller wilsons.home / 192.168.0.33\nconst int Port = 1883;                   // uden TLS og login; se Lokal MQTT server for 8883\nconst string Brugernavn = \"anna\";        // dit eget brugernavn\n\nstring abonnerTopic = $\"elever/{Brugernavn}/#\";\nstring sendTopic = $\"elever/{Brugernavn}/csharp/hilsen\";\n// Unikt client-id: to klienter med samme id smider hinanden af\nstring klientId = $\"csharp-{Brugernavn}-{Guid.NewGuid().ToString(\"N\")[..8]}\";\n\nvar factory = new MqttClientFactory();\nusing var client = factory.CreateMqttClient();\n\n// Sæt modtageren på før ConnectAsync, så ingen beskeder går tabt\nclient.ApplicationMessageReceivedAsync += e =&gt;\n{\n    var besked = e.ApplicationMessage;\n    string tekst = besked.ConvertPayloadToString() ?? \"\";   // UTF-8; null, hvis beskeden er tom\n    string retained = besked.Retain ? \" (retained)\" : \"\";\n    Console.WriteLine($\"{besked.Topic}: {tekst}{retained}\");\n    return Task.CompletedTask;\n};\n\nvar options = new MqttClientOptionsBuilder()\n    .WithTcpServer(Broker, Port)\n    .WithClientId(klientId)\n    .Build();\n\n// Kaster en undtagelse, hvis brokeren ikke kan nås. Afviser brokeren os, får vi en ResultCode.\nvar svar = await client.ConnectAsync(options);\nif (svar.ResultCode != MqttClientConnectResultCode.Success)\n{\n    Console.WriteLine($\"Forbindelse afvist: {svar.ResultCode}\");\n    return;\n}\nConsole.WriteLine($\"Forbundet som {klientId}. Abonnerer på {abonnerTopic}\");\n\nawait client.SubscribeAsync(abonnerTopic);\n\n// Et anonymt objekt bliver til JSON: {\"fra\":\"…\",\"tekst\":\"Hej fra C#\",\"tid\":\"…\"}\nstring json = JsonSerializer.Serialize(new\n{\n    fra = klientId,\n    tekst = \"Hej fra C#\",\n    tid = DateTime.Now.ToString(\"HH:mm:ss\"),\n});\nawait client.PublishStringAsync(sendTopic, json, MqttQualityOfServiceLevel.AtLeastOnce);\nConsole.WriteLine($\"Sendt til {sendTopic}: {json}\");\n\n// Bliv ved med at lytte, til brugeren trykker Enter\nConsole.WriteLine(\"Tryk Enter for at stoppe.\");\nConsole.ReadLine();\nawait client.DisconnectAsync();\n\nSådan virker det, sammenlignet med Python:\n\nApplicationMessageReceivedAsync svarer til on_message. MQTTnet kalder den på en baggrundstråd, én besked ad gangen, mens hovedprogrammet venter i Console.ReadLine(). Du behøver altså ikke en loop_forever().\nConnectAsync venter, til brokeren har svaret. Derfor kan SubscribeAsync kaldes lige efter, i stedet for i en on_connect.\nAbonnér-topic’et elever/&lt;brugernavn&gt;/# passer også med sendTopic, så du ser din egen besked komme tilbage fra brokeren.\nPublishStringAsync sender teksten som UTF-8. Her bruges QoS 1, så await venter på brokerens kvittering. Standard er QoS 0 og ingen retain, ligesom i paho.\nMQTTnet forbinder som standard med MQTT version 5, mens paho bruger 3.1.1. Mosquitto kan begge dele, så det mærker du ikke her.\nProgrammet genforbinder ikke selv, hvis forbindelsen falder ud. Det gør paho’s loop_forever(). I MQTTnet 5 skal du selv gøre det, fx i eventet DisconnectedAsync.\n\n\nC# med TLS på port 8883\nPå port 8883 skal klienten bruge TLS, logge ind og stole på skolens CA i ca.crt (se Lokal MQTT server). I MQTTnet indlæser du ca.crt i en X509Certificate2Collection med ImportFromPemFile(\"ca.crt\") og giver den til WithTlsOptions(o =&gt; o.WithTrustChain(ca)) på options-builderen. WithTlsOptions slår TLS til, og WithTrustChain gør, at certifikatet kun godtages, hvis det er underskrevet af vores CA. Brugernavn og kode sættes med WithCredentials(brugernavn, kode), og porten skiftes til 8883. Læs koden fra tastaturet eller en miljøvariabel, så den ikke står i koden. Læg ca.crt i projektmappen, og kør dotnet run derfra, så filen kan findes. Mange eksempler på nettet bruger WithCertificateValidationHandler(_ =&gt; true) eller WithAllowUntrustedCertificates(): det slår certifikattjekket fra, så du ikke kan vide, om du taler med den rigtige broker. Brug dem ikke.",
+    "crumbs": [
+      "Hjem",
+      "Features",
+      "Intro til MQTT"
+    ]
+  },
+  {
+    "objectID": "Features/mqtt_intro.html#mqtt-explorer",
+    "href": "Features/mqtt_intro.html#mqtt-explorer",
+    "title": "Intro til MQTT",
+    "section": "MQTT Explorer",
+    "text": "MQTT Explorer\nMQTT Explorer er et gratis program, der forbinder til en broker og viser alle topics som et træ. Det er det bedste værktøj til at se, hvad der foregår: du kan se hver besked, når den kommer, se tidligere værdier, tegne en graf over tal og selv sende en testbesked.\n\nInstallér\nHent det fra https://mqtt-explorer.com/. Det findes til Windows (Microsoft Store eller som .exe), macOS (App Store eller .dmg) og Linux (Snap, AppImage eller .deb).\n\n\nForbind til wilsons på port 1883\n\nOpret en ny forbindelse, og skriv fx wilsons under Name.\nHost: wilsons.local (eller wilsons.home / 192.168.0.33). Port: 1883. Protocol: mqtt.\nLad Encryption (tls) være slået fra, og lad Username og Password være tomme.\nTryk Connect.\n\nSom standard abonnerer MQTT Explorer på # og $SYS/#, så du ser alt på brokeren. Under Advanced kan du ændre abonnementerne og se dit MQTT Client ID. MQTT Explorer laver selv et unikt id, der starter med mqtt-explorer-.\n\n\n\nSe topic-træet og send en testbesked\n\nFold elever ud i træet til venstre, og find dit eget område. Klik på et topic for at se den sidste besked, dens QoS, om den er retained, og en historik med tidligere værdier. JSON vises pænt opstillet.\nEr værdien et tal, eller har JSON’en tal i sig, kan du lave en graf over dem.\nI Publish-feltet til højre skriver du et topic, fx elever/anna/test, og en besked, og trykker Publish. Der kan du også slå retain til.\nEt retained topic kan slettes med skraldespanden ved topic’et.\n\n\n\n\n\nForbind på port 8883 med TLS og login\nPå port 8883 er forbindelsen krypteret, og du skal logge ind. Du skal bruge skolens CA-certifikat, ca.crt, og dit brugernavn og din kode fra læreren. Detaljerne står på Lokal MQTT server. I MQTT Explorer:\n\nLav en ny forbindelse: Host wilsons.local, Port 8883.\nSlå Encryption (tls) til, og lad Validate certificate være slået til. Slå aldrig certifikattjekket fra: så kan du ikke vide, om du taler med den rigtige broker.\nUdfyld Username og Password.\nGå til Advanced → Certificates, og vælg ca.crt under Server Certificate (CA). Gå tilbage, og tryk Connect.\n\nBrug et af navnene i certifikatet (wilsons.local, wilsons.home, wilsons eller 192.168.0.33, se Lokal MQTT server), ellers bliver forbindelsen afvist.",
+    "crumbs": [
+      "Hjem",
+      "Features",
+      "Intro til MQTT"
+    ]
+  },
+  {
+    "objectID": "Features/mqtt_intro.html#eksempel-esp32-sender-en-måling",
+    "href": "Features/mqtt_intro.html#eksempel-esp32-sender-en-måling",
+    "title": "Intro til MQTT",
+    "section": "Eksempel: ESP32 sender en måling",
+    "text": "Eksempel: ESP32 sender en måling\nESP32 læser spændingen fra et potentiometer og sender den som JSON hvert 5. sekund. Biblioteket hedder PubSubClient, og PlatformIO henter det fra lib_deps.\nKobling: Potentiometerets to yderben til 3V3 og GND, midterbenet til GPIO 32. GPIO 32 ligger på ADC1, som kan læses, mens WiFi er tændt (det kan ADC2 ikke, se WiFi). ADC’en kan som standard kun måle op til ca. 3100 mV, så i den ene ende af potentiometeret står målingen stille, selv om du drejer videre.\n\n\nplatformio.ini\n\n[env:esp32doit-devkit-v1]\nplatform = espressif32@8.0.0\nboard = esp32doit-devkit-v1\nframework = arduino\nmonitor_speed = 115200\nlib_deps = knolleary/PubSubClient@^2.8\n\ninclude/secrets.h er den samme som på WiFi-siden, med WIFI_SSID og WIFI_PASSWORD, og den står i .gitignore. Port 1883 kræver ikke login, så der skal ikke være en MQTT-kode i filen.\n\n\nsrc/main.cpp\n\n#include &lt;Arduino.h&gt;\n#include &lt;WiFi.h&gt;\n#include &lt;PubSubClient.h&gt;\n#include \"secrets.h\"   // WIFI_SSID og WIFI_PASSWORD (se WiFi-siden)\n\n// Konfiguration\nconst char* MQTT_HOST = \"192.168.0.33\";          // wilsons' IP-adresse; et navn kræver, at ESP32 kan slå det op\nconst uint16_t MQTT_PORT = 1883;                 // uden TLS; se Lokal MQTT server for 8883\nconst char* BRUGERNAVN = \"anna\";                 // dit eget brugernavn\nconst int MAALE_PIN = 32;                      // potentiometer, ADC1\nconst unsigned long SEND_INTERVAL_MS = 5000;     // hvor tit der sendes en måling\nconst unsigned long MQTT_FORSOEG_MS = 5000;      // ventetid mellem forsøg på at forbinde\nconst unsigned long WIFI_TIMEOUT_MS = 20000;     // max ventetid på WiFi i setup()\n\nWiFiClient netKlient;            // TCP-forbindelsen\nPubSubClient mqtt(netKlient);    // MQTT oven på TCP-forbindelsen\n\nchar klientId[24];               // fx \"esp32-a1b2c3d4e5f6\"\nchar topic[64];                  // fx \"elever/anna/esp32/maaling\"\nunsigned long sidsteSend = 0;\nunsigned long sidsteForsoeg = 0;\nunsigned long antalSendt = 0;\n\n// Client-id ud fra MAC-adressen, så to ESP32'er aldrig har samme id.\n// getEfuseMac() har MAC'ens første byte nederst, så bytes står i omvendt\n// rækkefølge i forhold til WiFi.macAddress(). Id'et er stadig unikt.\nvoid lavKlientId() {\n  uint64_t mac = ESP.getEfuseMac();\n  snprintf(klientId, sizeof(klientId), \"esp32-%04x%08x\",\n           (unsigned int)(uint16_t)(mac &gt;&gt; 32), (unsigned int)(uint32_t)mac);\n}\n\n// Som på WiFi-siden: vent højst timeoutMs, så programmet ikke hænger\nbool forbindWiFi(unsigned long timeoutMs) {\n  WiFi.mode(WIFI_STA);\n  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);\n  Serial.printf(\"Forbinder til %s\", WIFI_SSID);\n  unsigned long start = millis();\n  while (WiFi.status() != WL_CONNECTED && millis() - start &lt; timeoutMs) {\n    delay(500);  // OK her: setup() har ikke andet at lave endnu\n    Serial.print(\".\");\n  }\n  Serial.println();\n  return WiFi.status() == WL_CONNECTED;\n}\n\n// Ét forsøg på at forbinde til brokeren. Ingen while-løkke: loop() prøver igen senere.\nbool forbindMqtt() {\n  Serial.printf(\"Forbinder til MQTT %s:%u som %s ... \", MQTT_HOST, MQTT_PORT, klientId);\n  if (mqtt.connect(klientId)) {\n    Serial.println(\"OK\");\n    return true;\n  }\n  Serial.printf(\"fejl, state=%d\\n\", mqtt.state());\n  return false;\n}\n\nvoid sendMaaling() {\n  int millivolt = analogReadMilliVolts(MAALE_PIN);\n  antalSendt++;\n\n  char payload[128];\n  snprintf(payload, sizeof(payload),\n           \"{\\\"device\\\":\\\"%s\\\",\\\"nr\\\":%lu,\\\"spaending_mv\\\":%d,\\\"rssi\\\":%d,\\\"uptime_ms\\\":%lu}\",\n           klientId, antalSendt, millivolt, WiFi.RSSI(), millis());\n\n  // publish() giver false, hvis vi ikke er forbundet, eller beskeden er for stor\n  bool ok = mqtt.publish(topic, payload);\n  Serial.printf(\"%s %s %s\\n\", ok ? \"Sendt\" : \"IKKE sendt\", topic, payload);\n}\n\nvoid setup() {\n  Serial.begin(115200);\n  lavKlientId();\n  snprintf(topic, sizeof(topic), \"elever/%s/esp32/maaling\", BRUGERNAVN);\n\n  if (!forbindWiFi(WIFI_TIMEOUT_MS)) {\n    Serial.printf(\"Ingen WiFi endnu (status %d). Prøver videre i baggrunden.\\n\", WiFi.status());\n  }\n\n  mqtt.setServer(MQTT_HOST, MQTT_PORT);\n  if (WiFi.status() == WL_CONNECTED) {\n    forbindMqtt();\n  }\n  sidsteForsoeg = millis();\n}\n\nvoid loop() {\n  unsigned long nu = millis();\n\n  if (mqtt.connected()) {\n    mqtt.loop();  // sender keep-alive-ping og modtager beskeder; skal kaldes ofte\n  } else if (WiFi.status() == WL_CONNECTED && nu - sidsteForsoeg &gt;= MQTT_FORSOEG_MS) {\n    // Prøv igen med fast interval i stedet for en while-løkke med delay()\n    sidsteForsoeg = nu;\n    forbindMqtt();\n  }\n\n  if (mqtt.connected() && nu - sidsteSend &gt;= SEND_INTERVAL_MS) {\n    sidsteSend = nu;\n    sendMaaling();\n  }\n\n  // Her kan programmet læse knapper og sensorer, også mens forbindelsen er nede\n}\n\n\nSådan virker det:\n\nPubSubClient sender MQTT over en almindelig WiFiClient. På port 8883 skiftes den ud med en WiFiClientSecure med ca.crt (se Lokal MQTT server).\nmqtt.connect(klientId) forbinder med clean session og uden login. Den findes også med brugernavn og kode, og med en Last Will: connect(id, willTopic, willQos, willRetain, willMessage).\nmqtt.publish(topic, payload) sender med QoS 0. Med et tredje argument, true, bliver beskeden retained.\nEn besked må som standard højst fylde 256 bytes inklusive topic og hoved. Er den større, giver publish() bare false. Har du brug for mere, så kald mqtt.setBufferSize(512) i setup().\nmqtt.state() fortæller, hvorfor et forsøg fejlede: -2 betyder, at der ikke kunne laves en forbindelse til brokeren (forkert navn eller IP, eller brokeren er nede), og 4 eller 5 betyder, at brokeren afviste login.\n\n\nHvorfor ingen while-løkke ved genforbindelse?\nMange eksempler på nettet har en reconnect(), der står i en while (!client.connected())-løkke med delay(5000), til brokeren svarer. Er brokeren nede i en time, står hele loop() stille i en time: knapper bliver ikke læst, og målinger bliver ikke gemt. Her prøver loop() i stedet én gang hvert 5. sekund og laver alt det andet imens, præcis som WiFi-siden gør med WiFi. Selve mqtt.connect() blokerer stadig, mens et forsøg står på: typisk ca. 3 sekunder, hvis der ikke er nogen maskine på adressen, og op til 15 sekunder, hvis maskinen svarer, men MQTT ikke gør.\n\nWiFi genforbinder selv i baggrunden (se WiFi), så eksemplet venter bare på, at WiFi.status() bliver WL_CONNECTED igen.",
+    "crumbs": [
+      "Hjem",
+      "Features",
+      "Intro til MQTT"
+    ]
+  },
+  {
+    "objectID": "Features/mqtt_intro.html#øvelser",
+    "href": "Features/mqtt_intro.html#øvelser",
+    "title": "Intro til MQTT",
+    "section": "Øvelser",
+    "text": "Øvelser\n\nKør subscriber.py i én terminal og publisher.py i en anden, begge med dit eget brugernavn. Ser du beskederne i subscriberen? Find dem også i MQTT Explorer og i weblog’en. Aflever et skærmbillede af alle tre.\nSend en besked fra MQTT Explorer til elever/&lt;brugernavn&gt;/test. Kommer den frem i din subscriber? Prøv derefter Elever/&lt;brugernavn&gt;/test med stort E. Hvad sker der, og hvorfor?\nRet TOPIC i subscriberen og prøv elever/+/python/temperatur, elever/&lt;brugernavn&gt;/+ og test/#. Skriv for hver, hvilke beskeder du får, og forklar hvorfor. Hvilket wildcard skal du bruge for at få temperaturen fra alle elever på holdet?\nUpload ESP32-eksemplet, og drej på potentiometeret. Følg målingerne i MQTT Explorer, og lav en graf over spaending_mv. Find samme beskeder i weblog’en: hvor står din JSON, og hvorfor er der \\ foran alle \"?\nSend en retained besked fra MQTT Explorer til elever/&lt;brugernavn&gt;/status. Stop din subscriber, og start den igen: hvad skriver den, og hvad sker der, hvis du sender beskeden uden retain? Slet til sidst den retained besked.\nLad, som om brokeren er nede: ret MQTT_HOST til en IP-adresse, hvor der ikke er nogen broker, fx 192.168.0.250. Hvilken state får du? Læser loop() stadig videre, eller hænger den? Hvor lang tid tager hvert forsøg?\nStart to ESP32’er, eller to subscribers, med samme faste client-id. Hvad sker der med forbindelserne? Forklar det ud fra afsnittet om client-id.\nEkstra: Giv publisher.py en Last Will med client.will_set(f\"elever/{BRUGERNAVN}/python/status\", \"offline\", qos=1, retain=True) før connect(), og send online med retain, når den er forbundet. Luk terminalen hårdt (ikke Ctrl+C). Hvad viser MQTT Explorer, og hvor lang tid går der?\nEkstra: Lad ESP32 også abonnere på elever/&lt;brugernavn&gt;/esp32/led og tænde eller slukke lysdioden på GPIO 2, når der kommer on eller off. Brug mqtt.setCallback() med en funktion void modtag(char* topic, byte* payload, unsigned int length), og abonnér med mqtt.subscribe() hver gang forbindMqtt() lykkes. Bemærk, at payload ikke slutter med \\0, så brug length.\nC# (i stedet for eller sammen med øvelse 1): Kør C#-eksemplet med dit eget brugernavn. Find hilsenen under elever/&lt;brugernavn&gt;/csharp/hilsen i MQTT Explorer og i weblog’en (elever/&lt;brugernavn&gt;/csharp/hilsen.jsonl). Send derefter en besked fra MQTT Explorer til elever/&lt;brugernavn&gt;/test, og se den i C#-programmet. Kør også subscriber.py samtidig: får den C#-beskeden? Aflever et skærmbillede af konsollen, MQTT Explorer og weblog’en.",
+    "crumbs": [
+      "Hjem",
+      "Features",
+      "Intro til MQTT"
+    ]
+  },
+  {
+    "objectID": "Features/mqtt_intro.html#typiske-fejl",
+    "href": "Features/mqtt_intro.html#typiske-fejl",
+    "title": "Intro til MQTT",
+    "section": "Typiske fejl",
+    "text": "Typiske fejl\n\nPython: TypeError ved mqtt.Client(\"mit-id\"): Koden er skrevet til paho-mqtt 1.x. I version 2 er første argument callback_api_version, så id’et havner det forkerte sted. Brug mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, client_id=\"mit-id\").\nPython: advarsel om at “Callback API version 1 is deprecated”, eller callbacks får det forkerte antal argumenter: Du har skrevet mqtt.Client() uden version, så paho bruger den forældede VERSION1, og dine callbacks med properties passer ikke. Angiv mqtt.CallbackAPIVersion.VERSION2.\nPython: ingen beskeder, selv om subscriberen er forbundet: subscribe() er kaldt før connect() eller uden for on_connect, eller der kører ingen netværksløkke (loop_forever() eller loop_start()).\nC#: MqttFactory eller MQTTnet.Client findes ikke: Koden er skrevet til MQTTnet 4 eller ældre. Brug new MqttClientFactory() og kun using MQTTnet; (se C#-eksemplet).\nC#: forbindelsen “lykkes”, men der kommer intet: I MQTTnet 5 kaster ConnectAsync ikke en undtagelse, når brokeren afviser forbindelsen, fx ved forkert kode på 8883. Tjek ResultCode i svaret.\nNavnet wilsons.local kan ikke findes: Din maskine kan ikke slå .local-navne op (det kræver mDNS), eller netværket sender dem ikke videre. Prøv wilsons.home eller 192.168.0.33.\nForbindelsen falder ud hvert øjeblik: To klienter bruger samme client-id og smider hinanden af. Eller mqtt.loop() kaldes for sjældent på ESP32, fx fordi der er et langt delay() i loop(), så keep-alive udløber.\nESP32: publish() giver false: Der er ingen forbindelse, eller beskeden er over 256 bytes inklusive topic. Kald mqtt.setBufferSize().\nESP32: state=-2: Ingen forbindelse til brokeren: forkert navn eller IP, forkert port, eller brokeren er nede.\nBeskeder på port 8883 kommer ikke frem, og der er ingen fejl: Topic’et ligger uden for elever/&lt;dit-brugernavn&gt;/ og test/, så brokeren smider dem væk. Se Lokal MQTT server.\nWildcard i et publish-topic: + og # kan kun bruges, når man abonnerer. Send til et konkret topic.\nGamle værdier dukker op hver gang: Der ligger en retained besked på topic’et. Slet den med en tom retained besked eller i MQTT Explorer. Bemærk, at loggeren også får den igen, når den genstarter, så den kan stå flere gange i weblog’en.",
+    "crumbs": [
+      "Hjem",
+      "Features",
+      "Intro til MQTT"
+    ]
+  },
+  {
+    "objectID": "Features/mqtt_intro.html#læs-videre",
+    "href": "Features/mqtt_intro.html#læs-videre",
+    "title": "Intro til MQTT",
+    "section": "Læs videre",
+    "text": "Læs videre\n\nESP32 med PubSubClient og Node-RED\nRandom Nerd Tutorials viser i ESP32 MQTT – Publish and Subscribe with Arduino IDE en ESP32 med en BME280-sensor, der sender temperatur og fugtighed, og som tænder en lysdiode, når der kommer en besked fra et Node-RED-dashboard. Det er en god opskrift på øvelse 9, og den viser, hvordan beskeder modtages med en callback. Læs den kritisk:\n\nreconnect() står i en while-løkke med delay(5000), så hele loop() står stille, så længe brokeren er nede. Se hvorfor eksemplet her ikke gør det.\nClient-id’et er fast (\"ESP8266Client\", selv om det er en ESP32). Kører to elever koden, smider de hinanden af. Læsere påpeger i kommentarerne, at id’et skal være unikt for hver enhed, og forfatteren medgiver, at navnet burde være ESP32.\nArtiklen er til Arduino IDE med manuel installation af biblioteker. I PlatformIO skriver du dem i lib_deps.\n\n\n\nGode topics\nHiveMQ gennemgår topics og wildcards i MQTT Topics, Wildcards, & Best Practices – MQTT Essentials: Part 5 med mange eksempler på, hvordan man bygger et topic-hierarki, der kan vokse. Læs den kritisk:\n\nDen skriver, at et abonnement på # giver alle beskeder. Det gælder ikke topics, der starter med $, hvad artiklen selv siger et andet sted.\nListen over “tilladte tegn” er en god vane, ikke en regel i standarden. Standarden tillader al UTF-8-tekst.",
+    "crumbs": [
+      "Hjem",
+      "Features",
+      "Intro til MQTT"
+    ]
+  },
+  {
+    "objectID": "Features/mqtt_intro.html#kilder",
+    "href": "Features/mqtt_intro.html#kilder",
+    "title": "Intro til MQTT",
+    "section": "Kilder",
+    "text": "Kilder\n\nMQTT.org, https://mqtt.org/\nOASIS: MQTT Version 3.1.1 (topics, wildcards, QoS, retain, keep-alive, Will og client-id), https://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html\nEclipse Paho Python: Client-dokumentation, https://eclipse.dev/paho/files/paho.mqtt.python/html/client.html\nEclipse Paho Python: Migrations (version 1 til 2), https://eclipse.dev/paho/files/paho.mqtt.python/html/migrations.html\npaho-mqtt på PyPI, https://pypi.org/project/paho-mqtt/\nMQTTnet på NuGet (version 5.2.0.1603), https://www.nuget.org/packages/MQTTnet\nMQTTnet: README, kildekode og samples (Samples/Client/), https://github.com/dotnet/MQTTnet\nMQTTnet: Upgrading guide (version 4 til 5), https://github.com/dotnet/MQTTnet/wiki/Upgrading-guide\nMQTTnet: Releases, https://github.com/dotnet/MQTTnet/releases\nMicrosoft Learn: X509Certificate2Collection.ImportFromPemFile, https://learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.x509certificates.x509certificate2collection.importfrompemfile\nPubSubClient: README og kildekode, https://github.com/knolleary/pubsubclient\nPubSubClient i PlatformIO-registret, https://registry.platformio.org/libraries/knolleary/PubSubClient\nArduino-ESP32: ADC (analogReadMilliVolts), https://docs.espressif.com/projects/arduino-esp32/en/latest/api/adc.html\nMQTT Explorer, https://mqtt-explorer.com/, og kildekode, https://github.com/thomasnordquist/MQTT-Explorer\nMosquitto: mosquitto_pub (retain og tomme beskeder), https://mosquitto.org/man/mosquitto_pub-1.html\nMosquitto: mosquitto.conf ($SYS og persistence), https://mosquitto.org/man/mosquitto-conf-5.html\nJSON Lines, https://jsonlines.org/\nLærerens vejledning til brokeren på wilsons og loggeren mqtt_logger.py (ikke offentlig)\nRandom Nerd Tutorials: ESP32 MQTT – Publish and Subscribe with Arduino IDE, https://randomnerdtutorials.com/esp32-mqtt-publish-subscribe-arduino-ide/\nHiveMQ: MQTT Essentials Part 5, https://www.hivemq.com/blog/mqtt-essentials-part-5-mqtt-topics-best-practices/",
+    "crumbs": [
+      "Hjem",
+      "Features",
+      "Intro til MQTT"
     ]
   },
   {
@@ -1487,6 +2015,666 @@
       "Hjem",
       "Grundlag",
       "Debouncing"
+    ]
+  },
+  {
+    "objectID": "Grundlag/hello_world.html",
+    "href": "Grundlag/hello_world.html",
+    "title": "Hello World på ESP32",
+    "section": "",
+    "text": "Det første program på et nyt stykke hardware er altid det samme: få det til at sige noget, og få noget til at blinke. Så ved du, at værktøjerne virker, at programmet kommer over på kortet, og at du kan se, hvad det laver. På denne side skriver du dit første program til ESP32-DEVKIT-V1. Det skriver tekst i Serial Monitor og blinker med lysdioden, der sidder på kortet.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Hello World på ESP32"
+    ]
+  },
+  {
+    "objectID": "Grundlag/hello_world.html#formål",
+    "href": "Grundlag/hello_world.html#formål",
+    "title": "Hello World på ESP32",
+    "section": "Formål",
+    "text": "Formål\n\nDu kan forklare, hvad setup() og loop() gør, og hvad der sker, når ESP32 starter eller bliver nulstillet.\nDu kan skrive tekst og tal i Serial Monitor med Serial.println() og Serial.printf().\nDu kan blinke med en lysdiode med millis() og forklare, hvorfor det er bedre end delay().",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Hello World på ESP32"
+    ]
+  },
+  {
+    "objectID": "Grundlag/hello_world.html#målpinde",
+    "href": "Grundlag/hello_world.html#målpinde",
+    "title": "Hello World på ESP32",
+    "section": "Målpinde",
+    "text": "Målpinde\nSiden arbejder med målpind 19, 20 og 21 (se Læringsmål).",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Hello World på ESP32"
+    ]
+  },
+  {
+    "objectID": "Grundlag/hello_world.html#forudsætninger",
+    "href": "Grundlag/hello_world.html#forudsætninger",
+    "title": "Hello World på ESP32",
+    "section": "Forudsætninger",
+    "text": "Forudsætninger\n\nPlatformIO er installeret, og du kan oprette et projekt til ESP32-DEVKIT-V1, uploade og åbne Serial Monitor. Det hele står på siden om PlatformIO, også hvad du gør, når upload fejler.\nHardware: ESP32-DEVKIT-V1 og et USB-kabel, der kan overføre data. Til øvelse 4 også et breadboard, to lysdioder og to modstande på 220 Ω.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Hello World på ESP32"
+    ]
+  },
+  {
+    "objectID": "Grundlag/hello_world.html#setup-og-loop",
+    "href": "Grundlag/hello_world.html#setup-og-loop",
+    "title": "Hello World på ESP32",
+    "section": "setup() og loop()",
+    "text": "setup() og loop()\nEt Arduino-program har ingen main(). I stedet skriver du to funktioner:\n\nsetup() kører én gang, når ESP32 starter. Her gør du ting klar: starter den serielle forbindelse, sætter ben op som input eller output.\nloop() kører igen og igen, så længe der er strøm på. Når den er færdig, bliver den straks kaldt igen. Her ligger selve programmet.\n\nProgrammets egentlige start er gemt i Arduino-frameworket. På ESP32 hedder den app_main(). Den starter en opgave (task), loopTask, som kalder din setup() én gang og derefter din loop() i en uendelig løkke.\n\nHvad sker der ved opstart?\nNår du sætter strøm til, eller når du trykker på EN-knappen ved USB-stikket, starter ESP32 forfra:\n\nEt lille program, der er brændt fast i chippen (ROM-bootloaderen), kører først. Det kigger på et par ben (strapping pins) for at se, om det skal starte dit program eller gå i upload-tilstand. Det skriver også et par linjer i Serial Monitor.\nEn bootloader i flash finder dit program og starter det.\nArduino-frameworket gør sig klar og kalder setup() én gang og derefter loop() igen og igen.\n\nAlmindelige variabler starter forfra med deres startværdi. En tæller, der var nået til 57, er 0 igen efter en reset.\nEN står for enable. Den slukker chippen et øjeblik, og når du slipper den, starter den forfra. Det er altså reset-knappen. Den anden knap, BOOT (GPIO 0), bruges mest ved upload: holdes den nede ved opstart, går ESP32 i upload-tilstand (se PlatformIO).",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Hello World på ESP32"
+    ]
+  },
+  {
+    "objectID": "Grundlag/hello_world.html#serial-esp32-skriver-til-din-computer",
+    "href": "Grundlag/hello_world.html#serial-esp32-skriver-til-din-computer",
+    "title": "Hello World på ESP32",
+    "section": "Serial: ESP32 skriver til din computer",
+    "text": "Serial: ESP32 skriver til din computer\nESP32 har ingen skærm. Den nemmeste måde at se, hvad programmet laver, er at lade det skrive tekst over USB-kablet til Serial Monitor i PlatformIO.\n\nSerial.begin(115200); i setup() starter forbindelsen med 115200 bit pr. sekund (baud rate). Tallet skal passe med monitor_speed = 115200 i platformio.ini. Ellers ser du tilfældige tegn (se monitor_speed).\nSerial.print(x) skriver x. Serial.println(x) gør det samme og skifter linje bagefter. Det virker med tekst, hele tal og kommatal.\nSerial.printf(\"…\", …) skriver tekst med værdier flettet ind, som printf i C eller en formatstreng i C# og Python. %d er et heltal, %lu en unsigned long, %.2f et kommatal med to decimaler, og \\n skifter linje.\n\nint temperatur = 21;\nSerial.print(\"Temperatur: \");\nSerial.println(temperatur);                  // Temperatur: 21\nSerial.printf(\"Temperatur: %d\\n\", temperatur); // samme linje med printf\nSerial.printf() findes i ESP32’s Arduino-framework, men ikke på de klassiske Arduino-kort som Uno. Ser du kode fra nettet, der bygger en linje op med mange Serial.print(), er det derfor.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Hello World på ESP32"
+    ]
+  },
+  {
+    "objectID": "Grundlag/hello_world.html#eksempel-hello-world",
+    "href": "Grundlag/hello_world.html#eksempel-hello-world",
+    "title": "Hello World på ESP32",
+    "section": "Eksempel: Hello World",
+    "text": "Eksempel: Hello World\nOpret et nyt projekt som beskrevet på siden om PlatformIO, og indsæt de to filer.\n\n\nplatformio.ini\n\n[env:esp32doit-devkit-v1]\nplatform = espressif32@8.0.0\nboard = esp32doit-devkit-v1\nframework = arduino\nmonitor_speed = 115200\n\n\n\nsrc/main.cpp\n\n#include &lt;Arduino.h&gt;\n\nvoid setup() {\n  Serial.begin(115200);  // skal passe med monitor_speed i platformio.ini\n  Serial.println(\"Hej fra ESP32!\");\n}\n\nvoid loop() {\n  // Tom: alt sker i setup(), så teksten skrives kun én gang\n}\n\nUpload programmet, og åbn Serial Monitor. Sandsynligvis ser du ingenting, fordi programmet skrev sin linje, før Serial Monitor nåede at åbne. Tryk på EN. Nu ser du først nogle linjer fra ROM-bootloaderen og derefter Hej fra ESP32!.\nrst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)\n...\nHej fra ESP32!",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Hello World på ESP32"
+    ]
+  },
+  {
+    "objectID": "Grundlag/hello_world.html#eksempel-blink-med-delay",
+    "href": "Grundlag/hello_world.html#eksempel-blink-med-delay",
+    "title": "Hello World på ESP32",
+    "section": "Eksempel: blink med delay()",
+    "text": "Eksempel: blink med delay()\nDen lille blå lysdiode på DEVKIT-V1 sidder på GPIO 2. I Arduino-frameworket for dette kort hedder ben 2 også LED_BUILTIN. Sådan blinker man den på den simple måde:\n\n\n\nplatformio.ini\n\n[env:esp32doit-devkit-v1]\nplatform = espressif32@8.0.0\nboard = esp32doit-devkit-v1\nframework = arduino\nmonitor_speed = 115200\n\n\n\nsrc/main.cpp\n\n#include &lt;Arduino.h&gt;\n\n// Konfiguration\nconst int LED_PIN = 2;             // indbygget lysdiode på DEVKIT-V1 (LED_BUILTIN)\nconst unsigned long BLINK_MS = 500; // tid tændt og tid slukket\n\nvoid setup() {\n  Serial.begin(115200);\n  pinMode(LED_PIN, OUTPUT);  // benet skal sættes op som output, før det kan tænde lysdioden\n}\n\nvoid loop() {\n  digitalWrite(LED_PIN, HIGH);  // tænd\n  Serial.println(\"Tændt\");\n  delay(BLINK_MS);              // vent: her står loop() stille\n  digitalWrite(LED_PIN, LOW);   // sluk\n  Serial.println(\"Slukket\");\n  delay(BLINK_MS);\n}\n\nDet virker, og det er let at læse. Men læg mærke til, at loop() bruger næsten al sin tid på at vente.\n\nHvorfor er delay() et problem?\nMens delay() venter, kan din loop() ikke lave andet. Den kan ikke læse en knap, ikke måle med en sensor og ikke svare på en besked fra netværket. Det mærker du, så snart programmet skal mere end én ting. Prøv fx at blinke med to lysdioder, den ene hvert 300 ms og den anden hvert 700 ms, med delay(). Det kan lade sig gøre, men koden bliver hurtigt rodet, og så snart tiderne ikke går op i hinanden, eller der skal læses en knap samtidig, holder det ikke.\nDet er kun dit program, der står stille. På ESP32 er delay() bygget på FreeRTOS’ vTaskDelay(), så kun den opgave (task), der kører loop(), sættes på pause. WiFi og andre opgaver i baggrunden kører videre.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Hello World på ESP32"
+    ]
+  },
+  {
+    "objectID": "Grundlag/hello_world.html#eksempel-blink-med-millis",
+    "href": "Grundlag/hello_world.html#eksempel-blink-med-millis",
+    "title": "Hello World på ESP32",
+    "section": "Eksempel: blink med millis()",
+    "text": "Eksempel: blink med millis()\nmillis() giver antallet af millisekunder, siden ESP32 startede. I stedet for at vente spørger loop() hver gang: “Er der gået nok tid, siden jeg sidst skiftede?” Hvis ja, skifter den lysdioden og husker tidspunktet. Hvis nej, går den bare videre. Så kører loop() tusindvis af gange i sekundet og kan nå at lave andre ting ind imellem.\n\n\nplatformio.ini\n\n[env:esp32doit-devkit-v1]\nplatform = espressif32@8.0.0\nboard = esp32doit-devkit-v1\nframework = arduino\nmonitor_speed = 115200\n\n\n\nsrc/main.cpp\n\n#include &lt;Arduino.h&gt;\n\n// Konfiguration\nconst int LED_PIN = 2;              // indbygget lysdiode på DEVKIT-V1 (LED_BUILTIN)\nconst unsigned long BLINK_MS = 500; // tid mellem hvert skift\n\nunsigned long sidsteSkift = 0;  // tidspunktet for sidste skift, i ms\nbool ledTaendt = false;\n\nvoid setup() {\n  Serial.begin(115200);\n  pinMode(LED_PIN, OUTPUT);\n}\n\nvoid loop() {\n  // Er der gået BLINK_MS, siden vi sidst skiftede?\n  if (millis() - sidsteSkift &gt;= BLINK_MS) {\n    sidsteSkift = millis();\n    ledTaendt = !ledTaendt;  // skift mellem tændt og slukket\n    digitalWrite(LED_PIN, ledTaendt ? HIGH : LOW);\n    Serial.printf(\"%lu ms: lysdioden er %s\\n\", sidsteSkift, ledTaendt ? \"tændt\" : \"slukket\");\n  }\n\n  // Her er plads til andet arbejde, fx at læse en knap.\n  // Det bliver ikke forsinket af blinket.\n}\n\nLæg mærke til:\n\nTider gemmes i unsigned long, samme type som millis() returnerer. Bruger du int, kan der ske fejl, når tallet bliver stort.\nBetingelsen er skrevet som millis() - sidsteSkift &gt;= BLINK_MS. Efter ca. 49 dage løber millis() over og starter forfra ved 0. Med en subtraktion af to unsigned long bliver resultatet alligevel rigtigt. Skriv den derfor altid på den måde.\nMønsteret er det samme, du møder på siden om Debouncing, hvor biblioteket ezButton bruger millis() på samme måde til at vente på, at knappen holder op med at prelle.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Hello World på ESP32"
+    ]
+  },
+  {
+    "objectID": "Grundlag/hello_world.html#øvelser",
+    "href": "Grundlag/hello_world.html#øvelser",
+    "title": "Hello World på ESP32",
+    "section": "Øvelser",
+    "text": "Øvelser\n\nKør Hello World. Tryk på EN et par gange, og se, hvad der står i Serial Monitor hver gang. Ret teksten, så den skriver dit navn.\nKør blink med millis(). Ret BLINK_MS, så lysdioden blinker hurtigt (100 ms) og langsomt (2000 ms). Hvor hurtigt kan den blinke, før du ikke længere kan se, at den blinker?\nLav en tæller: hvert sekund skal programmet skrive Tæller: 1, Tæller: 2 osv. i Serial Monitor med Serial.printf(). Brug millis(), ikke delay(). Tryk på EN. Hvad sker der med tælleren?\nSæt to lysdioder på breadboardet: hver med en modstand på 220 Ω fra GPIO 22 og GPIO 23 til lysdiodens lange ben (anoden), og det korte ben til GND. Lad den ene blinke hvert 300 ms og den anden hvert 700 ms. Du skal bruge en sidsteSkift og en ledTaendt til hver lysdiode. Aflever koden og en kort video.\nEkstra: Prøv at løse øvelse 4 med delay() i stedet. Hvordan ser koden ud, og hvad sker der, hvis tiderne ændres til 300 ms og 710 ms, eller der også skal læses en knap? Skriv to-tre linjer om forskellen.\nEkstra: Saml koden til én lysdiode i en funktion, fx void blink(int pin, unsigned long interval, unsigned long& sidsteSkift, bool& taendt), så loop() bare kalder den to gange. Referencerne (&) forklares på siden Intro til C++.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Hello World på ESP32"
+    ]
+  },
+  {
+    "objectID": "Grundlag/hello_world.html#typiske-fejl",
+    "href": "Grundlag/hello_world.html#typiske-fejl",
+    "title": "Hello World på ESP32",
+    "section": "Typiske fejl",
+    "text": "Typiske fejl\n\nSerial Monitor er tom: Programmet skrev, før Serial Monitor var åben. Tryk på EN. Eller Serial.begin() mangler i setup().\nTilfældige tegn i Serial Monitor: monitor_speed i platformio.ini passer ikke med Serial.begin().\nLysdioden lyser ikke: pinMode(LED_PIN, OUTPUT) mangler i setup(). Eller lysdioden på breadboardet sidder omvendt: det lange ben skal mod GPIO-benet.\nLysdioden ser ud til at lyse svagt hele tiden, og teksten løber afsted: sidsteSkift = millis(); mangler. Efter de første 500 ms er betingelsen sand i hvert gennemløb, så lysdioden skifter hele tiden.\nLysdioden lyser aldrig (med millis()): sidsteSkift = millis(); står uden for if. Så bliver forskellen aldrig 500 ms.\nTeksten løber afsted: Serial.println() står uden for if i loop(), så den skrives tusindvis af gange i sekundet.\nProgrammet uploader ikke: Se fejlsøgningen på siden om PlatformIO.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Hello World på ESP32"
+    ]
+  },
+  {
+    "objectID": "Grundlag/hello_world.html#læs-videre",
+    "href": "Grundlag/hello_world.html#læs-videre",
+    "title": "Hello World på ESP32",
+    "section": "Læs videre",
+    "text": "Læs videre\n\nBlink without delay på ESP32\nESP32IO viser i ESP32 - LED - Blink Without Delay de samme to måder at blinke på, men med en knap ved siden af, så du kan se, at delay()-udgaven ikke opdager alle tryk. Der er også et eksempel med to lysdioder på GPIO 21 og 22, som minder om øvelse 4.\nLæs den med tre forbehold:\n\nArtiklen skriver, at delay() blokerer hele ESP32. Det er kun din loop(), der står stille; WiFi og andre opgaver kører videre (se Hvorfor er delay() et problem?).\nKoden bruger Serial.begin(9600). Ret det til 115200, eller ret monitor_speed, så de passer sammen.\nKnappen bliver ikke debounced, så den kan tælle for mange tryk. Se Debouncing.\n\nNår du er klar til mere C++, så fortsæt med Intro til C++.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Hello World på ESP32"
+    ]
+  },
+  {
+    "objectID": "Grundlag/hello_world.html#kilder",
+    "href": "Grundlag/hello_world.html#kilder",
+    "title": "Hello World på ESP32",
+    "section": "Kilder",
+    "text": "Kilder\n\nArduino-ESP32: kildekode til main.cpp (app_main() starter loopTask, som kalder setup() og loop()), https://github.com/espressif/arduino-esp32/blob/master/cores/esp32/main.cpp\nArduino-ESP32: kildekode til esp32-hal-misc.c (millis() og delay() med vTaskDelay()), https://github.com/espressif/arduino-esp32/blob/master/cores/esp32/esp32-hal-misc.c\nArduino-ESP32: kildekode til Print.h (println() og printf()), https://github.com/espressif/arduino-esp32/blob/master/cores/esp32/Print.h\nArduino-ESP32: pins_arduino.h for DOIT ESP32 DEVKIT V1 (LED_BUILTIN = 2), https://github.com/espressif/arduino-esp32/blob/master/variants/doitESP32devkitV1/pins_arduino.h\nArduino-ESP32: Serial (UART), https://docs.espressif.com/projects/arduino-esp32/en/latest/api/serial.html\nPlatformIO: board-definitionen esp32doit-devkit-v1 (bruger varianten doitESP32devkitV1), https://github.com/platformio/platform-espressif32/blob/develop/boards/esp32doit-devkit-v1.json\nPlatformIO: monitor_speed, https://docs.platformio.org/en/latest/projectconf/sections/env/options/monitor/monitor_speed.html\nESP-IDF: Application Startup Flow, https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/startup.html\nesptool: Boot Mode Selection (ROM’ens opstartslinje ved 115200 baud, EN og BOOT), https://docs.espressif.com/projects/esptool/en/latest/esp32/advanced-topics/boot-mode-selection.html\nArduino: Blink Without Delay (eksemplets kildekode), https://github.com/arduino/arduino-examples/blob/main/examples/02.Digital/BlinkWithoutDelay/BlinkWithoutDelay.ino\nESP32IO: ESP32 - LED - Blink Without Delay, https://esp32io.com/tutorials/esp32-led-blink-without-delay",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Hello World på ESP32"
+    ]
+  },
+  {
+    "objectID": "Grundlag/knapper.html",
+    "href": "Grundlag/knapper.html",
+    "title": "Knapper og kontakter",
+    "section": "",
+    "text": "En knap er det enkleste input, du kan give en ESP32: den er enten trykket eller ikke trykket. Men en knap giver ikke selv en spænding. Den forbinder bare to ben, når du trykker. Hvad ESP32 læser, når knappen ikke er trykket, bestemmer du med en modstand. Glemmer du den, læser programmet tilfældige værdier, og fejlen kan ligne en fejl i koden.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Knapper og kontakter"
+    ]
+  },
+  {
+    "objectID": "Grundlag/knapper.html#formål",
+    "href": "Grundlag/knapper.html#formål",
+    "title": "Knapper og kontakter",
+    "section": "Formål",
+    "text": "Formål\n\nDu kan kende forskel på en trykknap, en vippekontakt og en skydekontakt, og på en NO- og en NC-kontakt.\nDu kan sætte en trykknap rigtigt på et breadboard.\nDu kan forklare, hvad pull-up og pull-down er, og hvorfor et ben uden dem giver tilfældige værdier.\nDu kan læse en knap med digitalRead() og den interne pull-up, og vælge et ben, der kan bruges.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Knapper og kontakter"
+    ]
+  },
+  {
+    "objectID": "Grundlag/knapper.html#målpinde",
+    "href": "Grundlag/knapper.html#målpinde",
+    "title": "Knapper og kontakter",
+    "section": "Målpinde",
+    "text": "Målpinde\nSiden arbejder med målpind 12, 17 og 19 (se Læringsmål).",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Knapper og kontakter"
+    ]
+  },
+  {
+    "objectID": "Grundlag/knapper.html#forudsætninger",
+    "href": "Grundlag/knapper.html#forudsætninger",
+    "title": "Knapper og kontakter",
+    "section": "Forudsætninger",
+    "text": "Forudsætninger\n\nDu kan oprette et PlatformIO-projekt til ESP32-DEVKIT-V1 og uploade et program (se PlatformIO).\nDu ved, hvordan et breadboard er forbundet indvendigt (se Breadboard).\nTil øvelserne: hvad en modstand er (siden om modstande). \nDu ved, at den indbyggede lysdiode sidder på GPIO 2 (se Lysdioder).\nHardware: ESP32-DEVKIT-V1, to trykknapper, en modstand på 10 kΩ, et breadboard og ledninger.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Knapper og kontakter"
+    ]
+  },
+  {
+    "objectID": "Grundlag/knapper.html#typer-af-kontakter",
+    "href": "Grundlag/knapper.html#typer-af-kontakter",
+    "title": "Knapper og kontakter",
+    "section": "Typer af kontakter",
+    "text": "Typer af kontakter\nEn kontakt (switch) er to stykker metal, der rører hinanden eller ikke gør. Der findes mange slags. Dem, du møder i lokalet, er:\n\n\n\n\n\n\n\n\nType\nSådan virker den\nTypisk brug\n\n\n\n\nTrykknap (tactile switch)\nGiver kun forbindelse, mens du trykker. Fjedrer tilbage, når du slipper.\nKommandoer: start, nulstil, næste\n\n\nVippekontakt (toggle switch)\nBliver i den stilling, du sætter den i.\nTænd/sluk, valg af tilstand\n\n\nSkydekontakt (slide switch)\nSom en vippekontakt, men du skubber en lille knap til siden.\nValg af tilstand på et print\n\n\n\nKontakter beskrives også ud fra, hvad de gør, når ingen rører dem:\n\nNO (normally open): åben i hvile, forbindelse når den aktiveres. Almindelige trykknapper er NO.\nNC (normally closed): forbindelse i hvile, afbrudt når den aktiveres. Bruges fx til nødstop, fordi en knækket ledning så opdages som “stop” i stedet for at blive overset.\n\nVippe- og skydekontakter har ofte tre ben: det midterste er fælles (COM) og forbindes til enten det ene eller det andet yderben. Det kaldes en omskifter (SPDT). De har ingen hvilestilling, så NO og NC giver ikke mening for dem. En endestopkontakt (micro switch) fjedrer derimod tilbage og har derfor tit benene mærket COM, NO og NC.\n\n\nTrykknappen har fire ben\nDen almindelige trykknap til breadboards (6 x 6 mm) har fire ben, men den er kun én kontakt. Benene er forbundet indvendigt to og to:\n  A ●──────┬──────● A     A-benene er altid forbundet\n           │\n          ─┴─  kontakt: åben, indtil du trykker\n          ─┬─\n           │\n  B ●──────┴──────● B     B-benene er altid forbundet\nDer er kun forbindelse mellem A og B, mens du trykker.\nBrug derfor to ben, der sidder diagonalt over for hinanden. Så går forbindelsen helt sikkert gennem kontakten, uanset hvordan knappen er drejet. Vælger du to ben, der er forbundet indvendigt, er “knappen” altid trykket.\n\n\n\nKnappen på breadboardet\nSæt knappen hen over renden på midten af breadboardet, så to ben sidder på hver side. Så er de fire ben i hver sin række, og intet er kortsluttet af boardet. Siden om Breadboard viser opstillingen trin for trin.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Knapper og kontakter"
+    ]
+  },
+  {
+    "objectID": "Grundlag/knapper.html#pull-up-og-pull-down",
+    "href": "Grundlag/knapper.html#pull-up-og-pull-down",
+    "title": "Knapper og kontakter",
+    "section": "Pull-up og pull-down",
+    "text": "Pull-up og pull-down\nEt input-ben på ESP32 trækker næsten ingen strøm. Det er godt, fordi det ikke belaster det, der er koblet til. Men det betyder også, at et ben, der ikke er forbundet til noget, ikke har nogen bestemt spænding.\n\nEt svævende ben giver tilfældige værdier\nSidder knappen mellem et GPIO-ben og GND, er benet forbundet til GND, mens du trykker. Når du slipper, er benet ikke forbundet til noget. Det kaldes et svævende ben (floating). Ledningen virker som en lille antenne og opfanger støj, fx fra lysnettet eller fra din hånd. Programmet læser så HIGH og LOW i flæng, selvom ingen trykker.\n\nLøsningen er en modstand, der trækker benet til en bestemt værdi, når knappen ikke er trykket:\n\nPull-up: modstanden går fra benet til 3,3 V. Uden tryk læses HIGH. Knappen sidder mellem benet og GND, så et tryk giver LOW.\nPull-down: modstanden går fra benet til GND. Uden tryk læses LOW. Knappen sidder mellem benet og 3,3 V, så et tryk giver HIGH.\n\n  Pull-up                         Pull-down\n\n  3,3 V                           3,3 V\n    │                               │\n   [R]                            knap\n    │                               │\n    ├──── GPIO (tryk = LOW)         ├──── GPIO (tryk = HIGH)\n    │                               │\n  knap                             [R]\n    │                               │\n   GND                             GND\nModstanden er stor nok til, at der kun løber en lille strøm, når knappen er trykket. Med 10 kΩ og 3,3 V er det 3,3 V / 10 kΩ = 0,33 mA. Uden modstanden ville et tryk kortslutte 3,3 V til GND.\n\n\nIntern eller ekstern modstand\nESP32 har indbyggede pull-up- og pull-down-modstande på ca. 45 kΩ, som du slår til i programmet:\n\n\n\n\n\n\n\npinMode(pin, …)\nBetydning\n\n\n\n\nINPUT\nIngen modstand. Benet svæver, hvis intet andet trækker det.\n\n\nINPUT_PULLUP\nIntern pull-up til 3,3 V. Tryk = LOW.\n\n\nINPUT_PULLDOWN\nIntern pull-down til GND. Tryk = HIGH.\n\n\n\nDen interne pull-up er det nemmeste: knappen går direkte mellem benet og GND, og du skal ikke bruge en modstand. Det er den kobling, de fleste eksempler bruger, også siden om Debouncing.\nEn ekstern modstand, typisk 10 kΩ, bruges, når:\n\nbenet ikke har en intern modstand (GPIO 34–39, se nedenfor)\nledningen til knappen er lang, så støjen bliver større. En mindre modstand end de interne 45 kΩ holder benet mere stabilt.\nkredsløbet skal virke, uanset hvad programmet gør, fx under opstart.\n\nBemærk igen: med pull-up giver et tryk LOW. Det er omvendt af, hvad mange forventer, og den mest almindelige fejl med knapper.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Knapper og kontakter"
+    ]
+  },
+  {
+    "objectID": "Grundlag/knapper.html#valg-af-ben",
+    "href": "Grundlag/knapper.html#valg-af-ben",
+    "title": "Knapper og kontakter",
+    "section": "Valg af ben",
+    "text": "Valg af ben\n\n\n\n\n\n\n\nBen\nTil en knap?\n\n\n\n\n18, 19, 21–23, 25–27, 32, 33\nJa\n\n\n34–39\nKun med en ekstern modstand. De kan kun bruges som input og har ingen intern pull-up eller pull-down, så INPUT_PULLUP giver ingen pull-up.\n\n\n6–11\nNej: forbundet til den interne flash\n\n\n0, 2, 5, 12, 15\nHelst ikke: de påvirker, hvordan ESP32 starter (strapping pins). Som output er de fine, fx GPIO 2 til den indbyggede lysdiode.\n\n\n\n\nAf strapping-benene er GPIO 0 det farlige for en knap til GND. Er GPIO 0 LOW, når ESP32 starter, går den (på DevKit-boardet) i upload-tilstand i stedet for at køre dit program. Holder du knappen nede, mens du sætter USB i eller trykker på EN, ser det ud, som om programmet er væk. Faktisk er det sådan, BOOT-knappen på ESP32-DEVKIT-V1 virker: den sidder på GPIO 0.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Knapper og kontakter"
+    ]
+  },
+  {
+    "objectID": "Grundlag/knapper.html#eksempel-lysdioden-lyser-mens-knappen-holdes-nede",
+    "href": "Grundlag/knapper.html#eksempel-lysdioden-lyser-mens-knappen-holdes-nede",
+    "title": "Knapper og kontakter",
+    "section": "Eksempel: lysdioden lyser, mens knappen holdes nede",
+    "text": "Eksempel: lysdioden lyser, mens knappen holdes nede\nKnappen sidder mellem GPIO 18 og GND, på to diagonale ben. Lysdioden er den indbyggede på GPIO 2, så den skal ikke kobles på.\n\n\n\n\nplatformio.ini\n\n[env:esp32doit-devkit-v1]\nplatform = espressif32@8.0.0\nboard = esp32doit-devkit-v1\nframework = arduino\nmonitor_speed = 115200\n\n\n\nsrc/main.cpp\n\n#include &lt;Arduino.h&gt;\n\n// Konfiguration\nconst int KNAP_PIN = 18;  // knap mellem GPIO 18 og GND\nconst int LED_PIN = 2;    // den indbyggede lysdiode\n\nint forrigeTilstand = HIGH;  // HIGH = ikke trykket (pull-up)\n\nvoid setup() {\n  Serial.begin(115200);\n  pinMode(KNAP_PIN, INPUT_PULLUP);  // intern pull-up, så benet ikke svæver\n  pinMode(LED_PIN, OUTPUT);\n}\n\nvoid loop() {\n  int tilstand = digitalRead(KNAP_PIN);\n\n  // Med pull-up betyder LOW, at knappen er trykket\n  if (tilstand == LOW) {\n    digitalWrite(LED_PIN, HIGH);\n  } else {\n    digitalWrite(LED_PIN, LOW);\n  }\n\n  // Skriv kun, når tilstanden skifter, ellers drukner Serial Monitor\n  if (tilstand != forrigeTilstand) {\n    Serial.println(tilstand == LOW ? \"Trykket\" : \"Sluppet\");\n    forrigeTilstand = tilstand;\n  }\n}\n\nProgrammet læser knappen i hvert gennemløb af loop() og sætter lysdioden derefter. Der er ingen delay(), så lysdioden følger knappen med det samme.\nProgrammet er bevidst lavet uden debouncing. Du ser derfor måske flere “Trykket” og “Sluppet” i Serial Monitor ved ét tryk. Det er kontaktprel, og det er emnet på siden om Debouncing. For lysdioden betyder det ikke noget, for den blinker kun et par millisekunder, og det kan øjet ikke se. Skal programmet tælle tryk eller skifte tilstand ved hvert tryk, skal du debounce.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Knapper og kontakter"
+    ]
+  },
+  {
+    "objectID": "Grundlag/knapper.html#øvelser",
+    "href": "Grundlag/knapper.html#øvelser",
+    "title": "Knapper og kontakter",
+    "section": "Øvelser",
+    "text": "Øvelser\n\nDet svævende ben: Ret INPUT_PULLUP til INPUT i eksemplet, og tag ledningen fra GND af knappen, så benet kun er forbundet til en løs ledning. Rør ved den løse ende af ledningen med fingeren, og hold øje med lysdioden og Serial Monitor. Skriv ned, hvad du ser, og forklar hvorfor. Sæt INPUT_PULLUP tilbage bagefter.\nEkstern pull-down: Byg knappen om, så den sidder mellem GPIO 18 og 3V3, og sæt en modstand på 10 kΩ fra GPIO 18 til GND. Brug pinMode(KNAP_PIN, INPUT). Ret programmet, så lysdioden stadig lyser, mens knappen holdes nede. Hvad læses nu, når knappen er trykket? Tegn diagrammet, og aflever det sammen med koden.\nTo knapper: Tilføj en knap mere på GPIO 19 til GND med INPUT_PULLUP. Lysdioden må kun lyse, når begge knapper holdes nede. Lav derefter en udgave, hvor den lyser, når mindst én er trykket. Brug konstanter til begge ben og en lille funktion erTrykket(pin), der returnerer true, når knappen på pin er trykket.\nEt ben uden pull-up: Flyt knappen til GPIO 34 med INPUT_PULLUP. Virker den? Forklar hvorfor ikke, og få den til at virke med en ekstern modstand på 10 kΩ til 3V3.\nEkstra: Læs BOOT-knappen på ESP32-DEVKIT-V1 som input på GPIO 0, mens programmet kører, og lad den tænde lysdioden. Hold derefter BOOT nede, mens du trykker på EN. Hvad sker der, og hvorfor? (Brug ikke BOOT-knappen i dine egne projekter.)",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Knapper og kontakter"
+    ]
+  },
+  {
+    "objectID": "Grundlag/knapper.html#typiske-fejl",
+    "href": "Grundlag/knapper.html#typiske-fejl",
+    "title": "Knapper og kontakter",
+    "section": "Typiske fejl",
+    "text": "Typiske fejl\n\nKnappen er altid trykket: Ledningerne sidder på to ben af knappen, der er forbundet indvendigt. Brug to diagonale ben.\nKnappen virker baglæns: Med INPUT_PULLUP er et tryk LOW, ikke HIGH.\nTilfældige værdier, når ingen trykker: Benet svæver. Der står INPUT uden en ekstern modstand, eller knappen sidder på GPIO 34–39, hvor INPUT_PULLUP ikke virker.\nProgrammet starter ikke efter reset: Knappen sidder på GPIO 0 og er trykket ved opstart, så ESP32 venter i upload-tilstand.\nESP32 genstarter, når der trykkes: Knappen kortslutter 3V3 direkte til GND. Det sker, hvis pull-down-modstanden er erstattet af en ledning, eller hvis knappen sidder mellem 3V3- og GND-skinnen, fx fordi den ikke sidder hen over renden. (En manglende pull-down giver ikke kortslutning, men et svævende ben.)\nBenet er sat som OUTPUT: Driver programmet benet HIGH, mens knappen trækker det til GND, kortslutter du udgangen. ESP32 begrænser selv strømmen, men det er stadig en fejl. Brug INPUT_PULLUP.\nKnappen sidder på 5 V: Brug 3V3, ikke VIN. ESP32’s indgange tåler kun 3,3 V.\nFlere tryk ved ét tryk: Kontaktprel. Se Debouncing.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Knapper og kontakter"
+    ]
+  },
+  {
+    "objectID": "Grundlag/knapper.html#læs-videre",
+    "href": "Grundlag/knapper.html#læs-videre",
+    "title": "Knapper og kontakter",
+    "section": "Læs videre",
+    "text": "Læs videre\n\nESP32IO: ESP32 - Button\nESP32 - Button har gode billeder af knappens fire ben, og af pull-up- og pull-down-koblingen. Den viser også et knapmodul med tre ben (GND, VCC og OUT), som har en pull-down indbygget, og som derfor læses med INPUT.\nBemærk to ting:\n\nI eksemplet, der finder skift, starter variablen lastState som LOW. Med INPUT_PULLUP læses en sluppet knap som HIGH, så programmet skriver “The button is released” i første gennemløb, selvom ingen har rørt knappen. Start den som HIGH, som vi gør i eksemplet ovenfor.\nSiden forklarer, at knappen har fire ben for at holde til trykket. Det er en af grundene: fire ben gør knappen mere stabil på et print. Det betyder ikke noget for, hvordan du kobler den.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Knapper og kontakter"
+    ]
+  },
+  {
+    "objectID": "Grundlag/knapper.html#kilder",
+    "href": "Grundlag/knapper.html#kilder",
+    "title": "Knapper og kontakter",
+    "section": "Kilder",
+    "text": "Kilder\n\nArduino-ESP32: GPIO (pinMode, digitalRead, interne modstande på 45 kΩ), https://docs.espressif.com/projects/arduino-esp32/en/latest/api/gpio.html\nESP-IDF: GPIO (GPIO 34–39 kun input og uden pull-up/pull-down, GPIO 6–11), https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/gpio.html\nesptool: Boot Mode Selection (GPIO 0 ved opstart), https://docs.espressif.com/projects/esptool/en/latest/esp32/advanced-topics/boot-mode-selection.html\nEspressif: ESP32 Datasheet (strapping pins), https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf\nPlatformIO: ESP32-DEVKIT-V1, https://docs.platformio.org/en/latest/boards/espressif32/esp32doit-devkit-v1.html\nESP32IO: ESP32 - Button, https://esp32io.com/tutorials/esp32-button\nRandom Nerd Tutorials: ESP32 Pinout Reference, https://randomnerdtutorials.com/esp32-pinout-reference-gpios/",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Knapper og kontakter"
+    ]
+  },
+  {
+    "objectID": "Grundlag/modstande.html",
+    "href": "Grundlag/modstande.html",
+    "title": "Modstande og farvekoder",
+    "section": "",
+    "text": "En modstand er den mest almindelige komponent på et breadboard. Den sidder foran hver lysdiode, så strømmen ikke bliver for stor, og den holder et input stabilt, når en knap ikke er trykket. Værdien står ikke med tal, men som farvede ringe (bånd), så du skal kunne aflæse farvekoden for at tage den rigtige modstand op af skuffen. Og du skal kunne regne med den, så du ved, hvorfor det lige er 220 Ω eller 10 kΩ.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Modstande og farvekoder"
+    ]
+  },
+  {
+    "objectID": "Grundlag/modstande.html#formål",
+    "href": "Grundlag/modstande.html#formål",
+    "title": "Modstande og farvekoder",
+    "section": "Formål",
+    "text": "Formål\n\nDu kan forklare, hvad en modstand gør, og bruge Ohms lov til at regne strøm, spænding og modstand.\nDu kan aflæse farvekoden på en modstand med 4 og 5 bånd og finde ud af, hvilken vej den skal læses.\nDu kan forklare, hvorfor modstande findes i bestemte standardværdier (E12 og E24), og hvad tolerance er.\nDu kan tjekke, at en modstand ikke bliver for varm (effekt).\nDu kan måle en modstand med et multimeter.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Modstande og farvekoder"
+    ]
+  },
+  {
+    "objectID": "Grundlag/modstande.html#målpinde",
+    "href": "Grundlag/modstande.html#målpinde",
+    "title": "Modstande og farvekoder",
+    "section": "Målpinde",
+    "text": "Målpinde\nSiden arbejder med målpind 4, 12 og 18 (se Læringsmål).",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Modstande og farvekoder"
+    ]
+  },
+  {
+    "objectID": "Grundlag/modstande.html#forudsætninger",
+    "href": "Grundlag/modstande.html#forudsætninger",
+    "title": "Modstande og farvekoder",
+    "section": "Forudsætninger",
+    "text": "Forudsætninger\n\nDu ved, hvad spænding (volt, V) og strøm (ampere, A) er.\nDu kan sætte komponenter i et breadboard (se Breadboard med tilpassede ledninger).\nHardware: et par modstande med forskellige værdier, et multimeter.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Modstande og farvekoder"
+    ]
+  },
+  {
+    "objectID": "Grundlag/modstande.html#hvad-gør-en-modstand",
+    "href": "Grundlag/modstande.html#hvad-gør-en-modstand",
+    "title": "Modstande og farvekoder",
+    "section": "Hvad gør en modstand?",
+    "text": "Hvad gør en modstand?\nEn modstand begrænser strømmen i et kredsløb. Jo større modstand, jo mindre strøm løber der ved samme spænding. Den bruges til to ting i faget:\n\nBegrænse strømmen, fx gennem en lysdiode, så hverken lysdioden eller benet på ESP32 tager skade.\nTrække et ben op eller ned til en bestemt spænding, så det ikke “svæver”, når intet andet bestemmer spændingen (pull-up og pull-down).\n\nModstand måles i ohm (Ω). 1 kΩ (kiloohm) er 1.000 Ω, og 1 MΩ (megaohm) er 1.000.000 Ω. En modstand har ingen retning: den virker ens, uanset hvilken vej den sættes i.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Modstande og farvekoder"
+    ]
+  },
+  {
+    "objectID": "Grundlag/modstande.html#ohms-lov",
+    "href": "Grundlag/modstande.html#ohms-lov",
+    "title": "Modstande og farvekoder",
+    "section": "Ohms lov",
+    "text": "Ohms lov\nSpænding, strøm og modstand hænger sammen med Ohms lov:\n\\[U = R \\cdot I \\qquad I = \\frac{U}{R} \\qquad R = \\frac{U}{I}\\]\nhvor \\(U\\) er spændingen over modstanden i volt, \\(I\\) er strømmen gennem den i ampere, og \\(R\\) er modstanden i ohm.\nHusk at regne i grundenheder: mA skal laves om til A, og kΩ til Ω. To eksempler fra faget:\n\nPull-up på 10 kΩ: Når knappen trykkes, ligger hele 3,3 V over modstanden. Strømmen er \\(I = 3{,}3\\ \\text{V} / 10\\,000\\ \\Omega = 0{,}00033\\ \\text{A} = 0{,}33\\ \\text{mA}\\). Det er så lidt, at det ikke betyder noget.\nFormodstand til en rød lysdiode: Lysdioden tager ca. 2 V, så der er 3,3 V − 2 V = 1,3 V tilbage over modstanden. Med 220 Ω bliver strømmen \\(I = 1{,}3\\ \\text{V} / 220\\ \\Omega \\approx 5{,}9\\ \\text{mA}\\).",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Modstande og farvekoder"
+    ]
+  },
+  {
+    "objectID": "Grundlag/modstande.html#farvekoden",
+    "href": "Grundlag/modstande.html#farvekoden",
+    "title": "Modstande og farvekoder",
+    "section": "Farvekoden",
+    "text": "Farvekoden\nSmå modstande med ben (through-hole) har værdien malet på som farvede bånd. Farverne og deres betydning er fastlagt i den internationale standard IEC 60062.\n\n\n\nTabel 1: Farvekoden for modstande (IEC 60062).\n\n\n\n\n\nFarve\nCiffer\nMultiplikator\nTolerance\n\n\n\n\nsort\n0\n× 1\n\n\n\nbrun\n1\n× 10\n±1 %\n\n\nrød\n2\n× 100\n±2 %\n\n\norange\n3\n× 1 k\n±0,05 %\n\n\ngul\n4\n× 10 k\n±0,02 %\n\n\ngrøn\n5\n× 100 k\n±0,5 %\n\n\nblå\n6\n× 1 M\n±0,25 %\n\n\nviolet\n7\n× 10 M\n±0,1 %\n\n\ngrå\n8\n× 100 M\n±0,01 % (ældre: ±0,05 %)\n\n\nhvid\n9\n× 1 G\n\n\n\nguld\n\n× 0,1\n±5 %\n\n\nsølv\n\n× 0,01\n±10 %\n\n\nintet bånd\n\n\n±20 %\n\n\n\n\n\n\n\nDu behøver ikke kunne tabellen udenad, men cifrene 0–9 følger farverne i regnbuen, med sort og brun først og grå og hvid til sidst.\n\n4 bånd\nDe almindelige modstande med ±5 % har 4 bånd:\n\nførste ciffer\nandet ciffer\nmultiplikator: hvor mange nuller der skal efter (eller ×0,1 og ×0,01 for guld og sølv)\ntolerance\n\nEksempel: rød, rød, brun, guld er 2, 2 og × 10, altså 22 × 10 = 220 Ω ±5 %. Og brun, sort, orange, guld er 10 × 1.000 = 10 kΩ ±5 %.\n\n\n5 bånd\nPræcisionsmodstande (typisk ±1 %, metalfilm) har 5 bånd: tre cifre, multiplikator og tolerance. Tolerancebåndet er tit brun (±1 %).\nEksempel: rød, rød, sort, sort, brun er 220 × 1 = 220 Ω ±1 %. Og brun, sort, sort, rød, brun er 100 × 100 = 10 kΩ ±1 %.\nBemærk, at 220 Ω altså har forskellige farver med 4 og 5 bånd. Tæl båndene først.\n\n\n\n\nHvilken vej skal den læses?\nEn modstand har ingen top eller bund, så du skal selv finde ud af, hvor du skal starte:\n\nTolerancebåndet står til højre. Guld og sølv bruges aldrig som ciffer, så står der guld eller sølv i den ene ende, skal den ende vende til højre.\nMellemrummet: Der er ofte lidt større afstand mellem multiplikatoren og tolerancebåndet end mellem de andre bånd.\nFørste bånd sidder tættest på enden af modstanden.\n\nDet er sværest med 5-båndsmodstande, hvor tolerancen er brun, og første ciffer også kan være brunt. Eksempel: brun, sort, sort, brun, brun er 100 × 10 = 1 kΩ. Læst fra den anden ende er det brun, brun, sort, sort, brun = 110 × 1 = 110 Ω. Begge dele er rigtige værdier. Når du er i tvivl, så mål modstanden med et multimeter.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Modstande og farvekoder"
+    ]
+  },
+  {
+    "objectID": "Grundlag/modstande.html#standardværdier-e12-og-e24",
+    "href": "Grundlag/modstande.html#standardværdier-e12-og-e24",
+    "title": "Modstande og farvekoder",
+    "section": "Standardværdier: E12 og E24",
+    "text": "Standardværdier: E12 og E24\nDu kan ikke købe en modstand på 237 Ω med ±5 %. Modstande laves i faste rækker af værdier, de såkaldte E-rækker. Rækkerne er lavet, så en værdi plus tolerancen næsten når op til den næste værdi minus tolerancen. Så dækker rækken alle værdier, uden at der er spild.\n\nE12 (±10 %): 10, 12, 15, 18, 22, 27, 33, 39, 47, 56, 68, 82\nE24 (±5 %): 10, 11, 12, 13, 15, 16, 18, 20, 22, 24, 27, 30, 33, 36, 39, 43, 47, 51, 56, 62, 68, 75, 82, 91\n\nCifrene gentages for hver tierpotens: 22 findes som 2,2 Ω, 22 Ω, 220 Ω, 2,2 kΩ, 22 kΩ osv. E24 indeholder alle værdierne fra E12. Præcisionsmodstande med ±1 % findes i E96-rækken med tre cifre.\nDet kan bruges, når du aflæser: Har modstanden 4 bånd, og giver farverne en værdi, der ikke er i E24 (fx 25 eller 77), har du sikkert læst forkert eller fra den forkerte ende. Det gælder ikke 5-båndsmodstande på ±1 %: De kommer fra E96, og de fleste E96-værdier (fx 102 Ω eller 4,99 kΩ) er ikke i E24.\nNår du har regnet en værdi ud, så vælg den nærmeste standardværdi. Til en formodstand vælger du den nærmeste værdi over det beregnede, så strømmen bliver lidt mindre, ikke større.\nTolerance er, hvor meget den rigtige værdi må afvige fra den påtrykte. En 220 Ω ±5 % ligger mellem 209 Ω og 231 Ω.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Modstande og farvekoder"
+    ]
+  },
+  {
+    "objectID": "Grundlag/modstande.html#effekt",
+    "href": "Grundlag/modstande.html#effekt",
+    "title": "Modstande og farvekoder",
+    "section": "Effekt",
+    "text": "Effekt\nEn modstand laver elektrisk energi om til varme. Effekten måles i watt (W):\n\\[P = U \\cdot I = \\frac{U^2}{R}\\]\nDe almindelige modstande med ben kan tåle 1/4 W (0,25 W). Det er sjældent et problem på ESP32: Selv hvis hele 3,3 V ligger over en 220 Ω-modstand, er effekten \\(3{,}3^2 / 220 \\approx 0{,}05\\ \\text{W}\\). Først under ca. 47 Ω direkte over 3,3 V nærmer man sig grænsen (\\(3{,}3^2 / 47 \\approx 0{,}23\\ \\text{W}\\)). En modstand, der bliver varm at røre ved, er et tegn på en fejl, typisk en kortslutning eller en forkert aflæst værdi.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Modstande og farvekoder"
+    ]
+  },
+  {
+    "objectID": "Grundlag/modstande.html#modstande-i-faget",
+    "href": "Grundlag/modstande.html#modstande-i-faget",
+    "title": "Modstande og farvekoder",
+    "section": "Modstande i faget",
+    "text": "Modstande i faget\nTo værdier går igen i næsten alle opstillinger:\n\n\n\nVærdi\nFarver (4 bånd)\nFarver (5 bånd)\nBruges til\n\n\n\n\n220 Ω\nrød, rød, brun, guld\nrød, rød, sort, sort, brun\nformodstand til en lysdiode, se Lysdioder\n\n\n10 kΩ\nbrun, sort, orange, guld\nbrun, sort, sort, rød, brun\nekstern pull-up eller pull-down til en knap, se Knapper\n\n\n\nEt drejepotentiometer er en modstand, hvor du kan ændre værdien med en knap. Det er beskrevet på siden om Potentiometer.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Modstande og farvekoder"
+    ]
+  },
+  {
+    "objectID": "Grundlag/modstande.html#mål-med-et-multimeter",
+    "href": "Grundlag/modstande.html#mål-med-et-multimeter",
+    "title": "Modstande og farvekoder",
+    "section": "Mål med et multimeter",
+    "text": "Mål med et multimeter\nFarvekoden kan være svær at læse, især i dårligt lys eller på blå modstande. Et multimeter giver svaret direkte:\n\nSæt multimeteret på et Ω-område (nogle multimetre vælger selv området).\nMål på en løs modstand, eller i et kredsløb, hvor strømmen er slået fra. Sidder modstanden i et kredsløb, kan strømmen også løbe en anden vej uden om den, og så måler du forkert.\nHold ikke om begge ben med fingrene. Din krop er også en modstand, og ved store værdier (over ca. 100 kΩ) kan den påvirke målingen.\nSammenlign med farvekoden: Den målte værdi skal ligge inden for tolerancen.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Modstande og farvekoder"
+    ]
+  },
+  {
+    "objectID": "Grundlag/modstande.html#farvekode-beregner",
+    "href": "Grundlag/modstande.html#farvekode-beregner",
+    "title": "Modstande og farvekoder",
+    "section": "Farvekode-beregner",
+    "text": "Farvekode-beregner\nBeregneren regner begge veje. Den virker kun på hjemmesiden, ikke i en udskrift.\n\n\nFra farver til værdi\nVælg antal bånd og farverne fra venstre mod højre.\n\nviewof antalBaand = Inputs.radio([4, 5], {label: \"Antal bånd\", value: 4})\nviewof b1 = Inputs.select(cifferNavne, {label: \"1. ciffer\", value: \"gul\"})\nviewof b2 = Inputs.select(cifferNavne, {label: \"2. ciffer\", value: \"violet\"})\n// Det tredje ciffer findes kun på 5-båndsmodstande\nviewof b3 = Inputs.select(cifferNavne, {label: \"3. ciffer\", value: \"sort\", disabled: antalBaand === 4})\nviewof mult = Inputs.select(multNavne, {label: \"Multiplikator\", value: \"rød\"})\n// \"ingen\" betyder, at der ikke er et tolerancebånd (en 3-båndsmodstand, ±20 %)\nviewof tol = Inputs.select(tolNavne, {label: \"Tolerance\", value: \"guld\",\n  format: n =&gt; n === \"ingen\" ? \"ingen (3 bånd, ±20 %)\" : n})\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n{\n  // Båndene i rækkefølge fra venstre; ved 4 bånd springes 3. ciffer over\n  const navne = antalBaand === 4 ? [b1, b2, mult, tol] : [b1, b2, b3, mult, tol];\n  // Cifrene er alle bånd undtagen de to sidste: fx [4, 7] bliver til 47\n  const tal = navne.slice(0, antalBaand - 2)\n    .map(n =&gt; farve(n).ciffer)\n    .reduce((sum, c) =&gt; sum * 10 + c, 0);\n  const ohm = medEksponent(tal, farve(mult).eksp);\n  const t = farve(tol).tol;\n  return htl.html`&lt;div&gt;\n    ${modstandTegning(navne)}\n    &lt;p&gt;&lt;strong&gt;${formatOhm(ohm)} ±${formatTal(t)} %&lt;/strong&gt;&lt;br&gt;\n    Den rigtige værdi ligger mellem ${formatOhm(ohm * (1 - t / 100))} og ${formatOhm(ohm * (1 + t / 100))}.&lt;/p&gt;\n  &lt;/div&gt;`;\n}\n\n\n\n\n\n\n\n\nFra værdi til farver\nSkriv en værdi, fx 220, 4,7k, 4k7, 10 kΩ eller 1M.\n\nviewof vaerdiTekst = Inputs.text({label: \"Værdi\", value: \"220\", placeholder: \"fx 220, 4,7k eller 1M\"})\n\n\n\n\n\n\n\n{\n  const ohm = laesVaerdi(vaerdiTekst);\n  if (ohm === null) {\n    return htl.html`&lt;p&gt;Det kan jeg ikke læse. Skriv fx 220, 4,7k, 4k7 eller 1M.&lt;/p&gt;`;\n  }\n  // 4 bånd: 2 cifre + multiplikator + guld (±5 %). 5 bånd: 3 cifre + multiplikator + brun (±1 %)\n  const fire = farverFor(ohm, 2);\n  const fem = farverFor(ohm, 3);\n  return htl.html`&lt;div&gt;\n    &lt;p&gt;Værdi: &lt;strong&gt;${formatOhm(ohm)}&lt;/strong&gt;. E-række: ${eSerie(ohm)}.&lt;/p&gt;\n    &lt;p&gt;&lt;strong&gt;4 bånd (±5 %):&lt;/strong&gt; ${fire ? [...fire, \"guld\"].join(\", \") : \"kan ikke skrives med 2 cifre\"}&lt;/p&gt;\n    ${fire ? modstandTegning([...fire, \"guld\"]) : null}\n    &lt;p&gt;&lt;strong&gt;5 bånd (±1 %):&lt;/strong&gt; ${fem ? [...fem, \"brun\"].join(\", \") : \"kan ikke skrives med 3 cifre\"}&lt;/p&gt;\n    ${fem ? modstandTegning([...fem, \"brun\"]) : null}\n  &lt;/div&gt;`;\n}\n\n\n\n\n\n\n\n\nKoden bag beregneren\nBeregneren er skrevet i JavaScript med Quartos Observable JS. Fold koden ud, hvis du vil se, hvordan den regner. Læg mærke til, at den bruger de samme regler som ovenfor: cifre, multiplikator som en potens af 10, og tolerance i procent.\n\n\nKode\nfarver = [\n  {navn: \"sort\",   hex: \"#000000\", ciffer: 0,    eksp: 0,    tol: null},\n  {navn: \"brun\",   hex: \"#8B4513\", ciffer: 1,    eksp: 1,    tol: 1},\n  {navn: \"rød\",    hex: \"#E00000\", ciffer: 2,    eksp: 2,    tol: 2},\n  {navn: \"orange\", hex: \"#FF8C00\", ciffer: 3,    eksp: 3,    tol: 0.05},\n  {navn: \"gul\",    hex: \"#FFD700\", ciffer: 4,    eksp: 4,    tol: 0.02},\n  {navn: \"grøn\",   hex: \"#008000\", ciffer: 5,    eksp: 5,    tol: 0.5},\n  {navn: \"blå\",    hex: \"#0050FF\", ciffer: 6,    eksp: 6,    tol: 0.25},\n  {navn: \"violet\", hex: \"#8A2BE2\", ciffer: 7,    eksp: 7,    tol: 0.1},\n  {navn: \"grå\",    hex: \"#808080\", ciffer: 8,    eksp: 8,    tol: 0.01},\n  {navn: \"hvid\",   hex: \"#FFFFFF\", ciffer: 9,    eksp: 9,    tol: null},\n  {navn: \"guld\",   hex: \"#CFB53B\", ciffer: null, eksp: -1,   tol: 5},\n  {navn: \"sølv\",   hex: \"#C0C0C0\", ciffer: null, eksp: -2,   tol: 10},\n  {navn: \"ingen\",  hex: null,      ciffer: null, eksp: null, tol: 20}\n]\n\n// Listerne til valgfelterne: kun de farver, der kan bruges i det bånd\ncifferNavne = farver.filter(f =&gt; f.ciffer !== null).map(f =&gt; f.navn)\nmultNavne = farver.filter(f =&gt; f.eksp !== null).map(f =&gt; f.navn)\ntolNavne = farver.filter(f =&gt; f.tol !== null).map(f =&gt; f.navn)\n\n// E-rækkerne som tocifrede tal\ne12 = [10, 12, 15, 18, 22, 27, 33, 39, 47, 56, 68, 82]\ne24 = [10, 11, 12, 13, 15, 16, 18, 20, 22, 24, 27, 30, 33, 36, 39, 43, 47, 51, 56, 62, 68, 75, 82, 91]\n\n// Slå en farve op ud fra navnet\nfunction farve(navn) {\n  return farver.find(f =&gt; f.navn === navn);\n}\n\n// tal × 10^eksp. Ved negativ eksponent divideres der, så 47 × 10^-1 giver præcis 4,7\nfunction medEksponent(tal, eksp) {\n  return eksp &gt;= 0 ? tal * 10 ** eksp : tal / 10 ** -eksp;\n}\n\n// Tal med dansk decimalkomma, højst tre decimaler\nfunction formatTal(x) {\n  return x.toLocaleString(\"da-DK\", {maximumFractionDigits: 3});\n}\n\n// Vælg den enhed, der giver et pænt tal: 4700 bliver til \"4,7 kΩ\"\nfunction formatOhm(ohm) {\n  if (ohm &gt;= 1e9) return formatTal(ohm / 1e9) + \" GΩ\";\n  if (ohm &gt;= 1e6) return formatTal(ohm / 1e6) + \" MΩ\";\n  if (ohm &gt;= 1e3) return formatTal(ohm / 1e3) + \" kΩ\";\n  return formatTal(ohm) + \" Ω\";\n}\n\n// Læs fx \"220\", \"4,7k\", \"4k7\", \"10 kΩ\", \"1M\", \"4R7\" eller \"4.700\". Giver ohm eller null.\nfunction laesVaerdi(tekst) {\n  let s = tekst.replace(/\\s|Ω|ohm/gi, \"\");\n  // Dansk tusindtalspunktum: \"4.700\" og \"1.000.000\" er hele tal, ikke 4,7 og 1\n  if (/^\\d{1,3}(\\.\\d{3})+$/.test(s)) s = s.replaceAll(\".\", \"\");\n  // Dansk decimalkomma: \"4,7k\" bliver til \"4.7k\"\n  s = s.replace(\",\", \".\");\n  // tal, evt. et bogstav (R, k, M, G) og evt. flere cifre efter bogstavet\n  const m = s.match(/^(\\d+(?:\\.\\d+)?)([rkmg]?)(\\d*)$/i);\n  if (m === null) return null;\n  if (m[3] !== \"\" && (m[1].includes(\".\") || m[2] === \"\")) return null;\n  // \"4k7\": bogstavet står på kommaets plads\n  const tal = parseFloat(m[3] === \"\" ? m[1] : m[1] + \".\" + m[3]);\n  const faktor = {\"\": 1, r: 1, k: 1e3, m: 1e6, g: 1e9}[m[2].toLowerCase()];\n  const ohm = tal * faktor;\n  return ohm &gt; 0 ? ohm : null;\n}\n\n// Find de n cifre og eksponenten, så ohm = cifrene × 10^eksp.\n// Giver null, hvis værdien kræver flere end n cifre.\nfunction cifreOgEksp(ohm, n) {\n  for (let eksp = -2; eksp &lt;= 9; eksp++) {   // sølv (10^-2) til hvid (10^9)\n    const t = medEksponent(ohm, -eksp);\n    if (t &lt; 10 ** n - 0.5) {                 // den første eksponent, hvor tallet kan stå med n cifre\n      const heltal = Math.round(t);\n      if (Math.abs(t - heltal) &gt; 1e-6) return null;   // der er flere cifre end n\n      const cifre = String(heltal).padStart(n, \"0\").split(\"\").map(Number);\n      return {cifre, eksp};\n    }\n  }\n  return null;   // for stor til farvekoden\n}\n\n// Farvenavnene for cifrene og multiplikatoren (uden tolerance)\nfunction farverFor(ohm, n) {\n  const r = cifreOgEksp(ohm, n);\n  if (r === null) return null;\n  return [\n    ...r.cifre.map(c =&gt; farver.find(f =&gt; f.ciffer === c).navn),\n    farver.find(f =&gt; f.eksp === r.eksp).navn\n  ];\n}\n\n// Hvilken E-række værdien hører til (ud fra de to første cifre)\nfunction eSerie(ohm) {\n  const r = cifreOgEksp(ohm, 2);\n  // Værdier uden for E24 kan godt findes som 5-båndsmodstande på ±1 % (E96)\n  if (r === null) return \"ikke E12 eller E24 (kræver 3 cifre). Den kan findes som 5-båndsmodstand på ±1 % (E96)\";\n  const tal = r.cifre[0] * 10 + r.cifre[1];\n  if (e12.includes(tal)) return \"E12 (og dermed også E24)\";\n  if (e24.includes(tal)) return \"E24\";\n  return \"ikke E12 eller E24, så den findes ikke som 4-båndsmodstand på ±5 %. Den kan findes som 5-båndsmodstand på ±1 % (E96)\";\n}\n\n// Tegn en modstand med farvede bånd. Det sidste bånd (tolerancen) får ekstra afstand.\nfunction modstandTegning(navne) {\n  const baand = navne.map((navn, i) =&gt; {\n    const f = farve(navn);\n    const css = \"display:inline-block;width:12px;height:44px;\"\n      + \"background:\" + (f.hex || \"transparent\") + \";\"\n      + \"margin-left:\" + (i === navne.length - 1 ? \"24px\" : \"8px\") + \";\"\n      + (navn === \"hvid\" ? \"outline:1px solid #999;\" : \"\");\n    return htl.html`&lt;span title=${navn} style=${css}&gt;&lt;/span&gt;`;\n  });\n  const ben = \"display:inline-block;width:40px;height:3px;background:#999;\";\n  const krop = \"display:inline-flex;align-items:center;height:44px;padding:0 18px 0 10px;\"\n    + \"background:#E8D3A8;border-radius:14px;\";\n  return htl.html`&lt;div style=\"display:flex;align-items:center;margin:0.5em 0;\"&gt;\n    &lt;span style=${ben}&gt;&lt;/span&gt;&lt;span style=${krop}&gt;${baand}&lt;/span&gt;&lt;span style=${ben}&gt;&lt;/span&gt;\n  &lt;/div&gt;`;\n}",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Modstande og farvekoder"
+    ]
+  },
+  {
+    "objectID": "Grundlag/modstande.html#eksempel-aflæs-en-modstand",
+    "href": "Grundlag/modstande.html#eksempel-aflæs-en-modstand",
+    "title": "Modstande og farvekoder",
+    "section": "Eksempel: aflæs en modstand",
+    "text": "Eksempel: aflæs en modstand\nEn modstand har båndene gul, violet, orange, guld.\n\nGuld står i den ene ende, så den ende vender til højre. Fire bånd: to cifre, multiplikator, tolerance.\nGul = 4, violet = 7, så cifrene er 47.\nOrange = × 1.000, så værdien er 47 × 1.000 = 47.000 Ω = 47 kΩ.\nGuld = ±5 %, så den rigtige værdi ligger mellem 44,65 kΩ og 49,35 kΩ.\nTjek: 47 er i E12, så aflæsningen er sandsynlig.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Modstande og farvekoder"
+    ]
+  },
+  {
+    "objectID": "Grundlag/modstande.html#eksempel-vælg-en-modstand",
+    "href": "Grundlag/modstande.html#eksempel-vælg-en-modstand",
+    "title": "Modstande og farvekoder",
+    "section": "Eksempel: vælg en modstand",
+    "text": "Eksempel: vælg en modstand\nDu vil have ca. 10 mA gennem en rød lysdiode på 3,3 V. Lysdioden tager ca. 2 V.\n\nSpændingen over modstanden: 3,3 V − 2 V = 1,3 V.\nOhms lov: \\(R = U / I = 1{,}3\\ \\text{V} / 0{,}010\\ \\text{A} = 130\\ \\Omega\\).\n130 Ω findes i E24, så den kan bruges direkte, og strømmen bliver præcis 10 mA. Har du kun E12, er den nærmeste værdi over 150 Ω, og strømmen bliver 1,3 V / 150 Ω ≈ 8,7 mA.\nEffekt med 130 Ω: \\(P = U \\cdot I = 1{,}3\\ \\text{V} \\cdot 0{,}010\\ \\text{A} = 0{,}013\\ \\text{W}\\). Langt under 1/4 W.\nFarverne med 4 bånd: brun, orange, brun, guld (130 Ω). Med 150 Ω fra E12: brun, grøn, brun, guld. Tjek det i beregneren.\n\nHvor stor strømmen bør være, og hvor meget ESP32-benet kan klare, står på siden om Lysdioder.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Modstande og farvekoder"
+    ]
+  },
+  {
+    "objectID": "Grundlag/modstande.html#øvelser",
+    "href": "Grundlag/modstande.html#øvelser",
+    "title": "Modstande og farvekoder",
+    "section": "Øvelser",
+    "text": "Øvelser\n\nAflæs farverne på tre forskellige modstande fra lokalet. Skriv farverne, værdien og tolerancen ned, og tjek dem bagefter i beregneren.\nMål de samme tre modstande med et multimeter. Ligger de inden for tolerancen? Skriv målt værdi og afvigelse i procent ned.\nFind en 220 Ω og en 10 kΩ i skuffen uden at bruge multimeteret. Tjek derefter med multimeteret, at du tog de rigtige.\nBeregn strømmen gennem en 10 kΩ pull-up-modstand og gennem en 220 Ω formodstand til en rød lysdiode (Vf ca. 2 V) på 3,3 V. Hvilken af dem bruger mest strøm?\nEn modstand har båndene brun, sort, sort, brun, brun. Hvilke to værdier kan den have, afhængigt af hvilken vej du læser? Hvordan finder du ud af, hvilken der er rigtig?\nEkstra: Du vil have ca. 5 mA gennem en gul lysdiode (Vf ca. 2,1 V) på 3,3 V. Beregn modstanden, vælg en værdi fra E24-rækken, og find farverne for både 4 og 5 bånd. Hvad bliver strømmen og effekten med den værdi, du valgte?",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Modstande og farvekoder"
+    ]
+  },
+  {
+    "objectID": "Grundlag/modstande.html#typiske-fejl",
+    "href": "Grundlag/modstande.html#typiske-fejl",
+    "title": "Modstande og farvekoder",
+    "section": "Typiske fejl",
+    "text": "Typiske fejl\n\nLæst fra den forkerte ende: Værdien på en 4-båndsmodstand passer ikke med E24, eller multimeteret viser noget helt andet. Tolerancebåndet skal vende til højre. Er du i tvivl, så mål.\n4 og 5 bånd blandet sammen: På en 5-båndsmodstand er det fjerde bånd multiplikatoren, ikke tolerancen. Tæl båndene, før du aflæser.\nForvekslede farver: Rød, orange og brun ligner hinanden, især på en blå modstand eller i dårligt lys. Det samme gælder violet og blå. Brug lys, eller mål.\nRegnet i forkerte enheder: 1,3 V / 10 mA er ikke 0,13 Ω. Lav mA om til A (0,010 A), så bliver det 130 Ω.\nMålt i kredsløbet: Multimeteret viser for lidt, fordi strømmen også kan løbe uden om modstanden. Tag den ene ende af modstanden ud af breadboardet, og slå strømmen fra.\nLysdioden lyser ikke, eller lyser meget svagt: Måske er der taget en 220 kΩ (rød, rød, gul) i stedet for 220 Ω (rød, rød, brun). Kun multiplikatoren er forskellig.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Modstande og farvekoder"
+    ]
+  },
+  {
+    "objectID": "Grundlag/modstande.html#læs-videre",
+    "href": "Grundlag/modstande.html#læs-videre",
+    "title": "Modstande og farvekoder",
+    "section": "Læs videre",
+    "text": "Læs videre\n\nElectronics Tutorials: Resistor Colour Code\nResistor Colour Code gennemgår farvekoden og E-rækkerne (E6 til E192) med flere regneeksempler. Den er god til at se, hvordan E-rækkerne overlapper, når tolerancen regnes med.\nLæs den kritisk:\n\nTabellen giver grå tolerance ±0,05 %. Wikipedias gengivelse af IEC 60062:2016 siger ±0,01 %. Begge findes i praksis, og du møder næsten aldrig grå som tolerance.\nTabellen mangler multiplikator for grå (× 100 M) og hvid (× 1 G) og tolerance for orange og gul. Brug tabellen på denne side.\nArtiklen siger, at 5-båndsmodstande bruger E48-rækken. Det almindelige for ±1 % er E96.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Modstande og farvekoder"
+    ]
+  },
+  {
+    "objectID": "Grundlag/modstande.html#kilder",
+    "href": "Grundlag/modstande.html#kilder",
+    "title": "Modstande og farvekoder",
+    "section": "Kilder",
+    "text": "Kilder\n\nWikipedia: Electronic color code (gengiver IEC 60062:2016), https://en.wikipedia.org/wiki/Electronic_color_code\nWikipedia: E series of preferred numbers (E12 og E24), https://en.wikipedia.org/wiki/E_series_of_preferred_numbers\nDigiKey: Resistor Color Code Calculator, https://www.digikey.com/en/resources/conversion-calculators/conversion-calculator-resistor-color-code\nEEPower: Resistor Color Code (læseretning, IEC 60062), https://eepower.com/resistor-guide/resistor-standards-and-codes/resistor-color-code/\nElectronics Tutorials: Resistor Colour Code, https://www.electronics-tutorials.ws/resistor/res_2.html\nQuarto: Observable JS, https://quarto.org/docs/interactive/ojs/ og OJS Cells, https://quarto.org/docs/interactive/ojs/ojs-cells.html\nObservable Inputs (Inputs.select, Inputs.radio, Inputs.text), https://github.com/observablehq/inputs\nHypertext Literal (htl.html), https://github.com/observablehq/htl",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Modstande og farvekoder"
+    ]
+  },
+  {
+    "objectID": "Grundlag/potentiometer.html",
+    "href": "Grundlag/potentiometer.html",
+    "title": "Drejepotentiometer",
+    "section": "",
+    "text": "En knap kan kun være trykket eller ikke trykket. Mange ting i virkeligheden er ikke enten-eller: en lysstyrke, en temperatur eller hvor langt en volumenknap er drejet. Et drejepotentiometer er den enkleste måde at give ESP32 et analogt signal, altså en spænding, der kan ligge hvor som helst mellem 0 og 3,3 V. Det er en god øvelse, før du kobler rigtige analoge sensorer på, for du kan selv styre spændingen med hånden og se, hvad ESP32 måler.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Drejepotentiometer"
+    ]
+  },
+  {
+    "objectID": "Grundlag/potentiometer.html#formål",
+    "href": "Grundlag/potentiometer.html#formål",
+    "title": "Drejepotentiometer",
+    "section": "Formål",
+    "text": "Formål\n\nDu kan forklare, hvordan et potentiometer virker som spændingsdeler, og hvad de tre ben bruges til.\nDu kan koble et potentiometer sikkert til ESP32 og vælge et ben, der kan måle analogt, også når WiFi er tændt.\nDu kan læse værdien med analogRead() og analogReadMilliVolts() og forklare, hvorfor ESP32’s målinger ikke er helt præcise.\nDu kan dæmpe støj med et gennemsnit og omregne værdien med map(), fx til procent eller lysstyrke.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Drejepotentiometer"
+    ]
+  },
+  {
+    "objectID": "Grundlag/potentiometer.html#målpinde",
+    "href": "Grundlag/potentiometer.html#målpinde",
+    "title": "Drejepotentiometer",
+    "section": "Målpinde",
+    "text": "Målpinde\nSiden arbejder med målpind 11, 19 og 23 (se Læringsmål).",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Drejepotentiometer"
+    ]
+  },
+  {
+    "objectID": "Grundlag/potentiometer.html#forudsætninger",
+    "href": "Grundlag/potentiometer.html#forudsætninger",
+    "title": "Drejepotentiometer",
+    "section": "Forudsætninger",
+    "text": "Forudsætninger\n\nDu kan oprette et PlatformIO-projekt til ESP32-DEVKIT-V1, uploade et program og åbne Serial Monitor (se PlatformIO).\nDu kan sætte komponenter og ledninger i et breadboard (se Breadboard).\nDu ved, hvad en modstand er (se Modstande).\nHardware: ESP32-DEVKIT-V1, et drejepotentiometer (fx 10 kΩ), breadboard og tre ledninger. Til øvelserne: en lysdiode og en formodstand (se Lysdioder) og gerne et multimeter.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Drejepotentiometer"
+    ]
+  },
+  {
+    "objectID": "Grundlag/potentiometer.html#hvad-er-et-potentiometer",
+    "href": "Grundlag/potentiometer.html#hvad-er-et-potentiometer",
+    "title": "Drejepotentiometer",
+    "section": "Hvad er et potentiometer?",
+    "text": "Hvad er et potentiometer?\nEt potentiometer er en modstand med tre ben. Mellem de to yderben sidder en fast modstandsbane, fx 10 kΩ. Midterbenet er forbundet til en glider (wiper), som bevæger sig hen ad banen, når du drejer på akslen.\n3,3 V ──┐\n        █  øverste del af banen\n        █\n        █◄── glider (midterben) ──► til GPIO 34\n        █\n        █  nederste del af banen\nGND ────┘\nGlideren deler banen i to modstande, der sidder i serie. Det er en spændingsdeler: spændingen på midterbenet er en brøkdel af spændingen mellem yderbenene, og brøkdelen bestemmes af, hvor glideren står.\n\nDrejet helt mod GND-siden: midterbenet er ca. 0 V.\nI midten: ca. 1,65 V.\nDrejet helt mod 3,3 V-siden: ca. 3,3 V.\n\nPotentiometerets samlede modstand ændrer ikke spændingen på midterbenet, kun hvor meget strøm der løber gennem banen. Det gælder dog kun, så længe potentiometeret ikke er alt for stort: ADC’en skal have lidt strøm for at måle, så et meget stort potentiometer (fx 1 MΩ) giver ustabile og forkerte målinger. Brug 1–10 kΩ. Med 10 kΩ er det 3,3 V / 10 kΩ = 0,33 mA, hvilket er helt uproblematisk.\n\nLineær og logaritmisk\nDer findes to almindelige slags baner:\n\nLineær: spændingen stiger jævnt, når du drejer. Halvt drejet giver halv spænding. Det er den, du skal bruge her.\nLogaritmisk (også kaldet audio): spændingen stiger langsomt i starten og hurtigt til sidst. Den bruges til volumenknapper, fordi øret opfatter lydstyrke logaritmisk.\n\nPå mange potentiometre står typen som et bogstav foran værdien: B10K er typisk lineær 10 kΩ og A10K logaritmisk. Bogstaverne er ikke ens hos alle producenter, så tjek databladet, hvis du er i tvivl.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Drejepotentiometer"
+    ]
+  },
+  {
+    "objectID": "Grundlag/potentiometer.html#kobling",
+    "href": "Grundlag/potentiometer.html#kobling",
+    "title": "Drejepotentiometer",
+    "section": "Kobling",
+    "text": "Kobling\n\n\n\nPotentiometer\nESP32-DEVKIT-V1\n\n\n\n\nDet ene yderben\n3V3\n\n\nMidterbenet\nGPIO 34\n\n\nDet andet yderben\nGND\n\n\n\nDet er ligegyldigt, hvilket yderben der går til 3V3 og hvilket til GND. Bytter du dem, vender retningen bare om: værdien stiger, når du drejer den anden vej.\n\n\n\n\n\n\nAdvarselAldrig 5 V\n\n\n\nSæt aldrig yderbenet til 5 V (VIN). Så kan midterbenet få op til 5 V, og ESP32’s ben tåler kun 3,3 V. Benet eller hele chippen kan blive ødelagt.\n\n\n\nHvilket ben?\nESP32 har to analog-til-digital-konvertere (ADC), ADC1 og ADC2. ADC2 bruges også af WiFi, så ADC2-benene kan ikke måle analogt, mens WiFi er tændt. Da næsten alle IoT-programmer bruger WiFi, skal du vælge et ADC1-ben.\n\n\n\n\n\n\n\n\nBen på DEVKIT-V1\nADC\nBrug til potentiometer?\n\n\n\n\n32, 33\nADC1\nJa\n\n\n34, 35, 36 (VP), 39 (VN)\nADC1\nJa. De er kun input, men det er netop det, der skal bruges her\n\n\n0, 2, 4, 12–15, 25–27\nADC2\nNej, ikke hvis programmet bruger WiFi\n\n\n\nEksemplet bruger GPIO 34. GPIO 32 og 33 er gode alternativer.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Drejepotentiometer"
+    ]
+  },
+  {
+    "objectID": "Grundlag/potentiometer.html#esp32s-adc",
+    "href": "Grundlag/potentiometer.html#esp32s-adc",
+    "title": "Drejepotentiometer",
+    "section": "ESP32’s ADC",
+    "text": "ESP32’s ADC\n\nanalogRead()\nanalogRead(pin) måler spændingen på benet og giver et tal. ESP32’s ADC er på 12 bit, så tallet ligger mellem 0 og 4095 (212 − 1). Det er standarden i Arduino-ESP32, så du behøver ikke sætte noget op.\nHvis ADC’en var perfekt, ville du kunne regne spændingen ud sådan:\n\\[U \\approx \\frac{\\text{værdi}}{4095} \\cdot 3{,}3\\ \\text{V}\\]\nMen det er den ikke (se nedenfor).\n\n\nanalogReadMilliVolts()\nanalogReadMilliVolts(pin) giver spændingen i millivolt direkte. Funktionen bruger de kalibreringsdata, Espressif som regel har brændt ind i chippen fra fabrikken, og er derfor mere præcis end at regne om fra analogRead() med formlen ovenfor. Mangler de på en ældre chip, bruger funktionen en standardværdi og er mindre præcis. Brug den, når du vil kende spændingen. Brug analogRead(), når du bare skal bruge en position eller et forhold, fx hvor langt knappen er drejet.\n\n\n\nDæmpning og måleområde\nInde i ESP32 kan ADC’en kun måle ca. 1 V. For at kunne måle højere spændinger dæmpes signalet først (attenuation). I Arduino-ESP32 er standarden den største dæmpning, ADC_11db, så du kan måle op mod 3,3 V uden at sætte noget op. (I ESP-IDF 5 hedder samme indstilling ADC_ATTEN_DB_12.)\nSelv med den største dæmpning når ADC’en ikke helt ud i enderne:\n\nHelt nede (under ca. 0,1–0,15 V) giver den 0. Den kan fx ikke se forskel på 0 V og 0,1 V.\nHelt oppe (fra ca. 3,1–3,2 V) giver den 4095. Den kan fx ikke se forskel på 3,2 V og 3,3 V.\nPræcis hvor grænserne ligger, varierer fra chip til chip.\nESP-IDF’s ældre dokumentation anbefaler kun at måle op til ca. 2,45 V, hvis det skal være præcist. Over det bliver fejlen større.\n\n\nKurven fra spænding til tal er heller ikke en ret linje, især ikke i enderne. Det betyder:\n\nEt potentiometer drejet helt i bund eller top giver ofte 0 eller 4095 et stykke før yderstillingen.\nHalvt drejet giver ikke nødvendigvis præcis 2048.\n\nTil en drejeknap er det fint. Til en sensor, hvor spændingen skal omregnes til fx en temperatur, skal du kende begrænsningerne og helst kontrollere med et multimeter. Det er det, målpind 11 handler om: at vurdere, om et signal er validt.\n\n\nStøj\nESP32’s ADC er følsom over for støj. Selv om du ikke rører potentiometeret, hopper værdien typisk lidt op og ned. Espressif foreslår to løsninger:\n\nGennemsnit af flere målinger (multisampling): læs fx 16 gange i træk, og brug gennemsnittet. Det koster næsten ingen tid og er det, eksemplet gør.\nEn kondensator på 100 nF mellem ADC-benet og GND, tæt på ESP32.\n\nKorte ledninger, der sidder godt fast, hjælper også.\n\n\nmap(): fra tal til noget, der giver mening\nmap(værdi, fraMin, fraMax, tilMin, tilMax) omregner et tal fra ét område til et andet:\nint procent  = map(raa, 0, 4095, 0, 100);  // 0–100 %\nint lysstyrke = map(raa, 0, 4095, 0, 255); // 0–255 til analogWrite()\nTo ting at vide:\n\nmap() regner med heltal og skærer decimalerne af. Det er fint til procent og lysstyrke.\nmap() begrænser ikke resultatet. Ligger værdien uden for fraMin–fraMax, ligger resultatet også uden for tilMin–tilMax. Brug constrain(x, min, max), hvis du skal være sikker.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Drejepotentiometer"
+    ]
+  },
+  {
+    "objectID": "Grundlag/potentiometer.html#eksempel-læs-potentiometeret",
+    "href": "Grundlag/potentiometer.html#eksempel-læs-potentiometeret",
+    "title": "Drejepotentiometer",
+    "section": "Eksempel: læs potentiometeret",
+    "text": "Eksempel: læs potentiometeret\nProgrammet læser potentiometeret hvert 200. ms og skriver den rå værdi, spændingen og procent ud. Det bruger millis() i stedet for delay(), så loop() aldrig står stille og senere kan lave andre ting, fx sende værdien over WiFi.\n\n\nplatformio.ini\n\n[env:esp32doit-devkit-v1]\nplatform = espressif32@8.0.0\nboard = esp32doit-devkit-v1\nframework = arduino\nmonitor_speed = 115200\n\n\n\nsrc/main.cpp\n\n#include &lt;Arduino.h&gt;\n\n// Konfiguration\nconst int POT_PIN = 34;                 // midterben på GPIO 34 (ADC1, virker også med WiFi)\nconst unsigned long INTERVAL_MS = 200;  // hvor tit værdien skrives ud\nconst int ANTAL_MAALINGER = 16;         // gennemsnit af flere målinger dæmper støj\n\nunsigned long sidsteUdskrift = 0;\n\n// Gennemsnit af flere rå målinger (0–4095)\nint laesRaa() {\n  long sum = 0;  // long, så summen ikke løber over\n  for (int i = 0; i &lt; ANTAL_MAALINGER; i++) {\n    sum += analogRead(POT_PIN);\n  }\n  return sum / ANTAL_MAALINGER;\n}\n\n// Gennemsnit af flere kalibrerede målinger i millivolt\nint laesMilliVolt() {\n  long sum = 0;\n  for (int i = 0; i &lt; ANTAL_MAALINGER; i++) {\n    sum += analogReadMilliVolts(POT_PIN);\n  }\n  return sum / ANTAL_MAALINGER;\n}\n\nvoid setup() {\n  Serial.begin(115200);\n  // Ingen opsætning af ADC'en: standarden er 12 bit og 11 dB dæmpning (op mod 3,3 V)\n}\n\nvoid loop() {\n  unsigned long nu = millis();\n\n  // Kun hvert INTERVAL_MS; resten af tiden er loop() fri til andet\n  if (nu - sidsteUdskrift &gt;= INTERVAL_MS) {\n    sidsteUdskrift = nu;\n\n    int raa = laesRaa();\n    int milliVolt = laesMilliVolt();\n    int procent = map(raa, 0, 4095, 0, 100);\n\n    Serial.printf(\"Raa: %4d   Spaending: %4d mV   %3d %%\\n\", raa, milliVolt, procent);\n  }\n}\n\nSådan virker det:\n\nanalogRead() og analogReadMilliVolts() sætter selv benet op til analog måling, så der skal ikke stå pinMode() i setup().\nlaesRaa() og laesMilliVolt() læser 16 gange og tager gennemsnittet. Summen gemmes i en long, fordi 16 · 4095 er for meget til en 16-bit-variabel på mange andre mikrocontrollere. På ESP32 er int 32 bit, men det skader ikke at være tydelig.\nnu - sidsteUdskrift &gt;= INTERVAL_MS er den sædvanlige måde at gøre noget med et fast interval med millis(). Den virker også, når millis() efter ca. 49 dage løber rundt og starter forfra fra 0.\n%% i printf skriver et procenttegn.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Drejepotentiometer"
+    ]
+  },
+  {
+    "objectID": "Grundlag/potentiometer.html#øvelser",
+    "href": "Grundlag/potentiometer.html#øvelser",
+    "title": "Drejepotentiometer",
+    "section": "Øvelser",
+    "text": "Øvelser\n\nKør eksemplet, og drej langsomt fra den ene yderstilling til den anden. Notér den rå værdi og spændingen i begge yderstillinger og i midten. Når du 0 og 4095? Hvor langt før yderstillingen sker det?\nSæt ANTAL_MAALINGER til 1, og lad potentiometeret stå stille. Hvor meget hopper den rå værdi? Prøv derefter med 16 og 64. Hvad sker der med støjen, og hvad er prisen?\nMål spændingen på midterbenet med et multimeter i fem forskellige stillinger. Skriv multimeterets værdi, analogReadMilliVolts() og den rå værdi omregnet med formlen (værdi / 4095 · 3,3 V) op i en tabel. Hvilken af de to ESP32-værdier ligger tættest på multimeteret? Hvor er fejlen størst?\nByg en lysdiode med formodstand på GPIO 18 (se Lysdioder). Lad potentiometeret styre lysstyrken: brug map() til at omregne den rå værdi til 0–255, og skriv den ud med analogWrite(LED_PIN, lysstyrke). Behold udskriften hvert 200. ms, men opdatér lysdioden i hvert gennemløb af loop(). Kan du få lysdioden helt slukket og helt tændt?\nLysdioden flimrer måske svagt, når potentiometeret står stille og værdien hopper med et par stykker. Opdatér kun lysstyrken, hvis den nye værdi afviger mere end fx 2 fra den forrige. Hvad sker der, hvis grænsen er for stor?\nEkstra: analogWrite() bruger 8 bit (0–255) og 1000 Hz som standard. Brug i stedet ledcAttach(LED_PIN, 5000, 12) i setup() og ledcWrite(LED_PIN, raa) i loop(), så den rå værdi på 12 bit kan bruges direkte uden map(). (I Arduino-ESP32 2.x hed det ledcSetup() og ledcAttachPin(); de findes ikke længere i core 3.x, så kode fra ældre tutorials skal rettes.)\nEkstra: Lysdioden ser ikke ud til at blive jævnt lysere: forskellen mellem 0 og 50 er tydelig, men mellem 200 og 255 kan du næsten ikke se den. Hvorfor? Lav en omregning, der føles mere jævn, fx ved at sætte værdien i anden potens: lysstyrke = (long)raa * raa / 4095 * 255 / 4095.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Drejepotentiometer"
+    ]
+  },
+  {
+    "objectID": "Grundlag/potentiometer.html#typiske-fejl",
+    "href": "Grundlag/potentiometer.html#typiske-fejl",
+    "title": "Drejepotentiometer",
+    "section": "Typiske fejl",
+    "text": "Typiske fejl\n\nVærdien hopper vildt, også når du ikke rører potentiometeret: midterbenet er ikke forbundet, så benet svæver. Tjek ledningen og at du har brugt det rigtige ben på potentiometeret.\nVærdien er altid 0 eller altid 4095: et af yderbenene sidder ikke, eller midterbenet sidder på et yderben. Mål med multimeter: der skal være ca. 3,3 V mellem yderbenene.\nRetningen er forkert: byt de to yderben, eller byt om i map(): map(raa, 0, 4095, 100, 0).\nVirker uden WiFi, men ikke med: benet hører til ADC2 (fx GPIO 25, 26, 27 eller 4). Flyt til GPIO 32–39.\nNår ikke helt 0 eller 4095: det er normalt for ESP32’s ADC (se Dæmpning og måleområde). Lav din kode, så den ikke afhænger af præcis 0 eller 4095.\nmap() giver negative tal eller over 100: inputtet ligger uden for det område, du har givet. Brug constrain().\nLysdioden reagerer ikke: den sidder på et input-only-ben (34–39), som ikke kan give spænding ud. Brug fx GPIO 18. Tjek også, at lysdioden vender rigtigt.\nESP32 bliver varm eller dør: yderbenet sidder på 5 V eller VIN. Sluk straks.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Drejepotentiometer"
+    ]
+  },
+  {
+    "objectID": "Grundlag/potentiometer.html#læs-videre",
+    "href": "Grundlag/potentiometer.html#læs-videre",
+    "title": "Drejepotentiometer",
+    "section": "Læs videre",
+    "text": "Læs videre\n\nESP32 ADC hos Random Nerd Tutorials\nESP32 ADC – Read Analog Values with Arduino IDE bruger samme kobling (midterbenet på GPIO 34) og har en graf, der viser, at ADC’en ikke er lineær, og at den giver 0 for både 0 V og 0,1 V og 4095 for både 3,2 V og 3,3 V. Den har også en liste over ESP32’s ADC-funktioner.\nLæs den kritisk:\n\nEksemplet bruger delay(500) i loop(). Brug millis() som på denne side, hvis programmet skal lave andet samtidig.\nDen nævner ikke analogReadMilliVolts(), som giver mere præcise spændinger end at regne om selv.\nFunktionslisten er skrevet til en ældre version af Arduino-ESP32. Nogle af funktionerne findes ikke længere i core 3.x, fx analogSetClockDiv(). Tjek mod Arduino-ESP32’s ADC-side.\nI tabellen over dæmpning står “3100V” for ADC_11db. Det skal være 3100 mV.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Drejepotentiometer"
+    ]
+  },
+  {
+    "objectID": "Grundlag/potentiometer.html#kilder",
+    "href": "Grundlag/potentiometer.html#kilder",
+    "title": "Drejepotentiometer",
+    "section": "Kilder",
+    "text": "Kilder\n\nArduino-ESP32: ADC, https://docs.espressif.com/projects/arduino-esp32/en/latest/api/adc.html\nArduino-ESP32: kildekode til ADC (standard for dæmpning og opløsning, kalibrering i analogReadMilliVolts()), https://github.com/espressif/arduino-esp32/blob/master/cores/esp32/esp32-hal-adc.c\nArduino-ESP32: LEDC (analogWrite(), ledcAttach(), ledcWrite()), https://docs.espressif.com/projects/arduino-esp32/en/latest/api/ledc.html\nArduino-ESP32 3.3.x: kildekode til LEDC (standard for analogWrite(): 8 bit, 1000 Hz), https://github.com/espressif/arduino-esp32/blob/release/v3.3.x/cores/esp32/esp32-hal-ledc.c\nArduino-ESP32 3.3.x: kildekode til map(), https://github.com/espressif/arduino-esp32/blob/release/v3.3.x/cores/esp32/WMath.cpp\nArduino-ESP32: Migration from 2.x to 3.0 (LEDC og fjernede ADC-funktioner), https://docs.espressif.com/projects/arduino-esp32/en/latest/migration_guides/2.x_to_3.0.html\nESP-IDF: ADC Oneshot Mode Driver (ADC2 og WiFi), https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/adc/adc_oneshot.html\nESP-IDF: ADC Calibration Driver (kalibrering, støj, 100 nF og multisampling), https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/adc/adc_calibration.html\nESP-IDF v4.4: ADC (måleområder pr. dæmpning, ADC1 = GPIO 32–39), https://docs.espressif.com/projects/esp-idf/en/v4.4/esp32/api-reference/peripherals/adc.html\nRandom Nerd Tutorials: ESP32 ADC – Read Analog Values with Arduino IDE, https://randomnerdtutorials.com/esp32-adc-analog-read-arduino-ide/",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "Drejepotentiometer"
     ]
   },
   {

@@ -112,7 +112,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
 <script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
 <link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
-<meta name="quarto:status" content="draft">
 
 
 <link rel="stylesheet" href="../styles.css">
@@ -121,7 +120,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <body class="nav-sidebar floating nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top"><div id="quarto-draft-alert" class="alert alert-warning"><i class="bi bi-pencil-square"></i>Udkast</div>
+  <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
@@ -221,6 +220,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Lokal MQTT-server</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Features/mqtt_intro.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Intro til MQTT</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -246,8 +251,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../Grundlag/esp32_specs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ESP32-DEVKIT-V1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/hello_world.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hello World på ESP32</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/knapper.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Knapper og kontakter</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/lysdioder.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lysdioder (LED’er)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/modstande.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Modstande og farvekoder</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../Grundlag/platformio.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">PlatformIO</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/potentiometer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Drejepotentiometer</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -550,9 +591,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 <p>Bemærk, at din JSON står <em>inde i</em> en tekst (<code>"payload": "{\"button\"…}"</code>) med <code>\</code> foran hvert <code>"</code>. Loggeren ved ikke, at payload’en er JSON, så den gemmer den som tekst. Vil du læse den i et program, skal du altså parse to gange: først linjen, derefter payload’en.</p>
 <p>Weblog’en er den nemmeste måde at se, at en besked faktisk nåede brokeren. Den viser kun det, der er kommet frem, ikke det, der blev afvist. Navnene på serveren (<code>wilsons.local</code>, <code>wilsons.home</code> og <code>192.168.0.33</code>) og flere skærmbilleder står på <a href="../Features/lokal_mqtt.html">Lokal MQTT server</a>.</p>
 <!-- TJEK: Læreren skriver http://wilsons:8080. Det korte navn virker kun, hvis netværket tilføjer et domæne (fx .home) selv. Siden bruger wilsons.local. -->
-<div class="billede-mangler">
-<p>Weblog’en på wilsons.local:8080, åbnet på en elevs fil fra Python-eksemplet (fx <code>elever/anna/python/temperatur.jsonl</code>) med nogle linjer JSON. Se lignende billeder: <a href="../Features/lokal_mqtt.html">Lokal MQTT server</a>.</p>
-</div>
+<!-- BILLEDE: Weblog'en på wilsons.local:8080, åbnet på en elevs fil fra Python-eksemplet (fx `elever/anna/python/temperatur.jsonl`) med nogle linjer JSON. Se lignende billeder: [Lokal MQTT server](lokal_mqtt.qmd). -->
 </section>
 </section>
 <section id="qos-retained-keep-alive-og-last-will" class="level2">
@@ -813,9 +852,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 <li>Tryk <em>Connect</em>.</li>
 </ol>
 <p>Som standard abonnerer MQTT Explorer på <code>#</code> og <code>$SYS/#</code>, så du ser alt på brokeren. Under <em>Advanced</em> kan du ændre abonnementerne og se dit <em>MQTT Client ID</em>. MQTT Explorer laver selv et unikt id, der starter med <code>mqtt-explorer-</code>.</p>
-<div class="billede-mangler">
-<p>MQTT Explorers forbindelsesvindue udfyldt med Host <code>wilsons.local</code>, Port <code>1883</code> og Encryption (tls) slået fra. Se lignende billeder: <a href="https://mqtt-explorer.com/">mqtt-explorer.com</a>.</p>
-</div>
+<!-- BILLEDE: MQTT Explorers forbindelsesvindue udfyldt med Host `wilsons.local`, Port `1883` og Encryption (tls) slået fra. Se lignende billeder: [mqtt-explorer.com](https://mqtt-explorer.com/). -->
 </section>
 <section id="se-topic-træet-og-send-en-testbesked" class="level3">
 <h3 class="anchored" data-anchor-id="se-topic-træet-og-send-en-testbesked">Se topic-træet og send en testbesked</h3>
@@ -826,9 +863,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 <li>Et retained topic kan slettes med skraldespanden ved topic’et.</li>
 </ul>
 <!-- TJEK: $SYS-topics fra wilsons bør vises på port 1883 (Mosquitto sender dem som standard hvert 10. sekund); bekræft i MQTT Explorer. -->
-<div class="billede-mangler">
-<p>MQTT Explorers topic-træ med <code>elever/&lt;navn&gt;/python/temperatur</code> foldet ud og en JSON-besked valgt i panelet til højre. Se lignende billeder: <a href="https://mqtt-explorer.com/">mqtt-explorer.com</a>.</p>
-</div>
+<!-- BILLEDE: MQTT Explorers topic-træ med `elever/<navn>/python/temperatur` foldet ud og en JSON-besked valgt i panelet til højre. Se lignende billeder: [mqtt-explorer.com](https://mqtt-explorer.com/). -->
 </section>
 <section id="forbind-på-port-8883-med-tls-og-login" class="level3">
 <h3 class="anchored" data-anchor-id="forbind-på-port-8883-med-tls-og-login">Forbind på port 8883 med TLS og login</h3>
@@ -841,9 +876,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 </ol>
 <p>Brug et af navnene i certifikatet (<code>wilsons.local</code>, <code>wilsons.home</code>, <code>wilsons</code> eller <code>192.168.0.33</code>, se <a href="../Features/lokal_mqtt.html">Lokal MQTT server</a>), ellers bliver forbindelsen afvist.</p>
 <!-- TJEK: Feltnavnene er læst i MQTT Explorers kildekode (Certificates.tsx og ConnectionSettings.tsx på master). Bekræft i den version, eleverne installerer (0.4.0-beta.6), og at ca.crt godtages med Validate certificate slået til. -->
-<div class="billede-mangler">
-<p>MQTT Explorers Certificates-dialog med <code>ca.crt</code> valgt under Server Certificate (CA). Se lignende billeder: <a href="https://mqtt-explorer.com/">mqtt-explorer.com</a>.</p>
-</div>
+<!-- BILLEDE: MQTT Explorers Certificates-dialog med `ca.crt` valgt under Server Certificate (CA). Se lignende billeder: [mqtt-explorer.com](https://mqtt-explorer.com/). -->
 </section>
 </section>
 <section id="eksempel-esp32-sender-en-måling" class="level2">

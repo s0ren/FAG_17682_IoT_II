@@ -4,10 +4,17 @@
     "items": [
       "/Grundlag/debouncing.html",
       "/Features/deep_sleep.html",
+      "/Grundlag/potentiometer.html",
       "/Features/esp_now_mesh.html",
+      "/Grundlag/esp32_specs.html",
       "/Features/filsystem.html",
+      "/Grundlag/hello_world.html",
       "/Grundlag/cpp_intro.html",
+      "/Features/mqtt_intro.html",
+      "/Grundlag/knapper.html",
       "/Features/lokal_mqtt.html",
+      "/Grundlag/lysdioder.html",
+      "/Grundlag/modstande.html",
       "/Grundlag/platformio.html",
       "/Opgaver/Projektopgave_wifi_position.html",
       "/Opgaver/Projektopgave_Smiley.html",
@@ -25,7 +32,13 @@
     "listing": "/Grundlag/index.html",
     "items": [
       "/Grundlag/debouncing.html",
+      "/Grundlag/potentiometer.html",
+      "/Grundlag/esp32_specs.html",
+      "/Grundlag/hello_world.html",
       "/Grundlag/cpp_intro.html",
+      "/Grundlag/knapper.html",
+      "/Grundlag/lysdioder.html",
+      "/Grundlag/modstande.html",
       "/Grundlag/platformio.html",
       "/Grundlag/wifi.html"
     ]
@@ -36,6 +49,7 @@
       "/Features/deep_sleep.html",
       "/Features/esp_now_mesh.html",
       "/Features/filsystem.html",
+      "/Features/mqtt_intro.html",
       "/Features/lokal_mqtt.html"
     ]
   }

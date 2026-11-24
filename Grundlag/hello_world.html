@@ -109,7 +109,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Søg"
   }
 }</script>
-<meta name="quarto:status" content="draft">
 
 
 <link rel="stylesheet" href="../styles.css">
@@ -118,7 +117,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <body class="nav-sidebar floating nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top"><div id="quarto-draft-alert" class="alert alert-warning"><i class="bi bi-pencil-square"></i>Udkast</div>
+  <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
@@ -218,6 +217,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Lokal MQTT-server</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Features/mqtt_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Intro til MQTT</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -243,8 +248,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../Grundlag/esp32_specs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ESP32-DEVKIT-V1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/hello_world.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Hello World på ESP32</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/knapper.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Knapper og kontakter</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/lysdioder.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lysdioder (LED’er)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/modstande.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Modstande og farvekoder</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../Grundlag/platformio.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">PlatformIO</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/potentiometer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Drejepotentiometer</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -417,9 +458,7 @@ Billeder, der mangler (se de orange bokse):
 </ol>
 <p>Almindelige variabler starter forfra med deres startværdi. En tæller, der var nået til 57, er 0 igen efter en reset.</p>
 <p><strong>EN</strong> står for <em>enable</em>. Den slukker chippen et øjeblik, og når du slipper den, starter den forfra. Det er altså reset-knappen. Den anden knap, <strong>BOOT</strong> (GPIO 0), bruges mest ved upload: holdes den nede ved opstart, går ESP32 i upload-tilstand (se <a href="../Grundlag/platformio.html#failed-to-connect-boot-knappen">PlatformIO</a>).</p>
-<div class="billede-mangler">
-<p>ESP32-DEVKIT-V1 set ovenfra med pile til knapperne EN og BOOT ved USB-stikket og til den lille blå lysdiode (GPIO 2) og den røde strømlysdiode. Se lignende billeder: <a href="https://randomnerdtutorials.com/esp32-pinout-reference-gpios/">Random Nerd Tutorials: ESP32 Pinout Reference</a>.</p>
-</div>
+<!-- BILLEDE: ESP32-DEVKIT-V1 set ovenfra med pile til knapperne EN og BOOT ved USB-stikket og til den lille blå lysdiode (GPIO 2) og den røde strømlysdiode. Se lignende billeder: [Random Nerd Tutorials: ESP32 Pinout Reference](https://randomnerdtutorials.com/esp32-pinout-reference-gpios/). -->
 </section>
 </section>
 <section id="serial-esp32-skriver-til-din-computer" class="level2">
@@ -469,9 +508,7 @@ Billeder, der mangler (se de orange bokse):
 ...
 Hej fra ESP32!</code></pre>
 <!-- TJEK: de præcise opstartslinjer (rst:/boot:-værdierne efter et tryk på EN) er ikke afprøvet på skolens kort. esptool-dokumentationen bekræfter kun, at ROM'en skriver en "rst:… boot:…"-linje ved 115200 baud. -->
-<div class="billede-mangler">
-<p>Serial Monitor i VS Code efter et tryk på EN: opstartslinjerne fra ROM’en og til sidst “Hej fra ESP32!”. Se lignende billeder: <a href="https://randomnerdtutorials.com/vs-code-platformio-ide-esp32-esp8266-arduino/">Random Nerd Tutorials: Getting Started with VS Code and PlatformIO IDE</a>.</p>
-</div>
+<!-- BILLEDE: Serial Monitor i VS Code efter et tryk på EN: opstartslinjerne fra ROM'en og til sidst "Hej fra ESP32!". Se lignende billeder: [Random Nerd Tutorials: Getting Started with VS Code and PlatformIO IDE](https://randomnerdtutorials.com/vs-code-platformio-ide-esp32-esp8266-arduino/). -->
 </section>
 <section id="eksempel-blink-med-delay" class="level2">
 <h2 class="anchored" data-anchor-id="eksempel-blink-med-delay">Eksempel: blink med delay()</h2>
@@ -580,9 +617,7 @@ Hej fra ESP32!</code></pre>
 <li><em>Ekstra:</em> Saml koden til én lysdiode i en funktion, fx <code>void blink(int pin, unsigned long interval, unsigned long&amp; sidsteSkift, bool&amp; taendt)</code>, så <code>loop()</code> bare kalder den to gange. Referencerne (<code>&amp;</code>) forklares på siden <a href="../Grundlag/cpp_intro.html#referencer">Intro til C++</a>.</li>
 </ol>
 <!-- TJEK: 220 Ω til lysdioderne er ikke afprøvet med lokalets lysdioder (samme TJEK som på siden om breadboard). -->
-<div class="billede-mangler">
-<p>Opstillingen til øvelse 4: ESP32-DEVKIT-V1 på breadboard med to lysdioder og to modstande på GPIO 22 og 23, med korte, flade ledninger. Se lignende billeder: <a href="https://esp32io.com/tutorials/esp32-led-blink-without-delay">ESP32IO: ESP32 - LED - Blink Without Delay</a>.</p>
-</div>
+<!-- BILLEDE: Opstillingen til øvelse 4: ESP32-DEVKIT-V1 på breadboard med to lysdioder og to modstande på GPIO 22 og 23, med korte, flade ledninger. Se lignende billeder: [ESP32IO: ESP32 - LED - Blink Without Delay](https://esp32io.com/tutorials/esp32-led-blink-without-delay). -->
 </section>
 <section id="typiske-fejl" class="level2">
 <h2 class="anchored" data-anchor-id="typiske-fejl">Typiske fejl</h2>

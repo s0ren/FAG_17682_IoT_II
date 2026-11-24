@@ -109,7 +109,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Søg"
   }
 }</script>
-<meta name="quarto:status" content="draft">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
@@ -147,7 +146,7 @@ window.Quarto = {
 <body class="nav-sidebar floating nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top"><div id="quarto-draft-alert" class="alert alert-warning"><i class="bi bi-pencil-square"></i>Udkast</div>
+  <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
@@ -247,6 +246,12 @@ window.Quarto = {
  <span class="menu-text">Lokal MQTT-server</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Features/mqtt_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Intro til MQTT</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -272,8 +277,44 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../Grundlag/esp32_specs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ESP32-DEVKIT-V1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/hello_world.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hello World på ESP32</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/knapper.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Knapper og kontakter</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/lysdioder.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Lysdioder (LED’er)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/modstande.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Modstande og farvekoder</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../Grundlag/platformio.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">PlatformIO</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/potentiometer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Drejepotentiometer</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -440,7 +481,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 <ul>
 <li>Du kan oprette et PlatformIO-projekt til ESP32-DEVKIT-V1 og uploade et program (se <a href="../Grundlag/platformio.html">PlatformIO</a>).</li>
 <li>Du kan bygge på et breadboard (se Breadboard med tilpassede ledninger).</li>
-<li>Du kender Ohms lov og kan aflæse en modstand (se Modstande).</li>
+<li>Du kender Ohms lov og kan aflæse en modstand (se <a href="../Grundlag/modstande.html">Modstande</a>).</li>
 <li>Hardware: ESP32-DEVKIT-V1, breadboard, tre lysdioder (rød, gul og grøn), tre modstande på 220 Ω og ledninger.</li>
 </ul>
 </section>
@@ -454,9 +495,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 </ul>
 <p>Er benene klippet af, så kig efter den flade kant på plastikken. Inde i lysdioden er katodens metalstykke typisk det største, men det passer ikke på alle typer, så den flade kant er det sikreste.</p>
 <!-- TJEK: "langt ben = anode, flad kant = katode" er standard for 5 mm-lysdioder, men det kunne ikke bekræftes i de hentede kilder (Wikipedia og Adafruit siger det ikke i tekst; SparkFuns LED-guide gav HTTP 403). Tjek mod databladet for lokalets lysdioder. -->
-<div class="billede-mangler">
-<p>En 5 mm lysdiode tæt på, hvor det lange ben (anode) og den flade kant ved katoden kan ses. Se lignende billeder: <a href="https://en.wikipedia.org/wiki/Light-emitting_diode">Wikipedia: Light-emitting diode</a>.</p>
-</div>
+<!-- BILLEDE: En 5 mm lysdiode tæt på, hvor det lange ben (anode) og den flade kant ved katoden kan ses. Se lignende billeder: [Wikipedia: Light-emitting diode](https://en.wikipedia.org/wiki/Light-emitting_diode). -->
 <section id="spændingsfald-vf" class="level3">
 <h3 class="anchored" data-anchor-id="spændingsfald-vf">Spændingsfald (Vf)</h3>
 <p>Når der går strøm gennem en lysdiode, ligger der en næsten fast spænding over den. Den hedder <em>forward voltage</em>, Vf (<span lang="en">forward voltage</span>), og den afhænger af farven, fordi forskellige farver laves af forskellige materialer:</p>
@@ -525,7 +564,7 @@ R = \frac{3{,}3\ \text{V} - V_f}{I}
 R = \frac{3{,}3\ \text{V} - 2{,}0\ \text{V}}{0{,}006\ \text{A}} = \frac{1{,}3\ \text{V}}{0{,}006\ \text{A}} \approx 217\ \Omega
 \]</span></p>
 <p>Den nærmeste standardværdi er <strong>220 Ω</strong>. Vælg altid den nærmeste værdi <em>over</em> det beregnede, så strømmen bliver lidt mindre, ikke større. Med 220 Ω bliver strømmen 1,3 V / 220 Ω ≈ 5,9 mA.</p>
-<p>En 220 Ω-modstand har farverne rød, rød, brun (og guld for tolerance). Brug farvekode-beregneren på siden om modstande til at tjekke din modstand.</p>
+<p>En 220 Ω-modstand har farverne rød, rød, brun (og guld for tolerance). Brug <a href="../Grundlag/modstande.html#farvekode-beregner">farvekode-beregneren på siden om modstande</a> til at tjekke din modstand.</p>
 <!-- TJEK: at 220 Ω er den værdi, der ligger i lokalet til lysdioder, og at lysstyrken er god nok. -->
 </section>
 <section id="kobling" class="level3">
@@ -533,9 +572,7 @@ R = \frac{3{,}3\ \text{V} - 2{,}0\ \text{V}}{0{,}006\ \text{A}} = \frac{1{,}3\ \
 <pre><code>GPIO 19 ── 220 Ω ── anode (langt ben) ▶| katode (kort ben, flad kant) ── GND</code></pre>
 <p>Det er ligegyldigt, om modstanden sidder før eller efter lysdioden: strømmen er den samme i hele kredsen. Det vigtige er, at den er der.</p>
 <p>Brug et af de ben, der er sikre som udgang: 18, 19, 21, 22, 23, 25, 26, 27, 32 eller 33. Ben 34–39 kan kun bruges som indgang, og 6–11 er forbundet til den interne flash.</p>
-<div class="billede-mangler">
-<p>En lysdiode med 220 Ω formodstand på breadboardet, koblet til GPIO 19 og GND på ESP32-DEVKIT-V1. Se lignende billeder: <a href="https://esp32io.com/tutorials/esp32-led-blink-without-delay">ESP32IO: LED - Blink Without Delay</a>.</p>
-</div>
+<!-- BILLEDE: En lysdiode med 220 Ω formodstand på breadboardet, koblet til GPIO 19 og GND på ESP32-DEVKIT-V1. Se lignende billeder: [ESP32IO: LED - Blink Without Delay](https://esp32io.com/tutorials/esp32-led-blink-without-delay). -->
 </section>
 </section>
 <section id="den-indbyggede-lysdiode" class="level2">
@@ -766,14 +803,12 @@ duty 75 %:  ‾‾‾|_‾‾‾|_‾‾‾|_   lyser kraftigt</code></pre>
 <li>Med fælles anode er alt omvendt: skriv <code>255 - værdi</code> i stedet for <code>værdi</code> med <code>analogWrite()</code>, eller <code>256 - værdi</code> med <code>ledcWrite()</code> ved 8 bit.</li>
 </ul>
 <!-- TJEK: hvilken type RGB-lysdiode lokalet har, og hvilket ben der er det fælles (benrækkefølgen varierer mellem fabrikater; se databladet). -->
-<div class="billede-mangler">
-<p>En RGB-lysdiode med de fire ben markeret (R, fælles, G, B) for den type, lokalet har. Se lignende billeder: <a href="https://randomnerdtutorials.com/esp32-pwm-arduino-ide/">Random Nerd Tutorials: ESP32 PWM with Arduino IDE</a>.</p>
-</div>
+<!-- BILLEDE: En RGB-lysdiode med de fire ben markeret (R, fælles, G, B) for den type, lokalet har. Se lignende billeder: [Random Nerd Tutorials: ESP32 PWM with Arduino IDE](https://randomnerdtutorials.com/esp32-pwm-arduino-ide/). -->
 </section>
 <section id="øvelser" class="level2">
 <h2 class="anchored" data-anchor-id="øvelser">Øvelser</h2>
 <ol type="1">
-<li><strong>Formodstand til rød og grøn.</strong> Beregn formodstanden til en rød lysdiode (Vf = 2,0 V) og en grøn lysdiode (Vf = 2,1 V for gulgrøn, eller 3,0 V for ren grøn; brug databladet for jeres lysdioder, hvis I har det) ved 3,3 V og 5 mA. Vælg den nærmeste standardværdi over den beregnede, og beregn den strøm, der så faktisk løber. Find modstandene i kassen, og tjek farvekoderne med farvekode-beregneren. Aflever beregningerne.</li>
+<li><strong>Formodstand til rød og grøn.</strong> Beregn formodstanden til en rød lysdiode (Vf = 2,0 V) og en grøn lysdiode (Vf = 2,1 V for gulgrøn, eller 3,0 V for ren grøn; brug databladet for jeres lysdioder, hvis I har det) ved 3,3 V og 5 mA. Vælg den nærmeste standardværdi over den beregnede, og beregn den strøm, der så faktisk løber. Find modstandene i kassen, og tjek farvekoderne med <a href="../Grundlag/modstande.html#farvekode-beregner">farvekode-beregneren</a>. Aflever beregningerne.</li>
 <li><strong>Blink.</strong> Byg koblingen, og kør <em>Eksempel: blink med millis()</em>. Erstat <code>BLINK_MS</code> med to konstanter, <code>TAENDT_MS</code> og <code>SLUKKET_MS</code>, så lysdioden er tændt i 100 ms og slukket i 900 ms.</li>
 <li><strong>Fade.</strong> Kør <em>Eksempel: fade med PWM</em>. Prøv derefter varianten med <code>analogWrite()</code>. Kan du se forskel? Prøv også <code>PWM_FREKVENS</code> = 20 Hz med <code>ledcAttach()</code>: hvad ser du, og hvorfor?</li>
 <li><strong>Trafiklys.</strong> Sæt en rød, en gul og en grøn lysdiode på GPIO 25, 26 og 27, hver med sin egen formodstand. Lav et program, der kører den danske rækkefølge: rød, rød + gul, grøn, gul, rød … Vælg selv tiderne som konstanter øverst. Brug <code>millis()</code>, ikke <code>delay()</code>. Tip: giv hver fase et nummer, og brug en <code>switch</code> eller et array med tiderne. Vis det kørende trafiklys til læreren.</li>
@@ -781,9 +816,7 @@ duty 75 %:  ‾‾‾|_‾‾‾|_‾‾‾|_   lyser kraftigt</code></pre>
 <li><em>Ekstra:</em> Byg en RGB-lysdiode på, og lad den skifte mellem rød, grøn, blå og hvid. Find ud af, om jeres er med fælles katode eller fælles anode.</li>
 <li><em>Ekstra:</em> Prøv <code>ledcFade(LED_PIN, 0, 255, 2000)</code>. Kald den én gang i <code>setup()</code> efter <code>ledcAttach()</code> (står den direkte i <code>loop()</code>, starter fadet forfra hver gang, og så ser du ingen fade). Lad <code>loop()</code> blinke den indbyggede lysdiode imens. Kører <code>loop()</code> videre, mens lysdioden fader? Hvordan kan du se det?</li>
 </ol>
-<div class="billede-mangler">
-<p>Trafiklyset fra øvelse 4: tre lysdioder med formodstande på GPIO 25, 26 og 27.</p>
-</div>
+<!-- BILLEDE: Trafiklyset fra øvelse 4: tre lysdioder med formodstande på GPIO 25, 26 og 27. -->
 </section>
 <section id="typiske-fejl" class="level2">
 <h2 class="anchored" data-anchor-id="typiske-fejl">Typiske fejl</h2>

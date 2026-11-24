@@ -112,7 +112,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Søg"
   }
 }</script>
-<meta name="quarto:status" content="draft">
 
 
 <link rel="stylesheet" href="../styles.css">
@@ -121,7 +120,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <body class="nav-sidebar floating nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top"><div id="quarto-draft-alert" class="alert alert-warning"><i class="bi bi-pencil-square"></i>Udkast</div>
+  <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
@@ -221,6 +220,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Lokal MQTT-server</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Features/mqtt_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Intro til MQTT</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -246,8 +251,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../Grundlag/esp32_specs.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">ESP32-DEVKIT-V1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/hello_world.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hello World på ESP32</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/knapper.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Knapper og kontakter</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/lysdioder.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lysdioder (LED’er)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/modstande.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Modstande og farvekoder</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../Grundlag/platformio.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">PlatformIO</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/potentiometer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Drejepotentiometer</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -543,9 +584,7 @@ Billeder, der mangler (se de orange bokse):
 <li><strong>Strømben</strong>: <code>3V3</code> (3,3 V fra regulatoren, til sensorer), <code>GND</code> og <code>VIN</code> (5 V-siden).</li>
 </ul>
 <!-- TJEK: farverne på lysdioderne (typisk rød for strøm og blå for GPIO 2) og at VIN ligger på ca. 5 V, når kortet får strøm fra USB, er ikke bekræftet i en officiel kilde for DOIT-kortet. Se tjekliste punkt 4. -->
-<div class="billede-mangler">
-<p>Nærbillede af et af skolens kort set fra oven, hvor USB-chippens navn kan læses, og hvor spændingsregulatoren og de to lysdioder (strøm og GPIO 2) er markeret. Se lignende billede: <a href="https://randomnerdtutorials.com/getting-started-with-esp32/">Random Nerd Tutorials: Getting Started with the ESP32</a>.</p>
-</div>
+<!-- BILLEDE: Nærbillede af et af skolens kort set fra oven, hvor USB-chippens navn kan læses, og hvor spændingsregulatoren og de to lysdioder (strøm og GPIO 2) er markeret. Se lignende billede: [Random Nerd Tutorials: Getting Started with the ESP32](https://randomnerdtutorials.com/getting-started-with-esp32/). -->
 <p>Strømmen må kun komme ét sted fra ad gangen: enten USB eller en ekstern forsyning på <code>VIN</code> eller <code>3V3</code>. Espressif advarer om, at kort og strømforsyning kan tage skade, hvis man bruger flere på én gang. Advarslen står ved deres eget udviklingskort (ESP32-DevKitC), men det samme gælder i praksis for DEVKIT-V1.</p>
 <!-- TJEK: Espressifs advarsel gælder DevKitC, ikke DOIT-kortet. Se tjekliste punkt 7. -->
 </section>
@@ -693,9 +732,7 @@ Billeder, der mangler (se de orange bokse):
 </ul>
 <p>Benene sidder forskelligt på de to udgaver, så brug et pinout-diagram, der passer til dit kort, og læs teksten på printet ved siden af benene. Bemærk, at printet ofte skriver <code>D18</code> eller bare <code>18</code>, og at GPIO 36 og 39 kan stå som <code>VP</code> og <code>VN</code>.</p>
 <!-- TJEK: hvilken udgave har skolen (30 eller 36 ben)? At 30-ben-udgaven mangler netop GPIO 6–11, er fra en kommentar på Random Nerd Tutorials, ikke fra DOIT. Se tjekliste punkt 4. -->
-<div class="billede-mangler">
-<p>Skolens kort set fra en vinkel, så teksten ved benene kan læses (fx <code>D18</code>, <code>VP</code>, <code>VN</code>, <code>VIN</code>). Har skolen begge udgaver, så gerne én af hver ved siden af hinanden. Se lignende diagram: <a href="https://randomnerdtutorials.com/esp32-pinout-reference-gpios/">Random Nerd Tutorials: ESP32 Pinout Reference</a>.</p>
-</div>
+<!-- BILLEDE: Skolens kort set fra en vinkel, så teksten ved benene kan læses (fx `D18`, `VP`, `VN`, `VIN`). Har skolen begge udgaver, så gerne én af hver ved siden af hinanden. Se lignende diagram: [Random Nerd Tutorials: ESP32 Pinout Reference](https://randomnerdtutorials.com/esp32-pinout-reference-gpios/). -->
 </section>
 <section id="pinout-diagram" class="level3">
 <h3 class="anchored" data-anchor-id="pinout-diagram">Pinout-diagram</h3>
@@ -927,9 +964,7 @@ Billeder, der mangler (se de orange bokse):
 <li><code>esp_partition_find()</code> giver en <span lang="en">iterator</span>, som <code>esp_partition_next()</code> flytter videre, til den bliver <code>NULL</code>. Listen skal passe med <code>default.csv</code>-tabellen ovenfor.</li>
 <li><code>delay(1000)</code> i <code>setup()</code> er her med vilje og er ufarlig: den kører kun én gang. I <code>loop()</code> bruges <code>millis()</code>, så programmet ikke står stille.</li>
 </ul>
-<div class="billede-mangler">
-<p>Skærmbillede af Serial Monitor i VS Code med udskriften fra eksemplet: chipmodel, flash, heap og partitionslisten med “kører nu” ved <code>app0</code>.</p>
-</div>
+<!-- BILLEDE: Skærmbillede af Serial Monitor i VS Code med udskriften fra eksemplet: chipmodel, flash, heap og partitionslisten med "kører nu" ved `app0`. -->
 </section>
 <section id="øvelser" class="level2">
 <h2 class="anchored" data-anchor-id="øvelser">Øvelser</h2>

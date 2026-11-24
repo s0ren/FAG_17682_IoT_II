@@ -25,12 +25,24 @@
     <lastmod>2026-11-23T20:53:30.000Z</lastmod>
   </url>
   <url>
+    <loc>https://s0ren.github.io/FAG_17682_IoT_II/Grundlag/lysdioder.html</loc>
+    <lastmod>2026-11-24T05:09:08.000Z</lastmod>
+  </url>
+  <url>
     <loc>https://s0ren.github.io/FAG_17682_IoT_II/Grundlag/index.html</loc>
     <lastmod>2026-11-22T20:34:11.000Z</lastmod>
   </url>
   <url>
+    <loc>https://s0ren.github.io/FAG_17682_IoT_II/Grundlag/esp32_specs.html</loc>
+    <lastmod>2026-11-24T05:09:08.000Z</lastmod>
+  </url>
+  <url>
     <loc>https://s0ren.github.io/FAG_17682_IoT_II/Grundlag/cpp_intro.html</loc>
     <lastmod>2026-11-23T20:53:30.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://s0ren.github.io/FAG_17682_IoT_II/Features/mqtt_intro.html</loc>
+    <lastmod>2026-11-24T05:09:08.000Z</lastmod>
   </url>
   <url>
     <loc>https://s0ren.github.io/FAG_17682_IoT_II/Features/index.html</loc>
@@ -55,6 +67,22 @@
   <url>
     <loc>https://s0ren.github.io/FAG_17682_IoT_II/Grundlag/debouncing.html</loc>
     <lastmod>2026-11-23T05:47:32.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://s0ren.github.io/FAG_17682_IoT_II/Grundlag/hello_world.html</loc>
+    <lastmod>2026-11-24T05:09:08.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://s0ren.github.io/FAG_17682_IoT_II/Grundlag/knapper.html</loc>
+    <lastmod>2026-11-24T05:09:08.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://s0ren.github.io/FAG_17682_IoT_II/Grundlag/modstande.html</loc>
+    <lastmod>2026-11-24T05:09:08.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://s0ren.github.io/FAG_17682_IoT_II/Grundlag/potentiometer.html</loc>
+    <lastmod>2026-11-24T05:09:08.000Z</lastmod>
   </url>
   <url>
     <loc>https://s0ren.github.io/FAG_17682_IoT_II/Opgaver/Projektopgave_Smiley.html</loc>
