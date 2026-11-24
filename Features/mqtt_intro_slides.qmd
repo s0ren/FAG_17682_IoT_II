@@ -265,7 +265,7 @@ dotnet add package MQTTnet --version 5.2.0.1603
 using System.Text.Json;
 using MQTTnet;
 using MQTTnet.Protocol;
-var client = new MqttClientFactory().CreateMqttClient();
+using var client = new MqttClientFactory().CreateMqttClient();
 client.ApplicationMessageReceivedAsync += e =>     // svarer til on_message
 {
     var b = e.ApplicationMessage;
