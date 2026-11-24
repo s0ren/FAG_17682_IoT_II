@@ -14,7 +14,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 2. AFPRØVET 24. nov. 2026: den indbyggede lysdiode sidder på GPIO 2 og lyser ved HIGH.
 3. Afprøv øvelse 1 (svævende ben med INPUT): skifter værdien faktisk, når man rører ledningen? Ret teksten, hvis lokalets boards opfører sig anderledes (TJEK i afsnittet om svævende ben).
 4. Afprøv øvelse 2 (ekstern 10 kΩ pull-down, knap til 3V3) og øvelse 3 (to knapper).
-5. Afprøv øvelse 4 (INPUT_PULLUP på GPIO 34): kommer der en log-linje fra gpio i Serial Monitor? Nævn den i så fald på siden (TJEK ved tabellen over ben).
+5. AFPRØVET 24. nov. 2026: pinMode(34, INPUT_PULLUP) giver "E (221) gpio: gpio_pullup_en(85): GPIO number error (input-only pad has no internal PU)" i Serial Monitor, også med standardindstillingen. Linjen er nævnt ved tabellen og under Typiske fejl.
 6. Tjek, at BOOT-knappen på lokalets boards sidder på GPIO 0 og kan læses i et kørende program (TJEK ved GPIO 0 og øvelse 5).
 7. Tjek, at lokalets trykknapper er de almindelige 6 x 6 mm med fire ben, og at to diagonale ben kun giver forbindelse, når der trykkes (multimeter).
 8. Tjek, at lokalet har 10 kΩ-modstande til øvelse 2.
@@ -154,7 +154,7 @@ Bemærk igen: **med pull-up giver et tryk `LOW`**. Det er omvendt af, hvad mange
 | 6–11 | Nej: forbundet til den interne flash |
 | 0, 2, 5, 12, 15 | Helst ikke: de påvirker, hvordan ESP32 starter ([strapping pins]{lang="en"}). Som output er de fine, fx GPIO 2 til den indbyggede lysdiode. |
 
-<!-- TJEK: om Arduino-ESP32 skriver en fejl- eller advarselslinje i Serial Monitor, når INPUT_PULLUP bruges på GPIO 34-39 (afprøv i øvelse 4). Nævn den i så fald her og under Typiske fejl. -->
+Bruger du alligevel `INPUT_PULLUP` på GPIO 34–39, skriver Serial Monitor en fejl ved opstart, fx `E (221) gpio: gpio_pullup_en(85): GPIO number error (input-only pad has no internal PU)`.
 
 Af strapping-benene er **GPIO 0** det farlige for en knap til GND. Er GPIO 0 `LOW`, når ESP32 starter, går den (på DevKit-boardet) i upload-tilstand i stedet for at køre dit program. Holder du knappen nede, mens du sætter USB i eller trykker på EN, ser det ud, som om programmet er væk. Faktisk er det sådan, BOOT-knappen på ESP32-DEVKIT-V1 virker: den sidder på GPIO 0.
 
@@ -228,6 +228,7 @@ Programmet er bevidst lavet **uden debouncing**. Du ser derfor måske flere "Try
 - **Knappen er altid trykket:** Ledningerne sidder på to ben af knappen, der er forbundet indvendigt. Brug to diagonale ben.
 - **Knappen virker baglæns:** Med `INPUT_PULLUP` er et tryk `LOW`, ikke `HIGH`.
 - **Tilfældige værdier, når ingen trykker:** Benet svæver. Der står `INPUT` uden en ekstern modstand, eller knappen sidder på GPIO 34–39, hvor `INPUT_PULLUP` ikke virker.
+- **`GPIO number error (input-only pad has no internal PU)` i Serial Monitor:** `INPUT_PULLUP` er brugt på GPIO 34–39. Benene har ingen intern pull-up: brug en ekstern modstand, eller flyt knappen til et andet ben.
 - **Programmet starter ikke efter reset:** Knappen sidder på GPIO 0 og er trykket ved opstart, så ESP32 venter i upload-tilstand.
 - **ESP32 genstarter, når der trykkes:** Knappen kortslutter 3V3 direkte til GND. Det sker, hvis pull-down-modstanden er erstattet af en ledning, eller hvis knappen sidder mellem 3V3- og GND-skinnen, fx fordi den ikke sidder hen over renden. (En *manglende* pull-down giver ikke kortslutning, men et svævende ben.)
 - **Benet er sat som `OUTPUT`:** Driver programmet benet `HIGH`, mens knappen trækker det til GND, kortslutter du udgangen. ESP32 begrænser selv strømmen, men det er stadig en fejl. Brug `INPUT_PULLUP`.

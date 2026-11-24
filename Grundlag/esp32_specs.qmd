@@ -11,8 +11,8 @@ draft: false
 <!--
 TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 1. AFPRØVET 24. nov. 2026: ESP32-D0WD-V3 (revision 300), 2 kerner, 240 MHz, flash 4194304 bytes, PSRAM 0, partitionerne fra default.csv med app0 "kører nu".
-2. DELVIS AFPRØVET 24. nov. 2026: Heap i alt 377808 bytes, ledig 331020 bytes, så "et par hundrede KB" passer. Mangler: faldet i øvelse 2 med WiFi.
-3. Øvelse 3: med board_build.partitions = no_ota.csv forventes "Plads til ny version" = 2097152 bytes (og 3145728 med huge_app.csv). Når der kun er én OTA-partition (app0 = ota_0), returnerer esp_ota_get_next_update_partition() den partition, programmet kører fra, så tallet er størrelsen på app0, ikke 0. Bekræft, og ret teksten, hvis ikke.
+2. AFPRØVET 24. nov. 2026: Heap i alt 377808 bytes, ledig 331020 bytes uden WiFi, så "et par hundrede KB" passer. Øvelse 2: med WiFi-biblioteket linket med er der 286668 bytes ledig ved opstart, og efter WiFi.mode(WIFI_STA) 235484 bytes, i alt ca. 96 KB mindre.
+3. AFPRØVET 24. nov. 2026: "Plads til ny version" er 2097152 bytes med no_ota.csv og 3145728 med huge_app.csv (størrelsen på app0), som forventet.
 4. Skolens kort (TJEK under "Kortets dele" og "30 eller 36 ben"): 30 eller 36 ben? Hvilken farve har strøm-lysdioden og lysdioden på GPIO 2? Måler VIN ca. 5 V, når kortet får strøm fra USB? (USB-chippen tjekkes allerede på PlatformIO-siden.)
 5. EN-knappen (TJEK under "Læs videre"): Random Nerd Tutorials skriver, at EN slår 3,3 V-regulatoren fra. Espressif kalder benet CHIP_PU (chippens enable). Mål evt. 3V3-benet, mens EN holdes nede, og ret teksten.
 6. AFPRØVET 24. nov. 2026: største værdi var 3145 mV (rå 4095), mindste 142 mV (rå 0), se potentiometer-siden.
@@ -185,8 +185,6 @@ ESP32 har flere slags hukommelse, og de bruges til hver sin ting:
 | PSRAM | 0 på DEVKIT-V1 | | Ekstra RAM på nogle andre moduler (fx ESP32-WROVER) |
 
 Af de 520 KB SRAM er det langtfra det hele, dit program kan bruge. Systemet, FreeRTOS og WiFi-stakken tager en god del, og noget af SRAM'en bruges til programkode, der skal køre hurtigt. Den ledige heap er typisk et par hundrede KB. Eksemplet nedenfor viser, hvor meget der er på dit kort.
-
-<!-- TJEK: "et par hundrede KB" ledig heap er et skøn. PlatformIO's board-fil angiver 320 KB som største RAM til data. Aflæs Heap i alt og Heap ledig på skolens kort (tjekliste punkt 2). -->
 
 ### Partitionstabellen
 

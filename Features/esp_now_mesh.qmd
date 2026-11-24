@@ -11,13 +11,13 @@ draft: false
 <!--
 TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 1. AFPRØVET 24. nov. 2026: begge kompilerer uden advarsler.
-2. AFPRØVET 24. nov. 2026: beskederne kommer frem, og afsenderen skriver "kvitteret af modtageren" ved unicast. "IKKE kvitteret" kom med en forkert MAC-adresse (modtageren ikke slukket).
-3. Broadcast (øvelse 3): hvad giver onSent ved broadcast, når der ingen modtager er? Ret afsnittet "Kvittering" og beskrivelsen af onSent() efter resultatet (TJEK nedenfor).
-4. Forskellig kanal på afsender og modtager (øvelse 2): kommer der ingenting igennem, som siden siger?
+2. AFPRØVET 24. nov. 2026: beskederne kommer frem, og afsenderen skriver "kvitteret af modtageren" ved unicast og "IKKE kvitteret", når modtageren ikke kører ESP-NOW (og med en forkert MAC-adresse).
+3. AFPRØVET 24. nov. 2026: ved broadcast skriver modtageren "(broadcast)", og onSent() giver altid success, også når ingen modtager lytter. Afsnittet "Kvittering" er rettet.
+4. AFPRØVET 24. nov. 2026: kanal 6 hos afsender og 1 hos modtager: intet kommer igennem, og afsenderen skriver "IKKE kvitteret".
 5. Rækkevidde (øvelse 5): mål rækkevidden indendørs i lokalet, og skriv evt. et tal ind i tabellen "Begrænsninger" (TJEK nedenfor).
-6. Antal krypterede peers i core 3.3: dokumentationen siger 7, esp_now.h siger 6. Kald ESP_NOW.getEncryptedPeerCount(), eller tilføj krypterede peers, til add() fejler, og ret "typisk 6–7" (TJEK nedenfor).
-7. Kryptering: virker det som beskrevet, at en modtager ikke får krypterede beskeder fra en afsender, den ikke har tilføjet som peer med samme LMK?
-8. ESP-NOW samtidig med WiFi forbundet til en router (øvelse 6): virker det i station mode alene, eller kræves WIFI_AP_STA, som Random Nerd Tutorials skriver? (TJEK nedenfor)
+6. AFPRØVET 24. nov. 2026: 7 krypterede peers kan tilføjes; nr. 8 giver "E (229) ESPNOW: Peer is full". Tabellen siger nu 7.
+7. AFPRØVET 24. nov. 2026: en modtager uden samme LMK får ingen krypterede beskeder, men afsenderens onSent() giver alligevel success. Det er nævnt under Kryptering.
+8. AFPRØVET 24. nov. 2026: en modtager forbundet til en router i WIFI_STA (ikke WIFI_AP_STA) fik alle beskeder fra en afsender på routerens kanal (6). Samme kanal er nok.
 9. DELVIS AFPRØVET 24. nov. 2026: examples/basic og examples/bridge kompilerer med core 3.3 (kun advarsler inde i AsyncTCP og TaskScheduler). Ikke kørt på hardware.
 10. AFPRØVET 24. nov. 2026: setRoot() og setContainsRoot() findes i 1.5.7 (mesh.hpp), og examples/bridge kalder begge.
 11. BILLEDE: skærmbilleder af Serial Monitor for modtager og afsender (se BILLEDE-kommentarerne).
@@ -78,9 +78,7 @@ For at *modtage* behøver du ikke registrere afsenderen som peer, så længe bes
 Ved unicast sender modtagerens radio automatisk en kvittering ([acknowledgement]{lang="en"}, ACK) tilbage. Afsenderen får så at vide, om beskeden kom frem. Bemærk to ting:
 
 - Kvitteringen betyder, at modtagerens *radio* fik beskeden. Den siger ikke, at programmet på modtageren nåede at behandle den. Har det betydning, skal programmet selv sende et svar.
-- Ved broadcast er der ingen kvittering. Afsenderen kan ikke vide, om nogen hørte beskeden.
-
-<!-- TJEK: Hvad onSent() rapporterer ved broadcast (altid success, når pakken er sendt?), står ikke direkte i ESP-IDF-dokumentationen. Prøv det med øvelse 3. -->
+- Ved broadcast er der ingen kvittering. Afsenderen kan ikke vide, om nogen hørte beskeden. `onSent()` bliver stadig kaldt, men giver altid success, også når ingen lytter. Eksemplets afsender skriver derfor "kvitteret af modtageren" ved broadcast, selvom det ikke er sandt.
 
 Espressif foreslår at give beskederne et løbenummer, så modtageren kan smide dubletter væk. Løbenummeret kan også vise, om der mangler beskeder. Det gør eksemplerne nedenfor.
 
@@ -96,7 +94,7 @@ Hvis ingen af enhederne er på WiFi, vælger du selv kanalen med `WiFi.setChanne
 
 Hvis en enhed *også* er forbundet til en router i station mode, er det routeren, der bestemmer kanalen. Så kan du ikke selv vælge, og alle de andre ESP-NOW-enheder skal sættes til routerens kanal. Du kan se kanalen med `WiFi.channel()`, når enheden er forbundet. Pas på: mange routere skifter selv kanal, hvis der er meget støj, og så holder opstillingen op med at virke.
 
-<!-- TJEK: Random Nerd Tutorials skriver, at en ESP32, der både er på WiFi og modtager ESP-NOW, skal være i WIFI_AP_STA. Det står ikke i Espressifs dokumentation, som kun kræver samme kanal. Prøv med øvelse 6. -->
+Station mode (`WIFI_STA`) er nok. Nogle vejledninger, fx fra Random Nerd Tutorials, bruger `WIFI_AP_STA`, men på skolens kort modtog en ESP32 forbundet til en router alle ESP-NOW-beskeder i `WIFI_STA`, når afsenderen brugte routerens kanal.
 
 Når du registrerer en peer, angiver du også en kanal. Kanal 0 betyder "den kanal, enheden er på lige nu". Angiver du et andet tal, skal det passe med den kanal, enheden faktisk er på, ellers fejler afsendelsen.
 
@@ -105,14 +103,13 @@ Når du registrerer en peer, angiver du også en kanal. Kanal 0 betyder "den kan
 | | ESP-NOW |
 |---|---|
 | Størrelse pr. besked | 250 byte (ESP-NOW v1). Arduino-ESP32 3.3 understøtter v2 med op til 1470 byte, men en enhed med v1 kan kun modtage 250 byte. |
-| Antal peers | Højst 20, heraf kun få krypterede (typisk 6–7) |
+| Antal peers | Højst 20, heraf højst 7 krypterede |
 | Kanal | Alle enheder på samme kanal |
 | Rækkevidde | Nogenlunde som almindeligt WiFi, da det er den samme radio. Random Nerd Tutorials målte op til ca. 220 m i åbent terræn. Indendørs er det meget mindre, for vægge og kroppe dæmper signalet. |
 | Kvittering | Kun ved unicast, og kun fra radioen, ikke fra programmet |
 | Hastighed | 1 Mbit/s som standard. Send ikke en ny besked, før `onSent()` er kaldt for den forrige, ellers kan kvitteringerne komme i forkert rækkefølge. |
 
 <!-- TJEK: Rækkevidden er ikke opgivet i meter i Espressifs dokumentation. Mål den i lokalet med øvelse 5, og skriv evt. et tal ind. -->
-<!-- TJEK: Antal krypterede peers: ESP-IDF v5.5-dokumentationen siger "the default is 7", men esp_now.h i release/v5.5 har #define ESP_NOW_MAX_ENCRYPT_PEER_NUM 6. Kald ESP_NOW.getEncryptedPeerCount() på hardware, eller tilføj krypterede peers, indtil add() fejler, og skriv det rigtige tal ind. -->
 
 Hold dig til højst 250 byte, så er du sikker på, at alle enheder kan modtage beskeden. `ESP_NOW.getMaxDataLen()` fortæller, hvor meget din enhed kan sende. Er beskeden længere, klipper biblioteket den over. `send()` returnerer så færre byte end det, du bad om, så sammenlign returværdien med længden af beskeden. Det gør afsender-eksemplet.
 
@@ -125,7 +122,7 @@ ESP-NOW kan kryptere unicast-beskeder med to nøgler på hver 16 byte:
 - **PMK** ([Primary Master Key]{lang="en"}) er fælles for enheden og gives til `ESP_NOW.begin(pmk)`.
 - **LMK** ([Local Master Key]{lang="en"}) hører til hver peer og gives, når peeren oprettes.
 
-Både afsender og modtager skal have samme PMK, og de skal have registreret hinanden som peers med samme LMK. Broadcast kan ikke krypteres. Nøglerne er hemmeligheder, ligesom WiFi-passwordet, så de skal ud af koden og ikke i git (se [WiFi](../Grundlag/wifi.qmd)).
+Både afsender og modtager skal have samme PMK, og de skal have registreret hinanden som peers med samme LMK. Broadcast kan ikke krypteres. Har modtageren ikke den rigtige LMK, smider den beskeden væk, men radioen kvitterer alligevel, så afsenderens `onSent()` giver success. En kvittering beviser altså ikke, at nøglerne passer. Nøglerne er hemmeligheder, ligesom WiFi-passwordet, så de skal ud af koden og ikke i git (se [WiFi](../Grundlag/wifi.qmd)).
 
 ### ESP-NOW i Arduino-ESP32 3.x {#esp-now-core3}
 

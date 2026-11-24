@@ -12,8 +12,8 @@ draft: false
 TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 1. AFPRØVET 24. nov. 2026: eksemplet med de tre filer virker og skriver gennemsnit og største værdi i Serial Monitor.
 2. AFPRØVET 24. nov. 2026: udskriften passer (21, 42, 42, 84, 168), og %p skriver en adresse (fx 0x3ffb210c); sizeof(int) og sizeof(int*) er 4.
-3. Øvelse 3 og 4: passer fejlteksterne på siden ("was not declared in this scope", "undefined reference to", "multiple definition of") med det, PlatformIO's terminal viser?
-4. TJEK (øvelse 6): genstarter ESP32 af sig selv efter en Guru Meditation Error med Arduino-ESP32 3.3.x? Står der LoadProhibited eller noget andet (fx IllegalInstruction) i parentesen? Hvis IllegalInstruction: nævn begge ord i øvelsen, eller brug volatile int* q = nullptr;.
+3. AFPRØVET 24. nov. 2026: øvelse 1, 3a–c og 4 giver "was not declared in this scope" (compiler), "undefined reference to" (linker, også når statistik.cpp ligger i include/) og "multiple definition of" (linker). Linkeren viser det "manglede" navn, fx `_Z14stoersteVaerdiPKii`; det er nævnt under Typiske fejl.
+4. AFPRØVET 24. nov. 2026: der står "Guru Meditation Error: Core 1 panic'ed (LoadProhibited)" med EXCVADDR 0x00000000, og ESP32 genstarter af sig selv (rst:0xc SW_CPU_RESET) i en løkke.
 5. Tjek i den renderede side, at diagrammet under "Header-filer og kildefiler" står lige (┐, ┼ og ┘ under hinanden).
 Skærmbilleder, der mangler (se BILLEDE-kommentarerne):
 6. Explorer med include/statistik.h, src/statistik.cpp og src/main.cpp.
@@ -430,12 +430,10 @@ Serial Monitor med hele udskriften fra pointer-eksemplet, efter et tryk på EN. 
    Kald den med adresserne på tre lokale variabler. Lav derefter en udgave med referencer i stedet for pointere. Hvilken synes du er nemmest at læse, både i funktionen og der, hvor den kaldes?
 6. *Ekstra:* Tilføj `int* q = nullptr;` og `Serial.println(*q);` sidst i `setup()` i pointer-eksemplet. Hvad står der i Serial Monitor? Find ordet i parentes efter `Guru Meditation Error`, og slå det op i ESP-IDF's side om [Fatal Errors](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/fatal-errors.html){lang="en"}. Hvad sker der bagefter? Fjern linjerne igen.
 
-<!-- TJEK: at ESP32 genstarter af sig selv efter panik er ESP-IDF's standard ("print registers and reboot"). Arduino-ESP32 3.3.x's sdkconfig er ikke tjekket; afprøv øvelse 6. Tjek også ordet i parentes: forventet er LoadProhibited, men GCC kan ved optimering erstatte en åbenlys nullptr-dereference med en fælde-instruktion, så der i stedet står fx IllegalInstruction. Står der IllegalInstruction, så skriv i øvelsen, at begge ord kan forekomme, eller gør dereferencen mindre åbenlys med `volatile int* q = nullptr;`. -->
-
 ## Typiske fejl
 
 - **`'…' was not declared in this scope`:** Fejlen kommer fra compileren. Funktionen bliver kaldt, før compileren har set en deklaration: forward-deklarationen mangler, eller `#include` af header-filen mangler.
-- **`undefined reference to '…'`:** Fejlen kommer fra linkeren. Deklarationen findes, men definitionen gør ikke: `.cpp`-filen ligger ikke i `src/`, funktionsnavnet er stavet forskelligt de to steder, eller parametrene er ikke ens i deklaration og definition.
+- **`undefined reference to '…'`:** Fejlen kommer fra linkeren. Navnet står ofte i en "manglet" form ([name mangling]{lang="en"}), fx `_Z14stoersteVaerdiPKii` for `stoersteVaerdi(const int*, int)`: led efter funktionsnavnet inde i det. Deklarationen findes, men definitionen gør ikke: `.cpp`-filen ligger ikke i `src/`, funktionsnavnet er stavet forskelligt de to steder, eller parametrene er ikke ens i deklaration og definition.
 - **`multiple definition of '…'`:** Også fra linkeren. Der står en almindelig variabel eller en funktion med krop i en header-fil, som inkluderes af flere `.cpp`-filer. Flyt definitionen til en `.cpp`-fil, og lad kun deklarationen stå i headeren (for en variabel med `extern`).
 - **Fejl om ting, der er defineret to gange, i samme fil:** `#pragma once` mangler øverst i header-filen.
 - **`fatal error: statistik.h: No such file or directory`:** Header-filen ligger ikke i `include/`, eller navnet er stavet forkert.

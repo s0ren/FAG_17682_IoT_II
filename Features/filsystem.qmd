@@ -15,9 +15,9 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 3. Findes opgaven "Upload Filesystem Image" under Project Tasks → esp32doit-devkit-v1 → Platform i VS Code med espressif32@8.0.0 (TJEK under "Filer fra data/-mappen")? Henter PlatformIO selv mklittlefs første gang? (AFPRØVET 24. nov. 2026 fra kommandolinjen: pio run -t uploadfs virker, og mklittlefs hentes selv. Navnet i VS Code er ikke set.)
 4. Lukker PlatformIO selv Serial Monitor før Upload Filesystem Image (TJEK under Typiske fejl)? Hvis ja, kan trin 1 og rådet i Typiske fejl forkortes.
 5. AFPRØVET 24. nov. 2026: hilsen.txt uploades og læses af eksemplet.
-6. Bekræft, at Upload Filesystem Image sletter filer, programmet selv har skrevet, fx /log.txt fra eksempel 1 (TJEK efter advarslen).
+6. AFPRØVET 24. nov. 2026: Upload Filesystem Image sletter /log.txt (loggen var nået til 6 linjer og startede forfra).
 7. AFPRØVET 24. nov. 2026: 6 målinger blev cachet og sendt i rigtig rækkefølge, da knappen blev sluppet ("Cachen er tømt: 6 målinger sendt"). Mangler: Overlever cachen et tryk på EN, mens knappen holdes nede?
-8. Prøv board_build.partitions = no_ota.csv: stiger totalBytes() til omkring 1,9 MB? Skal filsystemet formateres igen (begin(true) gør det)?
+8. AFPRØVET 24. nov. 2026: med no_ota.csv er totalBytes() 1966080 (ca. 1,9 MB), og begin(true) formaterer selv den nye partition.
 Skærmbilleder, der mangler (se BILLEDE-kommentarerne):
 9. Explorer med data/-mappen ved siden af src/. 10. Project Tasks med Platform → Upload Filesystem Image. 11. Serial Monitor under cache-eksemplet, hvor netværket forsvinder og kommer igen.
 12. Når alt er testet: fjern IKKE TESTET PÅ HARDWARE, denne tjekliste og TJEK-/BILLEDE-kommentarerne.
@@ -330,8 +330,6 @@ PlatformIO's Project Tasks foldet ud, med Platform → Upload Filesystem Image m
 
 Imaget erstatter *hele* filsystemet. Filer, som programmet selv har skrevet på ESP32, fx en cache med målinger, bliver slettet. Har du glemt `board_build.filesystem = littlefs`, bliver imaget et SPIFFS-image, som LittleFS ikke kan læse, og så formaterer `begin(true)` partitionen, og filerne fra `data/` er væk.
 :::
-
-<!-- TJEK: at Upload Filesystem Image sletter filer, programmet selv har skrevet, følger af, at hele partitionen overskrives med imaget (esptool skriver det på partitionens startadresse). Afprøv det. -->
 
 Læg en fil `data/hilsen.txt` med en linje tekst, upload den, og kør så dette program.
 

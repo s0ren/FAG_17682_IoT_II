@@ -14,7 +14,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 2. AFPRØVET 24. nov. 2026 (ESP32-D0WD-V3, core 3.3.12, to målinger): rå 0 svarede til 142 mV og rå 4095 til 3145 mV med analogReadMilliVolts(). Tallene i afsnittet om dæmpning og måleområde passer. Chippen har kalibreringsdata i eFuse (esptool: "Vref calibration in eFuse"); sammenligningen med multimeteret i punkt 4 mangler.
 3. Tjek, at lokalets potentiometre er 10 kΩ lineære, og hvordan de er mærket (TJEK i afsnittet om lineær og logaritmisk).
 4. Tjek, at analogReadMilliVolts() faktisk ligger tættere på multimeteret end formlen på lokalets boards, dvs. at chippene har kalibreringsdata i eFuse (TJEK i afsnittet om analogReadMilliVolts()).
-5. Kør eksemplet med ANTAL_MAALINGER = 1 og = 16, og se, at gennemsnittet faktisk giver roligere tal.
+5. AFPRØVET 24. nov. 2026: med potentiometeret i midten svinger den rå værdi 1900–1927 (spredning 6,3) med 1 måling og 1910–1918 (spredning 1,9) med 16, altså ca. 3–4 gange roligere.
 6. Prøv øvelse 4 (analogWrite til lysdioden på GPIO 19) og øvelse 6 (ledcAttach/ledcWrite med 12 bit) på hardware.
 7. Tjek, hvad analogRead() gør på et ADC2-ben (fx GPIO 25), når WiFi er tændt, i core 3.3.x. Ifølge kildekoden sandsynligvis en fejl i loggen og værdien 0 (TJEK i Typiske fejl).
 8. Tjek, at linkene til modstande.qmd og lysdioder.qmd virker, og at de sider er godkendt.

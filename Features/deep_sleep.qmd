@@ -16,7 +16,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 4. Hold knappen nede, mens kortet går i dvale: vågner det straks igen, som siden siger?
 5. Ext1 (øvelse 4): vågner ESP32 med ESP_EXT1_WAKEUP_ALL_LOW og den interne pull-up på GPIO 33, uden at RTC_PERIPH holdes tændt? Dokumentationen siger ja (HOLD-funktionen); afprøv på skolens kort. (Se TJEK ved ext1.)
 6. Touch-uddraget: virker tærsklen 40 på GPIO 27 (T7) med en løs ledning? Hvilke værdier giver touchRead(T7) urørt og rørt på skolens kort? (Se TJEK ved touch.)
-7. Upload mens kortet sover: virker upload uden at trykke på knapper? Ret eller fjern punktet om upload under Typiske fejl efter resultatet. (Se TJEK under Typiske fejl.)
+7. AFPRØVET 24. nov. 2026: upload, mens kortet sover, virkede 3 af 3 gange uden knaptryk (auto-reset vækker kortet). Punktet under Typiske fejl er rettet.
 8. Mål strømmen på DEVKIT-V1 i deep sleep (fx med et USB-strømmeter eller et multimeter i serie med VIN). Ret tallene i afsnittet om strømmåling og regnestykket, hvis de er langt fra. (Se TJEK ved strømmåling.)
 9. TJEK: strømtallene for selve chippen (ca. 100-250 mA aktiv med WiFi, ca. 10 µA i deep sleep) er ikke læst direkte i databladets tabel "Power Consumption by Power Modes". Sammenlign i en PDF-læser.
 10. BILLEDE: Serial Monitor med tre-fire opvågninger fra timer-eksemplet.
@@ -376,10 +376,8 @@ Bemærk:
 - **ESP32 vågner med det samme igen og igen:** vække-niveauet passer ikke til koblingen (fx `1` med en knap til GND), pull-up'en er ikke slået til med `rtc_gpio_pullup_en()`, så benet svæver, eller knappen holdes nede.
 - **Timeren vågner alt for tidligt eller forkert:** tiden er angivet i millisekunder eller sekunder i stedet for mikrosekunder, eller beregningen er løbet over, fordi `ULL` mangler.
 - **`digitalRead()` på vække-benet virker ikke efter opvågning:** `pinMode()` mangler. Benet er stadig et RTC-ben, til du kalder `pinMode(KNAP_PIN, INPUT_PULLUP)`.
-- **Hvis upload fejler, mens kortet sover:** hold BOOT-knappen nede, mens upload starter, eller tryk på EN lige før (se [PlatformIO](../Grundlag/platformio.qmd)).
+- **Upload, mens kortet sover:** virker normalt uden knaptryk, for PlatformIO vækker kortet med EN, før det uploader. Fejler det alligevel, så hold BOOT-knappen nede, mens upload starter, eller tryk på EN lige før (se [PlatformIO](../Grundlag/platformio.qmd)).
 - **Strømmåleren viser mange mA i deep sleep:** du måler hele DEVKIT-V1-kortet med USB-chip, regulator og lysdiode, ikke kun chippen.
-
-<!-- TJEK: om upload normalt virker uden knaptryk, mens ESP32 sover (auto-reset via DTR/RTS burde vække den). Se tjekliste punkt 7. -->
 
 ## Læs videre
 
