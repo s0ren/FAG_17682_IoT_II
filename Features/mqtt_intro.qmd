@@ -6,7 +6,7 @@ maalpinde: [2, 13, 20, 22]
 draft: false
 ---
 
-<!-- IKKE KOMPILERET: eksemplerne er tjekket mod dokumentationen, men ikke kompileret eller testet på hardware. -->
+<!-- IKKE TESTET PÅ HARDWARE: eksemplerne kompilerer med espressif32@8.0.0 (24. nov. 2026; projekterne ligger i demo-repoerne, se linkene under eksemplerne), men er ikke testet på hardware. -->
 
 <!--
 TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
@@ -25,7 +25,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 13. BILLEDE: MQTT Explorers topic-træ med elever/<navn>/… foldet ud og en JSON-besked valgt.
 14. BILLEDE: MQTT Explorers Certificates-dialog med ca.crt valgt som Server Certificate (CA).
 15. BILLEDE: weblog'en på wilsons.local:8080 med en elevs .jsonl-fil fra Python-eksemplet.
-16. Når alt er testet: fjern IKKE KOMPILERET, denne tjekliste og TJEK-kommentarerne, og gør billedboksene til billeder eller til BILLEDE-kommentarer.
+16. Når alt er testet: fjern IKKE TESTET PÅ HARDWARE, denne tjekliste og TJEK-kommentarerne, og gør billedboksene til billeder eller til BILLEDE-kommentarer.
 -->
 
 En temperaturføler i klasselokalet skal sende en måling hvert 5. sekund, og både en Python-app, en skærm på væggen og en database vil gerne have den. Hvis føleren selv skulle kende alle modtagerne og sende til hver af dem, ville koden skulle rettes, hver gang der kom en ny modtager. Med MQTT sender føleren i stedet sin måling ét sted hen, til en *broker*, under et emne som `elever/anna/temperatur`. Alle, der har sagt, at de er interesserede i det emne, får målingen. Det er den måde, IoT-enheder oftest sender data på, og det er det, I skal bruge i projektopgaverne.

@@ -6,7 +6,7 @@ maalpinde: [12, 17, 19]
 draft: false
 ---
 
-<!-- IKKE KOMPILERET: eksemplerne er tjekket mod dokumentationen, men ikke kompileret eller testet på hardware. -->
+<!-- IKKE TESTET PÅ HARDWARE: eksemplerne kompilerer med espressif32@8.0.0 (24. nov. 2026; projekterne ligger i demo-repoerne, se linkene under eksemplerne), men er ikke testet på hardware. -->
 
 <!--
 TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
@@ -23,7 +23,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 11. BILLEDE: trykknap, vippekontakt og skydekontakt side om side.
 12. BILLEDE: eksemplets opstilling (knap over renden, diagonale ben til GPIO 33 og GND).
 13. BILLEDE: øvelse 2 med den eksterne pull-down-modstand.
-14. Fjern IKKE KOMPILERET, denne tjekliste og alle TJEK- og BILLEDE-kommentarer, gør billede-mangler-boksene til BILLEDE-kommentarer eller rigtige billeder, og sæt draft: false.
+14. Fjern IKKE TESTET PÅ HARDWARE, denne tjekliste og alle TJEK- og BILLEDE-kommentarer, gør billede-mangler-boksene til BILLEDE-kommentarer eller rigtige billeder, og sæt draft: false.
 -->
 
 En knap er det enkleste input, du kan give en ESP32: den er enten trykket eller ikke trykket. Men en knap giver ikke selv en spænding. Den forbinder bare to ben, når du trykker. Hvad ESP32 læser, når knappen *ikke* er trykket, bestemmer du med en modstand. Glemmer du den, læser programmet tilfældige værdier, og fejlen kan ligne en fejl i koden.

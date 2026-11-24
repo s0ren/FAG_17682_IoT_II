@@ -6,7 +6,7 @@ maalpinde: [19, 20, 21]
 draft: false
 ---
 
-<!-- IKKE KOMPILERET: eksemplerne er tjekket mod dokumentationen, men ikke kompileret eller testet på hardware. -->
+<!-- IKKE TESTET PÅ HARDWARE: eksemplerne kompilerer med espressif32@8.0.0 (24. nov. 2026; projekterne ligger i demo-repoerne, se linkene under eksemplerne), men er ikke testet på hardware. -->
 
 <!--
 TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
@@ -18,7 +18,7 @@ Billeder, der mangler (se de orange bokse):
 5. ESP32-DEVKIT-V1 set ovenfra med EN, BOOT og den blå lysdiode markeret.
 6. Serial Monitor efter et tryk på EN: opstartslinjerne fra ROM'en og derefter "Hej fra ESP32!".
 7. Øvelse 4 bruger standardopstillingen (lysdiode på GPIO 19) og den indbyggede lysdiode på GPIO 2.
-8. Når alt er testet: fjern IKKE KOMPILERET, denne tjekliste og TJEK-kommentarerne, gør de orange bokse til BILLEDE-kommentarer eller rigtige billeder, og sæt draft: false.
+8. Når alt er testet: fjern IKKE TESTET PÅ HARDWARE, denne tjekliste og TJEK-kommentarerne, gør de orange bokse til BILLEDE-kommentarer eller rigtige billeder, og sæt draft: false.
 -->
 
 Det første program på et nyt stykke hardware er altid det samme: få det til at sige noget, og få noget til at blinke. Så ved du, at værktøjerne virker, at programmet kommer over på kortet, og at du kan se, hvad det laver. På denne side skriver du dit første program til ESP32-DEVKIT-V1. Det skriver tekst i Serial Monitor og blinker med lysdioden, der sidder på kortet.

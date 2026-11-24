@@ -6,10 +6,10 @@ maalpinde: [13, 14, 22]
 draft: false
 ---
 
-<!-- IKKE KOMPILERET: eksemplerne er tjekket mod dokumentationen og lærerens vejledning, men ESP32-eksemplet er ikke kompileret eller testet på hardware. -->
+<!-- IKKE TESTET PÅ HARDWARE: eksemplerne er tjekket mod dokumentationen og lærerens vejledning. ESP32-eksemplet kompilerer med espressif32@8.0.0 (24. nov. 2026; projektet ligger i IOT_del2_demoer), men er ikke testet på hardware. -->
 
 <!--
-TJEKLISTE TIL LÆREREN (afprøves, før IKKE KOMPILERET og TJEK-kommentarerne fjernes):
+TJEKLISTE TIL LÆREREN (afprøves, før IKKE TESTET PÅ HARDWARE og TJEK-kommentarerne fjernes):
 1. Upload ESP32-eksemplet med platform = espressif32@8.0.0 og en elevbruger. Kommer "OK" i Serial Monitor, og dukker beskederne op på http://wilsons.local:8080/elever/<brugernavn>/status.jsonl?
 2. TJEK: kan ESP32 (core 3.3) slå wilsons.local op via mqtt.setServer("wilsons.local", ...)? En pc på skolens net kan (afprøvet 24. nov. 2026), men ESP32 er ikke afprøvet. Din egen knap-demo bruger MDNS.queryHost() i stedet. wilsons.home og det korte navn wilsons virker ikke på skolens net, så siden nævner dem ikke mere. Ret afsnittet "Typiske fejl" (rc=-2 uden TLS-fejl) efter resultatet.
 3. TJEK: virker ESP32 over TLS med MQTT_HOST = "192.168.0.33"? Klienten tjekker så certifikatet mod IP-adressen, og det kræver, at mbedTLS i core 3.3 kan matche en IP i Subject Alternative Name. (Fra en pc virker TLS på .33.)
@@ -24,7 +24,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før IKKE KOMPILERET og TJEK-kommentarerne fj
 12. BILLEDE: nye skærmbilleder af weblog'en på wilsons.local:8080 (de tre nuværende viser den gamle adresse).
 13. BILLEDE: terminal med mosquitto_sub -v, der viser beskeder fra test/#.
 14. BILLEDE: Serial Monitor fra ESP32-eksemplet med "Forbinder til wilsons.local:8883 ... OK" og et par "Sendt"-linjer.
-15. Når alt er testet: fjern IKKE KOMPILERET, denne tjekliste og TJEK-/BILLEDE-kommentarerne.
+15. Når alt er testet: fjern IKKE TESTET PÅ HARDWARE, denne tjekliste og TJEK-/BILLEDE-kommentarerne.
 -->
 
 I klasselokalet står en Raspberry Pi, der hedder **wilsons**. Den kører en MQTT-server, som alle jeres ESP32'ere, Python-programmer og bærbare kan sende data til og hente data fra. Når din ESP32 måler en temperatur, sender den målingen til wilsons, og et program på din bærbare kan modtage den med det samme. Alt, hvad der bliver sendt, bliver også gemt i en log, som du kan se i browseren. Denne side viser, hvordan du bruger serveren som klient, og hvordan du gør det sikkert.

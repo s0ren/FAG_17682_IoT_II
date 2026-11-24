@@ -6,7 +6,7 @@ maalpinde: [17, 20, 21, 24]
 draft: false
 ---
 
-<!-- IKKE KOMPILERET: eksemplerne er tjekket mod dokumentationen, men ikke kompileret eller testet på hardware. -->
+<!-- IKKE TESTET PÅ HARDWARE: eksemplerne kompilerer med espressif32@8.0.0 (24. nov. 2026; projekterne ligger i demo-repoerne, se linkene under eksemplerne), men er ikke testet på hardware. -->
 
 <!--
 TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
@@ -19,7 +19,7 @@ Skærmbilleder, der mangler (se BILLEDE-kommentarerne):
 6. Explorer med include/statistik.h, src/statistik.cpp og src/main.cpp.
 7. Serial Monitor med udskriften fra pointer-eksemplet.
 8. Terminalen med en "undefined reference"-fejl fra linkeren.
-9. Når alt er testet: fjern IKKE KOMPILERET, denne tjekliste og TJEK-/BILLEDE-kommentarerne.
+9. Når alt er testet: fjern IKKE TESTET PÅ HARDWARE, denne tjekliste og TJEK-/BILLEDE-kommentarerne.
 -->
 
 Du kan allerede programmere, typisk i C# eller Python. Arduino-koden på ESP32 er C++, og meget ligner det, du kender: `if`, `for`, funktioner og variabler med typer. Men tre ting driller næsten alle, der kommer fra C# eller Python: compileren skal have set en funktion, *før* den bliver kaldt, koden deles op i `.h`- og `.cpp`-filer, og nogle funktioner vil have en *pointer* i stedet for en almindelig værdi. Denne side gennemgår de tre ting, så du kan læse og skrive koden på resten af sitet.

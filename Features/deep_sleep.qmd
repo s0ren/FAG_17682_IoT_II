@@ -6,7 +6,7 @@ maalpinde: [17, 18, 19]
 draft: false
 ---
 
-<!-- IKKE KOMPILERET: eksemplerne er tjekket mod dokumentationen, men ikke kompileret eller testet på hardware. -->
+<!-- IKKE TESTET PÅ HARDWARE: eksemplerne kompilerer med espressif32@8.0.0 (24. nov. 2026; projekterne ligger i demo-repoerne, se linkene under eksemplerne), men er ikke testet på hardware. -->
 
 <!--
 TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
@@ -22,7 +22,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 10. BILLEDE: Serial Monitor med tre-fire opvågninger fra timer-eksemplet.
 11. BILLEDE: breadboard med knap mellem GPIO 33 og GND.
 12. BILLEDE: DEVKIT-V1 med USB-chip, spændingsregulator og strøm-LED markeret.
-13. Når alt er testet: fjern IKKE KOMPILERET, denne tjekliste og TJEK-/BILLEDE-kommentarerne.
+13. Når alt er testet: fjern IKKE TESTET PÅ HARDWARE, denne tjekliste og TJEK-/BILLEDE-kommentarerne.
 -->
 
 En temperaturføler i et drivhus skal måske kun sende en måling hvert tiende minut. Resten af tiden har den intet at lave, men en ESP32, der kører `loop()` med WiFi tændt, bruger strøm hele tiden og tømmer et batteri på et døgn eller to. I *deep sleep* slukker ESP32 næsten hele chippen og vågner igen, når en timer udløber, eller når der trykkes på en knap. Så kan det samme batteri holde i måneder.

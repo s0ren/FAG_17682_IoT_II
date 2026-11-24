@@ -6,7 +6,7 @@ maalpinde: [4, 13, 15, 19]
 draft: false
 ---
 
-<!-- IKKE KOMPILERET: eksemplerne er tjekket mod dokumentationen, men ikke kompileret eller testet på hardware. -->
+<!-- IKKE TESTET PÅ HARDWARE: eksemplerne kompilerer med espressif32@8.0.0 (24. nov. 2026; projekterne ligger i demo-repoerne, se linkene under eksemplerne), men er ikke testet på hardware. -->
 
 <!--
 TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
@@ -21,7 +21,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 9. painlessMesh 1.5.7 med core 3.3: kompilerer og virker et af bibliotekets eksempler? (TJEK nedenfor)
 10. painlessMesh setRoot(): findes den i 1.5.7, og bruger examples/bridge den som beskrevet? (TJEK nedenfor)
 11. BILLEDE: skærmbilleder af Serial Monitor for modtager og afsender (se BILLEDE-kommentarerne).
-12. Når alt er testet: fjern IKKE KOMPILERET, denne tjekliste og TJEK- og BILLEDE-kommentarerne.
+12. Når alt er testet: fjern IKKE TESTET PÅ HARDWARE, denne tjekliste og TJEK- og BILLEDE-kommentarerne.
 -->
 
 I [projektopgaven om positionsbestemmelse](../Opgaver/Projektopgave_wifi_position.qmd) skal flere målestationer dele deres målinger med hinanden. De kunne alle sammen gå på WiFi og sende til MQTT-serveren, men så skal der være en router i nærheden, og hver station skal bruge tid på at forbinde. ESP-NOW er Espressifs egen protokol, hvor to ESP32'ere sender korte beskeder direkte til hinanden, uden router og uden at forbinde først. ESP-MESH går et skridt videre: enhederne bygger selv et netværk, hvor beskeder kan hoppe fra enhed til enhed, og denne side giver dig grundlaget for begge.

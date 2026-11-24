@@ -6,7 +6,7 @@ maalpinde: [17, 19, 22]
 draft: false
 ---
 
-<!-- IKKE KOMPILERET: eksemplerne er tjekket mod dokumentationen, men ikke kompileret eller testet på hardware. -->
+<!-- IKKE TESTET PÅ HARDWARE: eksemplerne kompilerer med espressif32@8.0.0 (24. nov. 2026; projekterne ligger i demo-repoerne, se linkene under eksemplerne), men er ikke testet på hardware. -->
 
 <!--
 TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
@@ -20,7 +20,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 8. Prøv board_build.partitions = no_ota.csv: stiger totalBytes() til omkring 1,9 MB? Skal filsystemet formateres igen (begin(true) gør det)?
 Skærmbilleder, der mangler (se BILLEDE-kommentarerne):
 9. Explorer med data/-mappen ved siden af src/. 10. Project Tasks med Platform → Upload Filesystem Image. 11. Serial Monitor under cache-eksemplet, hvor netværket forsvinder og kommer igen.
-12. Når alt er testet: fjern IKKE KOMPILERET, denne tjekliste og TJEK-/BILLEDE-kommentarerne.
+12. Når alt er testet: fjern IKKE TESTET PÅ HARDWARE, denne tjekliste og TJEK-/BILLEDE-kommentarerne.
 -->
 
 En ESP32, der sender målinger til en server, mister indimellem netforbindelsen. Hvis målingerne kun ligger i RAM, er de væk, så snart strømmen går eller kortet genstarter. ESP32-DEVKIT-V1 har 4 MB flash-hukommelse, og en del af den kan bruges som et lille filsystem, hvor programmet gemmer filer, der overlever en genstart. Det er det, du skal bruge til krav 3 i den [afsluttende opgave](../Opgaver/afsluttende_opgave/index.qmd): når nettet mangler, gemmes målingerne i en fil på ESP32, og når nettet kommer igen, sendes de.

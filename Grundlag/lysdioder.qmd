@@ -6,7 +6,7 @@ maalpinde: [12, 18, 19]
 draft: false
 ---
 
-<!-- IKKE KOMPILERET: eksemplerne er tjekket mod dokumentationen, men ikke kompileret eller testet på hardware. -->
+<!-- IKKE TESTET PÅ HARDWARE: eksemplerne kompilerer med espressif32@8.0.0 (24. nov. 2026; projekterne ligger i demo-repoerne, se linkene under eksemplerne), men er ikke testet på hardware. -->
 
 <!--
 TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
@@ -21,7 +21,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 9. BILLEDE: en lysdiode med formodstand på breadboardet, koblet til GPIO 19 og GND.
 10. BILLEDE: trafiklyset med tre lysdioder (til øvelse 4).
 11. BILLEDE: en RGB-lysdiode med benene markeret.
-12. Fjern IKKE KOMPILERET, denne tjekliste og alle TJEK-kommentarer, gør billedboksene til BILLEDE-kommentarer (eller sæt billeder ind), og sæt draft: false.
+12. Fjern IKKE TESTET PÅ HARDWARE, denne tjekliste og alle TJEK-kommentarer, gør billedboksene til BILLEDE-kommentarer (eller sæt billeder ind), og sæt draft: false.
 -->
 
 En lysdiode (LED, [light-emitting diode]{lang="en"}) er den enkleste måde at få ESP32 til at vise noget: tændt, slukket, blinkende eller dæmpet. Den viser, at programmet kører, at WiFi er forbundet, eller at en måling er over en grænse. Men en lysdiode kan ikke bare sættes direkte på et ben: den skal vende rigtigt, og den skal have en modstand, der begrænser strømmen, ellers kan både lysdioden og ESP32-benet tage skade.
