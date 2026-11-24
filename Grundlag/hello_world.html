@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="da" xml:lang="da"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.20">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Søren Magnusson">
+
+<title>Hello World på ESP32 – FAG 17682_IoT_II</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-17888a1159294d3eb470f19f6f52f5a5.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-1958bf8fe25c7117446dee592769f80d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Ingen resultater",
+    "search-matching-documents-text": "Matchende dokumenter",
+    "search-copy-link-title": "Kopier link for at søge",
+    "search-hide-matches-text": "Skjul yderligere resultater",
+    "search-more-match-text": "andet resultat i dette dokument",
+    "search-more-matches-text": "andre resultater i dette dokument",
+    "search-clear-button-title": "Ryd",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Fortryd",
+    "search-submit-button-title": "Indsend",
+    "search-label": "Søg"
+  }
+}</script>
+<meta name="quarto:status" content="draft">
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><div id="quarto-draft-alert" class="alert alert-warning"><i class="bi bi-pencil-square"></i>Udkast</div>
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">FAG 17682_IoT_II</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Søg"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Skift navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Hjem</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../laeringsmaal.html" aria-current="page"> 
+<span class="menu-text">Læringsmål</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">Om sitet</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Skift sidebjælke" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Grundlag/index.html">Grundlag</a></li><li class="breadcrumb-item"><a href="../Grundlag/hello_world.html">Hello World på ESP32</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Skift sidebjælke" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Om sitet</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Referencer/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Referencemanualer</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../laeringsmaal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Læringsmål</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Features/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Features</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Skift sektion">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Features/deep_sleep.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Deep Sleep</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Features/esp_now_mesh.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ESP-NOW og ESP-MESH</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Features/filsystem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Filsystem på ESP32</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Features/lokal_mqtt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lokal MQTT-server</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Grundlag/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Grundlag</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Skift sektion">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/cpp_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Intro til C++</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/debouncing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Debouncing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/platformio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">PlatformIO</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/wifi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">WiFi</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Opgaver/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Opgaver</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Skift sektion">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Opgaver/Projektopgave_Smiley.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Projektopgave, Smiley feedback panel</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Opgaver/Projektopgave_wifi_position.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Projektopgave, Positionsbestemmelse af enheder uden GPS dækning</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Opgaver/Projektopgave_wifi_position_checkliste.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Checkliste: Positionsbestemmelse af enheder uden GPS dækning</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">På denne side</h2>
+   
+  <ul>
+  <li><a href="#formål" id="toc-formål" class="nav-link active" data-scroll-target="#formål">Formål</a></li>
+  <li><a href="#målpinde" id="toc-målpinde" class="nav-link" data-scroll-target="#målpinde">Målpinde</a></li>
+  <li><a href="#forudsætninger" id="toc-forudsætninger" class="nav-link" data-scroll-target="#forudsætninger">Forudsætninger</a></li>
+  <li><a href="#setup-og-loop" id="toc-setup-og-loop" class="nav-link" data-scroll-target="#setup-og-loop">setup() og loop()</a>
+  <ul class="collapse">
+  <li><a href="#hvad-sker-der-ved-opstart" id="toc-hvad-sker-der-ved-opstart" class="nav-link" data-scroll-target="#hvad-sker-der-ved-opstart">Hvad sker der ved opstart?</a></li>
+  </ul></li>
+  <li><a href="#serial-esp32-skriver-til-din-computer" id="toc-serial-esp32-skriver-til-din-computer" class="nav-link" data-scroll-target="#serial-esp32-skriver-til-din-computer">Serial: ESP32 skriver til din computer</a></li>
+  <li><a href="#eksempel-hello-world" id="toc-eksempel-hello-world" class="nav-link" data-scroll-target="#eksempel-hello-world">Eksempel: Hello World</a></li>
+  <li><a href="#eksempel-blink-med-delay" id="toc-eksempel-blink-med-delay" class="nav-link" data-scroll-target="#eksempel-blink-med-delay">Eksempel: blink med delay()</a>
+  <ul class="collapse">
+  <li><a href="#hvorfor-er-delay-et-problem" id="toc-hvorfor-er-delay-et-problem" class="nav-link" data-scroll-target="#hvorfor-er-delay-et-problem">Hvorfor er delay() et problem?</a></li>
+  </ul></li>
+  <li><a href="#eksempel-blink-med-millis" id="toc-eksempel-blink-med-millis" class="nav-link" data-scroll-target="#eksempel-blink-med-millis">Eksempel: blink med millis()</a></li>
+  <li><a href="#øvelser" id="toc-øvelser" class="nav-link" data-scroll-target="#øvelser">Øvelser</a></li>
+  <li><a href="#typiske-fejl" id="toc-typiske-fejl" class="nav-link" data-scroll-target="#typiske-fejl">Typiske fejl</a></li>
+  <li><a href="#læs-videre" id="toc-læs-videre" class="nav-link" data-scroll-target="#læs-videre">Læs videre</a>
+  <ul class="collapse">
+  <li><a href="#blink-without-delay-på-esp32" id="toc-blink-without-delay-på-esp32" class="nav-link" data-scroll-target="#blink-without-delay-på-esp32">Blink without delay på ESP32</a></li>
+  </ul></li>
+  <li><a href="#kilder" id="toc-kilder" class="nav-link" data-scroll-target="#kilder">Kilder</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Grundlag/index.html">Grundlag</a></li><li class="breadcrumb-item"><a href="../Grundlag/hello_world.html">Hello World på ESP32</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Hello World på ESP32</h1>
+<p class="subtitle lead">Det første program: Serial Monitor og en blinkende lysdiode</p>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Forfatter</div>
+  <div class="quarto-title-meta-heading">Uddannelse</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Søren Magnusson </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Data, TEC
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Udgivet</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">23. november 2026</p>
+    </div>
+  </div>
+  
+    <div>
+    <div class="quarto-title-meta-heading">Ændret</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">24. november 2026</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- IKKE KOMPILERET: eksemplerne er tjekket mod dokumentationen, men ikke kompileret eller testet på hardware. -->
+<!--
+TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
+1. Kompilér og upload de tre eksempler (Hello World, blink med delay(), blink med millis()) med platform = espressif32@8.0.0. Skriver de det forventede i Serial Monitor?
+2. TJEK (opstart): står der linjer som "rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)" i Serial Monitor, når der trykkes på EN? Ret eksemplet på siden, så det passer med skolens kort.
+3. TJEK (lysdioden): sidder den blå lysdiode på skolens kort på GPIO 2, og lyser den ved HIGH?
+4. TJEK (øvelse 4): passer 220 Ω til lokalets lysdioder (samme TJEK som på siden om breadboard)?
+Billeder, der mangler (se de orange bokse):
+5. ESP32-DEVKIT-V1 set ovenfra med EN, BOOT og den blå lysdiode markeret.
+6. Serial Monitor efter et tryk på EN: opstartslinjerne fra ROM'en og derefter "Hej fra ESP32!".
+7. Opstillingen til øvelse 4: to lysdioder med modstande på GPIO 22 og 23.
+8. Når alt er testet: fjern IKKE KOMPILERET, denne tjekliste og TJEK-kommentarerne, gør de orange bokse til BILLEDE-kommentarer eller rigtige billeder, og sæt draft: false.
+-->
+<p>Det første program på et nyt stykke hardware er altid det samme: få det til at sige noget, og få noget til at blinke. Så ved du, at værktøjerne virker, at programmet kommer over på kortet, og at du kan se, hvad det laver. På denne side skriver du dit første program til ESP32-DEVKIT-V1. Det skriver tekst i Serial Monitor og blinker med lysdioden, der sidder på kortet.</p>
+<section id="formål" class="level2">
+<h2 class="anchored" data-anchor-id="formål">Formål</h2>
+<ul>
+<li>Du kan forklare, hvad <code>setup()</code> og <code>loop()</code> gør, og hvad der sker, når ESP32 starter eller bliver nulstillet.</li>
+<li>Du kan skrive tekst og tal i Serial Monitor med <code>Serial.println()</code> og <code>Serial.printf()</code>.</li>
+<li>Du kan blinke med en lysdiode med <code>millis()</code> og forklare, hvorfor det er bedre end <code>delay()</code>.</li>
+</ul>
+</section>
+<section id="målpinde" class="level2">
+<h2 class="anchored" data-anchor-id="målpinde">Målpinde</h2>
+<p>Siden arbejder med målpind 19, 20 og 21 (se <a href="../laeringsmaal.html">Læringsmål</a>).</p>
+</section>
+<section id="forudsætninger" class="level2">
+<h2 class="anchored" data-anchor-id="forudsætninger">Forudsætninger</h2>
+<ul>
+<li>PlatformIO er installeret, og du kan oprette et projekt til ESP32-DEVKIT-V1, uploade og åbne Serial Monitor. Det hele står på siden om <a href="../Grundlag/platformio.html">PlatformIO</a>, også hvad du gør, når upload fejler.</li>
+<li>Hardware: ESP32-DEVKIT-V1 og et USB-kabel, der kan overføre data. Til øvelse 4 også et breadboard, to lysdioder og to modstande på 220 Ω.</li>
+</ul>
+</section>
+<section id="setup-og-loop" class="level2">
+<h2 class="anchored" data-anchor-id="setup-og-loop">setup() og loop()</h2>
+<p>Et Arduino-program har ingen <code>main()</code>. I stedet skriver du to funktioner:</p>
+<ul>
+<li><code>setup()</code> kører <strong>én gang</strong>, når ESP32 starter. Her gør du ting klar: starter den serielle forbindelse, sætter ben op som input eller output.</li>
+<li><code>loop()</code> kører <strong>igen og igen</strong>, så længe der er strøm på. Når den er færdig, bliver den straks kaldt igen. Her ligger selve programmet.</li>
+</ul>
+<p>Programmets egentlige start er gemt i Arduino-frameworket. På ESP32 hedder den <code>app_main()</code>. Den starter en opgave (<span lang="en">task</span>), <code>loopTask</code>, som kalder din <code>setup()</code> én gang og derefter din <code>loop()</code> i en uendelig løkke.</p>
+<section id="hvad-sker-der-ved-opstart" class="level3">
+<h3 class="anchored" data-anchor-id="hvad-sker-der-ved-opstart">Hvad sker der ved opstart?</h3>
+<p>Når du sætter strøm til, eller når du trykker på <strong>EN</strong>-knappen ved USB-stikket, starter ESP32 forfra:</p>
+<ol type="1">
+<li>Et lille program, der er brændt fast i chippen (ROM-bootloaderen), kører først. Det kigger på et par ben (<span lang="en">strapping pins</span>) for at se, om det skal starte dit program eller gå i upload-tilstand. Det skriver også et par linjer i Serial Monitor.</li>
+<li>En bootloader i flash finder dit program og starter det.</li>
+<li>Arduino-frameworket gør sig klar og kalder <code>setup()</code> én gang og derefter <code>loop()</code> igen og igen.</li>
+</ol>
+<p>Almindelige variabler starter forfra med deres startværdi. En tæller, der var nået til 57, er 0 igen efter en reset.</p>
+<p><strong>EN</strong> står for <em>enable</em>. Den slukker chippen et øjeblik, og når du slipper den, starter den forfra. Det er altså reset-knappen. Den anden knap, <strong>BOOT</strong> (GPIO 0), bruges mest ved upload: holdes den nede ved opstart, går ESP32 i upload-tilstand (se <a href="../Grundlag/platformio.html#failed-to-connect-boot-knappen">PlatformIO</a>).</p>
+<div class="billede-mangler">
+<p>ESP32-DEVKIT-V1 set ovenfra med pile til knapperne EN og BOOT ved USB-stikket og til den lille blå lysdiode (GPIO 2) og den røde strømlysdiode. Se lignende billeder: <a href="https://randomnerdtutorials.com/esp32-pinout-reference-gpios/">Random Nerd Tutorials: ESP32 Pinout Reference</a>.</p>
+</div>
+</section>
+</section>
+<section id="serial-esp32-skriver-til-din-computer" class="level2">
+<h2 class="anchored" data-anchor-id="serial-esp32-skriver-til-din-computer">Serial: ESP32 skriver til din computer</h2>
+<p>ESP32 har ingen skærm. Den nemmeste måde at se, hvad programmet laver, er at lade det skrive tekst over USB-kablet til Serial Monitor i PlatformIO.</p>
+<ul>
+<li><code>Serial.begin(115200);</code> i <code>setup()</code> starter forbindelsen med 115200 bit pr. sekund (<span lang="en">baud rate</span>). Tallet skal passe med <code>monitor_speed = 115200</code> i <code>platformio.ini</code>. Ellers ser du tilfældige tegn (se <a href="../Grundlag/platformio.html#monitor_speed">monitor_speed</a>).</li>
+<li><code>Serial.print(x)</code> skriver <code>x</code>. <code>Serial.println(x)</code> gør det samme og skifter linje bagefter. Det virker med tekst, hele tal og kommatal.</li>
+<li><code>Serial.printf("…", …)</code> skriver tekst med værdier flettet ind, som <code>printf</code> i C eller en formatstreng i C# og Python. <code>%d</code> er et heltal, <code>%lu</code> en <code>unsigned long</code>, <code>%.2f</code> et kommatal med to decimaler, og <code>\n</code> skifter linje.</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> temperatur <span class="op">=</span> <span class="dv">21</span><span class="op">;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>Serial<span class="op">.</span>print<span class="op">(</span><span class="st">"Temperatur: "</span><span class="op">);</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>Serial<span class="op">.</span>println<span class="op">(</span>temperatur<span class="op">);</span>                  <span class="co">// Temperatur: 21</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>Serial<span class="op">.</span>printf<span class="op">(</span><span class="st">"Temperatur: </span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> temperatur<span class="op">);</span> <span class="co">// samme linje med printf</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>Serial.printf()</code> findes i ESP32’s Arduino-framework, men ikke på de klassiske Arduino-kort som Uno. Ser du kode fra nettet, der bygger en linje op med mange <code>Serial.print()</code>, er det derfor.</p>
+</section>
+<section id="eksempel-hello-world" class="level2">
+<h2 class="anchored" data-anchor-id="eksempel-hello-world">Eksempel: Hello World</h2>
+<p>Opret et nyt projekt som beskrevet på siden om <a href="../Grundlag/platformio.html#opret-et-projekt">PlatformIO</a>, og indsæt de to filer.</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>platformio.ini</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-filename="platformio.ini"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[env:esp32doit-devkit-v1]</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="dt">platform </span><span class="ot">=</span><span class="st"> espressif32@8.0.0</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="dt">board </span><span class="ot">=</span><span class="st"> esp32doit-devkit-v1</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="dt">framework </span><span class="ot">=</span><span class="st"> arduino</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="dt">monitor_speed </span><span class="ot">=</span><span class="st"> </span><span class="dv">115200</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>src/main.cpp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-filename="src/main.cpp"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;Arduino.h&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>begin<span class="op">(</span><span class="dv">115200</span><span class="op">);</span>  <span class="co">// skal passe med monitor_speed i platformio.ini</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>println<span class="op">(</span><span class="st">"Hej fra ESP32!"</span><span class="op">);</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Tom: alt sker i setup(), så teksten skrives kun én gang</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Upload programmet, og åbn Serial Monitor. Sandsynligvis ser du ingenting, fordi programmet skrev sin linje, før Serial Monitor nåede at åbne. Tryk på <strong>EN</strong>. Nu ser du først nogle linjer fra ROM-bootloaderen og derefter <code>Hej fra ESP32!</code>.</p>
+<pre class="text"><code>rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+...
+Hej fra ESP32!</code></pre>
+<!-- TJEK: de præcise opstartslinjer (rst:/boot:-værdierne efter et tryk på EN) er ikke afprøvet på skolens kort. esptool-dokumentationen bekræfter kun, at ROM'en skriver en "rst:… boot:…"-linje ved 115200 baud. -->
+<div class="billede-mangler">
+<p>Serial Monitor i VS Code efter et tryk på EN: opstartslinjerne fra ROM’en og til sidst “Hej fra ESP32!”. Se lignende billeder: <a href="https://randomnerdtutorials.com/vs-code-platformio-ide-esp32-esp8266-arduino/">Random Nerd Tutorials: Getting Started with VS Code and PlatformIO IDE</a>.</p>
+</div>
+</section>
+<section id="eksempel-blink-med-delay" class="level2">
+<h2 class="anchored" data-anchor-id="eksempel-blink-med-delay">Eksempel: blink med delay()</h2>
+<p>Den lille blå lysdiode på DEVKIT-V1 sidder på GPIO 2. I Arduino-frameworket for dette kort hedder ben 2 også <code>LED_BUILTIN</code>. Sådan blinker man den på den simple måde:</p>
+<!-- TJEK: at den blå lysdiode på skolens kort sidder på GPIO 2 og lyser ved HIGH (gælder det originale DOIT-design, men kloner kan afvige). -->
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>platformio.ini</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" data-filename="platformio.ini"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[env:esp32doit-devkit-v1]</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="dt">platform </span><span class="ot">=</span><span class="st"> espressif32@8.0.0</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="dt">board </span><span class="ot">=</span><span class="st"> esp32doit-devkit-v1</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="dt">framework </span><span class="ot">=</span><span class="st"> arduino</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="dt">monitor_speed </span><span class="ot">=</span><span class="st"> </span><span class="dv">115200</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>src/main.cpp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" data-filename="src/main.cpp"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;Arduino.h&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">// Konfiguration</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">int</span> LED_PIN <span class="op">=</span> <span class="dv">2</span><span class="op">;</span>             <span class="co">// indbygget lysdiode på DEVKIT-V1 (LED_BUILTIN)</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">unsigned</span> <span class="dt">long</span> BLINK_MS <span class="op">=</span> <span class="dv">500</span><span class="op">;</span> <span class="co">// tid tændt og tid slukket</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>begin<span class="op">(</span><span class="dv">115200</span><span class="op">);</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  pinMode<span class="op">(</span>LED_PIN<span class="op">,</span> OUTPUT<span class="op">);</span>  <span class="co">// benet skal sættes op som output, før det kan tænde lysdioden</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>LED_PIN<span class="op">,</span> HIGH<span class="op">);</span>  <span class="co">// tænd</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>println<span class="op">(</span><span class="st">"Tændt"</span><span class="op">);</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  delay<span class="op">(</span>BLINK_MS<span class="op">);</span>              <span class="co">// vent: her står loop() stille</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>LED_PIN<span class="op">,</span> LOW<span class="op">);</span>   <span class="co">// sluk</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>println<span class="op">(</span><span class="st">"Slukket"</span><span class="op">);</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  delay<span class="op">(</span>BLINK_MS<span class="op">);</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Det virker, og det er let at læse. Men læg mærke til, at <code>loop()</code> bruger næsten al sin tid på at vente.</p>
+<section id="hvorfor-er-delay-et-problem" class="level3">
+<h3 class="anchored" data-anchor-id="hvorfor-er-delay-et-problem">Hvorfor er delay() et problem?</h3>
+<p>Mens <code>delay()</code> venter, kan din <code>loop()</code> ikke lave andet. Den kan ikke læse en knap, ikke måle med en sensor og ikke svare på en besked fra netværket. Det mærker du, så snart programmet skal mere end én ting. Prøv fx at blinke med to lysdioder, den ene hvert 300 ms og den anden hvert 700 ms, med <code>delay()</code>. Det kan lade sig gøre, men koden bliver hurtigt rodet, og så snart tiderne ikke går op i hinanden, eller der skal læses en knap samtidig, holder det ikke.</p>
+<p>Det er kun <em>dit</em> program, der står stille. På ESP32 er <code>delay()</code> bygget på FreeRTOS’ <code>vTaskDelay()</code>, så kun den opgave (<span lang="en">task</span>), der kører <code>loop()</code>, sættes på pause. WiFi og andre opgaver i baggrunden kører videre.</p>
+</section>
+</section>
+<section id="eksempel-blink-med-millis" class="level2">
+<h2 class="anchored" data-anchor-id="eksempel-blink-med-millis">Eksempel: blink med millis()</h2>
+<p><code>millis()</code> giver antallet af millisekunder, siden ESP32 startede. I stedet for at vente spørger <code>loop()</code> hver gang: “Er der gået nok tid, siden jeg sidst skiftede?” Hvis ja, skifter den lysdioden og husker tidspunktet. Hvis nej, går den bare videre. Så kører <code>loop()</code> tusindvis af gange i sekundet og kan nå at lave andre ting ind imellem.</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>platformio.ini</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" data-filename="platformio.ini"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[env:esp32doit-devkit-v1]</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="dt">platform </span><span class="ot">=</span><span class="st"> espressif32@8.0.0</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="dt">board </span><span class="ot">=</span><span class="st"> esp32doit-devkit-v1</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="dt">framework </span><span class="ot">=</span><span class="st"> arduino</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="dt">monitor_speed </span><span class="ot">=</span><span class="st"> </span><span class="dv">115200</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>src/main.cpp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" data-filename="src/main.cpp"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;Arduino.h&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">// Konfiguration</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">int</span> LED_PIN <span class="op">=</span> <span class="dv">2</span><span class="op">;</span>              <span class="co">// indbygget lysdiode på DEVKIT-V1 (LED_BUILTIN)</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">unsigned</span> <span class="dt">long</span> BLINK_MS <span class="op">=</span> <span class="dv">500</span><span class="op">;</span> <span class="co">// tid mellem hvert skift</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="dt">unsigned</span> <span class="dt">long</span> sidsteSkift <span class="op">=</span> <span class="dv">0</span><span class="op">;</span>  <span class="co">// tidspunktet for sidste skift, i ms</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="dt">bool</span> ledTaendt <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>begin<span class="op">(</span><span class="dv">115200</span><span class="op">);</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  pinMode<span class="op">(</span>LED_PIN<span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Er der gået BLINK_MS, siden vi sidst skiftede?</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(</span>millis<span class="op">()</span> <span class="op">-</span> sidsteSkift <span class="op">&gt;=</span> BLINK_MS<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    sidsteSkift <span class="op">=</span> millis<span class="op">();</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    ledTaendt <span class="op">=</span> <span class="op">!</span>ledTaendt<span class="op">;</span>  <span class="co">// skift mellem tændt og slukket</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    digitalWrite<span class="op">(</span>LED_PIN<span class="op">,</span> ledTaendt <span class="op">?</span> HIGH <span class="op">:</span> LOW<span class="op">);</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    Serial<span class="op">.</span>printf<span class="op">(</span><span class="st">"</span><span class="sc">%lu</span><span class="st"> ms: lysdioden er </span><span class="sc">%s\n</span><span class="st">"</span><span class="op">,</span> sidsteSkift<span class="op">,</span> ledTaendt <span class="op">?</span> <span class="st">"tændt"</span> <span class="op">:</span> <span class="st">"slukket"</span><span class="op">);</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Her er plads til andet arbejde, fx at læse en knap.</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Det bliver ikke forsinket af blinket.</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Læg mærke til:</p>
+<ul>
+<li>Tider gemmes i <code>unsigned long</code>, samme type som <code>millis()</code> returnerer. Bruger du <code>int</code>, kan der ske fejl, når tallet bliver stort.</li>
+<li>Betingelsen er skrevet som <code>millis() - sidsteSkift &gt;= BLINK_MS</code>. Efter ca. 49 dage løber <code>millis()</code> over og starter forfra ved 0. Med en subtraktion af to <code>unsigned long</code> bliver resultatet alligevel rigtigt. Skriv den derfor altid på den måde.</li>
+<li>Mønsteret er det samme, du møder på siden om <a href="../Grundlag/debouncing.html">Debouncing</a>, hvor biblioteket ezButton bruger <code>millis()</code> på samme måde til at vente på, at knappen holder op med at prelle.</li>
+</ul>
+</section>
+<section id="øvelser" class="level2">
+<h2 class="anchored" data-anchor-id="øvelser">Øvelser</h2>
+<ol type="1">
+<li>Kør Hello World. Tryk på <strong>EN</strong> et par gange, og se, hvad der står i Serial Monitor hver gang. Ret teksten, så den skriver dit navn.</li>
+<li>Kør blink med <code>millis()</code>. Ret <code>BLINK_MS</code>, så lysdioden blinker hurtigt (100 ms) og langsomt (2000 ms). Hvor hurtigt kan den blinke, før du ikke længere kan se, at den blinker?</li>
+<li>Lav en tæller: hvert sekund skal programmet skrive <code>Tæller: 1</code>, <code>Tæller: 2</code> osv. i Serial Monitor med <code>Serial.printf()</code>. Brug <code>millis()</code>, ikke <code>delay()</code>. Tryk på <strong>EN</strong>. Hvad sker der med tælleren?</li>
+<li>Sæt to lysdioder på breadboardet: hver med en modstand på 220 Ω fra GPIO 22 og GPIO 23 til lysdiodens lange ben (anoden), og det korte ben til GND. Lad den ene blinke hvert 300 ms og den anden hvert 700 ms. Du skal bruge en <code>sidsteSkift</code> og en <code>ledTaendt</code> til hver lysdiode. Aflever koden og en kort video.</li>
+<li><em>Ekstra:</em> Prøv at løse øvelse 4 med <code>delay()</code> i stedet. Hvordan ser koden ud, og hvad sker der, hvis tiderne ændres til 300 ms og 710 ms, eller der også skal læses en knap? Skriv to-tre linjer om forskellen.</li>
+<li><em>Ekstra:</em> Saml koden til én lysdiode i en funktion, fx <code>void blink(int pin, unsigned long interval, unsigned long&amp; sidsteSkift, bool&amp; taendt)</code>, så <code>loop()</code> bare kalder den to gange. Referencerne (<code>&amp;</code>) forklares på siden <a href="../Grundlag/cpp_intro.html#referencer">Intro til C++</a>.</li>
+</ol>
+<!-- TJEK: 220 Ω til lysdioderne er ikke afprøvet med lokalets lysdioder (samme TJEK som på siden om breadboard). -->
+<div class="billede-mangler">
+<p>Opstillingen til øvelse 4: ESP32-DEVKIT-V1 på breadboard med to lysdioder og to modstande på GPIO 22 og 23, med korte, flade ledninger. Se lignende billeder: <a href="https://esp32io.com/tutorials/esp32-led-blink-without-delay">ESP32IO: ESP32 - LED - Blink Without Delay</a>.</p>
+</div>
+</section>
+<section id="typiske-fejl" class="level2">
+<h2 class="anchored" data-anchor-id="typiske-fejl">Typiske fejl</h2>
+<ul>
+<li><strong>Serial Monitor er tom:</strong> Programmet skrev, før Serial Monitor var åben. Tryk på <strong>EN</strong>. Eller <code>Serial.begin()</code> mangler i <code>setup()</code>.</li>
+<li><strong>Tilfældige tegn i Serial Monitor:</strong> <code>monitor_speed</code> i <code>platformio.ini</code> passer ikke med <code>Serial.begin()</code>.</li>
+<li><strong>Lysdioden lyser ikke:</strong> <code>pinMode(LED_PIN, OUTPUT)</code> mangler i <code>setup()</code>. Eller lysdioden på breadboardet sidder omvendt: det lange ben skal mod GPIO-benet.</li>
+<li><strong>Lysdioden ser ud til at lyse svagt hele tiden, og teksten løber afsted:</strong> <code>sidsteSkift = millis();</code> mangler. Efter de første 500 ms er betingelsen sand i hvert gennemløb, så lysdioden skifter hele tiden.</li>
+<li><strong>Lysdioden lyser aldrig (med <code>millis()</code>):</strong> <code>sidsteSkift = millis();</code> står uden for <code>if</code>. Så bliver forskellen aldrig 500 ms.</li>
+<li><strong>Teksten løber afsted:</strong> <code>Serial.println()</code> står uden for <code>if</code> i <code>loop()</code>, så den skrives tusindvis af gange i sekundet.</li>
+<li><strong>Programmet uploader ikke:</strong> Se fejlsøgningen på siden om <a href="../Grundlag/platformio.html#usb-forbindelsen">PlatformIO</a>.</li>
+</ul>
+</section>
+<section id="læs-videre" class="level2">
+<h2 class="anchored" data-anchor-id="læs-videre">Læs videre</h2>
+<section id="blink-without-delay-på-esp32" class="level3">
+<h3 class="anchored" data-anchor-id="blink-without-delay-på-esp32">Blink without delay på ESP32</h3>
+<p>ESP32IO viser i <a href="https://esp32io.com/tutorials/esp32-led-blink-without-delay" lang="en">ESP32 - LED - Blink Without Delay</a> de samme to måder at blinke på, men med en knap ved siden af, så du kan se, at <code>delay()</code>-udgaven ikke opdager alle tryk. Der er også et eksempel med to lysdioder på GPIO 21 og 22, som minder om øvelse 4.</p>
+<p>Læs den med tre forbehold:</p>
+<ul>
+<li>Artiklen skriver, at <code>delay()</code> blokerer hele ESP32. Det er kun din <code>loop()</code>, der står stille; WiFi og andre opgaver kører videre (se <a href="#hvorfor-er-delay-et-problem">Hvorfor er delay() et problem?</a>).</li>
+<li>Koden bruger <code>Serial.begin(9600)</code>. Ret det til 115200, eller ret <code>monitor_speed</code>, så de passer sammen.</li>
+<li>Knappen bliver ikke debounced, så den kan tælle for mange tryk. Se <a href="../Grundlag/debouncing.html">Debouncing</a>.</li>
+</ul>
+<p>Når du er klar til mere C++, så fortsæt med <a href="../Grundlag/cpp_intro.html">Intro til C++</a>.</p>
+</section>
+</section>
+<section id="kilder" class="level2">
+<h2 class="anchored" data-anchor-id="kilder">Kilder</h2>
+<ul>
+<li>Arduino-ESP32: kildekode til <code>main.cpp</code> (<code>app_main()</code> starter <code>loopTask</code>, som kalder <code>setup()</code> og <code>loop()</code>), <a href="https://github.com/espressif/arduino-esp32/blob/master/cores/esp32/main.cpp" class="uri">https://github.com/espressif/arduino-esp32/blob/master/cores/esp32/main.cpp</a></li>
+<li>Arduino-ESP32: kildekode til <code>esp32-hal-misc.c</code> (<code>millis()</code> og <code>delay()</code> med <code>vTaskDelay()</code>), <a href="https://github.com/espressif/arduino-esp32/blob/master/cores/esp32/esp32-hal-misc.c" class="uri">https://github.com/espressif/arduino-esp32/blob/master/cores/esp32/esp32-hal-misc.c</a></li>
+<li>Arduino-ESP32: kildekode til <code>Print.h</code> (<code>println()</code> og <code>printf()</code>), <a href="https://github.com/espressif/arduino-esp32/blob/master/cores/esp32/Print.h" class="uri">https://github.com/espressif/arduino-esp32/blob/master/cores/esp32/Print.h</a></li>
+<li>Arduino-ESP32: <code>pins_arduino.h</code> for DOIT ESP32 DEVKIT V1 (<code>LED_BUILTIN = 2</code>), <a href="https://github.com/espressif/arduino-esp32/blob/master/variants/doitESP32devkitV1/pins_arduino.h" class="uri">https://github.com/espressif/arduino-esp32/blob/master/variants/doitESP32devkitV1/pins_arduino.h</a></li>
+<li>Arduino-ESP32: Serial (UART), <a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/api/serial.html" class="uri">https://docs.espressif.com/projects/arduino-esp32/en/latest/api/serial.html</a></li>
+<li>PlatformIO: board-definitionen <code>esp32doit-devkit-v1</code> (bruger varianten <code>doitESP32devkitV1</code>), <a href="https://github.com/platformio/platform-espressif32/blob/develop/boards/esp32doit-devkit-v1.json" class="uri">https://github.com/platformio/platform-espressif32/blob/develop/boards/esp32doit-devkit-v1.json</a></li>
+<li>PlatformIO: <code>monitor_speed</code>, <a href="https://docs.platformio.org/en/latest/projectconf/sections/env/options/monitor/monitor_speed.html" class="uri">https://docs.platformio.org/en/latest/projectconf/sections/env/options/monitor/monitor_speed.html</a></li>
+<li>ESP-IDF: Application Startup Flow, <a href="https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/startup.html" class="uri">https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/startup.html</a></li>
+<li>esptool: Boot Mode Selection (ROM’ens opstartslinje ved 115200 baud, EN og BOOT), <a href="https://docs.espressif.com/projects/esptool/en/latest/esp32/advanced-topics/boot-mode-selection.html" class="uri">https://docs.espressif.com/projects/esptool/en/latest/esp32/advanced-topics/boot-mode-selection.html</a></li>
+<li>Arduino: Blink Without Delay (eksemplets kildekode), <a href="https://github.com/arduino/arduino-examples/blob/main/examples/02.Digital/BlinkWithoutDelay/BlinkWithoutDelay.ino" class="uri">https://github.com/arduino/arduino-examples/blob/main/examples/02.Digital/BlinkWithoutDelay/BlinkWithoutDelay.ino</a></li>
+<li>ESP32IO: ESP32 - LED - Blink Without Delay, <a href="https://esp32io.com/tutorials/esp32-led-blink-without-delay" class="uri">https://esp32io.com/tutorials/esp32-led-blink-without-delay</a></li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Kopieret!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Kopieret!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/s0ren\.github\.io\/FAG_17682_IoT_II\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

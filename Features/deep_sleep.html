@@ -214,7 +214,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../Features/lokal_mqtt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lokal MQTT server</span></a>
+ <span class="menu-text">Lokal MQTT-server</span></a>
   </div>
 </li>
       </ul>
@@ -447,7 +447,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 </ul>
 <p>Hvis du måler strømmen til hele kortet, ser du derfor milliampere, ikke mikroampere, også i deep sleep. Det betyder ikke, at deep sleep ikke virker. Til et rigtigt batteriprodukt bruger man et kort uden USB-chip og lysdiode, eller sin egen printplade.</p>
 <!-- TJEK: siden siger "milliampere" for hele kortet i deep sleep uden et konkret tal. Mål på skolens kort, og indsæt gerne tallet. -->
-<!-- BILLEDE: DEVKIT-V1 set fra oven med USB-chip, spændingsregulator og strøm-LED markeret. -->
+<!-- BILLEDE: DEVKIT-V1 set fra oven med USB-chip, spændingsregulator og strøm-LED markeret. Se fx: ../images/esp32_devkit_v1_komponenter.png (sitets eget billede fra forsiden: CP2102 og spændingsregulator er markeret, strøm-LED er ikke) -->
 </section>
 <section id="light-sleep" class="level3">
 <h3 class="anchored" data-anchor-id="light-sleep">Light sleep</h3>
@@ -661,13 +661,13 @@ Sover i 10 s
 Opstart nr. 2
 Vækket af: timer
 Sover i 10 s</code></pre>
-<!-- BILLEDE: Serial Monitor med tre-fire opvågninger fra timer-eksemplet, hvor tælleren stiger og årsagen er "timer". -->
+<!-- BILLEDE: Serial Monitor med tre-fire opvågninger fra timer-eksemplet, hvor tælleren stiger og årsagen er "timer". Se fx: https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2019/04/ESP32_timer_wake-up_demonstration.png?quality=100&strip=all&ssl=1 (RNT: "Boot number" og "Wakeup caused by timer" i Arduino IDE) -->
 <p><code>delay(500)</code> er her i orden: det er en engangsventetid i <code>setup()</code>, ikke i <code>loop()</code>.</p>
 </section>
 <section id="eksempel-vågn-på-knap-eller-timer" class="level2">
 <h2 class="anchored" data-anchor-id="eksempel-vågn-på-knap-eller-timer">Eksempel: vågn på knap eller timer</h2>
 <p>Knappen sidder mellem <strong>GPIO 33</strong> og <strong>GND</strong>, ligesom på debouncing-siden, bare på et ben, der kan vække. ESP32 vågner, når der trykkes, og ellers hvert 30. sekund. Den lysdiode, der sidder på GPIO 2, blinker kort, når det var knappen.</p>
-<!-- BILLEDE: breadboard med DEVKIT-V1 og en trykknap mellem GPIO 33 og GND. -->
+<!-- BILLEDE: breadboard med DEVKIT-V1 og en trykknap mellem GPIO 33 og GND. Se fx: https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2019/04/esp32-pushbutton-33.png?quality=100&strip=all&ssl=1 (RNT, Fritzing: knap på GPIO 33, men med pull-down-modstand til 3,3 V; vores side bruger pull-up og knap til GND) -->
 <p><code>platformio.ini</code> er den samme som i eksemplet ovenfor.</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">

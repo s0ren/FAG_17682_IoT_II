@@ -214,7 +214,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../Features/lokal_mqtt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lokal MQTT server</span></a>
+ <span class="menu-text">Lokal MQTT-server</span></a>
   </div>
 </li>
       </ul>
@@ -802,7 +802,7 @@ Plads: 1441792 bytes i alt, 8192 brugt, 1433600 ledig</code></pre>
 ├── src/
 │   └── main.cpp
 └── platformio.ini</code></pre>
-<!-- BILLEDE: VS Codes Explorer med data/-mappen (med hilsen.txt) på samme niveau som src/. -->
+<!-- BILLEDE: VS Codes Explorer med data/-mappen (med hilsen.txt) på samme niveau som src/. Se fx: https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2024/06/create-txt-file-vs-code-esp32.png?quality=100&strip=all&ssl=1 (RNT: data/text.txt på samme niveau som src/) -->
 <p>Sådan kommer filerne over på ESP32:</p>
 <ol type="1">
 <li>Luk Serial Monitor, så porten er fri.</li>
@@ -811,7 +811,7 @@ Plads: 1441792 bytes i alt, 8192 brugt, 1433600 ledig</code></pre>
 </ol>
 <p>PlatformIO laver et LittleFS-image af hele <code>data/</code>-mappen (med værktøjet <code>mklittlefs</code>) og skriver det til filsystem-partitionen. Fra kommandolinjen hedder det <code>pio run --target uploadfs</code>. Der findes også <strong>Build Filesystem Image</strong>, der kun laver imaget uden at uploade.</p>
 <!-- TJEK: opgavenavnene "Build Filesystem Image" og "Upload Filesystem Image" er bekræftet i kildekoden til platform-espressif32 (develop-grenen), og Random Nerd Tutorials viser dem under "Platform". Ikke afprøvet med espressif32@8.0.0. -->
-<!-- BILLEDE: PlatformIO's Project Tasks foldet ud, med Platform → Upload Filesystem Image markeret. -->
+<!-- BILLEDE: PlatformIO's Project Tasks foldet ud, med Platform → Upload Filesystem Image markeret. Se fx: https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2024/06/upload-filesystem-image-esp32-vs-code.png?quality=100&strip=all&ssl=1 (RNT: Platform → Build/Upload Filesystem Image markeret) -->
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1040,7 +1040,7 @@ Plads: 1441792 bytes i alt, 8192 brugt, 1433600 ledig</code></pre>
 <span id="cb12-121"><a href="#cb12-121" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
 <span id="cb12-122"><a href="#cb12-122" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<!-- BILLEDE: Serial Monitor under cache-eksemplet: et par "Sendt", derefter "Cachet" mens ledningen sidder i, og til sidst "Sendt" for de cachede målinger og "Cachen er tømt". -->
+<!-- BILLEDE: Serial Monitor under cache-eksemplet: et par "Sendt", derefter "Cachet" mens ledningen sidder i, og til sidst "Sendt" for de cachede målinger og "Cachen er tømt". Se fx: https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2023/07/ESP32-LittleFS-Append-Data.png?quality=100&strip=all&ssl=1 (RNT: append og read til en LittleFS-fil; ikke cache med netværk) -->
 <p>Sådan virker det:</p>
 <ul>
 <li>Der skrives kun til flash, mens netværket er nede. Så længe alt virker, rører programmet ikke filen. Det holder sliddet nede.</li>

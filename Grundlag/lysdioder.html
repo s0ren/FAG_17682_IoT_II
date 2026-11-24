@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="da" xml:lang="da"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.20">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Søren Magnusson">
+
+<title>Lysdioder (LED’er) – FAG 17682_IoT_II</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-17888a1159294d3eb470f19f6f52f5a5.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-1958bf8fe25c7117446dee592769f80d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Ingen resultater",
+    "search-matching-documents-text": "Matchende dokumenter",
+    "search-copy-link-title": "Kopier link for at søge",
+    "search-hide-matches-text": "Skjul yderligere resultater",
+    "search-more-match-text": "andet resultat i dette dokument",
+    "search-more-matches-text": "andre resultater i dette dokument",
+    "search-clear-button-title": "Ryd",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Fortryd",
+    "search-submit-button-title": "Indsend",
+    "search-label": "Søg"
+  }
+}</script>
+<meta name="quarto:status" content="draft">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><div id="quarto-draft-alert" class="alert alert-warning"><i class="bi bi-pencil-square"></i>Udkast</div>
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">FAG 17682_IoT_II</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Søg"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Skift navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Hjem</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../laeringsmaal.html" aria-current="page"> 
+<span class="menu-text">Læringsmål</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">Om sitet</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Skift sidebjælke" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Grundlag/index.html">Grundlag</a></li><li class="breadcrumb-item"><a href="../Grundlag/lysdioder.html">Lysdioder (LED’er)</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Skift sidebjælke" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Om sitet</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Referencer/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Referencemanualer</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../laeringsmaal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Læringsmål</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Features/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Features</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Skift sektion">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Features/deep_sleep.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Deep Sleep</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Features/esp_now_mesh.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ESP-NOW og ESP-MESH</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Features/filsystem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Filsystem på ESP32</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Features/lokal_mqtt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lokal MQTT-server</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Grundlag/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Grundlag</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Skift sektion">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/cpp_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Intro til C++</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/debouncing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Debouncing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/platformio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">PlatformIO</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/wifi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">WiFi</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Opgaver/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Opgaver</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Skift sektion">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Opgaver/Projektopgave_Smiley.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Projektopgave, Smiley feedback panel</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Opgaver/Projektopgave_wifi_position.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Projektopgave, Positionsbestemmelse af enheder uden GPS dækning</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Opgaver/Projektopgave_wifi_position_checkliste.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Checkliste: Positionsbestemmelse af enheder uden GPS dækning</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">På denne side</h2>
+   
+  <ul>
+  <li><a href="#formål" id="toc-formål" class="nav-link active" data-scroll-target="#formål">Formål</a></li>
+  <li><a href="#målpinde" id="toc-målpinde" class="nav-link" data-scroll-target="#målpinde">Målpinde</a></li>
+  <li><a href="#forudsætninger" id="toc-forudsætninger" class="nav-link" data-scroll-target="#forudsætninger">Forudsætninger</a></li>
+  <li><a href="#hvad-er-en-lysdiode" id="toc-hvad-er-en-lysdiode" class="nav-link" data-scroll-target="#hvad-er-en-lysdiode">Hvad er en lysdiode?</a>
+  <ul class="collapse">
+  <li><a href="#spændingsfald-vf" id="toc-spændingsfald-vf" class="nav-link" data-scroll-target="#spændingsfald-vf">Spændingsfald (Vf)</a></li>
+  <li><a href="#strøm" id="toc-strøm" class="nav-link" data-scroll-target="#strøm">Strøm</a></li>
+  <li><a href="#esp32-benets-grænse" id="toc-esp32-benets-grænse" class="nav-link" data-scroll-target="#esp32-benets-grænse">ESP32-benets grænse</a></li>
+  <li><a href="#formodstand" id="toc-formodstand" class="nav-link" data-scroll-target="#formodstand">Formodstand</a></li>
+  <li><a href="#kobling" id="toc-kobling" class="nav-link" data-scroll-target="#kobling">Kobling</a></li>
+  </ul></li>
+  <li><a href="#den-indbyggede-lysdiode" id="toc-den-indbyggede-lysdiode" class="nav-link" data-scroll-target="#den-indbyggede-lysdiode">Den indbyggede lysdiode</a></li>
+  <li><a href="#tænd-og-sluk-digitalwrite" id="toc-tænd-og-sluk-digitalwrite" class="nav-link" data-scroll-target="#tænd-og-sluk-digitalwrite">Tænd og sluk: <code>digitalWrite()</code></a></li>
+  <li><a href="#lysstyrke-med-pwm" id="toc-lysstyrke-med-pwm" class="nav-link" data-scroll-target="#lysstyrke-med-pwm">Lysstyrke med PWM</a>
+  <ul class="collapse">
+  <li><a href="#to-måder-i-arduino-esp32" id="toc-to-måder-i-arduino-esp32" class="nav-link" data-scroll-target="#to-måder-i-arduino-esp32">To måder i Arduino-ESP32</a></li>
+  </ul></li>
+  <li><a href="#eksempel-blink-med-millis" id="toc-eksempel-blink-med-millis" class="nav-link" data-scroll-target="#eksempel-blink-med-millis">Eksempel: blink med <code>millis()</code></a>
+  <ul class="collapse">
+  <li><a href="#hvorfor-ikke-bare-delay" id="toc-hvorfor-ikke-bare-delay" class="nav-link" data-scroll-target="#hvorfor-ikke-bare-delay">Hvorfor ikke bare <code>delay()</code>?</a></li>
+  </ul></li>
+  <li><a href="#eksempel-fade-med-pwm" id="toc-eksempel-fade-med-pwm" class="nav-link" data-scroll-target="#eksempel-fade-med-pwm">Eksempel: fade med PWM</a></li>
+  <li><a href="#rgb-lysdioder" id="toc-rgb-lysdioder" class="nav-link" data-scroll-target="#rgb-lysdioder">RGB-lysdioder</a></li>
+  <li><a href="#øvelser" id="toc-øvelser" class="nav-link" data-scroll-target="#øvelser">Øvelser</a></li>
+  <li><a href="#typiske-fejl" id="toc-typiske-fejl" class="nav-link" data-scroll-target="#typiske-fejl">Typiske fejl</a></li>
+  <li><a href="#læs-videre" id="toc-læs-videre" class="nav-link" data-scroll-target="#læs-videre">Læs videre</a>
+  <ul class="collapse">
+  <li><a href="#blink-uden-delay" id="toc-blink-uden-delay" class="nav-link" data-scroll-target="#blink-uden-delay">Blink uden delay</a></li>
+  <li><a href="#pwm-med-ledc" id="toc-pwm-med-ledc" class="nav-link" data-scroll-target="#pwm-med-ledc">PWM med LEDC</a></li>
+  </ul></li>
+  <li><a href="#kilder" id="toc-kilder" class="nav-link" data-scroll-target="#kilder">Kilder</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Grundlag/index.html">Grundlag</a></li><li class="breadcrumb-item"><a href="../Grundlag/lysdioder.html">Lysdioder (LED’er)</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Lysdioder (LED’er)</h1>
+<p class="subtitle lead">Tænd, sluk og dæmp en lysdiode med ESP32</p>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Forfatter</div>
+  <div class="quarto-title-meta-heading">Uddannelse</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Søren Magnusson </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Data, TEC
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Udgivet</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">23. november 2026</p>
+    </div>
+  </div>
+  
+    <div>
+    <div class="quarto-title-meta-heading">Ændret</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">24. november 2026</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- IKKE KOMPILERET: eksemplerne er tjekket mod dokumentationen, men ikke kompileret eller testet på hardware. -->
+<!--
+TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
+1. Kompilér og kør "Eksempel: blink med millis()" på en ESP32-DEVKIT-V1 med en LED og 220 Ω på GPIO 19. Blinker den eksterne og den indbyggede LED i modtakt?
+2. Kompilér og kør "Eksempel: fade med PWM" (ledcAttach/ledcWrite) med espressif32@8.0.0. Kør også varianten med analogWrite().
+3. Tjek, at den indbyggede LED på lokalets boards sidder på GPIO 2 og lyser ved HIGH (TJEK i afsnittet om den indbyggede lysdiode).
+4. Tjek "langt ben = anode, flad kant = katode" mod databladet for lokalets lysdioder (TJEK i afsnittet om anode og katode). Tjek tabellen med Vf mod databladet for lokalets lysdioder, især grøn (gammel gulgrøn ca. 2,1 V eller ren grøn ca. 3 V) og blå/hvid (TJEK ved tabellen).
+5. Tjek, at 220 Ω er den modstand, der ligger i lokalet til lysdioder, og at lysstyrken er god nok (TJEK i afsnittet om formodstand).
+6. Tjek, hvilke RGB-lysdioder lokalet har (fælles katode eller fælles anode), og om det fælles ben er det længste (TJEK i afsnittet om RGB).
+7. Kør blink-eksemplet uden pinMode(LED_PIN, OUTPUT) og med build_flags = -DCORE_DEBUG_LEVEL=1: forbliver lysdioden slukket, og står fejlen "IO 19 is not set as GPIO" i Serial Monitor (afsnittet om digitalWrite)?
+8. BILLEDE: en lysdiode tæt på, så det lange ben og den flade kant kan ses.
+9. BILLEDE: en lysdiode med formodstand på breadboardet, koblet til GPIO 19 og GND.
+10. BILLEDE: trafiklyset med tre lysdioder (til øvelse 4).
+11. BILLEDE: en RGB-lysdiode med benene markeret.
+12. Fjern IKKE KOMPILERET, denne tjekliste og alle TJEK-kommentarer, gør billedboksene til BILLEDE-kommentarer (eller sæt billeder ind), og sæt draft: false.
+-->
+<p>En lysdiode (LED, <span lang="en">light-emitting diode</span>) er den enkleste måde at få ESP32 til at vise noget: tændt, slukket, blinkende eller dæmpet. Den viser, at programmet kører, at WiFi er forbundet, eller at en måling er over en grænse. Men en lysdiode kan ikke bare sættes direkte på et ben: den skal vende rigtigt, og den skal have en modstand, der begrænser strømmen, ellers kan både lysdioden og ESP32-benet tage skade.</p>
+<section id="formål" class="level2">
+<h2 class="anchored" data-anchor-id="formål">Formål</h2>
+<ul>
+<li>Du kan forklare, hvad en diode er, og finde anode og katode på en lysdiode.</li>
+<li>Du kan beregne en formodstand ud fra spænding, Vf og den strøm, du ønsker.</li>
+<li>Du kan tænde og slukke en lysdiode med <code>digitalWrite()</code> og få den til at blinke med <code>millis()</code>.</li>
+<li>Du kan styre lysstyrken med PWM, både med <code>analogWrite()</code> og med LEDC-funktionerne <code>ledcAttach()</code> og <code>ledcWrite()</code> i Arduino-ESP32 3.x.</li>
+</ul>
+</section>
+<section id="målpinde" class="level2">
+<h2 class="anchored" data-anchor-id="målpinde">Målpinde</h2>
+<p>Siden arbejder med målpind 12, 18 og 19 (se <a href="../laeringsmaal.html">Læringsmål</a>).</p>
+</section>
+<section id="forudsætninger" class="level2">
+<h2 class="anchored" data-anchor-id="forudsætninger">Forudsætninger</h2>
+<ul>
+<li>Du kan oprette et PlatformIO-projekt til ESP32-DEVKIT-V1 og uploade et program (se <a href="../Grundlag/platformio.html">PlatformIO</a>).</li>
+<li>Du kan bygge på et breadboard (se Breadboard med tilpassede ledninger).</li>
+<li>Du kender Ohms lov og kan aflæse en modstand (se Modstande).</li>
+<li>Hardware: ESP32-DEVKIT-V1, breadboard, tre lysdioder (rød, gul og grøn), tre modstande på 220 Ω og ledninger.</li>
+</ul>
+</section>
+<section id="hvad-er-en-lysdiode" class="level2">
+<h2 class="anchored" data-anchor-id="hvad-er-en-lysdiode">Hvad er en lysdiode?</h2>
+<p>En diode er en komponent, der kun lader strøm gå én vej. En lysdiode er en diode, der lyser, når der går strøm igennem den i den rigtige retning. Vender den forkert, går der ingen strøm, og den lyser ikke. Det ødelægger den ikke ved 3,3 V, men den virker heller ikke.</p>
+<p>De to ben hedder:</p>
+<ul>
+<li><strong>Anode (+):</strong> det <strong>lange ben</strong>. Den skal vende mod plus, altså mod ESP32-benet.</li>
+<li><strong>Katode (−):</strong> det <strong>korte ben</strong>. Kanten af lysdioden er <strong>flad</strong> i den side. Den skal vende mod GND.</li>
+</ul>
+<p>Er benene klippet af, så kig efter den flade kant på plastikken. Inde i lysdioden er katodens metalstykke typisk det største, men det passer ikke på alle typer, så den flade kant er det sikreste.</p>
+<!-- TJEK: "langt ben = anode, flad kant = katode" er standard for 5 mm-lysdioder, men det kunne ikke bekræftes i de hentede kilder (Wikipedia og Adafruit siger det ikke i tekst; SparkFuns LED-guide gav HTTP 403). Tjek mod databladet for lokalets lysdioder. -->
+<div class="billede-mangler">
+<p>En 5 mm lysdiode tæt på, hvor det lange ben (anode) og den flade kant ved katoden kan ses. Se lignende billeder: <a href="https://en.wikipedia.org/wiki/Light-emitting_diode">Wikipedia: Light-emitting diode</a>.</p>
+</div>
+<section id="spændingsfald-vf" class="level3">
+<h3 class="anchored" data-anchor-id="spændingsfald-vf">Spændingsfald (Vf)</h3>
+<p>Når der går strøm gennem en lysdiode, ligger der en næsten fast spænding over den. Den hedder <em>forward voltage</em>, Vf (<span lang="en">forward voltage</span>), og den afhænger af farven, fordi forskellige farver laves af forskellige materialer:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Farve</th>
+<th>Vf, interval (Wikipedia)</th>
+<th>Typisk værdi at regne med</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Rød</td>
+<td>1,63–2,03 V</td>
+<td>2,0 V</td>
+</tr>
+<tr class="even">
+<td>Orange</td>
+<td>2,03–2,10 V</td>
+<td>2,0 V</td>
+</tr>
+<tr class="odd">
+<td>Gul</td>
+<td>2,10–2,18 V</td>
+<td>2,1 V</td>
+</tr>
+<tr class="even">
+<td>Grøn</td>
+<td>1,9–4,0 V</td>
+<td>2,1 V (gulgrøn) eller 3,0 V (ren grøn)</td>
+</tr>
+<tr class="odd">
+<td>Blå</td>
+<td>2,48–3,7 V</td>
+<td>3,0 V</td>
+</tr>
+<tr class="even">
+<td>Hvid</td>
+<td>2,8–4,2 V</td>
+<td>3,0 V</td>
+</tr>
+</tbody>
+</table>
+<p>Intervallerne er fra Wikipedias tabel over farver og materialer. Den præcise værdi står i lysdiodens datablad, og den stiger lidt med strømmen.</p>
+<!-- TJEK: Kolonnen "typisk værdi" er afrundede værdier valgt ud fra intervallerne og Adafruit ("2.2V for average" for rød, gul, orange og lysegrøn), ikke fra ét datablad. Tjek mod databladet for lokalets lysdioder, især om de grønne er gulgrønne (ca. 2,1 V) eller rene grønne (ca. 3 V). -->
+<p>Læg mærke til blå og hvid: Vf er næsten 3,3 V. Så er der kun få tiendedele volt tilbage til modstanden, og lysdioden kan lyse svagt eller ujævnt fra eksemplar til eksemplar. Rød, gul og gulgrøn er nemmest at bruge på 3,3 V.</p>
+</section>
+<section id="strøm" class="level3">
+<h3 class="anchored" data-anchor-id="strøm">Strøm</h3>
+<p>Mange lysdioder er beregnet til <strong>højst ca. 20 mA</strong>. Men moderne lysdioder lyser fint ved 2–10 mA, og du skåner både lysdioden og ESP32. Regn derfor med <strong>5–10 mA</strong> til en indikatorlysdiode.</p>
+</section>
+<section id="esp32-benets-grænse" class="level3">
+<h3 class="anchored" data-anchor-id="esp32-benets-grænse">ESP32-benets grænse</h3>
+<p>Espressifs datablad for ESP32 (afsnit 5.3, DC Characteristics) siger, at et ben kan levere ca. <strong>40 mA</strong> og stadig holde mindst 2,64 V, men kun når udgangens drivstyrke er sat til det højeste. Standard er <em>medium</em>. Strømmen per ben falder til ca. 29 mA, når flere ben i samme strømdomæne leverer strøm på én gang. Ben kan trække ca. 28 mA til GND. Den absolutte grænse i databladet (afsnit 5.1) er <strong>1200 mA for alle ben tilsammen</strong>.</p>
+<p>De 40 mA er altså ikke en grænse, du skal gå op til. Hold dig til <strong>højst ca. 10 mA per lysdiode</strong>. Det er en tommelfingerregel her på siden, ikke et tal fra databladet.</p>
+</section>
+<section id="formodstand" class="level3">
+<h3 class="anchored" data-anchor-id="formodstand">Formodstand</h3>
+<p>Formodstanden sidder i serie med lysdioden og bestemmer strømmen. Den skal “tage” den spænding, der er tilbage, når lysdioden har taget sin Vf:</p>
+<p><span class="math display">\[
+R = \frac{3{,}3\ \text{V} - V_f}{I}
+\]</span></p>
+<p><strong>Regneeksempel:</strong> en rød lysdiode (Vf = 2,0 V) og en ønsket strøm på 6 mA:</p>
+<p><span class="math display">\[
+R = \frac{3{,}3\ \text{V} - 2{,}0\ \text{V}}{0{,}006\ \text{A}} = \frac{1{,}3\ \text{V}}{0{,}006\ \text{A}} \approx 217\ \Omega
+\]</span></p>
+<p>Den nærmeste standardværdi er <strong>220 Ω</strong>. Vælg altid den nærmeste værdi <em>over</em> det beregnede, så strømmen bliver lidt mindre, ikke større. Med 220 Ω bliver strømmen 1,3 V / 220 Ω ≈ 5,9 mA.</p>
+<p>En 220 Ω-modstand har farverne rød, rød, brun (og guld for tolerance). Brug farvekode-beregneren på siden om modstande til at tjekke din modstand.</p>
+<!-- TJEK: at 220 Ω er den værdi, der ligger i lokalet til lysdioder, og at lysstyrken er god nok. -->
+</section>
+<section id="kobling" class="level3">
+<h3 class="anchored" data-anchor-id="kobling">Kobling</h3>
+<pre><code>GPIO 19 ── 220 Ω ── anode (langt ben) ▶| katode (kort ben, flad kant) ── GND</code></pre>
+<p>Det er ligegyldigt, om modstanden sidder før eller efter lysdioden: strømmen er den samme i hele kredsen. Det vigtige er, at den er der.</p>
+<p>Brug et af de ben, der er sikre som udgang: 18, 19, 21, 22, 23, 25, 26, 27, 32 eller 33. Ben 34–39 kan kun bruges som indgang, og 6–11 er forbundet til den interne flash.</p>
+<div class="billede-mangler">
+<p>En lysdiode med 220 Ω formodstand på breadboardet, koblet til GPIO 19 og GND på ESP32-DEVKIT-V1. Se lignende billeder: <a href="https://esp32io.com/tutorials/esp32-led-blink-without-delay">ESP32IO: LED - Blink Without Delay</a>.</p>
+</div>
+</section>
+</section>
+<section id="den-indbyggede-lysdiode" class="level2">
+<h2 class="anchored" data-anchor-id="den-indbyggede-lysdiode">Den indbyggede lysdiode</h2>
+<p>ESP32-DEVKIT-V1 har en lille blå lysdiode på kortet, som sidder på <strong>GPIO 2</strong>. I Arduino-ESP32 hedder benet <code>LED_BUILTIN</code> for dette board, så du kan skrive <code>LED_BUILTIN</code> i stedet for <code>2</code>. Formodstanden sidder allerede på kortet.</p>
+<p>GPIO 2 er også en <span lang="en">strapping pin</span>, der påvirker opstarten. Det er fint at bruge den til den indbyggede lysdiode, men sæt ikke selv flere ting på GPIO 2.</p>
+<!-- TJEK: at den indbyggede LED på lokalets boards sidder på GPIO 2 og lyser ved HIGH (ikke omvendt). LED_BUILTIN = 2 er bekræftet i Arduino-ESP32's variant doitESP32devkitV1. -->
+</section>
+<section id="tænd-og-sluk-digitalwrite" class="level2">
+<h2 class="anchored" data-anchor-id="tænd-og-sluk-digitalwrite">Tænd og sluk: <code>digitalWrite()</code></h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>pinMode<span class="op">(</span>LED_PIN<span class="op">,</span> OUTPUT<span class="op">);</span>     <span class="co">// i setup(): benet skal være en udgang</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>digitalWrite<span class="op">(</span>LED_PIN<span class="op">,</span> HIGH<span class="op">);</span>  <span class="co">// 3,3 V på benet: lysdioden lyser</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>digitalWrite<span class="op">(</span>LED_PIN<span class="op">,</span> LOW<span class="op">);</span>   <span class="co">// 0 V på benet: lysdioden er slukket</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Glemmer du <code>pinMode(..., OUTPUT)</code>, sker der ingenting: i Arduino-ESP32 3.x ændrer <code>digitalWrite()</code> kun benet, hvis det er sat op som GPIO. (På Arduino Uno kan lysdioden i stedet lyse svagt, men ikke på ESP32.) Sætter du <code>build_flags = -DCORE_DEBUG_LEVEL=1</code> i <code>platformio.ini</code>, skriver core’en fejlen <code>IO 19 is not set as GPIO. Execute pinMode(19, OUTPUT) first.</code> i Serial Monitor.</p>
+</section>
+<section id="lysstyrke-med-pwm" class="level2">
+<h2 class="anchored" data-anchor-id="lysstyrke-med-pwm">Lysstyrke med PWM</h2>
+<p>Et digitalt ben kan kun være 0 V eller 3,3 V, ikke “halvt tændt”. I stedet tænder og slukker man benet meget hurtigt. Det hedder PWM (<span lang="en">pulse-width modulation</span>). Øjet kan ikke se de hurtige blink, så det ser lysdioden som svagere eller kraftigere:</p>
+<pre><code>duty 25 %:  ‾|___‾|___‾|___   lyser svagt
+duty 50 %:  ‾‾|__‾‾|__‾‾|__   lyser halvt
+duty 75 %:  ‾‾‾|_‾‾‾|_‾‾‾|_   lyser kraftigt</code></pre>
+<ul>
+<li><strong>Frekvens:</strong> hvor mange gange i sekundet signalet gentages. Over et par hundrede Hz ser øjet ikke blinkene. 1000–5000 Hz er fint til lysdioder.</li>
+<li><strong>Duty cycle:</strong> hvor stor en del af tiden benet er tændt.</li>
+<li><strong>Opløsning:</strong> hvor mange trin duty kan sættes i. Med 8 bit er der 256 trin: 0 er slukket, og 255 er næsten helt tændt (med <code>ledcWrite()</code> er 256 helt tændt, se tabellen nedenfor).</li>
+</ul>
+<p>ESP32 har en særlig hardwareblok til PWM, der hedder <strong>LEDC</strong> (<span lang="en">LED control</span>). Den har 16 kanaler, så du kan dæmpe op til 16 ben på én gang.</p>
+<section id="to-måder-i-arduino-esp32" class="level3">
+<h3 class="anchored" data-anchor-id="to-måder-i-arduino-esp32">To måder i Arduino-ESP32</h3>
+<p><strong><code>analogWrite(pin, værdi)</code></strong> er den simple, som også findes på Arduino Uno. På ESP32 bruger den LEDC bag om ryggen med <strong>1000 Hz og 8 bit</strong>, så værdien går fra 0 (slukket) til 255 (helt tændt).</p>
+<p><strong>LEDC-funktionerne</strong> giver dig selv valget af frekvens og opløsning:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Funktion</th>
+<th>Hvad den gør</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>bool ledcAttach(uint8_t pin, uint32_t freq, uint8_t resolution)</code></td>
+<td>Sætter PWM op på benet. Vælger selv en ledig kanal. Giver <code>false</code> ved fejl.</td>
+</tr>
+<tr class="even">
+<td><code>bool ledcWrite(uint8_t pin, uint32_t duty)</code></td>
+<td>Sætter duty. Gyldigt område er 0 til 2^opløsning, hvor 2^opløsning er helt tændt (256 ved 8 bit).</td>
+</tr>
+<tr class="odd">
+<td><code>bool ledcFade(uint8_t pin, uint32_t start_duty, uint32_t target_duty, int max_fade_time_ms)</code></td>
+<td>Lader hardwaren fade fra én duty til en anden.</td>
+</tr>
+<tr class="even">
+<td><code>bool ledcDetach(uint8_t pin)</code></td>
+<td>Fjerner PWM fra benet igen.</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Advarsel</span>Ændret i Arduino-ESP32 3.x
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>I version 2.x skulle man først kalde <code>ledcSetup(kanal, freq, opløsning)</code> og så <code>ledcAttachPin(pin, kanal)</code>, og <code>ledcWrite()</code> tog en <strong>kanal</strong>. I 3.x er <code>ledcSetup()</code> og <code>ledcAttachPin()</code> fjernet og erstattet af <code>ledcAttach()</code>, og alle LEDC-funktioner tager nu <strong>benet</strong> i stedet for kanalen. Vores platform (<code>espressif32@8.0.0</code>) bruger 3.x, så gammel kode fra nettet giver kompileringsfejl.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="eksempel-blink-med-millis" class="level2">
+<h2 class="anchored" data-anchor-id="eksempel-blink-med-millis">Eksempel: blink med <code>millis()</code></h2>
+<p>En ekstern lysdiode på GPIO 19 blinker, og den indbyggede lysdiode blinker i modtakt. Programmet bruger <code>millis()</code> i stedet for <code>delay()</code>, så <code>loop()</code> aldrig står stille og kan nå at lave andre ting.</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>platformio.ini</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" data-filename="platformio.ini"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[env:esp32doit-devkit-v1]</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="dt">platform </span><span class="ot">=</span><span class="st"> espressif32@8.0.0</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="dt">board </span><span class="ot">=</span><span class="st"> esp32doit-devkit-v1</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="dt">framework </span><span class="ot">=</span><span class="st"> arduino</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="dt">monitor_speed </span><span class="ot">=</span><span class="st"> </span><span class="dv">115200</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>src/main.cpp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" data-filename="src/main.cpp"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;Arduino.h&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">// Konfiguration</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">int</span> LED_PIN <span class="op">=</span> <span class="dv">19</span><span class="op">;</span>               <span class="co">// ekstern lysdiode via 220 Ω til GND</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">unsigned</span> <span class="dt">long</span> BLINK_MS <span class="op">=</span> <span class="dv">500</span><span class="op">;</span>   <span class="co">// tid tændt og tid slukket</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="dt">bool</span> ledTaendt <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="dt">unsigned</span> <span class="dt">long</span> sidsteSkift <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">// Skifter begge lysdioder; den indbyggede lyser, når den eksterne er slukket</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> skiftLysdioder<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  ledTaendt <span class="op">=</span> <span class="op">!</span>ledTaendt<span class="op">;</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>LED_PIN<span class="op">,</span> ledTaendt <span class="op">?</span> HIGH <span class="op">:</span> LOW<span class="op">);</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>LED_BUILTIN<span class="op">,</span> ledTaendt <span class="op">?</span> LOW <span class="op">:</span> HIGH<span class="op">);</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>begin<span class="op">(</span><span class="dv">115200</span><span class="op">);</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  pinMode<span class="op">(</span>LED_PIN<span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>  pinMode<span class="op">(</span>LED_BUILTIN<span class="op">,</span> OUTPUT<span class="op">);</span>  <span class="co">// GPIO 2 på ESP32-DEVKIT-V1</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>  <span class="dt">unsigned</span> <span class="dt">long</span> nu <span class="op">=</span> millis<span class="op">();</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Subtraktionen virker også, når millis() løber rundt (efter ca. 49 dage),</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>  <span class="co">// fordi begge tal er unsigned long</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(</span>nu <span class="op">-</span> sidsteSkift <span class="op">&gt;=</span> BLINK_MS<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>    sidsteSkift <span class="op">=</span> nu<span class="op">;</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>    skiftLysdioder<span class="op">();</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Her kan loop() lave andre ting, fx læse knapper eller sende data</span></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="hvorfor-ikke-bare-delay" class="level3">
+<h3 class="anchored" data-anchor-id="hvorfor-ikke-bare-delay">Hvorfor ikke bare <code>delay()</code>?</h3>
+<p>Med <code>digitalWrite(...); delay(500);</code> står din <code>loop()</code> stille i et halvt sekund ad gangen. Så kan den hverken læse knapper eller sende data imens. På ESP32 er <code>delay()</code> en <code>vTaskDelay()</code>, så det kun er opgaven (<span lang="en">task</span>), der kører <code>loop()</code>, der venter. WiFi og andre opgaver kører videre, men din egen kode gør ikke. Se også <a href="../Grundlag/debouncing.html">Debouncing</a>, hvor det samme princip bruges til knapper.</p>
+</section>
+</section>
+<section id="eksempel-fade-med-pwm" class="level2">
+<h2 class="anchored" data-anchor-id="eksempel-fade-med-pwm">Eksempel: fade med PWM</h2>
+<p>Lysdioden på GPIO 19 bliver langsomt kraftigere og svagere igen. Koblingen er den samme som i blink-eksemplet.</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>platformio.ini</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" data-filename="platformio.ini"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[env:esp32doit-devkit-v1]</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="dt">platform </span><span class="ot">=</span><span class="st"> espressif32@8.0.0</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="dt">board </span><span class="ot">=</span><span class="st"> esp32doit-devkit-v1</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="dt">framework </span><span class="ot">=</span><span class="st"> arduino</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="dt">monitor_speed </span><span class="ot">=</span><span class="st"> </span><span class="dv">115200</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>src/main.cpp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" data-filename="src/main.cpp"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;Arduino.h&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">// Konfiguration</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">int</span> LED_PIN <span class="op">=</span> <span class="dv">19</span><span class="op">;</span>                <span class="co">// lysdiode via 220 Ω til GND</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">uint32_t</span> PWM_FREKVENS <span class="op">=</span> <span class="dv">5000</span><span class="op">;</span>    <span class="co">// Hz: så hurtigt, at øjet ikke ser blink</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">uint8_t</span> PWM_OPLOESNING <span class="op">=</span> <span class="dv">8</span><span class="op">;</span>      <span class="co">// bit: duty fra 0 til 255</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">int</span> MAKS_DUTY <span class="op">=</span> <span class="dv">255</span><span class="op">;</span>             <span class="co">// højeste duty, vi fader op til</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">unsigned</span> <span class="dt">long</span> TRIN_MS <span class="op">=</span> <span class="dv">10</span><span class="op">;</span>      <span class="co">// tid mellem hvert trin i fadet</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> duty <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> retning <span class="op">=</span> <span class="dv">1</span><span class="op">;</span>                       <span class="co">// +1 = op, -1 = ned</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="dt">unsigned</span> <span class="dt">long</span> sidsteTrin <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co">// Ét trin op eller ned; vender ved enderne</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> fadeEtTrin<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  duty <span class="op">+=</span> retning<span class="op">;</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(</span>duty <span class="op">&gt;=</span> MAKS_DUTY <span class="op">||</span> duty <span class="op">&lt;=</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    retning <span class="op">=</span> <span class="op">-</span>retning<span class="op">;</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>  ledcWrite<span class="op">(</span>LED_PIN<span class="op">,</span> duty<span class="op">);</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>begin<span class="op">(</span><span class="dv">115200</span><span class="op">);</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>  <span class="co">// ledcAttach vælger selv en ledig LEDC-kanal til benet</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(!</span>ledcAttach<span class="op">(</span>LED_PIN<span class="op">,</span> PWM_FREKVENS<span class="op">,</span> PWM_OPLOESNING<span class="op">))</span> <span class="op">{</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    Serial<span class="op">.</span>println<span class="op">(</span><span class="st">"Fejl: PWM kunne ikke sættes op på benet"</span><span class="op">);</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>  <span class="dt">unsigned</span> <span class="dt">long</span> nu <span class="op">=</span> millis<span class="op">();</span></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(</span>nu <span class="op">-</span> sidsteTrin <span class="op">&gt;=</span> TRIN_MS<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>    sidsteTrin <span class="op">=</span> nu<span class="op">;</span></span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>    fadeEtTrin<span class="op">();</span></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Et helt fade op og ned tager 2 × 255 × 10 ms ≈ 5 sekunder.</p>
+<p>Vil du bruge <code>analogWrite()</code> i stedet, så slet <code>ledcAttach(...)</code> i <code>setup()</code>, og skriv <code>analogWrite(LED_PIN, duty);</code> i stedet for <code>ledcWrite(LED_PIN, duty);</code>. <code>analogWrite()</code> sætter selv PWM op første gang, med 1000 Hz og 8 bit.</p>
+</section>
+<section id="rgb-lysdioder" class="level2">
+<h2 class="anchored" data-anchor-id="rgb-lysdioder">RGB-lysdioder</h2>
+<p>En RGB-lysdiode er tre lysdioder (rød, grøn og blå) i ét hus med fire ben. De tre farver deler ét ben, og det er typisk det længste. Ved at dæmpe de tre farver hver for sig med PWM kan du blande næsten alle farver.</p>
+<p>Der findes to typer:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Type</th>
+<th>Fælles ben går til</th>
+<th>En farve lyser, når benet er</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Fælles katode</td>
+<td>GND</td>
+<td><code>HIGH</code> (<code>analogWrite()</code> 255 = fuld styrke)</td>
+</tr>
+<tr class="even">
+<td>Fælles anode</td>
+<td>3,3 V</td>
+<td><code>LOW</code> (<code>analogWrite()</code> 0 = fuld styrke, 255 = slukket)</td>
+</tr>
+</tbody>
+</table>
+<p>Tallene i tabellen gælder for <code>analogWrite()</code>, hvor 255 betyder helt tændt. Med <code>ledcWrite()</code> ved 8 bit er helt tændt 256, og 255 er kun næsten tændt, så en farve med fælles anode kan gløde svagt ved 255.</p>
+<ul>
+<li>Hver farve skal have <strong>sin egen formodstand</strong>. Én fælles modstand i det fælles ben giver forskellig lysstyrke afhængigt af, hvor mange farver der er tændt.</li>
+<li>Grøn og blå har højere Vf end rød (se tabellen), så de kan lyse svagere på 3,3 V.</li>
+<li>Med fælles anode er alt omvendt: skriv <code>255 - værdi</code> i stedet for <code>værdi</code> med <code>analogWrite()</code>, eller <code>256 - værdi</code> med <code>ledcWrite()</code> ved 8 bit.</li>
+</ul>
+<!-- TJEK: hvilken type RGB-lysdiode lokalet har, og hvilket ben der er det fælles (benrækkefølgen varierer mellem fabrikater; se databladet). -->
+<div class="billede-mangler">
+<p>En RGB-lysdiode med de fire ben markeret (R, fælles, G, B) for den type, lokalet har. Se lignende billeder: <a href="https://randomnerdtutorials.com/esp32-pwm-arduino-ide/">Random Nerd Tutorials: ESP32 PWM with Arduino IDE</a>.</p>
+</div>
+</section>
+<section id="øvelser" class="level2">
+<h2 class="anchored" data-anchor-id="øvelser">Øvelser</h2>
+<ol type="1">
+<li><strong>Formodstand til rød og grøn.</strong> Beregn formodstanden til en rød lysdiode (Vf = 2,0 V) og en grøn lysdiode (Vf = 2,1 V for gulgrøn, eller 3,0 V for ren grøn; brug databladet for jeres lysdioder, hvis I har det) ved 3,3 V og 5 mA. Vælg den nærmeste standardværdi over den beregnede, og beregn den strøm, der så faktisk løber. Find modstandene i kassen, og tjek farvekoderne med farvekode-beregneren. Aflever beregningerne.</li>
+<li><strong>Blink.</strong> Byg koblingen, og kør <em>Eksempel: blink med millis()</em>. Erstat <code>BLINK_MS</code> med to konstanter, <code>TAENDT_MS</code> og <code>SLUKKET_MS</code>, så lysdioden er tændt i 100 ms og slukket i 900 ms.</li>
+<li><strong>Fade.</strong> Kør <em>Eksempel: fade med PWM</em>. Prøv derefter varianten med <code>analogWrite()</code>. Kan du se forskel? Prøv også <code>PWM_FREKVENS</code> = 20 Hz med <code>ledcAttach()</code>: hvad ser du, og hvorfor?</li>
+<li><strong>Trafiklys.</strong> Sæt en rød, en gul og en grøn lysdiode på GPIO 25, 26 og 27, hver med sin egen formodstand. Lav et program, der kører den danske rækkefølge: rød, rød + gul, grøn, gul, rød … Vælg selv tiderne som konstanter øverst. Brug <code>millis()</code>, ikke <code>delay()</code>. Tip: giv hver fase et nummer, og brug en <code>switch</code> eller et array med tiderne. Vis det kørende trafiklys til læreren.</li>
+<li><em>Ekstra:</em> Lysstyrken ser ikke ud til at stige jævnt: forskellen mellem duty 10 og 20 er tydelig, mellem 200 og 210 næsten usynlig. Det skyldes, at øjet opfatter lysstyrke omtrent logaritmisk (det kaldes også gammakorrektion, når man retter for det). Lav fadet med en tabel (et array) af duty-værdier, der stiger mere og mere, og se, om det bliver jævnere.</li>
+<li><em>Ekstra:</em> Byg en RGB-lysdiode på, og lad den skifte mellem rød, grøn, blå og hvid. Find ud af, om jeres er med fælles katode eller fælles anode.</li>
+<li><em>Ekstra:</em> Prøv <code>ledcFade(LED_PIN, 0, 255, 2000)</code>. Kald den én gang i <code>setup()</code> efter <code>ledcAttach()</code> (står den direkte i <code>loop()</code>, starter fadet forfra hver gang, og så ser du ingen fade). Lad <code>loop()</code> blinke den indbyggede lysdiode imens. Kører <code>loop()</code> videre, mens lysdioden fader? Hvordan kan du se det?</li>
+</ol>
+<div class="billede-mangler">
+<p>Trafiklyset fra øvelse 4: tre lysdioder med formodstande på GPIO 25, 26 og 27.</p>
+</div>
+</section>
+<section id="typiske-fejl" class="level2">
+<h2 class="anchored" data-anchor-id="typiske-fejl">Typiske fejl</h2>
+<ul>
+<li><strong>Lysdioden lyser ikke:</strong> den vender forkert. Det lange ben (anode) skal mod GPIO-benet, den flade kant (katode) mod GND.</li>
+<li><strong>Lysdioden lyser ikke, selv om den vender rigtigt:</strong> <code>pinMode(LED_PIN, OUTPUT)</code> mangler, benet er et af 34–39 (kun indgang), eller begge ben på lysdioden (eller på modstanden) sidder i samme række på fem huller, så komponenten er kortsluttet. Lysdioden og modstanden skal dele én række (ét ben hver); det er sådan, de kommer i serie.</li>
+<li><strong>Lysdioden lyser meget kraftigt:</strong> formodstanden mangler. Så begrænses strømmen kun af benet selv, og både benet og lysdioden belastes. Tag USB ud med det samme, og sæt en modstand i.</li>
+<li><strong>Lysdioden lyser meget svagt:</strong> for stor modstand (fx 2,2 kΩ eller 22 kΩ i stedet for 220 Ω; tjek farvekoden), eller en blå/hvid lysdiode, hvor Vf er tæt på 3,3 V.</li>
+<li><strong><code>ledcSetup</code> was not declared in this scope:</strong> koden er skrevet til Arduino-ESP32 2.x. Brug <code>ledcAttach(pin, freq, opløsning)</code> og <code>ledcWrite(pin, duty)</code>.</li>
+<li><strong>PWM-lysdioden blinker synligt:</strong> frekvensen er for lav. Brug mindst et par hundrede Hz.</li>
+<li><strong>RGB-lysdioden viser “omvendte” farver:</strong> den er med fælles anode. Skriv <code>255 - værdi</code> (<code>analogWrite()</code>) eller <code>256 - værdi</code> (<code>ledcWrite()</code> ved 8 bit).</li>
+</ul>
+</section>
+<section id="læs-videre" class="level2">
+<h2 class="anchored" data-anchor-id="læs-videre">Læs videre</h2>
+<section id="blink-uden-delay" class="level3">
+<h3 class="anchored" data-anchor-id="blink-uden-delay">Blink uden delay</h3>
+<p>ESP32IO viser i <a href="https://esp32io.com/tutorials/esp32-led-blink-without-delay" lang="en">ESP32 - LED - Blink Without Delay</a> samme <code>millis()</code>-mønster som eksemplet ovenfor (lysdiode på GPIO 21, 220 Ω), og bagefter et eksempel, hvor en knap læses samtidig med, at lysdioden blinker. Det viser tydeligt, hvorfor <code>delay()</code> er et problem: med <code>delay()</code> bliver tryk på knappen overset.</p>
+<p>Bemærk to småfejl: kommentaren til variablen <code>previousButtonState</code> siger, at den gemmer et tidspunkt, men den gemmer knappens tilstand. Og en sætning i afsnittet om <code>delay()</code> er rodet (“you will not see enough four times …”); meningen er, at tryk, der sker under <code>delay()</code>, ikke bliver set.</p>
+</section>
+<section id="pwm-med-ledc" class="level3">
+<h3 class="anchored" data-anchor-id="pwm-med-ledc">PWM med LEDC</h3>
+<p>Random Nerd Tutorials gennemgår i <a href="https://randomnerdtutorials.com/esp32-pwm-arduino-ide/" lang="en">ESP32 PWM with Arduino IDE</a> både <code>ledcAttach()</code>/<code>ledcWrite()</code> og <code>analogWrite()</code>, med de nye funktionsnavne fra 3.x. Artiklen viser også <code>ledcAttachChannel()</code>, hvis du selv vil vælge kanalen.</p>
+<p>Læs den kritisk:</p>
+<ul>
+<li>Artiklen angiver <code>ledcWrite()</code> som <code>void</code>, men i 3.x giver den <code>bool</code> (<code>true</code>, når det lykkes).</li>
+<li>Eksemplerne bruger <code>delay(15)</code> i <code>loop()</code>. Det virker, men programmet kan ikke lave andet imens. Sammenlign med <code>millis()</code>-løsningen på denne side.</li>
+<li>Eksemplerne bruger GPIO 16. Det er fint på ESP32-DEVKIT-V1, men på moduler med PSRAM (WROVER) er 16 og 17 optaget. Vores sikre ben er 18, 19, 21–23, 25–27, 32 og 33.</li>
+</ul>
+</section>
+</section>
+<section id="kilder" class="level2">
+<h2 class="anchored" data-anchor-id="kilder">Kilder</h2>
+<ul>
+<li>Arduino-ESP32: LED Control (LEDC), <a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/api/ledc.html" class="uri">https://docs.espressif.com/projects/arduino-esp32/en/latest/api/ledc.html</a></li>
+<li>Arduino-ESP32: Migration from 2.x to 3.0 (LEDC), <a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/migration_guides/2.x_to_3.0.html" class="uri">https://docs.espressif.com/projects/arduino-esp32/en/latest/migration_guides/2.x_to_3.0.html</a></li>
+<li>Arduino-ESP32: kildekoden til LEDC og <code>analogWrite()</code> (1000 Hz, 8 bit), <a href="https://github.com/espressif/arduino-esp32/blob/master/cores/esp32/esp32-hal-ledc.c" class="uri">https://github.com/espressif/arduino-esp32/blob/master/cores/esp32/esp32-hal-ledc.c</a></li>
+<li>Arduino-ESP32: <code>LED_BUILTIN</code> for DOIT ESP32 DEVKIT V1, <a href="https://github.com/espressif/arduino-esp32/blob/master/variants/doitESP32devkitV1/pins_arduino.h" class="uri">https://github.com/espressif/arduino-esp32/blob/master/variants/doitESP32devkitV1/pins_arduino.h</a></li>
+<li>Espressif: ESP32 Datasheet, afsnit 5.1 (Absolute Maximum Ratings) og 5.3 (DC Characteristics), <a href="https://documentation.espressif.com/esp32_datasheet_en.html" class="uri">https://documentation.espressif.com/esp32_datasheet_en.html</a></li>
+<li>ESP-IDF: GPIO (drivstyrke, standard er medium), <a href="https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/gpio.html" class="uri">https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/gpio.html</a></li>
+<li>PlatformIO: ESP32-DEVKIT-V1, <a href="https://docs.platformio.org/en/latest/boards/espressif32/esp32doit-devkit-v1.html" class="uri">https://docs.platformio.org/en/latest/boards/espressif32/esp32doit-devkit-v1.html</a></li>
+<li>Wikipedia: Light-emitting diode physics (tabel over farver og spændingsfald), <a href="https://en.wikipedia.org/wiki/Light-emitting_diode_physics" class="uri">https://en.wikipedia.org/wiki/Light-emitting_diode_physics</a></li>
+<li>Adafruit: All About LEDs, Forward Voltage and KVL, <a href="https://learn.adafruit.com/all-about-leds/forward-voltage-and-kvl" class="uri">https://learn.adafruit.com/all-about-leds/forward-voltage-and-kvl</a></li>
+<li>ESP32IO: ESP32 - LED - Blink Without Delay, <a href="https://esp32io.com/tutorials/esp32-led-blink-without-delay" class="uri">https://esp32io.com/tutorials/esp32-led-blink-without-delay</a></li>
+<li>Random Nerd Tutorials: ESP32 PWM with Arduino IDE, <a href="https://randomnerdtutorials.com/esp32-pwm-arduino-ide/" class="uri">https://randomnerdtutorials.com/esp32-pwm-arduino-ide/</a></li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Kopieret!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Kopieret!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/s0ren\.github\.io\/FAG_17682_IoT_II\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

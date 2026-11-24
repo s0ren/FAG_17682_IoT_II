@@ -1,0 +1,1513 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="da" xml:lang="da"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.20">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Søren Magnusson">
+
+<title>Modstande og farvekoder – FAG 17682_IoT_II</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-17888a1159294d3eb470f19f6f52f5a5.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-1958bf8fe25c7117446dee592769f80d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Ingen resultater",
+    "search-matching-documents-text": "Matchende dokumenter",
+    "search-copy-link-title": "Kopier link for at søge",
+    "search-hide-matches-text": "Skjul yderligere resultater",
+    "search-more-match-text": "andet resultat i dette dokument",
+    "search-more-matches-text": "andre resultater i dette dokument",
+    "search-clear-button-title": "Ryd",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Fortryd",
+    "search-submit-button-title": "Indsend",
+    "search-label": "Søg"
+  }
+}</script>
+<script type="module" src="../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+<meta name="quarto:status" content="draft">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><div id="quarto-draft-alert" class="alert alert-warning"><i class="bi bi-pencil-square"></i>Udkast</div>
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">FAG 17682_IoT_II</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Søg"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Skift navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Hjem</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../laeringsmaal.html" aria-current="page"> 
+<span class="menu-text">Læringsmål</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">Om sitet</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Skift sidebjælke" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Grundlag/index.html">Grundlag</a></li><li class="breadcrumb-item"><a href="../Grundlag/modstande.html">Modstande og farvekoder</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Skift sidebjælke" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Om sitet</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Referencer/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Referencemanualer</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../laeringsmaal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Læringsmål</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Features/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Features</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Skift sektion">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Features/deep_sleep.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Deep Sleep</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Features/esp_now_mesh.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ESP-NOW og ESP-MESH</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Features/filsystem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Filsystem på ESP32</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Features/lokal_mqtt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lokal MQTT-server</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Grundlag/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Grundlag</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Skift sektion">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/cpp_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Intro til C++</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/debouncing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Debouncing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/platformio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">PlatformIO</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/wifi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">WiFi</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Opgaver/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Opgaver</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Skift sektion">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Opgaver/Projektopgave_Smiley.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Projektopgave, Smiley feedback panel</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Opgaver/Projektopgave_wifi_position.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Projektopgave, Positionsbestemmelse af enheder uden GPS dækning</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Opgaver/Projektopgave_wifi_position_checkliste.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Checkliste: Positionsbestemmelse af enheder uden GPS dækning</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">På denne side</h2>
+   
+  <ul>
+  <li><a href="#formål" id="toc-formål" class="nav-link active" data-scroll-target="#formål">Formål</a></li>
+  <li><a href="#målpinde" id="toc-målpinde" class="nav-link" data-scroll-target="#målpinde">Målpinde</a></li>
+  <li><a href="#forudsætninger" id="toc-forudsætninger" class="nav-link" data-scroll-target="#forudsætninger">Forudsætninger</a></li>
+  <li><a href="#hvad-gør-en-modstand" id="toc-hvad-gør-en-modstand" class="nav-link" data-scroll-target="#hvad-gør-en-modstand">Hvad gør en modstand?</a></li>
+  <li><a href="#ohms-lov" id="toc-ohms-lov" class="nav-link" data-scroll-target="#ohms-lov">Ohms lov</a></li>
+  <li><a href="#farvekoden" id="toc-farvekoden" class="nav-link" data-scroll-target="#farvekoden">Farvekoden</a>
+  <ul class="collapse">
+  <li><a href="#bånd" id="toc-bånd" class="nav-link" data-scroll-target="#bånd">4 bånd</a></li>
+  <li><a href="#bånd-1" id="toc-bånd-1" class="nav-link" data-scroll-target="#bånd-1">5 bånd</a></li>
+  <li><a href="#hvilken-vej-skal-den-læses" id="toc-hvilken-vej-skal-den-læses" class="nav-link" data-scroll-target="#hvilken-vej-skal-den-læses">Hvilken vej skal den læses?</a></li>
+  </ul></li>
+  <li><a href="#standardværdier-e12-og-e24" id="toc-standardværdier-e12-og-e24" class="nav-link" data-scroll-target="#standardværdier-e12-og-e24">Standardværdier: E12 og E24</a></li>
+  <li><a href="#effekt" id="toc-effekt" class="nav-link" data-scroll-target="#effekt">Effekt</a></li>
+  <li><a href="#modstande-i-faget" id="toc-modstande-i-faget" class="nav-link" data-scroll-target="#modstande-i-faget">Modstande i faget</a></li>
+  <li><a href="#mål-med-et-multimeter" id="toc-mål-med-et-multimeter" class="nav-link" data-scroll-target="#mål-med-et-multimeter">Mål med et multimeter</a></li>
+  <li><a href="#farvekode-beregner" id="toc-farvekode-beregner" class="nav-link" data-scroll-target="#farvekode-beregner">Farvekode-beregner</a>
+  <ul class="collapse">
+  <li><a href="#fra-farver-til-værdi" id="toc-fra-farver-til-værdi" class="nav-link" data-scroll-target="#fra-farver-til-værdi">Fra farver til værdi</a></li>
+  <li><a href="#fra-værdi-til-farver" id="toc-fra-værdi-til-farver" class="nav-link" data-scroll-target="#fra-værdi-til-farver">Fra værdi til farver</a></li>
+  <li><a href="#koden-bag-beregneren" id="toc-koden-bag-beregneren" class="nav-link" data-scroll-target="#koden-bag-beregneren">Koden bag beregneren</a></li>
+  </ul></li>
+  <li><a href="#eksempel-aflæs-en-modstand" id="toc-eksempel-aflæs-en-modstand" class="nav-link" data-scroll-target="#eksempel-aflæs-en-modstand">Eksempel: aflæs en modstand</a></li>
+  <li><a href="#eksempel-vælg-en-modstand" id="toc-eksempel-vælg-en-modstand" class="nav-link" data-scroll-target="#eksempel-vælg-en-modstand">Eksempel: vælg en modstand</a></li>
+  <li><a href="#øvelser" id="toc-øvelser" class="nav-link" data-scroll-target="#øvelser">Øvelser</a></li>
+  <li><a href="#typiske-fejl" id="toc-typiske-fejl" class="nav-link" data-scroll-target="#typiske-fejl">Typiske fejl</a></li>
+  <li><a href="#læs-videre" id="toc-læs-videre" class="nav-link" data-scroll-target="#læs-videre">Læs videre</a>
+  <ul class="collapse">
+  <li><a href="#electronics-tutorials-resistor-colour-code" id="toc-electronics-tutorials-resistor-colour-code" class="nav-link" data-scroll-target="#electronics-tutorials-resistor-colour-code">Electronics Tutorials: Resistor Colour Code</a></li>
+  </ul></li>
+  <li><a href="#kilder" id="toc-kilder" class="nav-link" data-scroll-target="#kilder">Kilder</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Grundlag/index.html">Grundlag</a></li><li class="breadcrumb-item"><a href="../Grundlag/modstande.html">Modstande og farvekoder</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Modstande og farvekoder</h1>
+<p class="subtitle lead">Aflæs, beregn og mål en modstand</p>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Forfatter</div>
+  <div class="quarto-title-meta-heading">Uddannelse</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Søren Magnusson </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Data, TEC
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Udgivet</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">23. november 2026</p>
+    </div>
+  </div>
+  
+    <div>
+    <div class="quarto-title-meta-heading">Ændret</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">24. november 2026</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- IKKE KOMPILERET: siden har ingen ESP32-kode. Farvekoden er tjekket mod kilderne, men beregneren (OJS-cellerne) er skrevet uden at kunne køre quarto og er ikke afprøvet i en browser. -->
+<!--
+TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
+1. Byg siden, og afprøv beregneren "Fra farver til værdi": standardvalget gul, violet, rød, guld skal give 4,7 kΩ ±5 % (4,465 kΩ til 4,935 kΩ). Skift til 5 bånd: feltet "3. ciffer" skal blive aktivt, og gul, violet, sort, rød, guld skal give 47 kΩ.
+2. Afprøv "Fra værdi til farver" med 220, 4,7k, 4k7, 4.700, 1.000, 10 kΩ, 1M, 0,47 og 225. 220 skal give rød, rød, brun, guld og rød, rød, sort, sort, brun. 4.700 skal give 4,7 kΩ (ikke 4,7 Ω), og 1.000 skal give 1 kΩ. 225 skal give "kan ikke" ved 4 bånd og "ikke E12 eller E24 ... (E96)".
+3. Afprøv, at tolerancevalget viser "ingen (3 bånd, ±20 %)" og stadig regner med ±20 %.
+4. Tjek, at beregneren virker på skolens net: Inputs og htl hentes af Quarto fra et CDN, så siden skal have internetadgang (TJEK ved beregneren).
+5. TJEK i farvetabellen: tolerancen for grå (0,01 % i IEC 60062:2016 ifølge Wikipedia, 0,05 % hos DigiKey og Electronics Tutorials). Selve standarden er ikke læst (den er ikke gratis).
+6. TJEK om lokalets modstande har 4 eller 5 bånd, hvilken farve legemet har, og om de er på 1/4 W (afsnittet om farvekoden og afsnittet om effekt). Har lokalet 5-båndsmodstande på ±1 %, så tjek, at teksten om E96 i afsnittet om standardværdier passer.
+7. TJEK at 220 Ω og 10 kΩ er de værdier, der ligger i lokalet (afsnittet Modstande i faget).
+8. TJEK om målpind 18 skal blive på siden (afsnittet Målpinde og maalpinde i front matter).
+9. BILLEDE: lokalets modstande, en med 4 bånd og en med 5 bånd, side om side.
+10. BILLEDE: multimeter, der måler en løs modstand.
+11. BILLEDE: en blå 5-båndsmodstand med brun i begge ender (svær at vende).
+12. Fjern IKKE KOMPILERET, denne tjekliste og alle TJEK- og BILLEDE-kommentarer, gør billedboksene til BILLEDE-kommentarer eller rigtige billeder, og sæt draft: false.
+-->
+<p>En modstand er den mest almindelige komponent på et breadboard. Den sidder foran hver lysdiode, så strømmen ikke bliver for stor, og den holder et input stabilt, når en knap ikke er trykket. Værdien står ikke med tal, men som farvede ringe (bånd), så du skal kunne aflæse farvekoden for at tage den rigtige modstand op af skuffen. Og du skal kunne regne med den, så du ved, hvorfor det lige er 220 Ω eller 10 kΩ.</p>
+<section id="formål" class="level2">
+<h2 class="anchored" data-anchor-id="formål">Formål</h2>
+<ul>
+<li>Du kan forklare, hvad en modstand gør, og bruge Ohms lov til at regne strøm, spænding og modstand.</li>
+<li>Du kan aflæse farvekoden på en modstand med 4 og 5 bånd og finde ud af, hvilken vej den skal læses.</li>
+<li>Du kan forklare, hvorfor modstande findes i bestemte standardværdier (E12 og E24), og hvad tolerance er.</li>
+<li>Du kan tjekke, at en modstand ikke bliver for varm (effekt).</li>
+<li>Du kan måle en modstand med et multimeter.</li>
+</ul>
+</section>
+<section id="målpinde" class="level2">
+<h2 class="anchored" data-anchor-id="målpinde">Målpinde</h2>
+<p>Siden arbejder med målpind 4, 12 og 18 (se <a href="../laeringsmaal.html">Læringsmål</a>).</p>
+<!-- TJEK: målpind 18 (opbygge en mindre prototype med et embedded system) passer kun løst, for siden bygger ingen prototype og har ingen ESP32-kode. Behold, fjern eller skift den (både her og i maalpinde i front matter). -->
+</section>
+<section id="forudsætninger" class="level2">
+<h2 class="anchored" data-anchor-id="forudsætninger">Forudsætninger</h2>
+<ul>
+<li>Du ved, hvad spænding (volt, V) og strøm (ampere, A) er.</li>
+<li>Du kan sætte komponenter i et breadboard (se Breadboard med tilpassede ledninger).</li>
+<li>Hardware: et par modstande med forskellige værdier, et multimeter.</li>
+</ul>
+</section>
+<section id="hvad-gør-en-modstand" class="level2">
+<h2 class="anchored" data-anchor-id="hvad-gør-en-modstand">Hvad gør en modstand?</h2>
+<p>En modstand begrænser strømmen i et kredsløb. Jo større modstand, jo mindre strøm løber der ved samme spænding. Den bruges til to ting i faget:</p>
+<ul>
+<li><strong>Begrænse strømmen</strong>, fx gennem en lysdiode, så hverken lysdioden eller benet på ESP32 tager skade.</li>
+<li><strong>Trække et ben op eller ned</strong> til en bestemt spænding, så det ikke “svæver”, når intet andet bestemmer spændingen (<span lang="en">pull-up</span> og <span lang="en">pull-down</span>).</li>
+</ul>
+<p>Modstand måles i ohm (Ω). 1 kΩ (kiloohm) er 1.000 Ω, og 1 MΩ (megaohm) er 1.000.000 Ω. En modstand har ingen retning: den virker ens, uanset hvilken vej den sættes i.</p>
+</section>
+<section id="ohms-lov" class="level2">
+<h2 class="anchored" data-anchor-id="ohms-lov">Ohms lov</h2>
+<p>Spænding, strøm og modstand hænger sammen med Ohms lov:</p>
+<p><span class="math display">\[U = R \cdot I \qquad I = \frac{U}{R} \qquad R = \frac{U}{I}\]</span></p>
+<p>hvor <span class="math inline">\(U\)</span> er spændingen over modstanden i volt, <span class="math inline">\(I\)</span> er strømmen gennem den i ampere, og <span class="math inline">\(R\)</span> er modstanden i ohm.</p>
+<p>Husk at regne i grundenheder: mA skal laves om til A, og kΩ til Ω. To eksempler fra faget:</p>
+<ul>
+<li><strong>Pull-up på 10 kΩ:</strong> Når knappen trykkes, ligger hele 3,3 V over modstanden. Strømmen er <span class="math inline">\(I = 3{,}3\ \text{V} / 10\,000\ \Omega = 0{,}00033\ \text{A} = 0{,}33\ \text{mA}\)</span>. Det er så lidt, at det ikke betyder noget.</li>
+<li><strong>Formodstand til en rød lysdiode:</strong> Lysdioden tager ca. 2 V, så der er 3,3 V − 2 V = 1,3 V tilbage over modstanden. Med 220 Ω bliver strømmen <span class="math inline">\(I = 1{,}3\ \text{V} / 220\ \Omega \approx 5{,}9\ \text{mA}\)</span>.</li>
+</ul>
+</section>
+<section id="farvekoden" class="level2">
+<h2 class="anchored" data-anchor-id="farvekoden">Farvekoden</h2>
+<p>Små modstande med ben (<span lang="en">through-hole</span>) har værdien malet på som farvede bånd. Farverne og deres betydning er fastlagt i den internationale standard IEC 60062.</p>
+<div id="tbl-farvekode" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-farvekode-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabel&nbsp;1: Farvekoden for modstande (IEC 60062).
+</figcaption>
+<div aria-describedby="tbl-farvekode-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Farve</th>
+<th>Ciffer</th>
+<th>Multiplikator</th>
+<th>Tolerance</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>sort</td>
+<td>0</td>
+<td>× 1</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>brun</td>
+<td>1</td>
+<td>× 10</td>
+<td>±1 %</td>
+</tr>
+<tr class="odd">
+<td>rød</td>
+<td>2</td>
+<td>× 100</td>
+<td>±2 %</td>
+</tr>
+<tr class="even">
+<td>orange</td>
+<td>3</td>
+<td>× 1 k</td>
+<td>±0,05 %</td>
+</tr>
+<tr class="odd">
+<td>gul</td>
+<td>4</td>
+<td>× 10 k</td>
+<td>±0,02 %</td>
+</tr>
+<tr class="even">
+<td>grøn</td>
+<td>5</td>
+<td>× 100 k</td>
+<td>±0,5 %</td>
+</tr>
+<tr class="odd">
+<td>blå</td>
+<td>6</td>
+<td>× 1 M</td>
+<td>±0,25 %</td>
+</tr>
+<tr class="even">
+<td>violet</td>
+<td>7</td>
+<td>× 10 M</td>
+<td>±0,1 %</td>
+</tr>
+<tr class="odd">
+<td>grå</td>
+<td>8</td>
+<td>× 100 M</td>
+<td>±0,01 % (ældre: ±0,05 %)</td>
+</tr>
+<tr class="even">
+<td>hvid</td>
+<td>9</td>
+<td>× 1 G</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>guld</td>
+<td></td>
+<td>× 0,1</td>
+<td>±5 %</td>
+</tr>
+<tr class="even">
+<td>sølv</td>
+<td></td>
+<td>× 0,01</td>
+<td>±10 %</td>
+</tr>
+<tr class="odd">
+<td>intet bånd</td>
+<td></td>
+<td></td>
+<td>±20 %</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<!-- TJEK: Grå tolerance er 0,01 % i IEC 60062:2016 ifølge Wikipedia, men 0,05 % hos DigiKey og Electronics Tutorials (ældre EIA-praksis, som nogle producenter stadig følger). Standarden selv er ikke læst. Orange og gul som tolerance findes kun hos Wikipedia; de bruges næsten aldrig. Grå tolerance ses næsten aldrig i lokalet, så det er ikke vigtigt for eleverne. -->
+<p>Du behøver ikke kunne tabellen udenad, men cifrene 0–9 følger farverne i regnbuen, med sort og brun først og grå og hvid til sidst.</p>
+<section id="bånd" class="level3">
+<h3 class="anchored" data-anchor-id="bånd">4 bånd</h3>
+<p>De almindelige modstande med ±5 % har 4 bånd:</p>
+<ol type="1">
+<li>første ciffer</li>
+<li>andet ciffer</li>
+<li>multiplikator: hvor mange nuller der skal efter (eller ×0,1 og ×0,01 for guld og sølv)</li>
+<li>tolerance</li>
+</ol>
+<p>Eksempel: <strong>rød, rød, brun, guld</strong> er 2, 2 og × 10, altså 22 × 10 = <strong>220 Ω ±5 %</strong>. Og <strong>brun, sort, orange, guld</strong> er 10 × 1.000 = <strong>10 kΩ ±5 %</strong>.</p>
+</section>
+<section id="bånd-1" class="level3">
+<h3 class="anchored" data-anchor-id="bånd-1">5 bånd</h3>
+<p>Præcisionsmodstande (typisk ±1 %, metalfilm) har 5 bånd: tre cifre, multiplikator og tolerance. Tolerancebåndet er tit <strong>brun</strong> (±1 %).</p>
+<p>Eksempel: <strong>rød, rød, sort, sort, brun</strong> er 220 × 1 = <strong>220 Ω ±1 %</strong>. Og <strong>brun, sort, sort, rød, brun</strong> er 100 × 100 = <strong>10 kΩ ±1 %</strong>.</p>
+<p>Bemærk, at 220 Ω altså har forskellige farver med 4 og 5 bånd. Tæl båndene først.</p>
+<!-- TJEK: om lokalets modstande har 4 eller 5 bånd, og hvilken farve legemet har (beige med 4 bånd eller blå med 5 bånd er det almindelige). -->
+<div class="billede-mangler">
+<p>Lokalets modstande: en 220 Ω med 4 bånd og en 220 Ω med 5 bånd, side om side, så farverne kan sammenlignes. Se lignende billeder: <a href="https://www.electronics-tutorials.ws/resistor/res_2.html">Electronics Tutorials: Resistor Colour Code</a>.</p>
+</div>
+</section>
+<section id="hvilken-vej-skal-den-læses" class="level3">
+<h3 class="anchored" data-anchor-id="hvilken-vej-skal-den-læses">Hvilken vej skal den læses?</h3>
+<p>En modstand har ingen top eller bund, så du skal selv finde ud af, hvor du skal starte:</p>
+<ul>
+<li><strong>Tolerancebåndet står til højre.</strong> Guld og sølv bruges aldrig som ciffer, så står der guld eller sølv i den ene ende, skal den ende vende til højre.</li>
+<li><strong>Mellemrummet:</strong> Der er ofte lidt større afstand mellem multiplikatoren og tolerancebåndet end mellem de andre bånd.</li>
+<li><strong>Første bånd sidder tættest på enden</strong> af modstanden.</li>
+</ul>
+<p>Det er sværest med 5-båndsmodstande, hvor tolerancen er brun, og første ciffer også kan være brunt. Eksempel: <strong>brun, sort, sort, brun, brun</strong> er 100 × 10 = 1 kΩ. Læst fra den anden ende er det <strong>brun, brun, sort, sort, brun</strong> = 110 × 1 = 110 Ω. Begge dele er rigtige værdier. Når du er i tvivl, så mål modstanden med et multimeter.</p>
+<div class="billede-mangler">
+<p>En blå 5-båndsmodstand med brun i begge ender, tæt på, så det ses, at det er svært at vide, hvilken vej den skal læses. Se lignende billeder: <a href="https://eepower.com/resistor-guide/resistor-standards-and-codes/resistor-color-code/">EEPower: Resistor Color Code</a>.</p>
+</div>
+</section>
+</section>
+<section id="standardværdier-e12-og-e24" class="level2">
+<h2 class="anchored" data-anchor-id="standardværdier-e12-og-e24">Standardværdier: E12 og E24</h2>
+<p>Du kan ikke købe en modstand på 237 Ω med ±5 %. Modstande laves i faste rækker af værdier, de såkaldte E-rækker. Rækkerne er lavet, så en værdi plus tolerancen næsten når op til den næste værdi minus tolerancen. Så dækker rækken alle værdier, uden at der er spild.</p>
+<ul>
+<li><strong>E12</strong> (±10 %): 10, 12, 15, 18, 22, 27, 33, 39, 47, 56, 68, 82</li>
+<li><strong>E24</strong> (±5 %): 10, 11, 12, 13, 15, 16, 18, 20, 22, 24, 27, 30, 33, 36, 39, 43, 47, 51, 56, 62, 68, 75, 82, 91</li>
+</ul>
+<p>Cifrene gentages for hver tierpotens: 22 findes som 2,2 Ω, 22 Ω, 220 Ω, 2,2 kΩ, 22 kΩ osv. E24 indeholder alle værdierne fra E12. Præcisionsmodstande med ±1 % findes i E96-rækken med tre cifre.</p>
+<p>Det kan bruges, når du aflæser: Har modstanden 4 bånd, og giver farverne en værdi, der ikke er i E24 (fx 25 eller 77), har du sikkert læst forkert eller fra den forkerte ende. Det gælder ikke 5-båndsmodstande på ±1 %: De kommer fra E96, og de fleste E96-værdier (fx 102 Ω eller 4,99 kΩ) er ikke i E24.</p>
+<p>Når du har regnet en værdi ud, så vælg den nærmeste standardværdi. Til en formodstand vælger du den nærmeste værdi <em>over</em> det beregnede, så strømmen bliver lidt mindre, ikke større.</p>
+<p><strong>Tolerance</strong> er, hvor meget den rigtige værdi må afvige fra den påtrykte. En 220 Ω ±5 % ligger mellem 209 Ω og 231 Ω.</p>
+</section>
+<section id="effekt" class="level2">
+<h2 class="anchored" data-anchor-id="effekt">Effekt</h2>
+<p>En modstand laver elektrisk energi om til varme. Effekten måles i watt (W):</p>
+<p><span class="math display">\[P = U \cdot I = \frac{U^2}{R}\]</span></p>
+<p>De almindelige modstande med ben kan tåle <strong>1/4 W</strong> (0,25 W). Det er sjældent et problem på ESP32: Selv hvis hele 3,3 V ligger over en 220 Ω-modstand, er effekten <span class="math inline">\(3{,}3^2 / 220 \approx 0{,}05\ \text{W}\)</span>. Først under ca. 47 Ω direkte over 3,3 V nærmer man sig grænsen (<span class="math inline">\(3{,}3^2 / 47 \approx 0{,}23\ \text{W}\)</span>). En modstand, der bliver varm at røre ved, er et tegn på en fejl, typisk en kortslutning eller en forkert aflæst værdi.</p>
+<!-- TJEK: at lokalets modstande er på 1/4 W. -->
+</section>
+<section id="modstande-i-faget" class="level2">
+<h2 class="anchored" data-anchor-id="modstande-i-faget">Modstande i faget</h2>
+<p>To værdier går igen i næsten alle opstillinger:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Værdi</th>
+<th>Farver (4 bånd)</th>
+<th>Farver (5 bånd)</th>
+<th>Bruges til</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>220 Ω</td>
+<td>rød, rød, brun, guld</td>
+<td>rød, rød, sort, sort, brun</td>
+<td>formodstand til en lysdiode, se Lysdioder</td>
+</tr>
+<tr class="even">
+<td>10 kΩ</td>
+<td>brun, sort, orange, guld</td>
+<td>brun, sort, sort, rød, brun</td>
+<td>ekstern pull-up eller pull-down til en knap, se Knapper</td>
+</tr>
+</tbody>
+</table>
+<p>Et drejepotentiometer er en modstand, hvor du kan ændre værdien med en knap. Det er beskrevet på siden om Potentiometer.</p>
+<!-- TJEK: at 220 Ω og 10 kΩ er de værdier, der ligger i lokalet. -->
+</section>
+<section id="mål-med-et-multimeter" class="level2">
+<h2 class="anchored" data-anchor-id="mål-med-et-multimeter">Mål med et multimeter</h2>
+<p>Farvekoden kan være svær at læse, især i dårligt lys eller på blå modstande. Et multimeter giver svaret direkte:</p>
+<ol type="1">
+<li>Sæt multimeteret på et Ω-område (nogle multimetre vælger selv området).</li>
+<li>Mål på en <strong>løs</strong> modstand, eller i et kredsløb, hvor strømmen er slået fra. Sidder modstanden i et kredsløb, kan strømmen også løbe en anden vej uden om den, og så måler du forkert.</li>
+<li>Hold ikke om begge ben med fingrene. Din krop er også en modstand, og ved store værdier (over ca. 100 kΩ) kan den påvirke målingen.</li>
+<li>Sammenlign med farvekoden: Den målte værdi skal ligge inden for tolerancen.</li>
+</ol>
+<div class="billede-mangler">
+<p>Et af lokalets multimetre, der måler en løs modstand, med displayet tydeligt. Se lignende billeder: <a href="https://en.wikipedia.org/wiki/Multimeter">Wikipedia: Multimeter</a>.</p>
+</div>
+</section>
+<section id="farvekode-beregner" class="level2">
+<h2 class="anchored" data-anchor-id="farvekode-beregner">Farvekode-beregner</h2>
+<p>Beregneren regner begge veje. Den virker kun på hjemmesiden, ikke i en udskrift.</p>
+<!-- TJEK: Quarto henter Inputs og htl fra et CDN (jsdelivr), når siden åbnes. Afprøv, at beregneren virker på skolens net. -->
+<section id="fra-farver-til-værdi" class="level3">
+<h3 class="anchored" data-anchor-id="fra-farver-til-værdi">Fra farver til værdi</h3>
+<p>Vælg antal bånd og farverne fra venstre mod højre.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="200" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 199;"><span id="cb1-200"><a href="#cb1-200" aria-hidden="true" tabindex="-1"></a>viewof antalBaand <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">radio</span>([<span class="dv">4</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Antal bånd"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">4</span>})</span>
+<span id="cb1-201"><a href="#cb1-201" aria-hidden="true" tabindex="-1"></a>viewof b1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(cifferNavne<span class="op">,</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"1. ciffer"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"gul"</span>})</span>
+<span id="cb1-202"><a href="#cb1-202" aria-hidden="true" tabindex="-1"></a>viewof b2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(cifferNavne<span class="op">,</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"2. ciffer"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"violet"</span>})</span>
+<span id="cb1-203"><a href="#cb1-203" aria-hidden="true" tabindex="-1"></a><span class="co">// Det tredje ciffer findes kun på 5-båndsmodstande</span></span>
+<span id="cb1-204"><a href="#cb1-204" aria-hidden="true" tabindex="-1"></a>viewof b3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(cifferNavne<span class="op">,</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"3. ciffer"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"sort"</span><span class="op">,</span> <span class="dt">disabled</span><span class="op">:</span> antalBaand <span class="op">===</span> <span class="dv">4</span>})</span>
+<span id="cb1-205"><a href="#cb1-205" aria-hidden="true" tabindex="-1"></a>viewof mult <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(multNavne<span class="op">,</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Multiplikator"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"rød"</span>})</span>
+<span id="cb1-206"><a href="#cb1-206" aria-hidden="true" tabindex="-1"></a><span class="co">// "ingen" betyder, at der ikke er et tolerancebånd (en 3-båndsmodstand, ±20 %)</span></span>
+<span id="cb1-207"><a href="#cb1-207" aria-hidden="true" tabindex="-1"></a>viewof tol <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(tolNavne<span class="op">,</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Tolerance"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"guld"</span><span class="op">,</span></span>
+<span id="cb1-208"><a href="#cb1-208" aria-hidden="true" tabindex="-1"></a>  <span class="dt">format</span><span class="op">:</span> n <span class="kw">=&gt;</span> n <span class="op">===</span> <span class="st">"ingen"</span> <span class="op">?</span> <span class="st">"ingen (3 bånd, ±20 %)"</span> <span class="op">:</span> n})</span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-4" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-5" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-6" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="212" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 211;"><span id="cb2-212"><a href="#cb2-212" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb2-213"><a href="#cb2-213" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Båndene i rækkefølge fra venstre; ved 4 bånd springes 3. ciffer over</span></span>
+<span id="cb2-214"><a href="#cb2-214" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> navne <span class="op">=</span> antalBaand <span class="op">===</span> <span class="dv">4</span> <span class="op">?</span> [b1<span class="op">,</span> b2<span class="op">,</span> mult<span class="op">,</span> tol] <span class="op">:</span> [b1<span class="op">,</span> b2<span class="op">,</span> b3<span class="op">,</span> mult<span class="op">,</span> tol]<span class="op">;</span></span>
+<span id="cb2-215"><a href="#cb2-215" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Cifrene er alle bånd undtagen de to sidste: fx [4, 7] bliver til 47</span></span>
+<span id="cb2-216"><a href="#cb2-216" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> tal <span class="op">=</span> navne<span class="op">.</span><span class="fu">slice</span>(<span class="dv">0</span><span class="op">,</span> antalBaand <span class="op">-</span> <span class="dv">2</span>)</span>
+<span id="cb2-217"><a href="#cb2-217" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">map</span>(n <span class="kw">=&gt;</span> <span class="fu">farve</span>(n)<span class="op">.</span><span class="at">ciffer</span>)</span>
+<span id="cb2-218"><a href="#cb2-218" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">reduce</span>((sum<span class="op">,</span> c) <span class="kw">=&gt;</span> sum <span class="op">*</span> <span class="dv">10</span> <span class="op">+</span> c<span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb2-219"><a href="#cb2-219" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> ohm <span class="op">=</span> <span class="fu">medEksponent</span>(tal<span class="op">,</span> <span class="fu">farve</span>(mult)<span class="op">.</span><span class="at">eksp</span>)<span class="op">;</span></span>
+<span id="cb2-220"><a href="#cb2-220" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> t <span class="op">=</span> <span class="fu">farve</span>(tol)<span class="op">.</span><span class="at">tol</span><span class="op">;</span></span>
+<span id="cb2-221"><a href="#cb2-221" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> htl<span class="op">.</span><span class="fu">html</span><span class="vs">`&lt;div&gt;</span></span>
+<span id="cb2-222"><a href="#cb2-222" aria-hidden="true" tabindex="-1"></a><span class="vs">    </span><span class="sc">${</span><span class="fu">modstandTegning</span>(navne)<span class="sc">}</span></span>
+<span id="cb2-223"><a href="#cb2-223" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;p&gt;&lt;strong&gt;</span><span class="sc">${</span><span class="fu">formatOhm</span>(ohm)<span class="sc">}</span><span class="vs"> ±</span><span class="sc">${</span><span class="fu">formatTal</span>(t)<span class="sc">}</span><span class="vs"> %&lt;/strong&gt;&lt;br&gt;</span></span>
+<span id="cb2-224"><a href="#cb2-224" aria-hidden="true" tabindex="-1"></a><span class="vs">    Den rigtige værdi ligger mellem </span><span class="sc">${</span><span class="fu">formatOhm</span>(ohm <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> t <span class="op">/</span> <span class="dv">100</span>))<span class="sc">}</span><span class="vs"> og </span><span class="sc">${</span><span class="fu">formatOhm</span>(ohm <span class="op">*</span> (<span class="dv">1</span> <span class="op">+</span> t <span class="op">/</span> <span class="dv">100</span>))<span class="sc">}</span><span class="vs">.&lt;/p&gt;</span></span>
+<span id="cb2-225"><a href="#cb2-225" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;/div&gt;`</span><span class="op">;</span></span>
+<span id="cb2-226"><a href="#cb2-226" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-2" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</section>
+<section id="fra-værdi-til-farver" class="level3">
+<h3 class="anchored" data-anchor-id="fra-værdi-til-farver">Fra værdi til farver</h3>
+<p>Skriv en værdi, fx <code>220</code>, <code>4,7k</code>, <code>4k7</code>, <code>10 kΩ</code> eller <code>1M</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb3" data-startfrom="235" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 234;"><span id="cb3-235"><a href="#cb3-235" aria-hidden="true" tabindex="-1"></a>viewof vaerdiTekst <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">text</span>({<span class="dt">label</span><span class="op">:</span> <span class="st">"Værdi"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"220"</span><span class="op">,</span> <span class="dt">placeholder</span><span class="op">:</span> <span class="st">"fx 220, 4,7k eller 1M"</span>})</span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb4" data-startfrom="240" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 239;"><span id="cb4-240"><a href="#cb4-240" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb4-241"><a href="#cb4-241" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> ohm <span class="op">=</span> <span class="fu">laesVaerdi</span>(vaerdiTekst)<span class="op">;</span></span>
+<span id="cb4-242"><a href="#cb4-242" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (ohm <span class="op">===</span> <span class="kw">null</span>) {</span>
+<span id="cb4-243"><a href="#cb4-243" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> htl<span class="op">.</span><span class="fu">html</span><span class="vs">`&lt;p&gt;Det kan jeg ikke læse. Skriv fx 220, 4,7k, 4k7 eller 1M.&lt;/p&gt;`</span><span class="op">;</span></span>
+<span id="cb4-244"><a href="#cb4-244" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-245"><a href="#cb4-245" aria-hidden="true" tabindex="-1"></a>  <span class="co">// 4 bånd: 2 cifre + multiplikator + guld (±5 %). 5 bånd: 3 cifre + multiplikator + brun (±1 %)</span></span>
+<span id="cb4-246"><a href="#cb4-246" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> fire <span class="op">=</span> <span class="fu">farverFor</span>(ohm<span class="op">,</span> <span class="dv">2</span>)<span class="op">;</span></span>
+<span id="cb4-247"><a href="#cb4-247" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> fem <span class="op">=</span> <span class="fu">farverFor</span>(ohm<span class="op">,</span> <span class="dv">3</span>)<span class="op">;</span></span>
+<span id="cb4-248"><a href="#cb4-248" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> htl<span class="op">.</span><span class="fu">html</span><span class="vs">`&lt;div&gt;</span></span>
+<span id="cb4-249"><a href="#cb4-249" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;p&gt;Værdi: &lt;strong&gt;</span><span class="sc">${</span><span class="fu">formatOhm</span>(ohm)<span class="sc">}</span><span class="vs">&lt;/strong&gt;. E-række: </span><span class="sc">${</span><span class="fu">eSerie</span>(ohm)<span class="sc">}</span><span class="vs">.&lt;/p&gt;</span></span>
+<span id="cb4-250"><a href="#cb4-250" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;p&gt;&lt;strong&gt;4 bånd (±5 %):&lt;/strong&gt; </span><span class="sc">${</span>fire <span class="op">?</span> [<span class="op">...</span>fire<span class="op">,</span> <span class="st">"guld"</span>]<span class="op">.</span><span class="fu">join</span>(<span class="st">", "</span>) <span class="op">:</span> <span class="st">"kan ikke skrives med 2 cifre"</span><span class="sc">}</span><span class="vs">&lt;/p&gt;</span></span>
+<span id="cb4-251"><a href="#cb4-251" aria-hidden="true" tabindex="-1"></a><span class="vs">    </span><span class="sc">${</span>fire <span class="op">?</span> <span class="fu">modstandTegning</span>([<span class="op">...</span>fire<span class="op">,</span> <span class="st">"guld"</span>]) <span class="op">:</span> <span class="kw">null</span><span class="sc">}</span></span>
+<span id="cb4-252"><a href="#cb4-252" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;p&gt;&lt;strong&gt;5 bånd (±1 %):&lt;/strong&gt; </span><span class="sc">${</span>fem <span class="op">?</span> [<span class="op">...</span>fem<span class="op">,</span> <span class="st">"brun"</span>]<span class="op">.</span><span class="fu">join</span>(<span class="st">", "</span>) <span class="op">:</span> <span class="st">"kan ikke skrives med 3 cifre"</span><span class="sc">}</span><span class="vs">&lt;/p&gt;</span></span>
+<span id="cb4-253"><a href="#cb4-253" aria-hidden="true" tabindex="-1"></a><span class="vs">    </span><span class="sc">${</span>fem <span class="op">?</span> <span class="fu">modstandTegning</span>([<span class="op">...</span>fem<span class="op">,</span> <span class="st">"brun"</span>]) <span class="op">:</span> <span class="kw">null</span><span class="sc">}</span></span>
+<span id="cb4-254"><a href="#cb4-254" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;/div&gt;`</span><span class="op">;</span></span>
+<span id="cb4-255"><a href="#cb4-255" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-4" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</section>
+<section id="koden-bag-beregneren" class="level3">
+<h3 class="anchored" data-anchor-id="koden-bag-beregneren">Koden bag beregneren</h3>
+<p>Beregneren er skrevet i JavaScript med Quartos Observable JS. Fold koden ud, hvis du vil se, hvordan den regner. Læg mærke til, at den bruger de samme regler som ovenfor: cifre, multiplikator som en potens af 10, og tolerance i procent.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Kode</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5" data-startfrom="268" data-source-offset="-186"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 267;"><span id="cb5-268"><a href="#cb5-268" aria-hidden="true" tabindex="-1"></a>farver <span class="op">=</span> [</span>
+<span id="cb5-269"><a href="#cb5-269" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">navn</span><span class="op">:</span> <span class="st">"sort"</span><span class="op">,</span>   <span class="dt">hex</span><span class="op">:</span> <span class="st">"#000000"</span><span class="op">,</span> <span class="dt">ciffer</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span>    <span class="dt">eksp</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span>    <span class="dt">tol</span><span class="op">:</span> <span class="kw">null</span>}<span class="op">,</span></span>
+<span id="cb5-270"><a href="#cb5-270" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">navn</span><span class="op">:</span> <span class="st">"brun"</span><span class="op">,</span>   <span class="dt">hex</span><span class="op">:</span> <span class="st">"#8B4513"</span><span class="op">,</span> <span class="dt">ciffer</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span>    <span class="dt">eksp</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span>    <span class="dt">tol</span><span class="op">:</span> <span class="dv">1</span>}<span class="op">,</span></span>
+<span id="cb5-271"><a href="#cb5-271" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">navn</span><span class="op">:</span> <span class="st">"rød"</span><span class="op">,</span>    <span class="dt">hex</span><span class="op">:</span> <span class="st">"#E00000"</span><span class="op">,</span> <span class="dt">ciffer</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span>    <span class="dt">eksp</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span>    <span class="dt">tol</span><span class="op">:</span> <span class="dv">2</span>}<span class="op">,</span></span>
+<span id="cb5-272"><a href="#cb5-272" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">navn</span><span class="op">:</span> <span class="st">"orange"</span><span class="op">,</span> <span class="dt">hex</span><span class="op">:</span> <span class="st">"#FF8C00"</span><span class="op">,</span> <span class="dt">ciffer</span><span class="op">:</span> <span class="dv">3</span><span class="op">,</span>    <span class="dt">eksp</span><span class="op">:</span> <span class="dv">3</span><span class="op">,</span>    <span class="dt">tol</span><span class="op">:</span> <span class="fl">0.05</span>}<span class="op">,</span></span>
+<span id="cb5-273"><a href="#cb5-273" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">navn</span><span class="op">:</span> <span class="st">"gul"</span><span class="op">,</span>    <span class="dt">hex</span><span class="op">:</span> <span class="st">"#FFD700"</span><span class="op">,</span> <span class="dt">ciffer</span><span class="op">:</span> <span class="dv">4</span><span class="op">,</span>    <span class="dt">eksp</span><span class="op">:</span> <span class="dv">4</span><span class="op">,</span>    <span class="dt">tol</span><span class="op">:</span> <span class="fl">0.02</span>}<span class="op">,</span></span>
+<span id="cb5-274"><a href="#cb5-274" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">navn</span><span class="op">:</span> <span class="st">"grøn"</span><span class="op">,</span>   <span class="dt">hex</span><span class="op">:</span> <span class="st">"#008000"</span><span class="op">,</span> <span class="dt">ciffer</span><span class="op">:</span> <span class="dv">5</span><span class="op">,</span>    <span class="dt">eksp</span><span class="op">:</span> <span class="dv">5</span><span class="op">,</span>    <span class="dt">tol</span><span class="op">:</span> <span class="fl">0.5</span>}<span class="op">,</span></span>
+<span id="cb5-275"><a href="#cb5-275" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">navn</span><span class="op">:</span> <span class="st">"blå"</span><span class="op">,</span>    <span class="dt">hex</span><span class="op">:</span> <span class="st">"#0050FF"</span><span class="op">,</span> <span class="dt">ciffer</span><span class="op">:</span> <span class="dv">6</span><span class="op">,</span>    <span class="dt">eksp</span><span class="op">:</span> <span class="dv">6</span><span class="op">,</span>    <span class="dt">tol</span><span class="op">:</span> <span class="fl">0.25</span>}<span class="op">,</span></span>
+<span id="cb5-276"><a href="#cb5-276" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">navn</span><span class="op">:</span> <span class="st">"violet"</span><span class="op">,</span> <span class="dt">hex</span><span class="op">:</span> <span class="st">"#8A2BE2"</span><span class="op">,</span> <span class="dt">ciffer</span><span class="op">:</span> <span class="dv">7</span><span class="op">,</span>    <span class="dt">eksp</span><span class="op">:</span> <span class="dv">7</span><span class="op">,</span>    <span class="dt">tol</span><span class="op">:</span> <span class="fl">0.1</span>}<span class="op">,</span></span>
+<span id="cb5-277"><a href="#cb5-277" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">navn</span><span class="op">:</span> <span class="st">"grå"</span><span class="op">,</span>    <span class="dt">hex</span><span class="op">:</span> <span class="st">"#808080"</span><span class="op">,</span> <span class="dt">ciffer</span><span class="op">:</span> <span class="dv">8</span><span class="op">,</span>    <span class="dt">eksp</span><span class="op">:</span> <span class="dv">8</span><span class="op">,</span>    <span class="dt">tol</span><span class="op">:</span> <span class="fl">0.01</span>}<span class="op">,</span></span>
+<span id="cb5-278"><a href="#cb5-278" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">navn</span><span class="op">:</span> <span class="st">"hvid"</span><span class="op">,</span>   <span class="dt">hex</span><span class="op">:</span> <span class="st">"#FFFFFF"</span><span class="op">,</span> <span class="dt">ciffer</span><span class="op">:</span> <span class="dv">9</span><span class="op">,</span>    <span class="dt">eksp</span><span class="op">:</span> <span class="dv">9</span><span class="op">,</span>    <span class="dt">tol</span><span class="op">:</span> <span class="kw">null</span>}<span class="op">,</span></span>
+<span id="cb5-279"><a href="#cb5-279" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">navn</span><span class="op">:</span> <span class="st">"guld"</span><span class="op">,</span>   <span class="dt">hex</span><span class="op">:</span> <span class="st">"#CFB53B"</span><span class="op">,</span> <span class="dt">ciffer</span><span class="op">:</span> <span class="kw">null</span><span class="op">,</span> <span class="dt">eksp</span><span class="op">:</span> <span class="op">-</span><span class="dv">1</span><span class="op">,</span>   <span class="dt">tol</span><span class="op">:</span> <span class="dv">5</span>}<span class="op">,</span></span>
+<span id="cb5-280"><a href="#cb5-280" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">navn</span><span class="op">:</span> <span class="st">"sølv"</span><span class="op">,</span>   <span class="dt">hex</span><span class="op">:</span> <span class="st">"#C0C0C0"</span><span class="op">,</span> <span class="dt">ciffer</span><span class="op">:</span> <span class="kw">null</span><span class="op">,</span> <span class="dt">eksp</span><span class="op">:</span> <span class="op">-</span><span class="dv">2</span><span class="op">,</span>   <span class="dt">tol</span><span class="op">:</span> <span class="dv">10</span>}<span class="op">,</span></span>
+<span id="cb5-281"><a href="#cb5-281" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">navn</span><span class="op">:</span> <span class="st">"ingen"</span><span class="op">,</span>  <span class="dt">hex</span><span class="op">:</span> <span class="kw">null</span><span class="op">,</span>      <span class="dt">ciffer</span><span class="op">:</span> <span class="kw">null</span><span class="op">,</span> <span class="dt">eksp</span><span class="op">:</span> <span class="kw">null</span><span class="op">,</span> <span class="dt">tol</span><span class="op">:</span> <span class="dv">20</span>}</span>
+<span id="cb5-282"><a href="#cb5-282" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb5-283"><a href="#cb5-283" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-284"><a href="#cb5-284" aria-hidden="true" tabindex="-1"></a><span class="co">// Listerne til valgfelterne: kun de farver, der kan bruges i det bånd</span></span>
+<span id="cb5-285"><a href="#cb5-285" aria-hidden="true" tabindex="-1"></a>cifferNavne <span class="op">=</span> farver<span class="op">.</span><span class="fu">filter</span>(f <span class="kw">=&gt;</span> f<span class="op">.</span><span class="at">ciffer</span> <span class="op">!==</span> <span class="kw">null</span>)<span class="op">.</span><span class="fu">map</span>(f <span class="kw">=&gt;</span> f<span class="op">.</span><span class="at">navn</span>)</span>
+<span id="cb5-286"><a href="#cb5-286" aria-hidden="true" tabindex="-1"></a>multNavne <span class="op">=</span> farver<span class="op">.</span><span class="fu">filter</span>(f <span class="kw">=&gt;</span> f<span class="op">.</span><span class="at">eksp</span> <span class="op">!==</span> <span class="kw">null</span>)<span class="op">.</span><span class="fu">map</span>(f <span class="kw">=&gt;</span> f<span class="op">.</span><span class="at">navn</span>)</span>
+<span id="cb5-287"><a href="#cb5-287" aria-hidden="true" tabindex="-1"></a>tolNavne <span class="op">=</span> farver<span class="op">.</span><span class="fu">filter</span>(f <span class="kw">=&gt;</span> f<span class="op">.</span><span class="at">tol</span> <span class="op">!==</span> <span class="kw">null</span>)<span class="op">.</span><span class="fu">map</span>(f <span class="kw">=&gt;</span> f<span class="op">.</span><span class="at">navn</span>)</span>
+<span id="cb5-288"><a href="#cb5-288" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-289"><a href="#cb5-289" aria-hidden="true" tabindex="-1"></a><span class="co">// E-rækkerne som tocifrede tal</span></span>
+<span id="cb5-290"><a href="#cb5-290" aria-hidden="true" tabindex="-1"></a>e12 <span class="op">=</span> [<span class="dv">10</span><span class="op">,</span> <span class="dv">12</span><span class="op">,</span> <span class="dv">15</span><span class="op">,</span> <span class="dv">18</span><span class="op">,</span> <span class="dv">22</span><span class="op">,</span> <span class="dv">27</span><span class="op">,</span> <span class="dv">33</span><span class="op">,</span> <span class="dv">39</span><span class="op">,</span> <span class="dv">47</span><span class="op">,</span> <span class="dv">56</span><span class="op">,</span> <span class="dv">68</span><span class="op">,</span> <span class="dv">82</span>]</span>
+<span id="cb5-291"><a href="#cb5-291" aria-hidden="true" tabindex="-1"></a>e24 <span class="op">=</span> [<span class="dv">10</span><span class="op">,</span> <span class="dv">11</span><span class="op">,</span> <span class="dv">12</span><span class="op">,</span> <span class="dv">13</span><span class="op">,</span> <span class="dv">15</span><span class="op">,</span> <span class="dv">16</span><span class="op">,</span> <span class="dv">18</span><span class="op">,</span> <span class="dv">20</span><span class="op">,</span> <span class="dv">22</span><span class="op">,</span> <span class="dv">24</span><span class="op">,</span> <span class="dv">27</span><span class="op">,</span> <span class="dv">30</span><span class="op">,</span> <span class="dv">33</span><span class="op">,</span> <span class="dv">36</span><span class="op">,</span> <span class="dv">39</span><span class="op">,</span> <span class="dv">43</span><span class="op">,</span> <span class="dv">47</span><span class="op">,</span> <span class="dv">51</span><span class="op">,</span> <span class="dv">56</span><span class="op">,</span> <span class="dv">62</span><span class="op">,</span> <span class="dv">68</span><span class="op">,</span> <span class="dv">75</span><span class="op">,</span> <span class="dv">82</span><span class="op">,</span> <span class="dv">91</span>]</span>
+<span id="cb5-292"><a href="#cb5-292" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-293"><a href="#cb5-293" aria-hidden="true" tabindex="-1"></a><span class="co">// Slå en farve op ud fra navnet</span></span>
+<span id="cb5-294"><a href="#cb5-294" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">farve</span>(navn) {</span>
+<span id="cb5-295"><a href="#cb5-295" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> farver<span class="op">.</span><span class="fu">find</span>(f <span class="kw">=&gt;</span> f<span class="op">.</span><span class="at">navn</span> <span class="op">===</span> navn)<span class="op">;</span></span>
+<span id="cb5-296"><a href="#cb5-296" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-297"><a href="#cb5-297" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-298"><a href="#cb5-298" aria-hidden="true" tabindex="-1"></a><span class="co">// tal × 10^eksp. Ved negativ eksponent divideres der, så 47 × 10^-1 giver præcis 4,7</span></span>
+<span id="cb5-299"><a href="#cb5-299" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">medEksponent</span>(tal<span class="op">,</span> eksp) {</span>
+<span id="cb5-300"><a href="#cb5-300" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> eksp <span class="op">&gt;=</span> <span class="dv">0</span> <span class="op">?</span> tal <span class="op">*</span> <span class="dv">10</span> <span class="op">**</span> eksp <span class="op">:</span> tal <span class="op">/</span> <span class="dv">10</span> <span class="op">**</span> <span class="op">-</span>eksp<span class="op">;</span></span>
+<span id="cb5-301"><a href="#cb5-301" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-302"><a href="#cb5-302" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-303"><a href="#cb5-303" aria-hidden="true" tabindex="-1"></a><span class="co">// Tal med dansk decimalkomma, højst tre decimaler</span></span>
+<span id="cb5-304"><a href="#cb5-304" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">formatTal</span>(x) {</span>
+<span id="cb5-305"><a href="#cb5-305" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> x<span class="op">.</span><span class="fu">toLocaleString</span>(<span class="st">"da-DK"</span><span class="op">,</span> {<span class="dt">maximumFractionDigits</span><span class="op">:</span> <span class="dv">3</span>})<span class="op">;</span></span>
+<span id="cb5-306"><a href="#cb5-306" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-307"><a href="#cb5-307" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-308"><a href="#cb5-308" aria-hidden="true" tabindex="-1"></a><span class="co">// Vælg den enhed, der giver et pænt tal: 4700 bliver til "4,7 kΩ"</span></span>
+<span id="cb5-309"><a href="#cb5-309" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">formatOhm</span>(ohm) {</span>
+<span id="cb5-310"><a href="#cb5-310" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (ohm <span class="op">&gt;=</span> <span class="fl">1e9</span>) <span class="cf">return</span> <span class="fu">formatTal</span>(ohm <span class="op">/</span> <span class="fl">1e9</span>) <span class="op">+</span> <span class="st">" GΩ"</span><span class="op">;</span></span>
+<span id="cb5-311"><a href="#cb5-311" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (ohm <span class="op">&gt;=</span> <span class="fl">1e6</span>) <span class="cf">return</span> <span class="fu">formatTal</span>(ohm <span class="op">/</span> <span class="fl">1e6</span>) <span class="op">+</span> <span class="st">" MΩ"</span><span class="op">;</span></span>
+<span id="cb5-312"><a href="#cb5-312" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (ohm <span class="op">&gt;=</span> <span class="fl">1e3</span>) <span class="cf">return</span> <span class="fu">formatTal</span>(ohm <span class="op">/</span> <span class="fl">1e3</span>) <span class="op">+</span> <span class="st">" kΩ"</span><span class="op">;</span></span>
+<span id="cb5-313"><a href="#cb5-313" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">formatTal</span>(ohm) <span class="op">+</span> <span class="st">" Ω"</span><span class="op">;</span></span>
+<span id="cb5-314"><a href="#cb5-314" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-315"><a href="#cb5-315" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-316"><a href="#cb5-316" aria-hidden="true" tabindex="-1"></a><span class="co">// Læs fx "220", "4,7k", "4k7", "10 kΩ", "1M", "4R7" eller "4.700". Giver ohm eller null.</span></span>
+<span id="cb5-317"><a href="#cb5-317" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">laesVaerdi</span>(tekst) {</span>
+<span id="cb5-318"><a href="#cb5-318" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> s <span class="op">=</span> tekst<span class="op">.</span><span class="fu">replace</span>(<span class="ss">/</span><span class="sc">\s|</span><span class="ss">Ω</span><span class="sc">|</span><span class="ss">ohm/gi</span><span class="op">,</span> <span class="st">""</span>)<span class="op">;</span></span>
+<span id="cb5-319"><a href="#cb5-319" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Dansk tusindtalspunktum: "4.700" og "1.000.000" er hele tal, ikke 4,7 og 1</span></span>
+<span id="cb5-320"><a href="#cb5-320" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="ss">/</span><span class="sc">^\d{1,3}(\.\d{3})+$</span><span class="ss">/</span><span class="op">.</span><span class="fu">test</span>(s)) s <span class="op">=</span> s<span class="op">.</span><span class="fu">replaceAll</span>(<span class="st">"."</span><span class="op">,</span> <span class="st">""</span>)<span class="op">;</span></span>
+<span id="cb5-321"><a href="#cb5-321" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Dansk decimalkomma: "4,7k" bliver til "4.7k"</span></span>
+<span id="cb5-322"><a href="#cb5-322" aria-hidden="true" tabindex="-1"></a>  s <span class="op">=</span> s<span class="op">.</span><span class="fu">replace</span>(<span class="st">","</span><span class="op">,</span> <span class="st">"."</span>)<span class="op">;</span></span>
+<span id="cb5-323"><a href="#cb5-323" aria-hidden="true" tabindex="-1"></a>  <span class="co">// tal, evt. et bogstav (R, k, M, G) og evt. flere cifre efter bogstavet</span></span>
+<span id="cb5-324"><a href="#cb5-324" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> m <span class="op">=</span> s<span class="op">.</span><span class="fu">match</span>(<span class="ss">/</span><span class="sc">^(\d+(?</span><span class="ss">:</span><span class="sc">\.\d+)?)([rkmg]?)(\d*)$</span><span class="ss">/i</span>)<span class="op">;</span></span>
+<span id="cb5-325"><a href="#cb5-325" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (m <span class="op">===</span> <span class="kw">null</span>) <span class="cf">return</span> <span class="kw">null</span><span class="op">;</span></span>
+<span id="cb5-326"><a href="#cb5-326" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (m[<span class="dv">3</span>] <span class="op">!==</span> <span class="st">""</span> <span class="op">&amp;&amp;</span> (m[<span class="dv">1</span>]<span class="op">.</span><span class="fu">includes</span>(<span class="st">"."</span>) <span class="op">||</span> m[<span class="dv">2</span>] <span class="op">===</span> <span class="st">""</span>)) <span class="cf">return</span> <span class="kw">null</span><span class="op">;</span></span>
+<span id="cb5-327"><a href="#cb5-327" aria-hidden="true" tabindex="-1"></a>  <span class="co">// "4k7": bogstavet står på kommaets plads</span></span>
+<span id="cb5-328"><a href="#cb5-328" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> tal <span class="op">=</span> <span class="pp">parseFloat</span>(m[<span class="dv">3</span>] <span class="op">===</span> <span class="st">""</span> <span class="op">?</span> m[<span class="dv">1</span>] <span class="op">:</span> m[<span class="dv">1</span>] <span class="op">+</span> <span class="st">"."</span> <span class="op">+</span> m[<span class="dv">3</span>])<span class="op">;</span></span>
+<span id="cb5-329"><a href="#cb5-329" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> faktor <span class="op">=</span> {<span class="st">""</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">k</span><span class="op">:</span> <span class="fl">1e3</span><span class="op">,</span> <span class="dt">m</span><span class="op">:</span> <span class="fl">1e6</span><span class="op">,</span> <span class="dt">g</span><span class="op">:</span> <span class="fl">1e9</span>}[m[<span class="dv">2</span>]<span class="op">.</span><span class="fu">toLowerCase</span>()]<span class="op">;</span></span>
+<span id="cb5-330"><a href="#cb5-330" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> ohm <span class="op">=</span> tal <span class="op">*</span> faktor<span class="op">;</span></span>
+<span id="cb5-331"><a href="#cb5-331" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> ohm <span class="op">&gt;</span> <span class="dv">0</span> <span class="op">?</span> ohm <span class="op">:</span> <span class="kw">null</span><span class="op">;</span></span>
+<span id="cb5-332"><a href="#cb5-332" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-333"><a href="#cb5-333" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-334"><a href="#cb5-334" aria-hidden="true" tabindex="-1"></a><span class="co">// Find de n cifre og eksponenten, så ohm = cifrene × 10^eksp.</span></span>
+<span id="cb5-335"><a href="#cb5-335" aria-hidden="true" tabindex="-1"></a><span class="co">// Giver null, hvis værdien kræver flere end n cifre.</span></span>
+<span id="cb5-336"><a href="#cb5-336" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">cifreOgEksp</span>(ohm<span class="op">,</span> n) {</span>
+<span id="cb5-337"><a href="#cb5-337" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">let</span> eksp <span class="op">=</span> <span class="op">-</span><span class="dv">2</span><span class="op">;</span> eksp <span class="op">&lt;=</span> <span class="dv">9</span><span class="op">;</span> eksp<span class="op">++</span>) {   <span class="co">// sølv (10^-2) til hvid (10^9)</span></span>
+<span id="cb5-338"><a href="#cb5-338" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> t <span class="op">=</span> <span class="fu">medEksponent</span>(ohm<span class="op">,</span> <span class="op">-</span>eksp)<span class="op">;</span></span>
+<span id="cb5-339"><a href="#cb5-339" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (t <span class="op">&lt;</span> <span class="dv">10</span> <span class="op">**</span> n <span class="op">-</span> <span class="fl">0.5</span>) {                 <span class="co">// den første eksponent, hvor tallet kan stå med n cifre</span></span>
+<span id="cb5-340"><a href="#cb5-340" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> heltal <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">round</span>(t)<span class="op">;</span></span>
+<span id="cb5-341"><a href="#cb5-341" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (<span class="bu">Math</span><span class="op">.</span><span class="fu">abs</span>(t <span class="op">-</span> heltal) <span class="op">&gt;</span> <span class="fl">1e-6</span>) <span class="cf">return</span> <span class="kw">null</span><span class="op">;</span>   <span class="co">// der er flere cifre end n</span></span>
+<span id="cb5-342"><a href="#cb5-342" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> cifre <span class="op">=</span> <span class="bu">String</span>(heltal)<span class="op">.</span><span class="fu">padStart</span>(n<span class="op">,</span> <span class="st">"0"</span>)<span class="op">.</span><span class="fu">split</span>(<span class="st">""</span>)<span class="op">.</span><span class="fu">map</span>(<span class="bu">Number</span>)<span class="op">;</span></span>
+<span id="cb5-343"><a href="#cb5-343" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return</span> {cifre<span class="op">,</span> eksp}<span class="op">;</span></span>
+<span id="cb5-344"><a href="#cb5-344" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb5-345"><a href="#cb5-345" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb5-346"><a href="#cb5-346" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="kw">null</span><span class="op">;</span>   <span class="co">// for stor til farvekoden</span></span>
+<span id="cb5-347"><a href="#cb5-347" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-348"><a href="#cb5-348" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-349"><a href="#cb5-349" aria-hidden="true" tabindex="-1"></a><span class="co">// Farvenavnene for cifrene og multiplikatoren (uden tolerance)</span></span>
+<span id="cb5-350"><a href="#cb5-350" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">farverFor</span>(ohm<span class="op">,</span> n) {</span>
+<span id="cb5-351"><a href="#cb5-351" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> r <span class="op">=</span> <span class="fu">cifreOgEksp</span>(ohm<span class="op">,</span> n)<span class="op">;</span></span>
+<span id="cb5-352"><a href="#cb5-352" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (r <span class="op">===</span> <span class="kw">null</span>) <span class="cf">return</span> <span class="kw">null</span><span class="op">;</span></span>
+<span id="cb5-353"><a href="#cb5-353" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> [</span>
+<span id="cb5-354"><a href="#cb5-354" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span>r<span class="op">.</span><span class="at">cifre</span><span class="op">.</span><span class="fu">map</span>(c <span class="kw">=&gt;</span> farver<span class="op">.</span><span class="fu">find</span>(f <span class="kw">=&gt;</span> f<span class="op">.</span><span class="at">ciffer</span> <span class="op">===</span> c)<span class="op">.</span><span class="at">navn</span>)<span class="op">,</span></span>
+<span id="cb5-355"><a href="#cb5-355" aria-hidden="true" tabindex="-1"></a>    farver<span class="op">.</span><span class="fu">find</span>(f <span class="kw">=&gt;</span> f<span class="op">.</span><span class="at">eksp</span> <span class="op">===</span> r<span class="op">.</span><span class="at">eksp</span>)<span class="op">.</span><span class="at">navn</span></span>
+<span id="cb5-356"><a href="#cb5-356" aria-hidden="true" tabindex="-1"></a>  ]<span class="op">;</span></span>
+<span id="cb5-357"><a href="#cb5-357" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-358"><a href="#cb5-358" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-359"><a href="#cb5-359" aria-hidden="true" tabindex="-1"></a><span class="co">// Hvilken E-række værdien hører til (ud fra de to første cifre)</span></span>
+<span id="cb5-360"><a href="#cb5-360" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">eSerie</span>(ohm) {</span>
+<span id="cb5-361"><a href="#cb5-361" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> r <span class="op">=</span> <span class="fu">cifreOgEksp</span>(ohm<span class="op">,</span> <span class="dv">2</span>)<span class="op">;</span></span>
+<span id="cb5-362"><a href="#cb5-362" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Værdier uden for E24 kan godt findes som 5-båndsmodstande på ±1 % (E96)</span></span>
+<span id="cb5-363"><a href="#cb5-363" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (r <span class="op">===</span> <span class="kw">null</span>) <span class="cf">return</span> <span class="st">"ikke E12 eller E24 (kræver 3 cifre). Den kan findes som 5-båndsmodstand på ±1 % (E96)"</span><span class="op">;</span></span>
+<span id="cb5-364"><a href="#cb5-364" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> tal <span class="op">=</span> r<span class="op">.</span><span class="at">cifre</span>[<span class="dv">0</span>] <span class="op">*</span> <span class="dv">10</span> <span class="op">+</span> r<span class="op">.</span><span class="at">cifre</span>[<span class="dv">1</span>]<span class="op">;</span></span>
+<span id="cb5-365"><a href="#cb5-365" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (e12<span class="op">.</span><span class="fu">includes</span>(tal)) <span class="cf">return</span> <span class="st">"E12 (og dermed også E24)"</span><span class="op">;</span></span>
+<span id="cb5-366"><a href="#cb5-366" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (e24<span class="op">.</span><span class="fu">includes</span>(tal)) <span class="cf">return</span> <span class="st">"E24"</span><span class="op">;</span></span>
+<span id="cb5-367"><a href="#cb5-367" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="st">"ikke E12 eller E24, så den findes ikke som 4-båndsmodstand på ±5 %. Den kan findes som 5-båndsmodstand på ±1 % (E96)"</span><span class="op">;</span></span>
+<span id="cb5-368"><a href="#cb5-368" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-369"><a href="#cb5-369" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-370"><a href="#cb5-370" aria-hidden="true" tabindex="-1"></a><span class="co">// Tegn en modstand med farvede bånd. Det sidste bånd (tolerancen) får ekstra afstand.</span></span>
+<span id="cb5-371"><a href="#cb5-371" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">modstandTegning</span>(navne) {</span>
+<span id="cb5-372"><a href="#cb5-372" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> baand <span class="op">=</span> navne<span class="op">.</span><span class="fu">map</span>((navn<span class="op">,</span> i) <span class="kw">=&gt;</span> {</span>
+<span id="cb5-373"><a href="#cb5-373" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> f <span class="op">=</span> <span class="fu">farve</span>(navn)<span class="op">;</span></span>
+<span id="cb5-374"><a href="#cb5-374" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> css <span class="op">=</span> <span class="st">"display:inline-block;width:12px;height:44px;"</span></span>
+<span id="cb5-375"><a href="#cb5-375" aria-hidden="true" tabindex="-1"></a>      <span class="op">+</span> <span class="st">"background:"</span> <span class="op">+</span> (f<span class="op">.</span><span class="at">hex</span> <span class="op">||</span> <span class="st">"transparent"</span>) <span class="op">+</span> <span class="st">";"</span></span>
+<span id="cb5-376"><a href="#cb5-376" aria-hidden="true" tabindex="-1"></a>      <span class="op">+</span> <span class="st">"margin-left:"</span> <span class="op">+</span> (i <span class="op">===</span> navne<span class="op">.</span><span class="at">length</span> <span class="op">-</span> <span class="dv">1</span> <span class="op">?</span> <span class="st">"24px"</span> <span class="op">:</span> <span class="st">"8px"</span>) <span class="op">+</span> <span class="st">";"</span></span>
+<span id="cb5-377"><a href="#cb5-377" aria-hidden="true" tabindex="-1"></a>      <span class="op">+</span> (navn <span class="op">===</span> <span class="st">"hvid"</span> <span class="op">?</span> <span class="st">"outline:1px solid #999;"</span> <span class="op">:</span> <span class="st">""</span>)<span class="op">;</span></span>
+<span id="cb5-378"><a href="#cb5-378" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> htl<span class="op">.</span><span class="fu">html</span><span class="vs">`&lt;span title=</span><span class="sc">${</span>navn<span class="sc">}</span><span class="vs"> style=</span><span class="sc">${</span>css<span class="sc">}</span><span class="vs">&gt;&lt;/span&gt;`</span><span class="op">;</span></span>
+<span id="cb5-379"><a href="#cb5-379" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb5-380"><a href="#cb5-380" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> ben <span class="op">=</span> <span class="st">"display:inline-block;width:40px;height:3px;background:#999;"</span><span class="op">;</span></span>
+<span id="cb5-381"><a href="#cb5-381" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> krop <span class="op">=</span> <span class="st">"display:inline-flex;align-items:center;height:44px;padding:0 18px 0 10px;"</span></span>
+<span id="cb5-382"><a href="#cb5-382" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> <span class="st">"background:#E8D3A8;border-radius:14px;"</span><span class="op">;</span></span>
+<span id="cb5-383"><a href="#cb5-383" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> htl<span class="op">.</span><span class="fu">html</span><span class="vs">`&lt;div style="display:flex;align-items:center;margin:0.5em 0;"&gt;</span></span>
+<span id="cb5-384"><a href="#cb5-384" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;span style=</span><span class="sc">${</span>ben<span class="sc">}</span><span class="vs">&gt;&lt;/span&gt;&lt;span style=</span><span class="sc">${</span>krop<span class="sc">}</span><span class="vs">&gt;</span><span class="sc">${</span>baand<span class="sc">}</span><span class="vs">&lt;/span&gt;&lt;span style=</span><span class="sc">${</span>ben<span class="sc">}</span><span class="vs">&gt;&lt;/span&gt;</span></span>
+<span id="cb5-385"><a href="#cb5-385" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;/div&gt;`</span><span class="op">;</span></span>
+<span id="cb5-386"><a href="#cb5-386" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-5-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-5-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-5-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-5-4" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-5-5" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-5-6" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-5-7" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-5-8" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-5-9" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-5-10" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-5-11" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-5-12" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-5-13" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-5-14" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-5-15" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="eksempel-aflæs-en-modstand" class="level2">
+<h2 class="anchored" data-anchor-id="eksempel-aflæs-en-modstand">Eksempel: aflæs en modstand</h2>
+<p>En modstand har båndene <strong>gul, violet, orange, guld</strong>.</p>
+<ol type="1">
+<li>Guld står i den ene ende, så den ende vender til højre. Fire bånd: to cifre, multiplikator, tolerance.</li>
+<li>Gul = 4, violet = 7, så cifrene er 47.</li>
+<li>Orange = × 1.000, så værdien er 47 × 1.000 = 47.000 Ω = <strong>47 kΩ</strong>.</li>
+<li>Guld = ±5 %, så den rigtige værdi ligger mellem 44,65 kΩ og 49,35 kΩ.</li>
+<li>Tjek: 47 er i E12, så aflæsningen er sandsynlig.</li>
+</ol>
+</section>
+<section id="eksempel-vælg-en-modstand" class="level2">
+<h2 class="anchored" data-anchor-id="eksempel-vælg-en-modstand">Eksempel: vælg en modstand</h2>
+<p>Du vil have ca. 10 mA gennem en rød lysdiode på 3,3 V. Lysdioden tager ca. 2 V.</p>
+<ol type="1">
+<li>Spændingen over modstanden: 3,3 V − 2 V = 1,3 V.</li>
+<li>Ohms lov: <span class="math inline">\(R = U / I = 1{,}3\ \text{V} / 0{,}010\ \text{A} = 130\ \Omega\)</span>.</li>
+<li>130 Ω findes i E24, så den kan bruges direkte, og strømmen bliver præcis 10 mA. Har du kun E12, er den nærmeste værdi over 150 Ω, og strømmen bliver 1,3 V / 150 Ω ≈ 8,7 mA.</li>
+<li>Effekt med 130 Ω: <span class="math inline">\(P = U \cdot I = 1{,}3\ \text{V} \cdot 0{,}010\ \text{A} = 0{,}013\ \text{W}\)</span>. Langt under 1/4 W.</li>
+<li>Farverne med 4 bånd: brun, orange, brun, guld (130 Ω). Med 150 Ω fra E12: brun, grøn, brun, guld. Tjek det i beregneren.</li>
+</ol>
+<p>Hvor stor strømmen bør være, og hvor meget ESP32-benet kan klare, står på siden om Lysdioder.</p>
+</section>
+<section id="øvelser" class="level2">
+<h2 class="anchored" data-anchor-id="øvelser">Øvelser</h2>
+<ol type="1">
+<li>Aflæs farverne på tre forskellige modstande fra lokalet. Skriv farverne, værdien og tolerancen ned, og tjek dem bagefter i beregneren.</li>
+<li>Mål de samme tre modstande med et multimeter. Ligger de inden for tolerancen? Skriv målt værdi og afvigelse i procent ned.</li>
+<li>Find en 220 Ω og en 10 kΩ i skuffen uden at bruge multimeteret. Tjek derefter med multimeteret, at du tog de rigtige.</li>
+<li>Beregn strømmen gennem en 10 kΩ pull-up-modstand og gennem en 220 Ω formodstand til en rød lysdiode (Vf ca. 2 V) på 3,3 V. Hvilken af dem bruger mest strøm?</li>
+<li>En modstand har båndene brun, sort, sort, brun, brun. Hvilke to værdier kan den have, afhængigt af hvilken vej du læser? Hvordan finder du ud af, hvilken der er rigtig?</li>
+<li><em>Ekstra:</em> Du vil have ca. 5 mA gennem en gul lysdiode (Vf ca. 2,1 V) på 3,3 V. Beregn modstanden, vælg en værdi fra E24-rækken, og find farverne for både 4 og 5 bånd. Hvad bliver strømmen og effekten med den værdi, du valgte?</li>
+</ol>
+</section>
+<section id="typiske-fejl" class="level2">
+<h2 class="anchored" data-anchor-id="typiske-fejl">Typiske fejl</h2>
+<ul>
+<li><strong>Læst fra den forkerte ende:</strong> Værdien på en 4-båndsmodstand passer ikke med E24, eller multimeteret viser noget helt andet. Tolerancebåndet skal vende til højre. Er du i tvivl, så mål.</li>
+<li><strong>4 og 5 bånd blandet sammen:</strong> På en 5-båndsmodstand er det fjerde bånd multiplikatoren, ikke tolerancen. Tæl båndene, før du aflæser.</li>
+<li><strong>Forvekslede farver:</strong> Rød, orange og brun ligner hinanden, især på en blå modstand eller i dårligt lys. Det samme gælder violet og blå. Brug lys, eller mål.</li>
+<li><strong>Regnet i forkerte enheder:</strong> 1,3 V / 10 mA er ikke 0,13 Ω. Lav mA om til A (0,010 A), så bliver det 130 Ω.</li>
+<li><strong>Målt i kredsløbet:</strong> Multimeteret viser for lidt, fordi strømmen også kan løbe uden om modstanden. Tag den ene ende af modstanden ud af breadboardet, og slå strømmen fra.</li>
+<li><strong>Lysdioden lyser ikke, eller lyser meget svagt:</strong> Måske er der taget en 220 kΩ (rød, rød, gul) i stedet for 220 Ω (rød, rød, brun). Kun multiplikatoren er forskellig.</li>
+</ul>
+</section>
+<section id="læs-videre" class="level2">
+<h2 class="anchored" data-anchor-id="læs-videre">Læs videre</h2>
+<section id="electronics-tutorials-resistor-colour-code" class="level3">
+<h3 class="anchored" data-anchor-id="electronics-tutorials-resistor-colour-code">Electronics Tutorials: Resistor Colour Code</h3>
+<p><a href="https://www.electronics-tutorials.ws/resistor/res_2.html" lang="en">Resistor Colour Code</a> gennemgår farvekoden og E-rækkerne (E6 til E192) med flere regneeksempler. Den er god til at se, hvordan E-rækkerne overlapper, når tolerancen regnes med.</p>
+<p>Læs den kritisk:</p>
+<ul>
+<li>Tabellen giver grå tolerance ±0,05 %. Wikipedias gengivelse af IEC 60062:2016 siger ±0,01 %. Begge findes i praksis, og du møder næsten aldrig grå som tolerance.</li>
+<li>Tabellen mangler multiplikator for grå (× 100 M) og hvid (× 1 G) og tolerance for orange og gul. Brug tabellen på denne side.</li>
+<li>Artiklen siger, at 5-båndsmodstande bruger E48-rækken. Det almindelige for ±1 % er E96.</li>
+</ul>
+</section>
+</section>
+<section id="kilder" class="level2">
+<h2 class="anchored" data-anchor-id="kilder">Kilder</h2>
+<ul>
+<li>Wikipedia: Electronic color code (gengiver IEC 60062:2016), <a href="https://en.wikipedia.org/wiki/Electronic_color_code" class="uri">https://en.wikipedia.org/wiki/Electronic_color_code</a></li>
+<li>Wikipedia: E series of preferred numbers (E12 og E24), <a href="https://en.wikipedia.org/wiki/E_series_of_preferred_numbers" class="uri">https://en.wikipedia.org/wiki/E_series_of_preferred_numbers</a></li>
+<li>DigiKey: Resistor Color Code Calculator, <a href="https://www.digikey.com/en/resources/conversion-calculators/conversion-calculator-resistor-color-code" class="uri">https://www.digikey.com/en/resources/conversion-calculators/conversion-calculator-resistor-color-code</a></li>
+<li>EEPower: Resistor Color Code (læseretning, IEC 60062), <a href="https://eepower.com/resistor-guide/resistor-standards-and-codes/resistor-color-code/" class="uri">https://eepower.com/resistor-guide/resistor-standards-and-codes/resistor-color-code/</a></li>
+<li>Electronics Tutorials: Resistor Colour Code, <a href="https://www.electronics-tutorials.ws/resistor/res_2.html" class="uri">https://www.electronics-tutorials.ws/resistor/res_2.html</a></li>
+<li>Quarto: Observable JS, <a href="https://quarto.org/docs/interactive/ojs/" class="uri">https://quarto.org/docs/interactive/ojs/</a> og OJS Cells, <a href="https://quarto.org/docs/interactive/ojs/ojs-cells.html" class="uri">https://quarto.org/docs/interactive/ojs/ojs-cells.html</a></li>
+<li>Observable Inputs (<code>Inputs.select</code>, <code>Inputs.radio</code>, <code>Inputs.text</code>), <a href="https://github.com/observablehq/inputs" class="uri">https://github.com/observablehq/inputs</a></li>
+<li>Hypertext Literal (<code>htl.html</code>), <a href="https://github.com/observablehq/htl" class="uri">https://github.com/observablehq/htl</a></li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiBhbnRhbEJhYW5kID0gSW5wdXRzLnJhZGlvKFs0LCA1XSwge2xhYmVsOiBcIkFudGFsIGLDpW5kXCIsIHZhbHVlOiA0fSlcbnZpZXdvZiBiMSA9IElucHV0cy5zZWxlY3QoY2lmZmVyTmF2bmUsIHtsYWJlbDogXCIxLiBjaWZmZXJcIiwgdmFsdWU6IFwiZ3VsXCJ9KVxudmlld29mIGIyID0gSW5wdXRzLnNlbGVjdChjaWZmZXJOYXZuZSwge2xhYmVsOiBcIjIuIGNpZmZlclwiLCB2YWx1ZTogXCJ2aW9sZXRcIn0pXG4vLyBEZXQgdHJlZGplIGNpZmZlciBmaW5kZXMga3VuIHDDpSA1LWLDpW5kc21vZHN0YW5kZVxudmlld29mIGIzID0gSW5wdXRzLnNlbGVjdChjaWZmZXJOYXZuZSwge2xhYmVsOiBcIjMuIGNpZmZlclwiLCB2YWx1ZTogXCJzb3J0XCIsIGRpc2FibGVkOiBhbnRhbEJhYW5kID09PSA0fSlcbnZpZXdvZiBtdWx0ID0gSW5wdXRzLnNlbGVjdChtdWx0TmF2bmUsIHtsYWJlbDogXCJNdWx0aXBsaWthdG9yXCIsIHZhbHVlOiBcInLDuGRcIn0pXG4vLyBcImluZ2VuXCIgYmV0eWRlciwgYXQgZGVyIGlra2UgZXIgZXQgdG9sZXJhbmNlYsOlbmQgKGVuIDMtYsOlbmRzbW9kc3RhbmQsIMKxMjAgJSlcbnZpZXdvZiB0b2wgPSBJbnB1dHMuc2VsZWN0KHRvbE5hdm5lLCB7bGFiZWw6IFwiVG9sZXJhbmNlXCIsIHZhbHVlOiBcImd1bGRcIixcbiAgZm9ybWF0OiBuID0+IG4gPT09IFwiaW5nZW5cIiA/IFwiaW5nZW4gKDMgYsOlbmQsIMKxMjAgJSlcIiA6IG59KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0yIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoie1xuICAvLyBCw6VuZGVuZSBpIHLDpmtrZWbDuGxnZSBmcmEgdmVuc3RyZTsgdmVkIDQgYsOlbmQgc3ByaW5nZXMgMy4gY2lmZmVyIG92ZXJcbiAgY29uc3QgbmF2bmUgPSBhbnRhbEJhYW5kID09PSA0ID8gW2IxLCBiMiwgbXVsdCwgdG9sXSA6IFtiMSwgYjIsIGIzLCBtdWx0LCB0b2xdO1xuICAvLyBDaWZyZW5lIGVyIGFsbGUgYsOlbmQgdW5kdGFnZW4gZGUgdG8gc2lkc3RlOiBmeCBbNCwgN10gYmxpdmVyIHRpbCA0N1xuICBjb25zdCB0YWwgPSBuYXZuZS5zbGljZSgwLCBhbnRhbEJhYW5kIC0gMilcbiAgICAubWFwKG4gPT4gZmFydmUobikuY2lmZmVyKVxuICAgIC5yZWR1Y2UoKHN1bSwgYykgPT4gc3VtICogMTAgKyBjLCAwKTtcbiAgY29uc3Qgb2htID0gbWVkRWtzcG9uZW50KHRhbCwgZmFydmUobXVsdCkuZWtzcCk7XG4gIGNvbnN0IHQgPSBmYXJ2ZSh0b2wpLnRvbDtcbiAgcmV0dXJuIGh0bC5odG1sYDxkaXY+XG4gICAgJHttb2RzdGFuZFRlZ25pbmcobmF2bmUpfVxuICAgIDxwPjxzdHJvbmc+JHtmb3JtYXRPaG0ob2htKX0gwrEke2Zvcm1hdFRhbCh0KX0gJTwvc3Ryb25nPjxicj5cbiAgICBEZW4gcmlndGlnZSB2w6ZyZGkgbGlnZ2VyIG1lbGxlbSAke2Zvcm1hdE9obShvaG0gKiAoMSAtIHQgLyAxMDApKX0gb2cgJHtmb3JtYXRPaG0ob2htICogKDEgKyB0IC8gMTAwKSl9LjwvcD5cbiAgPC9kaXY+YDtcbn1cbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMyIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiB2YWVyZGlUZWtzdCA9IElucHV0cy50ZXh0KHtsYWJlbDogXCJWw6ZyZGlcIiwgdmFsdWU6IFwiMjIwXCIsIHBsYWNlaG9sZGVyOiBcImZ4IDIyMCwgNCw3ayBlbGxlciAxTVwifSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNCIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IntcbiAgY29uc3Qgb2htID0gbGFlc1ZhZXJkaSh2YWVyZGlUZWtzdCk7XG4gIGlmIChvaG0gPT09IG51bGwpIHtcbiAgICByZXR1cm4gaHRsLmh0bWxgPHA+RGV0IGthbiBqZWcgaWtrZSBsw6ZzZS4gU2tyaXYgZnggMjIwLCA0LDdrLCA0azcgZWxsZXIgMU0uPC9wPmA7XG4gIH1cbiAgLy8gNCBiw6VuZDogMiBjaWZyZSArIG11bHRpcGxpa2F0b3IgKyBndWxkICjCsTUgJSkuIDUgYsOlbmQ6IDMgY2lmcmUgKyBtdWx0aXBsaWthdG9yICsgYnJ1biAowrExICUpXG4gIGNvbnN0IGZpcmUgPSBmYXJ2ZXJGb3Iob2htLCAyKTtcbiAgY29uc3QgZmVtID0gZmFydmVyRm9yKG9obSwgMyk7XG4gIHJldHVybiBodGwuaHRtbGA8ZGl2PlxuICAgIDxwPlbDpnJkaTogPHN0cm9uZz4ke2Zvcm1hdE9obShvaG0pfTwvc3Ryb25nPi4gRS1yw6Zra2U6ICR7ZVNlcmllKG9obSl9LjwvcD5cbiAgICA8cD48c3Ryb25nPjQgYsOlbmQgKMKxNSAlKTo8L3N0cm9uZz4gJHtmaXJlID8gWy4uLmZpcmUsIFwiZ3VsZFwiXS5qb2luKFwiLCBcIikgOiBcImthbiBpa2tlIHNrcml2ZXMgbWVkIDIgY2lmcmVcIn08L3A+XG4gICAgJHtmaXJlID8gbW9kc3RhbmRUZWduaW5nKFsuLi5maXJlLCBcImd1bGRcIl0pIDogbnVsbH1cbiAgICA8cD48c3Ryb25nPjUgYsOlbmQgKMKxMSAlKTo8L3N0cm9uZz4gJHtmZW0gPyBbLi4uZmVtLCBcImJydW5cIl0uam9pbihcIiwgXCIpIDogXCJrYW4gaWtrZSBza3JpdmVzIG1lZCAzIGNpZnJlXCJ9PC9wPlxuICAgICR7ZmVtID8gbW9kc3RhbmRUZWduaW5nKFsuLi5mZW0sIFwiYnJ1blwiXSkgOiBudWxsfVxuICA8L2Rpdj5gO1xufVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC01IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiLy8gRmFydmVrb2RlbiBlZnRlciBJRUMgNjAwNjIuXG4vLyBla3NwOiBtdWx0aXBsaWthdG9yZW4gc29tIHBvdGVucyBhZiAxMCAocsO4ZCA9IDEwXjIgPSAxMDAsIGd1bGQgPSAxMF4tMSA9IDAsMSlcbi8vIHRvbDogdG9sZXJhbmNlIGkgcHJvY2VudC4gbnVsbCBiZXR5ZGVyLCBhdCBmYXJ2ZW4gaWtrZSBicnVnZXMgdGlsIGRldC5cbmZhcnZlciA9IFtcbiAge25hdm46IFwic29ydFwiLCAgIGhleDogXCIjMDAwMDAwXCIsIGNpZmZlcjogMCwgICAgZWtzcDogMCwgICAgdG9sOiBudWxsfSxcbiAge25hdm46IFwiYnJ1blwiLCAgIGhleDogXCIjOEI0NTEzXCIsIGNpZmZlcjogMSwgICAgZWtzcDogMSwgICAgdG9sOiAxfSxcbiAge25hdm46IFwicsO4ZFwiLCAgICBoZXg6IFwiI0UwMDAwMFwiLCBjaWZmZXI6IDIsICAgIGVrc3A6IDIsICAgIHRvbDogMn0sXG4gIHtuYXZuOiBcIm9yYW5nZVwiLCBoZXg6IFwiI0ZGOEMwMFwiLCBjaWZmZXI6IDMsICAgIGVrc3A6IDMsICAgIHRvbDogMC4wNX0sXG4gIHtuYXZuOiBcImd1bFwiLCAgICBoZXg6IFwiI0ZGRDcwMFwiLCBjaWZmZXI6IDQsICAgIGVrc3A6IDQsICAgIHRvbDogMC4wMn0sXG4gIHtuYXZuOiBcImdyw7huXCIsICAgaGV4OiBcIiMwMDgwMDBcIiwgY2lmZmVyOiA1LCAgICBla3NwOiA1LCAgICB0b2w6IDAuNX0sXG4gIHtuYXZuOiBcImJsw6VcIiwgICAgaGV4OiBcIiMwMDUwRkZcIiwgY2lmZmVyOiA2LCAgICBla3NwOiA2LCAgICB0b2w6IDAuMjV9LFxuICB7bmF2bjogXCJ2aW9sZXRcIiwgaGV4OiBcIiM4QTJCRTJcIiwgY2lmZmVyOiA3LCAgICBla3NwOiA3LCAgICB0b2w6IDAuMX0sXG4gIHtuYXZuOiBcImdyw6VcIiwgICAgaGV4OiBcIiM4MDgwODBcIiwgY2lmZmVyOiA4LCAgICBla3NwOiA4LCAgICB0b2w6IDAuMDF9LFxuICB7bmF2bjogXCJodmlkXCIsICAgaGV4OiBcIiNGRkZGRkZcIiwgY2lmZmVyOiA5LCAgICBla3NwOiA5LCAgICB0b2w6IG51bGx9LFxuICB7bmF2bjogXCJndWxkXCIsICAgaGV4OiBcIiNDRkI1M0JcIiwgY2lmZmVyOiBudWxsLCBla3NwOiAtMSwgICB0b2w6IDV9LFxuICB7bmF2bjogXCJzw7hsdlwiLCAgIGhleDogXCIjQzBDMEMwXCIsIGNpZmZlcjogbnVsbCwgZWtzcDogLTIsICAgdG9sOiAxMH0sXG4gIHtuYXZuOiBcImluZ2VuXCIsICBoZXg6IG51bGwsICAgICAgY2lmZmVyOiBudWxsLCBla3NwOiBudWxsLCB0b2w6IDIwfVxuXVxuXG4vLyBMaXN0ZXJuZSB0aWwgdmFsZ2ZlbHRlcm5lOiBrdW4gZGUgZmFydmVyLCBkZXIga2FuIGJydWdlcyBpIGRldCBiw6VuZFxuY2lmZmVyTmF2bmUgPSBmYXJ2ZXIuZmlsdGVyKGYgPT4gZi5jaWZmZXIgIT09IG51bGwpLm1hcChmID0+IGYubmF2bilcbm11bHROYXZuZSA9IGZhcnZlci5maWx0ZXIoZiA9PiBmLmVrc3AgIT09IG51bGwpLm1hcChmID0+IGYubmF2bilcbnRvbE5hdm5lID0gZmFydmVyLmZpbHRlcihmID0+IGYudG9sICE9PSBudWxsKS5tYXAoZiA9PiBmLm5hdm4pXG5cbi8vIEUtcsOma2tlcm5lIHNvbSB0b2NpZnJlZGUgdGFsXG5lMTIgPSBbMTAsIDEyLCAxNSwgMTgsIDIyLCAyNywgMzMsIDM5LCA0NywgNTYsIDY4LCA4Ml1cbmUyNCA9IFsxMCwgMTEsIDEyLCAxMywgMTUsIDE2LCAxOCwgMjAsIDIyLCAyNCwgMjcsIDMwLCAzMywgMzYsIDM5LCA0MywgNDcsIDUxLCA1NiwgNjIsIDY4LCA3NSwgODIsIDkxXVxuXG4vLyBTbMOlIGVuIGZhcnZlIG9wIHVkIGZyYSBuYXZuZXRcbmZ1bmN0aW9uIGZhcnZlKG5hdm4pIHtcbiAgcmV0dXJuIGZhcnZlci5maW5kKGYgPT4gZi5uYXZuID09PSBuYXZuKTtcbn1cblxuLy8gdGFsIMOXIDEwXmVrc3AuIFZlZCBuZWdhdGl2IGVrc3BvbmVudCBkaXZpZGVyZXMgZGVyLCBzw6UgNDcgw5cgMTBeLTEgZ2l2ZXIgcHLDpmNpcyA0LDdcbmZ1bmN0aW9uIG1lZEVrc3BvbmVudCh0YWwsIGVrc3ApIHtcbiAgcmV0dXJuIGVrc3AgPj0gMCA/IHRhbCAqIDEwICoqIGVrc3AgOiB0YWwgLyAxMCAqKiAtZWtzcDtcbn1cblxuLy8gVGFsIG1lZCBkYW5zayBkZWNpbWFsa29tbWEsIGjDuGpzdCB0cmUgZGVjaW1hbGVyXG5mdW5jdGlvbiBmb3JtYXRUYWwoeCkge1xuICByZXR1cm4geC50b0xvY2FsZVN0cmluZyhcImRhLURLXCIsIHttYXhpbXVtRnJhY3Rpb25EaWdpdHM6IDN9KTtcbn1cblxuLy8gVsOmbGcgZGVuIGVuaGVkLCBkZXIgZ2l2ZXIgZXQgcMOmbnQgdGFsOiA0NzAwIGJsaXZlciB0aWwgXCI0LDcga86pXCJcbmZ1bmN0aW9uIGZvcm1hdE9obShvaG0pIHtcbiAgaWYgKG9obSA+PSAxZTkpIHJldHVybiBmb3JtYXRUYWwob2htIC8gMWU5KSArIFwiIEfOqVwiO1xuICBpZiAob2htID49IDFlNikgcmV0dXJuIGZvcm1hdFRhbChvaG0gLyAxZTYpICsgXCIgTc6pXCI7XG4gIGlmIChvaG0gPj0gMWUzKSByZXR1cm4gZm9ybWF0VGFsKG9obSAvIDFlMykgKyBcIiBrzqlcIjtcbiAgcmV0dXJuIGZvcm1hdFRhbChvaG0pICsgXCIgzqlcIjtcbn1cblxuLy8gTMOmcyBmeCBcIjIyMFwiLCBcIjQsN2tcIiwgXCI0azdcIiwgXCIxMCBrzqlcIiwgXCIxTVwiLCBcIjRSN1wiIGVsbGVyIFwiNC43MDBcIi4gR2l2ZXIgb2htIGVsbGVyIG51bGwuXG5mdW5jdGlvbiBsYWVzVmFlcmRpKHRla3N0KSB7XG4gIGxldCBzID0gdGVrc3QucmVwbGFjZSgvXFxzfM6pfG9obS9naSwgXCJcIik7XG4gIC8vIERhbnNrIHR1c2luZHRhbHNwdW5rdHVtOiBcIjQuNzAwXCIgb2cgXCIxLjAwMC4wMDBcIiBlciBoZWxlIHRhbCwgaWtrZSA0LDcgb2cgMVxuICBpZiAoL15cXGR7MSwzfShcXC5cXGR7M30pKyQvLnRlc3QocykpIHMgPSBzLnJlcGxhY2VBbGwoXCIuXCIsIFwiXCIpO1xuICAvLyBEYW5zayBkZWNpbWFsa29tbWE6IFwiNCw3a1wiIGJsaXZlciB0aWwgXCI0LjdrXCJcbiAgcyA9IHMucmVwbGFjZShcIixcIiwgXCIuXCIpO1xuICAvLyB0YWwsIGV2dC4gZXQgYm9nc3RhdiAoUiwgaywgTSwgRykgb2cgZXZ0LiBmbGVyZSBjaWZyZSBlZnRlciBib2dzdGF2ZXRcbiAgY29uc3QgbSA9IHMubWF0Y2goL14oXFxkKyg/OlxcLlxcZCspPykoW3JrbWddPykoXFxkKikkL2kpO1xuICBpZiAobSA9PT0gbnVsbCkgcmV0dXJuIG51bGw7XG4gIGlmIChtWzNdICE9PSBcIlwiICYmIChtWzFdLmluY2x1ZGVzKFwiLlwiKSB8fCBtWzJdID09PSBcIlwiKSkgcmV0dXJuIG51bGw7XG4gIC8vIFwiNGs3XCI6IGJvZ3N0YXZldCBzdMOlciBww6Uga29tbWFldHMgcGxhZHNcbiAgY29uc3QgdGFsID0gcGFyc2VGbG9hdChtWzNdID09PSBcIlwiID8gbVsxXSA6IG1bMV0gKyBcIi5cIiArIG1bM10pO1xuICBjb25zdCBmYWt0b3IgPSB7XCJcIjogMSwgcjogMSwgazogMWUzLCBtOiAxZTYsIGc6IDFlOX1bbVsyXS50b0xvd2VyQ2FzZSgpXTtcbiAgY29uc3Qgb2htID0gdGFsICogZmFrdG9yO1xuICByZXR1cm4gb2htID4gMCA/IG9obSA6IG51bGw7XG59XG5cbi8vIEZpbmQgZGUgbiBjaWZyZSBvZyBla3Nwb25lbnRlbiwgc8OlIG9obSA9IGNpZnJlbmUgw5cgMTBeZWtzcC5cbi8vIEdpdmVyIG51bGwsIGh2aXMgdsOmcmRpZW4ga3LDpnZlciBmbGVyZSBlbmQgbiBjaWZyZS5cbmZ1bmN0aW9uIGNpZnJlT2dFa3NwKG9obSwgbikge1xuICBmb3IgKGxldCBla3NwID0gLTI7IGVrc3AgPD0gOTsgZWtzcCsrKSB7ICAgLy8gc8O4bHYgKDEwXi0yKSB0aWwgaHZpZCAoMTBeOSlcbiAgICBjb25zdCB0ID0gbWVkRWtzcG9uZW50KG9obSwgLWVrc3ApO1xuICAgIGlmICh0IDwgMTAgKiogbiAtIDAuNSkgeyAgICAgICAgICAgICAgICAgLy8gZGVuIGbDuHJzdGUgZWtzcG9uZW50LCBodm9yIHRhbGxldCBrYW4gc3TDpSBtZWQgbiBjaWZyZVxuICAgICAgY29uc3QgaGVsdGFsID0gTWF0aC5yb3VuZCh0KTtcbiAgICAgIGlmIChNYXRoLmFicyh0IC0gaGVsdGFsKSA+IDFlLTYpIHJldHVybiBudWxsOyAgIC8vIGRlciBlciBmbGVyZSBjaWZyZSBlbmQgblxuICAgICAgY29uc3QgY2lmcmUgPSBTdHJpbmcoaGVsdGFsKS5wYWRTdGFydChuLCBcIjBcIikuc3BsaXQoXCJcIikubWFwKE51bWJlcik7XG4gICAgICByZXR1cm4ge2NpZnJlLCBla3NwfTtcbiAgICB9XG4gIH1cbiAgcmV0dXJuIG51bGw7ICAgLy8gZm9yIHN0b3IgdGlsIGZhcnZla29kZW5cbn1cblxuLy8gRmFydmVuYXZuZW5lIGZvciBjaWZyZW5lIG9nIG11bHRpcGxpa2F0b3JlbiAodWRlbiB0b2xlcmFuY2UpXG5mdW5jdGlvbiBmYXJ2ZXJGb3Iob2htLCBuKSB7XG4gIGNvbnN0IHIgPSBjaWZyZU9nRWtzcChvaG0sIG4pO1xuICBpZiAociA9PT0gbnVsbCkgcmV0dXJuIG51bGw7XG4gIHJldHVybiBbXG4gICAgLi4uci5jaWZyZS5tYXAoYyA9PiBmYXJ2ZXIuZmluZChmID0+IGYuY2lmZmVyID09PSBjKS5uYXZuKSxcbiAgICBmYXJ2ZXIuZmluZChmID0+IGYuZWtzcCA9PT0gci5la3NwKS5uYXZuXG4gIF07XG59XG5cbi8vIEh2aWxrZW4gRS1yw6Zra2UgdsOmcmRpZW4gaMO4cmVyIHRpbCAodWQgZnJhIGRlIHRvIGbDuHJzdGUgY2lmcmUpXG5mdW5jdGlvbiBlU2VyaWUob2htKSB7XG4gIGNvbnN0IHIgPSBjaWZyZU9nRWtzcChvaG0sIDIpO1xuICAvLyBWw6ZyZGllciB1ZGVuIGZvciBFMjQga2FuIGdvZHQgZmluZGVzIHNvbSA1LWLDpW5kc21vZHN0YW5kZSBww6UgwrExICUgKEU5NilcbiAgaWYgKHIgPT09IG51bGwpIHJldHVybiBcImlra2UgRTEyIGVsbGVyIEUyNCAoa3LDpnZlciAzIGNpZnJlKS4gRGVuIGthbiBmaW5kZXMgc29tIDUtYsOlbmRzbW9kc3RhbmQgcMOlIMKxMSAlIChFOTYpXCI7XG4gIGNvbnN0IHRhbCA9IHIuY2lmcmVbMF0gKiAxMCArIHIuY2lmcmVbMV07XG4gIGlmIChlMTIuaW5jbHVkZXModGFsKSkgcmV0dXJuIFwiRTEyIChvZyBkZXJtZWQgb2dzw6UgRTI0KVwiO1xuICBpZiAoZTI0LmluY2x1ZGVzKHRhbCkpIHJldHVybiBcIkUyNFwiO1xuICByZXR1cm4gXCJpa2tlIEUxMiBlbGxlciBFMjQsIHPDpSBkZW4gZmluZGVzIGlra2Ugc29tIDQtYsOlbmRzbW9kc3RhbmQgcMOlIMKxNSAlLiBEZW4ga2FuIGZpbmRlcyBzb20gNS1iw6VuZHNtb2RzdGFuZCBww6UgwrExICUgKEU5NilcIjtcbn1cblxuLy8gVGVnbiBlbiBtb2RzdGFuZCBtZWQgZmFydmVkZSBiw6VuZC4gRGV0IHNpZHN0ZSBiw6VuZCAodG9sZXJhbmNlbikgZsOlciBla3N0cmEgYWZzdGFuZC5cbmZ1bmN0aW9uIG1vZHN0YW5kVGVnbmluZyhuYXZuZSkge1xuICBjb25zdCBiYWFuZCA9IG5hdm5lLm1hcCgobmF2biwgaSkgPT4ge1xuICAgIGNvbnN0IGYgPSBmYXJ2ZShuYXZuKTtcbiAgICBjb25zdCBjc3MgPSBcImRpc3BsYXk6aW5saW5lLWJsb2NrO3dpZHRoOjEycHg7aGVpZ2h0OjQ0cHg7XCJcbiAgICAgICsgXCJiYWNrZ3JvdW5kOlwiICsgKGYuaGV4IHx8IFwidHJhbnNwYXJlbnRcIikgKyBcIjtcIlxuICAgICAgKyBcIm1hcmdpbi1sZWZ0OlwiICsgKGkgPT09IG5hdm5lLmxlbmd0aCAtIDEgPyBcIjI0cHhcIiA6IFwiOHB4XCIpICsgXCI7XCJcbiAgICAgICsgKG5hdm4gPT09IFwiaHZpZFwiID8gXCJvdXRsaW5lOjFweCBzb2xpZCAjOTk5O1wiIDogXCJcIik7XG4gICAgcmV0dXJuIGh0bC5odG1sYDxzcGFuIHRpdGxlPSR7bmF2bn0gc3R5bGU9JHtjc3N9Pjwvc3Bhbj5gO1xuICB9KTtcbiAgY29uc3QgYmVuID0gXCJkaXNwbGF5OmlubGluZS1ibG9jazt3aWR0aDo0MHB4O2hlaWdodDozcHg7YmFja2dyb3VuZDojOTk5O1wiO1xuICBjb25zdCBrcm9wID0gXCJkaXNwbGF5OmlubGluZS1mbGV4O2FsaWduLWl0ZW1zOmNlbnRlcjtoZWlnaHQ6NDRweDtwYWRkaW5nOjAgMThweCAwIDEwcHg7XCJcbiAgICArIFwiYmFja2dyb3VuZDojRThEM0E4O2JvcmRlci1yYWRpdXM6MTRweDtcIjtcbiAgcmV0dXJuIGh0bC5odG1sYDxkaXYgc3R5bGU9XCJkaXNwbGF5OmZsZXg7YWxpZ24taXRlbXM6Y2VudGVyO21hcmdpbjowLjVlbSAwO1wiPlxuICAgIDxzcGFuIHN0eWxlPSR7YmVufT48L3NwYW4+PHNwYW4gc3R5bGU9JHtrcm9wfT4ke2JhYW5kfTwvc3Bhbj48c3BhbiBzdHlsZT0ke2Jlbn0+PC9zcGFuPlxuICA8L2Rpdj5gO1xufVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdhbnRhbEJhYW5kJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ2IxJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ2IyJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ2IzJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ211bHQnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgndG9sJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ3ZhZXJkaVRla3N0JykifV19
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../../Grundlag";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "..";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Kopieret!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Kopieret!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/s0ren\.github\.io\/FAG_17682_IoT_II\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

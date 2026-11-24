@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="da" xml:lang="da"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.20">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Søren Magnusson">
+
+<title>Drejepotentiometer – FAG 17682_IoT_II</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-17888a1159294d3eb470f19f6f52f5a5.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-1958bf8fe25c7117446dee592769f80d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Ingen resultater",
+    "search-matching-documents-text": "Matchende dokumenter",
+    "search-copy-link-title": "Kopier link for at søge",
+    "search-hide-matches-text": "Skjul yderligere resultater",
+    "search-more-match-text": "andet resultat i dette dokument",
+    "search-more-matches-text": "andre resultater i dette dokument",
+    "search-clear-button-title": "Ryd",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Fortryd",
+    "search-submit-button-title": "Indsend",
+    "search-label": "Søg"
+  }
+}</script>
+<meta name="quarto:status" content="draft">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><div id="quarto-draft-alert" class="alert alert-warning"><i class="bi bi-pencil-square"></i>Udkast</div>
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">FAG 17682_IoT_II</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Søg"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Skift navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Hjem</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../laeringsmaal.html" aria-current="page"> 
+<span class="menu-text">Læringsmål</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">Om sitet</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Skift sidebjælke" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Grundlag/index.html">Grundlag</a></li><li class="breadcrumb-item"><a href="../Grundlag/potentiometer.html">Drejepotentiometer</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Skift sidebjælke" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Om sitet</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Referencer/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Referencemanualer</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../laeringsmaal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Læringsmål</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Features/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Features</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Skift sektion">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Features/deep_sleep.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Deep Sleep</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Features/esp_now_mesh.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ESP-NOW og ESP-MESH</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Features/filsystem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Filsystem på ESP32</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Features/lokal_mqtt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lokal MQTT-server</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Grundlag/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Grundlag</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Skift sektion">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/cpp_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Intro til C++</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/debouncing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Debouncing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/platformio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">PlatformIO</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/wifi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">WiFi</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Opgaver/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Opgaver</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Skift sektion">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Opgaver/Projektopgave_Smiley.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Projektopgave, Smiley feedback panel</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Opgaver/Projektopgave_wifi_position.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Projektopgave, Positionsbestemmelse af enheder uden GPS dækning</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Opgaver/Projektopgave_wifi_position_checkliste.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Checkliste: Positionsbestemmelse af enheder uden GPS dækning</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">På denne side</h2>
+   
+  <ul>
+  <li><a href="#formål" id="toc-formål" class="nav-link active" data-scroll-target="#formål">Formål</a></li>
+  <li><a href="#målpinde" id="toc-målpinde" class="nav-link" data-scroll-target="#målpinde">Målpinde</a></li>
+  <li><a href="#forudsætninger" id="toc-forudsætninger" class="nav-link" data-scroll-target="#forudsætninger">Forudsætninger</a></li>
+  <li><a href="#hvad-er-et-potentiometer" id="toc-hvad-er-et-potentiometer" class="nav-link" data-scroll-target="#hvad-er-et-potentiometer">Hvad er et potentiometer?</a>
+  <ul class="collapse">
+  <li><a href="#lineær-og-logaritmisk" id="toc-lineær-og-logaritmisk" class="nav-link" data-scroll-target="#lineær-og-logaritmisk">Lineær og logaritmisk</a></li>
+  </ul></li>
+  <li><a href="#kobling" id="toc-kobling" class="nav-link" data-scroll-target="#kobling">Kobling</a>
+  <ul class="collapse">
+  <li><a href="#hvilket-ben" id="toc-hvilket-ben" class="nav-link" data-scroll-target="#hvilket-ben">Hvilket ben?</a></li>
+  </ul></li>
+  <li><a href="#esp32s-adc" id="toc-esp32s-adc" class="nav-link" data-scroll-target="#esp32s-adc">ESP32’s ADC</a>
+  <ul class="collapse">
+  <li><a href="#analogread" id="toc-analogread" class="nav-link" data-scroll-target="#analogread">analogRead()</a></li>
+  <li><a href="#analogreadmillivolts" id="toc-analogreadmillivolts" class="nav-link" data-scroll-target="#analogreadmillivolts">analogReadMilliVolts()</a></li>
+  <li><a href="#dæmpning-og-måleområde" id="toc-dæmpning-og-måleområde" class="nav-link" data-scroll-target="#dæmpning-og-måleområde">Dæmpning og måleområde</a></li>
+  <li><a href="#støj" id="toc-støj" class="nav-link" data-scroll-target="#støj">Støj</a></li>
+  <li><a href="#map-fra-tal-til-noget-der-giver-mening" id="toc-map-fra-tal-til-noget-der-giver-mening" class="nav-link" data-scroll-target="#map-fra-tal-til-noget-der-giver-mening">map(): fra tal til noget, der giver mening</a></li>
+  </ul></li>
+  <li><a href="#eksempel-læs-potentiometeret" id="toc-eksempel-læs-potentiometeret" class="nav-link" data-scroll-target="#eksempel-læs-potentiometeret">Eksempel: læs potentiometeret</a></li>
+  <li><a href="#øvelser" id="toc-øvelser" class="nav-link" data-scroll-target="#øvelser">Øvelser</a></li>
+  <li><a href="#typiske-fejl" id="toc-typiske-fejl" class="nav-link" data-scroll-target="#typiske-fejl">Typiske fejl</a></li>
+  <li><a href="#læs-videre" id="toc-læs-videre" class="nav-link" data-scroll-target="#læs-videre">Læs videre</a>
+  <ul class="collapse">
+  <li><a href="#esp32-adc-hos-random-nerd-tutorials" id="toc-esp32-adc-hos-random-nerd-tutorials" class="nav-link" data-scroll-target="#esp32-adc-hos-random-nerd-tutorials">ESP32 ADC hos Random Nerd Tutorials</a></li>
+  </ul></li>
+  <li><a href="#kilder" id="toc-kilder" class="nav-link" data-scroll-target="#kilder">Kilder</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Grundlag/index.html">Grundlag</a></li><li class="breadcrumb-item"><a href="../Grundlag/potentiometer.html">Drejepotentiometer</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Drejepotentiometer</h1>
+<p class="subtitle lead">Analog aflæsning med ESP32’s ADC</p>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Forfatter</div>
+  <div class="quarto-title-meta-heading">Uddannelse</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Søren Magnusson </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Data, TEC
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Udgivet</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">23. november 2026</p>
+    </div>
+  </div>
+  
+    <div>
+    <div class="quarto-title-meta-heading">Ændret</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">24. november 2026</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- IKKE KOMPILERET: eksemplerne er tjekket mod dokumentationen, men ikke kompileret eller testet på hardware. -->
+<!--
+TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
+1. Byg koblingen (yderben til 3V3 og GND, midterben til GPIO 34), og kør eksemplet. Drej fra yderstilling til yderstilling: skifter værdien jævnt, og passer retningen med teksten?
+2. Notér, hvad de rå værdier og millivolt er helt nede og helt oppe på lokalets boards, og ret tallene i afsnittet om dæmpning og måleområde (TJEK der: siden siger 0 under ca. 0,1–0,15 V og 4095 fra ca. 3,1–3,2 V).
+3. Tjek, at lokalets potentiometre er 10 kΩ lineære, og hvordan de er mærket (TJEK i afsnittet om lineær og logaritmisk).
+4. Tjek, at analogReadMilliVolts() faktisk ligger tættere på multimeteret end formlen på lokalets boards, dvs. at chippene har kalibreringsdata i eFuse (TJEK i afsnittet om analogReadMilliVolts()).
+5. Kør eksemplet med ANTAL_MAALINGER = 1 og = 16, og se, at gennemsnittet faktisk giver roligere tal.
+6. Prøv øvelse 4 (analogWrite til en lysdiode på GPIO 18) og øvelse 6 (ledcAttach/ledcWrite med 12 bit) på hardware.
+7. Tjek, hvad analogRead() gør på et ADC2-ben (fx GPIO 25), når WiFi er tændt, i core 3.3.x. Ifølge kildekoden sandsynligvis en fejl i loggen og værdien 0 (TJEK i Typiske fejl).
+8. Tjek, at linkene til modstande.qmd og lysdioder.qmd virker, og at de sider er godkendt.
+9. BILLEDE: potentiometeret set fra siden med de tre ben markeret.
+10. BILLEDE: koblingen på breadboard med ESP32.
+11. BILLEDE: multimeter, der måler spændingen på midterbenet (til øvelse 3).
+12. Fjern IKKE KOMPILERET, denne tjekliste og alle TJEK- og BILLEDE-kommentarer, gør billedboksene til BILLEDE-kommentarer, og sæt draft: false.
+-->
+<p>En knap kan kun være trykket eller ikke trykket. Mange ting i virkeligheden er ikke enten-eller: en lysstyrke, en temperatur eller hvor langt en volumenknap er drejet. Et drejepotentiometer er den enkleste måde at give ESP32 et analogt signal, altså en spænding, der kan ligge hvor som helst mellem 0 og 3,3 V. Det er en god øvelse, før du kobler rigtige analoge sensorer på, for du kan selv styre spændingen med hånden og se, hvad ESP32 måler.</p>
+<section id="formål" class="level2">
+<h2 class="anchored" data-anchor-id="formål">Formål</h2>
+<ul>
+<li>Du kan forklare, hvordan et potentiometer virker som spændingsdeler, og hvad de tre ben bruges til.</li>
+<li>Du kan koble et potentiometer sikkert til ESP32 og vælge et ben, der kan måle analogt, også når WiFi er tændt.</li>
+<li>Du kan læse værdien med <code>analogRead()</code> og <code>analogReadMilliVolts()</code> og forklare, hvorfor ESP32’s målinger ikke er helt præcise.</li>
+<li>Du kan dæmpe støj med et gennemsnit og omregne værdien med <code>map()</code>, fx til procent eller lysstyrke.</li>
+</ul>
+</section>
+<section id="målpinde" class="level2">
+<h2 class="anchored" data-anchor-id="målpinde">Målpinde</h2>
+<p>Siden arbejder med målpind 11, 19 og 23 (se <a href="../laeringsmaal.html">Læringsmål</a>).</p>
+</section>
+<section id="forudsætninger" class="level2">
+<h2 class="anchored" data-anchor-id="forudsætninger">Forudsætninger</h2>
+<ul>
+<li>Du kan oprette et PlatformIO-projekt til ESP32-DEVKIT-V1, uploade et program og åbne Serial Monitor (se <a href="../Grundlag/platformio.html">PlatformIO</a>).</li>
+<li>Du kan sætte komponenter og ledninger i et breadboard (se Breadboard).</li>
+<li>Du ved, hvad en modstand er (se Modstande).</li>
+<li>Hardware: ESP32-DEVKIT-V1, et drejepotentiometer (fx 10 kΩ), breadboard og tre ledninger. Til øvelserne: en lysdiode og en formodstand (se Lysdioder) og gerne et multimeter.</li>
+</ul>
+</section>
+<section id="hvad-er-et-potentiometer" class="level2">
+<h2 class="anchored" data-anchor-id="hvad-er-et-potentiometer">Hvad er et potentiometer?</h2>
+<p>Et potentiometer er en modstand med tre ben. Mellem de to yderben sidder en fast modstandsbane, fx 10 kΩ. Midterbenet er forbundet til en glider (<span lang="en">wiper</span>), som bevæger sig hen ad banen, når du drejer på akslen.</p>
+<pre><code>3,3 V ──┐
+        █  øverste del af banen
+        █
+        █◄── glider (midterben) ──► til GPIO 34
+        █
+        █  nederste del af banen
+GND ────┘</code></pre>
+<p>Glideren deler banen i to modstande, der sidder i serie. Det er en <em>spændingsdeler</em>: spændingen på midterbenet er en brøkdel af spændingen mellem yderbenene, og brøkdelen bestemmes af, hvor glideren står.</p>
+<ul>
+<li>Drejet helt mod GND-siden: midterbenet er ca. 0 V.</li>
+<li>I midten: ca. 1,65 V.</li>
+<li>Drejet helt mod 3,3 V-siden: ca. 3,3 V.</li>
+</ul>
+<p>Potentiometerets samlede modstand ændrer ikke spændingen på midterbenet, kun hvor meget strøm der løber gennem banen. Det gælder dog kun, så længe potentiometeret ikke er alt for stort: ADC’en skal have lidt strøm for at måle, så et meget stort potentiometer (fx 1 MΩ) giver ustabile og forkerte målinger. Brug 1–10 kΩ. Med 10 kΩ er det 3,3 V / 10 kΩ = 0,33 mA, hvilket er helt uproblematisk.</p>
+<section id="lineær-og-logaritmisk" class="level3">
+<h3 class="anchored" data-anchor-id="lineær-og-logaritmisk">Lineær og logaritmisk</h3>
+<p>Der findes to almindelige slags baner:</p>
+<ul>
+<li><strong>Lineær:</strong> spændingen stiger jævnt, når du drejer. Halvt drejet giver halv spænding. Det er den, du skal bruge her.</li>
+<li><strong>Logaritmisk</strong> (også kaldet <em>audio</em>): spændingen stiger langsomt i starten og hurtigt til sidst. Den bruges til volumenknapper, fordi øret opfatter lydstyrke logaritmisk.</li>
+</ul>
+<p>På mange potentiometre står typen som et bogstav foran værdien: <code>B10K</code> er typisk lineær 10 kΩ og <code>A10K</code> logaritmisk. Bogstaverne er ikke ens hos alle producenter, så tjek databladet, hvis du er i tvivl.</p>
+<!-- TJEK: at lokalets potentiometre er 10 kΩ lineære, og hvordan de er mærket. A = logaritmisk og B = lineær er den almindelige asiatiske mærkning, men der findes ældre europæiske mærkninger, hvor bogstaverne betyder noget andet. -->
+<div class="billede-mangler">
+<p>Potentiometeret set fra siden med de tre ben markeret (yderben, midterben/glider, yderben) og mærkningen (fx B10K) tydelig. Se lignende billeder: <a href="https://randomnerdtutorials.com/esp32-adc-analog-read-arduino-ide/">Random Nerd Tutorials: ESP32 ADC</a>.</p>
+</div>
+</section>
+</section>
+<section id="kobling" class="level2">
+<h2 class="anchored" data-anchor-id="kobling">Kobling</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Potentiometer</th>
+<th>ESP32-DEVKIT-V1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Det ene yderben</td>
+<td>3V3</td>
+</tr>
+<tr class="even">
+<td>Midterbenet</td>
+<td>GPIO 34</td>
+</tr>
+<tr class="odd">
+<td>Det andet yderben</td>
+<td>GND</td>
+</tr>
+</tbody>
+</table>
+<p>Det er ligegyldigt, hvilket yderben der går til 3V3 og hvilket til GND. Bytter du dem, vender retningen bare om: værdien stiger, når du drejer den anden vej.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Advarsel</span>Aldrig 5 V
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Sæt <strong>aldrig</strong> yderbenet til 5 V (VIN). Så kan midterbenet få op til 5 V, og ESP32’s ben tåler kun 3,3 V. Benet eller hele chippen kan blive ødelagt.</p>
+</div>
+</div>
+<section id="hvilket-ben" class="level3">
+<h3 class="anchored" data-anchor-id="hvilket-ben">Hvilket ben?</h3>
+<p>ESP32 har to analog-til-digital-konvertere (<span lang="en">ADC</span>), ADC1 og ADC2. ADC2 bruges også af WiFi, så ADC2-benene kan ikke måle analogt, mens WiFi er tændt. Da næsten alle IoT-programmer bruger WiFi, skal du vælge et ADC1-ben.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Ben på DEVKIT-V1</th>
+<th>ADC</th>
+<th>Brug til potentiometer?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>32, 33</td>
+<td>ADC1</td>
+<td>Ja</td>
+</tr>
+<tr class="even">
+<td>34, 35, 36 (VP), 39 (VN)</td>
+<td>ADC1</td>
+<td>Ja. De er kun input, men det er netop det, der skal bruges her</td>
+</tr>
+<tr class="odd">
+<td>0, 2, 4, 12–15, 25–27</td>
+<td>ADC2</td>
+<td>Nej, ikke hvis programmet bruger WiFi</td>
+</tr>
+</tbody>
+</table>
+<p>Eksemplet bruger GPIO 34. GPIO 32 og 33 er gode alternativer.</p>
+<div class="billede-mangler">
+<p>Koblingen på breadboard: potentiometeret med rød ledning til 3V3, sort til GND og en signalledning fra midterbenet til GPIO 34. Se lignende billeder: <a href="https://randomnerdtutorials.com/esp32-adc-analog-read-arduino-ide/">Random Nerd Tutorials: ESP32 ADC</a>.</p>
+</div>
+</section>
+</section>
+<section id="esp32s-adc" class="level2">
+<h2 class="anchored" data-anchor-id="esp32s-adc">ESP32’s ADC</h2>
+<section id="analogread" class="level3">
+<h3 class="anchored" data-anchor-id="analogread">analogRead()</h3>
+<p><code>analogRead(pin)</code> måler spændingen på benet og giver et tal. ESP32’s ADC er på 12 bit, så tallet ligger mellem 0 og 4095 (2<sup>12</sup> − 1). Det er standarden i Arduino-ESP32, så du behøver ikke sætte noget op.</p>
+<p>Hvis ADC’en var perfekt, ville du kunne regne spændingen ud sådan:</p>
+<p><span class="math display">\[U \approx \frac{\text{værdi}}{4095} \cdot 3{,}3\ \text{V}\]</span></p>
+<p>Men det er den ikke (se nedenfor).</p>
+</section>
+<section id="analogreadmillivolts" class="level3">
+<h3 class="anchored" data-anchor-id="analogreadmillivolts">analogReadMilliVolts()</h3>
+<p><code>analogReadMilliVolts(pin)</code> giver spændingen i millivolt direkte. Funktionen bruger de kalibreringsdata, Espressif som regel har brændt ind i chippen fra fabrikken, og er derfor mere præcis end at regne om fra <code>analogRead()</code> med formlen ovenfor. Mangler de på en ældre chip, bruger funktionen en standardværdi og er mindre præcis. Brug den, når du vil kende spændingen. Brug <code>analogRead()</code>, når du bare skal bruge en position eller et forhold, fx hvor langt knappen er drejet.</p>
+<!-- TJEK: om lokalets boards har kalibreringsdata i eFuse. ESP-IDF skriver, at tidlige ESP32-chips kan mangle dem, og så bruger driveren en standard-Vref. Øvelse 3 viser det i praksis. -->
+</section>
+<section id="dæmpning-og-måleområde" class="level3">
+<h3 class="anchored" data-anchor-id="dæmpning-og-måleområde">Dæmpning og måleområde</h3>
+<p>Inde i ESP32 kan ADC’en kun måle ca. 1 V. For at kunne måle højere spændinger dæmpes signalet først (<span lang="en">attenuation</span>). I Arduino-ESP32 er standarden den største dæmpning, <code>ADC_11db</code>, så du kan måle op mod 3,3 V uden at sætte noget op. (I ESP-IDF 5 hedder samme indstilling <code>ADC_ATTEN_DB_12</code>.)</p>
+<p>Selv med den største dæmpning når ADC’en ikke helt ud i enderne:</p>
+<ul>
+<li>Helt nede (under ca. 0,1–0,15 V) giver den 0. Den kan fx ikke se forskel på 0 V og 0,1 V.</li>
+<li>Helt oppe (fra ca. 3,1–3,2 V) giver den 4095. Den kan fx ikke se forskel på 3,2 V og 3,3 V.</li>
+<li>Præcis hvor grænserne ligger, varierer fra chip til chip.</li>
+<li>ESP-IDF’s ældre dokumentation anbefaler kun at måle op til ca. 2,45 V, hvis det skal være præcist. Over det bliver fejlen større.</li>
+</ul>
+<!-- TJEK: tallene for måleområdet. Arduino-ESP32's ADC-side angiver 150–3100 mV for ADC_11db på ESP32, mens ESP-IDF v4.4 angiver 150–2450 mV (det område, hvor kalibreringen er præcis). Ingen af dem siger, præcis hvor aflæsningen bliver 0 eller 4095; tallene i listen er derfor formuleret løst. Mål på et af lokalets boards, hvilke værdier der kommer helt nede og helt oppe, og ret tallene. -->
+<p>Kurven fra spænding til tal er heller ikke en ret linje, især ikke i enderne. Det betyder:</p>
+<ul>
+<li>Et potentiometer drejet helt i bund eller top giver ofte 0 eller 4095 et stykke før yderstillingen.</li>
+<li>Halvt drejet giver ikke nødvendigvis præcis 2048.</li>
+</ul>
+<p>Til en drejeknap er det fint. Til en sensor, hvor spændingen skal omregnes til fx en temperatur, skal du kende begrænsningerne og helst kontrollere med et multimeter. Det er det, målpind 11 handler om: at vurdere, om et signal er validt.</p>
+</section>
+<section id="støj" class="level3">
+<h3 class="anchored" data-anchor-id="støj">Støj</h3>
+<p>ESP32’s ADC er følsom over for støj. Selv om du ikke rører potentiometeret, hopper værdien typisk lidt op og ned. Espressif foreslår to løsninger:</p>
+<ul>
+<li><strong>Gennemsnit af flere målinger</strong> (<span lang="en">multisampling</span>): læs fx 16 gange i træk, og brug gennemsnittet. Det koster næsten ingen tid og er det, eksemplet gør.</li>
+<li><strong>En kondensator</strong> på 100 nF mellem ADC-benet og GND, tæt på ESP32.</li>
+</ul>
+<p>Korte ledninger, der sidder godt fast, hjælper også.</p>
+</section>
+<section id="map-fra-tal-til-noget-der-giver-mening" class="level3">
+<h3 class="anchored" data-anchor-id="map-fra-tal-til-noget-der-giver-mening">map(): fra tal til noget, der giver mening</h3>
+<p><code>map(værdi, fraMin, fraMax, tilMin, tilMax)</code> omregner et tal fra ét område til et andet:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> procent  <span class="op">=</span> map<span class="op">(</span>raa<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">4095</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">100</span><span class="op">);</span>  <span class="co">// 0–100 %</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> lysstyrke <span class="op">=</span> map<span class="op">(</span>raa<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">4095</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">255</span><span class="op">);</span> <span class="co">// 0–255 til analogWrite()</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
+<p>To ting at vide:</p>
+<ul>
+<li><code>map()</code> regner med heltal og skærer decimalerne af. Det er fint til procent og lysstyrke.</li>
+<li><code>map()</code> begrænser ikke resultatet. Ligger værdien uden for <code>fraMin</code>–<code>fraMax</code>, ligger resultatet også uden for <code>tilMin</code>–<code>tilMax</code>. Brug <code>constrain(x, min, max)</code>, hvis du skal være sikker.</li>
+</ul>
+</section>
+</section>
+<section id="eksempel-læs-potentiometeret" class="level2">
+<h2 class="anchored" data-anchor-id="eksempel-læs-potentiometeret">Eksempel: læs potentiometeret</h2>
+<p>Programmet læser potentiometeret hvert 200. ms og skriver den rå værdi, spændingen og procent ud. Det bruger <code>millis()</code> i stedet for <code>delay()</code>, så <code>loop()</code> aldrig står stille og senere kan lave andre ting, fx sende værdien over WiFi.</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>platformio.ini</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-filename="platformio.ini"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[env:esp32doit-devkit-v1]</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="dt">platform </span><span class="ot">=</span><span class="st"> espressif32@8.0.0</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="dt">board </span><span class="ot">=</span><span class="st"> esp32doit-devkit-v1</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="dt">framework </span><span class="ot">=</span><span class="st"> arduino</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="dt">monitor_speed </span><span class="ot">=</span><span class="st"> </span><span class="dv">115200</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>src/main.cpp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" data-filename="src/main.cpp"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;Arduino.h&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">// Konfiguration</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">int</span> POT_PIN <span class="op">=</span> <span class="dv">34</span><span class="op">;</span>                 <span class="co">// midterben på GPIO 34 (ADC1, virker også med WiFi)</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">unsigned</span> <span class="dt">long</span> INTERVAL_MS <span class="op">=</span> <span class="dv">200</span><span class="op">;</span>  <span class="co">// hvor tit værdien skrives ud</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="at">const</span> <span class="dt">int</span> ANTAL_MAALINGER <span class="op">=</span> <span class="dv">16</span><span class="op">;</span>         <span class="co">// gennemsnit af flere målinger dæmper støj</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="dt">unsigned</span> <span class="dt">long</span> sidsteUdskrift <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">// Gennemsnit af flere rå målinger (0–4095)</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> laesRaa<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">long</span> sum <span class="op">=</span> <span class="dv">0</span><span class="op">;</span>  <span class="co">// long, så summen ikke løber over</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> ANTAL_MAALINGER<span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    sum <span class="op">+=</span> analogRead<span class="op">(</span>POT_PIN<span class="op">);</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> sum <span class="op">/</span> ANTAL_MAALINGER<span class="op">;</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="co">// Gennemsnit af flere kalibrerede målinger i millivolt</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> laesMilliVolt<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>  <span class="dt">long</span> sum <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> ANTAL_MAALINGER<span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    sum <span class="op">+=</span> analogReadMilliVolts<span class="op">(</span>POT_PIN<span class="op">);</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> sum <span class="op">/</span> ANTAL_MAALINGER<span class="op">;</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>begin<span class="op">(</span><span class="dv">115200</span><span class="op">);</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Ingen opsætning af ADC'en: standarden er 12 bit og 11 dB dæmpning (op mod 3,3 V)</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>  <span class="dt">unsigned</span> <span class="dt">long</span> nu <span class="op">=</span> millis<span class="op">();</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Kun hvert INTERVAL_MS; resten af tiden er loop() fri til andet</span></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(</span>nu <span class="op">-</span> sidsteUdskrift <span class="op">&gt;=</span> INTERVAL_MS<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>    sidsteUdskrift <span class="op">=</span> nu<span class="op">;</span></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> raa <span class="op">=</span> laesRaa<span class="op">();</span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> milliVolt <span class="op">=</span> laesMilliVolt<span class="op">();</span></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> procent <span class="op">=</span> map<span class="op">(</span>raa<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">4095</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">100</span><span class="op">);</span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>    Serial<span class="op">.</span>printf<span class="op">(</span><span class="st">"Raa: </span><span class="sc">%4d</span><span class="st">   Spaending: </span><span class="sc">%4d</span><span class="st"> mV   </span><span class="sc">%3d</span><span class="st"> </span><span class="sc">%%\n</span><span class="st">"</span><span class="op">,</span> raa<span class="op">,</span> milliVolt<span class="op">,</span> procent<span class="op">);</span></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Sådan virker det:</p>
+<ul>
+<li><code>analogRead()</code> og <code>analogReadMilliVolts()</code> sætter selv benet op til analog måling, så der skal ikke stå <code>pinMode()</code> i <code>setup()</code>.</li>
+<li><code>laesRaa()</code> og <code>laesMilliVolt()</code> læser 16 gange og tager gennemsnittet. Summen gemmes i en <code>long</code>, fordi 16 · 4095 er for meget til en 16-bit-variabel på mange andre mikrocontrollere. På ESP32 er <code>int</code> 32 bit, men det skader ikke at være tydelig.</li>
+<li><code>nu - sidsteUdskrift &gt;= INTERVAL_MS</code> er den sædvanlige måde at gøre noget med et fast interval med <code>millis()</code>. Den virker også, når <code>millis()</code> efter ca. 49 dage løber rundt og starter forfra fra 0.</li>
+<li><code>%%</code> i <code>printf</code> skriver et procenttegn.</li>
+</ul>
+</section>
+<section id="øvelser" class="level2">
+<h2 class="anchored" data-anchor-id="øvelser">Øvelser</h2>
+<ol type="1">
+<li>Kør eksemplet, og drej langsomt fra den ene yderstilling til den anden. Notér den rå værdi og spændingen i begge yderstillinger og i midten. Når du 0 og 4095? Hvor langt før yderstillingen sker det?</li>
+<li>Sæt <code>ANTAL_MAALINGER</code> til 1, og lad potentiometeret stå stille. Hvor meget hopper den rå værdi? Prøv derefter med 16 og 64. Hvad sker der med støjen, og hvad er prisen?</li>
+<li>Mål spændingen på midterbenet med et multimeter i fem forskellige stillinger. Skriv multimeterets værdi, <code>analogReadMilliVolts()</code> og den rå værdi omregnet med formlen (værdi / 4095 · 3,3 V) op i en tabel. Hvilken af de to ESP32-værdier ligger tættest på multimeteret? Hvor er fejlen størst?</li>
+<li>Byg en lysdiode med formodstand på GPIO 18 (se Lysdioder). Lad potentiometeret styre lysstyrken: brug <code>map()</code> til at omregne den rå værdi til 0–255, og skriv den ud med <code>analogWrite(LED_PIN, lysstyrke)</code>. Behold udskriften hvert 200. ms, men opdatér lysdioden i hvert gennemløb af <code>loop()</code>. Kan du få lysdioden helt slukket og helt tændt?</li>
+<li>Lysdioden flimrer måske svagt, når potentiometeret står stille og værdien hopper med et par stykker. Opdatér kun lysstyrken, hvis den nye værdi afviger mere end fx 2 fra den forrige. Hvad sker der, hvis grænsen er for stor?</li>
+<li><em>Ekstra:</em> <code>analogWrite()</code> bruger 8 bit (0–255) og 1000 Hz som standard. Brug i stedet <code>ledcAttach(LED_PIN, 5000, 12)</code> i <code>setup()</code> og <code>ledcWrite(LED_PIN, raa)</code> i <code>loop()</code>, så den rå værdi på 12 bit kan bruges direkte uden <code>map()</code>. (I Arduino-ESP32 2.x hed det <code>ledcSetup()</code> og <code>ledcAttachPin()</code>; de findes ikke længere i core 3.x, så kode fra ældre tutorials skal rettes.)</li>
+<li><em>Ekstra:</em> Lysdioden ser ikke ud til at blive jævnt lysere: forskellen mellem 0 og 50 er tydelig, men mellem 200 og 255 kan du næsten ikke se den. Hvorfor? Lav en omregning, der føles mere jævn, fx ved at sætte værdien i anden potens: <code>lysstyrke = (long)raa * raa / 4095 * 255 / 4095</code>.</li>
+</ol>
+</section>
+<section id="typiske-fejl" class="level2">
+<h2 class="anchored" data-anchor-id="typiske-fejl">Typiske fejl</h2>
+<ul>
+<li><strong>Værdien hopper vildt, også når du ikke rører potentiometeret:</strong> midterbenet er ikke forbundet, så benet svæver. Tjek ledningen og at du har brugt det rigtige ben på potentiometeret.</li>
+<li><strong>Værdien er altid 0 eller altid 4095:</strong> et af yderbenene sidder ikke, eller midterbenet sidder på et yderben. Mål med multimeter: der skal være ca. 3,3 V mellem yderbenene.</li>
+<li><strong>Retningen er forkert:</strong> byt de to yderben, eller byt om i <code>map()</code>: <code>map(raa, 0, 4095, 100, 0)</code>.</li>
+<li><strong>Virker uden WiFi, men ikke med:</strong> benet hører til ADC2 (fx GPIO 25, 26, 27 eller 4). Flyt til GPIO 32–39.</li>
+<li><strong>Når ikke helt 0 eller 4095:</strong> det er normalt for ESP32’s ADC (se <a href="#dæmpning-og-måleområde">Dæmpning og måleområde</a>). Lav din kode, så den ikke afhænger af præcis 0 eller 4095.</li>
+<li><strong><code>map()</code> giver negative tal eller over 100:</strong> inputtet ligger uden for det område, du har givet. Brug <code>constrain()</code>.</li>
+<li><strong>Lysdioden reagerer ikke:</strong> den sidder på et input-only-ben (34–39), som ikke kan give spænding ud. Brug fx GPIO 18. Tjek også, at lysdioden vender rigtigt.</li>
+<li><strong>ESP32 bliver varm eller dør:</strong> yderbenet sidder på 5 V eller VIN. Sluk straks.</li>
+</ul>
+<!-- TJEK: hvad analogRead() faktisk gør på et ADC2-ben med WiFi tændt i core 3.3.x. Ifølge ESP-IDF kan læsningen fejle med ESP_ERR_TIMEOUT, og i esp32-hal-adc.c returnerer fejlvejene 0, så sandsynligvis "giver 0 og en fejl i loggen". Skriv det i punktet ovenfor, når det er afprøvet. -->
+<div class="billede-mangler">
+<p>Multimeter, der måler spændingen mellem midterbenet og GND, mens ESP32 skriver ud i Serial Monitor (til øvelse 3).</p>
+</div>
+</section>
+<section id="læs-videre" class="level2">
+<h2 class="anchored" data-anchor-id="læs-videre">Læs videre</h2>
+<section id="esp32-adc-hos-random-nerd-tutorials" class="level3">
+<h3 class="anchored" data-anchor-id="esp32-adc-hos-random-nerd-tutorials">ESP32 ADC hos Random Nerd Tutorials</h3>
+<p><a href="https://randomnerdtutorials.com/esp32-adc-analog-read-arduino-ide/" lang="en">ESP32 ADC – Read Analog Values with Arduino IDE</a> bruger samme kobling (midterbenet på GPIO 34) og har en graf, der viser, at ADC’en ikke er lineær, og at den giver 0 for både 0 V og 0,1 V og 4095 for både 3,2 V og 3,3 V. Den har også en liste over ESP32’s ADC-funktioner.</p>
+<p>Læs den kritisk:</p>
+<ul>
+<li>Eksemplet bruger <code>delay(500)</code> i <code>loop()</code>. Brug <code>millis()</code> som på denne side, hvis programmet skal lave andet samtidig.</li>
+<li>Den nævner ikke <code>analogReadMilliVolts()</code>, som giver mere præcise spændinger end at regne om selv.</li>
+<li>Funktionslisten er skrevet til en ældre version af Arduino-ESP32. Nogle af funktionerne findes ikke længere i core 3.x, fx <code>analogSetClockDiv()</code>. Tjek mod <a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/api/adc.html" lang="en">Arduino-ESP32’s ADC-side</a>.</li>
+<li>I tabellen over dæmpning står “3100V” for <code>ADC_11db</code>. Det skal være 3100 mV.</li>
+</ul>
+</section>
+</section>
+<section id="kilder" class="level2">
+<h2 class="anchored" data-anchor-id="kilder">Kilder</h2>
+<ul>
+<li>Arduino-ESP32: ADC, <a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/api/adc.html" class="uri">https://docs.espressif.com/projects/arduino-esp32/en/latest/api/adc.html</a></li>
+<li>Arduino-ESP32: kildekode til ADC (standard for dæmpning og opløsning, kalibrering i <code>analogReadMilliVolts()</code>), <a href="https://github.com/espressif/arduino-esp32/blob/master/cores/esp32/esp32-hal-adc.c" class="uri">https://github.com/espressif/arduino-esp32/blob/master/cores/esp32/esp32-hal-adc.c</a></li>
+<li>Arduino-ESP32: LEDC (<code>analogWrite()</code>, <code>ledcAttach()</code>, <code>ledcWrite()</code>), <a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/api/ledc.html" class="uri">https://docs.espressif.com/projects/arduino-esp32/en/latest/api/ledc.html</a></li>
+<li>Arduino-ESP32 3.3.x: kildekode til LEDC (standard for <code>analogWrite()</code>: 8 bit, 1000 Hz), <a href="https://github.com/espressif/arduino-esp32/blob/release/v3.3.x/cores/esp32/esp32-hal-ledc.c" class="uri">https://github.com/espressif/arduino-esp32/blob/release/v3.3.x/cores/esp32/esp32-hal-ledc.c</a></li>
+<li>Arduino-ESP32 3.3.x: kildekode til <code>map()</code>, <a href="https://github.com/espressif/arduino-esp32/blob/release/v3.3.x/cores/esp32/WMath.cpp" class="uri">https://github.com/espressif/arduino-esp32/blob/release/v3.3.x/cores/esp32/WMath.cpp</a></li>
+<li>Arduino-ESP32: Migration from 2.x to 3.0 (LEDC og fjernede ADC-funktioner), <a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/migration_guides/2.x_to_3.0.html" class="uri">https://docs.espressif.com/projects/arduino-esp32/en/latest/migration_guides/2.x_to_3.0.html</a></li>
+<li>ESP-IDF: ADC Oneshot Mode Driver (ADC2 og WiFi), <a href="https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/adc/adc_oneshot.html" class="uri">https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/adc/adc_oneshot.html</a></li>
+<li>ESP-IDF: ADC Calibration Driver (kalibrering, støj, 100 nF og multisampling), <a href="https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/adc/adc_calibration.html" class="uri">https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/adc/adc_calibration.html</a></li>
+<li>ESP-IDF v4.4: ADC (måleområder pr. dæmpning, ADC1 = GPIO 32–39), <a href="https://docs.espressif.com/projects/esp-idf/en/v4.4/esp32/api-reference/peripherals/adc.html" class="uri">https://docs.espressif.com/projects/esp-idf/en/v4.4/esp32/api-reference/peripherals/adc.html</a></li>
+<li>Random Nerd Tutorials: ESP32 ADC – Read Analog Values with Arduino IDE, <a href="https://randomnerdtutorials.com/esp32-adc-analog-read-arduino-ide/" class="uri">https://randomnerdtutorials.com/esp32-adc-analog-read-arduino-ide/</a></li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Kopieret!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Kopieret!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/s0ren\.github\.io\/FAG_17682_IoT_II\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

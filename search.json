@@ -4,7 +4,7 @@
     "href": "laeringsmaal.html",
     "title": "Læringsmål",
     "section": "",
-    "text": "Oplysningerne er hentet fra https://hentdata.stil.dk/uddannelser.\n\n\n\nNIVEAU\n3.0\n\n\nFAGKATEGORI\nUddannelsesspecifikke fag\n\n\nTILKNYTNING\nBundet, valgfrit niveau\n\n\nBIDRAGER TIL KOMPETENCEMÅL\n6, 25, 34, 36, 39, 40\n\n\nUNGDOM OG EUV3 TILKNYTNING\nTilknyttet\n\n\nUNGDOM OG EUV3\n3.8\n\n\n\n\n\n\nLærlingen kan redegøre for målsætningen med IoT og IIoT.\nLærlingen kan redegøre for de forskellige begreber, teknikker, standarder, modeller og processer, der typisk indgår i IoT og IIoT løsninger.\nLærlingen kan redegøre for, hvornår en enhed kan betegnes som en IoT/IIoT enhed.\nLærlingen kan redegøre for konkrete teknologier, komponenter og enheder, der kan anvendes i IoT/IIoT løsninger.\nLærlingen kan redegøre for hvilke risici og udfordringer, der skal tages i betragtning ved IoT/IIoT.\nLærlingen kan redegøre for løsningsmuligheder ud fra konkrete cases på IoT/IIoT løsninger.\nLærlingen kan redegøre for system- og integrationsmuligheder med IoT/IIoT på nuværende systemer, som f.eks. produktionssystemer.\nLærlingen kan beskrive kendte anvendelsesområder med IoT/IIoT.\nLærlingen kan opbygge og dokumentere en mindre IoT løsning, der anvender standard IoT software, hardware og enheder\nLærlingen kan udvælge relevante sensortyper og sensorsystemer i forhold til opbygning af en given IoT og IIoT løsning.\nLærlingen kan, på baggrund af sin viden om analoge og digitale outputsignaler fra forskellige sensortyper, foretage kvalitetsmåling og validering af sensor-outputs, og vurdere, om signal-outputtet er validt.\nLærlingen kan, på baggrund af sin viden om elektronik og måleteknik, foretage fejlanalyse på analoge, digitale, serielle og trådløse outputs.\nLærlingen kan, på baggrund af sin viden om tidsaktuelle IoT/IIoT datakommunikationsteknologier og protokoller, foretage valg af den datakommunikationsteknologi, der er bedst egnet i forhold til opbygning af en given IoT/IIoT løsning.\nLærlingen kan, på baggrund af sin viden om sikkerhedsproblemer foretage en risikoanalyse af mulige sikkerhedsproblemer og på baggrund heraf indføre forebyggende foranstaltninger, som fx en plan for opdatering af enhedernes firmware/software.\nLærlingen kan, på baggrund af sin viden om teknikker til fejlfinding på netværksforbindelser, foretage elementær fejlfinding på trådede og trådløse netværksforbindelser.\nLærlingen kan arbejde med IoT/IIoT relaterede opgaver, som omfatter anvendelse af designguideline til design af mindre IoT/IIoT løsninger, og viden om aktuelle industristandarder\nLærlingen kan beskrive hvilke hardwarekomponenter, der typisk indgår i et embedded system, såsom digitale og analoge interfacemuligheder og opkobling til netværk. Desuden kan lærlingen beskrive mulige programmeringssprog og tilhørende udviklingsværktøj.\nLærlingen kan, ud fra en konkret opgave og med et standard embedded system, opbygge en mindre prototype-løsning.\nLærlingen kan anvende programmeringssproget i et embedded system til at styre input og output af data. Dette sker vha. programmeringssprogets programbiblioteker.\nLærlingen kan anvende værktøjer til at kommunikere med et embedded system, og til håndtering af programudvikling.\nLærlingen kan anvende programmeringssprogets aritmetiske operatorer, kontrolstrukturer, løkker og arrays.\nLærlingen kan opbygge og programmere en IoT/IIoT embedded løsning, der integrerer en sensor med et embedded system, og hvor det udviklede program kan analysere eller bearbejde signalet/dataene inden det/de sendes på nettet.\nLærlingen kan programmere en IoT/IIoT embedded løsning, der kan foretage analyse af input værdier i forhold til referenceværdier, og udføre handlinger på baggrund af analysens resultater, samt foretage databehandling af analoge og digitale værdier.\nLærlingen kan, ud fra viden om metoder til at foretage test af og fejlfinding på et udviklet program, foretage afprøvning og fejlretning af en udviklet løsning\n\n\n\n\nTabellen viser de sider, der har angivet målpinde (feltet maalpinde øverst i siden).\n\n\n   \n    \n    \n      Sorter ved\n      Standard\n      \n        Overskrift\n      \n    \n  \n\n\n\n\n\n\nOverskrift\n\n\n\nMålpinde\n\n\n\n\n\n\n\n\nCheckliste: Positionsbestemmelse af enheder uden GPS dækning\n\n\n \n\n\n\n\n\n\nDebouncing\n\n\n11, 19, 23\n\n\n\n\n\n\nDeep Sleep\n\n\n17, 18, 19\n\n\n\n\n\n\nESP-NOW og ESP-MESH\n\n\n4, 13, 15, 19\n\n\n\n\n\n\nFeatures\n\n\n \n\n\n\n\n\n\nFilsystem på ESP32\n\n\n17, 19, 22\n\n\n\n\n\n\nGrundlag\n\n\n \n\n\n\n\n\n\nIntro til C++\n\n\n17, 20, 21, 24\n\n\n\n\n\n\nLokal MQTT server\n\n\n \n\n\n\n\n\n\nOpgaver\n\n\n \n\n\n\n\n\n\nPlatformIO\n\n\n17, 20, 24\n\n\n\n\n\n\nProjektopgave, Positionsbestemmelse af enheder uden GPS dækning\n\n\n \n\n\n\n\n\n\nProjektopgave, Smiley feedback panel\n\n\n \n\n\n\n\n\n\nWiFi\n\n\n14, 15, 19\n\n\n\n\n\n\nIngen resultater",
+    "text": "Oplysningerne er hentet fra https://hentdata.stil.dk/uddannelser.\n\n\n\nNIVEAU\n3.0\n\n\nFAGKATEGORI\nUddannelsesspecifikke fag\n\n\nTILKNYTNING\nBundet, valgfrit niveau\n\n\nBIDRAGER TIL KOMPETENCEMÅL\n6, 25, 34, 36, 39, 40\n\n\nUNGDOM OG EUV3 TILKNYTNING\nTilknyttet\n\n\nUNGDOM OG EUV3\n3.8\n\n\n\n\n\n\nLærlingen kan redegøre for målsætningen med IoT og IIoT.\nLærlingen kan redegøre for de forskellige begreber, teknikker, standarder, modeller og processer, der typisk indgår i IoT og IIoT løsninger.\nLærlingen kan redegøre for, hvornår en enhed kan betegnes som en IoT/IIoT enhed.\nLærlingen kan redegøre for konkrete teknologier, komponenter og enheder, der kan anvendes i IoT/IIoT løsninger.\nLærlingen kan redegøre for hvilke risici og udfordringer, der skal tages i betragtning ved IoT/IIoT.\nLærlingen kan redegøre for løsningsmuligheder ud fra konkrete cases på IoT/IIoT løsninger.\nLærlingen kan redegøre for system- og integrationsmuligheder med IoT/IIoT på nuværende systemer, som f.eks. produktionssystemer.\nLærlingen kan beskrive kendte anvendelsesområder med IoT/IIoT.\nLærlingen kan opbygge og dokumentere en mindre IoT løsning, der anvender standard IoT software, hardware og enheder\nLærlingen kan udvælge relevante sensortyper og sensorsystemer i forhold til opbygning af en given IoT og IIoT løsning.\nLærlingen kan, på baggrund af sin viden om analoge og digitale outputsignaler fra forskellige sensortyper, foretage kvalitetsmåling og validering af sensor-outputs, og vurdere, om signal-outputtet er validt.\nLærlingen kan, på baggrund af sin viden om elektronik og måleteknik, foretage fejlanalyse på analoge, digitale, serielle og trådløse outputs.\nLærlingen kan, på baggrund af sin viden om tidsaktuelle IoT/IIoT datakommunikationsteknologier og protokoller, foretage valg af den datakommunikationsteknologi, der er bedst egnet i forhold til opbygning af en given IoT/IIoT løsning.\nLærlingen kan, på baggrund af sin viden om sikkerhedsproblemer foretage en risikoanalyse af mulige sikkerhedsproblemer og på baggrund heraf indføre forebyggende foranstaltninger, som fx en plan for opdatering af enhedernes firmware/software.\nLærlingen kan, på baggrund af sin viden om teknikker til fejlfinding på netværksforbindelser, foretage elementær fejlfinding på trådede og trådløse netværksforbindelser.\nLærlingen kan arbejde med IoT/IIoT relaterede opgaver, som omfatter anvendelse af designguideline til design af mindre IoT/IIoT løsninger, og viden om aktuelle industristandarder\nLærlingen kan beskrive hvilke hardwarekomponenter, der typisk indgår i et embedded system, såsom digitale og analoge interfacemuligheder og opkobling til netværk. Desuden kan lærlingen beskrive mulige programmeringssprog og tilhørende udviklingsværktøj.\nLærlingen kan, ud fra en konkret opgave og med et standard embedded system, opbygge en mindre prototype-løsning.\nLærlingen kan anvende programmeringssproget i et embedded system til at styre input og output af data. Dette sker vha. programmeringssprogets programbiblioteker.\nLærlingen kan anvende værktøjer til at kommunikere med et embedded system, og til håndtering af programudvikling.\nLærlingen kan anvende programmeringssprogets aritmetiske operatorer, kontrolstrukturer, løkker og arrays.\nLærlingen kan opbygge og programmere en IoT/IIoT embedded løsning, der integrerer en sensor med et embedded system, og hvor det udviklede program kan analysere eller bearbejde signalet/dataene inden det/de sendes på nettet.\nLærlingen kan programmere en IoT/IIoT embedded løsning, der kan foretage analyse af input værdier i forhold til referenceværdier, og udføre handlinger på baggrund af analysens resultater, samt foretage databehandling af analoge og digitale værdier.\nLærlingen kan, ud fra viden om metoder til at foretage test af og fejlfinding på et udviklet program, foretage afprøvning og fejlretning af en udviklet løsning\n\n\n\n\nTabellen viser de sider, der har angivet målpinde (feltet maalpinde øverst i siden).\n\n\n   \n    \n    \n      Sorter ved\n      Standard\n      \n        Overskrift\n      \n    \n  \n\n\n\n\n\n\nOverskrift\n\n\n\nMålpinde\n\n\n\n\n\n\n\n\nDebouncing\n\n\n11, 19, 23\n\n\n\n\n\n\nDeep Sleep\n\n\n17, 18, 19\n\n\n\n\n\n\nESP-NOW og ESP-MESH\n\n\n4, 13, 15, 19\n\n\n\n\n\n\nFilsystem på ESP32\n\n\n17, 19, 22\n\n\n\n\n\n\nIntro til C++\n\n\n17, 20, 21, 24\n\n\n\n\n\n\nLokal MQTT-server\n\n\n13, 14, 22\n\n\n\n\n\n\nPlatformIO\n\n\n17, 20, 24\n\n\n\n\n\n\nProjektopgave, Positionsbestemmelse af enheder uden GPS dækning\n\n\n5, 9, 13, 14, 22\n\n\n\n\n\n\nProjektopgave, Smiley feedback panel\n\n\n9, 13, 14, 18, 22\n\n\n\n\n\n\nWiFi\n\n\n14, 15, 19\n\n\n\n\n\n\nIngen resultater",
     "crumbs": [
       "Hjem",
       "Læringsmål"
@@ -26,7 +26,7 @@
     "href": "laeringsmaal.html#hvilke-sider-dækker-hvilke-målpinde",
     "title": "Læringsmål",
     "section": "",
-    "text": "Tabellen viser de sider, der har angivet målpinde (feltet maalpinde øverst i siden).\n\n\n   \n    \n    \n      Sorter ved\n      Standard\n      \n        Overskrift\n      \n    \n  \n\n\n\n\n\n\nOverskrift\n\n\n\nMålpinde\n\n\n\n\n\n\n\n\nCheckliste: Positionsbestemmelse af enheder uden GPS dækning\n\n\n \n\n\n\n\n\n\nDebouncing\n\n\n11, 19, 23\n\n\n\n\n\n\nDeep Sleep\n\n\n17, 18, 19\n\n\n\n\n\n\nESP-NOW og ESP-MESH\n\n\n4, 13, 15, 19\n\n\n\n\n\n\nFeatures\n\n\n \n\n\n\n\n\n\nFilsystem på ESP32\n\n\n17, 19, 22\n\n\n\n\n\n\nGrundlag\n\n\n \n\n\n\n\n\n\nIntro til C++\n\n\n17, 20, 21, 24\n\n\n\n\n\n\nLokal MQTT server\n\n\n \n\n\n\n\n\n\nOpgaver\n\n\n \n\n\n\n\n\n\nPlatformIO\n\n\n17, 20, 24\n\n\n\n\n\n\nProjektopgave, Positionsbestemmelse af enheder uden GPS dækning\n\n\n \n\n\n\n\n\n\nProjektopgave, Smiley feedback panel\n\n\n \n\n\n\n\n\n\nWiFi\n\n\n14, 15, 19\n\n\n\n\n\n\nIngen resultater",
+    "text": "Tabellen viser de sider, der har angivet målpinde (feltet maalpinde øverst i siden).\n\n\n   \n    \n    \n      Sorter ved\n      Standard\n      \n        Overskrift\n      \n    \n  \n\n\n\n\n\n\nOverskrift\n\n\n\nMålpinde\n\n\n\n\n\n\n\n\nDebouncing\n\n\n11, 19, 23\n\n\n\n\n\n\nDeep Sleep\n\n\n17, 18, 19\n\n\n\n\n\n\nESP-NOW og ESP-MESH\n\n\n4, 13, 15, 19\n\n\n\n\n\n\nFilsystem på ESP32\n\n\n17, 19, 22\n\n\n\n\n\n\nIntro til C++\n\n\n17, 20, 21, 24\n\n\n\n\n\n\nLokal MQTT-server\n\n\n13, 14, 22\n\n\n\n\n\n\nPlatformIO\n\n\n17, 20, 24\n\n\n\n\n\n\nProjektopgave, Positionsbestemmelse af enheder uden GPS dækning\n\n\n5, 9, 13, 14, 22\n\n\n\n\n\n\nProjektopgave, Smiley feedback panel\n\n\n9, 13, 14, 18, 22\n\n\n\n\n\n\nWiFi\n\n\n14, 15, 19\n\n\n\n\n\n\nIngen resultater",
     "crumbs": [
       "Hjem",
       "Læringsmål"
@@ -329,6 +329,186 @@
     ]
   },
   {
+    "objectID": "Grundlag/platformio.html",
+    "href": "Grundlag/platformio.html",
+    "title": "PlatformIO",
+    "section": "",
+    "text": "Før du kan skrive den første linje kode til ESP32, skal du have et værktøj, der kan oversætte koden og lægge den over på kortet. I faget bruger vi PlatformIO, som er en udvidelse til Visual Studio Code (VS Code). PlatformIO henter selv compiler, Arduino-framework og biblioteker, så alle i klassen bygger med præcis de samme versioner. Denne side fører dig fra en tom computer til et ESP32-kort, der blinker og skriver i Serial Monitor.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "PlatformIO"
+    ]
+  },
+  {
+    "objectID": "Grundlag/platformio.html#formål",
+    "href": "Grundlag/platformio.html#formål",
+    "title": "PlatformIO",
+    "section": "Formål",
+    "text": "Formål\n\nDu kan installere VS Code og PlatformIO på din egen computer.\nDu kan oprette et PlatformIO-projekt til ESP32-DEVKIT-V1 med Arduino-frameworket og forklare, hvad de forskellige filer og mapper bruges til.\nDu kan bygge, uploade og åbne Serial Monitor, og du kan sætte monitor_speed.\nDu kan tilføje et bibliotek, både fra PIO Home og ved at skrive det i lib_deps.\nDu kan finde fejlen, når upload ikke virker: forkert kabel, manglende driver, forkert port eller kortet, der ikke vil gå i upload-tilstand.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "PlatformIO"
+    ]
+  },
+  {
+    "objectID": "Grundlag/platformio.html#målpinde",
+    "href": "Grundlag/platformio.html#målpinde",
+    "title": "PlatformIO",
+    "section": "Målpinde",
+    "text": "Målpinde\nSiden arbejder med målpind 17, 20 og 24 (se Læringsmål).",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "PlatformIO"
+    ]
+  },
+  {
+    "objectID": "Grundlag/platformio.html#forudsætninger",
+    "href": "Grundlag/platformio.html#forudsætninger",
+    "title": "PlatformIO",
+    "section": "Forudsætninger",
+    "text": "Forudsætninger\n\nEn computer med Windows, macOS eller Linux, hvor du må installere programmer. Vejledningen her går ud fra Windows.\nInternetforbindelse. Første gang henter PlatformIO flere hundrede MB.\nHardware: ESP32-DEVKIT-V1 og et USB-kabel, der kan overføre data (se USB-kablet).\nGit installeret og grundlæggende kendskab til git init og git status (bruges i øvelse 4).",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "PlatformIO"
+    ]
+  },
+  {
+    "objectID": "Grundlag/platformio.html#installation",
+    "href": "Grundlag/platformio.html#installation",
+    "title": "PlatformIO",
+    "section": "Installation",
+    "text": "Installation\n\nVS Code og PlatformIO IDE\n\nHent og installer VS Code fra https://code.visualstudio.com/.\nStart VS Code, og åbn Extensions-visningen (Extensions view) med Ctrl+Shift+X eller ikonet med de fire firkanter i venstre side.\nSøg efter PlatformIO IDE. Vælg udvidelsen fra udgiveren PlatformIO (id’et er platformio.platformio-ide), og klik Install. Der findes andre udvidelser med lignende navne, så tjek udgiveren.\nFørste gang du installerer en udvidelse fra en ny udgiver, spørger VS Code, om du stoler på udgiveren. Svar ja.\n\nVS Codes egen vejledning Extension Marketplace har skærmbilleder af Extensions-visningen og knappen Install.\n\n\nFørste start\nPå Windows skal du ikke installere Python eller PlatformIO Core selv. PlatformIO IDE har sin egen Python og installerer PlatformIO Core (CLI, kommandolinjeværktøjet) i baggrunden, første gang udvidelsen starter. Det tager et par minutter, og du kan følge det nederst i vinduet. Når det er færdigt, beder VS Code dig måske om at genindlæse vinduet. Gør det. (På Linux skal pakken python3-venv være installeret, før PlatformIO kan installere sig.) Derefter dukker PlatformIO-ikonet (et myrehoved) op i venstre side, og PIO Home åbner.\n\nPlatformIO lægger alle værktøjer i mappen .platformio i din brugermappe (på Windows %HOMEPATH%\\.platformio). Det er her, compileren og Arduino-frameworket ender, når du bygger første gang. Derfor tager den første build også lang tid; de næste går hurtigt.\n\n\n\n\n\n\nAdvarselUndgå æ, ø og å i stien\n\n\n\nPlatformIO kan ikke bygge projekter, hvor den fulde sti indeholder tegn uden for ASCII, fx æ, ø og å. Det er en kendt fejl, som står i PlatformIO’s FAQ. Hvis dit brugernavn på Windows er fx Søren, så læg dine projekter i en mappe som C:\\iot\\ i stedet for under Dokumenter. Undgå også mellemrum i mappenavne, så slipper du for en anden type problemer.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "PlatformIO"
+    ]
+  },
+  {
+    "objectID": "Grundlag/platformio.html#opret-et-projekt",
+    "href": "Grundlag/platformio.html#opret-et-projekt",
+    "title": "PlatformIO",
+    "section": "Opret et projekt",
+    "text": "Opret et projekt\n\nKlik på PlatformIO-ikonet i venstre side, og vælg PIO Home → Open. Eller klik på huset i statuslinjen nederst.\nKlik New Project. I guiden (Project Wizard) udfylder du:\n\nName: projektets navn, fx blink_test. Brug små bogstaver og _, ingen mellemrum eller æøå.\nBoard: skriv DOIT og vælg DOIT ESP32 DEVKIT V1.\nFramework: Arduino.\nLocation: fjern fluebenet ved standardplaceringen, og vælg en mappe uden æøå og mellemrum (se boksen ovenfor).\n\nKlik Finish. Første gang henter PlatformIO platformen espressif32 og Arduino-frameworket. Det kan tage flere minutter.\n\nSe skærmbillederne i PlatformIO’s Quick Start under trin 1 (PIO Home) og trin 2 (New Project).\n\n\n\nLås platformens version\nGuiden skriver platform = espressif32 i platformio.ini. Uden versionsnummer bruger PlatformIO den version, der allerede er installeret på computeren, eller den nyeste, hvis der ikke er nogen. Så kan to elever, der har installeret med en måneds mellemrum, få forskellige versioner af Arduino-frameworket. Ret derfor linjen til:\n\n\nplatformio.ini\n\nplatform = espressif32@8.0.0\n\nVersion 8.0.0 af platformen indeholder Arduino-ESP32 version 3.3.x. Bemærk, at det er to forskellige versionsnumre: platformen (8.0.0) er PlatformIO’s pakke, og Arduino-ESP32 (3.3.x) er frameworket inden i den. Platform 7.x indeholdt fx stadig Arduino-ESP32 2.x. Det er den version, siderne på dette site er tjekket mod, så koden her opfører sig ens hos alle. PlatformIO anbefaler selv at låse versionen, så en build kan gentages.\nVil du senere skifte version, retter du bare tallet og bygger igen. PlatformIO henter selv den nye version. Se, hvilke versioner der findes, på platformens udgivelser på GitHub. Bemærk, at et skift i hovedversion (fx fra Arduino-ESP32 2.x til 3.x) kan kræve ændringer i koden.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "PlatformIO"
+    ]
+  },
+  {
+    "objectID": "Grundlag/platformio.html#projektets-opbygning",
+    "href": "Grundlag/platformio.html#projektets-opbygning",
+    "title": "PlatformIO",
+    "section": "Projektets opbygning",
+    "text": "Projektets opbygning\nNår projektet er oprettet, ser mappen sådan ud:\nblink_test/\n├── .pio/            ← byggede filer og hentede biblioteker (laves af PlatformIO)\n├── .vscode/         ← indstillinger til VS Code (laves af PlatformIO)\n├── include/         ← dine egne header-filer (.h)\n├── lib/             ← dine egne biblioteker, ét pr. undermappe\n├── src/\n│   └── main.cpp     ← dit program\n├── test/            ← automatiske tests\n├── .gitignore\n└── platformio.ini   ← projektets opsætning\n\n\n\nFil eller mappe\nHvad den bruges til\n\n\n\n\nplatformio.ini\nProjektets opsætning: board, framework, platformens version, monitor_speed og biblioteker. Én sektion [env:…] pr. miljø (environment).\n\n\nsrc/\nKildekoden. Programmet starter i src/main.cpp, som skal begynde med #include &lt;Arduino.h&gt; for at kunne bruge Arduino-funktionerne.\n\n\ninclude/\nHeader-filer (.h), som main.cpp kan inkludere med #include \"fil.h\". Fx secrets.h på siden om WiFi.\n\n\nlib/\nBiblioteker, du selv skriver og kun bruger i dette projekt. Biblioteker fra nettet skal ikke herind; dem skriver du i lib_deps.\n\n\ntest/\nUnit-tests til PlatformIO’s testværktøj. Bruges ikke i begyndelsen.\n\n\n.pio/\nAlt det, PlatformIO laver selv: oversatte filer, den færdige firmware og bibliotekerne fra lib_deps (i .pio/libdeps/). Kan altid laves igen.\n\n\n.vscode/\nFiler, som PlatformIO genererer til VS Code, fx stier til header-filer, så autofuldførelse virker.\n\n\n\n\n\n.gitignore\nDet, der kommer i git, er det, en anden skal bruge for at bygge projektet: platformio.ini, src/, include/, lib/ og test/. .pio/ skal ikke med. Den fylder meget, og PlatformIO laver den igen ved næste build. Det samme gælder de filer i .vscode/, der indeholder stier fra din egen computer.\nNår PlatformIO opretter et projekt i VS Code, laver det en .gitignore med dette indhold (kun hvis der ikke er en i forvejen):\n\n\n.gitignore\n\n.pio\n.vscode/.browse.c_cpp.db*\n.vscode/c_cpp_properties.json\n.vscode/launch.json\n.vscode/ipch\n\nLad den stå. Har du hemmeligheder som WiFi-passwords i projektet, skal de også i .gitignore (se WiFi).",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "PlatformIO"
+    ]
+  },
+  {
+    "objectID": "Grundlag/platformio.html#byg-upload-og-serial-monitor",
+    "href": "Grundlag/platformio.html#byg-upload-og-serial-monitor",
+    "title": "PlatformIO",
+    "section": "Byg, upload og Serial Monitor",
+    "text": "Byg, upload og Serial Monitor\nNederst i VS Code, i statuslinjen, har PlatformIO en række små knapper. Fra venstre:\n\n\n\n\n\n\n\n\nKnap\nHvad den gør\nGenvej\n\n\n\n\nHus\nÅbner PIO Home\n\n\n\n✓ Build\nOversætter projektet. Fejl vises i terminalen.\nCtrl+Alt+B\n\n\n→ Upload\nBygger, hvis det er nødvendigt, og lægger programmet over på ESP32.\nCtrl+Alt+U\n\n\nSkraldespand Clean\nSletter de byggede filer i .pio/build/, så næste build starter forfra.\n\n\n\nStik Serial Monitor\nÅbner en terminal, der viser det, ESP32 skriver med Serial.\nCtrl+Alt+S\n\n\nTerminal\nÅbner en terminal med PlatformIO’s kommandolinje (pio).\n\n\n\n\nDe samme kommandoer findes under PlatformIO-ikonet i venstre side under Project Tasks, sorteret efter miljø. Se skærmbilledet i PlatformIO’s dokumentation under PlatformIO Toolbar og Task Explorer.\n\nClean bruger du, når en build opfører sig mærkeligt, fx efter du har skiftet platformens version eller flyttet filer. Ellers er der ingen grund til det: så skal alt bare oversættes igen.\n\nmonitor_speed\nESP32 og Serial Monitor skal være enige om, hvor hurtigt de sender: baud rate, altså bit pr. sekund. I programmet sættes den med Serial.begin(115200). PlatformIO’s Serial Monitor bruger 9600, hvis du ikke skriver andet. Derfor skal hvert projekt have denne linje i platformio.ini:\n\n\nplatformio.ini\n\nmonitor_speed = 115200\n\nEr de to tal forskellige, ser du tilfældige tegn i Serial Monitor i stedet for tekst.\nDu lukker Serial Monitor med Ctrl+C i terminalen eller ved at lukke terminalen. Du behøver ikke lukke den, før du uploader: PlatformIO lukker den selv under upload og åbner den igen bagefter. Men et andet program, der har porten åben (Arduino IDE, PuTTY, en anden VS Code), blokerer upload.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "PlatformIO"
+    ]
+  },
+  {
+    "objectID": "Grundlag/platformio.html#usb-forbindelsen",
+    "href": "Grundlag/platformio.html#usb-forbindelsen",
+    "title": "PlatformIO",
+    "section": "USB-forbindelsen",
+    "text": "USB-forbindelsen\n\nUSB-kablet\nMange USB-kabler, især dem der følger med powerbanks og små apparater, kan kun lade og har ingen dataledninger. Med sådan et kabel lyser den røde lysdiode på kortet, men computeren ser ingen port, og upload fejler. Har du problemer, så prøv et andet kabel, før du leder efter fejlen andre steder.\n\n\nUSB-serielchippen og driveren\nESP32 har ikke selv USB. På DEVKIT-V1 sidder der en lille chip ved USB-stikket, som oversætter mellem USB og ESP32’s serielle port (UART). Det originale DOIT-design bruger en CP2102 fra Silicon Labs, men mange kopier bruger en CH340 fra WCH. Navnet står på chippen, hvis du kigger med lup.\n\nWindows 10 og 11 installerer som regel driveren selv, når du sætter kortet i. Hvis der ikke dukker en port op:\n\nCP2102: hent driveren CP210x USB to UART Bridge VCP Drivers fra Silicon Labs.\nCH340: hent driveren fra producenten WCH, CH341SER.\n\n\n\n\nFind COM-porten\nPå Windows hedder serielle porte COM3, COM4 osv. Sådan finder du den, kortet har fået:\n\nÅbn Enhedshåndtering (højreklik på Start-knappen).\nFold Porte (COM og LPT) ud.\nTag kortet ud og sæt det i igen. Den port, der forsvinder og kommer igen, er din. Den hedder fx Silicon Labs CP210x USB to UART Bridge (COM3) eller USB-SERIAL CH340 (COM5).\n\nEspressif viser det med skærmbilleder under Check Port on Windows.\n\nPlatformIO finder normalt selv porten. Har du flere serielle enheder tilsluttet, og vælger den forkert, så skriv porten i platformio.ini:\n\n\nplatformio.ini\n\nupload_port = COM5\nmonitor_port = COM5\n\nFjern linjerne igen, før du afleverer, for porten er sikkert en anden på lærerens computer.\n\n\n“Failed to connect”: BOOT-knappen\nVed upload nulstiller værktøjet esptool normalt ESP32 og sætter den i upload-tilstand (download mode) automatisk. Mens det sker, skriver det Connecting.... med flere og flere prikker. Nogle kort når ikke at skifte, og så ender upload med en fejl, der begynder sådan:\nA fatal error occurred: Failed to connect to ESP32: ...\nResten af linjen afhænger af esptool-versionen, fx Timed out waiting for packet header, No serial data received eller Wrong boot mode detected.\n\nLøsningen er at sætte kortet i upload-tilstand i hånden med knapperne ved USB-stikket:\n\nStart upload.\nNår der står Connecting...., så hold BOOT-knappen nede.\nSlip den, når uploaden er gået i gang, og der står Writing at ….\n\n\nVirker det ikke, så hold BOOT nede, tryk kort på EN (reset), og slip derefter BOOT. BOOT-knappen trækker GPIO 0 til GND, og det er det, der får ESP32 i upload-tilstand ved opstart.\nEfter upload starter programmet normalt af sig selv. Gør det ikke, så tryk på EN.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "PlatformIO"
+    ]
+  },
+  {
+    "objectID": "Grundlag/platformio.html#eksempel-test-af-build-og-upload",
+    "href": "Grundlag/platformio.html#eksempel-test-af-build-og-upload",
+    "title": "PlatformIO",
+    "section": "Eksempel: test af build og upload",
+    "text": "Eksempel: test af build og upload\nEt lille program, der kun skal vise, at det hele virker: den indbyggede lysdiode på GPIO 2 blinker, og ESP32 skriver i Serial Monitor hvert sekund. Selve programmeringen gennemgås på siden om Hello World.\n\n\nplatformio.ini\n\n[env:esp32doit-devkit-v1]\nplatform = espressif32@8.0.0\nboard = esp32doit-devkit-v1\nframework = arduino\nmonitor_speed = 115200\n\n\n\nsrc/main.cpp\n\n#include &lt;Arduino.h&gt;\n\n// Konfiguration\nconst int LED_PIN = 2;                 // indbygget lysdiode på DEVKIT-V1\nconst unsigned long INTERVAL_MS = 1000; // tid mellem skift\n\nunsigned long sidsteSkift = 0;\nbool ledTaendt = false;\n\nvoid setup() {\n  Serial.begin(115200);  // skal passe med monitor_speed\n  pinMode(LED_PIN, OUTPUT);\n  Serial.println(\"PlatformIO virker!\");\n}\n\nvoid loop() {\n  // millis() i stedet for delay(), så loop() aldrig står stille\n  if (millis() - sidsteSkift &gt;= INTERVAL_MS) {\n    sidsteSkift = millis();\n    ledTaendt = !ledTaendt;\n    digitalWrite(LED_PIN, ledTaendt ? HIGH : LOW);\n    Serial.printf(\"Kørt i %lu s\\n\", millis() / 1000);\n  }\n}\n\nKlik Upload og derefter Serial Monitor. Lysdioden skal blinke, og der skal komme en linje hvert sekund. Ser du ikke linjen PlatformIO virker!, er det fordi programmet startede, før Serial Monitor var åben. Tryk på EN, så starter programmet forfra.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "PlatformIO"
+    ]
+  },
+  {
+    "objectID": "Grundlag/platformio.html#biblioteker-med-lib_deps",
+    "href": "Grundlag/platformio.html#biblioteker-med-lib_deps",
+    "title": "PlatformIO",
+    "section": "Biblioteker med lib_deps",
+    "text": "Biblioteker med lib_deps\nBiblioteker fra nettet står i lib_deps i platformio.ini. Senest når du bygger, henter PlatformIO dem fra PlatformIO-registret og lægger dem i .pio/libdeps/. Du skal ikke kopiere filer selv.\nDu kan få linjen i lib_deps på to måder: vælge biblioteket i PIO Home, eller skrive linjen selv. Begge dele ender med den samme linje i platformio.ini, og det er kun den linje, der tæller. PIO Home er bare en hjælp til at finde det rigtige navn og den nyeste version.\nEksemplet er biblioteket ezButton, som siden om Debouncing bruger.\n\nMåde 1: vælg biblioteket i PIO Home\n\nÅbn PIO Home (huset i statuslinjen), og klik på Libraries i menuen til venstre.\nSøg efter ezButton.\nKlik på biblioteket i resultatlisten. Tjek, at ejeren er arduinogetstarted (vises som “Arduino Get Started”); der kan være flere biblioteker med lignende navne. Add to Project henter biblioteket med det samme.\nKlik Add to Project.\nVælg dit projekt i dialogen, og klik Add.\n\nPlatformIO skriver nu en linje i lib_deps i projektets platformio.ini med ejer, navn og den nyeste version, fx arduinogetstarted/ezButton@^1.0.6. Åbn filen, og se efter.\nPlatformIO’s egen dokumentation har kun et enkelt skærmbillede af bibliotekssiden i PIO Home under Library Manager og beskriver ikke trinnene. Random Nerd Tutorials viser hele forløbet med skærmbilleder under Installing ESP32/ESP8266 Libraries on PlatformIO IDE i artiklen under Læs videre.\n\n\n\n\nMåde 2: skriv lib_deps selv\nDu kan også skrive linjen direkte i platformio.ini. Det er hurtigere, når du allerede kender navnet, fx fra en opgave eller en side her på sitet:\n\n\nplatformio.ini\n\n[env:esp32doit-devkit-v1]\nplatform = espressif32@8.0.0\nboard = esp32doit-devkit-v1\nframework = arduino\nmonitor_speed = 115200\nlib_deps = arduinogetstarted/ezButton@^1.0.6\n\nNavnet består af tre dele:\n\narduinogetstarted er ejeren i registret. Tag det med, så du får det rigtige bibliotek, hvis flere har samme navn.\nezButton er bibliotekets navn.\n@^1.0.6 er versionen: ^ betyder “1.0.6 eller nyere, men stadig 1.x.x”. Så får du fejlrettelser og nye funktioner, men ikke en ny hovedversion, der kan ændre de funktioner, du bruger. Det er den form, PlatformIO anbefaler.\n\nFlere biblioteker skrives på hver sin linje, rykket ind:\n\n\nplatformio.ini\n\nlib_deps =\n  arduinogetstarted/ezButton@^1.0.6\n  knolleary/PubSubClient@^2.8\n\nBiblioteker, der følger med Arduino-frameworket, som WiFi.h, skal ikke i lib_deps.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "PlatformIO"
+    ]
+  },
+  {
+    "objectID": "Grundlag/platformio.html#øvelser",
+    "href": "Grundlag/platformio.html#øvelser",
+    "title": "PlatformIO",
+    "section": "Øvelser",
+    "text": "Øvelser\n\nInstaller VS Code og PlatformIO, og opret projektet blink_test. Byg det. Hvor lang tid tager den første build, og hvor lang tid tager den næste? Forklar forskellen.\nFind kortets COM-port i Enhedshåndtering. Upload testprogrammet, og åbn Serial Monitor. Aflever et skærmbillede af Serial Monitor.\nRet monitor_speed til 9600, men lad Serial.begin(115200) stå. Hvad ser du i Serial Monitor? Ret det tilbage.\nTilføj ezButton fra PIO Home med Add to Project. Se i platformio.ini, hvilken linje der er kommet i lib_deps, og sammenlign den med linjen i Måde 2. Byg projektet. Find biblioteket i .pio/libdeps/. Kør derefter git init og git status i projektmappen. Kommer .pio/ med? Hvorfor ikke?\nRet INTERVAL_MS til 200, og upload igen. Upload så en gang, mens du holder BOOT-knappen nede, som beskrevet under BOOT-knappen. Virker det også?\nEkstra: Klik Clean, og byg igen. Sammenlign tiden med de to builds fra øvelse 1. Hvad blev slettet af Clean, og hvad lå der stadig i .platformio i din brugermappe?",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "PlatformIO"
+    ]
+  },
+  {
+    "objectID": "Grundlag/platformio.html#typiske-fejl",
+    "href": "Grundlag/platformio.html#typiske-fejl",
+    "title": "PlatformIO",
+    "section": "Typiske fejl",
+    "text": "Typiske fejl\n\nIngen port dukker op: Kablet kan kun lade, eller driveren til USB-serielchippen mangler. Prøv et andet kabel først.\nFailed to connect to ESP32: Kortet kom ikke i upload-tilstand. Hold BOOT nede under Connecting..... Tjek også, at et andet program ikke har porten åben.\nTilfældige tegn i Serial Monitor: monitor_speed passer ikke med Serial.begin().\nSerial Monitor er tom: Programmet skrev sin tekst, før monitoren var åben. Tryk på EN. Eller Serial.begin() mangler.\nBuild fejler med mærkelige fejl om stier eller tegn: Projektets sti indeholder æ, ø, å eller andre tegn uden for ASCII. Flyt projektet.\nAccess is denied under installationen: Et antivirusprogram blokerer PlatformIO. Se PlatformIO’s FAQ.\nfatal error: ezButton.h: No such file or directory: Biblioteket står ikke i lib_deps, eller navnet er stavet forkert.\nKoden virker hos dig, men ikke hos læreren: Platformens version er ikke låst, så I bygger med forskellige versioner af Arduino-frameworket.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "PlatformIO"
+    ]
+  },
+  {
+    "objectID": "Grundlag/platformio.html#læs-videre",
+    "href": "Grundlag/platformio.html#læs-videre",
+    "title": "PlatformIO",
+    "section": "Læs videre",
+    "text": "Læs videre\n\nRandom Nerd Tutorials\nGetting Started with VS Code and PlatformIO IDE for ESP32 and ESP8266 viser de samme trin med mange skærmbilleder: installationen af VS Code, PIO Home, guiden til nyt projekt med DOIT ESP32 DEVKIT V1, upload og Serial Monitor, og hvordan man finder biblioteker i PIO Home i stedet for at skrive lib_deps i hånden.\nLæs den med to forbehold. Artiklen er fra 2020 og siger, at du skal installere Python først. Det skal du ikke længere på Windows: PlatformIO IDE har sin egen Python. Og lås platformens version som beskrevet ovenfor, uanset hvad artiklens skærmbilleder viser.",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "PlatformIO"
+    ]
+  },
+  {
+    "objectID": "Grundlag/platformio.html#kilder",
+    "href": "Grundlag/platformio.html#kilder",
+    "title": "PlatformIO",
+    "section": "Kilder",
+    "text": "Kilder\n\nPlatformIO: PlatformIO IDE for VSCode (installation, Quick Start, toolbar, indstillinger), https://docs.platformio.org/en/latest/integration/ide/vscode.html\nPlatformIO: DOIT ESP32 DEVKIT V1, https://docs.platformio.org/en/latest/boards/espressif32/esp32doit-devkit-v1.html\nPlatformIO: platform (låsning af version), https://docs.platformio.org/en/latest/projectconf/sections/env/options/platform/platform.html\nPlatformIO: platform-espressif32, udgivelser (8.0.0 med Arduino-ESP32 3.3.12), https://github.com/platformio/platform-espressif32/releases\nPlatformIO: pio project init (projektets mapper), https://docs.platformio.org/en/latest/core/userguide/project/cmd_init.html\nPlatformIO: kildekode til .gitignore for VS Code-projekter, https://github.com/platformio/platformio-core/blob/develop/platformio/project/integration/tpls/vscode/.gitignore.optional.tpl\nPlatformIO: monitor_speed, https://docs.platformio.org/en/latest/projectconf/sections/env/options/monitor/monitor_speed.html\nPlatformIO: pio device monitor, https://docs.platformio.org/en/latest/core/userguide/device/cmd_monitor.html\nPlatformIO: upload_port, https://docs.platformio.org/en/latest/projectconf/sections/env/options/upload/upload_port.html\nPlatformIO: lib_deps, https://docs.platformio.org/en/latest/projectconf/sections/env/options/library/lib_deps.html\nPlatformIO: versionskrav (^, ~), https://docs.platformio.org/en/latest/core/userguide/pkg/cmd_install.html\nPlatformIO: core_dir, workspace_dir og libdeps_dir, https://docs.platformio.org/en/latest/projectconf/sections/platformio/options/directory/core_dir.html\nPlatformIO: Troubleshooting (ikke-ASCII i stier, Access is denied), https://docs.platformio.org/en/latest/faq/troubleshooting.html\nVS Code: Extension Marketplace, https://code.visualstudio.com/docs/configure/extensions/extension-marketplace\nEspressif: Establish Serial Connection with ESP32, https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/establish-serial-connection.html\nArduino-ESP32: Troubleshooting (kabler, driver, BOOT-knappen), https://docs.espressif.com/projects/arduino-esp32/en/latest/troubleshooting.html\nesptool: Troubleshooting, https://docs.espressif.com/projects/esptool/en/latest/esp32/troubleshooting.html\nesptool: Boot Mode Selection, https://docs.espressif.com/projects/esptool/en/latest/esp32/advanced-topics/boot-mode-selection.html\nRandom Nerd Tutorials: Getting Started with VS Code and PlatformIO IDE for ESP32 and ESP8266, https://randomnerdtutorials.com/vs-code-platformio-ide-esp32-esp8266-arduino/",
+    "crumbs": [
+      "Hjem",
+      "Grundlag",
+      "PlatformIO"
+    ]
+  },
+  {
     "objectID": "Grundlag/index.html",
     "href": "Grundlag/index.html",
     "title": "Grundlag",
@@ -512,51 +692,18 @@
     "href": "Features/index.html",
     "title": "Features",
     "section": "",
-    "text": "Santos, S. ESP32 Deep Sleep with Arduino IDE and Wake Up Sources | Random Nerd Tutorials. https://randomnerdtutorials.com/esp32-deep-sleep-arduino-ide-wake-up-sources/ (accessed 2025-11-17).\nDeep Sleep - - — Arduino ESP32 latest documentation. https://docs.espressif.com/projects/arduino-esp32/en/latest/api/deepsleep.html (accessed 2025-11-17).",
+    "text": "Det nye i anden del af faget: strømbesparelse, lagring, kommunikation mellem enheder og MQTT.",
     "crumbs": [
       "Hjem",
       "Features"
     ]
   },
   {
-    "objectID": "Features/index.html#deepsleep",
-    "href": "Features/index.html#deepsleep",
+    "objectID": "Features/index.html#links",
+    "href": "Features/index.html#links",
     "title": "Features",
-    "section": "",
-    "text": "Santos, S. ESP32 Deep Sleep with Arduino IDE and Wake Up Sources | Random Nerd Tutorials. https://randomnerdtutorials.com/esp32-deep-sleep-arduino-ide-wake-up-sources/ (accessed 2025-11-17).\nDeep Sleep - - — Arduino ESP32 latest documentation. https://docs.espressif.com/projects/arduino-esp32/en/latest/api/deepsleep.html (accessed 2025-11-17).",
-    "crumbs": [
-      "Hjem",
-      "Features"
-    ]
-  },
-  {
-    "objectID": "Features/index.html#mqtt",
-    "href": "Features/index.html#mqtt",
-    "title": "Features",
-    "section": "MQTT",
-    "text": "MQTT\n\nESP32 MQTT Publish Subscribe with Arduino IDE | Random Nerd Tutorials. https://randomnerdtutorials.com/esp32-mqtt-publish-subscribe-arduino-ide/ (accessed 2025-11-17).\nO’Leary, N. Knolleary/Pubsubclient, 2025. https://github.com/knolleary/pubsubclient (accessed 2025-11-17).\nROGER, M. Marvinroger/Async-Mqtt-Client, 2025. https://github.com/marvinroger/async-mqtt-client (accessed 2025-11-17).\nSantos, R. What is MQTT and How It Works | Random Nerd Tutorials. https://randomnerdtutorials.com/what-is-mqtt-and-how-it-works/ (accessed 2025-11-17).",
-    "crumbs": [
-      "Hjem",
-      "Features"
-    ]
-  },
-  {
-    "objectID": "Features/index.html#wifi",
-    "href": "Features/index.html#wifi",
-    "title": "Features",
-    "section": "WiFi",
-    "text": "WiFi\n\nSantos, S. ESP32 Useful Wi-Fi Library Functions (Arduino IDE) | Random Nerd Tutorials. https://randomnerdtutorials.com/esp32-useful-wi-fi-functions-arduino/ (accessed 2025-11-17).\nWi-Fi API - - — Arduino ESP32 latest documentation. https://docs.espressif.com/projects/arduino-esp32/en/latest/api/wifi.html# (accessed 2025-11-17).\nWiFi | Arduino Documentation. https://docs.arduino.cc/libraries/wifi/ (accessed 2025-11-17).",
-    "crumbs": [
-      "Hjem",
-      "Features"
-    ]
-  },
-  {
-    "objectID": "Features/index.html#littlefs",
-    "href": "Features/index.html#littlefs",
-    "title": "Features",
-    "section": "LittleFS",
-    "text": "LittleFS\n\nMischianti, R. ESP32: integrated LittleFS FileSystem - 5. Renzo Mischianti. https://mischianti.org/esp32-integrated-littlefs-filesystem-5/ (accessed 2025-11-17).\nSantos, S. ESP32: Write Data to a File (LittleFS) - Arduino | Random Nerd Tutorials. https://randomnerdtutorials.com/esp32-write-data-littlefs-arduino/ (accessed 2025-11-17).\nLittlefs-Project/Littlefs, 2025. https://github.com/littlefs-project/littlefs (accessed 2025-11-17).",
+    "section": "Links",
+    "text": "Links\nUdvalgte artikler og dokumentation til emnerne.\n\nDeepSleep\n\nSantos, S. ESP32 Deep Sleep with Arduino IDE and Wake Up Sources | Random Nerd Tutorials. https://randomnerdtutorials.com/esp32-deep-sleep-arduino-ide-wake-up-sources/ (accessed 2025-11-17).\nDeep Sleep - - — Arduino ESP32 latest documentation. https://docs.espressif.com/projects/arduino-esp32/en/latest/api/deepsleep.html (accessed 2025-11-17).\n\n\n\nMQTT\n\nESP32 MQTT Publish Subscribe with Arduino IDE | Random Nerd Tutorials. https://randomnerdtutorials.com/esp32-mqtt-publish-subscribe-arduino-ide/ (accessed 2025-11-17).\nO’Leary, N. Knolleary/Pubsubclient, 2025. https://github.com/knolleary/pubsubclient (accessed 2025-11-17).\nROGER, M. Marvinroger/Async-Mqtt-Client, 2025. https://github.com/marvinroger/async-mqtt-client (accessed 2025-11-17).\nSantos, R. What is MQTT and How It Works | Random Nerd Tutorials. https://randomnerdtutorials.com/what-is-mqtt-and-how-it-works/ (accessed 2025-11-17).\n\n\n\nWiFi\n\nSantos, S. ESP32 Useful Wi-Fi Library Functions (Arduino IDE) | Random Nerd Tutorials. https://randomnerdtutorials.com/esp32-useful-wi-fi-functions-arduino/ (accessed 2025-11-17).\nWi-Fi API - - — Arduino ESP32 latest documentation. https://docs.espressif.com/projects/arduino-esp32/en/latest/api/wifi.html# (accessed 2025-11-17).\nWiFi | Arduino Documentation. https://docs.arduino.cc/libraries/wifi/ (accessed 2025-11-17).\n\n\n\nLittleFS\n\nMischianti, R. ESP32: integrated LittleFS FileSystem - 5. Renzo Mischianti. https://mischianti.org/esp32-integrated-littlefs-filesystem-5/ (accessed 2025-11-17).\nSantos, S. ESP32: Write Data to a File (LittleFS) - Arduino | Random Nerd Tutorials. https://randomnerdtutorials.com/esp32-write-data-littlefs-arduino/ (accessed 2025-11-17).\nLittlefs-Project/Littlefs, 2025. https://github.com/littlefs-project/littlefs (accessed 2025-11-17).",
     "crumbs": [
       "Hjem",
       "Features"
@@ -1021,49 +1168,181 @@
   {
     "objectID": "Features/lokal_mqtt.html",
     "href": "Features/lokal_mqtt.html",
-    "title": "Lokal MQTT server",
+    "title": "Lokal MQTT-server",
     "section": "",
-    "text": "MQTT er det nye sort inden for cloud data storage. Så det skal vi også have.\nDet giver bedst mening, alt i alt, at vi har en server lokalt.\nMQTT serveren kaldes en broker, som implementerer en publish/subscribe arkitektur. Det betyder at de meddelelser publiseres til brokeren øjeblikligt sendes videre til abonnenterne (subscribers). Meddelelserne gemmes ikke på serveren, men skal modtages af en subscriber.\nPå den lokale server er der en subscriber, som gemmer alle meddelser i jsonlfiler.\nMQTT protokollen, gør at man kan sende meddelser til et topic en “payload”.\nTopic er en form for adresse eller path. Et topic kunne f.eks. være iot/del2/team-rocket/feedback.\nPayload’en er en String med de data der gemmes. Payload er ofte formateret son json, især hvis payloaden består af flere dele.\nFor dem som hellere vil køre en server selv under udviklingsfacen, har jeg delt en docker-compose opsætning: https://github.com/s0ren/mqtt_moquitto_docker_compose.",
+    "text": "I klasselokalet står en Raspberry Pi, der hedder wilsons. Den kører en MQTT-server, som alle jeres ESP32’ere, Python-programmer og bærbare kan sende data til og hente data fra. Når din ESP32 måler en temperatur, sender den målingen til wilsons, og et program på din bærbare kan modtage den med det samme. Alt, hvad der bliver sendt, bliver også gemt i en log, som du kan se i browseren. Denne side viser, hvordan du bruger serveren som klient, og hvordan du gør det sikkert.",
     "crumbs": [
       "Hjem",
       "Features",
-      "Lokal MQTT server"
+      "Lokal MQTT-server"
     ]
   },
   {
-    "objectID": "Features/lokal_mqtt.html#intro",
-    "href": "Features/lokal_mqtt.html#intro",
-    "title": "Lokal MQTT server",
-    "section": "",
-    "text": "MQTT er det nye sort inden for cloud data storage. Så det skal vi også have.\nDet giver bedst mening, alt i alt, at vi har en server lokalt.\nMQTT serveren kaldes en broker, som implementerer en publish/subscribe arkitektur. Det betyder at de meddelelser publiseres til brokeren øjeblikligt sendes videre til abonnenterne (subscribers). Meddelelserne gemmes ikke på serveren, men skal modtages af en subscriber.\nPå den lokale server er der en subscriber, som gemmer alle meddelser i jsonlfiler.\nMQTT protokollen, gør at man kan sende meddelser til et topic en “payload”.\nTopic er en form for adresse eller path. Et topic kunne f.eks. være iot/del2/team-rocket/feedback.\nPayload’en er en String med de data der gemmes. Payload er ofte formateret son json, især hvis payloaden består af flere dele.\nFor dem som hellere vil køre en server selv under udviklingsfacen, har jeg delt en docker-compose opsætning: https://github.com/s0ren/mqtt_moquitto_docker_compose.",
+    "objectID": "Features/lokal_mqtt.html#formål",
+    "href": "Features/lokal_mqtt.html#formål",
+    "title": "Lokal MQTT-server",
+    "section": "Formål",
+    "text": "Formål\n\nDu kan forklare, hvad en MQTT-broker, et topic og en payload er, og hvad publish og subscribe betyder.\nDu kan sende og modtage beskeder på wilsons fra kommandolinjen, fra Python og fra ESP32.\nDu kan forbinde med TLS, brugernavn og adgangskode, og forklare, hvad ca.crt bruges til.\nDu kan forklare, hvilke topics du må skrive til, og hvorfor en besked kan forsvinde uden fejl.\nDu kan finde dine data i weblog’en og hente dem ind i et program.",
     "crumbs": [
       "Hjem",
       "Features",
-      "Lokal MQTT server"
+      "Lokal MQTT-server"
     ]
   },
   {
-    "objectID": "Features/lokal_mqtt.html#fakta",
-    "href": "Features/lokal_mqtt.html#fakta",
-    "title": "Lokal MQTT server",
-    "section": "2 Fakta",
-    "text": "2 Fakta\n\n2.1 MQTT\n\n\n\nHost\nwilsons.local eller 192.168.0.161\n\n\nPort (annonym)\n1883\n\n\nPort (TLS/SSL ikke annonym)\n8883\n\n\nbrugernavn\nuser&lt;nr&gt;\n\n\npassword\n&lt;password&gt;\n\n\n\n\n\n2.2 Web log\nWeblog’gen er en webserver hvor kan se det mqtt-messages som serveren har modtaget.\nJson filerne ligger i mapper, efter topic, og indeholder en linie med et json-streng objekt for hver message\n\n\n\n\n\nhost\nwilsons.local eller 192.168.0.161\n\n\nport\n8080\n\n\nurl\nhttp://wilson.local:8080 eller http://192.168.0.161:8080\n\n\n\nCA cert: ./ca.crt\n-----BEGIN CERTIFICATE-----\nMIIFBTCCAu2gAwIBAgIURkMg/bKi8HPnQn4OqtpDwhqoK8owDQYJKoZIhvcNAQEL\nBQAwEjEQMA4GA1UEAwwHTVFUVC1DQTAeFw0yNjA1MTcxODMyMTBaFw0zNjA1MTQx\nODMyMTBaMBIxEDAOBgNVBAMMB01RVFQtQ0EwggIiMA0GCSqGSIb3DQEBAQUAA4IC\nDwAwggIKAoICAQC8nf5IARgAB3FirRPveOW/4ju40nB/aL0kWLy5w3VLUY+AUZRE\nXkez6YYeLXEJhKlBkI46EdRaXBgP457rcC3EW3ZZHRxxu94u8rtvrjtbk9w5HVRz\nbkwY2TS4f/GTB+/DOE5j1c8bzZK936/RILxkqlJvYV/3PSigCmEFxlLhegm5aWnk\ntRTzk6/pwbqt71iIbIlSScG1g4PDO9daDcBMd72ZTjvm8Fd48fEmZxhTAnXbMvx1\n1irAg9jGYzlgLdlxFYifwE4vFJeL4IZptJF9PRHTmjUsohBErMB+5aYKwqqp13pg\nQxVxzqPlZ4p9CrIryaVXAV/xAGyFUMV5yQZ3A06UWu/JPeDUHqd0+42LxLWOLy9x\n9Xde0sZHuQJbnBbNflj7wzvF9Jl1RknvZkN4Qf+r7I0TuybLNez1JRofBrKX42yN\nWEeq8Kf7iGlr9I5QUgX7kq/mFCkzKsCdVfB2gAc90nwiE7fQmPc8JioBQpH7hqMi\nOpvABic/U0kkoC7I9gfR63DZkhSsgQZnh9/IBmNLUkeRm7WDYVIc6EM7tcWJ1ltQ\n4sjXPknhDNfj5t1xcuGl8FlrNSue9KaJyhft6zFNafU6nzYUAsAp8elsMHVhtlHy\nXhW6LYxL/urFfYFy38sXBKUgIxQu4ssEh5vd/uhswRYMSAilJhebgDdR/wIDAQAB\no1MwUTAdBgNVHQ4EFgQUdmvBC6kBGEQzmRtxc12shylrNmQwHwYDVR0jBBgwFoAU\ndmvBC6kBGEQzmRtxc12shylrNmQwDwYDVR0TAQH/BAUwAwEB/zANBgkqhkiG9w0B\nAQsFAAOCAgEABIGGXdoQvNp5D/3vcZyK8dU6ur9JeLaEJawN7zhSVoevisEnsUaK\n1n9GP8ubnFVyA0aqOnuMdXzVHzvP33rfYrJwGUfTlgy1R177OGki8Eo21l5717eg\nS5wniJ+z3gPL83h0mZ+H55kBCJpYmDdRZOKsqpluKefrlK2ywHVU2d6/i0QsJfSb\nxEvzhdD3ARtNtZaykd2cx0K0gGM54lWDQdla4ufRNkfGdUo+/C+JytSv+64GIts7\nh1sVcWjwixkqFRQTwkTYrWhx/8/0ngAomFAhijl6taO77bbltT6PDtb6eAwkOarH\nxDsfjf2hvZz2bqq+20DeNPLWrV+NsMaNhwF6pszfrenAtKrRcH8GTJdYwLTEhPF6\nNQRaM7VavxPexM9tIH5MW+O/accoXGCSweFojdtfVrAqxWgcg4zHw3VXFKQGsm5k\npof0zBVGVDNhdQJf3NGQXWi31N2uttDKyQAwZzhaic+U8hk8n300YbXMojM2k729\n9+TccZUPn/cbvcNjvxB9UxKWhtFUQ6TvgoAHljaOuB/50Wgq0z0NH6U/uFpb2f+i\nPRcL6u5V8ILV7fXIyh4HPmJwDreNG9zYuBoVshMkxw+d3X0E7KLmEA6kvetTfKj9\n0EH/sy778DnPpMA1+6AN3XaO9Fy2g78qgiKyScI3i1HEuWpQAECAwAA=\n-----END CERTIFICATE-----",
+    "objectID": "Features/lokal_mqtt.html#målpinde",
+    "href": "Features/lokal_mqtt.html#målpinde",
+    "title": "Lokal MQTT-server",
+    "section": "Målpinde",
+    "text": "Målpinde\nSiden arbejder med målpind 13, 14 og 22 (se Læringsmål).",
     "crumbs": [
       "Hjem",
       "Features",
-      "Lokal MQTT server"
+      "Lokal MQTT-server"
     ]
   },
   {
-    "objectID": "Features/lokal_mqtt.html#eksempeler",
-    "href": "Features/lokal_mqtt.html#eksempeler",
-    "title": "Lokal MQTT server",
-    "section": "3 Eksempeler",
-    "text": "3 Eksempeler\n\n3.1 CLI klient\nHvis du har installeret Mosquitto pubsub client, kan du køre denne:\nmosquitto_pub -h 192.168.0.161 -p 1883 -t \"fisk/tun/yellowfin\" -m \"Hej verden\"\n\n\n3.2 Python\nI python kan man sende en mqtt message med dette korte script:\nimport paho.mqtt.client as mqtt\n\n# MQTT_HOST = \"localhost\"\nMQTT_HOST = \"wilson.local\"\n\nclient = mqtt.Client()\nclient.connect(MQTT_HOST, 1883, 60)\nclient.publish(\"test/usikker\", \"Hello annon uden TLS, fra ekstern klient!\")\nHele programfilen: annon_client.py.\n\n\n3.3 ESP32/Arduino\nI main.cpp ses en demo, som sender en mqtt-message når jeg trykker på knappen.\n\n3.3.1 Enheden skal på wifi\n#include &lt;WiFi.h&gt;\n// WiFi indstillinger\nconst char* ssid = \"IoT_H3/4\";\nconst char* password = \"98806829\";\nvoid setup_wifi() {\n  Serial.println();\n  Serial.print(\"Connecting to WiFi\");\n  \n  WiFi.begin(ssid, password);\n  \n  while (WiFi.status() != WL_CONNECTED) {\n    delay(500);\n    Serial.print(\".\");\n  }\n  \n  Serial.println(\"\\nWiFi connected!\");\n  Serial.print(\"IP: \");\n  Serial.println(WiFi.localIP());\n}\nvoid setup() {\n  //...\n  setup_wifi();\n  //...\n}\n\n\n3.3.2 Åben MQTT\n#include &lt;PubSubClient.h&gt;\n\n\nIndkluder PubSubClient lib\n// MQTT indstillinger\nconst char* mqtt_server = \"wilson.local\";  // f.eks. \"192.168.1.100\"\nconst int mqtt_port = 1883;\nconst char* mqtt_topic = \"test/esp32/button\";\nPubSubClient client(espClient);\n… reconnect() skal kaldes hver gang forbindelsen tabes.\nvoid reconnect() {\n  while (!client.connected()) {\n    Serial.print(\"Connecting to MQTT...\");\n    \n    String clientId = \"ESP32-\" + String(random(0xffff), HEX);\n    \n    if (client.connect(clientId.c_str())) {\n      Serial.println(\"connected\");\n    } else {\n      Serial.print(\"failed, rc=\");\n      Serial.println(client.state());\n      delay(5000);\n    }\n  }\n}\nI setup() aktiveres (mqtt) serveren:\nvoid setup() {\n  //...\n  client.setServer(mqtt_server, mqtt_port);\n  //...\n}\nI loop() kaldes reconnect() hvis forbindelsen er væk.\nvoid loop() {\n  if (!client.connected()) {\n    reconnect();\n  }\nog mqtt clienten checkes\n  client.loop();\nog når vi er sikre på at knappen er trykket ned, sender vi en message.\n  //...\n  if ((millis() - lastDebounceTime) &gt; debounceDelay) {\n    if (reading != buttonState) {\n      //...\n      if (buttonState == HIGH) {\n        unsigned long uptime = millis();\n        \n        String payload = \"{\\\"uptime_ms\\\":\" + String(uptime) + \n                        \",\\\"button\\\":\\\"pressed\\\",\\\"device\\\":\\\"ESP32\\\"}\";\n        //...\n        client.publish(mqtt_topic, payload.c_str());\n      }\n    }\n  }\n  //...\n}\n\n\n\n3.4 med SSL/TSL\n\n3.4.1 CLI\nmosquitto_pub -h localhost -p 8883   --cafile /mosquitto/certs/ca.crt   -u elev1 -P password   -t \"test/sikker\" -m \"Med TLS og password\"\n\n\n3.4.2 ca cert fil\n\n\n3.4.3 python\nimport paho.mqtt.client as mqtt\nimport ssl\n# from pathlib import Path\n\n# CERT_PATH = Path()\n\n# MQTT_HOST = \"localhost\"\nMQTT_HOST = \"wilson.local\"\n\nclient = mqtt.Client()\nclient.username_pw_set(\"elev1\", \"password\")\n\n# Konfigurer TLS\nclient.tls_set(\n    ca_certs=\"ca.crt\",  # Path til CA certificate\n    tls_version=ssl.PROTOCOL_TLSv1_2\n)\n\n# For self-signed certificates (kun til test!)\nclient.tls_insecure_set(True)\n\nclient.connect(MQTT_HOST, 8883, 60)\nclient.publish(\"test/sikker\", \"Hello via TLS, fra ekstern klient!\")",
+    "objectID": "Features/lokal_mqtt.html#forudsætninger",
+    "href": "Features/lokal_mqtt.html#forudsætninger",
+    "title": "Lokal MQTT-server",
+    "section": "Forudsætninger",
+    "text": "Forudsætninger\n\nDu kan forbinde ESP32 til WiFi og holde adgangskoder ude af git med include/secrets.h (se WiFi).\nDu kender millis()-mønsteret fra Debouncing.\nDu har Python 3 på din bærbare og kan installere pakker med pip.\nDin bærbare og din ESP32 er på samme netværk som wilsons (klasselokalets 2,4 GHz-net).\nEt brugernavn og en adgangskode til port 8883. Dem får du af læreren.",
     "crumbs": [
       "Hjem",
       "Features",
-      "Lokal MQTT server"
+      "Lokal MQTT-server"
+    ]
+  },
+  {
+    "objectID": "Features/lokal_mqtt.html#mqtt-kort-fortalt",
+    "href": "Features/lokal_mqtt.html#mqtt-kort-fortalt",
+    "title": "Lokal MQTT-server",
+    "section": "MQTT kort fortalt",
+    "text": "MQTT kort fortalt\nMQTT er en lille protokol til at sende beskeder mellem enheder. Den er lavet til små enheder og ustabile netværk, og derfor er den meget brugt i IoT.\nEnhederne taler ikke direkte med hinanden. Alle forbinder til én server, en broker, og brokeren sender beskederne videre:\n\nEn klient, der sender, laver en publish: “her er en besked til topic elever/anna/temp”.\nEn klient, der vil modtage, laver en subscribe: “send mig alle beskeder på elever/anna/temp”.\nBrokeren sender hver besked videre til alle, der abonnerer på dens topic, med det samme.\n\nESP32 ──publish──▶  broker (wilsons)  ──▶ Python-program (subscriber)\n                          │\n                          └──────────────▶ loggeren (subscriber på #)\nEn besked består af to dele:\n\nTopic: en adresse delt op i niveauer med /, fx elever/anna/temp. Du behøver ikke oprette et topic først. Det findes, så snart nogen sender til det.\nPayload: selve indholdet. MQTT er ligeglad med, hvad der står i den. Vi bruger som regel JSON, fx {\"temp\":21.5,\"rssi\":-58}, så modtageren kan læse flere værdier ud.\n\nBrokeren gemmer ikke beskederne selv. Er der ingen, der abonnerer, når beskeden kommer, går den tabt. (Undtagelsen er en besked, der sendes med retain: den gemmer brokeren og sender den til nye abonnenter. Den bruger vi ikke her.) På wilsons kører der derfor en logger, som abonnerer på alt og gemmer hver besked (se Weblog’en).\n\nRegler for topics\n\nDer skelnes mellem store og små bogstaver: Elever/Anna og elever/anna er to forskellige topics.\nStart ikke med /. /elever/anna er et andet topic end elever/anna (det første niveau er tomt).\nBrug kun små bogstaver, tal, - og _ i niveauerne. Undgå mellemrum og æøå. Loggeren laver tegn som mellemrum og punktum om til _ i filnavnet og fjerner / i starten. Derfor kan to forskellige topics ende i samme logfil, fx /elever/anna og elever/anna.\nNår du abonnerer, kan du bruge to jokertegn (wildcards):\n\n+ passer på præcis ét niveau: elever/+/temp giver temp fra alle elever.\n# passer på resten, uanset hvor mange niveauer: elever/# giver alt under elever/. # skal stå til sidst.\n\nNår du sender, må topic’et ikke indeholde + eller #.",
+    "crumbs": [
+      "Hjem",
+      "Features",
+      "Lokal MQTT-server"
+    ]
+  },
+  {
+    "objectID": "Features/lokal_mqtt.html#serveren-wilsons",
+    "href": "Features/lokal_mqtt.html#serveren-wilsons",
+    "title": "Lokal MQTT-server",
+    "section": "Serveren wilsons",
+    "text": "Serveren wilsons\n\n\n\nVærtsnavn\nwilsons.local (mDNS), wilsons.home (routerens DNS)\n\n\nIP-adresse\n192.168.0.33\n\n\nPort 1883\nMQTT uden kryptering og uden login. Åben for alle\n\n\nPort 8883\nMQTT over TLS. Kræver brugernavn og adgangskode\n\n\nPort 8080\nWeblog’en: http://wilsons.local:8080/\n\n\nCA-certifikat\nca.crt (gyldigt til november 2036)\n\n\n\n\nBrug wilsons.local, hvis det virker på din maskine. Ellers wilsons.home eller IP-adressen. Den gamle server (wilson.local, 192.168.0.161) fra tidligere forløb findes ikke mere.\n\nPort 1883: åben for alle\nPå port 1883 kan alle på netværket sende til et hvilket som helst topic, uden login. Det er praktisk til hurtige forsøg, men det betyder også, at alle kan sende falske beskeder i dit navn, og at alle kan læse med på netværket, fordi intet er krypteret. Brug 1883 til test, og 8883 til dine rigtige data.\n\n\nPort 8883: TLS, login og adgangsregler\nPå port 8883 er forbindelsen krypteret med TLS, og du skal logge ind. Her bestemmer en adgangsliste (ACL, Access Control List), hvad hver bruger må:\n\n\n\n\nMå læse\nMå skrive\n\n\n\n\nElev\nalt (#)\nelever/&lt;brugernavn&gt;/# og test/#\n\n\nLærer\nalt\nalt\n\n\n\nDu må altså læse alle andres data, så I kan bruge hinandens målinger. Men du kan kun skrive i din egen mappe og i test/.\nVigtigt: Sender du til et topic, du ikke må skrive til, bliver beskeden stille smidt væk. Du får ingen fejl, hverken i Python, på kommandolinjen eller på ESP32. MQTT 3.1.1 har ingen måde at fortælle klienten, at en besked blev afvist. Hvis dine beskeder ikke dukker op, så tjek først, at topic’et starter med elever/&lt;dit brugernavn&gt;/ eller test/.\nACL’en gælder kun på port 8883. På port 1883 kan alle stadig skrive alle steder, også i elever/&lt;dit brugernavn&gt;/.\n\n\nAlt kan ses af alle\nAlle beskeder, fra begge porte, ender i weblog’en, og den kan alle på netværket læse. Send derfor aldrig adgangskoder, personoplysninger eller andet, der ikke må ses af hele klassen.",
+    "crumbs": [
+      "Hjem",
+      "Features",
+      "Lokal MQTT-server"
+    ]
+  },
+  {
+    "objectID": "Features/lokal_mqtt.html#ca-crt",
+    "href": "Features/lokal_mqtt.html#ca-crt",
+    "title": "Lokal MQTT-server",
+    "section": "Certifikatet ca.crt",
+    "text": "Certifikatet ca.crt\nNår du forbinder på port 8883, skal din klient være sikker på, at den taler med den rigtige wilsons og ikke med en anden maskine, der udgiver sig for at være den. Det klares med certifikater:\n\nSkolen har sin egen lille certifikatudsteder (certificate authority, CA). Dens offentlige certifikat er ca.crt.\nCA’en har underskrevet brokerens certifikat. Når du forbinder, sender brokeren sit certifikat, og din klient tjekker underskriften med ca.crt.\nKlienten tjekker også, at navnet, du forbinder til, står i brokerens certifikat. Det gør det for wilsons.local, wilsons.home, wilsons og 192.168.0.33. Forbinder du til et andet navn, bliver forbindelsen afvist.\n\nca.crt er ikke hemmelig. Den indeholder ingen nøgle, kun det offentlige certifikat, så du må gerne committe den til git. Hent den med højreklik på linket og “Gem link som”, og læg den i samme mappe som dit program.\nCA’en blev udskiftet den 23. november 2026. Det nye certifikat hedder CN=MQTT-CA TEC IOT 2026. Har du en ca.crt fra før, virker den ikke længere: hent den nye. Har du openssl, kan du se navnet med:\nopenssl x509 -in ca.crt -noout -subject\nBrug aldrig “insecure”. Mange eksempler på nettet slår tjekket helt eller delvist fra, fordi det får fejlen til at forsvinde. tls_insecure_set(True) i Python og --insecure på kommandolinjen slår tjekket af navnet fra. setInsecure() på ESP32 slår hele tjekket fra, så klienten godtager et hvilket som helst certifikat. I begge tilfælde bliver det lettere for en anden maskine at udgive sig for at være brokeren og opsnappe dit brugernavn og din adgangskode. Paho-dokumentationen siger det direkte: med insecure er der ingen grund til at bruge kryptering. Får du en certifikatfejl, så find årsagen (se Typiske fejl).",
+    "crumbs": [
+      "Hjem",
+      "Features",
+      "Lokal MQTT-server"
+    ]
+  },
+  {
+    "objectID": "Features/lokal_mqtt.html#weblogen",
+    "href": "Features/lokal_mqtt.html#weblogen",
+    "title": "Lokal MQTT-server",
+    "section": "Weblog’en",
+    "text": "Weblog’en\nLoggeren på wilsons abonnerer på alle topics og gemmer hver besked som én linje i to filer:\n\nPr. topic: &lt;topic&gt;.jsonl. Beskeder på test/esp32/button havner i test/esp32/button.jsonl.\nAlle beskeder samlet: #.jsonl.\n\nFilerne kan ses i browseren på http://wilsons.local:8080/, hvor du kan klikke dig ned gennem mapperne. Den samlede fil hedder #.jsonl, men # betyder noget særligt i en URL, så i adresselinjen skal du skrive %23 i stedet: http://wilsons.local:8080/%23.jsonl.\n\n\n\nMappeoversigten for test/esp32/ i weblog’en. Skærmbillederne er taget på den gamle server; adressen er nu wilsons.local.\n\n\n\n\n\nFilen button.jsonl: én linje pr. besked på topic’et test/esp32/button.\n\n\n\n\n\nFilen #.jsonl med alle beskeder fra alle topics.\n\n\n\n\nJSON Lines\nFilerne er i formatet JSON Lines (.jsonl): hver linje er ét JSON-objekt for sig. Det er nemt at tilføje til, og et program kan læse filen linje for linje. En linje ser sådan ud:\n{\"timestamp\": \"2026-11-23T15:00:37.091592\", \"topic\": \"test/esp32/button\", \"payload\": \"{\\\"button\\\":\\\"pressed\\\",\\\"count\\\":1}\"}\n\ntimestamp er tidspunktet, hvor loggeren modtog beskeden.\ntopic er beskedens topic.\npayload er indholdet som tekst. Sendte du JSON, er det JSON inde i en tekststreng (derfor \\\"), så du skal pakke det ud en gang til.\n\n\n\nHent data fra et program\nFilerne er almindelige filer på en webserver, så de kan hentes med et hvilket som helst program, fx Python. Dette script bruger kun Pythons standardbibliotek:\n\n\nhent_log.py\n\nimport json\nimport urllib.request\n\nURL = \"http://wilsons.local:8080/test/esp32/button.jsonl\"\n\nwith urllib.request.urlopen(URL) as svar:\n    linjer = svar.read().decode(\"utf-8\").splitlines()\n\nfor linje in linjer:\n    besked = json.loads(linje)               # timestamp, topic og payload\n    try:\n        data = json.loads(besked[\"payload\"])  # payload er selv JSON som tekst\n    except json.JSONDecodeError:\n        data = besked[\"payload\"]              # almindelig tekst\n    print(besked[\"timestamp\"], data)\n\nDer er ingen automatisk oprydning i loggen, så filerne vokser hele tiden.",
+    "crumbs": [
+      "Hjem",
+      "Features",
+      "Lokal MQTT-server"
+    ]
+  },
+  {
+    "objectID": "Features/lokal_mqtt.html#eksempel-kommandolinjen",
+    "href": "Features/lokal_mqtt.html#eksempel-kommandolinjen",
+    "title": "Lokal MQTT-server",
+    "section": "Eksempel: kommandolinjen",
+    "text": "Eksempel: kommandolinjen\nMosquittos egne klienter, mosquitto_sub og mosquitto_pub, er den hurtigste måde at se, om forbindelsen virker.\n\nLinux og Raspberry Pi: sudo apt install mosquitto-clients\nmacOS: brew install mosquitto\nWindows: installeren fra mosquitto.org/download\n\n\nÅbn to terminaler. I den første abonnerer du, i den anden sender du.\n\nUden TLS (port 1883)\n# Terminal 1: vis alt under test/. -v skriver topic'et foran hver besked\nmosquitto_sub -h wilsons.local -t \"test/#\" -v\n\n# Terminal 2: send en besked\nmosquitto_pub -h wilsons.local -t test/usikker -m \"Hej uden TLS\"\nUden -p bruges port 1883 (eller 8883, hvis du angiver --cafile). Sæt #-topics i anførselstegn, så din shell ikke tolker tegnet.\n\n\n\nMed TLS og login (port 8883)\nLæg ca.crt i den mappe, du står i. Skift &lt;brugernavn&gt; og &lt;kode&gt; ud med dem, du har fået af læreren:\n# Terminal 1\nmosquitto_sub -h wilsons.local -p 8883 --cafile ca.crt \\\n  -u &lt;brugernavn&gt; -P &lt;kode&gt; -t \"elever/#\" -v\n\n# Terminal 2\nmosquitto_pub -h wilsons.local -p 8883 --cafile ca.crt \\\n  -u &lt;brugernavn&gt; -P &lt;kode&gt; -t elever/&lt;brugernavn&gt;/hej -m \"Hej via TLS\"\n--cafile ca.crt slår TLS til og fortæller klienten, hvilket certifikat brokeren skal være underskrevet af. Koden, du skriver efter -P, havner i din kommandohistorik, så gør det kun på din egen maskine.",
+    "crumbs": [
+      "Hjem",
+      "Features",
+      "Lokal MQTT-server"
+    ]
+  },
+  {
+    "objectID": "Features/lokal_mqtt.html#eksempel-python",
+    "href": "Features/lokal_mqtt.html#eksempel-python",
+    "title": "Lokal MQTT-server",
+    "section": "Eksempel: Python",
+    "text": "Eksempel: Python\nPython-eksemplerne bruger biblioteket paho-mqtt version 2:\npip install paho-mqtt\nProgrammet forbinder med TLS, abonnerer på din egen mappe og sender fem målinger. Det spørger efter adgangskoden, så den ikke står i koden. Læg ca.crt i samme mappe, og kør programmet derfra.\n\n\nmqtt_tls.py\n\nimport getpass\nimport json\nimport ssl\nimport time\n\nimport paho.mqtt.client as mqtt\n\nBROKER = \"wilsons.local\"   # skal stå i brokerens certifikat\nPORT = 8883                # TLS + login\nCA_FILE = \"ca.crt\"         # ligger i samme mappe som programmet\n\nbruger = input(\"Brugernavn: \")\nkode = getpass.getpass(\"Adgangskode: \")   # vises ikke og står ikke i koden\ntopic = f\"elever/{bruger}/demo\"\n\n\ndef on_connect(client, userdata, flags, reason_code, properties):\n    if reason_code.is_failure:\n        print(\"Forbindelse afvist:\", reason_code)\n        return\n    print(\"Forbundet\")\n    # Abonnér her, så abonnementet bliver fornyet, hvis forbindelsen falder ud og kommer igen\n    client.subscribe(f\"elever/{bruger}/#\")\n\n\ndef on_message(client, userdata, msg):\n    print(\"Modtaget:\", msg.topic, msg.payload.decode(errors=\"replace\"))\n\n\nclient = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)\nclient.on_connect = on_connect\nclient.on_message = on_message\nclient.username_pw_set(bruger, kode)\n\n# Tjekker både certifikatets underskrift (mod ca.crt) og værtsnavnet\nctx = ssl.create_default_context(cafile=CA_FILE)\nclient.tls_set_context(ctx)\n\nclient.connect(BROKER, PORT, 60)\nclient.loop_start()   # netværket kører i en baggrundstråd, mens løkken sender\n\ntry:\n    for nr in range(5):\n        data = {\"nr\": nr, \"temperatur\": 21.5}\n        info = client.publish(topic, json.dumps(data), qos=1)\n        if info.rc != mqtt.MQTT_ERR_SUCCESS:\n            print(\"Ikke forbundet, ikke sendt:\", data)\n        else:\n            info.wait_for_publish(5)   # vent højst 5 s på brokerens bekræftelse\n            print(\"Sendt:\" if info.is_published() else \"Ikke bekræftet:\", data)\n        time.sleep(2)\nfinally:\n    client.loop_stop()\n    client.disconnect()\n\nDet skal du lægge mærke til:\n\nmqtt.CallbackAPIVersion.VERSION2: paho-mqtt 2 kan stadig bruge den gamle form for callbacks, men den er forældet. Med VERSION2 har on_connect en ekstra parameter, properties, og reason_code er et objekt med is_failure. Eksempler fra nettet med mqtt.Client() uden argument er skrevet til version 1.\nssl.create_default_context(cafile=...) laver en TLS-opsætning, der stoler på vores CA og tjekker værtsnavnet. tls_set_context() giver den til klienten. Det skal ske før connect().\nAbonnér i on_connect, ikke lige efter connect(). Så bliver abonnementet sat op igen, hvis forbindelsen falder ud.\nloop_start() starter en tråd, der passer netværket, så hovedprogrammet kan sende i sin egen løkke. Vil programmet kun lytte, kan du i stedet kalde loop_forever() til sidst.\nqos=1 betyder, at brokeren skal bekræfte, at den har fået beskeden. Men husk: en besked, som ACL’en afviser, bliver også “bekræftet”. “Sendt” betyder altså ikke, at beskeden kom igennem.\ninfo.rc er ikke MQTT_ERR_SUCCESS, hvis klienten ikke er forbundet, fx fordi login blev afvist. Så venter programmet ikke, men skriver “Ikke forbundet”. wait_for_publish(5) venter højst 5 sekunder, og is_published() fortæller bagefter, om brokeren nåede at bekræfte beskeden.\n\nUden TLS er det endnu kortere: drop username_pw_set() og tls_set_context(), og forbind til port 1883.",
+    "crumbs": [
+      "Hjem",
+      "Features",
+      "Lokal MQTT-server"
+    ]
+  },
+  {
+    "objectID": "Features/lokal_mqtt.html#eksempel-esp32",
+    "href": "Features/lokal_mqtt.html#eksempel-esp32",
+    "title": "Lokal MQTT-server",
+    "section": "Eksempel: ESP32",
+    "text": "Eksempel: ESP32\nESP32 sender en måling (oppetid og WiFi-signalstyrke) hvert 10. sekund til elever/&lt;brugernavn&gt;/status over TLS på port 8883. Den abonnerer også på elever/&lt;brugernavn&gt;/kommando og skriver beskeder derfra ud i Serial Monitor.\nDer bruges to biblioteker:\n\nWiFiClientSecure følger med Arduino-frameworket og laver TLS-forbindelsen. Med setCACert() får den vores CA-certifikat, så den tjekker brokerens certifikat.\nPubSubClient er MQTT-klienten. Den bruger WiFiClientSecure til at sende og modtage.\n\nProjektet har fem filer:\nplatformio.ini\n.gitignore\ninclude/secrets_eksempel.h   ← skabelon, committes\ninclude/secrets.h            ← dine rigtige koder, står i .gitignore\ninclude/ca_cert.h            ← indholdet af ca.crt, må gerne committes\nsrc/main.cpp\n\n\nplatformio.ini\n\n[env:esp32doit-devkit-v1]\nplatform = espressif32@8.0.0\nboard = esp32doit-devkit-v1\nframework = arduino\nmonitor_speed = 115200\nlib_deps = knolleary/PubSubClient@^2.8\n\n\n\n.gitignore\n\n.pio\ninclude/secrets.h\n\nHemmelighederne ligger i include/secrets.h præcis som på WiFi-siden, nu også med MQTT-login:\n\n\ninclude/secrets_eksempel.h\n\n// Kopiér denne fil til secrets.h, og udfyld den.\n// secrets.h står i .gitignore og må ikke committes.\n#pragma once\n\nconst char WIFI_SSID[]     = \"netvaerkets-navn\";\nconst char WIFI_PASSWORD[] = \"din-adgangskode\";\n\n// Login til port 8883. Dem får du af læreren.\nconst char MQTT_USER[]     = \"dit-brugernavn\";\nconst char MQTT_PASSWORD[] = \"din-adgangskode\";\n\nCA-certifikatet lægges i en header-fil som en tekststreng. R\"PEM( ... )PEM\" er en rå streng i C++: alt mellem parenteserne kommer med, også linjeskift, så du kan sætte filens indhold direkte ind.\n\n\ninclude/ca_cert.h\n\n// Skolens MQTT-CA (ca.crt). Certifikatet er offentligt, så filen må committes.\n#pragma once\n\nconst char CA_CERT[] = R\"PEM(\nErstat disse to linjer med hele indholdet af ca.crt,\nfra -----BEGIN CERTIFICATE----- til og med -----END CERTIFICATE-----\n)PEM\";\n\n\n\nsrc/main.cpp\n\n#include &lt;Arduino.h&gt;\n#include &lt;WiFi.h&gt;\n#include &lt;WiFiClientSecure.h&gt;\n#include &lt;PubSubClient.h&gt;\n#include \"secrets.h\"   // WIFI_SSID, WIFI_PASSWORD, MQTT_USER, MQTT_PASSWORD\n#include \"ca_cert.h\"   // CA_CERT\n\n// Konfiguration\nconst char* MQTT_HOST = \"wilsons.local\";       // skal stå i brokerens certifikat\nconst uint16_t MQTT_PORT = 8883;               // TLS + login\nconst unsigned long WIFI_TIMEOUT_MS  = 20000;  // max ventetid på WiFi i setup()\nconst unsigned long MQTT_FORSOEG_MS  = 5000;   // pause mellem forsøg på at forbinde\nconst unsigned long SEND_INTERVAL_MS = 10000;  // hvor tit der sendes en måling\n\nWiFiClientSecure tlsKlient;      // krypteret forbindelse\nPubSubClient mqtt(tlsKlient);    // MQTT oven på den krypterede forbindelse\n\nString sendTopic;     // elever/&lt;brugernavn&gt;/status\nString modtagTopic;   // elever/&lt;brugernavn&gt;/kommando\nunsigned long sidsteForsoeg = 0;\nunsigned long sidsteSend = 0;\n\n// Som på WiFi-siden: vent højst timeoutMs\nbool forbindWiFi(unsigned long timeoutMs) {\n  WiFi.mode(WIFI_STA);\n  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);\n  Serial.printf(\"Forbinder til WiFi %s\", WIFI_SSID);\n  unsigned long start = millis();\n  while (WiFi.status() != WL_CONNECTED && millis() - start &lt; timeoutMs) {\n    delay(500);  // OK her: setup() har ikke andet at lave endnu\n    Serial.print(\".\");\n  }\n  Serial.println();\n  return WiFi.status() == WL_CONNECTED;\n}\n\n// Kaldes af mqtt.loop(), når der kommer en besked på et topic, vi abonnerer på\nvoid modtag(char* topic, byte* payload, unsigned int laengde) {\n  Serial.printf(\"Modtaget på %s: \", topic);\n  Serial.write(payload, laengde);  // payload er ikke en C-streng med \\0 til sidst\n  Serial.println();\n}\n\nbool forbindMqtt() {\n  // Client-id skal være unikt på brokeren. De sidste tre bytes af MAC-adressen er forskellige fra kort til kort.\n  String klientId = String(MQTT_USER) + \"-\" + String((uint32_t)(ESP.getEfuseMac() &gt;&gt; 24), HEX);\n\n  Serial.printf(\"Forbinder til %s:%u ... \", MQTT_HOST, MQTT_PORT);\n  if (mqtt.connect(klientId.c_str(), MQTT_USER, MQTT_PASSWORD)) {\n    Serial.println(\"OK\");\n    // Abonnér efter hver forbindelse, ligesom on_connect i Python\n    mqtt.subscribe(modtagTopic.c_str());\n    return true;\n  }\n\n  // Skriv både MQTT-status og en eventuel TLS-fejl ud; det er de bedste spor\n  char tlsTekst[100] = \"\";\n  int tlsFejl = tlsKlient.lastError(tlsTekst, sizeof(tlsTekst));\n  Serial.printf(\"fejl, rc=%d\", mqtt.state());\n  if (tlsFejl != 0) {\n    Serial.printf(\", TLS: %s\", tlsTekst);\n  }\n  Serial.println();\n  return false;\n}\n\nvoid sendMaaling() {\n  char payload[100];\n  snprintf(payload, sizeof(payload), \"{\\\"uptime_s\\\":%lu,\\\"rssi\\\":%d}\",\n           millis() / 1000, WiFi.RSSI());\n  bool ok = mqtt.publish(sendTopic.c_str(), payload);\n  Serial.printf(\"%s %s %s\\n\", ok ? \"Sendt\" : \"IKKE sendt\", sendTopic.c_str(), payload);\n}\n\nvoid setup() {\n  Serial.begin(115200);\n\n  // Topics bygges af brugernavnet, så de altid passer med ACL'en\n  sendTopic   = String(\"elever/\") + MQTT_USER + \"/status\";\n  modtagTopic = String(\"elever/\") + MQTT_USER + \"/kommando\";\n\n  if (!forbindWiFi(WIFI_TIMEOUT_MS)) {\n    Serial.printf(\"Ingen WiFi (status %d). ESP32 prøver selv igen.\\n\", WiFi.status());\n  }\n\n  tlsKlient.setCACert(CA_CERT);          // tjek brokerens certifikat mod skolens CA\n  mqtt.setServer(MQTT_HOST, MQTT_PORT);  // navnet bruges også til at tjekke certifikatet\n  mqtt.setCallback(modtag);\n}\n\nvoid loop() {\n  unsigned long nu = millis();\n\n  if (mqtt.connected()) {\n    mqtt.loop();  // modtager beskeder og holder forbindelsen i live\n\n    if (nu - sidsteSend &gt;= SEND_INTERVAL_MS) {\n      sidsteSend = nu;\n      sendMaaling();\n    }\n  } else if (WiFi.status() == WL_CONNECTED && nu - sidsteForsoeg &gt;= MQTT_FORSOEG_MS) {\n    // Forbind (igen) med fast interval, så loop() ikke hænger i en løkke\n    sidsteForsoeg = nu;\n    forbindMqtt();\n  }\n\n  // Her kan programmet læse sensorer og knapper\n}\n\n\nKopiér secrets_eksempel.h til secrets.h, og udfyld den. Upload og åbn Serial Monitor. Efter WiFi skulle der stå Forbinder til wilsons.local:8883 ... OK og derefter en Sendt-linje hvert 10. sekund. Find dine beskeder i weblog’en under elever/&lt;brugernavn&gt;/status.jsonl.\n\nSådan virker det:\n\nmqtt.setServer() får navnet, ikke IP-adressen. WiFiClientSecure bruger navnet både til at finde brokeren og til at tjekke, at navnet står i brokerens certifikat.\nmqtt.connect() laver først TLS-forbindelsen og logger derefter ind. TLS-håndtrykket kræver en del regnekraft, så kaldet blokerer i et par sekunder. Derfor forsøges der kun hvert 5. sekund.\nmqtt.loop() skal kaldes ofte. Den modtager beskeder (og kalder modtag()), og den sender et livstegn til brokeren, så forbindelsen ikke bliver lukket.\nTopics bygges af MQTT_USER, så du ikke kommer til at skrive uden for din egen mappe.\n\n\nPrøv at sende en besked til ESP32 fra din bærbare:\nmosquitto_pub -h wilsons.local -p 8883 --cafile ca.crt \\\n  -u &lt;brugernavn&gt; -P &lt;kode&gt; -t elever/&lt;brugernavn&gt;/kommando -m \"Hej ESP32\"",
+    "crumbs": [
+      "Hjem",
+      "Features",
+      "Lokal MQTT-server"
+    ]
+  },
+  {
+    "objectID": "Features/lokal_mqtt.html#øvelser",
+    "href": "Features/lokal_mqtt.html#øvelser",
+    "title": "Lokal MQTT-server",
+    "section": "Øvelser",
+    "text": "Øvelser\n\nÅbn weblog’en på http://wilsons.local:8080/. Find #.jsonl, og find ud af, hvilke topics der er blevet sendt til i dag.\nStart mosquitto_sub på test/# uden TLS. Send en besked til test/&lt;dit navn&gt;/hej med mosquitto_pub fra en anden terminal. Kommer den frem i din abonnent? Find den bagefter i weblog’en.\nGør det samme med TLS på port 8883 og dit eget brugernavn. Send derefter til elever/&lt;en anden elevs navn&gt;/hej og til andet/hej. Hvad sker der i abonnenten? Får mosquitto_pub en fejl? Forklar, hvad du ser.\nFjern --cafile ca.crt fra kommandoen med -p 8883. Hvilken fejl får du? Skriv fejlmeddelelsen ned, og forklar med afsnittet om ca.crt, hvorfor forbindelsen bliver afvist.\nKør mqtt_tls.py. Lad en sidekammerat abonnere på elever/&lt;dit brugernavn&gt;/# samtidig. Kan han eller hun se dine beskeder? Kan han eller hun sende til din mappe?\nKør ESP32-eksemplet. Find dine målinger i weblog’en, og send en besked til ESP32 på elever/&lt;brugernavn&gt;/kommando. Kør derefter git status, og kontrollér, at secrets.h ikke er med.\nLad ESP32 tænde og slukke den indbyggede lysdiode på GPIO 2, når den får beskeden on eller off på elever/&lt;brugernavn&gt;/kommando. Husk, at payload ikke slutter med \\0: lav fx først en String af de første laengde tegn, og sammenlign den.\nEkstra: Udvid hent_log.py, så den henter din ESP32’s status.jsonl og skriver gennemsnit, mindste og største RSSI ud.\nEkstra: Byg en knap ind i ESP32-eksemplet (se Debouncing), så hvert tryk sender en besked med antal tryk. Skriv et Python-program, der abonnerer på alle elevers knapper med elever/+/knap og skriver ud, hvem der trykkede.",
+    "crumbs": [
+      "Hjem",
+      "Features",
+      "Lokal MQTT-server"
+    ]
+  },
+  {
+    "objectID": "Features/lokal_mqtt.html#typiske-fejl",
+    "href": "Features/lokal_mqtt.html#typiske-fejl",
+    "title": "Lokal MQTT-server",
+    "section": "Typiske fejl",
+    "text": "Typiske fejl\n\nBeskeder på 8883 dukker aldrig op, men der er ingen fejl: ACL’en har smidt dem væk. Du må kun skrive i elever/&lt;dit brugernavn&gt;/ og test/. Tjek stavning og store/små bogstaver i både topic og brugernavn.\nNot authorized, eller ESP32 skriver rc=5 (eller rc=4): forkert brugernavn eller adgangskode, eller du har glemt login på port 8883.\nCERTIFICATE_VERIFY_FAILED ... Hostname mismatch: du forbinder til et navn, der ikke står i certifikatet. Brug wilsons.local, wilsons.home eller 192.168.0.33.\nself-signed certificate in certificate chain: klienten bruger ikke vores ca.crt. Angiv cafile=\"ca.crt\" eller --cafile ca.crt, og tjek, at filen ligger i den mappe, programmet kører fra.\nCA cert does not include key usage extension: du har en gammel ca.crt. Python 3.13 og nyere afviser den. Hent den nye.\nCertifikatfejl med en ca.crt, der før virkede: CA’en blev udskiftet 23. nov. 2026. Hent den nye, og byg ESP32-programmet igen med den nye ca_cert.h.\nwilsons.local kan ikke findes: mDNS virker ikke på din maskine eller på netværket. Brug wilsons.home eller 192.168.0.33.\nESP32 skriver rc=-2: ESP32 fik ikke forbindelse til brokeren. Står der også en TLS-fejl, er det certifikatet (forkert eller gammel ca_cert.h, eller et navn, der ikke står i certifikatet). Står der rc=-2 uden en TLS-fejl, kan ESP32 sandsynligvis ikke slå navnet op: prøv wilsons.home.\nESP32 hænger i “Forbinder til WiFi”: forkert SSID eller adgangskode i secrets.h, eller netværket er kun på 5 GHz. ESP32 kan kun bruge 2,4 GHz (se WiFi).\npublish() på ESP32 giver false, selv om der er forbindelse: beskeden er for stor. PubSubClient har som standard en buffer på 256 bytes til hele beskeden, topic’et inklusive. Gør payloaden mindre, eller kald mqtt.setBufferSize(512) i setup().\nForbindelsen falder ud hele tiden, når to enheder kører: de bruger samme client-id. Brokeren smider den gamle forbindelse ud, når en ny kommer med samme id. Giv hver enhed sit eget id, som i eksemplet.\nPython: TypeError i en callback (forkert antal parametre), eller en advarsel om “Callback API version 1”: programmet er skrevet til paho-mqtt 1. Brug mqtt.Client(mqtt.CallbackAPIVersion.VERSION2) og callbacks med properties.\nIngen beskeder efter genforbindelse i Python: du abonnerer efter connect() i stedet for i on_connect.\nAdgangskoden ligger på GitHub: secrets.h blev committet, før den kom i .gitignore. Fjern den med git rm --cached include/secrets.h, og bed læreren om en ny kode.",
+    "crumbs": [
+      "Hjem",
+      "Features",
+      "Lokal MQTT-server"
+    ]
+  },
+  {
+    "objectID": "Features/lokal_mqtt.html#læs-videre",
+    "href": "Features/lokal_mqtt.html#læs-videre",
+    "title": "Lokal MQTT-server",
+    "section": "Læs videre",
+    "text": "Læs videre\n\nTopics i praksis\nHiveMQ gennemgår topics, jokertegn og gode navne i MQTT Topics, Wildcards, & Best Practices. Den er god til at planlægge topic-strukturen i et projekt, fx elever/&lt;navn&gt;/&lt;enhed&gt;/&lt;måling&gt;. Læs den kritisk:\n\nArtiklen råder til at undgå mellemrum, men bruger selv et eksempel med San Francisco. Mellemrum er tilladt i MQTT, men undgå dem alligevel.\nDen siger, at man ikke må sende til topics, der starter med $. Det har den ret i: standarden siger, at $-topics er forbeholdt brokeren, fx $SYS/, og at brokeren bør forhindre klienter i at bruge dem. Desuden passer # og + ikke på topics, der starter med $. Derfor kommer brokerens $SYS/-beskeder heller ikke med i weblog’en.",
+    "crumbs": [
+      "Hjem",
+      "Features",
+      "Lokal MQTT-server"
+    ]
+  },
+  {
+    "objectID": "Features/lokal_mqtt.html#kilder",
+    "href": "Features/lokal_mqtt.html#kilder",
+    "title": "Lokal MQTT-server",
+    "section": "Kilder",
+    "text": "Kilder\n\nLærerens vejledning: “MQTT-broker på wilsons – opsætning og vejledning” (opdateret 23. nov. 2026) og klientprogrammerne i test_client/ (ikke offentlige)\nMQTT 3.1.1-standarden (topics, jokertegn, afviste beskeder), https://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html\nMosquitto: mqtt(7), https://mosquitto.org/man/mqtt-7.html\nMosquitto: mosquitto_sub(1) (--cafile, --insecure, standardporte), https://mosquitto.org/man/mosquitto_sub-1.html\nMosquitto: download, https://mosquitto.org/download/\nEclipse Paho Python: Client, https://eclipse.dev/paho/files/paho.mqtt.python/html/client.html\nEclipse Paho Python: migrering til 2.0, https://eclipse.dev/paho/files/paho.mqtt.python/html/migrations.html\nEclipse Paho Python: typer (ReasonCode.is_failure), https://eclipse.dev/paho/files/paho.mqtt.python/html/types.html\nPubSubClient: kildekode (PubSubClient.h: standardbuffer, statuskoder), https://github.com/knolleary/pubsubclient\nPubSubClient i PlatformIO-registret, https://registry.platformio.org/libraries/knolleary/PubSubClient\nArduino-ESP32: NetworkClientSecure og WiFiClientSecure.h, https://github.com/espressif/arduino-esp32/tree/master/libraries/NetworkClientSecure/src\nArduino-ESP32: NetworkManager.cpp (hostByName), https://github.com/espressif/arduino-esp32/blob/master/libraries/Network/src/NetworkManager.cpp\nHiveMQ: MQTT Topics, Wildcards, & Best Practices, https://www.hivemq.com/blog/mqtt-essentials-part-5-mqtt-topics-best-practices/",
+    "crumbs": [
+      "Hjem",
+      "Features",
+      "Lokal MQTT-server"
     ]
   },
   {
@@ -1208,186 +1487,6 @@
       "Hjem",
       "Grundlag",
       "Debouncing"
-    ]
-  },
-  {
-    "objectID": "Grundlag/platformio.html",
-    "href": "Grundlag/platformio.html",
-    "title": "PlatformIO",
-    "section": "",
-    "text": "Før du kan skrive den første linje kode til ESP32, skal du have et værktøj, der kan oversætte koden og lægge den over på kortet. I faget bruger vi PlatformIO, som er en udvidelse til Visual Studio Code (VS Code). PlatformIO henter selv compiler, Arduino-framework og biblioteker, så alle i klassen bygger med præcis de samme versioner. Denne side fører dig fra en tom computer til et ESP32-kort, der blinker og skriver i Serial Monitor.",
-    "crumbs": [
-      "Hjem",
-      "Grundlag",
-      "PlatformIO"
-    ]
-  },
-  {
-    "objectID": "Grundlag/platformio.html#formål",
-    "href": "Grundlag/platformio.html#formål",
-    "title": "PlatformIO",
-    "section": "Formål",
-    "text": "Formål\n\nDu kan installere VS Code og PlatformIO på din egen computer.\nDu kan oprette et PlatformIO-projekt til ESP32-DEVKIT-V1 med Arduino-frameworket og forklare, hvad de forskellige filer og mapper bruges til.\nDu kan bygge, uploade og åbne Serial Monitor, og du kan sætte monitor_speed.\nDu kan tilføje et bibliotek, både fra PIO Home og ved at skrive det i lib_deps.\nDu kan finde fejlen, når upload ikke virker: forkert kabel, manglende driver, forkert port eller kortet, der ikke vil gå i upload-tilstand.",
-    "crumbs": [
-      "Hjem",
-      "Grundlag",
-      "PlatformIO"
-    ]
-  },
-  {
-    "objectID": "Grundlag/platformio.html#målpinde",
-    "href": "Grundlag/platformio.html#målpinde",
-    "title": "PlatformIO",
-    "section": "Målpinde",
-    "text": "Målpinde\nSiden arbejder med målpind 17, 20 og 24 (se Læringsmål).",
-    "crumbs": [
-      "Hjem",
-      "Grundlag",
-      "PlatformIO"
-    ]
-  },
-  {
-    "objectID": "Grundlag/platformio.html#forudsætninger",
-    "href": "Grundlag/platformio.html#forudsætninger",
-    "title": "PlatformIO",
-    "section": "Forudsætninger",
-    "text": "Forudsætninger\n\nEn computer med Windows, macOS eller Linux, hvor du må installere programmer. Vejledningen her går ud fra Windows.\nInternetforbindelse. Første gang henter PlatformIO flere hundrede MB.\nHardware: ESP32-DEVKIT-V1 og et USB-kabel, der kan overføre data (se USB-kablet).\nGit installeret og grundlæggende kendskab til git init og git status (bruges i øvelse 4).",
-    "crumbs": [
-      "Hjem",
-      "Grundlag",
-      "PlatformIO"
-    ]
-  },
-  {
-    "objectID": "Grundlag/platformio.html#installation",
-    "href": "Grundlag/platformio.html#installation",
-    "title": "PlatformIO",
-    "section": "Installation",
-    "text": "Installation\n\nVS Code og PlatformIO IDE\n\nHent og installer VS Code fra https://code.visualstudio.com/.\nStart VS Code, og åbn Extensions-visningen (Extensions view) med Ctrl+Shift+X eller ikonet med de fire firkanter i venstre side.\nSøg efter PlatformIO IDE. Vælg udvidelsen fra udgiveren PlatformIO (id’et er platformio.platformio-ide), og klik Install. Der findes andre udvidelser med lignende navne, så tjek udgiveren.\nFørste gang du installerer en udvidelse fra en ny udgiver, spørger VS Code, om du stoler på udgiveren. Svar ja.\n\nVS Codes egen vejledning Extension Marketplace har skærmbilleder af Extensions-visningen og knappen Install.\n\n\nFørste start\nPå Windows skal du ikke installere Python eller PlatformIO Core selv. PlatformIO IDE har sin egen Python og installerer PlatformIO Core (CLI, kommandolinjeværktøjet) i baggrunden, første gang udvidelsen starter. Det tager et par minutter, og du kan følge det nederst i vinduet. Når det er færdigt, beder VS Code dig måske om at genindlæse vinduet. Gør det. (På Linux skal pakken python3-venv være installeret, før PlatformIO kan installere sig.) Derefter dukker PlatformIO-ikonet (et myrehoved) op i venstre side, og PIO Home åbner.\n\nPlatformIO lægger alle værktøjer i mappen .platformio i din brugermappe (på Windows %HOMEPATH%\\.platformio). Det er her, compileren og Arduino-frameworket ender, når du bygger første gang. Derfor tager den første build også lang tid; de næste går hurtigt.\n\n\n\n\n\n\nAdvarselUndgå æ, ø og å i stien\n\n\n\nPlatformIO kan ikke bygge projekter, hvor den fulde sti indeholder tegn uden for ASCII, fx æ, ø og å. Det er en kendt fejl, som står i PlatformIO’s FAQ. Hvis dit brugernavn på Windows er fx Søren, så læg dine projekter i en mappe som C:\\iot\\ i stedet for under Dokumenter. Undgå også mellemrum i mappenavne, så slipper du for en anden type problemer.",
-    "crumbs": [
-      "Hjem",
-      "Grundlag",
-      "PlatformIO"
-    ]
-  },
-  {
-    "objectID": "Grundlag/platformio.html#opret-et-projekt",
-    "href": "Grundlag/platformio.html#opret-et-projekt",
-    "title": "PlatformIO",
-    "section": "Opret et projekt",
-    "text": "Opret et projekt\n\nKlik på PlatformIO-ikonet i venstre side, og vælg PIO Home → Open. Eller klik på huset i statuslinjen nederst.\nKlik New Project. I guiden (Project Wizard) udfylder du:\n\nName: projektets navn, fx blink_test. Brug små bogstaver og _, ingen mellemrum eller æøå.\nBoard: skriv DOIT og vælg DOIT ESP32 DEVKIT V1.\nFramework: Arduino.\nLocation: fjern fluebenet ved standardplaceringen, og vælg en mappe uden æøå og mellemrum (se boksen ovenfor).\n\nKlik Finish. Første gang henter PlatformIO platformen espressif32 og Arduino-frameworket. Det kan tage flere minutter.\n\nSe skærmbillederne i PlatformIO’s Quick Start under trin 1 (PIO Home) og trin 2 (New Project).\n\n\n\nLås platformens version\nGuiden skriver platform = espressif32 i platformio.ini. Uden versionsnummer bruger PlatformIO den version, der allerede er installeret på computeren, eller den nyeste, hvis der ikke er nogen. Så kan to elever, der har installeret med en måneds mellemrum, få forskellige versioner af Arduino-frameworket. Ret derfor linjen til:\n\n\nplatformio.ini\n\nplatform = espressif32@8.0.0\n\nVersion 8.0.0 af platformen indeholder Arduino-ESP32 version 3.3.x. Bemærk, at det er to forskellige versionsnumre: platformen (8.0.0) er PlatformIO’s pakke, og Arduino-ESP32 (3.3.x) er frameworket inden i den. Platform 7.x indeholdt fx stadig Arduino-ESP32 2.x. Det er den version, siderne på dette site er tjekket mod, så koden her opfører sig ens hos alle. PlatformIO anbefaler selv at låse versionen, så en build kan gentages.\nVil du senere skifte version, retter du bare tallet og bygger igen. PlatformIO henter selv den nye version. Se, hvilke versioner der findes, på platformens udgivelser på GitHub. Bemærk, at et skift i hovedversion (fx fra Arduino-ESP32 2.x til 3.x) kan kræve ændringer i koden.",
-    "crumbs": [
-      "Hjem",
-      "Grundlag",
-      "PlatformIO"
-    ]
-  },
-  {
-    "objectID": "Grundlag/platformio.html#projektets-opbygning",
-    "href": "Grundlag/platformio.html#projektets-opbygning",
-    "title": "PlatformIO",
-    "section": "Projektets opbygning",
-    "text": "Projektets opbygning\nNår projektet er oprettet, ser mappen sådan ud:\nblink_test/\n├── .pio/            ← byggede filer og hentede biblioteker (laves af PlatformIO)\n├── .vscode/         ← indstillinger til VS Code (laves af PlatformIO)\n├── include/         ← dine egne header-filer (.h)\n├── lib/             ← dine egne biblioteker, ét pr. undermappe\n├── src/\n│   └── main.cpp     ← dit program\n├── test/            ← automatiske tests\n├── .gitignore\n└── platformio.ini   ← projektets opsætning\n\n\n\nFil eller mappe\nHvad den bruges til\n\n\n\n\nplatformio.ini\nProjektets opsætning: board, framework, platformens version, monitor_speed og biblioteker. Én sektion [env:…] pr. miljø (environment).\n\n\nsrc/\nKildekoden. Programmet starter i src/main.cpp, som skal begynde med #include &lt;Arduino.h&gt; for at kunne bruge Arduino-funktionerne.\n\n\ninclude/\nHeader-filer (.h), som main.cpp kan inkludere med #include \"fil.h\". Fx secrets.h på siden om WiFi.\n\n\nlib/\nBiblioteker, du selv skriver og kun bruger i dette projekt. Biblioteker fra nettet skal ikke herind; dem skriver du i lib_deps.\n\n\ntest/\nUnit-tests til PlatformIO’s testværktøj. Bruges ikke i begyndelsen.\n\n\n.pio/\nAlt det, PlatformIO laver selv: oversatte filer, den færdige firmware og bibliotekerne fra lib_deps (i .pio/libdeps/). Kan altid laves igen.\n\n\n.vscode/\nFiler, som PlatformIO genererer til VS Code, fx stier til header-filer, så autofuldførelse virker.\n\n\n\n\n\n.gitignore\nDet, der kommer i git, er det, en anden skal bruge for at bygge projektet: platformio.ini, src/, include/, lib/ og test/. .pio/ skal ikke med. Den fylder meget, og PlatformIO laver den igen ved næste build. Det samme gælder de filer i .vscode/, der indeholder stier fra din egen computer.\nNår PlatformIO opretter et projekt i VS Code, laver det en .gitignore med dette indhold (kun hvis der ikke er en i forvejen):\n\n\n.gitignore\n\n.pio\n.vscode/.browse.c_cpp.db*\n.vscode/c_cpp_properties.json\n.vscode/launch.json\n.vscode/ipch\n\nLad den stå. Har du hemmeligheder som WiFi-passwords i projektet, skal de også i .gitignore (se WiFi).",
-    "crumbs": [
-      "Hjem",
-      "Grundlag",
-      "PlatformIO"
-    ]
-  },
-  {
-    "objectID": "Grundlag/platformio.html#byg-upload-og-serial-monitor",
-    "href": "Grundlag/platformio.html#byg-upload-og-serial-monitor",
-    "title": "PlatformIO",
-    "section": "Byg, upload og Serial Monitor",
-    "text": "Byg, upload og Serial Monitor\nNederst i VS Code, i statuslinjen, har PlatformIO en række små knapper. Fra venstre:\n\n\n\n\n\n\n\n\nKnap\nHvad den gør\nGenvej\n\n\n\n\nHus\nÅbner PIO Home\n\n\n\n✓ Build\nOversætter projektet. Fejl vises i terminalen.\nCtrl+Alt+B\n\n\n→ Upload\nBygger, hvis det er nødvendigt, og lægger programmet over på ESP32.\nCtrl+Alt+U\n\n\nSkraldespand Clean\nSletter de byggede filer i .pio/build/, så næste build starter forfra.\n\n\n\nStik Serial Monitor\nÅbner en terminal, der viser det, ESP32 skriver med Serial.\nCtrl+Alt+S\n\n\nTerminal\nÅbner en terminal med PlatformIO’s kommandolinje (pio).\n\n\n\n\nDe samme kommandoer findes under PlatformIO-ikonet i venstre side under Project Tasks, sorteret efter miljø. Se skærmbilledet i PlatformIO’s dokumentation under PlatformIO Toolbar og Task Explorer.\n\nClean bruger du, når en build opfører sig mærkeligt, fx efter du har skiftet platformens version eller flyttet filer. Ellers er der ingen grund til det: så skal alt bare oversættes igen.\n\nmonitor_speed\nESP32 og Serial Monitor skal være enige om, hvor hurtigt de sender: baud rate, altså bit pr. sekund. I programmet sættes den med Serial.begin(115200). PlatformIO’s Serial Monitor bruger 9600, hvis du ikke skriver andet. Derfor skal hvert projekt have denne linje i platformio.ini:\n\n\nplatformio.ini\n\nmonitor_speed = 115200\n\nEr de to tal forskellige, ser du tilfældige tegn i Serial Monitor i stedet for tekst.\nDu lukker Serial Monitor med Ctrl+C i terminalen eller ved at lukke terminalen. Du behøver ikke lukke den, før du uploader: PlatformIO lukker den selv under upload og åbner den igen bagefter. Men et andet program, der har porten åben (Arduino IDE, PuTTY, en anden VS Code), blokerer upload.",
-    "crumbs": [
-      "Hjem",
-      "Grundlag",
-      "PlatformIO"
-    ]
-  },
-  {
-    "objectID": "Grundlag/platformio.html#usb-forbindelsen",
-    "href": "Grundlag/platformio.html#usb-forbindelsen",
-    "title": "PlatformIO",
-    "section": "USB-forbindelsen",
-    "text": "USB-forbindelsen\n\nUSB-kablet\nMange USB-kabler, især dem der følger med powerbanks og små apparater, kan kun lade og har ingen dataledninger. Med sådan et kabel lyser den røde lysdiode på kortet, men computeren ser ingen port, og upload fejler. Har du problemer, så prøv et andet kabel, før du leder efter fejlen andre steder.\n\n\nUSB-serielchippen og driveren\nESP32 har ikke selv USB. På DEVKIT-V1 sidder der en lille chip ved USB-stikket, som oversætter mellem USB og ESP32’s serielle port (UART). Det originale DOIT-design bruger en CP2102 fra Silicon Labs, men mange kopier bruger en CH340 fra WCH. Navnet står på chippen, hvis du kigger med lup.\n\nWindows 10 og 11 installerer som regel driveren selv, når du sætter kortet i. Hvis der ikke dukker en port op:\n\nCP2102: hent driveren CP210x USB to UART Bridge VCP Drivers fra Silicon Labs.\nCH340: hent driveren fra producenten WCH, CH341SER.\n\n\n\n\nFind COM-porten\nPå Windows hedder serielle porte COM3, COM4 osv. Sådan finder du den, kortet har fået:\n\nÅbn Enhedshåndtering (højreklik på Start-knappen).\nFold Porte (COM og LPT) ud.\nTag kortet ud og sæt det i igen. Den port, der forsvinder og kommer igen, er din. Den hedder fx Silicon Labs CP210x USB to UART Bridge (COM3) eller USB-SERIAL CH340 (COM5).\n\nEspressif viser det med skærmbilleder under Check Port on Windows.\n\nPlatformIO finder normalt selv porten. Har du flere serielle enheder tilsluttet, og vælger den forkert, så skriv porten i platformio.ini:\n\n\nplatformio.ini\n\nupload_port = COM5\nmonitor_port = COM5\n\nFjern linjerne igen, før du afleverer, for porten er sikkert en anden på lærerens computer.\n\n\n“Failed to connect”: BOOT-knappen\nVed upload nulstiller værktøjet esptool normalt ESP32 og sætter den i upload-tilstand (download mode) automatisk. Mens det sker, skriver det Connecting.... med flere og flere prikker. Nogle kort når ikke at skifte, og så ender upload med en fejl, der begynder sådan:\nA fatal error occurred: Failed to connect to ESP32: ...\nResten af linjen afhænger af esptool-versionen, fx Timed out waiting for packet header, No serial data received eller Wrong boot mode detected.\n\nLøsningen er at sætte kortet i upload-tilstand i hånden med knapperne ved USB-stikket:\n\nStart upload.\nNår der står Connecting...., så hold BOOT-knappen nede.\nSlip den, når uploaden er gået i gang, og der står Writing at ….\n\n\nVirker det ikke, så hold BOOT nede, tryk kort på EN (reset), og slip derefter BOOT. BOOT-knappen trækker GPIO 0 til GND, og det er det, der får ESP32 i upload-tilstand ved opstart.\nEfter upload starter programmet normalt af sig selv. Gør det ikke, så tryk på EN.",
-    "crumbs": [
-      "Hjem",
-      "Grundlag",
-      "PlatformIO"
-    ]
-  },
-  {
-    "objectID": "Grundlag/platformio.html#eksempel-test-af-build-og-upload",
-    "href": "Grundlag/platformio.html#eksempel-test-af-build-og-upload",
-    "title": "PlatformIO",
-    "section": "Eksempel: test af build og upload",
-    "text": "Eksempel: test af build og upload\nEt lille program, der kun skal vise, at det hele virker: den indbyggede lysdiode på GPIO 2 blinker, og ESP32 skriver i Serial Monitor hvert sekund. Selve programmeringen gennemgås på siden om Hello World.\n\n\nplatformio.ini\n\n[env:esp32doit-devkit-v1]\nplatform = espressif32@8.0.0\nboard = esp32doit-devkit-v1\nframework = arduino\nmonitor_speed = 115200\n\n\n\nsrc/main.cpp\n\n#include &lt;Arduino.h&gt;\n\n// Konfiguration\nconst int LED_PIN = 2;                 // indbygget lysdiode på DEVKIT-V1\nconst unsigned long INTERVAL_MS = 1000; // tid mellem skift\n\nunsigned long sidsteSkift = 0;\nbool ledTaendt = false;\n\nvoid setup() {\n  Serial.begin(115200);  // skal passe med monitor_speed\n  pinMode(LED_PIN, OUTPUT);\n  Serial.println(\"PlatformIO virker!\");\n}\n\nvoid loop() {\n  // millis() i stedet for delay(), så loop() aldrig står stille\n  if (millis() - sidsteSkift &gt;= INTERVAL_MS) {\n    sidsteSkift = millis();\n    ledTaendt = !ledTaendt;\n    digitalWrite(LED_PIN, ledTaendt ? HIGH : LOW);\n    Serial.printf(\"Kørt i %lu s\\n\", millis() / 1000);\n  }\n}\n\nKlik Upload og derefter Serial Monitor. Lysdioden skal blinke, og der skal komme en linje hvert sekund. Ser du ikke linjen PlatformIO virker!, er det fordi programmet startede, før Serial Monitor var åben. Tryk på EN, så starter programmet forfra.",
-    "crumbs": [
-      "Hjem",
-      "Grundlag",
-      "PlatformIO"
-    ]
-  },
-  {
-    "objectID": "Grundlag/platformio.html#biblioteker-med-lib_deps",
-    "href": "Grundlag/platformio.html#biblioteker-med-lib_deps",
-    "title": "PlatformIO",
-    "section": "Biblioteker med lib_deps",
-    "text": "Biblioteker med lib_deps\nBiblioteker fra nettet står i lib_deps i platformio.ini. Senest når du bygger, henter PlatformIO dem fra PlatformIO-registret og lægger dem i .pio/libdeps/. Du skal ikke kopiere filer selv.\nDu kan få linjen i lib_deps på to måder: vælge biblioteket i PIO Home, eller skrive linjen selv. Begge dele ender med den samme linje i platformio.ini, og det er kun den linje, der tæller. PIO Home er bare en hjælp til at finde det rigtige navn og den nyeste version.\nEksemplet er biblioteket ezButton, som siden om Debouncing bruger.\n\nMåde 1: vælg biblioteket i PIO Home\n\nÅbn PIO Home (huset i statuslinjen), og klik på Libraries i menuen til venstre.\nSøg efter ezButton.\nKlik på biblioteket i resultatlisten. Tjek, at ejeren er arduinogetstarted (vises som “Arduino Get Started”); der kan være flere biblioteker med lignende navne. Add to Project henter biblioteket med det samme.\nKlik Add to Project.\nVælg dit projekt i dialogen, og klik Add.\n\nPlatformIO skriver nu en linje i lib_deps i projektets platformio.ini med ejer, navn og den nyeste version, fx arduinogetstarted/ezButton@^1.0.6. Åbn filen, og se efter.\nPlatformIO’s egen dokumentation har kun et enkelt skærmbillede af bibliotekssiden i PIO Home under Library Manager og beskriver ikke trinnene. Random Nerd Tutorials viser hele forløbet med skærmbilleder under Installing ESP32/ESP8266 Libraries on PlatformIO IDE i artiklen under Læs videre.\n\n\n\n\nMåde 2: skriv lib_deps selv\nDu kan også skrive linjen direkte i platformio.ini. Det er hurtigere, når du allerede kender navnet, fx fra en opgave eller en side her på sitet:\n\n\nplatformio.ini\n\n[env:esp32doit-devkit-v1]\nplatform = espressif32@8.0.0\nboard = esp32doit-devkit-v1\nframework = arduino\nmonitor_speed = 115200\nlib_deps = arduinogetstarted/ezButton@^1.0.6\n\nNavnet består af tre dele:\n\narduinogetstarted er ejeren i registret. Tag det med, så du får det rigtige bibliotek, hvis flere har samme navn.\nezButton er bibliotekets navn.\n@^1.0.6 er versionen: ^ betyder “1.0.6 eller nyere, men stadig 1.x.x”. Så får du fejlrettelser og nye funktioner, men ikke en ny hovedversion, der kan ændre de funktioner, du bruger. Det er den form, PlatformIO anbefaler.\n\nFlere biblioteker skrives på hver sin linje, rykket ind:\n\n\nplatformio.ini\n\nlib_deps =\n  arduinogetstarted/ezButton@^1.0.6\n  knolleary/PubSubClient@^2.8\n\nBiblioteker, der følger med Arduino-frameworket, som WiFi.h, skal ikke i lib_deps.",
-    "crumbs": [
-      "Hjem",
-      "Grundlag",
-      "PlatformIO"
-    ]
-  },
-  {
-    "objectID": "Grundlag/platformio.html#øvelser",
-    "href": "Grundlag/platformio.html#øvelser",
-    "title": "PlatformIO",
-    "section": "Øvelser",
-    "text": "Øvelser\n\nInstaller VS Code og PlatformIO, og opret projektet blink_test. Byg det. Hvor lang tid tager den første build, og hvor lang tid tager den næste? Forklar forskellen.\nFind kortets COM-port i Enhedshåndtering. Upload testprogrammet, og åbn Serial Monitor. Aflever et skærmbillede af Serial Monitor.\nRet monitor_speed til 9600, men lad Serial.begin(115200) stå. Hvad ser du i Serial Monitor? Ret det tilbage.\nTilføj ezButton fra PIO Home med Add to Project. Se i platformio.ini, hvilken linje der er kommet i lib_deps, og sammenlign den med linjen i Måde 2. Byg projektet. Find biblioteket i .pio/libdeps/. Kør derefter git init og git status i projektmappen. Kommer .pio/ med? Hvorfor ikke?\nRet INTERVAL_MS til 200, og upload igen. Upload så en gang, mens du holder BOOT-knappen nede, som beskrevet under BOOT-knappen. Virker det også?\nEkstra: Klik Clean, og byg igen. Sammenlign tiden med de to builds fra øvelse 1. Hvad blev slettet af Clean, og hvad lå der stadig i .platformio i din brugermappe?",
-    "crumbs": [
-      "Hjem",
-      "Grundlag",
-      "PlatformIO"
-    ]
-  },
-  {
-    "objectID": "Grundlag/platformio.html#typiske-fejl",
-    "href": "Grundlag/platformio.html#typiske-fejl",
-    "title": "PlatformIO",
-    "section": "Typiske fejl",
-    "text": "Typiske fejl\n\nIngen port dukker op: Kablet kan kun lade, eller driveren til USB-serielchippen mangler. Prøv et andet kabel først.\nFailed to connect to ESP32: Kortet kom ikke i upload-tilstand. Hold BOOT nede under Connecting..... Tjek også, at et andet program ikke har porten åben.\nTilfældige tegn i Serial Monitor: monitor_speed passer ikke med Serial.begin().\nSerial Monitor er tom: Programmet skrev sin tekst, før monitoren var åben. Tryk på EN. Eller Serial.begin() mangler.\nBuild fejler med mærkelige fejl om stier eller tegn: Projektets sti indeholder æ, ø, å eller andre tegn uden for ASCII. Flyt projektet.\nAccess is denied under installationen: Et antivirusprogram blokerer PlatformIO. Se PlatformIO’s FAQ.\nfatal error: ezButton.h: No such file or directory: Biblioteket står ikke i lib_deps, eller navnet er stavet forkert.\nKoden virker hos dig, men ikke hos læreren: Platformens version er ikke låst, så I bygger med forskellige versioner af Arduino-frameworket.",
-    "crumbs": [
-      "Hjem",
-      "Grundlag",
-      "PlatformIO"
-    ]
-  },
-  {
-    "objectID": "Grundlag/platformio.html#læs-videre",
-    "href": "Grundlag/platformio.html#læs-videre",
-    "title": "PlatformIO",
-    "section": "Læs videre",
-    "text": "Læs videre\n\nRandom Nerd Tutorials\nGetting Started with VS Code and PlatformIO IDE for ESP32 and ESP8266 viser de samme trin med mange skærmbilleder: installationen af VS Code, PIO Home, guiden til nyt projekt med DOIT ESP32 DEVKIT V1, upload og Serial Monitor, og hvordan man finder biblioteker i PIO Home i stedet for at skrive lib_deps i hånden.\nLæs den med to forbehold. Artiklen er fra 2020 og siger, at du skal installere Python først. Det skal du ikke længere på Windows: PlatformIO IDE har sin egen Python. Og lås platformens version som beskrevet ovenfor, uanset hvad artiklens skærmbilleder viser.",
-    "crumbs": [
-      "Hjem",
-      "Grundlag",
-      "PlatformIO"
-    ]
-  },
-  {
-    "objectID": "Grundlag/platformio.html#kilder",
-    "href": "Grundlag/platformio.html#kilder",
-    "title": "PlatformIO",
-    "section": "Kilder",
-    "text": "Kilder\n\nPlatformIO: PlatformIO IDE for VSCode (installation, Quick Start, toolbar, indstillinger), https://docs.platformio.org/en/latest/integration/ide/vscode.html\nPlatformIO: DOIT ESP32 DEVKIT V1, https://docs.platformio.org/en/latest/boards/espressif32/esp32doit-devkit-v1.html\nPlatformIO: platform (låsning af version), https://docs.platformio.org/en/latest/projectconf/sections/env/options/platform/platform.html\nPlatformIO: platform-espressif32, udgivelser (8.0.0 med Arduino-ESP32 3.3.12), https://github.com/platformio/platform-espressif32/releases\nPlatformIO: pio project init (projektets mapper), https://docs.platformio.org/en/latest/core/userguide/project/cmd_init.html\nPlatformIO: kildekode til .gitignore for VS Code-projekter, https://github.com/platformio/platformio-core/blob/develop/platformio/project/integration/tpls/vscode/.gitignore.optional.tpl\nPlatformIO: monitor_speed, https://docs.platformio.org/en/latest/projectconf/sections/env/options/monitor/monitor_speed.html\nPlatformIO: pio device monitor, https://docs.platformio.org/en/latest/core/userguide/device/cmd_monitor.html\nPlatformIO: upload_port, https://docs.platformio.org/en/latest/projectconf/sections/env/options/upload/upload_port.html\nPlatformIO: lib_deps, https://docs.platformio.org/en/latest/projectconf/sections/env/options/library/lib_deps.html\nPlatformIO: versionskrav (^, ~), https://docs.platformio.org/en/latest/core/userguide/pkg/cmd_install.html\nPlatformIO: core_dir, workspace_dir og libdeps_dir, https://docs.platformio.org/en/latest/projectconf/sections/platformio/options/directory/core_dir.html\nPlatformIO: Troubleshooting (ikke-ASCII i stier, Access is denied), https://docs.platformio.org/en/latest/faq/troubleshooting.html\nVS Code: Extension Marketplace, https://code.visualstudio.com/docs/configure/extensions/extension-marketplace\nEspressif: Establish Serial Connection with ESP32, https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/establish-serial-connection.html\nArduino-ESP32: Troubleshooting (kabler, driver, BOOT-knappen), https://docs.espressif.com/projects/arduino-esp32/en/latest/troubleshooting.html\nesptool: Troubleshooting, https://docs.espressif.com/projects/esptool/en/latest/esp32/troubleshooting.html\nesptool: Boot Mode Selection, https://docs.espressif.com/projects/esptool/en/latest/esp32/advanced-topics/boot-mode-selection.html\nRandom Nerd Tutorials: Getting Started with VS Code and PlatformIO IDE for ESP32 and ESP8266, https://randomnerdtutorials.com/vs-code-platformio-ide-esp32-esp8266-arduino/",
-    "crumbs": [
-      "Hjem",
-      "Grundlag",
-      "PlatformIO"
     ]
   },
   {

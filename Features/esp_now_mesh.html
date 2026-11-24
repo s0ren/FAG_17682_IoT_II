@@ -214,7 +214,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../Features/lokal_mqtt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lokal MQTT server</span></a>
+ <span class="menu-text">Lokal MQTT-server</span></a>
   </div>
 </li>
       </ul>
@@ -663,7 +663,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 <span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Upload, åbn Serial Monitor, og tryk på EN-knappen på ESP32, hvis du ikke nåede at se den første linje. Skriv MAC-adressen ned.</p>
-<!-- BILLEDE: Serial Monitor for modtageren med linjen "Modtager. MAC-adresse: …, kanal: 1" og et par modtagne beskeder. -->
+<!-- BILLEDE: Serial Monitor for modtageren med linjen "Modtager. MAC-adresse: …, kanal: 1" og et par modtagne beskeder. Se fx: https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2024/06/ESP-NOW-ESP32-Receiver-Message-Print.png?quality=100&strip=all&ssl=1 (RNT: modtagne beskeder, men et andet format end vores) -->
 </section>
 <section id="eksempel-afsender" class="level2">
 <h2 class="anchored" data-anchor-id="eksempel-afsender">Eksempel: afsender</h2>
@@ -774,7 +774,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 <span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
 <span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Kopier til udklipsholder" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<!-- BILLEDE: Serial Monitor for afsenderen med "Sendt nr. …" og "kvitteret af modtageren", og gerne et par "IKKE kvitteret", mens modtageren var slukket. -->
+<!-- BILLEDE: Serial Monitor for afsenderen med "Sendt nr. …" og "kvitteret af modtageren", og gerne et par "IKKE kvitteret", mens modtageren var slukket. Se fx: https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2024/06/ESP-NOW-ESP32-Sender-Message-Print.png?quality=100&strip=all&ssl=1 (RNT: "Delivery Success"; ingen fejlede afsendelser) -->
 <p>Sådan virker det:</p>
 <ul>
 <li><code>WiFi.mode(WIFI_STA)</code> og <code>WiFi.setChannel()</code> tænder radioen på den rigtige kanal. Der forbindes ikke til nogen router.</li>
