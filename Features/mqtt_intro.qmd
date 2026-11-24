@@ -3,7 +3,7 @@ title: "Intro til MQTT"
 subtitle: "Publish/subscribe fra klientens side: Python, C#, ESP32 og MQTT Explorer"
 date: 2026-11-23
 maalpinde: [2, 13, 20, 22]
-draft: true
+draft: false
 ---
 
 <!-- IKKE KOMPILERET: eksemplerne er tjekket mod dokumentationen, men ikke kompileret eller testet på hardware. -->
@@ -143,9 +143,7 @@ Weblog'en er den nemmeste måde at se, at en besked faktisk nåede brokeren. Den
 
 <!-- TJEK: Læreren skriver http://wilsons:8080. Det korte navn virker kun, hvis netværket tilføjer et domæne (fx .home) selv. Siden bruger wilsons.local. -->
 
-::: {.billede-mangler}
-Weblog'en på wilsons.local:8080, åbnet på en elevs fil fra Python-eksemplet (fx `elever/anna/python/temperatur.jsonl`) med nogle linjer JSON. Se lignende billeder: [Lokal MQTT server](lokal_mqtt.qmd).
-:::
+<!-- BILLEDE: Weblog'en på wilsons.local:8080, åbnet på en elevs fil fra Python-eksemplet (fx `elever/anna/python/temperatur.jsonl`) med nogle linjer JSON. Se lignende billeder: [Lokal MQTT server](lokal_mqtt.qmd). -->
 
 ## QoS, retained, keep-alive og Last Will
 
@@ -388,9 +386,7 @@ Hent det fra <https://mqtt-explorer.com/>. Det findes til Windows (Microsoft Sto
 
 Som standard abonnerer MQTT Explorer på `#` og `$SYS/#`, så du ser alt på brokeren. Under *Advanced* kan du ændre abonnementerne og se dit *MQTT Client ID*. MQTT Explorer laver selv et unikt id, der starter med `mqtt-explorer-`.
 
-::: {.billede-mangler}
-MQTT Explorers forbindelsesvindue udfyldt med Host `wilsons.local`, Port `1883` og Encryption (tls) slået fra. Se lignende billeder: [mqtt-explorer.com](https://mqtt-explorer.com/).
-:::
+<!-- BILLEDE: MQTT Explorers forbindelsesvindue udfyldt med Host `wilsons.local`, Port `1883` og Encryption (tls) slået fra. Se lignende billeder: [mqtt-explorer.com](https://mqtt-explorer.com/). -->
 
 ### Se topic-træet og send en testbesked
 
@@ -401,9 +397,7 @@ MQTT Explorers forbindelsesvindue udfyldt med Host `wilsons.local`, Port `1883` 
 
 <!-- TJEK: $SYS-topics fra wilsons bør vises på port 1883 (Mosquitto sender dem som standard hvert 10. sekund); bekræft i MQTT Explorer. -->
 
-::: {.billede-mangler}
-MQTT Explorers topic-træ med `elever/<navn>/python/temperatur` foldet ud og en JSON-besked valgt i panelet til højre. Se lignende billeder: [mqtt-explorer.com](https://mqtt-explorer.com/).
-:::
+<!-- BILLEDE: MQTT Explorers topic-træ med `elever/<navn>/python/temperatur` foldet ud og en JSON-besked valgt i panelet til højre. Se lignende billeder: [mqtt-explorer.com](https://mqtt-explorer.com/). -->
 
 ### Forbind på port 8883 med TLS og login
 
@@ -418,9 +412,7 @@ Brug et af navnene i certifikatet (`wilsons.local`, `wilsons.home`, `wilsons` el
 
 <!-- TJEK: Feltnavnene er læst i MQTT Explorers kildekode (Certificates.tsx og ConnectionSettings.tsx på master). Bekræft i den version, eleverne installerer (0.4.0-beta.6), og at ca.crt godtages med Validate certificate slået til. -->
 
-::: {.billede-mangler}
-MQTT Explorers Certificates-dialog med `ca.crt` valgt under Server Certificate (CA). Se lignende billeder: [mqtt-explorer.com](https://mqtt-explorer.com/).
-:::
+<!-- BILLEDE: MQTT Explorers Certificates-dialog med `ca.crt` valgt under Server Certificate (CA). Se lignende billeder: [mqtt-explorer.com](https://mqtt-explorer.com/). -->
 
 ## Eksempel: ESP32 sender en måling
 

@@ -3,7 +3,7 @@ title: "Drejepotentiometer"
 subtitle: "Analog aflæsning med ESP32's ADC"
 date: 2026-11-23
 maalpinde: [11, 19, 23]
-draft: true
+draft: false
 ---
 
 <!-- IKKE KOMPILERET: eksemplerne er tjekket mod dokumentationen, men ikke kompileret eller testet på hardware. -->
@@ -77,9 +77,7 @@ På mange potentiometre står typen som et bogstav foran værdien: `B10K` er typ
 
 <!-- TJEK: at lokalets potentiometre er 10 kΩ lineære, og hvordan de er mærket. A = logaritmisk og B = lineær er den almindelige asiatiske mærkning, men der findes ældre europæiske mærkninger, hvor bogstaverne betyder noget andet. -->
 
-::: {.billede-mangler}
-Potentiometeret set fra siden med de tre ben markeret (yderben, midterben/glider, yderben) og mærkningen (fx B10K) tydelig. Se lignende billeder: [Random Nerd Tutorials: ESP32 ADC](https://randomnerdtutorials.com/esp32-adc-analog-read-arduino-ide/).
-:::
+<!-- BILLEDE: Potentiometeret set fra siden med de tre ben markeret (yderben, midterben/glider, yderben) og mærkningen (fx B10K) tydelig. Se lignende billeder: [Random Nerd Tutorials: ESP32 ADC](https://randomnerdtutorials.com/esp32-adc-analog-read-arduino-ide/). -->
 
 ## Kobling
 
@@ -109,9 +107,7 @@ ESP32 har to analog-til-digital-konvertere ([ADC]{lang="en"}), ADC1 og ADC2. ADC
 
 Eksemplet bruger GPIO 34. GPIO 32 og 33 er gode alternativer.
 
-::: {.billede-mangler}
-Koblingen på breadboard: potentiometeret med rød ledning til 3V3, sort til GND og en signalledning fra midterbenet til GPIO 34. Se lignende billeder: [Random Nerd Tutorials: ESP32 ADC](https://randomnerdtutorials.com/esp32-adc-analog-read-arduino-ide/).
-:::
+<!-- BILLEDE: Koblingen på breadboard: potentiometeret med rød ledning til 3V3, sort til GND og en signalledning fra midterbenet til GPIO 34. Se lignende billeder: [Random Nerd Tutorials: ESP32 ADC](https://randomnerdtutorials.com/esp32-adc-analog-read-arduino-ide/). -->
 
 ## ESP32's ADC
 
@@ -265,9 +261,7 @@ Sådan virker det:
 
 <!-- TJEK: hvad analogRead() faktisk gør på et ADC2-ben med WiFi tændt i core 3.3.x. Ifølge ESP-IDF kan læsningen fejle med ESP_ERR_TIMEOUT, og i esp32-hal-adc.c returnerer fejlvejene 0, så sandsynligvis "giver 0 og en fejl i loggen". Skriv det i punktet ovenfor, når det er afprøvet. -->
 
-::: {.billede-mangler}
-Multimeter, der måler spændingen mellem midterbenet og GND, mens ESP32 skriver ud i Serial Monitor (til øvelse 3).
-:::
+<!-- BILLEDE: Multimeter, der måler spændingen mellem midterbenet og GND, mens ESP32 skriver ud i Serial Monitor (til øvelse 3). -->
 
 ## Læs videre
 

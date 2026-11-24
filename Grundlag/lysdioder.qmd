@@ -3,7 +3,7 @@ title: "Lysdioder (LED'er)"
 subtitle: "Tænd, sluk og dæmp en lysdiode med ESP32"
 date: 2026-11-23
 maalpinde: [12, 18, 19]
-draft: true
+draft: false
 ---
 
 <!-- IKKE KOMPILERET: eksemplerne er tjekket mod dokumentationen, men ikke kompileret eller testet på hardware. -->
@@ -57,9 +57,7 @@ Er benene klippet af, så kig efter den flade kant på plastikken. Inde i lysdio
 
 <!-- TJEK: "langt ben = anode, flad kant = katode" er standard for 5 mm-lysdioder, men det kunne ikke bekræftes i de hentede kilder (Wikipedia og Adafruit siger det ikke i tekst; SparkFuns LED-guide gav HTTP 403). Tjek mod databladet for lokalets lysdioder. -->
 
-::: {.billede-mangler}
-En 5 mm lysdiode tæt på, hvor det lange ben (anode) og den flade kant ved katoden kan ses. Se lignende billeder: [Wikipedia: Light-emitting diode](https://en.wikipedia.org/wiki/Light-emitting_diode).
-:::
+<!-- BILLEDE: En 5 mm lysdiode tæt på, hvor det lange ben (anode) og den flade kant ved katoden kan ses. Se lignende billeder: [Wikipedia: Light-emitting diode](https://en.wikipedia.org/wiki/Light-emitting_diode). -->
 
 ### Spændingsfald (Vf)
 
@@ -120,9 +118,7 @@ Det er ligegyldigt, om modstanden sidder før eller efter lysdioden: strømmen e
 
 Brug et af de ben, der er sikre som udgang: 18, 19, 21, 22, 23, 25, 26, 27, 32 eller 33. Ben 34–39 kan kun bruges som indgang, og 6–11 er forbundet til den interne flash.
 
-::: {.billede-mangler}
-En lysdiode med 220 Ω formodstand på breadboardet, koblet til GPIO 19 og GND på ESP32-DEVKIT-V1. Se lignende billeder: [ESP32IO: LED - Blink Without Delay](https://esp32io.com/tutorials/esp32-led-blink-without-delay).
-:::
+<!-- BILLEDE: En lysdiode med 220 Ω formodstand på breadboardet, koblet til GPIO 19 og GND på ESP32-DEVKIT-V1. Se lignende billeder: [ESP32IO: LED - Blink Without Delay](https://esp32io.com/tutorials/esp32-led-blink-without-delay). -->
 
 ## Den indbyggede lysdiode
 
@@ -306,9 +302,7 @@ Tallene i tabellen gælder for `analogWrite()`, hvor 255 betyder helt tændt. Me
 
 <!-- TJEK: hvilken type RGB-lysdiode lokalet har, og hvilket ben der er det fælles (benrækkefølgen varierer mellem fabrikater; se databladet). -->
 
-::: {.billede-mangler}
-En RGB-lysdiode med de fire ben markeret (R, fælles, G, B) for den type, lokalet har. Se lignende billeder: [Random Nerd Tutorials: ESP32 PWM with Arduino IDE](https://randomnerdtutorials.com/esp32-pwm-arduino-ide/).
-:::
+<!-- BILLEDE: En RGB-lysdiode med de fire ben markeret (R, fælles, G, B) for den type, lokalet har. Se lignende billeder: [Random Nerd Tutorials: ESP32 PWM with Arduino IDE](https://randomnerdtutorials.com/esp32-pwm-arduino-ide/). -->
 
 ## Øvelser
 
@@ -320,9 +314,7 @@ En RGB-lysdiode med de fire ben markeret (R, fælles, G, B) for den type, lokale
 6. *Ekstra:* Byg en RGB-lysdiode på, og lad den skifte mellem rød, grøn, blå og hvid. Find ud af, om jeres er med fælles katode eller fælles anode.
 7. *Ekstra:* Prøv `ledcFade(LED_PIN, 0, 255, 2000)`. Kald den én gang i `setup()` efter `ledcAttach()` (står den direkte i `loop()`, starter fadet forfra hver gang, og så ser du ingen fade). Lad `loop()` blinke den indbyggede lysdiode imens. Kører `loop()` videre, mens lysdioden fader? Hvordan kan du se det?
 
-::: {.billede-mangler}
-Trafiklyset fra øvelse 4: tre lysdioder med formodstande på GPIO 25, 26 og 27.
-:::
+<!-- BILLEDE: Trafiklyset fra øvelse 4: tre lysdioder med formodstande på GPIO 25, 26 og 27. -->
 
 ## Typiske fejl
 
