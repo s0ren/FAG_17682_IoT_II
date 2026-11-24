@@ -10,9 +10,9 @@ draft: false
 
 <!--
 TJEKLISTE TIL LÆREREN (afprøves på hardware, før draft: true fjernes):
-1. Kompilér og upload eksemplet med platform = espressif32@8.0.0. Virker include/secrets.h + secrets_eksempel.h som beskrevet?
-2. Forkert password: hvilken statuskode giver det, 4 eller 6? Ret tabellen og øvelse 2 efter resultatet.
-3. Router slukket og tændt igen (øvelse 4): kommer forbindelsen tilbage af sig selv? Forstyrrer WiFi.reconnect() efter 30 s den automatiske genforbindelse?
+1. AFPRØVET 24. nov. 2026: eksemplet virker med espressif32@8.0.0, og include/secrets.h + secrets_eksempel.h virker som beskrevet (secrets.h ignoreres af git).
+2. AFPRØVET 24. nov. 2026 (ESP32-D0WD-V3, core 3.3.12): forkert password gav 4, forkert SSID gav 6 (ikke 1). Tabellen og Typiske fejl er rettet.
+3. Router slukket og tændt igen (øvelse 4): kommer forbindelsen tilbage af sig selv? Forstyrrer WiFi.reconnect() efter 30 s den automatiske genforbindelse? (Ved forkert SSID gav reconnect() fejlmeddelelsen "wifi:sta is connecting, return error", men programmet kørte videre.)
 4. RSSI-grænserne (-60, -70, -80 dBm) er en tommelfingerregel. Passer de i lokalet?
 5. iPhone-hotspot: hedder indstillingen "Maksimer kompatibilitet" under Internetdeling på elevernes telefoner?
 6. Når alt er testet: fjern IKKE TESTET PÅ HARDWARE, denne tjekliste og TJEK-kommentarerne nedenfor.
@@ -81,15 +81,13 @@ Det virker, når alt er i orden. Men hvis SSID'et er stavet forkert, eller route
 | Værdi | Tal | Betyder |
 |---|---|---|
 | `WL_IDLE_STATUS` | 0 | Koblet til routeren, men har endnu ikke fået en IP-adresse (varer kort) |
-| `WL_NO_SSID_AVAIL` | 1 | Netværket blev ikke fundet: forkert SSID, for langt væk eller 5 GHz |
+| `WL_NO_SSID_AVAIL` | 1 | Netværket blev ikke fundet. Ses sjældent: på skolens kort gav et forkert SSID status 6 |
 | `WL_CONNECTED` | 3 | Forbundet, med IP-adresse |
-| `WL_CONNECT_FAILED` | 4 | Forbindelsen mislykkedes |
+| `WL_CONNECT_FAILED` | 4 | Forbindelsen mislykkedes, typisk forkert password |
 | `WL_CONNECTION_LOST` | 5 | Forbindelsen blev tabt |
-| `WL_DISCONNECTED` | 6 | Ikke forbundet. Det er også status, mens ESP32 er i gang med at forbinde |
+| `WL_DISCONNECTED` | 6 | Ikke forbundet. Det er også status, mens ESP32 er i gang med at forbinde, og når netværket ikke findes (forkert SSID) |
 
-Skriv tallet ud, når forbindelsen fejler. Det er det første spor, når du skal finde fejlen.
-
-<!-- TJEK: Et forkert password giver efter kildekoden status 4 eller 6 (nyere ESP-IDF melder det ofte som handshake-timeout, som giver 6). Prøv det på hardware (øvelse 2). -->
+Skriv tallet ud, når forbindelsen fejler. Det er det første spor, når du skal finde fejlen. På skolens kort gav et forkert password status 4 og et forkert SSID status 6. Status 6 efter tidsgrænsen betyder altså, at ESP32 stadig ikke har fundet netværket.
 
 ### Signalstyrke (RSSI)
 
@@ -237,7 +235,9 @@ Kopiér `secrets_eksempel.h` til `secrets.h` i samme mappe, og ret SSID og passw
 ## Typiske fejl
 
 - **Programmet hænger efter "Forbinder til":** Der er en `while`-løkke uden tidsgrænse. Brug en tidsgrænse som i eksemplet.
-- **Status 1 (`WL_NO_SSID_AVAIL`):** SSID'et er stavet forkert (der skelnes mellem store og små bogstaver), netværket er for langt væk, eller det sender kun på 5 GHz.
+- **Status 6 (`WL_DISCONNECTED`) efter tidsgrænsen:** ESP32 fandt ikke netværket. SSID'et er stavet forkert (der skelnes mellem store og små bogstaver), netværket er for langt væk, eller det sender kun på 5 GHz. Nogle gange giver det status 1 (`WL_NO_SSID_AVAIL`) i stedet.
+- **Status 4 (`WL_CONNECT_FAILED`):** Passwordet er forkert.
+- **`E (...) wifi:sta is connecting, return error` i Serial Monitor:** `WiFi.reconnect()` blev kaldt, mens ESP32 stadig var i gang med at forbinde. Det er ufarligt: forsøget, der allerede er i gang, fortsætter.
 - **Forbinder aldrig til skolens netværk:** Netværket bruger brugernavn og password (WPA2-Enterprise) eller en login-side i browseren. Brug et andet netværk, fx et hotspot.
 - **`secrets.h: No such file or directory`:** Filen ligger ikke i `include/`, eller den hedder stadig `secrets_eksempel.h`.
 - **Passwordet ligger alligevel på GitHub:** `secrets.h` blev committet, før den kom i `.gitignore`. `.gitignore` virker kun på filer, git ikke kender i forvejen. Fjern den med `git rm --cached include/secrets.h`, og skift passwordet, for det ligger stadig i historikken.
