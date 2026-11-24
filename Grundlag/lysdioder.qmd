@@ -178,7 +178,7 @@ I version 2.x skulle man først kalde `ledcSetup(kanal, freq, opløsning)` og s�
 
 ## Eksempel: blink med `millis()`
 
-En ekstern lysdiode på GPIO 19 blinker, og den indbyggede lysdiode blinker i modtakt. Programmet bruger `millis()` i stedet for `delay()`, så `loop()` aldrig står stille og kan nå at lave andre ting.
+En ekstern lysdiode på GPIO 19 (som i [standardopstillingen](standardopstilling.qmd)) blinker, og den indbyggede lysdiode blinker i modtakt. Programmet bruger `millis()` i stedet for `delay()`, så `loop()` aldrig står stille og kan nå at lave andre ting.
 
 ```{.ini filename="platformio.ini"}
 [env:esp32doit-devkit-v1]

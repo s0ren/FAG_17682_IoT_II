@@ -287,7 +287,7 @@ Lærerens demoer `publisher_demo.py` og `subscriber_demo.py` gør det samme og k
 
 ESP32 læser spændingen fra et potentiometer og sender den som JSON hvert 5. sekund. Biblioteket hedder [PubSubClient](https://github.com/knolleary/pubsubclient), og PlatformIO henter det fra `lib_deps`.
 
-**Kobling:** Potentiometerets to yderben til **3V3** og **GND**, midterbenet til **GPIO 32**. GPIO 32 ligger på ADC1, som kan læses, mens WiFi er tændt (det kan ADC2 ikke, se [WiFi](../Grundlag/wifi.qmd)). ADC'en kan som standard kun måle op til ca. 3100 mV, så i den ene ende af potentiometeret står målingen stille, selv om du drejer videre.
+**Kobling:** Potentiometerets to yderben til **3V3** og **GND**, midterbenet til **GPIO 32**, som i [standardopstillingen](../Grundlag/standardopstilling.qmd). GPIO 32 ligger på ADC1, som kan læses, mens WiFi er tændt (det kan ADC2 ikke, se [WiFi](../Grundlag/wifi.qmd)). ADC'en kan som standard kun måle op til ca. 3100 mV, så i den ene ende af potentiometeret står målingen stille, selv om du drejer videre.
 
 ```{.ini filename="platformio.ini"}
 [env:esp32doit-devkit-v1]

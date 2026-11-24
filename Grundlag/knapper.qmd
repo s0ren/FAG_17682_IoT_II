@@ -10,7 +10,7 @@ draft: false
 
 <!--
 TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
-1. Kør eksemplet med en knap på GPIO 18 til GND: lysdioden på GPIO 2 lyser, kun mens knappen holdes nede, og Serial Monitor viser skiftene.
+1. Kør eksemplet med en knap på GPIO 33 til GND: lysdioden på GPIO 2 lyser, kun mens knappen holdes nede, og Serial Monitor viser skiftene.
 2. Tjek, at den indbyggede lysdiode på lokalets ESP32-DEVKIT-V1 sidder på GPIO 2 og lyser ved HIGH (TJEK i eksemplet).
 3. Afprøv øvelse 1 (svævende ben med INPUT): skifter værdien faktisk, når man rører ledningen? Ret teksten, hvis lokalets boards opfører sig anderledes (TJEK i afsnittet om svævende ben).
 4. Afprøv øvelse 2 (ekstern 10 kΩ pull-down, knap til 3V3) og øvelse 3 (to knapper).
@@ -21,7 +21,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 9. Når siden om modstande findes, link til den under Forudsætninger (TJEK der).
 10. BILLEDE: en trykknap set fra siden og fra neden, med de parvis forbundne ben markeret.
 11. BILLEDE: trykknap, vippekontakt og skydekontakt side om side.
-12. BILLEDE: eksemplets opstilling (knap over renden, diagonale ben til GPIO 18 og GND).
+12. BILLEDE: eksemplets opstilling (knap over renden, diagonale ben til GPIO 33 og GND).
 13. BILLEDE: øvelse 2 med den eksterne pull-down-modstand.
 14. Fjern IKKE KOMPILERET, denne tjekliste og alle TJEK- og BILLEDE-kommentarer, gør billede-mangler-boksene til BILLEDE-kommentarer eller rigtige billeder, og sæt draft: false.
 -->
@@ -162,12 +162,12 @@ Af strapping-benene er **GPIO 0** det farlige for en knap til GND. Er GPIO 0 `LO
 
 ## Eksempel: lysdioden lyser, mens knappen holdes nede
 
-Knappen sidder mellem **GPIO 18** og **GND**, på to diagonale ben. Lysdioden er den indbyggede på **GPIO 2**, så den skal ikke kobles på.
+Knappen sidder mellem **GPIO 33** og **GND**, på to diagonale ben, som i [standardopstillingen](standardopstilling.qmd). Lysdioden er den indbyggede på **GPIO 2**, så den skal ikke kobles på.
 
 <!-- TJEK: at den indbyggede lysdiode på lokalets boards sidder på GPIO 2 og lyser ved HIGH. -->
 
 ::: {.billede-mangler}
-Eksemplets opstilling: ESP32-DEVKIT-V1 og en trykknap over renden, med ledninger fra to diagonale ben til GPIO 18 og GND. Se lignende billeder på siden om [Breadboard](breadboard.qmd).
+Eksemplets opstilling: ESP32-DEVKIT-V1 og en trykknap over renden, med ledninger fra to diagonale ben til GPIO 33 og GND. Se lignende billeder på siden om [Breadboard](breadboard.qmd).
 :::
 
 ```{.ini filename="platformio.ini"}
@@ -182,7 +182,7 @@ monitor_speed = 115200
 #include <Arduino.h>
 
 // Konfiguration
-const int KNAP_PIN = 18;  // knap mellem GPIO 18 og GND
+const int KNAP_PIN = 33;  // knap mellem GPIO 33 og GND
 const int LED_PIN = 2;    // den indbyggede lysdiode
 
 int forrigeTilstand = HIGH;  // HIGH = ikke trykket (pull-up)
@@ -218,8 +218,8 @@ Programmet er bevidst lavet **uden debouncing**. Du ser derfor måske flere "Try
 ## Øvelser
 
 1. **Det svævende ben:** Ret `INPUT_PULLUP` til `INPUT` i eksemplet, og tag ledningen fra GND af knappen, så benet kun er forbundet til en løs ledning. Rør ved den løse ende af ledningen med fingeren, og hold øje med lysdioden og Serial Monitor. Skriv ned, hvad du ser, og forklar hvorfor. Sæt `INPUT_PULLUP` tilbage bagefter.
-2. **Ekstern pull-down:** Byg knappen om, så den sidder mellem GPIO 18 og **3V3**, og sæt en modstand på 10 kΩ fra GPIO 18 til GND. Brug `pinMode(KNAP_PIN, INPUT)`. Ret programmet, så lysdioden stadig lyser, mens knappen holdes nede. Hvad læses nu, når knappen er trykket? Tegn diagrammet, og aflever det sammen med koden.
-3. **To knapper:** Tilføj en knap mere på GPIO 19 til GND med `INPUT_PULLUP`. Lysdioden må kun lyse, når *begge* knapper holdes nede. Lav derefter en udgave, hvor den lyser, når *mindst én* er trykket. Brug konstanter til begge ben og en lille funktion `erTrykket(pin)`, der returnerer `true`, når knappen på `pin` er trykket.
+2. **Ekstern pull-down:** Byg knappen om, så den sidder mellem GPIO 33 og **3V3**, og sæt en modstand på 10 kΩ fra GPIO 33 til GND. Brug `pinMode(KNAP_PIN, INPUT)`. Ret programmet, så lysdioden stadig lyser, mens knappen holdes nede. Hvad læses nu, når knappen er trykket? Tegn diagrammet, og aflever det sammen med koden.
+3. **To knapper:** Tilføj en knap mere på GPIO 18 til GND med `INPUT_PULLUP`. Lysdioden må kun lyse, når *begge* knapper holdes nede. Lav derefter en udgave, hvor den lyser, når *mindst én* er trykket. Brug konstanter til begge ben og en lille funktion `erTrykket(pin)`, der returnerer `true`, når knappen på `pin` er trykket.
 4. **Et ben uden pull-up:** Flyt knappen til GPIO 34 med `INPUT_PULLUP`. Virker den? Forklar hvorfor ikke, og få den til at virke med en ekstern modstand på 10 kΩ til 3V3.
 5. *Ekstra:* Læs BOOT-knappen på ESP32-DEVKIT-V1 som input på GPIO 0, mens programmet kører, og lad den tænde lysdioden. Hold derefter BOOT nede, mens du trykker på EN. Hvad sker der, og hvorfor? (Brug ikke BOOT-knappen i dine egne projekter.)
 

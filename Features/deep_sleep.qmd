@@ -189,7 +189,7 @@ Kun **RTC-GPIO'er** kan vække ESP32 fra deep sleep, fordi kun RTC-delen har str
 | 4, 13, 14 | Kan bruges: RTC-GPIO, intern pull-up/pull-down |
 | 18, 19, 21, 22, 23 | Nej: de er ikke RTC-GPIO'er og kan ikke vække |
 
-Bemærk, at GPIO 18, som debouncing-siden bruger, **ikke** kan vække ESP32. Flyt knappen til GPIO 33.
+Derfor sidder knappen i [standardopstillingen](../Grundlag/standardopstilling.qmd) på GPIO 33. Et ben som GPIO 18 kan **ikke** vække ESP32.
 
 ## Eksempel: vågn på timer
 
@@ -270,7 +270,7 @@ Serial Monitor med tre-fire opvågninger fra timer-eksemplet, hvor tælleren sti
 
 ## Eksempel: vågn på knap eller timer
 
-Knappen sidder mellem **GPIO 33** og **GND**, ligesom på debouncing-siden, bare på et ben, der kan vække. ESP32 vågner, når der trykkes, og ellers hvert 30. sekund. Den lysdiode, der sidder på GPIO 2, blinker kort, når det var knappen.
+Knappen sidder mellem **GPIO 33** og **GND**, som i [standardopstillingen](../Grundlag/standardopstilling.qmd) og på debouncing-siden. ESP32 vågner, når der trykkes, og ellers hvert 30. sekund. Den lysdiode, der sidder på GPIO 2, blinker kort, når det var knappen.
 
 ::: {.billede-mangler}
 Breadboard med DEVKIT-V1 og en trykknap mellem GPIO 33 og GND. Se lignende billeder: <https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2019/04/esp32-pushbutton-33.png?quality=100&strip=all&ssl=1> (RNT, Fritzing: knap på GPIO 33, men med pull-down-modstand til 3,3 V; vores side bruger pull-up og knap til GND)

@@ -17,7 +17,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 Billeder, der mangler (se de orange bokse):
 5. ESP32-DEVKIT-V1 set ovenfra med EN, BOOT og den blå lysdiode markeret.
 6. Serial Monitor efter et tryk på EN: opstartslinjerne fra ROM'en og derefter "Hej fra ESP32!".
-7. Opstillingen til øvelse 4: to lysdioder med modstande på GPIO 22 og 23.
+7. Øvelse 4 bruger standardopstillingen (lysdiode på GPIO 19) og den indbyggede lysdiode på GPIO 2.
 8. Når alt er testet: fjern IKKE KOMPILERET, denne tjekliste og TJEK-kommentarerne, gør de orange bokse til BILLEDE-kommentarer eller rigtige billeder, og sæt draft: false.
 -->
 
@@ -215,15 +215,11 @@ Læg mærke til:
 1. Kør Hello World. Tryk på **EN** et par gange, og se, hvad der står i Serial Monitor hver gang. Ret teksten, så den skriver dit navn.
 2. Kør blink med `millis()`. Ret `BLINK_MS`, så lysdioden blinker hurtigt (100 ms) og langsomt (2000 ms). Hvor hurtigt kan den blinke, før du ikke længere kan se, at den blinker?
 3. Lav en tæller: hvert sekund skal programmet skrive `Tæller: 1`, `Tæller: 2` osv. i Serial Monitor med `Serial.printf()`. Brug `millis()`, ikke `delay()`. Tryk på **EN**. Hvad sker der med tælleren?
-4. Sæt to lysdioder på breadboardet: hver med en modstand på 220 Ω fra GPIO 22 og GPIO 23 til lysdiodens lange ben (anoden), og det korte ben til GND. Lad den ene blinke hvert 300 ms og den anden hvert 700 ms. Du skal bruge en `sidsteSkift` og en `ledTaendt` til hver lysdiode. Aflever koden og en kort video.
+4. Brug lysdioden på GPIO 19 fra [standardopstillingen](standardopstilling.qmd) og den indbyggede lysdiode på GPIO 2. Lad den ene blinke hvert 300 ms og den anden hvert 700 ms. Du skal bruge en `sidsteSkift` og en `ledTaendt` til hver lysdiode. Aflever koden og en kort video.
 5. *Ekstra:* Prøv at løse øvelse 4 med `delay()` i stedet. Hvordan ser koden ud, og hvad sker der, hvis tiderne ændres til 300 ms og 710 ms, eller der også skal læses en knap? Skriv to-tre linjer om forskellen.
 6. *Ekstra:* Saml koden til én lysdiode i en funktion, fx `void blink(int pin, unsigned long interval, unsigned long& sidsteSkift, bool& taendt)`, så `loop()` bare kalder den to gange. Referencerne (`&`) forklares på siden [Intro til C++](cpp_intro.qmd#referencer).
 
 <!-- TJEK: 220 Ω til lysdioderne er ikke afprøvet med lokalets lysdioder (samme TJEK som på siden om breadboard). -->
-
-::: {.billede-mangler}
-Opstillingen til øvelse 4: ESP32-DEVKIT-V1 på breadboard med to lysdioder og to modstande på GPIO 22 og 23, med korte, flade ledninger. Se lignende billeder: [ESP32IO: ESP32 - LED - Blink Without Delay](https://esp32io.com/tutorials/esp32-led-blink-without-delay).
-:::
 
 ## Typiske fejl
 

@@ -19,7 +19,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 7. Tjek, at Bin-menuen sidder som en lille knap i toppen af Parts-vinduet ved søgefeltet, og at den indeholder Import... og Save Bin (TJEK i afsnittet om Component Bin).
 8. Åbn TEC_IoT1.fzbz i 1.0.7: kommer den som en ny fane, spørger Fritzing om at gemme den, og er den der stadig efter genstart? (TJEK samme sted.)
 9. Tjek, om ESP32 DOIT DEVKIT V1 er i TEC_IoT1.fzbz, eller om den kan findes ved at søge i Parts-vinduet uden binnen (TJEK i afsnittet om ESP32-delen).
-10. Tjek, at ESP32-delen i binnen har de rigtige ben (30 ben, GND, 3V3, GPIO 18 og GPIO 19 de rigtige steder) (TJEK samme sted).
+10. Tjek, at ESP32-delen i binnen har de rigtige ben (30 ben, GND, 3V3, GPIO 33 og GPIO 19 de rigtige steder) (TJEK samme sted).
 11. Tjek, at breadboardets huller markeres grønt, når et ben sidder i dem (TJEK i eksemplet, trin 2).
 12. Tjek, at træk i midten af en ledning laver et knæk (ikke en kurve) med standardindstillingerne, og at dobbeltklik også laver et knæk (TJEK i eksemplet, trin 6).
 13. Tjek, at endepunkterne på en ledning er grønne, når de er forbundet, og røde, når de ikke er (TJEK i afsnittet "Er ledningen forbundet?").
@@ -147,13 +147,13 @@ Parts-vinduet med Bin-menuen åben og *Import...* markeret, og bagefter TEC_IoT1
 
 Fritzings Core-bin har ingen ESP32-boards. En del til ESP32 DOIT DEVKIT V1 (30 ben) findes som en del, brugere har lavet og delt på Fritzings forum. Brug den del, der ligger i TEC_IoT1.fzbz, så alle i klassen tegner med den samme.
 
-<!-- TJEK: om ESP32 DOIT DEVKIT V1 ligger i TEC_IoT1.fzbz, eller om den kan findes ved at søge på "ESP32" uden binnen (Core-binnen core.fzb i fritzing-parts har ingen ESP32-dele; hele del-biblioteket er ikke gennemsøgt). Tjek også, at delen har 30 ben, og at 3V3, GND, GPIO 18 og GPIO 19 sidder de rigtige steder: den udbredte forum-del havde fejl i benenes navne i sin første udgave. -->
+<!-- TJEK: om ESP32 DOIT DEVKIT V1 ligger i TEC_IoT1.fzbz, eller om den kan findes ved at søge på "ESP32" uden binnen (Core-binnen core.fzb i fritzing-parts har ingen ESP32-dele; hele del-biblioteket er ikke gennemsøgt). Tjek også, at delen har 30 ben, og at 3V3, GND, GPIO 33 og GPIO 19 sidder de rigtige steder: den udbredte forum-del havde fejl i benenes navne i sin første udgave. -->
 
 ## Eksempel: tegn en opstilling
 
-Her tegnes knappen fra [Debouncing](debouncing.qmd): en trykknap mellem **GPIO 18** og **GND**. Den interne pull-up bruges, så der er ingen modstand.
+Her tegnes knappen fra [Debouncing](debouncing.qmd) og [standardopstillingen](standardopstilling.qmd): en trykknap mellem **GPIO 33** og **GND**. Den interne pull-up bruges, så der er ingen modstand.
 
-1. **Nyt projekt:** *File → New*. Gå til fanen **Breadboard**. Der ligger allerede et breadboard. Gem med det samme (*File → Save*), fx som `knap_gpio18.fzz`.
+1. **Nyt projekt:** *File → New*. Gå til fanen **Breadboard**. Der ligger allerede et breadboard. Gem med det samme (*File → Save*), fx som `knap_gpio33.fzz`.
 2. **ESP32:** Træk ESP32-DEVKIT-V1 fra TEC_IoT1-binnen hen over renden på breadboardet, ligesom på dit rigtige board. Benene skal sidde i hullerne: når en del sidder rigtigt, bliver de huller, den er forbundet til, markeret med grønt.
 
    <!-- TJEK: at breadboardets huller markeres grønt i 1.0.7, når et ben sidder i dem. -->
@@ -162,19 +162,19 @@ Her tegnes knappen fra [Debouncing](debouncing.qmd): en trykknap mellem **GPIO 1
 4. **Ledninger:** Træk med musen fra et hul (eller et ben) til et andet. Så laves der en ledning. Lav:
    - en ledning fra **GND** på ESP32 til den blå strømskinne
    - en ledning fra den blå skinne til det ene af knappens ben
-   - en ledning fra det diagonale ben på knappen til **GPIO 18**
-5. **Farver:** Højreklik på hver ledning, og vælg **Wire Color**. Brug samme farvekode som på [Breadboard](breadboard.qmd): **rød** til 3,3 V, **sort** til GND, og en anden farve, fx gul, til signalet på GPIO 18.
+   - en ledning fra det diagonale ben på knappen til **GPIO 33**
+5. **Farver:** Højreklik på hver ledning, og vælg **Wire Color**. Brug samme farvekode som på [Breadboard](breadboard.qmd): **rød** til 3,3 V, **sort** til GND, og en anden farve, fx gul, til signalet på GPIO 33.
 6. **Knæk på ledningen:** Træk i midten af en ledning for at lave et knæk ([bendpoint]{lang="en"}), så ledningen kan gå i rette vinkler, ligesom på boardet. Bliver ledningen buet i stedet, så fortryd (Ctrl+Z) og træk uden at holde Ctrl nede, eller dobbeltklik på ledningen for at lave et knæk.
 
    <!-- TJEK: i 1.0.7, at træk i midten af en ledning laver et knæk med standardindstillingerne, og at dobbeltklik også laver et knæk (wire.cpp: buede ledninger, "curvy wires", afhænger af en modifier-tast eller en indstilling under Preferences). -->
 
 7. **Tjek forbindelserne:** Zoom ind, og se, at begge ender af hver ledning er grønne (se nedenfor).
 8. **Sammenlign** tegningen med dit rigtige board, hul for hul. Er der forskel, så ret enten tegningen eller boardet.
-9. **Kig i Schematic:** Skift til fanen Schematic. Du ser symbolerne for ESP32 og knappen med stiplede linjer imellem. De bekræfter, at knappen er forbundet til GPIO 18 og GND.
+9. **Kig i Schematic:** Skift til fanen Schematic. Du ser symbolerne for ESP32 og knappen med stiplede linjer imellem. De bekræfter, at knappen er forbundet til GPIO 33 og GND.
 10. **Gem** igen, og eksportér et billede (se nedenfor).
 
 ::: {.billede-mangler}
-Den færdige knap-opstilling i Breadboard-visningen: ESP32-DEVKIT-V1 over renden, knappen med to diagonale ben, sort ledning til GND og gul ledning til GPIO 18. Se lignende billeder: [Random Nerd Tutorials: ESP32 External Wake Up from Deep Sleep](https://randomnerdtutorials.com/esp32-external-wake-up-deep-sleep/) (knap på GPIO 33, men med pull-down-modstand).
+Den færdige knap-opstilling i Breadboard-visningen: ESP32-DEVKIT-V1 over renden, knappen med to diagonale ben, sort ledning til GND og gul ledning til GPIO 33. Se lignende billeder: [Random Nerd Tutorials: ESP32 External Wake Up from Deep Sleep](https://randomnerdtutorials.com/esp32-external-wake-up-deep-sleep/) (knap på GPIO 33, men med pull-down-modstand).
 :::
 
 ::: {.billede-mangler}
@@ -203,14 +203,14 @@ Fritzing gemmer tegningen som en `.fzz`-fil. Den kan kun åbnes i Fritzing. Til 
 1. Gå til den visning, du vil eksportere (normalt Breadboard). Kun den aktuelle visning eksporteres.
 2. Vælg *File → Export → as Image* og så **PNG...** eller **SVG...**.
 3. Vælger du PNG, spørger Fritzing om opløsningen i dpi. Standarden er 270 dpi. Vælg 300 dpi eller mere, så ledninger og bennavne er skarpe.
-4. Gem billedet i samme mappe som din logbog, fx `images/knap_gpio18.png`.
+4. Gem billedet i samme mappe som din logbog, fx `images/knap_gpio33.png`.
 
 SVG er vektorgrafik: streger og tekst forbliver skarpe, uanset hvor meget man zoomer. (Nogle dele, som brugerne selv har lavet, har dog et almindeligt billede indbygget, og det kan blive sløret.) PNG er det sikre valg, hvis du er i tvivl, fordi alle programmer kan vise det.
 
 I en markdown- eller Quarto-logbog sætter du billedet ind sådan:
 
 ```{.markdown filename="logbog.qmd"}
-![Knap på GPIO 18 til GND, tegnet i Fritzing](images/knap_gpio18.png){fig-alt="ESP32-DEVKIT-V1 på et breadboard med en trykknap mellem GPIO 18 og GND"}
+![Knap på GPIO 33 til GND, tegnet i Fritzing](images/knap_gpio33.png){fig-alt="ESP32-DEVKIT-V1 på et breadboard med en trykknap mellem GPIO 33 og GND"}
 ```
 
 Aflever også `.fzz`-filen, når du afleverer et projekt. Så kan læreren åbne tegningen og se alle forbindelserne.
@@ -226,7 +226,7 @@ Menuen *File → Export → as Image* og dialogen, hvor opløsningen (dpi) vælg
 ## Øvelser
 
 1. Installér Fritzing, og åbn TEC_IoT1.fzbz. Gem binnen, luk Fritzing, og start det igen. Er binnen der stadig?
-2. Tegn opstillingen fra [Debouncing](debouncing.qmd) (knap på GPIO 18 til GND), som beskrevet i eksemplet. Tjek, at alle ledningsender er grønne. Eksportér som PNG, og sæt billedet ind i din logbog.
+2. Tegn opstillingen fra [Debouncing](debouncing.qmd) (knap på GPIO 33 til GND), som beskrevet i eksemplet. Tjek, at alle ledningsender er grønne. Eksportér som PNG, og sæt billedet ind i din logbog.
 3. Tegn opstillingen fra [Lysdioder](lysdioder.qmd): en lysdiode med en formodstand på 220 Ω fra GPIO 19 til GND. Sæt modstandens værdi og lysdiodens farve i Inspector, så de passer til dine dele. Vend lysdioden rigtigt (det lange ben, anoden, mod modstanden). Se [Modstande](modstande.qmd), hvis du er i tvivl om værdien.
 4. Kig på opstillingen fra øvelse 3 i Schematic-visningen. Træk ledninger langs de stiplede linjer, så diagrammet bliver pænt, og eksportér også det som billede.
 5. Byt `.fzz`-fil med en makker. Byg makkerens opstilling på dit eget board kun ud fra tegningen. Virker den? Hvis ikke: var fejlen i tegningen eller i opbygningen?

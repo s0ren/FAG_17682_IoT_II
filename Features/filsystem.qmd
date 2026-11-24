@@ -16,7 +16,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 4. Lukker PlatformIO selv Serial Monitor før Upload Filesystem Image (TJEK under Typiske fejl)? Hvis ja, kan trin 1 og rådet i Typiske fejl forkortes.
 5. Upload data/hilsen.txt med Upload Filesystem Image, og kør eksemplet "Filer fra data/-mappen".
 6. Bekræft, at Upload Filesystem Image sletter filer, programmet selv har skrevet, fx /log.txt fra eksempel 1 (TJEK efter advarslen).
-7. Kør cache-eksemplet: træk jumperen fra GPIO 18 til GND, vent et par målinger, fjern den igen. Bliver cachen sendt i rigtig rækkefølge og slettet? Overlever cachen et tryk på EN, mens jumperen sidder i?
+7. Kør cache-eksemplet: hold knappen på GPIO 33 nede (eller sæt en ledning fra GPIO 33 til GND) et par målinger, og slip. Bliver cachen sendt i rigtig rækkefølge og slettet? Overlever cachen et tryk på EN, mens knappen holdes nede?
 8. Prøv board_build.partitions = no_ota.csv: stiger totalBytes() til omkring 1,9 MB? Skal filsystemet formateres igen (begin(true) gør det)?
 Skærmbilleder, der mangler (se BILLEDE-kommentarerne):
 9. Explorer med data/-mappen ved siden af src/. 10. Project Tasks med Platform → Upload Filesystem Image. 11. Serial Monitor under cache-eksemplet, hvor netværket forsvinder og kommer igen.
@@ -42,7 +42,7 @@ Siden arbejder med målpind 17, 19 og 22 (se [Læringsmål](../laeringsmaal.qmd)
 
 - Du kan oprette et PlatformIO-projekt til ESP32-DEVKIT-V1, uploade og åbne Serial Monitor (se [PlatformIO](../Grundlag/platformio.qmd)).
 - Du kender `millis()` i stedet for `delay()` (se [Debouncing](../Grundlag/debouncing.qmd)).
-- Til cache-eksemplet: en ledning ([jumper]{lang="en"}), der kan sættes mellem GPIO 18 og GND. Den bruges til at lade, som om netværket forsvinder.
+- Til cache-eksemplet: [standardopstillingen](../Grundlag/standardopstilling.qmd). Knappen på GPIO 33 bruges til at lade, som om netværket forsvinder. Vil du ikke holde den nede, så sæt en ledning ([jumper]{lang="en"}) fra GPIO 33 til GND i stedet.
 - Til øvelse 6: [WiFi](../Grundlag/wifi.qmd) og [Lokal MQTT server](lokal_mqtt.qmd).
 
 ## Flash, partitioner og filsystem
@@ -402,7 +402,7 @@ Programmet laver en (simuleret) temperaturmåling hvert 5. sekund og bygger en J
 - Er netværket der, sendes først det, der ligger i cachen, og derefter den nye måling. Så bevares rækkefølgen.
 - Mangler netværket, tilføjes målingen til `/cache.jsonl`.
 
-For at kunne afprøve det uden en server lader programmet, som om netværket er nede, når GPIO 18 er forbundet til GND med en ledning. "Afsendelse" er bare en udskrift i Serial Monitor. De to funktioner `netvaerkOk()` og `sendMaaling()` er de eneste, du skal skifte ud for at bruge rigtig WiFi og MQTT (øvelse 6).
+For at kunne afprøve det uden en server lader programmet, som om netværket er nede, så længe GPIO 33 er forbundet til GND: mens knappen i [standardopstillingen](../Grundlag/standardopstilling.qmd) holdes nede, eller mens en ledning sidder fra GPIO 33 til GND. "Afsendelse" er bare en udskrift i Serial Monitor. De to funktioner `netvaerkOk()` og `sendMaaling()` er de eneste, du skal skifte ud for at bruge rigtig WiFi og MQTT (øvelse 6).
 
 ```{.ini filename="platformio.ini"}
 [env:esp32doit-devkit-v1]
@@ -418,7 +418,7 @@ board_build.filesystem = littlefs
 #include <LittleFS.h>
 
 // Konfiguration
-const int NET_PIN = 18;                        // ledning til GND = "netværket er nede"
+const int NET_PIN = 33;                        // knap (eller ledning) til GND = "netværket er nede"
 const unsigned long MAALE_INTERVAL_MS = 5000;  // kort interval, så man kan følge med
 const char *CACHE_FIL = "/cache.jsonl";        // én JSON-linje pr. måling
 const size_t MIN_LEDIG_BYTES = 16 * 1024;      // gem ikke mere, når pladsen er under dette
@@ -427,7 +427,7 @@ unsigned long sidsteMaaling = 0;
 
 // Simuleret netværk. Skiftes ud med fx WiFi.status() == WL_CONNECTED.
 bool netvaerkOk() {
-  return digitalRead(NET_PIN) == HIGH;  // pull-up: HIGH, når ledningen ikke sidder i
+  return digitalRead(NET_PIN) == HIGH;  // pull-up: HIGH, når knappen ikke er trykket
 }
 
 // Simuleret afsendelse. Skiftes ud med fx en MQTT-publish.
@@ -539,7 +539,7 @@ void loop() {
 ```
 
 ::: {.billede-mangler}
-Serial Monitor under cache-eksemplet: et par "Sendt", derefter "Cachet" mens ledningen sidder i, og til sidst "Sendt" for de cachede målinger og "Cachen er tømt". Se lignende billeder: <https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2023/07/ESP32-LittleFS-Append-Data.png?quality=100&strip=all&ssl=1> (RNT: append og read til en LittleFS-fil; ikke cache med netværk)
+Serial Monitor under cache-eksemplet: et par "Sendt", derefter "Cachet" mens knappen holdes nede, og til sidst "Sendt" for de cachede målinger og "Cachen er tømt". Se lignende billeder: <https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2023/07/ESP32-LittleFS-Append-Data.png?quality=100&strip=all&ssl=1> (RNT: append og read til en LittleFS-fil; ikke cache med netværk)
 :::
 
 Sådan virker det:
@@ -554,7 +554,7 @@ Sådan virker det:
 1. Kør eksemplet *læs, skriv og tilføj*. Tryk på **EN** fem gange. Hvor stor er `/log.txt` nu, og passer det med 15 bytes pr. linje? Hvor meget plads er brugt?
 2. Ret `FILE_APPEND` til `FILE_WRITE` i `tilfoejLinje()`, og upload. Hvad sker der med loggen? Ret det tilbage. Upload derefter et helt andet program (fx testprogrammet fra [PlatformIO](../Grundlag/platformio.qmd)) og så dette igen. Er tælleren nulstillet?
 3. Lav `data/hilsen.txt`, og kør eksemplet *filer fra data/-mappen*. Upload derefter eksemplet fra øvelse 1 igen uden at uploade filsystemet. Findes `hilsen.txt` stadig? Kør så **Upload Filesystem Image** igen. Hvad skete der med `/log.txt`?
-4. Kør cache-eksemplet. Sæt ledningen fra GPIO 18 til GND i et halvt minut, og fjern den igen. Kommer målingerne frem i den rigtige rækkefølge? Gentag, men tryk på **EN**, mens ledningen sidder i. Overlever cachen genstarten?
+4. Kør cache-eksemplet. Hold knappen nede (eller sæt en ledning fra GPIO 33 til GND) i et halvt minut, og slip igen. Kommer målingerne frem i den rigtige rækkefølge? Gentag, men tryk på **EN**, mens knappen holdes nede. Overlever cachen genstarten?
 5. Regn ud: hvor mange bytes fylder én linje i cachen? Hvor mange målinger kan filsystemet rumme med `default.csv` og `MIN_LEDIG_BYTES`? Hvor længe kan ESP32 være uden net, hvis den måler én gang i minuttet? Og hvis den måler hvert sekund, hvad betyder det så for sliddet på flashen?
 6. *Ekstra:* Skift `netvaerkOk()` og `sendMaaling()` ud med rigtig WiFi og MQTT (se [WiFi](../Grundlag/wifi.qmd) og [Lokal MQTT server](lokal_mqtt.qmd)), så målingerne sendes til brokeren. Afprøv det ved at slukke brokeren eller access pointet.
 7. *Ekstra:* Skift til `board_build.partitions = no_ota.csv`. Hvor meget plads er der nu i filsystemet? Hvad sker der med filerne fra før?

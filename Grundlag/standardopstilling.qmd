@@ -1,0 +1,202 @@
+---
+title: "Standardopstillingen"
+subtitle: "Én opstilling til næsten alle sider"
+date: 2026-11-24
+maalpinde: [9, 18, 24]
+draft: false
+---
+
+<!-- IKKE KOMPILERET: testprogrammet er tjekket mod dokumentationen, men ikke kompileret eller testet på hardware. Opstillingen er ikke bygget. -->
+
+<!--
+TJEKLISTE TIL LÆREREN (afprøves, før IKKE KOMPILERET og TJEK-kommentarerne fjernes):
+1. Byg opstillingen efter byggevejledningen på lokalets boards. Passer trinene, og er der plads til alt?
+2. TJEK: rækkefølgen af benene på lokalets ESP32-DEVKIT-V1 (30 ben). Siden går ud fra, at GPIO 32 og 33 sidder i samme side som VIN, og GPIO 19 i samme side som 3V3.
+3. Kør testprogrammet: lysdioden på GPIO 19 lyser, mens knappen holdes nede, den indbyggede lysdiode blinker, og potentiometerets spænding går fra ca. 0 til ca. 3100 mV.
+4. Lav Fritzing-diagrammet (Breadboard- og Schematic-visning), gem .fzz-filen, og eksportér et PNG. Indsæt billedet, og læg .fzz-filen på ItsLearning (LÆRER-pladsholder).
+5. Tag fotoene i de orange bokse.
+6. Fjern IKKE KOMPILERET, tjeklisten og TJEK-kommentarerne, når alt er afprøvet.
+-->
+
+Næsten alle ESP32-programmer på sitet skal bruge en knap, en lysdiode eller et potentiometer. I stedet for at bygge noget nyt til hver side bygger du **én opstilling**, der har alle tre, og lader den sidde. Siderne bruger de samme ben, så du kan gå direkte til koden. Siden her viser, hvad opstillingen består af, hvordan du bygger den, og hvordan du tester, at den virker.
+
+## Formål
+
+- Du kan bygge standardopstillingen på breadboard efter en vejledning.
+- Du ved, hvilke ben knappen, lysdioden og potentiometeret sidder på, og hvorfor netop de ben er valgt.
+- Du kan teste opstillingen med et lille program, før du bruger den på de andre sider.
+
+## Målpinde
+
+Siden arbejder med målpind 9, 18 og 24 (se [Læringsmål](../laeringsmaal.qmd)).
+
+## Forudsætninger
+
+- [Breadboard](breadboard.qmd): hvordan hullerne er forbundet, og hvordan du bygger pænt med korte ledninger.
+- [PlatformIO](platformio.qmd): oprette et projekt, uploade og åbne Serial Monitor.
+- Komponenterne forklares på [Knapper](knapper.qmd), [Lysdioder](lysdioder.qmd), [Modstande](modstande.qmd) og [Potentiometer](potentiometer.qmd).
+
+## Komponenter
+
+| Antal | Komponent |
+|---|---|
+| 1 | ESP32-DEVKIT-V1 (30 ben) |
+| 1 eller 2 | Breadboard (se [Breadboard](breadboard.qmd#esp32-devkit-v1-er-bred)) |
+| 1 | Trykknap (4 ben) |
+| 1 | Lysdiode, fx rød |
+| 1 | Modstand 220 Ω (rød-rød-brun) |
+| 1 | Drejepotentiometer, fx 10 kΩ |
+| | Ledning, 22 AWG massiv kerne |
+
+<!-- LÆRER: hvilke komponenter der ligger i elevernes kasser (lysdiodens farve, potentiometerets værdi). -->
+
+## Benene
+
+| Del | Ben | Hvorfor dette ben? |
+|---|---|---|
+| Knap til GND | **GPIO 33** | Har intern pull-up, så der skal ingen modstand til. Er en RTC-GPIO, så knappen også kan vække ESP32 fra [deep sleep](../Features/deep_sleep.qmd) |
+| Lysdiode med 220 Ω til GND | **GPIO 19** | Et almindeligt output-ben uden særlige funktioner ved opstart |
+| Potentiometerets midterben | **GPIO 32** | Ligger på ADC1, som kan måle, mens WiFi er tændt (det kan ADC2 ikke) |
+| Indbygget lysdiode | GPIO 2 | Sidder allerede på kortet |
+
+Ingen af de tre ben er [strapping pins]{lang="en"} (0, 2, 5, 12, 15), så opstillingen påvirker ikke, hvordan ESP32 starter. Vil du sætte flere ting på, er GPIO 18, 21, 22, 23, 25, 26 og 27 gode valg. Brug kun 25–27 til digitale ben, hvis programmet også bruger WiFi.
+
+## Byggevejledning
+
+Byg med USB-kablet taget ud. Brug samme farver som på [Breadboard](breadboard.qmd): **rød** til 3,3 V, **sort** til GND, og en farve pr. signal, fx **gul** til knappen, **grøn** til lysdioden og **blå** til potentiometeret.
+
+På ESP32-DEVKIT-V1 sidder GPIO 32 og 33 i samme side som **VIN**, og GPIO 19 i samme side som **3V3**. Der er GND i begge sider. Opstillingen bruger derfor begge sider af modulet: knap og potentiometer i VIN-siden, lysdioden i 3V3-siden.
+
+<!-- TJEK: rækkefølgen af benene på lokalets kort (30 ben). Fra USB-stikket og op: VIN-siden VIN, GND, D13, D12, D14, D27, D26, D25, D33, D32, D35, D34, VN, VP, EN; 3V3-siden 3V3, GND, D15, D2, D4, RX2, TX2, D5, D18, D19, D21, RX0, TX0, D22, D23. Kilde: Random Nerd Tutorials' pinout for DOIT DEVKIT V1 med 30 GPIO'er. Kloner kan afvige. -->
+
+1. **ESP32:** Sæt modulet hen over renden, eller over to boards (se [Breadboard](breadboard.qmd#esp32-devkit-v1-er-bred)), så der er frie huller ud for benene i begge sider.
+2. **Strøm:** En kort rød ledning fra **3V3** til den røde skinne og en kort sort ledning fra **GND** (3V3-siden) til den blå skinne. Skal potentiometeret have 3,3 V i den anden side, så sæt en rød og en sort ledning over til skinnerne dér.
+3. **Knappen:** Sæt trykknappen hen over renden i VIN-siden. Brug to ben, der sidder **diagonalt** over for hinanden. En gul ledning fra det ene ben til **GPIO 33** og en sort fra det andet til GND-skinnen.
+4. **Lysdioden:** I 3V3-siden: en grøn ledning fra **GPIO 19** til en ledig række. Sæt modstanden på 220 Ω fra den række til en ny række. Sæt lysdiodens **lange ben** (anoden) i samme række som modstandens andet ben, og det **korte ben** (katoden) i en tredje række. En sort ledning fra katodens række til GND-skinnen.
+5. **Potentiometeret:** Sæt det, så de tre ben sidder i hver sin række. Det ene yderben til 3,3 V-skinnen (rød), det andet yderben til GND-skinnen (sort), og midterbenet til **GPIO 32** (blå). Aldrig 5 V eller VIN.
+6. **Kontrollér:** Følg hver ledning med fingeren, og sig højt, hvad den forbinder. Sammenlign med tabellen over benene. Først derefter sætter du USB i.
+
+<!-- LÆRER: om I bygger på ét eller to boards, og hvor på boardet delene skal sidde. -->
+
+::: {.billede-mangler}
+Fritzing-diagram af standardopstillingen i Breadboard-visningen: ESP32-DEVKIT-V1, knap på GPIO 33, lysdiode med 220 Ω på GPIO 19 og potentiometer på GPIO 32, med farvekoden fra siden. Tegnes som beskrevet på [Fritzing](fritzing.qmd). Se lignende billeder: [Random Nerd Tutorials: ESP32 ADC](https://randomnerdtutorials.com/esp32-adc-analog-read-arduino-ide/) (potentiometer på GPIO 34).
+:::
+
+::: {.billede-mangler}
+Samme diagram i Schematic-visningen, så forbindelserne kan læses uden at følge ledninger.
+:::
+
+::: {.billede-mangler}
+Foto af den færdige opstilling set ovenfra, så alle ledninger kan følges.
+:::
+
+<!-- LÆRER: link til .fzz-filen med standardopstillingen på ItsLearning. -->
+
+## Eksempel: test af opstillingen
+
+Programmet tester alle dele på én gang: lysdioden på GPIO 19 lyser, mens knappen holdes nede, den indbyggede lysdiode blinker, så du kan se, at programmet kører, og potentiometerets spænding skrives i Serial Monitor to gange i sekundet.
+
+```{.ini filename="platformio.ini"}
+[env:esp32doit-devkit-v1]
+platform = espressif32@8.0.0
+board = esp32doit-devkit-v1
+framework = arduino
+monitor_speed = 115200
+```
+
+```{.cpp filename="src/main.cpp"}
+#include <Arduino.h>
+
+// Standardopstillingen
+const int KNAP_PIN = 33;        // knap mellem GPIO 33 og GND
+const int LED_PIN = 19;         // lysdiode via 220 Ω til GND
+const int POT_PIN = 32;         // potentiometerets midterben (ADC1)
+const int INDBYGGET_LED = 2;    // lysdioden på kortet
+
+const unsigned long BLINK_MS = 500;   // den indbyggede lysdiode blinker
+const unsigned long UDSKRIFT_MS = 500; // så ofte skrives målingen
+
+unsigned long sidsteBlink = 0;
+unsigned long sidsteUdskrift = 0;
+bool indbyggetTaendt = false;
+
+void setup() {
+  Serial.begin(115200);
+  pinMode(KNAP_PIN, INPUT_PULLUP);   // intern pull-up: trykket = LOW
+  pinMode(LED_PIN, OUTPUT);
+  pinMode(INDBYGGET_LED, OUTPUT);
+  Serial.println("Test af standardopstillingen");
+}
+
+void loop() {
+  unsigned long nu = millis();
+
+  // Knap -> lysdiode: ingen debouncing, fordi lysdioden bare følger knappen
+  bool trykket = (digitalRead(KNAP_PIN) == LOW);
+  digitalWrite(LED_PIN, trykket ? HIGH : LOW);
+
+  // Den indbyggede lysdiode viser, at loop() kører
+  if (nu - sidsteBlink >= BLINK_MS) {
+    sidsteBlink = nu;
+    indbyggetTaendt = !indbyggetTaendt;
+    digitalWrite(INDBYGGET_LED, indbyggetTaendt ? HIGH : LOW);
+  }
+
+  // Potentiometer og knap i Serial Monitor
+  if (nu - sidsteUdskrift >= UDSKRIFT_MS) {
+    sidsteUdskrift = nu;
+    Serial.printf("Potentiometer: %4u mV   Knap: %s\n",
+                  analogReadMilliVolts(POT_PIN),
+                  trykket ? "trykket" : "-");
+  }
+}
+```
+
+Sådan skal det se ud i Serial Monitor, når du drejer på potentiometeret og trykker på knappen:
+
+```{.default}
+Test af standardopstillingen
+Potentiometer:  142 mV   Knap: -
+Potentiometer: 1655 mV   Knap: -
+Potentiometer: 1658 mV   Knap: trykket
+Potentiometer: 3098 mV   Knap: -
+```
+
+- `INPUT_PULLUP` slår den interne pull-up til, så knappen læses som `HIGH`, når den ikke er trykket, og `LOW`, når den er. Se [Knapper](knapper.qmd).
+- `analogReadMilliVolts()` giver spændingen i millivolt, regnet om med kortets kalibrering. ADC'en kan som standard kun måle op til ca. 3100 mV, så i den ene ende står tallet stille. Se [Potentiometer](potentiometer.qmd).
+- Begge tidsstyrede ting bruger `millis()`, så knappen aflæses hele tiden. Se [Hello World](hello_world.qmd).
+
+## Øvelser
+
+1. Byg opstillingen, og kør testprogrammet. Virker alle tre dele? Tag et billede af dit board ovenfra til din logbog.
+2. Drej potentiometeret helt i begge ender. Hvilke tal får du? Bytter du om på de to yderben, vender retningen så om?
+3. Ret programmet, så lysdioden på GPIO 19 tænder, når potentiometeret står over 1650 mV, og knappen ikke bruges.
+4. Tegn opstillingen i Fritzing (se [Fritzing](fritzing.qmd)), og sammenlign diagrammet med dit board, ledning for ledning.
+
+## Typiske fejl
+
+- **Lysdioden lyser aldrig:** den vender forkert (langt ben mod GPIO 19 via modstanden, kort ben mod GND), eller modstanden og lysdioden sidder ikke i samme række.
+- **Knappen gør ingenting, eller lysdioden lyser hele tiden:** knappen sidder på to ben, der altid er forbundet. Brug to diagonale ben.
+- **Potentiometeret viser altid 0 eller altid ca. 3100 mV:** et yderben mangler 3,3 V eller GND, eller midterbenet sidder ikke på GPIO 32. Tjek, at skinnerne har strøm i den side, potentiometeret sidder i.
+- **ESP32 genstarter, når du drejer på potentiometeret:** 3,3 V og GND er kortsluttet via midterbenet. Det sker, hvis midterbenet sidder direkte på en skinne. Sluk, og ret koblingen.
+- **Upload fejler, efter du har bygget:** tag ledningerne fra GPIO 33, 32 og 19 af én ad gangen, og prøv igen. Opstillingen bruger ingen strapping pins, så det skyldes oftest en kortslutning eller et forkert ben.
+
+## Sider, der bruger opstillingen
+
+| Side | Bruger |
+|---|---|
+| [Hello World](hello_world.qmd) (øvelse 4) | lysdiode på GPIO 19 |
+| [Debouncing](debouncing.qmd) | knap på GPIO 33 |
+| [Knapper](knapper.qmd) | knap på GPIO 33 |
+| [Lysdioder](lysdioder.qmd) | lysdiode på GPIO 19 (RGB og trafiklys bygges oven i) |
+| [Potentiometer](potentiometer.qmd) | potentiometer på GPIO 32 |
+| [Deep sleep](../Features/deep_sleep.qmd) | knap på GPIO 33 |
+| [Filsystem](../Features/filsystem.qmd) | knap på GPIO 33 (simulerer, at netværket er nede) |
+| [Intro til MQTT](../Features/mqtt_intro.qmd) | potentiometer på GPIO 32 |
+
+## Kilder
+
+- Arduino-ESP32: GPIO (`pinMode`, `INPUT_PULLUP`), <https://docs.espressif.com/projects/arduino-esp32/en/latest/api/gpio.html>
+- Arduino-ESP32: ADC (`analogReadMilliVolts`), <https://docs.espressif.com/projects/arduino-esp32/en/latest/api/adc.html>
+- ESP-IDF: GPIO og RTC-GPIO på ESP32, <https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/gpio.html>
+- Random Nerd Tutorials: ESP32 Pinout Reference, <https://randomnerdtutorials.com/esp32-pinout-reference-gpios/>

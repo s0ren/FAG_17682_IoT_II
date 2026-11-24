@@ -41,7 +41,7 @@ Løsningen er at vente, til signalet har været stabilt et stykke tid, før man 
 
 ## Kobling
 
-Knappen sættes mellem **GPIO 18** og **GND**. Der skal ikke bruges en modstand, fordi ESP32 har en intern pull-up-modstand, som man slår til i programmet:
+Knappen sættes mellem **GPIO 33** og **GND**, som i [standardopstillingen](standardopstilling.qmd). Der skal ikke bruges en modstand, fordi ESP32 har en intern pull-up-modstand, som man slår til i programmet:
 
 - Knappen er *ikke trykket*: pull-up-modstanden trækker benet op, og det læses som `HIGH`.
 - Knappen er *trykket*: benet forbindes til GND og læses som `LOW`.
@@ -73,7 +73,7 @@ monitor_speed = 115200
 #include <Arduino.h>
 
 // Konfiguration
-const int KNAP_PIN = 18;   // knap mellem GPIO 18 og GND
+const int KNAP_PIN = 33;   // knap mellem GPIO 33 og GND
 
 int forrigeTilstand = HIGH;  // HIGH = ikke trykket (pull-up)
 unsigned long antalTryk = 0;
@@ -115,7 +115,7 @@ lib_deps = arduinogetstarted/ezButton@^1.0.6
 #include <ezButton.h>
 
 // Konfiguration
-const int KNAP_PIN = 18;               // knap mellem GPIO 18 og GND
+const int KNAP_PIN = 33;               // knap mellem GPIO 33 og GND
 const unsigned long DEBOUNCE_MS = 50;  // hvor længe signalet skal være stabilt
 
 ezButton knap(KNAP_PIN);  // bruger INPUT_PULLUP, når der ikke angives andet
@@ -153,7 +153,7 @@ Man kan debounce ved at vente med `delay(50)` efter et tryk. Men mens `delay()` 
 1. Kør eksemplet *uden debouncing*. Tryk ti gange, og skriv ned, hvor mange tryk programmet tæller. Prøv også at trykke meget let og meget hårdt.
 2. Kør eksemplet *med ezButton*. Gentag de ti tryk. Prøv derefter med `DEBOUNCE_MS` sat til 0, 5, 50 og 500. Hvad sker der ved 0? Og hvad mærker du ved 500, hvis du trykker hurtigt flere gange i træk?
 3. Lad knappen tænde og slukke den indbyggede lysdiode på GPIO 2: hvert tryk skifter mellem tændt og slukket.
-4. Tilføj en knap mere på GPIO 19, så den ene tænder og den anden slukker lysdioden. Brug to `ezButton`-objekter.
+4. Tilføj en knap mere på GPIO 18, så den ene tænder og den anden slukker lysdioden. Brug to `ezButton`-objekter.
 5. *Ekstra:* Skeln mellem et kort og et langt tryk (over ét sekund). Gem `millis()`, når `isPressed()` er sand, og beregn trykkets længde, når `isReleased()` er sand.
 6. *Ekstra:* Prøv eksemplet *med debouncing* fra artiklen om interrupts (se [Debouncing med interrupts](#debouncing-med-interrupts)). Tæller det, når du trykker, når du slipper, eller hele tiden? Ret interrupt-typen, så der tælles ved trykket, og forklar hvorfor. Prøv derefter at holde knappen nede i et par sekunder, før du slipper: tælles der stadig kun én gang? Hvis ikke, hvad skyldes det, og hvordan ville ezButtons metode undgå det? (Med typen `HIGH` kører ISR'en igen og igen, så længe knappen er sluppet. Det belaster processoren, så lad det ikke køre længe.)
 
@@ -176,7 +176,7 @@ Bemærk, at en kommentar i koden siger "fra LOW til HIGH" om et tryk. Med `INPUT
 
 ### Debouncing med interrupts
 
-Random Nerd Tutorials viser en anden måde at gøre det på i [ESP32 GPIO Interrupts with Arduino IDE](https://randomnerdtutorials.com/esp32-gpio-interrupts-arduino/){lang="en"}. Her aflæser programmet ikke knappen i `loop()`. I stedet kalder ESP32 en lille funktion, en *interrupt service routine* (ISR), i det øjeblik benet skifter. Debouncingen sker i ISR'en med `millis()` og også 50 ms, men på en anden måde end ezButton: ISR'en reagerer straks på den første kant og ignorerer så nye kanter i 50 ms, mens ezButton venter, til signalet har været stabilt i 50 ms. Artiklen bruger også GPIO 18 og `INPUT_PULLUP`, så du kan bruge den samme kobling.
+Random Nerd Tutorials viser en anden måde at gøre det på i [ESP32 GPIO Interrupts with Arduino IDE](https://randomnerdtutorials.com/esp32-gpio-interrupts-arduino/){lang="en"}. Her aflæser programmet ikke knappen i `loop()`. I stedet kalder ESP32 en lille funktion, en *interrupt service routine* (ISR), i det øjeblik benet skifter. Debouncingen sker i ISR'en med `millis()` og også 50 ms, men på en anden måde end ezButton: ISR'en reagerer straks på den første kant og ignorerer så nye kanter i 50 ms, mens ezButton venter, til signalet har været stabilt i 50 ms. Artiklen bruger også GPIO 33 og `INPUT_PULLUP`, så du kan bruge den samme kobling.
 
 Læs artiklen kritisk: med `INPUT_PULLUP` giver et tryk et skift fra `HIGH` til `LOW`. Se, hvilken interrupt-type (`RISING`, `FALLING`, `HIGH` …) eksemplerne bruger, og overvej, om det passer til det (se øvelse 6).
 

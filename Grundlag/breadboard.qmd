@@ -154,12 +154,12 @@ Et pænt board er også et bedre grundlag for fejlfinding: når hver ledning kan
 
 ## Eksempel: et pænt opbygget board
 
-Her bygges en knap og en lysdiode til ESP32-DEVKIT-V1. Koblingen til knappen er den samme som på siden om [Debouncing](debouncing.qmd).
+Her bygges en knap og en lysdiode til ESP32-DEVKIT-V1. Det er de samme ben som i [standardopstillingen](standardopstilling.qmd): knappen på GPIO 33 og lysdioden på GPIO 19.
 
 1. **Sæt ESP32 i** hen over renden (eller over to boards, se ovenfor). Tryk den forsigtigt ned, så benene ikke bøjes.
 2. **Strøm til skinnerne:** én kort rød ledning fra 3V3 til den røde skinne og én kort sort ledning fra GND til den blå skinne.
 3. **Skinnerne i begge sider:** hvis du skal bruge strøm i den anden side, så sæt én rød og én sort ledning over til den anden sides skinner. Er skinnerne delt på midten, så forbind også de to halvdele.
-4. **Knappen:** sæt den hen over renden. En almindelig trykknap har fire ben, der indvendigt er forbundet to og to. Brug derfor to ben, der sidder diagonalt over for hinanden: så er du sikker på, at forbindelsen går gennem kontakten. En kort sort ledning fra det ene af de to ben til GND-skinnen, og en signalledning (fx gul) fra det andet til GPIO 18.
+4. **Knappen:** sæt den hen over renden. En almindelig trykknap har fire ben, der indvendigt er forbundet to og to. Brug derfor to ben, der sidder diagonalt over for hinanden: så er du sikker på, at forbindelsen går gennem kontakten. En kort sort ledning fra det ene af de to ben til GND-skinnen, og en signalledning (fx gul) fra det andet til GPIO 33.
 5. **Lysdioden:** en signalledning (fx grøn) fra GPIO 19 til en række, hvor formodstanden (fx 220 Ω) sidder med det ene ben. Modstandens andet ben går i en ny række sammen med lysdiodens lange ben (anode). Det korte ben (katode) sidder i sin egen række og går med en kort sort ledning til GND.
 6. **Kontrollér** opstillingen mod dit diagram, før du sætter USB i: følg hver ledning og sig højt, hvad den forbinder.
 
