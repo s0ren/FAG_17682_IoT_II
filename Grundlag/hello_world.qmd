@@ -1,0 +1,264 @@
+---
+title: "Hello World på ESP32"
+subtitle: "Det første program: Serial Monitor og en blinkende lysdiode"
+date: 2026-11-23
+maalpinde: [19, 20, 21]
+draft: true
+---
+
+<!-- IKKE KOMPILERET: eksemplerne er tjekket mod dokumentationen, men ikke kompileret eller testet på hardware. -->
+
+<!--
+TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
+1. Kompilér og upload de tre eksempler (Hello World, blink med delay(), blink med millis()) med platform = espressif32@8.0.0. Skriver de det forventede i Serial Monitor?
+2. TJEK (opstart): står der linjer som "rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)" i Serial Monitor, når der trykkes på EN? Ret eksemplet på siden, så det passer med skolens kort.
+3. TJEK (lysdioden): sidder den blå lysdiode på skolens kort på GPIO 2, og lyser den ved HIGH?
+4. TJEK (øvelse 4): passer 220 Ω til lokalets lysdioder (samme TJEK som på siden om breadboard)?
+Billeder, der mangler (se de orange bokse):
+5. ESP32-DEVKIT-V1 set ovenfra med EN, BOOT og den blå lysdiode markeret.
+6. Serial Monitor efter et tryk på EN: opstartslinjerne fra ROM'en og derefter "Hej fra ESP32!".
+7. Opstillingen til øvelse 4: to lysdioder med modstande på GPIO 22 og 23.
+8. Når alt er testet: fjern IKKE KOMPILERET, denne tjekliste og TJEK-kommentarerne, gør de orange bokse til BILLEDE-kommentarer eller rigtige billeder, og sæt draft: false.
+-->
+
+Det første program på et nyt stykke hardware er altid det samme: få det til at sige noget, og få noget til at blinke. Så ved du, at værktøjerne virker, at programmet kommer over på kortet, og at du kan se, hvad det laver. På denne side skriver du dit første program til ESP32-DEVKIT-V1. Det skriver tekst i Serial Monitor og blinker med lysdioden, der sidder på kortet.
+
+## Formål
+
+- Du kan forklare, hvad `setup()` og `loop()` gør, og hvad der sker, når ESP32 starter eller bliver nulstillet.
+- Du kan skrive tekst og tal i Serial Monitor med `Serial.println()` og `Serial.printf()`.
+- Du kan blinke med en lysdiode med `millis()` og forklare, hvorfor det er bedre end `delay()`.
+
+## Målpinde
+
+Siden arbejder med målpind 19, 20 og 21 (se [Læringsmål](../laeringsmaal.qmd)).
+
+## Forudsætninger
+
+- PlatformIO er installeret, og du kan oprette et projekt til ESP32-DEVKIT-V1, uploade og åbne Serial Monitor. Det hele står på siden om [PlatformIO](platformio.qmd), også hvad du gør, når upload fejler.
+- Hardware: ESP32-DEVKIT-V1 og et USB-kabel, der kan overføre data. Til øvelse 4 også et breadboard, to lysdioder og to modstande på 220 Ω.
+
+## setup() og loop()
+
+Et Arduino-program har ingen `main()`. I stedet skriver du to funktioner:
+
+- `setup()` kører **én gang**, når ESP32 starter. Her gør du ting klar: starter den serielle forbindelse, sætter ben op som input eller output.
+- `loop()` kører **igen og igen**, så længe der er strøm på. Når den er færdig, bliver den straks kaldt igen. Her ligger selve programmet.
+
+Programmets egentlige start er gemt i Arduino-frameworket. På ESP32 hedder den `app_main()`. Den starter en opgave ([task]{lang="en"}), `loopTask`, som kalder din `setup()` én gang og derefter din `loop()` i en uendelig løkke.
+
+### Hvad sker der ved opstart?
+
+Når du sætter strøm til, eller når du trykker på **EN**-knappen ved USB-stikket, starter ESP32 forfra:
+
+1. Et lille program, der er brændt fast i chippen (ROM-bootloaderen), kører først. Det kigger på et par ben ([strapping pins]{lang="en"}) for at se, om det skal starte dit program eller gå i upload-tilstand. Det skriver også et par linjer i Serial Monitor.
+2. En bootloader i flash finder dit program og starter det.
+3. Arduino-frameworket gør sig klar og kalder `setup()` én gang og derefter `loop()` igen og igen.
+
+Almindelige variabler starter forfra med deres startværdi. En tæller, der var nået til 57, er 0 igen efter en reset.
+
+**EN** står for *enable*. Den slukker chippen et øjeblik, og når du slipper den, starter den forfra. Det er altså reset-knappen. Den anden knap, **BOOT** (GPIO 0), bruges mest ved upload: holdes den nede ved opstart, går ESP32 i upload-tilstand (se [PlatformIO](platformio.qmd#failed-to-connect-boot-knappen)).
+
+::: {.billede-mangler}
+ESP32-DEVKIT-V1 set ovenfra med pile til knapperne EN og BOOT ved USB-stikket og til den lille blå lysdiode (GPIO 2) og den røde strømlysdiode. Se lignende billeder: [Random Nerd Tutorials: ESP32 Pinout Reference](https://randomnerdtutorials.com/esp32-pinout-reference-gpios/).
+:::
+
+## Serial: ESP32 skriver til din computer
+
+ESP32 har ingen skærm. Den nemmeste måde at se, hvad programmet laver, er at lade det skrive tekst over USB-kablet til Serial Monitor i PlatformIO.
+
+- `Serial.begin(115200);` i `setup()` starter forbindelsen med 115200 bit pr. sekund ([baud rate]{lang="en"}). Tallet skal passe med `monitor_speed = 115200` i `platformio.ini`. Ellers ser du tilfældige tegn (se [monitor_speed](platformio.qmd#monitor_speed)).
+- `Serial.print(x)` skriver `x`. `Serial.println(x)` gør det samme og skifter linje bagefter. Det virker med tekst, hele tal og kommatal.
+- `Serial.printf("…", …)` skriver tekst med værdier flettet ind, som `printf` i C eller en formatstreng i C# og Python. `%d` er et heltal, `%lu` en `unsigned long`, `%.2f` et kommatal med to decimaler, og `\n` skifter linje.
+
+```cpp
+int temperatur = 21;
+Serial.print("Temperatur: ");
+Serial.println(temperatur);                  // Temperatur: 21
+Serial.printf("Temperatur: %d\n", temperatur); // samme linje med printf
+```
+
+`Serial.printf()` findes i ESP32's Arduino-framework, men ikke på de klassiske Arduino-kort som Uno. Ser du kode fra nettet, der bygger en linje op med mange `Serial.print()`, er det derfor.
+
+## Eksempel: Hello World
+
+Opret et nyt projekt som beskrevet på siden om [PlatformIO](platformio.qmd#opret-et-projekt), og indsæt de to filer.
+
+```{.ini filename="platformio.ini"}
+[env:esp32doit-devkit-v1]
+platform = espressif32@8.0.0
+board = esp32doit-devkit-v1
+framework = arduino
+monitor_speed = 115200
+```
+
+```{.cpp filename="src/main.cpp"}
+#include <Arduino.h>
+
+void setup() {
+  Serial.begin(115200);  // skal passe med monitor_speed i platformio.ini
+  Serial.println("Hej fra ESP32!");
+}
+
+void loop() {
+  // Tom: alt sker i setup(), så teksten skrives kun én gang
+}
+```
+
+Upload programmet, og åbn Serial Monitor. Sandsynligvis ser du ingenting, fordi programmet skrev sin linje, før Serial Monitor nåede at åbne. Tryk på **EN**. Nu ser du først nogle linjer fra ROM-bootloaderen og derefter `Hej fra ESP32!`.
+
+```{.text}
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+...
+Hej fra ESP32!
+```
+
+<!-- TJEK: de præcise opstartslinjer (rst:/boot:-værdierne efter et tryk på EN) er ikke afprøvet på skolens kort. esptool-dokumentationen bekræfter kun, at ROM'en skriver en "rst:… boot:…"-linje ved 115200 baud. -->
+
+::: {.billede-mangler}
+Serial Monitor i VS Code efter et tryk på EN: opstartslinjerne fra ROM'en og til sidst "Hej fra ESP32!". Se lignende billeder: [Random Nerd Tutorials: Getting Started with VS Code and PlatformIO IDE](https://randomnerdtutorials.com/vs-code-platformio-ide-esp32-esp8266-arduino/).
+:::
+
+## Eksempel: blink med delay()
+
+Den lille blå lysdiode på DEVKIT-V1 sidder på GPIO 2. I Arduino-frameworket for dette kort hedder ben 2 også `LED_BUILTIN`. Sådan blinker man den på den simple måde:
+
+<!-- TJEK: at den blå lysdiode på skolens kort sidder på GPIO 2 og lyser ved HIGH (gælder det originale DOIT-design, men kloner kan afvige). -->
+
+```{.ini filename="platformio.ini"}
+[env:esp32doit-devkit-v1]
+platform = espressif32@8.0.0
+board = esp32doit-devkit-v1
+framework = arduino
+monitor_speed = 115200
+```
+
+```{.cpp filename="src/main.cpp"}
+#include <Arduino.h>
+
+// Konfiguration
+const int LED_PIN = 2;             // indbygget lysdiode på DEVKIT-V1 (LED_BUILTIN)
+const unsigned long BLINK_MS = 500; // tid tændt og tid slukket
+
+void setup() {
+  Serial.begin(115200);
+  pinMode(LED_PIN, OUTPUT);  // benet skal sættes op som output, før det kan tænde lysdioden
+}
+
+void loop() {
+  digitalWrite(LED_PIN, HIGH);  // tænd
+  Serial.println("Tændt");
+  delay(BLINK_MS);              // vent: her står loop() stille
+  digitalWrite(LED_PIN, LOW);   // sluk
+  Serial.println("Slukket");
+  delay(BLINK_MS);
+}
+```
+
+Det virker, og det er let at læse. Men læg mærke til, at `loop()` bruger næsten al sin tid på at vente.
+
+### Hvorfor er delay() et problem?
+
+Mens `delay()` venter, kan din `loop()` ikke lave andet. Den kan ikke læse en knap, ikke måle med en sensor og ikke svare på en besked fra netværket. Det mærker du, så snart programmet skal mere end én ting. Prøv fx at blinke med to lysdioder, den ene hvert 300 ms og den anden hvert 700 ms, med `delay()`. Det kan lade sig gøre, men koden bliver hurtigt rodet, og så snart tiderne ikke går op i hinanden, eller der skal læses en knap samtidig, holder det ikke.
+
+Det er kun *dit* program, der står stille. På ESP32 er `delay()` bygget på FreeRTOS' `vTaskDelay()`, så kun den opgave ([task]{lang="en"}), der kører `loop()`, sættes på pause. WiFi og andre opgaver i baggrunden kører videre.
+
+## Eksempel: blink med millis()
+
+`millis()` giver antallet af millisekunder, siden ESP32 startede. I stedet for at vente spørger `loop()` hver gang: "Er der gået nok tid, siden jeg sidst skiftede?" Hvis ja, skifter den lysdioden og husker tidspunktet. Hvis nej, går den bare videre. Så kører `loop()` tusindvis af gange i sekundet og kan nå at lave andre ting ind imellem.
+
+```{.ini filename="platformio.ini"}
+[env:esp32doit-devkit-v1]
+platform = espressif32@8.0.0
+board = esp32doit-devkit-v1
+framework = arduino
+monitor_speed = 115200
+```
+
+```{.cpp filename="src/main.cpp"}
+#include <Arduino.h>
+
+// Konfiguration
+const int LED_PIN = 2;              // indbygget lysdiode på DEVKIT-V1 (LED_BUILTIN)
+const unsigned long BLINK_MS = 500; // tid mellem hvert skift
+
+unsigned long sidsteSkift = 0;  // tidspunktet for sidste skift, i ms
+bool ledTaendt = false;
+
+void setup() {
+  Serial.begin(115200);
+  pinMode(LED_PIN, OUTPUT);
+}
+
+void loop() {
+  // Er der gået BLINK_MS, siden vi sidst skiftede?
+  if (millis() - sidsteSkift >= BLINK_MS) {
+    sidsteSkift = millis();
+    ledTaendt = !ledTaendt;  // skift mellem tændt og slukket
+    digitalWrite(LED_PIN, ledTaendt ? HIGH : LOW);
+    Serial.printf("%lu ms: lysdioden er %s\n", sidsteSkift, ledTaendt ? "tændt" : "slukket");
+  }
+
+  // Her er plads til andet arbejde, fx at læse en knap.
+  // Det bliver ikke forsinket af blinket.
+}
+```
+
+Læg mærke til:
+
+- Tider gemmes i `unsigned long`, samme type som `millis()` returnerer. Bruger du `int`, kan der ske fejl, når tallet bliver stort.
+- Betingelsen er skrevet som `millis() - sidsteSkift >= BLINK_MS`. Efter ca. 49 dage løber `millis()` over og starter forfra ved 0. Med en subtraktion af to `unsigned long` bliver resultatet alligevel rigtigt. Skriv den derfor altid på den måde.
+- Mønsteret er det samme, du møder på siden om [Debouncing](debouncing.qmd), hvor biblioteket ezButton bruger `millis()` på samme måde til at vente på, at knappen holder op med at prelle.
+
+## Øvelser
+
+1. Kør Hello World. Tryk på **EN** et par gange, og se, hvad der står i Serial Monitor hver gang. Ret teksten, så den skriver dit navn.
+2. Kør blink med `millis()`. Ret `BLINK_MS`, så lysdioden blinker hurtigt (100 ms) og langsomt (2000 ms). Hvor hurtigt kan den blinke, før du ikke længere kan se, at den blinker?
+3. Lav en tæller: hvert sekund skal programmet skrive `Tæller: 1`, `Tæller: 2` osv. i Serial Monitor med `Serial.printf()`. Brug `millis()`, ikke `delay()`. Tryk på **EN**. Hvad sker der med tælleren?
+4. Sæt to lysdioder på breadboardet: hver med en modstand på 220 Ω fra GPIO 22 og GPIO 23 til lysdiodens lange ben (anoden), og det korte ben til GND. Lad den ene blinke hvert 300 ms og den anden hvert 700 ms. Du skal bruge en `sidsteSkift` og en `ledTaendt` til hver lysdiode. Aflever koden og en kort video.
+5. *Ekstra:* Prøv at løse øvelse 4 med `delay()` i stedet. Hvordan ser koden ud, og hvad sker der, hvis tiderne ændres til 300 ms og 710 ms, eller der også skal læses en knap? Skriv to-tre linjer om forskellen.
+6. *Ekstra:* Saml koden til én lysdiode i en funktion, fx `void blink(int pin, unsigned long interval, unsigned long& sidsteSkift, bool& taendt)`, så `loop()` bare kalder den to gange. Referencerne (`&`) forklares på siden [Intro til C++](cpp_intro.qmd#referencer).
+
+<!-- TJEK: 220 Ω til lysdioderne er ikke afprøvet med lokalets lysdioder (samme TJEK som på siden om breadboard). -->
+
+::: {.billede-mangler}
+Opstillingen til øvelse 4: ESP32-DEVKIT-V1 på breadboard med to lysdioder og to modstande på GPIO 22 og 23, med korte, flade ledninger. Se lignende billeder: [ESP32IO: ESP32 - LED - Blink Without Delay](https://esp32io.com/tutorials/esp32-led-blink-without-delay).
+:::
+
+## Typiske fejl
+
+- **Serial Monitor er tom:** Programmet skrev, før Serial Monitor var åben. Tryk på **EN**. Eller `Serial.begin()` mangler i `setup()`.
+- **Tilfældige tegn i Serial Monitor:** `monitor_speed` i `platformio.ini` passer ikke med `Serial.begin()`.
+- **Lysdioden lyser ikke:** `pinMode(LED_PIN, OUTPUT)` mangler i `setup()`. Eller lysdioden på breadboardet sidder omvendt: det lange ben skal mod GPIO-benet.
+- **Lysdioden ser ud til at lyse svagt hele tiden, og teksten løber afsted:** `sidsteSkift = millis();` mangler. Efter de første 500 ms er betingelsen sand i hvert gennemløb, så lysdioden skifter hele tiden.
+- **Lysdioden lyser aldrig (med `millis()`):** `sidsteSkift = millis();` står uden for `if`. Så bliver forskellen aldrig 500 ms.
+- **Teksten løber afsted:** `Serial.println()` står uden for `if` i `loop()`, så den skrives tusindvis af gange i sekundet.
+- **Programmet uploader ikke:** Se fejlsøgningen på siden om [PlatformIO](platformio.qmd#usb-forbindelsen).
+
+## Læs videre
+
+### Blink without delay på ESP32
+
+ESP32IO viser i [ESP32 - LED - Blink Without Delay](https://esp32io.com/tutorials/esp32-led-blink-without-delay){lang="en"} de samme to måder at blinke på, men med en knap ved siden af, så du kan se, at `delay()`-udgaven ikke opdager alle tryk. Der er også et eksempel med to lysdioder på GPIO 21 og 22, som minder om øvelse 4.
+
+Læs den med tre forbehold:
+
+- Artiklen skriver, at `delay()` blokerer hele ESP32. Det er kun din `loop()`, der står stille; WiFi og andre opgaver kører videre (se [Hvorfor er delay() et problem?](#hvorfor-er-delay-et-problem)).
+- Koden bruger `Serial.begin(9600)`. Ret det til 115200, eller ret `monitor_speed`, så de passer sammen.
+- Knappen bliver ikke debounced, så den kan tælle for mange tryk. Se [Debouncing](debouncing.qmd).
+
+Når du er klar til mere C++, så fortsæt med [Intro til C++](cpp_intro.qmd).
+
+## Kilder
+
+- Arduino-ESP32: kildekode til `main.cpp` (`app_main()` starter `loopTask`, som kalder `setup()` og `loop()`), <https://github.com/espressif/arduino-esp32/blob/master/cores/esp32/main.cpp>
+- Arduino-ESP32: kildekode til `esp32-hal-misc.c` (`millis()` og `delay()` med `vTaskDelay()`), <https://github.com/espressif/arduino-esp32/blob/master/cores/esp32/esp32-hal-misc.c>
+- Arduino-ESP32: kildekode til `Print.h` (`println()` og `printf()`), <https://github.com/espressif/arduino-esp32/blob/master/cores/esp32/Print.h>
+- Arduino-ESP32: `pins_arduino.h` for DOIT ESP32 DEVKIT V1 (`LED_BUILTIN = 2`), <https://github.com/espressif/arduino-esp32/blob/master/variants/doitESP32devkitV1/pins_arduino.h>
+- Arduino-ESP32: Serial (UART), <https://docs.espressif.com/projects/arduino-esp32/en/latest/api/serial.html>
+- PlatformIO: board-definitionen `esp32doit-devkit-v1` (bruger varianten `doitESP32devkitV1`), <https://github.com/platformio/platform-espressif32/blob/develop/boards/esp32doit-devkit-v1.json>
+- PlatformIO: `monitor_speed`, <https://docs.platformio.org/en/latest/projectconf/sections/env/options/monitor/monitor_speed.html>
+- ESP-IDF: Application Startup Flow, <https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/startup.html>
+- esptool: Boot Mode Selection (ROM'ens opstartslinje ved 115200 baud, EN og BOOT), <https://docs.espressif.com/projects/esptool/en/latest/esp32/advanced-topics/boot-mode-selection.html>
+- Arduino: Blink Without Delay (eksemplets kildekode), <https://github.com/arduino/arduino-examples/blob/main/examples/02.Digital/BlinkWithoutDelay/BlinkWithoutDelay.ino>
+- ESP32IO: ESP32 - LED - Blink Without Delay, <https://esp32io.com/tutorials/esp32-led-blink-without-delay>

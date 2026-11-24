@@ -1,0 +1,296 @@
+---
+title: "Drejepotentiometer"
+subtitle: "Analog aflæsning med ESP32's ADC"
+date: 2026-11-23
+maalpinde: [11, 19, 23]
+draft: true
+---
+
+<!-- IKKE KOMPILERET: eksemplerne er tjekket mod dokumentationen, men ikke kompileret eller testet på hardware. -->
+
+<!--
+TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
+1. Byg koblingen (yderben til 3V3 og GND, midterben til GPIO 34), og kør eksemplet. Drej fra yderstilling til yderstilling: skifter værdien jævnt, og passer retningen med teksten?
+2. Notér, hvad de rå værdier og millivolt er helt nede og helt oppe på lokalets boards, og ret tallene i afsnittet om dæmpning og måleområde (TJEK der: siden siger 0 under ca. 0,1–0,15 V og 4095 fra ca. 3,1–3,2 V).
+3. Tjek, at lokalets potentiometre er 10 kΩ lineære, og hvordan de er mærket (TJEK i afsnittet om lineær og logaritmisk).
+4. Tjek, at analogReadMilliVolts() faktisk ligger tættere på multimeteret end formlen på lokalets boards, dvs. at chippene har kalibreringsdata i eFuse (TJEK i afsnittet om analogReadMilliVolts()).
+5. Kør eksemplet med ANTAL_MAALINGER = 1 og = 16, og se, at gennemsnittet faktisk giver roligere tal.
+6. Prøv øvelse 4 (analogWrite til en lysdiode på GPIO 18) og øvelse 6 (ledcAttach/ledcWrite med 12 bit) på hardware.
+7. Tjek, hvad analogRead() gør på et ADC2-ben (fx GPIO 25), når WiFi er tændt, i core 3.3.x. Ifølge kildekoden sandsynligvis en fejl i loggen og værdien 0 (TJEK i Typiske fejl).
+8. Tjek, at linkene til modstande.qmd og lysdioder.qmd virker, og at de sider er godkendt.
+9. BILLEDE: potentiometeret set fra siden med de tre ben markeret.
+10. BILLEDE: koblingen på breadboard med ESP32.
+11. BILLEDE: multimeter, der måler spændingen på midterbenet (til øvelse 3).
+12. Fjern IKKE KOMPILERET, denne tjekliste og alle TJEK- og BILLEDE-kommentarer, gør billedboksene til BILLEDE-kommentarer, og sæt draft: false.
+-->
+
+En knap kan kun være trykket eller ikke trykket. Mange ting i virkeligheden er ikke enten-eller: en lysstyrke, en temperatur eller hvor langt en volumenknap er drejet. Et drejepotentiometer er den enkleste måde at give ESP32 et analogt signal, altså en spænding, der kan ligge hvor som helst mellem 0 og 3,3 V. Det er en god øvelse, før du kobler rigtige analoge sensorer på, for du kan selv styre spændingen med hånden og se, hvad ESP32 måler.
+
+## Formål
+
+- Du kan forklare, hvordan et potentiometer virker som spændingsdeler, og hvad de tre ben bruges til.
+- Du kan koble et potentiometer sikkert til ESP32 og vælge et ben, der kan måle analogt, også når WiFi er tændt.
+- Du kan læse værdien med `analogRead()` og `analogReadMilliVolts()` og forklare, hvorfor ESP32's målinger ikke er helt præcise.
+- Du kan dæmpe støj med et gennemsnit og omregne værdien med `map()`, fx til procent eller lysstyrke.
+
+## Målpinde
+
+Siden arbejder med målpind 11, 19 og 23 (se [Læringsmål](../laeringsmaal.qmd)).
+
+## Forudsætninger
+
+- Du kan oprette et PlatformIO-projekt til ESP32-DEVKIT-V1, uploade et program og åbne Serial Monitor (se [PlatformIO](platformio.qmd)).
+- Du kan sætte komponenter og ledninger i et breadboard (se [Breadboard](breadboard.qmd)).
+- Du ved, hvad en modstand er (se [Modstande](modstande.qmd)).
+- Hardware: ESP32-DEVKIT-V1, et drejepotentiometer (fx 10 kΩ), breadboard og tre ledninger. Til øvelserne: en lysdiode og en formodstand (se [Lysdioder](lysdioder.qmd)) og gerne et multimeter.
+
+## Hvad er et potentiometer?
+
+Et potentiometer er en modstand med tre ben. Mellem de to yderben sidder en fast modstandsbane, fx 10 kΩ. Midterbenet er forbundet til en glider ([wiper]{lang="en"}), som bevæger sig hen ad banen, når du drejer på akslen.
+
+```
+3,3 V ──┐
+        █  øverste del af banen
+        █
+        █◄── glider (midterben) ──► til GPIO 34
+        █
+        █  nederste del af banen
+GND ────┘
+```
+
+Glideren deler banen i to modstande, der sidder i serie. Det er en *spændingsdeler*: spændingen på midterbenet er en brøkdel af spændingen mellem yderbenene, og brøkdelen bestemmes af, hvor glideren står.
+
+- Drejet helt mod GND-siden: midterbenet er ca. 0 V.
+- I midten: ca. 1,65 V.
+- Drejet helt mod 3,3 V-siden: ca. 3,3 V.
+
+Potentiometerets samlede modstand ændrer ikke spændingen på midterbenet, kun hvor meget strøm der løber gennem banen. Det gælder dog kun, så længe potentiometeret ikke er alt for stort: ADC'en skal have lidt strøm for at måle, så et meget stort potentiometer (fx 1 MΩ) giver ustabile og forkerte målinger. Brug 1–10 kΩ. Med 10 kΩ er det 3,3 V / 10 kΩ = 0,33 mA, hvilket er helt uproblematisk.
+
+### Lineær og logaritmisk
+
+Der findes to almindelige slags baner:
+
+- **Lineær:** spændingen stiger jævnt, når du drejer. Halvt drejet giver halv spænding. Det er den, du skal bruge her.
+- **Logaritmisk** (også kaldet *audio*): spændingen stiger langsomt i starten og hurtigt til sidst. Den bruges til volumenknapper, fordi øret opfatter lydstyrke logaritmisk.
+
+På mange potentiometre står typen som et bogstav foran værdien: `B10K` er typisk lineær 10 kΩ og `A10K` logaritmisk. Bogstaverne er ikke ens hos alle producenter, så tjek databladet, hvis du er i tvivl.
+
+<!-- TJEK: at lokalets potentiometre er 10 kΩ lineære, og hvordan de er mærket. A = logaritmisk og B = lineær er den almindelige asiatiske mærkning, men der findes ældre europæiske mærkninger, hvor bogstaverne betyder noget andet. -->
+
+::: {.billede-mangler}
+Potentiometeret set fra siden med de tre ben markeret (yderben, midterben/glider, yderben) og mærkningen (fx B10K) tydelig. Se lignende billeder: [Random Nerd Tutorials: ESP32 ADC](https://randomnerdtutorials.com/esp32-adc-analog-read-arduino-ide/).
+:::
+
+## Kobling
+
+| Potentiometer | ESP32-DEVKIT-V1 |
+|---|---|
+| Det ene yderben | 3V3 |
+| Midterbenet | GPIO 34 |
+| Det andet yderben | GND |
+
+Det er ligegyldigt, hvilket yderben der går til 3V3 og hvilket til GND. Bytter du dem, vender retningen bare om: værdien stiger, når du drejer den anden vej.
+
+::: {.callout-warning}
+## Aldrig 5 V
+
+Sæt **aldrig** yderbenet til 5 V (VIN). Så kan midterbenet få op til 5 V, og ESP32's ben tåler kun 3,3 V. Benet eller hele chippen kan blive ødelagt.
+:::
+
+### Hvilket ben?
+
+ESP32 har to analog-til-digital-konvertere ([ADC]{lang="en"}), ADC1 og ADC2. ADC2 bruges også af WiFi, så ADC2-benene kan ikke måle analogt, mens WiFi er tændt. Da næsten alle IoT-programmer bruger WiFi, skal du vælge et ADC1-ben.
+
+| Ben på DEVKIT-V1 | ADC | Brug til potentiometer? |
+|---|---|---|
+| 32, 33 | ADC1 | Ja |
+| 34, 35, 36 (VP), 39 (VN) | ADC1 | Ja. De er kun input, men det er netop det, der skal bruges her |
+| 0, 2, 4, 12–15, 25–27 | ADC2 | Nej, ikke hvis programmet bruger WiFi |
+
+Eksemplet bruger GPIO 34. GPIO 32 og 33 er gode alternativer.
+
+::: {.billede-mangler}
+Koblingen på breadboard: potentiometeret med rød ledning til 3V3, sort til GND og en signalledning fra midterbenet til GPIO 34. Se lignende billeder: [Random Nerd Tutorials: ESP32 ADC](https://randomnerdtutorials.com/esp32-adc-analog-read-arduino-ide/).
+:::
+
+## ESP32's ADC
+
+### analogRead()
+
+`analogRead(pin)` måler spændingen på benet og giver et tal. ESP32's ADC er på 12 bit, så tallet ligger mellem 0 og 4095 (2^12^ − 1). Det er standarden i Arduino-ESP32, så du behøver ikke sætte noget op.
+
+Hvis ADC'en var perfekt, ville du kunne regne spændingen ud sådan:
+
+$$U \approx \frac{\text{værdi}}{4095} \cdot 3{,}3\ \text{V}$$
+
+Men det er den ikke (se nedenfor).
+
+### analogReadMilliVolts()
+
+`analogReadMilliVolts(pin)` giver spændingen i millivolt direkte. Funktionen bruger de kalibreringsdata, Espressif som regel har brændt ind i chippen fra fabrikken, og er derfor mere præcis end at regne om fra `analogRead()` med formlen ovenfor. Mangler de på en ældre chip, bruger funktionen en standardværdi og er mindre præcis. Brug den, når du vil kende spændingen. Brug `analogRead()`, når du bare skal bruge en position eller et forhold, fx hvor langt knappen er drejet.
+
+<!-- TJEK: om lokalets boards har kalibreringsdata i eFuse. ESP-IDF skriver, at tidlige ESP32-chips kan mangle dem, og så bruger driveren en standard-Vref. Øvelse 3 viser det i praksis. -->
+
+### Dæmpning og måleområde
+
+Inde i ESP32 kan ADC'en kun måle ca. 1 V. For at kunne måle højere spændinger dæmpes signalet først ([attenuation]{lang="en"}). I Arduino-ESP32 er standarden den største dæmpning, `ADC_11db`, så du kan måle op mod 3,3 V uden at sætte noget op. (I ESP-IDF 5 hedder samme indstilling `ADC_ATTEN_DB_12`.)
+
+Selv med den største dæmpning når ADC'en ikke helt ud i enderne:
+
+- Helt nede (under ca. 0,1–0,15 V) giver den 0. Den kan fx ikke se forskel på 0 V og 0,1 V.
+- Helt oppe (fra ca. 3,1–3,2 V) giver den 4095. Den kan fx ikke se forskel på 3,2 V og 3,3 V.
+- Præcis hvor grænserne ligger, varierer fra chip til chip.
+- ESP-IDF's ældre dokumentation anbefaler kun at måle op til ca. 2,45 V, hvis det skal være præcist. Over det bliver fejlen større.
+
+<!-- TJEK: tallene for måleområdet. Arduino-ESP32's ADC-side angiver 150–3100 mV for ADC_11db på ESP32, mens ESP-IDF v4.4 angiver 150–2450 mV (det område, hvor kalibreringen er præcis). Ingen af dem siger, præcis hvor aflæsningen bliver 0 eller 4095; tallene i listen er derfor formuleret løst. Mål på et af lokalets boards, hvilke værdier der kommer helt nede og helt oppe, og ret tallene. -->
+
+Kurven fra spænding til tal er heller ikke en ret linje, især ikke i enderne. Det betyder:
+
+- Et potentiometer drejet helt i bund eller top giver ofte 0 eller 4095 et stykke før yderstillingen.
+- Halvt drejet giver ikke nødvendigvis præcis 2048.
+
+Til en drejeknap er det fint. Til en sensor, hvor spændingen skal omregnes til fx en temperatur, skal du kende begrænsningerne og helst kontrollere med et multimeter. Det er det, målpind 11 handler om: at vurdere, om et signal er validt.
+
+### Støj
+
+ESP32's ADC er følsom over for støj. Selv om du ikke rører potentiometeret, hopper værdien typisk lidt op og ned. Espressif foreslår to løsninger:
+
+- **Gennemsnit af flere målinger** ([multisampling]{lang="en"}): læs fx 16 gange i træk, og brug gennemsnittet. Det koster næsten ingen tid og er det, eksemplet gør.
+- **En kondensator** på 100 nF mellem ADC-benet og GND, tæt på ESP32.
+
+Korte ledninger, der sidder godt fast, hjælper også.
+
+### map(): fra tal til noget, der giver mening
+
+`map(værdi, fraMin, fraMax, tilMin, tilMax)` omregner et tal fra ét område til et andet:
+
+```cpp
+int procent  = map(raa, 0, 4095, 0, 100);  // 0–100 %
+int lysstyrke = map(raa, 0, 4095, 0, 255); // 0–255 til analogWrite()
+```
+
+To ting at vide:
+
+- `map()` regner med heltal og skærer decimalerne af. Det er fint til procent og lysstyrke.
+- `map()` begrænser ikke resultatet. Ligger værdien uden for `fraMin`–`fraMax`, ligger resultatet også uden for `tilMin`–`tilMax`. Brug `constrain(x, min, max)`, hvis du skal være sikker.
+
+## Eksempel: læs potentiometeret
+
+Programmet læser potentiometeret hvert 200. ms og skriver den rå værdi, spændingen og procent ud. Det bruger `millis()` i stedet for `delay()`, så `loop()` aldrig står stille og senere kan lave andre ting, fx sende værdien over WiFi.
+
+```{.ini filename="platformio.ini"}
+[env:esp32doit-devkit-v1]
+platform = espressif32@8.0.0
+board = esp32doit-devkit-v1
+framework = arduino
+monitor_speed = 115200
+```
+
+```{.cpp filename="src/main.cpp"}
+#include <Arduino.h>
+
+// Konfiguration
+const int POT_PIN = 34;                 // midterben på GPIO 34 (ADC1, virker også med WiFi)
+const unsigned long INTERVAL_MS = 200;  // hvor tit værdien skrives ud
+const int ANTAL_MAALINGER = 16;         // gennemsnit af flere målinger dæmper støj
+
+unsigned long sidsteUdskrift = 0;
+
+// Gennemsnit af flere rå målinger (0–4095)
+int laesRaa() {
+  long sum = 0;  // long, så summen ikke løber over
+  for (int i = 0; i < ANTAL_MAALINGER; i++) {
+    sum += analogRead(POT_PIN);
+  }
+  return sum / ANTAL_MAALINGER;
+}
+
+// Gennemsnit af flere kalibrerede målinger i millivolt
+int laesMilliVolt() {
+  long sum = 0;
+  for (int i = 0; i < ANTAL_MAALINGER; i++) {
+    sum += analogReadMilliVolts(POT_PIN);
+  }
+  return sum / ANTAL_MAALINGER;
+}
+
+void setup() {
+  Serial.begin(115200);
+  // Ingen opsætning af ADC'en: standarden er 12 bit og 11 dB dæmpning (op mod 3,3 V)
+}
+
+void loop() {
+  unsigned long nu = millis();
+
+  // Kun hvert INTERVAL_MS; resten af tiden er loop() fri til andet
+  if (nu - sidsteUdskrift >= INTERVAL_MS) {
+    sidsteUdskrift = nu;
+
+    int raa = laesRaa();
+    int milliVolt = laesMilliVolt();
+    int procent = map(raa, 0, 4095, 0, 100);
+
+    Serial.printf("Raa: %4d   Spaending: %4d mV   %3d %%\n", raa, milliVolt, procent);
+  }
+}
+```
+
+Sådan virker det:
+
+- `analogRead()` og `analogReadMilliVolts()` sætter selv benet op til analog måling, så der skal ikke stå `pinMode()` i `setup()`.
+- `laesRaa()` og `laesMilliVolt()` læser 16 gange og tager gennemsnittet. Summen gemmes i en `long`, fordi 16 · 4095 er for meget til en 16-bit-variabel på mange andre mikrocontrollere. På ESP32 er `int` 32 bit, men det skader ikke at være tydelig.
+- `nu - sidsteUdskrift >= INTERVAL_MS` er den sædvanlige måde at gøre noget med et fast interval med `millis()`. Den virker også, når `millis()` efter ca. 49 dage løber rundt og starter forfra fra 0.
+- `%%` i `printf` skriver et procenttegn.
+
+## Øvelser
+
+1. Kør eksemplet, og drej langsomt fra den ene yderstilling til den anden. Notér den rå værdi og spændingen i begge yderstillinger og i midten. Når du 0 og 4095? Hvor langt før yderstillingen sker det?
+2. Sæt `ANTAL_MAALINGER` til 1, og lad potentiometeret stå stille. Hvor meget hopper den rå værdi? Prøv derefter med 16 og 64. Hvad sker der med støjen, og hvad er prisen?
+3. Mål spændingen på midterbenet med et multimeter i fem forskellige stillinger. Skriv multimeterets værdi, `analogReadMilliVolts()` og den rå værdi omregnet med formlen (værdi / 4095 · 3,3 V) op i en tabel. Hvilken af de to ESP32-værdier ligger tættest på multimeteret? Hvor er fejlen størst?
+4. Byg en lysdiode med formodstand på GPIO 18 (se [Lysdioder](lysdioder.qmd)). Lad potentiometeret styre lysstyrken: brug `map()` til at omregne den rå værdi til 0–255, og skriv den ud med `analogWrite(LED_PIN, lysstyrke)`. Behold udskriften hvert 200. ms, men opdatér lysdioden i hvert gennemløb af `loop()`. Kan du få lysdioden helt slukket og helt tændt?
+5. Lysdioden flimrer måske svagt, når potentiometeret står stille og værdien hopper med et par stykker. Opdatér kun lysstyrken, hvis den nye værdi afviger mere end fx 2 fra den forrige. Hvad sker der, hvis grænsen er for stor?
+6. *Ekstra:* `analogWrite()` bruger 8 bit (0–255) og 1000 Hz som standard. Brug i stedet `ledcAttach(LED_PIN, 5000, 12)` i `setup()` og `ledcWrite(LED_PIN, raa)` i `loop()`, så den rå værdi på 12 bit kan bruges direkte uden `map()`. (I Arduino-ESP32 2.x hed det `ledcSetup()` og `ledcAttachPin()`; de findes ikke længere i core 3.x, så kode fra ældre tutorials skal rettes.)
+7. *Ekstra:* Lysdioden ser ikke ud til at blive jævnt lysere: forskellen mellem 0 og 50 er tydelig, men mellem 200 og 255 kan du næsten ikke se den. Hvorfor? Lav en omregning, der føles mere jævn, fx ved at sætte værdien i anden potens: `lysstyrke = (long)raa * raa / 4095 * 255 / 4095`.
+
+## Typiske fejl
+
+- **Værdien hopper vildt, også når du ikke rører potentiometeret:** midterbenet er ikke forbundet, så benet svæver. Tjek ledningen og at du har brugt det rigtige ben på potentiometeret.
+- **Værdien er altid 0 eller altid 4095:** et af yderbenene sidder ikke, eller midterbenet sidder på et yderben. Mål med multimeter: der skal være ca. 3,3 V mellem yderbenene.
+- **Retningen er forkert:** byt de to yderben, eller byt om i `map()`: `map(raa, 0, 4095, 100, 0)`.
+- **Virker uden WiFi, men ikke med:** benet hører til ADC2 (fx GPIO 25, 26, 27 eller 4). Flyt til GPIO 32–39.
+- **Når ikke helt 0 eller 4095:** det er normalt for ESP32's ADC (se [Dæmpning og måleområde](#dæmpning-og-måleområde)). Lav din kode, så den ikke afhænger af præcis 0 eller 4095.
+- **`map()` giver negative tal eller over 100:** inputtet ligger uden for det område, du har givet. Brug `constrain()`.
+- **Lysdioden reagerer ikke:** den sidder på et input-only-ben (34–39), som ikke kan give spænding ud. Brug fx GPIO 18. Tjek også, at lysdioden vender rigtigt.
+- **ESP32 bliver varm eller dør:** yderbenet sidder på 5 V eller VIN. Sluk straks.
+
+<!-- TJEK: hvad analogRead() faktisk gør på et ADC2-ben med WiFi tændt i core 3.3.x. Ifølge ESP-IDF kan læsningen fejle med ESP_ERR_TIMEOUT, og i esp32-hal-adc.c returnerer fejlvejene 0, så sandsynligvis "giver 0 og en fejl i loggen". Skriv det i punktet ovenfor, når det er afprøvet. -->
+
+::: {.billede-mangler}
+Multimeter, der måler spændingen mellem midterbenet og GND, mens ESP32 skriver ud i Serial Monitor (til øvelse 3).
+:::
+
+## Læs videre
+
+### ESP32 ADC hos Random Nerd Tutorials
+
+[ESP32 ADC – Read Analog Values with Arduino IDE](https://randomnerdtutorials.com/esp32-adc-analog-read-arduino-ide/){lang="en"} bruger samme kobling (midterbenet på GPIO 34) og har en graf, der viser, at ADC'en ikke er lineær, og at den giver 0 for både 0 V og 0,1 V og 4095 for både 3,2 V og 3,3 V. Den har også en liste over ESP32's ADC-funktioner.
+
+Læs den kritisk:
+
+- Eksemplet bruger `delay(500)` i `loop()`. Brug `millis()` som på denne side, hvis programmet skal lave andet samtidig.
+- Den nævner ikke `analogReadMilliVolts()`, som giver mere præcise spændinger end at regne om selv.
+- Funktionslisten er skrevet til en ældre version af Arduino-ESP32. Nogle af funktionerne findes ikke længere i core 3.x, fx `analogSetClockDiv()`. Tjek mod [Arduino-ESP32's ADC-side](https://docs.espressif.com/projects/arduino-esp32/en/latest/api/adc.html){lang="en"}.
+- I tabellen over dæmpning står "3100V" for `ADC_11db`. Det skal være 3100 mV.
+
+## Kilder
+
+- Arduino-ESP32: ADC, <https://docs.espressif.com/projects/arduino-esp32/en/latest/api/adc.html>
+- Arduino-ESP32: kildekode til ADC (standard for dæmpning og opløsning, kalibrering i `analogReadMilliVolts()`), <https://github.com/espressif/arduino-esp32/blob/master/cores/esp32/esp32-hal-adc.c>
+- Arduino-ESP32: LEDC (`analogWrite()`, `ledcAttach()`, `ledcWrite()`), <https://docs.espressif.com/projects/arduino-esp32/en/latest/api/ledc.html>
+- Arduino-ESP32 3.3.x: kildekode til LEDC (standard for `analogWrite()`: 8 bit, 1000 Hz), <https://github.com/espressif/arduino-esp32/blob/release/v3.3.x/cores/esp32/esp32-hal-ledc.c>
+- Arduino-ESP32 3.3.x: kildekode til `map()`, <https://github.com/espressif/arduino-esp32/blob/release/v3.3.x/cores/esp32/WMath.cpp>
+- Arduino-ESP32: Migration from 2.x to 3.0 (LEDC og fjernede ADC-funktioner), <https://docs.espressif.com/projects/arduino-esp32/en/latest/migration_guides/2.x_to_3.0.html>
+- ESP-IDF: ADC Oneshot Mode Driver (ADC2 og WiFi), <https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/adc/adc_oneshot.html>
+- ESP-IDF: ADC Calibration Driver (kalibrering, støj, 100 nF og multisampling), <https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/adc/adc_calibration.html>
+- ESP-IDF v4.4: ADC (måleområder pr. dæmpning, ADC1 = GPIO 32–39), <https://docs.espressif.com/projects/esp-idf/en/v4.4/esp32/api-reference/peripherals/adc.html>
+- Random Nerd Tutorials: ESP32 ADC – Read Analog Values with Arduino IDE, <https://randomnerdtutorials.com/esp32-adc-analog-read-arduino-ide/>

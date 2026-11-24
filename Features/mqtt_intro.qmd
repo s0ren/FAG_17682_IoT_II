@@ -1,0 +1,636 @@
+---
+title: "Intro til MQTT"
+subtitle: "Publish/subscribe fra klientens side: Python, C#, ESP32 og MQTT Explorer"
+date: 2026-11-23
+maalpinde: [2, 13, 20, 22]
+draft: true
+---
+
+<!-- IKKE KOMPILERET: eksemplerne er tjekket mod dokumentationen, men ikke kompileret eller testet på hardware. -->
+
+<!--
+TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
+1. Kør subscriber.py og publisher.py mod wilsons.local:1883 med paho-mqtt 2.x. Kommer beskederne frem i subscriberen, i MQTT Explorer og i weblog'en (elever/<navn>/python/temperatur.jsonl)?
+2. Kør C#-eksemplet (Program.cs) i et nyt "dotnet new console"-projekt med .NET 8 eller nyere og "dotnet add package MQTTnet --version 5.2.0.1603" mod wilsons.local:1883. Kompilerer det uden advarsler? Skriver det "Forbundet som csharp-…", kommer hilsenen tilbage i konsollen, og ses den i MQTT Explorer og i weblog'en (elever/<navn>/csharp/hilsen.jsonl)? Kommer en besked fra MQTT Explorer frem i konsollen? (øvelse 10)
+3. TJEK: C# med TLS på 8883: Forbind med ImportFromPemFile("ca.crt"), WithTlsOptions(o => o.WithTrustChain(ca)) og WithCredentials mod wilsons.local:8883 med et elevlogin. Godtages certifikatet på Windows (og evt. macOS/Linux)? Afvises forbindelsen uden WithTrustChain? Læst i kildekoden, ikke afprøvet.
+4. Kompilér og upload ESP32-eksemplet med platform = espressif32@8.0.0 og knolleary/PubSubClient@^2.8, med et potentiometer på GPIO 32. Kommer en måling hvert 5. sekund frem i weblog'en? Flader spaending_mv ud ved ca. 3100 mV i potentiometerets ene ende?
+5. TJEK: Kan ESP32 slå "wilsons.local" og "wilsons.home" op på skolens net? Siden bruger 192.168.0.33 i MQTT_HOST, fordi intet navn er afprøvet; lokal_mqtt.qmd bruger "wilsons.local". Vælg ét navn, der virker, og brug det samme på begge sider. Ret også punktet om .local under Typiske fejl.
+6. TJEK: Passer tiderne for mqtt.connect() (ca. 3 s uden maskine på adressen, op til 15 s, hvis maskinen svarer, men MQTT ikke gør)? Tallene er fra kildekoden (NetworkClient og PubSubClient), ikke målt. Ret MQTT_HOST til en forkert IP (øvelse 6), og se i Serial Monitor.
+7. TJEK: Læreren skriver http://wilsons:8080. Virker det korte navn "wilsons" uden .local/.home på elevernes maskiner på skolens net? Siden bruger wilsons.local og nævner wilsons.home og 192.168.0.33.
+8. TJEK: MQTT Explorer (0.4.0-beta.6 på mqtt-explorer.com): passer feltnavnene "Encryption (tls)", "Validate certificate", "Advanced", "Certificates" og "Server Certificate (CA)" i den version, eleverne installerer? Hedder knappen "Connect", og passer beskrivelsen af Publish-feltet, retain og skraldespanden til at slette et retained topic? Forbind på 8883 med ca.crt og et elevlogin, og bekræft, at certifikatet godtages med "Validate certificate" slået til.
+9. TJEK: Viser MQTT Explorer $SYS-topics fra wilsons på port 1883? (Mosquitto sender dem som standard hvert 10. sekund.)
+10. Retained-øvelsen (øvelse 5): Bliver en retained besked i weblog'en logget igen, når mqtt-logger genstarter? Ud fra koden (mqtt_logger.py) burde den, og siden siger det. Slet testbeskederne bagefter.
+11. TJEK: PubSubClients README skriver nu, at biblioteket ikke vedligeholdes. Overvej, om I vil skifte bibliotek på sigt (ændres så på alle sider).
+12. BILLEDE: MQTT Explorers forbindelsesvindue udfyldt til wilsons.local, port 1883.
+13. BILLEDE: MQTT Explorers topic-træ med elever/<navn>/… foldet ud og en JSON-besked valgt.
+14. BILLEDE: MQTT Explorers Certificates-dialog med ca.crt valgt som Server Certificate (CA).
+15. BILLEDE: weblog'en på wilsons.local:8080 med en elevs .jsonl-fil fra Python-eksemplet.
+16. Når alt er testet: fjern IKKE KOMPILERET, denne tjekliste og TJEK-kommentarerne, og gør billedboksene til billeder eller til BILLEDE-kommentarer.
+-->
+
+En temperaturføler i klasselokalet skal sende en måling hvert 5. sekund, og både en Python-app, en skærm på væggen og en database vil gerne have den. Hvis føleren selv skulle kende alle modtagerne og sende til hver af dem, ville koden skulle rettes, hver gang der kom en ny modtager. Med MQTT sender føleren i stedet sin måling ét sted hen, til en *broker*, under et emne som `elever/anna/temperatur`. Alle, der har sagt, at de er interesserede i det emne, får målingen. Det er den måde, IoT-enheder oftest sender data på, og det er det, I skal bruge i projektopgaverne.
+
+## Formål
+
+- Du kan forklare, hvad en broker, en publisher og en subscriber er, og hvordan publish/subscribe adskiller sig fra request/response (fx HTTP).
+- Du kan opbygge topics i et hierarki og abonnere på flere topics på én gang med wildcards (`+` og `#`).
+- Du kan forklare QoS 0, 1 og 2, retained messages, keep-alive og Last Will kort, og hvorfor client-id'et skal være unikt.
+- Du kan sende og modtage MQTT-beskeder med JSON fra Python (eller C#) og sende målinger fra ESP32 uden at blokere `loop()`.
+- Du kan bruge MQTT Explorer og weblog'en på skolens broker til at se, om dine beskeder er kommet frem.
+
+## Målpinde
+
+Siden arbejder med målpind 2, 13, 20 og 22 (se [Læringsmål](../laeringsmaal.qmd)).
+
+## Forudsætninger
+
+- Du kan forbinde ESP32 til WiFi og holde passwordet ude af git med `secrets.h`: se [WiFi](../Grundlag/wifi.qmd).
+- Du kender `millis()` fra [Debouncing](../Grundlag/debouncing.qmd).
+- Python 3.9 eller nyere på din computer, og din computer er på samme net som skolens broker.
+- Fakta om skolens broker (navne, porte, login og certifikat) står på [Lokal MQTT server](lokal_mqtt.qmd). Denne side forklarer begreberne og bruger kun port 1883.
+- Hardware til ESP32-eksemplet: ESP32-DEVKIT-V1, et potentiometer (fx 10 kΩ), et breadboard og tre ledninger.
+
+## Publish/subscribe
+
+De fleste kender *request/response* fra web: en browser spørger en server ("giv mig denne side"), og serveren svarer. Klienten skal vide, hvem den spørger, og den får kun data, når den selv spørger.
+
+MQTT virker anderledes. Der er tre roller:
+
+- **Brokeren** er serveren i midten. Den modtager alle beskeder og sender dem videre. På skolen hedder den *wilsons* og kører programmet Mosquitto.
+- **En publisher** sender ([publish]{lang="en"}) en besked til brokeren under et *topic*, fx `elever/anna/temperatur`.
+- **En subscriber** abonnerer ([subscribe]{lang="en"}) hos brokeren på et eller flere topics og får alle beskeder, der bliver sendt til dem.
+
+```{mermaid}
+%%| fig-alt: "Diagram: en ESP32 sender en besked til brokeren wilsons på topic elever/anna/temperatur. Brokeren sender den videre til et Python-program, til MQTT Explorer og til loggeren bag weblog'en."
+flowchart LR
+  E["ESP32<br>(publisher)"] -- "publish<br>elever/anna/temperatur" --> B(("Broker<br>wilsons"))
+  B -- "elever/anna/temperatur" --> P["Python-program<br>(subscriber)"]
+  B -- "elever/anna/temperatur" --> X["MQTT Explorer<br>(subscriber)"]
+  B -- "alt (#)" --> L["Loggeren<br>→ weblog :8080"]
+```
+
+Det vigtige er, at publisher og subscriber ikke kender hinanden. ESP32 ved ikke, hvem der lytter, eller om nogen gør. Man kan tilføje en ny subscriber uden at røre ESP32-koden. Den samme enhed kan også være både publisher og subscriber, fx en ESP32, der sender målinger og samtidig abonnerer på et topic, der tænder en lysdiode.
+
+Både publisher og subscriber er *klienter*. Det er altid klienten, der opretter forbindelsen til brokeren, og forbindelsen bliver stående. Derfor kan en ESP32 bag en router godt modtage beskeder: den har selv åbnet forbindelsen ud til brokeren, og beskederne kommer tilbage ad den.
+
+### Hvorfor MQTT til IoT
+
+MQTT er oprindeligt lavet til telemetri over dårlige forbindelser og er nu en åben OASIS-standard, der bruges meget i IoT. Den passer godt til små enheder:
+
+- **Lille overhead.** En MQTT-besked har kun et par bytes hoved ud over topic og data. Der skal ikke sendes HTTP-headere med hver gang.
+- **Data begge veje** over den samme forbindelse: målinger fra enheden og kommandoer til den.
+- **Mange modtagere** uden ekstra arbejde for enheden.
+- **Ustabile net.** QoS, keep-alive og Last Will (se nedenfor) er lavet til enheder, der falder ud og kommer igen.
+
+Standardporten er 1883 uden kryptering og 8883 med TLS. Skolens broker bruger begge, og reglerne for dem står på [Lokal MQTT server](lokal_mqtt.qmd).
+
+## Topics
+
+Et topic er en tekst med niveauer adskilt af `/`, ligesom en sti til en fil:
+
+```
+elever/anna/esp32/temperatur
+│      │    │     └ hvad der måles
+│      │    └ hvilken enhed
+│      └ hvem
+└ hvad området er til
+```
+
+Regler og gode vaner:
+
+- Topics oprettes ikke på forhånd. Et topic findes, så snart nogen sender til det.
+- Der skelnes mellem store og små bogstaver: `elever/Anna` og `elever/anna` er to forskellige topics.
+- Start ikke med `/`. `/elever/anna` giver et tomt første niveau, som ikke gør gavn.
+- Brug små bogstaver, tal, `-` og `_`, og undgå mellemrum og æøå. Standarden tillader dem, men de giver bøvl i filnavne og URL'er. I weblog'en bliver fx mellemrum til `_`.
+- Topics, der starter med `$`, er forbeholdt brokeren. Mosquitto sender fx sin egen status under `$SYS/…`.
+
+**På skolens broker** må du på port 8883 kun skrive i `elever/<brugernavn>/…` og `test/…`. Port 1883 har ingen regler, men brug de samme topics dér, så din kode virker, når du skifter til 8883 (se [Lokal MQTT server](lokal_mqtt.qmd)).
+
+### Wildcards
+
+Når du abonnerer, kan du bruge to wildcards i stedet for et niveau. Man kan kun bruge dem, når man abonnerer, aldrig når man sender.
+
+| Wildcard | Betyder | Eksempel | Passer med | Passer ikke med |
+|---|---|---|---|---|
+| `+` | præcis ét niveau | `elever/+/esp32/temperatur` | `elever/anna/esp32/temperatur`, `elever/bo/esp32/temperatur` | `elever/anna/esp32/stue/temperatur` |
+| `#` | alle niveauer herfra, også ingen | `elever/anna/#` | `elever/anna`, `elever/anna/esp32/temperatur` | `elever/bo/esp32/temperatur` |
+
+`#` skal stå til sidst. Et abonnement på `#` alene giver alle beskeder på brokeren, undtagen dem under `$`. Det er sådan, loggeren bag weblog'en virker.
+
+## Beskeder og JSON
+
+Selve indholdet af en besked kaldes *payload*. For MQTT er det bare bytes: brokeren kigger ikke i det. Det er afsender og modtager, der skal være enige om formatet. Til målinger bruger man oftest JSON, fordi én besked så kan have flere værdier med navne:
+
+```json
+{"device":"esp32-a1b2c3d4e5f6","nr":17,"spaending_mv":1650,"rssi":-58,"uptime_ms":85012}
+```
+
+Hold beskederne små, især fra ESP32 (se [PubSubClient](#eksempel-esp32-sender-en-måling)).
+
+### JSON Lines i weblog'en
+
+På skolens broker kører en *logger*, der abonnerer på `#` og gemmer hver besked som én linje i en fil. Filerne kan ses i en browser på <http://wilsons.local:8080/>. Formatet hedder [JSON Lines]{lang="en"} (`.jsonl`): hver linje er ét JSON-objekt (se også [JSON Lines på siden om filsystemet](filsystem.qmd#json-lines)). Der er én fil pr. topic, fx `elever/anna/python/temperatur.jsonl`, og én fil med det hele, `#.jsonl`. I adresselinjen skal `#` skrives som `%23`: <http://wilsons.local:8080/%23.jsonl>.
+
+En linje i weblog'en ser sådan ud:
+
+```
+{"timestamp": "2026-11-23T15:00:37.091592", "topic": "test/esp32/button", "payload": "{\"button\":\"pressed\",\"count\":1}"}
+```
+
+Bemærk, at din JSON står *inde i* en tekst (`"payload": "{\"button\"…}"`) med `\` foran hvert `"`. Loggeren ved ikke, at payload'en er JSON, så den gemmer den som tekst. Vil du læse den i et program, skal du altså parse to gange: først linjen, derefter payload'en.
+
+Weblog'en er den nemmeste måde at se, at en besked faktisk nåede brokeren. Den viser kun det, der er kommet frem, ikke det, der blev afvist. Navnene på serveren (`wilsons.local`, `wilsons.home` og `192.168.0.33`) og flere skærmbilleder står på [Lokal MQTT server](lokal_mqtt.qmd).
+
+<!-- TJEK: Læreren skriver http://wilsons:8080. Det korte navn virker kun, hvis netværket tilføjer et domæne (fx .home) selv. Siden bruger wilsons.local. -->
+
+::: {.billede-mangler}
+Weblog'en på wilsons.local:8080, åbnet på en elevs fil fra Python-eksemplet (fx `elever/anna/python/temperatur.jsonl`) med nogle linjer JSON. Se lignende billeder: [Lokal MQTT server](lokal_mqtt.qmd).
+:::
+
+## QoS, retained, keep-alive og Last Will
+
+### QoS
+
+QoS ([Quality of Service]{lang="en"}) siger, hvor hårdt MQTT skal arbejde for at få en besked frem:
+
+| QoS | Navn i standarden | Hvad det betyder |
+|---|---|---|
+| 0 | [At most once]{lang="en"} | Sendes én gang uden kvittering. Kan gå tabt. |
+| 1 | [At least once]{lang="en"} | Afsenderen gemmer beskeden, til modtageren kvitterer, og sender den igen, hvis forbindelsen falder ud undervejs. Kan komme frem to gange. |
+| 2 | [Exactly once]{lang="en"} | Kommer frem præcis én gang, men kræver fire pakker frem og tilbage. |
+
+QoS gælder for hvert led for sig: fra publisher til broker og fra broker til subscriber. En subscriber får beskeden med den laveste af de to: sender du med QoS 1, men abonnerer modtageren med QoS 0, kommer den frem til modtageren med QoS 0. Loggeren bag weblog'en abonnerer med QoS 0.
+
+Til målinger, der kommer hvert par sekunder, er QoS 0 normalt fint: mister man én, kommer den næste snart. QoS 1 bruges, når en besked ikke må gå tabt, fx en alarm.
+
+**PubSubClient** (biblioteket til ESP32 nedenfor) kan kun *sende* med QoS 0. Det kan *abonnere* med QoS 0 eller 1.
+
+### Retained messages
+
+Normalt gemmer brokeren ikke beskeder: er der ingen subscriber, forsvinder beskeden. Men en besked kan sendes med *retain*-flaget. Så gemmer brokeren den sidste besked på det topic og sender den straks til nye subscribers, når de abonnerer. Det er nyttigt til en tilstand, fx `elever/anna/lampe` = `on`: en ny app kan se tilstanden med det samme i stedet for at vente på næste ændring.
+
+En retained besked bliver liggende, til den bliver erstattet. Du sletter den ved at sende en tom besked (0 bytes) med retain til samme topic. Det kan MQTT Explorer også gøre for dig.
+
+### Clean session og keep-alive
+
+- **Clean session:** Når en klient forbinder med *clean session* (standard i både paho-mqtt og PubSubClient), starter den forfra: brokeren husker ikke abonnementer fra sidst. Derfor abonnerer man igen, hver gang forbindelsen er kommet op (se Python-eksemplet).
+- **Keep-alive:** Klienten lover at sige noget mindst så ofte, fx hvert 60. sekund. Har den ikke andet at sende, sender den et lille "ping". Hører brokeren ikke noget i halvanden gang keep-alive-tiden, lukker den forbindelsen. Standard er 60 s i paho-mqtt og 15 s i PubSubClient. På ESP32 er det `mqtt.loop()`, der sender ping'et, så den skal kaldes ofte.
+
+### Last Will
+
+Når en klient forbinder, kan den give brokeren en *Last Will*: en besked, som brokeren selv sender, hvis klienten forsvinder uden at sige farvel, fx fordi strømmen gik, eller keep-alive udløb. Typisk bruges den til at melde `offline` på et status-topic, så andre kan se, at enheden er væk. Sammen med retain får man et topic, der altid viser, om enheden er online.
+
+### Client-id skal være unikt
+
+Hver klient forbinder med et *client-id*. Hvis en ny klient forbinder med et id, der allerede er i brug, smider brokeren den gamle klient af. Har to elever kopieret det samme faste id, smider de skiftevis hinanden af, og begge ser forbindelsen falde ud igen og igen. Lav derfor id'et ud fra noget unikt, fx MAC-adressen på ESP32. I paho-mqtt kan du lade id'et være tomt: så finder brokeren selv på et.
+
+## Eksempel: Python abonnerer
+
+Python-eksemplerne bruger biblioteket paho-mqtt i version 2. Installér det med:
+
+```bash
+pip install paho-mqtt
+```
+
+I version 2 bør du vælge, hvordan callbacks ser ud: `mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)`. Skriver du kun `mqtt.Client()`, bruger paho den gamle, forældede callback-form fra version 1, og mange eksempler på nettet er skrevet til den.
+
+Programmet abonnerer på alt under dit eget område og skriver hver besked ud. Ret `BRUGERNAVN` til dit eget.
+
+```{.python filename="subscriber.py"}
+import paho.mqtt.client as mqtt
+
+# Konfiguration
+BROKER = "wilsons.local"        # eller wilsons.home / 192.168.0.33
+PORT = 1883                     # uden TLS og login; se Lokal MQTT server for 8883
+BRUGERNAVN = "anna"             # dit eget brugernavn
+TOPIC = f"elever/{BRUGERNAVN}/#"
+
+
+def on_connect(client, userdata, flags, reason_code, properties):
+    if reason_code.is_failure:
+        print("Forbindelse afvist:", reason_code)
+        return
+    print("Forbundet. Abonnerer på", TOPIC)
+    # Abonnér her, så abonnementet fornyes, hvis forbindelsen falder ud og kommer igen
+    client.subscribe(TOPIC)
+
+
+def on_message(client, userdata, msg):
+    tekst = msg.payload.decode(errors="replace")
+    retained = " (retained)" if msg.retain else ""
+    print(f"{msg.topic}: {tekst}{retained}")
+
+
+client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
+client.on_connect = on_connect
+client.on_message = on_message
+
+client.connect(BROKER, PORT, keepalive=60)
+client.loop_forever()   # kører netværket og kalder callbacks, til du trykker Ctrl+C
+```
+
+Sådan virker det:
+
+- `connect()` åbner forbindelsen. Først når brokeren har svaret, kalder paho `on_connect`.
+- `on_message` bliver kaldt for hver besked. `msg.topic` er det topic, beskeden faktisk blev sendt til, ikke dit wildcard.
+- `loop_forever()` står og venter på beskeder. Falder forbindelsen ud, forbinder den selv igen.
+
+## Eksempel: Python sender JSON
+
+Programmet sender en (opdigtet) temperatur som JSON hvert 2. sekund. Kør det i en anden terminal, mens subscriberen kører.
+
+```{.python filename="publisher.py"}
+import json
+import random
+import time
+
+import paho.mqtt.client as mqtt
+
+# Konfiguration
+BROKER = "wilsons.local"
+PORT = 1883
+BRUGERNAVN = "anna"             # dit eget brugernavn
+TOPIC = f"elever/{BRUGERNAVN}/python/temperatur"
+INTERVAL_S = 2
+
+client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
+client.connect(BROKER, PORT, keepalive=60)
+client.loop_start()   # netværket kører i en tråd i baggrunden, mens løkken sender
+
+try:
+    while True:
+        maaling = {
+            "tid": time.strftime("%H:%M:%S"),
+            "temperatur": round(20 + random.uniform(-2, 2), 1),
+        }
+        info = client.publish(TOPIC, json.dumps(maaling), qos=1)
+        info.wait_for_publish(5)   # vent højst 5 s på brokerens kvittering (QoS 1)
+        print("Sendt:" if info.is_published() else "Ingen kvittering:", maaling)
+        time.sleep(INTERVAL_S)
+except KeyboardInterrupt:
+    pass
+finally:
+    client.loop_stop()
+    client.disconnect()
+```
+
+- `json.dumps()` laver Python-ordbogen om til en JSON-tekst. Modtageren bruger `json.loads()` til at få den tilbage.
+- `publish()` har som standard `qos=0` og `retain=False`. Her bruges QoS 1, så `wait_for_publish()` venter på brokerens kvittering.
+- `loop_start()` er nødvendig, fordi `while`-løkken optager hovedtråden. Uden en netværksløkke bliver beskeder med QoS 1 ikke færdigsendt.
+
+Lærerens demoer `publisher_demo.py` og `subscriber_demo.py` gør det samme og kan også bruge TLS på port 8883. De er beskrevet på [Lokal MQTT server](lokal_mqtt.qmd).
+
+## Eksempel: C# {#eksempel-csharp}
+
+Kender du C# bedre end Python, kan du lave det samme i C#. Programmet her gør både det, `subscriber.py` og `publisher.py` gør: det abonnerer på dit eget område, skriver hver besked ud og sender én JSON-besked. Sammenlign det med Python-eksemplerne ovenfor: begreberne er de samme, kun navnene er anderledes.
+
+Biblioteket hedder [MQTTnet](https://github.com/dotnet/MQTTnet) og hentes fra NuGet. Version 5 kræver .NET 8 eller nyere. Lav et nyt konsolprogram, og tilføj pakken:
+
+```bash
+dotnet new console -n MqttHilsen
+cd MqttHilsen
+dotnet add package MQTTnet --version 5.2.0.1603
+```
+
+**Pas på gamle eksempler.** Version 5 ændrede en del navne, og de fleste eksempler på nettet er skrevet til version 4 eller ældre. Ser du `new MqttFactory()`, `using MQTTnet.Client;` eller `ManagedMqttClient`, er eksemplet gammelt. I version 5 hedder fabrikken `MqttClientFactory`, klienten ligger direkte i navnerummet `MQTTnet`, og den "managed" klient, der selv genforbinder, er fjernet. Payload'en er nu en `ReadOnlySequence<byte>`, så læs den som tekst med `ConvertPayloadToString()`.
+
+Erstat indholdet af `Program.cs` med koden herunder, ret `Brugernavn`, og kør med `dotnet run`.
+
+```{.csharp filename="Program.cs"}
+using System.Text.Json;
+using MQTTnet;
+using MQTTnet.Protocol;
+
+// Konfiguration
+const string Broker = "wilsons.local";   // eller wilsons.home / 192.168.0.33
+const int Port = 1883;                   // uden TLS og login; se Lokal MQTT server for 8883
+const string Brugernavn = "anna";        // dit eget brugernavn
+
+string abonnerTopic = $"elever/{Brugernavn}/#";
+string sendTopic = $"elever/{Brugernavn}/csharp/hilsen";
+// Unikt client-id: to klienter med samme id smider hinanden af
+string klientId = $"csharp-{Brugernavn}-{Guid.NewGuid().ToString("N")[..8]}";
+
+var factory = new MqttClientFactory();
+using var client = factory.CreateMqttClient();
+
+// Sæt modtageren på før ConnectAsync, så ingen beskeder går tabt
+client.ApplicationMessageReceivedAsync += e =>
+{
+    var besked = e.ApplicationMessage;
+    string tekst = besked.ConvertPayloadToString() ?? "";   // UTF-8; null, hvis beskeden er tom
+    string retained = besked.Retain ? " (retained)" : "";
+    Console.WriteLine($"{besked.Topic}: {tekst}{retained}");
+    return Task.CompletedTask;
+};
+
+var options = new MqttClientOptionsBuilder()
+    .WithTcpServer(Broker, Port)
+    .WithClientId(klientId)
+    .Build();
+
+// Kaster en undtagelse, hvis brokeren ikke kan nås. Afviser brokeren os, får vi en ResultCode.
+var svar = await client.ConnectAsync(options);
+if (svar.ResultCode != MqttClientConnectResultCode.Success)
+{
+    Console.WriteLine($"Forbindelse afvist: {svar.ResultCode}");
+    return;
+}
+Console.WriteLine($"Forbundet som {klientId}. Abonnerer på {abonnerTopic}");
+
+await client.SubscribeAsync(abonnerTopic);
+
+// Et anonymt objekt bliver til JSON: {"fra":"…","tekst":"Hej fra C#","tid":"…"}
+string json = JsonSerializer.Serialize(new
+{
+    fra = klientId,
+    tekst = "Hej fra C#",
+    tid = DateTime.Now.ToString("HH:mm:ss"),
+});
+await client.PublishStringAsync(sendTopic, json, MqttQualityOfServiceLevel.AtLeastOnce);
+Console.WriteLine($"Sendt til {sendTopic}: {json}");
+
+// Bliv ved med at lytte, til brugeren trykker Enter
+Console.WriteLine("Tryk Enter for at stoppe.");
+Console.ReadLine();
+await client.DisconnectAsync();
+```
+
+Sådan virker det, sammenlignet med Python:
+
+- `ApplicationMessageReceivedAsync` svarer til `on_message`. MQTTnet kalder den på en baggrundstråd, én besked ad gangen, mens hovedprogrammet venter i `Console.ReadLine()`. Du behøver altså ikke en `loop_forever()`.
+- `ConnectAsync` venter, til brokeren har svaret. Derfor kan `SubscribeAsync` kaldes lige efter, i stedet for i en `on_connect`.
+- Abonnér-topic'et `elever/<brugernavn>/#` passer også med `sendTopic`, så du ser din egen besked komme tilbage fra brokeren.
+- `PublishStringAsync` sender teksten som UTF-8. Her bruges QoS 1, så `await` venter på brokerens kvittering. Standard er QoS 0 og ingen retain, ligesom i paho.
+- MQTTnet forbinder som standard med MQTT version 5, mens paho bruger 3.1.1. Mosquitto kan begge dele, så det mærker du ikke her.
+- Programmet genforbinder ikke selv, hvis forbindelsen falder ud. Det gør paho's `loop_forever()`. I MQTTnet 5 skal du selv gøre det, fx i eventet `DisconnectedAsync`.
+
+### C# med TLS på port 8883
+
+På port 8883 skal klienten bruge TLS, logge ind og stole på skolens CA i `ca.crt` (se [Lokal MQTT server](lokal_mqtt.qmd#ca-crt)). I MQTTnet indlæser du `ca.crt` i en `X509Certificate2Collection` med `ImportFromPemFile("ca.crt")` og giver den til `WithTlsOptions(o => o.WithTrustChain(ca))` på options-builderen. `WithTlsOptions` slår TLS til, og `WithTrustChain` gør, at certifikatet kun godtages, hvis det er underskrevet af vores CA. Brugernavn og kode sættes med `WithCredentials(brugernavn, kode)`, og porten skiftes til 8883. Læs koden fra tastaturet eller en miljøvariabel, så den ikke står i koden. Læg `ca.crt` i projektmappen, og kør `dotnet run` derfra, så filen kan findes. Mange eksempler på nettet bruger `WithCertificateValidationHandler(_ => true)` eller `WithAllowUntrustedCertificates()`: det slår certifikattjekket fra, så du ikke kan vide, om du taler med den rigtige broker. Brug dem ikke.
+
+<!-- TJEK: TLS-opsætningen (ImportFromPemFile + WithTlsOptions(o => o.WithTrustChain(ca)) + WithCredentials) er læst i MQTTnets kildekode (MqttClientTlsOptionsBuilder: UseTls er true som standard; MqttTcpChannel: TrustChain bruges som CustomRootTrust) og i samplet Connect_Using_TLS_With_CA_File, men ikke afprøvet mod wilsons. Bekræft på Windows og evt. macOS, at forbindelsen godtages med den nye ca.crt, og at den afvises uden WithTrustChain. -->
+
+## MQTT Explorer
+
+[MQTT Explorer](https://mqtt-explorer.com/) er et gratis program, der forbinder til en broker og viser alle topics som et træ. Det er det bedste værktøj til at se, hvad der foregår: du kan se hver besked, når den kommer, se tidligere værdier, tegne en graf over tal og selv sende en testbesked.
+
+### Installér
+
+Hent det fra <https://mqtt-explorer.com/>. Det findes til Windows (Microsoft Store eller som `.exe`), macOS (App Store eller `.dmg`) og Linux (Snap, AppImage eller `.deb`).
+
+### Forbind til wilsons på port 1883
+
+1. Opret en ny forbindelse, og skriv fx `wilsons` under *Name*.
+2. *Host*: `wilsons.local` (eller `wilsons.home` / `192.168.0.33`). *Port*: `1883`. *Protocol*: `mqtt`.
+3. Lad *Encryption (tls)* være slået fra, og lad *Username* og *Password* være tomme.
+4. Tryk *Connect*.
+
+Som standard abonnerer MQTT Explorer på `#` og `$SYS/#`, så du ser alt på brokeren. Under *Advanced* kan du ændre abonnementerne og se dit *MQTT Client ID*. MQTT Explorer laver selv et unikt id, der starter med `mqtt-explorer-`.
+
+::: {.billede-mangler}
+MQTT Explorers forbindelsesvindue udfyldt med Host `wilsons.local`, Port `1883` og Encryption (tls) slået fra. Se lignende billeder: [mqtt-explorer.com](https://mqtt-explorer.com/).
+:::
+
+### Se topic-træet og send en testbesked
+
+- Fold `elever` ud i træet til venstre, og find dit eget område. Klik på et topic for at se den sidste besked, dens QoS, om den er retained, og en historik med tidligere værdier. JSON vises pænt opstillet.
+- Er værdien et tal, eller har JSON'en tal i sig, kan du lave en graf over dem.
+- I *Publish*-feltet til højre skriver du et topic, fx `elever/anna/test`, og en besked, og trykker *Publish*. Der kan du også slå *retain* til.
+- Et retained topic kan slettes med skraldespanden ved topic'et.
+
+<!-- TJEK: $SYS-topics fra wilsons bør vises på port 1883 (Mosquitto sender dem som standard hvert 10. sekund); bekræft i MQTT Explorer. -->
+
+::: {.billede-mangler}
+MQTT Explorers topic-træ med `elever/<navn>/python/temperatur` foldet ud og en JSON-besked valgt i panelet til højre. Se lignende billeder: [mqtt-explorer.com](https://mqtt-explorer.com/).
+:::
+
+### Forbind på port 8883 med TLS og login
+
+På port 8883 er forbindelsen krypteret, og du skal logge ind. Du skal bruge skolens CA-certifikat, [`ca.crt`](ca.crt), og dit brugernavn og din kode fra læreren. Detaljerne står på [Lokal MQTT server](lokal_mqtt.qmd). I MQTT Explorer:
+
+1. Lav en ny forbindelse: *Host* `wilsons.local`, *Port* `8883`.
+2. Slå *Encryption (tls)* til, og lad *Validate certificate* være slået til. Slå aldrig certifikattjekket fra: så kan du ikke vide, om du taler med den rigtige broker.
+3. Udfyld *Username* og *Password*.
+4. Gå til *Advanced* → *Certificates*, og vælg `ca.crt` under *Server Certificate (CA)*. Gå tilbage, og tryk *Connect*.
+
+Brug et af navnene i certifikatet (`wilsons.local`, `wilsons.home`, `wilsons` eller `192.168.0.33`, se [Lokal MQTT server](lokal_mqtt.qmd)), ellers bliver forbindelsen afvist.
+
+<!-- TJEK: Feltnavnene er læst i MQTT Explorers kildekode (Certificates.tsx og ConnectionSettings.tsx på master). Bekræft i den version, eleverne installerer (0.4.0-beta.6), og at ca.crt godtages med Validate certificate slået til. -->
+
+::: {.billede-mangler}
+MQTT Explorers Certificates-dialog med `ca.crt` valgt under Server Certificate (CA). Se lignende billeder: [mqtt-explorer.com](https://mqtt-explorer.com/).
+:::
+
+## Eksempel: ESP32 sender en måling
+
+ESP32 læser spændingen fra et potentiometer og sender den som JSON hvert 5. sekund. Biblioteket hedder [PubSubClient](https://github.com/knolleary/pubsubclient), og PlatformIO henter det fra `lib_deps`.
+
+**Kobling:** Potentiometerets to yderben til **3V3** og **GND**, midterbenet til **GPIO 32**. GPIO 32 ligger på ADC1, som kan læses, mens WiFi er tændt (det kan ADC2 ikke, se [WiFi](../Grundlag/wifi.qmd)). ADC'en kan som standard kun måle op til ca. 3100 mV, så i den ene ende af potentiometeret står målingen stille, selv om du drejer videre.
+
+```{.ini filename="platformio.ini"}
+[env:esp32doit-devkit-v1]
+platform = espressif32@8.0.0
+board = esp32doit-devkit-v1
+framework = arduino
+monitor_speed = 115200
+lib_deps = knolleary/PubSubClient@^2.8
+```
+
+`include/secrets.h` er den samme som på [WiFi](../Grundlag/wifi.qmd)-siden, med `WIFI_SSID` og `WIFI_PASSWORD`, og den står i `.gitignore`. Port 1883 kræver ikke login, så der skal ikke være en MQTT-kode i filen.
+
+```{.cpp filename="src/main.cpp"}
+#include <Arduino.h>
+#include <WiFi.h>
+#include <PubSubClient.h>
+#include "secrets.h"   // WIFI_SSID og WIFI_PASSWORD (se WiFi-siden)
+
+// Konfiguration
+const char* MQTT_HOST = "192.168.0.33";          // wilsons' IP-adresse; et navn kræver, at ESP32 kan slå det op
+const uint16_t MQTT_PORT = 1883;                 // uden TLS; se Lokal MQTT server for 8883
+const char* BRUGERNAVN = "anna";                 // dit eget brugernavn
+const int MAALE_PIN = 32;                      // potentiometer, ADC1
+const unsigned long SEND_INTERVAL_MS = 5000;     // hvor tit der sendes en måling
+const unsigned long MQTT_FORSOEG_MS = 5000;      // ventetid mellem forsøg på at forbinde
+const unsigned long WIFI_TIMEOUT_MS = 20000;     // max ventetid på WiFi i setup()
+
+WiFiClient netKlient;            // TCP-forbindelsen
+PubSubClient mqtt(netKlient);    // MQTT oven på TCP-forbindelsen
+
+char klientId[24];               // fx "esp32-a1b2c3d4e5f6"
+char topic[64];                  // fx "elever/anna/esp32/maaling"
+unsigned long sidsteSend = 0;
+unsigned long sidsteForsoeg = 0;
+unsigned long antalSendt = 0;
+
+// Client-id ud fra MAC-adressen, så to ESP32'er aldrig har samme id.
+// getEfuseMac() har MAC'ens første byte nederst, så bytes står i omvendt
+// rækkefølge i forhold til WiFi.macAddress(). Id'et er stadig unikt.
+void lavKlientId() {
+  uint64_t mac = ESP.getEfuseMac();
+  snprintf(klientId, sizeof(klientId), "esp32-%04x%08x",
+           (unsigned int)(uint16_t)(mac >> 32), (unsigned int)(uint32_t)mac);
+}
+
+// Som på WiFi-siden: vent højst timeoutMs, så programmet ikke hænger
+bool forbindWiFi(unsigned long timeoutMs) {
+  WiFi.mode(WIFI_STA);
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+  Serial.printf("Forbinder til %s", WIFI_SSID);
+  unsigned long start = millis();
+  while (WiFi.status() != WL_CONNECTED && millis() - start < timeoutMs) {
+    delay(500);  // OK her: setup() har ikke andet at lave endnu
+    Serial.print(".");
+  }
+  Serial.println();
+  return WiFi.status() == WL_CONNECTED;
+}
+
+// Ét forsøg på at forbinde til brokeren. Ingen while-løkke: loop() prøver igen senere.
+bool forbindMqtt() {
+  Serial.printf("Forbinder til MQTT %s:%u som %s ... ", MQTT_HOST, MQTT_PORT, klientId);
+  if (mqtt.connect(klientId)) {
+    Serial.println("OK");
+    return true;
+  }
+  Serial.printf("fejl, state=%d\n", mqtt.state());
+  return false;
+}
+
+void sendMaaling() {
+  int millivolt = analogReadMilliVolts(MAALE_PIN);
+  antalSendt++;
+
+  char payload[128];
+  snprintf(payload, sizeof(payload),
+           "{\"device\":\"%s\",\"nr\":%lu,\"spaending_mv\":%d,\"rssi\":%d,\"uptime_ms\":%lu}",
+           klientId, antalSendt, millivolt, WiFi.RSSI(), millis());
+
+  // publish() giver false, hvis vi ikke er forbundet, eller beskeden er for stor
+  bool ok = mqtt.publish(topic, payload);
+  Serial.printf("%s %s %s\n", ok ? "Sendt" : "IKKE sendt", topic, payload);
+}
+
+void setup() {
+  Serial.begin(115200);
+  lavKlientId();
+  snprintf(topic, sizeof(topic), "elever/%s/esp32/maaling", BRUGERNAVN);
+
+  if (!forbindWiFi(WIFI_TIMEOUT_MS)) {
+    Serial.printf("Ingen WiFi endnu (status %d). Prøver videre i baggrunden.\n", WiFi.status());
+  }
+
+  mqtt.setServer(MQTT_HOST, MQTT_PORT);
+  if (WiFi.status() == WL_CONNECTED) {
+    forbindMqtt();
+  }
+  sidsteForsoeg = millis();
+}
+
+void loop() {
+  unsigned long nu = millis();
+
+  if (mqtt.connected()) {
+    mqtt.loop();  // sender keep-alive-ping og modtager beskeder; skal kaldes ofte
+  } else if (WiFi.status() == WL_CONNECTED && nu - sidsteForsoeg >= MQTT_FORSOEG_MS) {
+    // Prøv igen med fast interval i stedet for en while-løkke med delay()
+    sidsteForsoeg = nu;
+    forbindMqtt();
+  }
+
+  if (mqtt.connected() && nu - sidsteSend >= SEND_INTERVAL_MS) {
+    sidsteSend = nu;
+    sendMaaling();
+  }
+
+  // Her kan programmet læse knapper og sensorer, også mens forbindelsen er nede
+}
+```
+
+<!-- TJEK: Om ESP32 kan slå "wilsons.local" eller "wilsons.home" op på skolens net, er ikke afprøvet. Indtil da bruger eksemplet IP-adressen. Brug samme navn som i ESP32-eksemplet på Lokal MQTT server (der står "wilsons.local"). -->
+
+Sådan virker det:
+
+- `PubSubClient` sender MQTT over en almindelig `WiFiClient`. På port 8883 skiftes den ud med en `WiFiClientSecure` med `ca.crt` (se [Lokal MQTT server](lokal_mqtt.qmd)).
+- `mqtt.connect(klientId)` forbinder med clean session og uden login. Den findes også med brugernavn og kode, og med en Last Will: `connect(id, willTopic, willQos, willRetain, willMessage)`.
+- `mqtt.publish(topic, payload)` sender med QoS 0. Med et tredje argument, `true`, bliver beskeden retained.
+- En besked må som standard højst fylde 256 bytes inklusive topic og hoved. Er den større, giver `publish()` bare `false`. Har du brug for mere, så kald `mqtt.setBufferSize(512)` i `setup()`.
+- `mqtt.state()` fortæller, hvorfor et forsøg fejlede: `-2` betyder, at der ikke kunne laves en forbindelse til brokeren (forkert navn eller IP, eller brokeren er nede), og `4` eller `5` betyder, at brokeren afviste login.
+
+### Hvorfor ingen `while`-løkke ved genforbindelse?
+
+Mange eksempler på nettet har en `reconnect()`, der står i en `while (!client.connected())`-løkke med `delay(5000)`, til brokeren svarer. Er brokeren nede i en time, står hele `loop()` stille i en time: knapper bliver ikke læst, og målinger bliver ikke gemt. Her prøver `loop()` i stedet én gang hvert 5. sekund og laver alt det andet imens, præcis som WiFi-siden gør med WiFi. Selve `mqtt.connect()` blokerer stadig, mens et forsøg står på: typisk ca. 3 sekunder, hvis der ikke er nogen maskine på adressen, og op til 15 sekunder, hvis maskinen svarer, men MQTT ikke gør.
+
+<!-- TJEK: Tiderne (3 s fra NetworkClient i core 3.x, 15 s fra MQTT_SOCKET_TIMEOUT i PubSubClient) er læst i kildekoden, ikke målt. Bekræft i øvelse 6. -->
+
+WiFi genforbinder selv i baggrunden (se [WiFi](../Grundlag/wifi.qmd)), så eksemplet venter bare på, at `WiFi.status()` bliver `WL_CONNECTED` igen.
+
+<!-- TJEK: PubSubClients README skriver nu "This library is not maintained". Version 2.8 fra 2020 er den nyeste i PlatformIO-registret. -->
+
+## Øvelser
+
+1. Kør `subscriber.py` i én terminal og `publisher.py` i en anden, begge med dit eget brugernavn. Ser du beskederne i subscriberen? Find dem også i MQTT Explorer og i weblog'en. Aflever et skærmbillede af alle tre.
+2. Send en besked fra MQTT Explorer til `elever/<brugernavn>/test`. Kommer den frem i din subscriber? Prøv derefter `Elever/<brugernavn>/test` med stort E. Hvad sker der, og hvorfor?
+3. Ret `TOPIC` i subscriberen og prøv `elever/+/python/temperatur`, `elever/<brugernavn>/+` og `test/#`. Skriv for hver, hvilke beskeder du får, og forklar hvorfor. Hvilket wildcard skal du bruge for at få temperaturen fra alle elever på holdet?
+4. Upload ESP32-eksemplet, og drej på potentiometeret. Følg målingerne i MQTT Explorer, og lav en graf over `spaending_mv`. Find samme beskeder i weblog'en: hvor står din JSON, og hvorfor er der `\` foran alle `"`?
+5. Send en retained besked fra MQTT Explorer til `elever/<brugernavn>/status`. Stop din subscriber, og start den igen: hvad skriver den, og hvad sker der, hvis du sender beskeden uden retain? Slet til sidst den retained besked.
+6. Lad, som om brokeren er nede: ret `MQTT_HOST` til en IP-adresse, hvor der ikke er nogen broker, fx `192.168.0.250`. Hvilken `state` får du? Læser `loop()` stadig videre, eller hænger den? Hvor lang tid tager hvert forsøg?
+7. Start to ESP32'er, eller to subscribers, med *samme* faste client-id. Hvad sker der med forbindelserne? Forklar det ud fra afsnittet om client-id.
+8. *Ekstra:* Giv `publisher.py` en Last Will med `client.will_set(f"elever/{BRUGERNAVN}/python/status", "offline", qos=1, retain=True)` før `connect()`, og send `online` med retain, når den er forbundet. Luk terminalen hårdt (ikke Ctrl+C). Hvad viser MQTT Explorer, og hvor lang tid går der?
+9. *Ekstra:* Lad ESP32 også abonnere på `elever/<brugernavn>/esp32/led` og tænde eller slukke lysdioden på GPIO 2, når der kommer `on` eller `off`. Brug `mqtt.setCallback()` med en funktion `void modtag(char* topic, byte* payload, unsigned int length)`, og abonnér med `mqtt.subscribe()` hver gang `forbindMqtt()` lykkes. Bemærk, at `payload` ikke slutter med `\0`, så brug `length`.
+10. *C# (i stedet for eller sammen med øvelse 1):* Kør C#-eksemplet med dit eget brugernavn. Find hilsenen under `elever/<brugernavn>/csharp/hilsen` i MQTT Explorer og i weblog'en (`elever/<brugernavn>/csharp/hilsen.jsonl`). Send derefter en besked fra MQTT Explorer til `elever/<brugernavn>/test`, og se den i C#-programmet. Kør også `subscriber.py` samtidig: får den C#-beskeden? Aflever et skærmbillede af konsollen, MQTT Explorer og weblog'en.
+
+## Typiske fejl
+
+- **Python: `TypeError` ved `mqtt.Client("mit-id")`:** Koden er skrevet til paho-mqtt 1.x. I version 2 er første argument `callback_api_version`, så id'et havner det forkerte sted. Brug `mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, client_id="mit-id")`.
+- **Python: advarsel om at "Callback API version 1 is deprecated", eller callbacks får det forkerte antal argumenter:** Du har skrevet `mqtt.Client()` uden version, så paho bruger den forældede VERSION1, og dine callbacks med `properties` passer ikke. Angiv `mqtt.CallbackAPIVersion.VERSION2`.
+- **Python: ingen beskeder, selv om subscriberen er forbundet:** `subscribe()` er kaldt før `connect()` eller uden for `on_connect`, eller der kører ingen netværksløkke (`loop_forever()` eller `loop_start()`).
+- **C#: `MqttFactory` eller `MQTTnet.Client` findes ikke:** Koden er skrevet til MQTTnet 4 eller ældre. Brug `new MqttClientFactory()` og kun `using MQTTnet;` (se [C#-eksemplet](#eksempel-csharp)).
+- **C#: forbindelsen "lykkes", men der kommer intet:** I MQTTnet 5 kaster `ConnectAsync` ikke en undtagelse, når brokeren afviser forbindelsen, fx ved forkert kode på 8883. Tjek `ResultCode` i svaret.
+- **Navnet `wilsons.local` kan ikke findes:** Din maskine kan ikke slå `.local`-navne op (det kræver mDNS), eller netværket sender dem ikke videre. Prøv `wilsons.home` eller `192.168.0.33`.
+- **Forbindelsen falder ud hvert øjeblik:** To klienter bruger samme client-id og smider hinanden af. Eller `mqtt.loop()` kaldes for sjældent på ESP32, fx fordi der er et langt `delay()` i `loop()`, så keep-alive udløber.
+- **ESP32: `publish()` giver `false`:** Der er ingen forbindelse, eller beskeden er over 256 bytes inklusive topic. Kald `mqtt.setBufferSize()`.
+- **ESP32: `state=-2`:** Ingen forbindelse til brokeren: forkert navn eller IP, forkert port, eller brokeren er nede.
+- **Beskeder på port 8883 kommer ikke frem, og der er ingen fejl:** Topic'et ligger uden for `elever/<dit-brugernavn>/` og `test/`, så brokeren smider dem væk. Se [Lokal MQTT server](lokal_mqtt.qmd).
+- **Wildcard i et publish-topic:** `+` og `#` kan kun bruges, når man abonnerer. Send til et konkret topic.
+- **Gamle værdier dukker op hver gang:** Der ligger en retained besked på topic'et. Slet den med en tom retained besked eller i MQTT Explorer. Bemærk, at loggeren også får den igen, når den genstarter, så den kan stå flere gange i weblog'en.
+
+## Læs videre
+
+### ESP32 med PubSubClient og Node-RED
+
+Random Nerd Tutorials viser i [ESP32 MQTT – Publish and Subscribe with Arduino IDE](https://randomnerdtutorials.com/esp32-mqtt-publish-subscribe-arduino-ide/){lang="en"} en ESP32 med en BME280-sensor, der sender temperatur og fugtighed, og som tænder en lysdiode, når der kommer en besked fra et Node-RED-dashboard. Det er en god opskrift på øvelse 9, og den viser, hvordan beskeder modtages med en callback. Læs den kritisk:
+
+- `reconnect()` står i en `while`-løkke med `delay(5000)`, så hele `loop()` står stille, så længe brokeren er nede. Se [hvorfor eksemplet her ikke gør det](#hvorfor-ingen-while-løkke-ved-genforbindelse).
+- Client-id'et er fast (`"ESP8266Client"`, selv om det er en ESP32). Kører to elever koden, smider de hinanden af. Læsere påpeger i kommentarerne, at id'et skal være unikt for hver enhed, og forfatteren medgiver, at navnet burde være ESP32.
+- Artiklen er til Arduino IDE med manuel installation af biblioteker. I PlatformIO skriver du dem i `lib_deps`.
+
+### Gode topics
+
+HiveMQ gennemgår topics og wildcards i [MQTT Topics, Wildcards, & Best Practices – MQTT Essentials: Part 5](https://www.hivemq.com/blog/mqtt-essentials-part-5-mqtt-topics-best-practices/){lang="en"} med mange eksempler på, hvordan man bygger et topic-hierarki, der kan vokse. Læs den kritisk:
+
+- Den skriver, at et abonnement på `#` giver alle beskeder. Det gælder ikke topics, der starter med `$`, hvad artiklen selv siger et andet sted.
+- Listen over "tilladte tegn" er en god vane, ikke en regel i standarden. Standarden tillader al UTF-8-tekst.
+
+## Kilder
+
+- MQTT.org, <https://mqtt.org/>
+- OASIS: MQTT Version 3.1.1 (topics, wildcards, QoS, retain, keep-alive, Will og client-id), <https://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html>
+- Eclipse Paho Python: Client-dokumentation, <https://eclipse.dev/paho/files/paho.mqtt.python/html/client.html>
+- Eclipse Paho Python: Migrations (version 1 til 2), <https://eclipse.dev/paho/files/paho.mqtt.python/html/migrations.html>
+- paho-mqtt på PyPI, <https://pypi.org/project/paho-mqtt/>
+- MQTTnet på NuGet (version 5.2.0.1603), <https://www.nuget.org/packages/MQTTnet>
+- MQTTnet: README, kildekode og samples (`Samples/Client/`), <https://github.com/dotnet/MQTTnet>
+- MQTTnet: Upgrading guide (version 4 til 5), <https://github.com/dotnet/MQTTnet/wiki/Upgrading-guide>
+- MQTTnet: Releases, <https://github.com/dotnet/MQTTnet/releases>
+- Microsoft Learn: `X509Certificate2Collection.ImportFromPemFile`, <https://learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.x509certificates.x509certificate2collection.importfrompemfile>
+- PubSubClient: README og kildekode, <https://github.com/knolleary/pubsubclient>
+- PubSubClient i PlatformIO-registret, <https://registry.platformio.org/libraries/knolleary/PubSubClient>
+- Arduino-ESP32: ADC (`analogReadMilliVolts`), <https://docs.espressif.com/projects/arduino-esp32/en/latest/api/adc.html>
+- MQTT Explorer, <https://mqtt-explorer.com/>, og kildekode, <https://github.com/thomasnordquist/MQTT-Explorer>
+- Mosquitto: `mosquitto_pub` (retain og tomme beskeder), <https://mosquitto.org/man/mosquitto_pub-1.html>
+- Mosquitto: `mosquitto.conf` (`$SYS` og persistence), <https://mosquitto.org/man/mosquitto-conf-5.html>
+- JSON Lines, <https://jsonlines.org/>
+- Lærerens vejledning til brokeren på wilsons og loggeren `mqtt_logger.py` (ikke offentlig)
+- Random Nerd Tutorials: ESP32 MQTT – Publish and Subscribe with Arduino IDE, <https://randomnerdtutorials.com/esp32-mqtt-publish-subscribe-arduino-ide/>
+- HiveMQ: MQTT Essentials Part 5, <https://www.hivemq.com/blog/mqtt-essentials-part-5-mqtt-topics-best-practices/>

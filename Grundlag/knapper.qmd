@@ -1,0 +1,256 @@
+---
+title: "Knapper og kontakter"
+subtitle: "Trykknapper, pull-up og pull-down"
+date: 2026-11-23
+maalpinde: [12, 17, 19]
+draft: true
+---
+
+<!-- IKKE KOMPILERET: eksemplerne er tjekket mod dokumentationen, men ikke kompileret eller testet på hardware. -->
+
+<!--
+TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
+1. Kør eksemplet med en knap på GPIO 18 til GND: lysdioden på GPIO 2 lyser, kun mens knappen holdes nede, og Serial Monitor viser skiftene.
+2. Tjek, at den indbyggede lysdiode på lokalets ESP32-DEVKIT-V1 sidder på GPIO 2 og lyser ved HIGH (TJEK i eksemplet).
+3. Afprøv øvelse 1 (svævende ben med INPUT): skifter værdien faktisk, når man rører ledningen? Ret teksten, hvis lokalets boards opfører sig anderledes (TJEK i afsnittet om svævende ben).
+4. Afprøv øvelse 2 (ekstern 10 kΩ pull-down, knap til 3V3) og øvelse 3 (to knapper).
+5. Afprøv øvelse 4 (INPUT_PULLUP på GPIO 34): kommer der en log-linje fra gpio i Serial Monitor? Nævn den i så fald på siden (TJEK ved tabellen over ben).
+6. Tjek, at BOOT-knappen på lokalets boards sidder på GPIO 0 og kan læses i et kørende program (TJEK ved GPIO 0 og øvelse 5).
+7. Tjek, at lokalets trykknapper er de almindelige 6 x 6 mm med fire ben, og at to diagonale ben kun giver forbindelse, når der trykkes (multimeter).
+8. Tjek, at lokalet har 10 kΩ-modstande til øvelse 2.
+9. Når siden om modstande findes, link til den under Forudsætninger (TJEK der).
+10. BILLEDE: en trykknap set fra siden og fra neden, med de parvis forbundne ben markeret.
+11. BILLEDE: trykknap, vippekontakt og skydekontakt side om side.
+12. BILLEDE: eksemplets opstilling (knap over renden, diagonale ben til GPIO 18 og GND).
+13. BILLEDE: øvelse 2 med den eksterne pull-down-modstand.
+14. Fjern IKKE KOMPILERET, denne tjekliste og alle TJEK- og BILLEDE-kommentarer, gør billede-mangler-boksene til BILLEDE-kommentarer eller rigtige billeder, og sæt draft: false.
+-->
+
+En knap er det enkleste input, du kan give en ESP32: den er enten trykket eller ikke trykket. Men en knap giver ikke selv en spænding. Den forbinder bare to ben, når du trykker. Hvad ESP32 læser, når knappen *ikke* er trykket, bestemmer du med en modstand. Glemmer du den, læser programmet tilfældige værdier, og fejlen kan ligne en fejl i koden.
+
+## Formål
+
+- Du kan kende forskel på en trykknap, en vippekontakt og en skydekontakt, og på en NO- og en NC-kontakt.
+- Du kan sætte en trykknap rigtigt på et breadboard.
+- Du kan forklare, hvad [pull-up]{lang="en"} og [pull-down]{lang="en"} er, og hvorfor et ben uden dem giver tilfældige værdier.
+- Du kan læse en knap med `digitalRead()` og den interne pull-up, og vælge et ben, der kan bruges.
+
+## Målpinde
+
+Siden arbejder med målpind 12, 17 og 19 (se [Læringsmål](../laeringsmaal.qmd)).
+
+## Forudsætninger
+
+- Du kan oprette et PlatformIO-projekt til ESP32-DEVKIT-V1 og uploade et program (se [PlatformIO](platformio.qmd)).
+- Du ved, hvordan et breadboard er forbundet indvendigt (se [Breadboard](breadboard.qmd)).
+- Til øvelserne: hvad en modstand er (siden om modstande).
+<!-- TJEK: link til Modstande-siden, når den findes. -->
+- Du ved, at den indbyggede lysdiode sidder på GPIO 2 (se [Lysdioder](lysdioder.qmd)).
+- Hardware: ESP32-DEVKIT-V1, to trykknapper, en modstand på 10 kΩ, et breadboard og ledninger.
+
+## Typer af kontakter
+
+En kontakt ([switch]{lang="en"}) er to stykker metal, der rører hinanden eller ikke gør. Der findes mange slags. Dem, du møder i lokalet, er:
+
+| Type | Sådan virker den | Typisk brug |
+|---|---|---|
+| Trykknap ([tactile switch]{lang="en"}) | Giver kun forbindelse, mens du trykker. Fjedrer tilbage, når du slipper. | Kommandoer: start, nulstil, næste |
+| Vippekontakt ([toggle switch]{lang="en"}) | Bliver i den stilling, du sætter den i. | Tænd/sluk, valg af tilstand |
+| Skydekontakt ([slide switch]{lang="en"}) | Som en vippekontakt, men du skubber en lille knap til siden. | Valg af tilstand på et print |
+
+Kontakter beskrives også ud fra, hvad de gør, når ingen rører dem:
+
+- **NO** ([normally open]{lang="en"}): åben i hvile, forbindelse når den aktiveres. Almindelige trykknapper er NO.
+- **NC** ([normally closed]{lang="en"}): forbindelse i hvile, afbrudt når den aktiveres. Bruges fx til nødstop, fordi en knækket ledning så opdages som "stop" i stedet for at blive overset.
+
+Vippe- og skydekontakter har ofte tre ben: det midterste er fælles (COM) og forbindes til enten det ene eller det andet yderben. Det kaldes en omskifter ([SPDT]{lang="en"}). De har ingen hvilestilling, så NO og NC giver ikke mening for dem. En endestopkontakt ([micro switch]{lang="en"}) fjedrer derimod tilbage og har derfor tit benene mærket COM, NO og NC.
+
+::: {.billede-mangler}
+En trykknap, en vippekontakt og en skydekontakt side om side, fra lokalets kasser. Se lignende billeder: [ESP32IO: ESP32 - Button](https://esp32io.com/tutorials/esp32-button).
+:::
+
+### Trykknappen har fire ben
+
+Den almindelige trykknap til breadboards (6 x 6 mm) har fire ben, men den er kun én kontakt. Benene er forbundet indvendigt to og to:
+
+```
+  A ●──────┬──────● A     A-benene er altid forbundet
+           │
+          ─┴─  kontakt: åben, indtil du trykker
+          ─┬─
+           │
+  B ●──────┴──────● B     B-benene er altid forbundet
+```
+
+Der er kun forbindelse mellem A og B, mens du trykker.
+
+Brug derfor to ben, der sidder **diagonalt** over for hinanden. Så går forbindelsen helt sikkert gennem kontakten, uanset hvordan knappen er drejet. Vælger du to ben, der er forbundet indvendigt, er "knappen" altid trykket.
+
+::: {.billede-mangler}
+En trykknap set fra siden og fra neden, med de to par forbundne ben markeret. Se lignende billeder: [ESP32IO: ESP32 - Button](https://esp32io.com/tutorials/esp32-button) (afsnittet om knappens ben).
+:::
+
+### Knappen på breadboardet
+
+Sæt knappen hen over renden på midten af breadboardet, så to ben sidder på hver side. Så er de fire ben i hver sin række, og intet er kortsluttet af boardet. Siden om [Breadboard](breadboard.qmd) viser opstillingen trin for trin.
+
+## Pull-up og pull-down
+
+Et input-ben på ESP32 trækker næsten ingen strøm. Det er godt, fordi det ikke belaster det, der er koblet til. Men det betyder også, at et ben, der ikke er forbundet til noget, ikke har nogen bestemt spænding.
+
+### Et svævende ben giver tilfældige værdier
+
+Sidder knappen mellem et GPIO-ben og GND, er benet forbundet til GND, mens du trykker. Når du slipper, er benet ikke forbundet til noget. Det kaldes et svævende ben ([floating]{lang="en"}). Ledningen virker som en lille antenne og opfanger støj, fx fra lysnettet eller fra din hånd. Programmet læser så `HIGH` og `LOW` i flæng, selvom ingen trykker.
+
+<!-- TJEK: hvor tydeligt det svævende ben skifter, afhænger af boardet og ledningens længde. Afprøv øvelse 1 på lokalets boards. -->
+
+Løsningen er en modstand, der trækker benet til en bestemt værdi, når knappen ikke er trykket:
+
+- **Pull-up:** modstanden går fra benet til 3,3 V. Uden tryk læses `HIGH`. Knappen sidder mellem benet og GND, så et tryk giver `LOW`.
+- **Pull-down:** modstanden går fra benet til GND. Uden tryk læses `LOW`. Knappen sidder mellem benet og 3,3 V, så et tryk giver `HIGH`.
+
+```
+  Pull-up                         Pull-down
+
+  3,3 V                           3,3 V
+    │                               │
+   [R]                            knap
+    │                               │
+    ├──── GPIO (tryk = LOW)         ├──── GPIO (tryk = HIGH)
+    │                               │
+  knap                             [R]
+    │                               │
+   GND                             GND
+```
+
+Modstanden er stor nok til, at der kun løber en lille strøm, når knappen er trykket. Med 10 kΩ og 3,3 V er det 3,3 V / 10 kΩ = 0,33 mA. Uden modstanden ville et tryk kortslutte 3,3 V til GND.
+
+### Intern eller ekstern modstand
+
+ESP32 har indbyggede pull-up- og pull-down-modstande på ca. 45 kΩ, som du slår til i programmet:
+
+| `pinMode(pin, …)` | Betydning |
+|---|---|
+| `INPUT` | Ingen modstand. Benet svæver, hvis intet andet trækker det. |
+| `INPUT_PULLUP` | Intern pull-up til 3,3 V. Tryk = `LOW`. |
+| `INPUT_PULLDOWN` | Intern pull-down til GND. Tryk = `HIGH`. |
+
+Den interne pull-up er det nemmeste: knappen går direkte mellem benet og GND, og du skal ikke bruge en modstand. Det er den kobling, de fleste eksempler bruger, også siden om [Debouncing](debouncing.qmd).
+
+En **ekstern** modstand, typisk 10 kΩ, bruges, når:
+
+- benet ikke har en intern modstand (GPIO 34–39, se nedenfor)
+- ledningen til knappen er lang, så støjen bliver større. En mindre modstand end de interne 45 kΩ holder benet mere stabilt.
+- kredsløbet skal virke, uanset hvad programmet gør, fx under opstart.
+
+Bemærk igen: **med pull-up giver et tryk `LOW`**. Det er omvendt af, hvad mange forventer, og den mest almindelige fejl med knapper.
+
+## Valg af ben
+
+| Ben | Til en knap? |
+|---|---|
+| 18, 19, 21–23, 25–27, 32, 33 | Ja |
+| 34–39 | Kun med en ekstern modstand. De kan kun bruges som input og har ingen intern pull-up eller pull-down, så `INPUT_PULLUP` giver ingen pull-up. |
+| 6–11 | Nej: forbundet til den interne flash |
+| 0, 2, 5, 12, 15 | Helst ikke: de påvirker, hvordan ESP32 starter ([strapping pins]{lang="en"}). Som output er de fine, fx GPIO 2 til den indbyggede lysdiode. |
+
+<!-- TJEK: om Arduino-ESP32 skriver en fejl- eller advarselslinje i Serial Monitor, når INPUT_PULLUP bruges på GPIO 34-39 (afprøv i øvelse 4). Nævn den i så fald her og under Typiske fejl. -->
+
+Af strapping-benene er **GPIO 0** det farlige for en knap til GND. Er GPIO 0 `LOW`, når ESP32 starter, går den (på DevKit-boardet) i upload-tilstand i stedet for at køre dit program. Holder du knappen nede, mens du sætter USB i eller trykker på EN, ser det ud, som om programmet er væk. Faktisk er det sådan, BOOT-knappen på ESP32-DEVKIT-V1 virker: den sidder på GPIO 0.
+
+<!-- TJEK: at BOOT-knappen på lokalets ESP32-DEVKIT-V1 sidder på GPIO 0 (standard på DevKit-designet, men lokalets kloner er ikke målt). -->
+
+## Eksempel: lysdioden lyser, mens knappen holdes nede
+
+Knappen sidder mellem **GPIO 18** og **GND**, på to diagonale ben. Lysdioden er den indbyggede på **GPIO 2**, så den skal ikke kobles på.
+
+<!-- TJEK: at den indbyggede lysdiode på lokalets boards sidder på GPIO 2 og lyser ved HIGH. -->
+
+::: {.billede-mangler}
+Eksemplets opstilling: ESP32-DEVKIT-V1 og en trykknap over renden, med ledninger fra to diagonale ben til GPIO 18 og GND. Se lignende billeder på siden om [Breadboard](breadboard.qmd).
+:::
+
+```{.ini filename="platformio.ini"}
+[env:esp32doit-devkit-v1]
+platform = espressif32@8.0.0
+board = esp32doit-devkit-v1
+framework = arduino
+monitor_speed = 115200
+```
+
+```{.cpp filename="src/main.cpp"}
+#include <Arduino.h>
+
+// Konfiguration
+const int KNAP_PIN = 18;  // knap mellem GPIO 18 og GND
+const int LED_PIN = 2;    // den indbyggede lysdiode
+
+int forrigeTilstand = HIGH;  // HIGH = ikke trykket (pull-up)
+
+void setup() {
+  Serial.begin(115200);
+  pinMode(KNAP_PIN, INPUT_PULLUP);  // intern pull-up, så benet ikke svæver
+  pinMode(LED_PIN, OUTPUT);
+}
+
+void loop() {
+  int tilstand = digitalRead(KNAP_PIN);
+
+  // Med pull-up betyder LOW, at knappen er trykket
+  if (tilstand == LOW) {
+    digitalWrite(LED_PIN, HIGH);
+  } else {
+    digitalWrite(LED_PIN, LOW);
+  }
+
+  // Skriv kun, når tilstanden skifter, ellers drukner Serial Monitor
+  if (tilstand != forrigeTilstand) {
+    Serial.println(tilstand == LOW ? "Trykket" : "Sluppet");
+    forrigeTilstand = tilstand;
+  }
+}
+```
+
+Programmet læser knappen i hvert gennemløb af `loop()` og sætter lysdioden derefter. Der er ingen `delay()`, så lysdioden følger knappen med det samme.
+
+Programmet er bevidst lavet **uden debouncing**. Du ser derfor måske flere "Trykket" og "Sluppet" i Serial Monitor ved ét tryk. Det er kontaktprel, og det er emnet på siden om [Debouncing](debouncing.qmd). For lysdioden betyder det ikke noget, for den blinker kun et par millisekunder, og det kan øjet ikke se. Skal programmet tælle tryk eller skifte tilstand ved hvert tryk, skal du debounce.
+
+## Øvelser
+
+1. **Det svævende ben:** Ret `INPUT_PULLUP` til `INPUT` i eksemplet, og tag ledningen fra GND af knappen, så benet kun er forbundet til en løs ledning. Rør ved den løse ende af ledningen med fingeren, og hold øje med lysdioden og Serial Monitor. Skriv ned, hvad du ser, og forklar hvorfor. Sæt `INPUT_PULLUP` tilbage bagefter.
+2. **Ekstern pull-down:** Byg knappen om, så den sidder mellem GPIO 18 og **3V3**, og sæt en modstand på 10 kΩ fra GPIO 18 til GND. Brug `pinMode(KNAP_PIN, INPUT)`. Ret programmet, så lysdioden stadig lyser, mens knappen holdes nede. Hvad læses nu, når knappen er trykket? Tegn diagrammet, og aflever det sammen med koden.
+3. **To knapper:** Tilføj en knap mere på GPIO 19 til GND med `INPUT_PULLUP`. Lysdioden må kun lyse, når *begge* knapper holdes nede. Lav derefter en udgave, hvor den lyser, når *mindst én* er trykket. Brug konstanter til begge ben og en lille funktion `erTrykket(pin)`, der returnerer `true`, når knappen på `pin` er trykket.
+4. **Et ben uden pull-up:** Flyt knappen til GPIO 34 med `INPUT_PULLUP`. Virker den? Forklar hvorfor ikke, og få den til at virke med en ekstern modstand på 10 kΩ til 3V3.
+5. *Ekstra:* Læs BOOT-knappen på ESP32-DEVKIT-V1 som input på GPIO 0, mens programmet kører, og lad den tænde lysdioden. Hold derefter BOOT nede, mens du trykker på EN. Hvad sker der, og hvorfor? (Brug ikke BOOT-knappen i dine egne projekter.)
+
+## Typiske fejl
+
+- **Knappen er altid trykket:** Ledningerne sidder på to ben af knappen, der er forbundet indvendigt. Brug to diagonale ben.
+- **Knappen virker baglæns:** Med `INPUT_PULLUP` er et tryk `LOW`, ikke `HIGH`.
+- **Tilfældige værdier, når ingen trykker:** Benet svæver. Der står `INPUT` uden en ekstern modstand, eller knappen sidder på GPIO 34–39, hvor `INPUT_PULLUP` ikke virker.
+- **Programmet starter ikke efter reset:** Knappen sidder på GPIO 0 og er trykket ved opstart, så ESP32 venter i upload-tilstand.
+- **ESP32 genstarter, når der trykkes:** Knappen kortslutter 3V3 direkte til GND. Det sker, hvis pull-down-modstanden er erstattet af en ledning, eller hvis knappen sidder mellem 3V3- og GND-skinnen, fx fordi den ikke sidder hen over renden. (En *manglende* pull-down giver ikke kortslutning, men et svævende ben.)
+- **Benet er sat som `OUTPUT`:** Driver programmet benet `HIGH`, mens knappen trækker det til GND, kortslutter du udgangen. ESP32 begrænser selv strømmen, men det er stadig en fejl. Brug `INPUT_PULLUP`.
+- **Knappen sidder på 5 V:** Brug 3V3, ikke VIN. ESP32's indgange tåler kun 3,3 V.
+- **Flere tryk ved ét tryk:** Kontaktprel. Se [Debouncing](debouncing.qmd).
+
+## Læs videre
+
+### ESP32IO: ESP32 - Button
+
+[ESP32 - Button](https://esp32io.com/tutorials/esp32-button){lang="en"} har gode billeder af knappens fire ben, og af pull-up- og pull-down-koblingen. Den viser også et knapmodul med tre ben (GND, VCC og OUT), som har en pull-down indbygget, og som derfor læses med `INPUT`.
+
+Bemærk to ting:
+
+- I eksemplet, der finder skift, starter variablen `lastState` som `LOW`. Med `INPUT_PULLUP` læses en sluppet knap som `HIGH`, så programmet skriver "The button is released" i første gennemløb, selvom ingen har rørt knappen. Start den som `HIGH`, som vi gør i eksemplet ovenfor.
+- Siden forklarer, at knappen har fire ben for at holde til trykket. Det er en af grundene: fire ben gør knappen mere stabil på et print. Det betyder ikke noget for, hvordan du kobler den.
+
+## Kilder
+
+- Arduino-ESP32: GPIO (`pinMode`, `digitalRead`, interne modstande på 45 kΩ), <https://docs.espressif.com/projects/arduino-esp32/en/latest/api/gpio.html>
+- ESP-IDF: GPIO (GPIO 34–39 kun input og uden pull-up/pull-down, GPIO 6–11), <https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/gpio.html>
+- esptool: Boot Mode Selection (GPIO 0 ved opstart), <https://docs.espressif.com/projects/esptool/en/latest/esp32/advanced-topics/boot-mode-selection.html>
+- Espressif: ESP32 Datasheet (strapping pins), <https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf>
+- PlatformIO: ESP32-DEVKIT-V1, <https://docs.platformio.org/en/latest/boards/espressif32/esp32doit-devkit-v1.html>
+- ESP32IO: ESP32 - Button, <https://esp32io.com/tutorials/esp32-button>
+- Random Nerd Tutorials: ESP32 Pinout Reference, <https://randomnerdtutorials.com/esp32-pinout-reference-gpios/>

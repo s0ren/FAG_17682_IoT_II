@@ -1,0 +1,367 @@
+---
+title: "Lysdioder (LED'er)"
+subtitle: "Tænd, sluk og dæmp en lysdiode med ESP32"
+date: 2026-11-23
+maalpinde: [12, 18, 19]
+draft: true
+---
+
+<!-- IKKE KOMPILERET: eksemplerne er tjekket mod dokumentationen, men ikke kompileret eller testet på hardware. -->
+
+<!--
+TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
+1. Kompilér og kør "Eksempel: blink med millis()" på en ESP32-DEVKIT-V1 med en LED og 220 Ω på GPIO 19. Blinker den eksterne og den indbyggede LED i modtakt?
+2. Kompilér og kør "Eksempel: fade med PWM" (ledcAttach/ledcWrite) med espressif32@8.0.0. Kør også varianten med analogWrite().
+3. Tjek, at den indbyggede LED på lokalets boards sidder på GPIO 2 og lyser ved HIGH (TJEK i afsnittet om den indbyggede lysdiode).
+4. Tjek "langt ben = anode, flad kant = katode" mod databladet for lokalets lysdioder (TJEK i afsnittet om anode og katode). Tjek tabellen med Vf mod databladet for lokalets lysdioder, især grøn (gammel gulgrøn ca. 2,1 V eller ren grøn ca. 3 V) og blå/hvid (TJEK ved tabellen).
+5. Tjek, at 220 Ω er den modstand, der ligger i lokalet til lysdioder, og at lysstyrken er god nok (TJEK i afsnittet om formodstand).
+6. Tjek, hvilke RGB-lysdioder lokalet har (fælles katode eller fælles anode), og om det fælles ben er det længste (TJEK i afsnittet om RGB).
+7. Kør blink-eksemplet uden pinMode(LED_PIN, OUTPUT) og med build_flags = -DCORE_DEBUG_LEVEL=1: forbliver lysdioden slukket, og står fejlen "IO 19 is not set as GPIO" i Serial Monitor (afsnittet om digitalWrite)?
+8. BILLEDE: en lysdiode tæt på, så det lange ben og den flade kant kan ses.
+9. BILLEDE: en lysdiode med formodstand på breadboardet, koblet til GPIO 19 og GND.
+10. BILLEDE: trafiklyset med tre lysdioder (til øvelse 4).
+11. BILLEDE: en RGB-lysdiode med benene markeret.
+12. Fjern IKKE KOMPILERET, denne tjekliste og alle TJEK-kommentarer, gør billedboksene til BILLEDE-kommentarer (eller sæt billeder ind), og sæt draft: false.
+-->
+
+En lysdiode (LED, [light-emitting diode]{lang="en"}) er den enkleste måde at få ESP32 til at vise noget: tændt, slukket, blinkende eller dæmpet. Den viser, at programmet kører, at WiFi er forbundet, eller at en måling er over en grænse. Men en lysdiode kan ikke bare sættes direkte på et ben: den skal vende rigtigt, og den skal have en modstand, der begrænser strømmen, ellers kan både lysdioden og ESP32-benet tage skade.
+
+## Formål
+
+- Du kan forklare, hvad en diode er, og finde anode og katode på en lysdiode.
+- Du kan beregne en formodstand ud fra spænding, Vf og den strøm, du ønsker.
+- Du kan tænde og slukke en lysdiode med `digitalWrite()` og få den til at blinke med `millis()`.
+- Du kan styre lysstyrken med PWM, både med `analogWrite()` og med LEDC-funktionerne `ledcAttach()` og `ledcWrite()` i Arduino-ESP32 3.x.
+
+## Målpinde
+
+Siden arbejder med målpind 12, 18 og 19 (se [Læringsmål](../laeringsmaal.qmd)).
+
+## Forudsætninger
+
+- Du kan oprette et PlatformIO-projekt til ESP32-DEVKIT-V1 og uploade et program (se [PlatformIO](platformio.qmd)).
+- Du kan bygge på et breadboard (se [Breadboard med tilpassede ledninger](breadboard.qmd)).
+- Du kender Ohms lov og kan aflæse en modstand (se [Modstande](modstande.qmd)).
+- Hardware: ESP32-DEVKIT-V1, breadboard, tre lysdioder (rød, gul og grøn), tre modstande på 220 Ω og ledninger.
+
+## Hvad er en lysdiode?
+
+En diode er en komponent, der kun lader strøm gå én vej. En lysdiode er en diode, der lyser, når der går strøm igennem den i den rigtige retning. Vender den forkert, går der ingen strøm, og den lyser ikke. Det ødelægger den ikke ved 3,3 V, men den virker heller ikke.
+
+De to ben hedder:
+
+- **Anode (+):** det **lange ben**. Den skal vende mod plus, altså mod ESP32-benet.
+- **Katode (−):** det **korte ben**. Kanten af lysdioden er **flad** i den side. Den skal vende mod GND.
+
+Er benene klippet af, så kig efter den flade kant på plastikken. Inde i lysdioden er katodens metalstykke typisk det største, men det passer ikke på alle typer, så den flade kant er det sikreste.
+
+<!-- TJEK: "langt ben = anode, flad kant = katode" er standard for 5 mm-lysdioder, men det kunne ikke bekræftes i de hentede kilder (Wikipedia og Adafruit siger det ikke i tekst; SparkFuns LED-guide gav HTTP 403). Tjek mod databladet for lokalets lysdioder. -->
+
+::: {.billede-mangler}
+En 5 mm lysdiode tæt på, hvor det lange ben (anode) og den flade kant ved katoden kan ses. Se lignende billeder: [Wikipedia: Light-emitting diode](https://en.wikipedia.org/wiki/Light-emitting_diode).
+:::
+
+### Spændingsfald (Vf)
+
+Når der går strøm gennem en lysdiode, ligger der en næsten fast spænding over den. Den hedder *forward voltage*, Vf ([forward voltage]{lang="en"}), og den afhænger af farven, fordi forskellige farver laves af forskellige materialer:
+
+| Farve | Vf, interval (Wikipedia) | Typisk værdi at regne med |
+|---|---|---|
+| Rød | 1,63–2,03 V | 2,0 V |
+| Orange | 2,03–2,10 V | 2,0 V |
+| Gul | 2,10–2,18 V | 2,1 V |
+| Grøn | 1,9–4,0 V | 2,1 V (gulgrøn) eller 3,0 V (ren grøn) |
+| Blå | 2,48–3,7 V | 3,0 V |
+| Hvid | 2,8–4,2 V | 3,0 V |
+
+Intervallerne er fra Wikipedias tabel over farver og materialer. Den præcise værdi står i lysdiodens datablad, og den stiger lidt med strømmen.
+
+<!-- TJEK: Kolonnen "typisk værdi" er afrundede værdier valgt ud fra intervallerne og Adafruit ("2.2V for average" for rød, gul, orange og lysegrøn), ikke fra ét datablad. Tjek mod databladet for lokalets lysdioder, især om de grønne er gulgrønne (ca. 2,1 V) eller rene grønne (ca. 3 V). -->
+
+Læg mærke til blå og hvid: Vf er næsten 3,3 V. Så er der kun få tiendedele volt tilbage til modstanden, og lysdioden kan lyse svagt eller ujævnt fra eksemplar til eksemplar. Rød, gul og gulgrøn er nemmest at bruge på 3,3 V.
+
+### Strøm
+
+Mange lysdioder er beregnet til **højst ca. 20 mA**. Men moderne lysdioder lyser fint ved 2–10 mA, og du skåner både lysdioden og ESP32. Regn derfor med **5–10 mA** til en indikatorlysdiode.
+
+### ESP32-benets grænse
+
+Espressifs datablad for ESP32 (afsnit 5.3, DC Characteristics) siger, at et ben kan levere ca. **40 mA** og stadig holde mindst 2,64 V, men kun når udgangens drivstyrke er sat til det højeste. Standard er *medium*. Strømmen per ben falder til ca. 29 mA, når flere ben i samme strømdomæne leverer strøm på én gang. Ben kan trække ca. 28 mA til GND. Den absolutte grænse i databladet (afsnit 5.1) er **1200 mA for alle ben tilsammen**.
+
+De 40 mA er altså ikke en grænse, du skal gå op til. Hold dig til **højst ca. 10 mA per lysdiode**. Det er en tommelfingerregel her på siden, ikke et tal fra databladet.
+
+### Formodstand
+
+Formodstanden sidder i serie med lysdioden og bestemmer strømmen. Den skal "tage" den spænding, der er tilbage, når lysdioden har taget sin Vf:
+
+$$
+R = \frac{3{,}3\ \text{V} - V_f}{I}
+$$
+
+**Regneeksempel:** en rød lysdiode (Vf = 2,0 V) og en ønsket strøm på 6 mA:
+
+$$
+R = \frac{3{,}3\ \text{V} - 2{,}0\ \text{V}}{0{,}006\ \text{A}} = \frac{1{,}3\ \text{V}}{0{,}006\ \text{A}} \approx 217\ \Omega
+$$
+
+Den nærmeste standardværdi er **220 Ω**. Vælg altid den nærmeste værdi *over* det beregnede, så strømmen bliver lidt mindre, ikke større. Med 220 Ω bliver strømmen 1,3 V / 220 Ω ≈ 5,9 mA.
+
+En 220 Ω-modstand har farverne rød, rød, brun (og guld for tolerance). Brug [farvekode-beregneren på siden om modstande](modstande.qmd#farvekode-beregner) til at tjekke din modstand.
+
+<!-- TJEK: at 220 Ω er den værdi, der ligger i lokalet til lysdioder, og at lysstyrken er god nok. -->
+
+### Kobling
+
+```
+GPIO 19 ── 220 Ω ── anode (langt ben) ▶| katode (kort ben, flad kant) ── GND
+```
+
+Det er ligegyldigt, om modstanden sidder før eller efter lysdioden: strømmen er den samme i hele kredsen. Det vigtige er, at den er der.
+
+Brug et af de ben, der er sikre som udgang: 18, 19, 21, 22, 23, 25, 26, 27, 32 eller 33. Ben 34–39 kan kun bruges som indgang, og 6–11 er forbundet til den interne flash.
+
+::: {.billede-mangler}
+En lysdiode med 220 Ω formodstand på breadboardet, koblet til GPIO 19 og GND på ESP32-DEVKIT-V1. Se lignende billeder: [ESP32IO: LED - Blink Without Delay](https://esp32io.com/tutorials/esp32-led-blink-without-delay).
+:::
+
+## Den indbyggede lysdiode
+
+ESP32-DEVKIT-V1 har en lille blå lysdiode på kortet, som sidder på **GPIO 2**. I Arduino-ESP32 hedder benet `LED_BUILTIN` for dette board, så du kan skrive `LED_BUILTIN` i stedet for `2`. Formodstanden sidder allerede på kortet.
+
+GPIO 2 er også en [strapping pin]{lang="en"}, der påvirker opstarten. Det er fint at bruge den til den indbyggede lysdiode, men sæt ikke selv flere ting på GPIO 2.
+
+<!-- TJEK: at den indbyggede LED på lokalets boards sidder på GPIO 2 og lyser ved HIGH (ikke omvendt). LED_BUILTIN = 2 er bekræftet i Arduino-ESP32's variant doitESP32devkitV1. -->
+
+## Tænd og sluk: `digitalWrite()`
+
+```cpp
+pinMode(LED_PIN, OUTPUT);     // i setup(): benet skal være en udgang
+digitalWrite(LED_PIN, HIGH);  // 3,3 V på benet: lysdioden lyser
+digitalWrite(LED_PIN, LOW);   // 0 V på benet: lysdioden er slukket
+```
+
+Glemmer du `pinMode(..., OUTPUT)`, sker der ingenting: i Arduino-ESP32 3.x ændrer `digitalWrite()` kun benet, hvis det er sat op som GPIO. (På Arduino Uno kan lysdioden i stedet lyse svagt, men ikke på ESP32.) Sætter du `build_flags = -DCORE_DEBUG_LEVEL=1` i `platformio.ini`, skriver core'en fejlen `IO 19 is not set as GPIO. Execute pinMode(19, OUTPUT) first.` i Serial Monitor.
+
+## Lysstyrke med PWM
+
+Et digitalt ben kan kun være 0 V eller 3,3 V, ikke "halvt tændt". I stedet tænder og slukker man benet meget hurtigt. Det hedder PWM ([pulse-width modulation]{lang="en"}). Øjet kan ikke se de hurtige blink, så det ser lysdioden som svagere eller kraftigere:
+
+```
+duty 25 %:  ‾|___‾|___‾|___   lyser svagt
+duty 50 %:  ‾‾|__‾‾|__‾‾|__   lyser halvt
+duty 75 %:  ‾‾‾|_‾‾‾|_‾‾‾|_   lyser kraftigt
+```
+
+- **Frekvens:** hvor mange gange i sekundet signalet gentages. Over et par hundrede Hz ser øjet ikke blinkene. 1000–5000 Hz er fint til lysdioder.
+- **Duty cycle:** hvor stor en del af tiden benet er tændt.
+- **Opløsning:** hvor mange trin duty kan sættes i. Med 8 bit er der 256 trin: 0 er slukket, og 255 er næsten helt tændt (med `ledcWrite()` er 256 helt tændt, se tabellen nedenfor).
+
+ESP32 har en særlig hardwareblok til PWM, der hedder **LEDC** ([LED control]{lang="en"}). Den har 16 kanaler, så du kan dæmpe op til 16 ben på én gang.
+
+### To måder i Arduino-ESP32
+
+**`analogWrite(pin, værdi)`** er den simple, som også findes på Arduino Uno. På ESP32 bruger den LEDC bag om ryggen med **1000 Hz og 8 bit**, så værdien går fra 0 (slukket) til 255 (helt tændt).
+
+**LEDC-funktionerne** giver dig selv valget af frekvens og opløsning:
+
+| Funktion | Hvad den gør |
+|---|---|
+| `bool ledcAttach(uint8_t pin, uint32_t freq, uint8_t resolution)` | Sætter PWM op på benet. Vælger selv en ledig kanal. Giver `false` ved fejl. |
+| `bool ledcWrite(uint8_t pin, uint32_t duty)` | Sætter duty. Gyldigt område er 0 til 2^opløsning, hvor 2^opløsning er helt tændt (256 ved 8 bit). |
+| `bool ledcFade(uint8_t pin, uint32_t start_duty, uint32_t target_duty, int max_fade_time_ms)` | Lader hardwaren fade fra én duty til en anden. |
+| `bool ledcDetach(uint8_t pin)` | Fjerner PWM fra benet igen. |
+
+::: {.callout-warning}
+## Ændret i Arduino-ESP32 3.x
+I version 2.x skulle man først kalde `ledcSetup(kanal, freq, opløsning)` og så `ledcAttachPin(pin, kanal)`, og `ledcWrite()` tog en **kanal**. I 3.x er `ledcSetup()` og `ledcAttachPin()` fjernet og erstattet af `ledcAttach()`, og alle LEDC-funktioner tager nu **benet** i stedet for kanalen. Vores platform (`espressif32@8.0.0`) bruger 3.x, så gammel kode fra nettet giver kompileringsfejl.
+:::
+
+## Eksempel: blink med `millis()`
+
+En ekstern lysdiode på GPIO 19 blinker, og den indbyggede lysdiode blinker i modtakt. Programmet bruger `millis()` i stedet for `delay()`, så `loop()` aldrig står stille og kan nå at lave andre ting.
+
+```{.ini filename="platformio.ini"}
+[env:esp32doit-devkit-v1]
+platform = espressif32@8.0.0
+board = esp32doit-devkit-v1
+framework = arduino
+monitor_speed = 115200
+```
+
+```{.cpp filename="src/main.cpp"}
+#include <Arduino.h>
+
+// Konfiguration
+const int LED_PIN = 19;               // ekstern lysdiode via 220 Ω til GND
+const unsigned long BLINK_MS = 500;   // tid tændt og tid slukket
+
+bool ledTaendt = false;
+unsigned long sidsteSkift = 0;
+
+// Skifter begge lysdioder; den indbyggede lyser, når den eksterne er slukket
+void skiftLysdioder() {
+  ledTaendt = !ledTaendt;
+  digitalWrite(LED_PIN, ledTaendt ? HIGH : LOW);
+  digitalWrite(LED_BUILTIN, ledTaendt ? LOW : HIGH);
+}
+
+void setup() {
+  Serial.begin(115200);
+  pinMode(LED_PIN, OUTPUT);
+  pinMode(LED_BUILTIN, OUTPUT);  // GPIO 2 på ESP32-DEVKIT-V1
+}
+
+void loop() {
+  unsigned long nu = millis();
+
+  // Subtraktionen virker også, når millis() løber rundt (efter ca. 49 dage),
+  // fordi begge tal er unsigned long
+  if (nu - sidsteSkift >= BLINK_MS) {
+    sidsteSkift = nu;
+    skiftLysdioder();
+  }
+
+  // Her kan loop() lave andre ting, fx læse knapper eller sende data
+}
+```
+
+### Hvorfor ikke bare `delay()`?
+
+Med `digitalWrite(...); delay(500);` står din `loop()` stille i et halvt sekund ad gangen. Så kan den hverken læse knapper eller sende data imens. På ESP32 er `delay()` en `vTaskDelay()`, så det kun er opgaven ([task]{lang="en"}), der kører `loop()`, der venter. WiFi og andre opgaver kører videre, men din egen kode gør ikke. Se også [Debouncing](debouncing.qmd), hvor det samme princip bruges til knapper.
+
+## Eksempel: fade med PWM
+
+Lysdioden på GPIO 19 bliver langsomt kraftigere og svagere igen. Koblingen er den samme som i blink-eksemplet.
+
+```{.ini filename="platformio.ini"}
+[env:esp32doit-devkit-v1]
+platform = espressif32@8.0.0
+board = esp32doit-devkit-v1
+framework = arduino
+monitor_speed = 115200
+```
+
+```{.cpp filename="src/main.cpp"}
+#include <Arduino.h>
+
+// Konfiguration
+const int LED_PIN = 19;                // lysdiode via 220 Ω til GND
+const uint32_t PWM_FREKVENS = 5000;    // Hz: så hurtigt, at øjet ikke ser blink
+const uint8_t PWM_OPLOESNING = 8;      // bit: duty fra 0 til 255
+const int MAKS_DUTY = 255;             // højeste duty, vi fader op til
+const unsigned long TRIN_MS = 10;      // tid mellem hvert trin i fadet
+
+int duty = 0;
+int retning = 1;                       // +1 = op, -1 = ned
+unsigned long sidsteTrin = 0;
+
+// Ét trin op eller ned; vender ved enderne
+void fadeEtTrin() {
+  duty += retning;
+  if (duty >= MAKS_DUTY || duty <= 0) {
+    retning = -retning;
+  }
+  ledcWrite(LED_PIN, duty);
+}
+
+void setup() {
+  Serial.begin(115200);
+
+  // ledcAttach vælger selv en ledig LEDC-kanal til benet
+  if (!ledcAttach(LED_PIN, PWM_FREKVENS, PWM_OPLOESNING)) {
+    Serial.println("Fejl: PWM kunne ikke sættes op på benet");
+  }
+}
+
+void loop() {
+  unsigned long nu = millis();
+
+  if (nu - sidsteTrin >= TRIN_MS) {
+    sidsteTrin = nu;
+    fadeEtTrin();
+  }
+}
+```
+
+Et helt fade op og ned tager 2 × 255 × 10 ms ≈ 5 sekunder.
+
+Vil du bruge `analogWrite()` i stedet, så slet `ledcAttach(...)` i `setup()`, og skriv `analogWrite(LED_PIN, duty);` i stedet for `ledcWrite(LED_PIN, duty);`. `analogWrite()` sætter selv PWM op første gang, med 1000 Hz og 8 bit.
+
+## RGB-lysdioder
+
+En RGB-lysdiode er tre lysdioder (rød, grøn og blå) i ét hus med fire ben. De tre farver deler ét ben, og det er typisk det længste. Ved at dæmpe de tre farver hver for sig med PWM kan du blande næsten alle farver.
+
+Der findes to typer:
+
+| Type | Fælles ben går til | En farve lyser, når benet er |
+|---|---|---|
+| Fælles katode | GND | `HIGH` (`analogWrite()` 255 = fuld styrke) |
+| Fælles anode | 3,3 V | `LOW` (`analogWrite()` 0 = fuld styrke, 255 = slukket) |
+
+Tallene i tabellen gælder for `analogWrite()`, hvor 255 betyder helt tændt. Med `ledcWrite()` ved 8 bit er helt tændt 256, og 255 er kun næsten tændt, så en farve med fælles anode kan gløde svagt ved 255.
+
+- Hver farve skal have **sin egen formodstand**. Én fælles modstand i det fælles ben giver forskellig lysstyrke afhængigt af, hvor mange farver der er tændt.
+- Grøn og blå har højere Vf end rød (se tabellen), så de kan lyse svagere på 3,3 V.
+- Med fælles anode er alt omvendt: skriv `255 - værdi` i stedet for `værdi` med `analogWrite()`, eller `256 - værdi` med `ledcWrite()` ved 8 bit.
+
+<!-- TJEK: hvilken type RGB-lysdiode lokalet har, og hvilket ben der er det fælles (benrækkefølgen varierer mellem fabrikater; se databladet). -->
+
+::: {.billede-mangler}
+En RGB-lysdiode med de fire ben markeret (R, fælles, G, B) for den type, lokalet har. Se lignende billeder: [Random Nerd Tutorials: ESP32 PWM with Arduino IDE](https://randomnerdtutorials.com/esp32-pwm-arduino-ide/).
+:::
+
+## Øvelser
+
+1. **Formodstand til rød og grøn.** Beregn formodstanden til en rød lysdiode (Vf = 2,0 V) og en grøn lysdiode (Vf = 2,1 V for gulgrøn, eller 3,0 V for ren grøn; brug databladet for jeres lysdioder, hvis I har det) ved 3,3 V og 5 mA. Vælg den nærmeste standardværdi over den beregnede, og beregn den strøm, der så faktisk løber. Find modstandene i kassen, og tjek farvekoderne med [farvekode-beregneren](modstande.qmd#farvekode-beregner). Aflever beregningerne.
+2. **Blink.** Byg koblingen, og kør *Eksempel: blink med millis()*. Erstat `BLINK_MS` med to konstanter, `TAENDT_MS` og `SLUKKET_MS`, så lysdioden er tændt i 100 ms og slukket i 900 ms.
+3. **Fade.** Kør *Eksempel: fade med PWM*. Prøv derefter varianten med `analogWrite()`. Kan du se forskel? Prøv også `PWM_FREKVENS` = 20 Hz med `ledcAttach()`: hvad ser du, og hvorfor?
+4. **Trafiklys.** Sæt en rød, en gul og en grøn lysdiode på GPIO 25, 26 og 27, hver med sin egen formodstand. Lav et program, der kører den danske rækkefølge: rød, rød + gul, grøn, gul, rød … Vælg selv tiderne som konstanter øverst. Brug `millis()`, ikke `delay()`. Tip: giv hver fase et nummer, og brug en `switch` eller et array med tiderne. Vis det kørende trafiklys til læreren.
+5. *Ekstra:* Lysstyrken ser ikke ud til at stige jævnt: forskellen mellem duty 10 og 20 er tydelig, mellem 200 og 210 næsten usynlig. Det skyldes, at øjet opfatter lysstyrke omtrent logaritmisk (det kaldes også gammakorrektion, når man retter for det). Lav fadet med en tabel (et array) af duty-værdier, der stiger mere og mere, og se, om det bliver jævnere.
+6. *Ekstra:* Byg en RGB-lysdiode på, og lad den skifte mellem rød, grøn, blå og hvid. Find ud af, om jeres er med fælles katode eller fælles anode.
+7. *Ekstra:* Prøv `ledcFade(LED_PIN, 0, 255, 2000)`. Kald den én gang i `setup()` efter `ledcAttach()` (står den direkte i `loop()`, starter fadet forfra hver gang, og så ser du ingen fade). Lad `loop()` blinke den indbyggede lysdiode imens. Kører `loop()` videre, mens lysdioden fader? Hvordan kan du se det?
+
+::: {.billede-mangler}
+Trafiklyset fra øvelse 4: tre lysdioder med formodstande på GPIO 25, 26 og 27.
+:::
+
+## Typiske fejl
+
+- **Lysdioden lyser ikke:** den vender forkert. Det lange ben (anode) skal mod GPIO-benet, den flade kant (katode) mod GND.
+- **Lysdioden lyser ikke, selv om den vender rigtigt:** `pinMode(LED_PIN, OUTPUT)` mangler, benet er et af 34–39 (kun indgang), eller begge ben på lysdioden (eller på modstanden) sidder i samme række på fem huller, så komponenten er kortsluttet. Lysdioden og modstanden skal dele én række (ét ben hver); det er sådan, de kommer i serie.
+- **Lysdioden lyser meget kraftigt:** formodstanden mangler. Så begrænses strømmen kun af benet selv, og både benet og lysdioden belastes. Tag USB ud med det samme, og sæt en modstand i.
+- **Lysdioden lyser meget svagt:** for stor modstand (fx 2,2 kΩ eller 22 kΩ i stedet for 220 Ω; tjek farvekoden), eller en blå/hvid lysdiode, hvor Vf er tæt på 3,3 V.
+- **`ledcSetup` was not declared in this scope:** koden er skrevet til Arduino-ESP32 2.x. Brug `ledcAttach(pin, freq, opløsning)` og `ledcWrite(pin, duty)`.
+- **PWM-lysdioden blinker synligt:** frekvensen er for lav. Brug mindst et par hundrede Hz.
+- **RGB-lysdioden viser "omvendte" farver:** den er med fælles anode. Skriv `255 - værdi` (`analogWrite()`) eller `256 - værdi` (`ledcWrite()` ved 8 bit).
+
+## Læs videre
+
+### Blink uden delay
+
+ESP32IO viser i [ESP32 - LED - Blink Without Delay](https://esp32io.com/tutorials/esp32-led-blink-without-delay){lang="en"} samme `millis()`-mønster som eksemplet ovenfor (lysdiode på GPIO 21, 220 Ω), og bagefter et eksempel, hvor en knap læses samtidig med, at lysdioden blinker. Det viser tydeligt, hvorfor `delay()` er et problem: med `delay()` bliver tryk på knappen overset.
+
+Bemærk to småfejl: kommentaren til variablen `previousButtonState` siger, at den gemmer et tidspunkt, men den gemmer knappens tilstand. Og en sætning i afsnittet om `delay()` er rodet ("you will not see enough four times …"); meningen er, at tryk, der sker under `delay()`, ikke bliver set.
+
+### PWM med LEDC
+
+Random Nerd Tutorials gennemgår i [ESP32 PWM with Arduino IDE](https://randomnerdtutorials.com/esp32-pwm-arduino-ide/){lang="en"} både `ledcAttach()`/`ledcWrite()` og `analogWrite()`, med de nye funktionsnavne fra 3.x. Artiklen viser også `ledcAttachChannel()`, hvis du selv vil vælge kanalen.
+
+Læs den kritisk:
+
+- Artiklen angiver `ledcWrite()` som `void`, men i 3.x giver den `bool` (`true`, når det lykkes).
+- Eksemplerne bruger `delay(15)` i `loop()`. Det virker, men programmet kan ikke lave andet imens. Sammenlign med `millis()`-løsningen på denne side.
+- Eksemplerne bruger GPIO 16. Det er fint på ESP32-DEVKIT-V1, men på moduler med PSRAM (WROVER) er 16 og 17 optaget. Vores sikre ben er 18, 19, 21–23, 25–27, 32 og 33.
+
+## Kilder
+
+- Arduino-ESP32: LED Control (LEDC), <https://docs.espressif.com/projects/arduino-esp32/en/latest/api/ledc.html>
+- Arduino-ESP32: Migration from 2.x to 3.0 (LEDC), <https://docs.espressif.com/projects/arduino-esp32/en/latest/migration_guides/2.x_to_3.0.html>
+- Arduino-ESP32: kildekoden til LEDC og `analogWrite()` (1000 Hz, 8 bit), <https://github.com/espressif/arduino-esp32/blob/master/cores/esp32/esp32-hal-ledc.c>
+- Arduino-ESP32: `LED_BUILTIN` for DOIT ESP32 DEVKIT V1, <https://github.com/espressif/arduino-esp32/blob/master/variants/doitESP32devkitV1/pins_arduino.h>
+- Espressif: ESP32 Datasheet, afsnit 5.1 (Absolute Maximum Ratings) og 5.3 (DC Characteristics), <https://documentation.espressif.com/esp32_datasheet_en.html>
+- ESP-IDF: GPIO (drivstyrke, standard er medium), <https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/gpio.html>
+- PlatformIO: ESP32-DEVKIT-V1, <https://docs.platformio.org/en/latest/boards/espressif32/esp32doit-devkit-v1.html>
+- Wikipedia: Light-emitting diode physics (tabel over farver og spændingsfald), <https://en.wikipedia.org/wiki/Light-emitting_diode_physics>
+- Adafruit: All About LEDs, Forward Voltage and KVL, <https://learn.adafruit.com/all-about-leds/forward-voltage-and-kvl>
+- ESP32IO: ESP32 - LED - Blink Without Delay, <https://esp32io.com/tutorials/esp32-led-blink-without-delay>
+- Random Nerd Tutorials: ESP32 PWM with Arduino IDE, <https://randomnerdtutorials.com/esp32-pwm-arduino-ide/>

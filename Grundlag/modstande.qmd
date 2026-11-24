@@ -1,0 +1,450 @@
+---
+title: "Modstande og farvekoder"
+subtitle: "Aflæs, beregn og mål en modstand"
+date: 2026-11-23
+maalpinde: [4, 12, 18]
+draft: true
+---
+
+<!-- IKKE KOMPILERET: siden har ingen ESP32-kode. Farvekoden er tjekket mod kilderne, men beregneren (OJS-cellerne) er skrevet uden at kunne køre quarto og er ikke afprøvet i en browser. -->
+
+<!--
+TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
+1. Byg siden, og afprøv beregneren "Fra farver til værdi": standardvalget gul, violet, rød, guld skal give 4,7 kΩ ±5 % (4,465 kΩ til 4,935 kΩ). Skift til 5 bånd: feltet "3. ciffer" skal blive aktivt, og gul, violet, sort, rød, guld skal give 47 kΩ.
+2. Afprøv "Fra værdi til farver" med 220, 4,7k, 4k7, 4.700, 1.000, 10 kΩ, 1M, 0,47 og 225. 220 skal give rød, rød, brun, guld og rød, rød, sort, sort, brun. 4.700 skal give 4,7 kΩ (ikke 4,7 Ω), og 1.000 skal give 1 kΩ. 225 skal give "kan ikke" ved 4 bånd og "ikke E12 eller E24 ... (E96)".
+3. Afprøv, at tolerancevalget viser "ingen (3 bånd, ±20 %)" og stadig regner med ±20 %.
+4. Tjek, at beregneren virker på skolens net: Inputs og htl hentes af Quarto fra et CDN, så siden skal have internetadgang (TJEK ved beregneren).
+5. TJEK i farvetabellen: tolerancen for grå (0,01 % i IEC 60062:2016 ifølge Wikipedia, 0,05 % hos DigiKey og Electronics Tutorials). Selve standarden er ikke læst (den er ikke gratis).
+6. TJEK om lokalets modstande har 4 eller 5 bånd, hvilken farve legemet har, og om de er på 1/4 W (afsnittet om farvekoden og afsnittet om effekt). Har lokalet 5-båndsmodstande på ±1 %, så tjek, at teksten om E96 i afsnittet om standardværdier passer.
+7. TJEK at 220 Ω og 10 kΩ er de værdier, der ligger i lokalet (afsnittet Modstande i faget).
+8. TJEK om målpind 18 skal blive på siden (afsnittet Målpinde og maalpinde i front matter).
+9. BILLEDE: lokalets modstande, en med 4 bånd og en med 5 bånd, side om side.
+10. BILLEDE: multimeter, der måler en løs modstand.
+11. BILLEDE: en blå 5-båndsmodstand med brun i begge ender (svær at vende).
+12. Fjern IKKE KOMPILERET, denne tjekliste og alle TJEK- og BILLEDE-kommentarer, gør billedboksene til BILLEDE-kommentarer eller rigtige billeder, og sæt draft: false.
+-->
+
+En modstand er den mest almindelige komponent på et breadboard. Den sidder foran hver lysdiode, så strømmen ikke bliver for stor, og den holder et input stabilt, når en knap ikke er trykket. Værdien står ikke med tal, men som farvede ringe (bånd), så du skal kunne aflæse farvekoden for at tage den rigtige modstand op af skuffen. Og du skal kunne regne med den, så du ved, hvorfor det lige er 220 Ω eller 10 kΩ.
+
+## Formål
+
+- Du kan forklare, hvad en modstand gør, og bruge Ohms lov til at regne strøm, spænding og modstand.
+- Du kan aflæse farvekoden på en modstand med 4 og 5 bånd og finde ud af, hvilken vej den skal læses.
+- Du kan forklare, hvorfor modstande findes i bestemte standardværdier (E12 og E24), og hvad tolerance er.
+- Du kan tjekke, at en modstand ikke bliver for varm (effekt).
+- Du kan måle en modstand med et multimeter.
+
+## Målpinde
+
+Siden arbejder med målpind 4, 12 og 18 (se [Læringsmål](../laeringsmaal.qmd)).
+
+<!-- TJEK: målpind 18 (opbygge en mindre prototype med et embedded system) passer kun løst, for siden bygger ingen prototype og har ingen ESP32-kode. Behold, fjern eller skift den (både her og i maalpinde i front matter). -->
+
+
+## Forudsætninger
+
+- Du ved, hvad spænding (volt, V) og strøm (ampere, A) er.
+- Du kan sætte komponenter i et breadboard (se [Breadboard med tilpassede ledninger](breadboard.qmd)).
+- Hardware: et par modstande med forskellige værdier, et multimeter.
+
+## Hvad gør en modstand?
+
+En modstand begrænser strømmen i et kredsløb. Jo større modstand, jo mindre strøm løber der ved samme spænding. Den bruges til to ting i faget:
+
+- **Begrænse strømmen**, fx gennem en lysdiode, så hverken lysdioden eller benet på ESP32 tager skade.
+- **Trække et ben op eller ned** til en bestemt spænding, så det ikke "svæver", når intet andet bestemmer spændingen ([pull-up]{lang="en"} og [pull-down]{lang="en"}).
+
+Modstand måles i ohm (Ω). 1 kΩ (kiloohm) er 1.000 Ω, og 1 MΩ (megaohm) er 1.000.000 Ω. En modstand har ingen retning: den virker ens, uanset hvilken vej den sættes i.
+
+## Ohms lov
+
+Spænding, strøm og modstand hænger sammen med Ohms lov:
+
+$$U = R \cdot I \qquad I = \frac{U}{R} \qquad R = \frac{U}{I}$$
+
+hvor $U$ er spændingen over modstanden i volt, $I$ er strømmen gennem den i ampere, og $R$ er modstanden i ohm.
+
+Husk at regne i grundenheder: mA skal laves om til A, og kΩ til Ω. To eksempler fra faget:
+
+- **Pull-up på 10 kΩ:** Når knappen trykkes, ligger hele 3,3 V over modstanden. Strømmen er $I = 3{,}3\ \text{V} / 10\,000\ \Omega = 0{,}00033\ \text{A} = 0{,}33\ \text{mA}$. Det er så lidt, at det ikke betyder noget.
+- **Formodstand til en rød lysdiode:** Lysdioden tager ca. 2 V, så der er 3,3 V − 2 V = 1,3 V tilbage over modstanden. Med 220 Ω bliver strømmen $I = 1{,}3\ \text{V} / 220\ \Omega \approx 5{,}9\ \text{mA}$.
+
+## Farvekoden
+
+Små modstande med ben ([through-hole]{lang="en"}) har værdien malet på som farvede bånd. Farverne og deres betydning er fastlagt i den internationale standard IEC 60062.
+
+| Farve | Ciffer | Multiplikator | Tolerance |
+|---|---|---|---|
+| sort | 0 | × 1 | |
+| brun | 1 | × 10 | ±1 % |
+| rød | 2 | × 100 | ±2 % |
+| orange | 3 | × 1 k | ±0,05 % |
+| gul | 4 | × 10 k | ±0,02 % |
+| grøn | 5 | × 100 k | ±0,5 % |
+| blå | 6 | × 1 M | ±0,25 % |
+| violet | 7 | × 10 M | ±0,1 % |
+| grå | 8 | × 100 M | ±0,01 % (ældre: ±0,05 %) |
+| hvid | 9 | × 1 G | |
+| guld | | × 0,1 | ±5 % |
+| sølv | | × 0,01 | ±10 % |
+| intet bånd | | | ±20 % |
+
+: Farvekoden for modstande (IEC 60062). {#tbl-farvekode}
+
+<!-- TJEK: Grå tolerance er 0,01 % i IEC 60062:2016 ifølge Wikipedia, men 0,05 % hos DigiKey og Electronics Tutorials (ældre EIA-praksis, som nogle producenter stadig følger). Standarden selv er ikke læst. Orange og gul som tolerance findes kun hos Wikipedia; de bruges næsten aldrig. Grå tolerance ses næsten aldrig i lokalet, så det er ikke vigtigt for eleverne. -->
+
+Du behøver ikke kunne tabellen udenad, men cifrene 0–9 følger farverne i regnbuen, med sort og brun først og grå og hvid til sidst.
+
+### 4 bånd
+
+De almindelige modstande med ±5 % har 4 bånd:
+
+1. første ciffer
+2. andet ciffer
+3. multiplikator: hvor mange nuller der skal efter (eller ×0,1 og ×0,01 for guld og sølv)
+4. tolerance
+
+Eksempel: **rød, rød, brun, guld** er 2, 2 og × 10, altså 22 × 10 = **220 Ω ±5 %**. Og **brun, sort, orange, guld** er 10 × 1.000 = **10 kΩ ±5 %**.
+
+### 5 bånd
+
+Præcisionsmodstande (typisk ±1 %, metalfilm) har 5 bånd: tre cifre, multiplikator og tolerance. Tolerancebåndet er tit **brun** (±1 %).
+
+Eksempel: **rød, rød, sort, sort, brun** er 220 × 1 = **220 Ω ±1 %**. Og **brun, sort, sort, rød, brun** er 100 × 100 = **10 kΩ ±1 %**.
+
+Bemærk, at 220 Ω altså har forskellige farver med 4 og 5 bånd. Tæl båndene først.
+
+<!-- TJEK: om lokalets modstande har 4 eller 5 bånd, og hvilken farve legemet har (beige med 4 bånd eller blå med 5 bånd er det almindelige). -->
+
+::: {.billede-mangler}
+Lokalets modstande: en 220 Ω med 4 bånd og en 220 Ω med 5 bånd, side om side, så farverne kan sammenlignes. Se lignende billeder: [Electronics Tutorials: Resistor Colour Code](https://www.electronics-tutorials.ws/resistor/res_2.html).
+:::
+
+### Hvilken vej skal den læses?
+
+En modstand har ingen top eller bund, så du skal selv finde ud af, hvor du skal starte:
+
+- **Tolerancebåndet står til højre.** Guld og sølv bruges aldrig som ciffer, så står der guld eller sølv i den ene ende, skal den ende vende til højre.
+- **Mellemrummet:** Der er ofte lidt større afstand mellem multiplikatoren og tolerancebåndet end mellem de andre bånd.
+- **Første bånd sidder tættest på enden** af modstanden.
+
+Det er sværest med 5-båndsmodstande, hvor tolerancen er brun, og første ciffer også kan være brunt. Eksempel: **brun, sort, sort, brun, brun** er 100 × 10 = 1 kΩ. Læst fra den anden ende er det **brun, brun, sort, sort, brun** = 110 × 1 = 110 Ω. Begge dele er rigtige værdier. Når du er i tvivl, så mål modstanden med et multimeter.
+
+::: {.billede-mangler}
+En blå 5-båndsmodstand med brun i begge ender, tæt på, så det ses, at det er svært at vide, hvilken vej den skal læses. Se lignende billeder: [EEPower: Resistor Color Code](https://eepower.com/resistor-guide/resistor-standards-and-codes/resistor-color-code/).
+:::
+
+## Standardværdier: E12 og E24
+
+Du kan ikke købe en modstand på 237 Ω med ±5 %. Modstande laves i faste rækker af værdier, de såkaldte E-rækker. Rækkerne er lavet, så en værdi plus tolerancen næsten når op til den næste værdi minus tolerancen. Så dækker rækken alle værdier, uden at der er spild.
+
+- **E12** (±10 %): 10, 12, 15, 18, 22, 27, 33, 39, 47, 56, 68, 82
+- **E24** (±5 %): 10, 11, 12, 13, 15, 16, 18, 20, 22, 24, 27, 30, 33, 36, 39, 43, 47, 51, 56, 62, 68, 75, 82, 91
+
+Cifrene gentages for hver tierpotens: 22 findes som 2,2 Ω, 22 Ω, 220 Ω, 2,2 kΩ, 22 kΩ osv. E24 indeholder alle værdierne fra E12. Præcisionsmodstande med ±1 % findes i E96-rækken med tre cifre.
+
+Det kan bruges, når du aflæser: Har modstanden 4 bånd, og giver farverne en værdi, der ikke er i E24 (fx 25 eller 77), har du sikkert læst forkert eller fra den forkerte ende. Det gælder ikke 5-båndsmodstande på ±1 %: De kommer fra E96, og de fleste E96-værdier (fx 102 Ω eller 4,99 kΩ) er ikke i E24.
+
+Når du har regnet en værdi ud, så vælg den nærmeste standardværdi. Til en formodstand vælger du den nærmeste værdi *over* det beregnede, så strømmen bliver lidt mindre, ikke større.
+
+**Tolerance** er, hvor meget den rigtige værdi må afvige fra den påtrykte. En 220 Ω ±5 % ligger mellem 209 Ω og 231 Ω.
+
+## Effekt
+
+En modstand laver elektrisk energi om til varme. Effekten måles i watt (W):
+
+$$P = U \cdot I = \frac{U^2}{R}$$
+
+De almindelige modstande med ben kan tåle **1/4 W** (0,25 W). Det er sjældent et problem på ESP32: Selv hvis hele 3,3 V ligger over en 220 Ω-modstand, er effekten $3{,}3^2 / 220 \approx 0{,}05\ \text{W}$. Først under ca. 47 Ω direkte over 3,3 V nærmer man sig grænsen ($3{,}3^2 / 47 \approx 0{,}23\ \text{W}$). En modstand, der bliver varm at røre ved, er et tegn på en fejl, typisk en kortslutning eller en forkert aflæst værdi.
+
+<!-- TJEK: at lokalets modstande er på 1/4 W. -->
+
+## Modstande i faget
+
+To værdier går igen i næsten alle opstillinger:
+
+| Værdi | Farver (4 bånd) | Farver (5 bånd) | Bruges til |
+|---|---|---|---|
+| 220 Ω | rød, rød, brun, guld | rød, rød, sort, sort, brun | formodstand til en lysdiode, se [Lysdioder](lysdioder.qmd) |
+| 10 kΩ | brun, sort, orange, guld | brun, sort, sort, rød, brun | ekstern pull-up eller pull-down til en knap, se [Knapper](knapper.qmd) |
+
+Et drejepotentiometer er en modstand, hvor du kan ændre værdien med en knap. Det er beskrevet på siden om [Potentiometer](potentiometer.qmd).
+
+<!-- TJEK: at 220 Ω og 10 kΩ er de værdier, der ligger i lokalet. -->
+
+## Mål med et multimeter
+
+Farvekoden kan være svær at læse, især i dårligt lys eller på blå modstande. Et multimeter giver svaret direkte:
+
+1. Sæt multimeteret på et Ω-område (nogle multimetre vælger selv området).
+2. Mål på en **løs** modstand, eller i et kredsløb, hvor strømmen er slået fra. Sidder modstanden i et kredsløb, kan strømmen også løbe en anden vej uden om den, og så måler du forkert.
+3. Hold ikke om begge ben med fingrene. Din krop er også en modstand, og ved store værdier (over ca. 100 kΩ) kan den påvirke målingen.
+4. Sammenlign med farvekoden: Den målte værdi skal ligge inden for tolerancen.
+
+::: {.billede-mangler}
+Et af lokalets multimetre, der måler en løs modstand, med displayet tydeligt. Se lignende billeder: [Wikipedia: Multimeter](https://en.wikipedia.org/wiki/Multimeter).
+:::
+
+## Farvekode-beregner {#farvekode-beregner}
+
+Beregneren regner begge veje. Den virker kun på hjemmesiden, ikke i en udskrift.
+
+<!-- TJEK: Quarto henter Inputs og htl fra et CDN (jsdelivr), når siden åbnes. Afprøv, at beregneren virker på skolens net. -->
+
+### Fra farver til værdi
+
+Vælg antal bånd og farverne fra venstre mod højre.
+
+```{ojs}
+//| echo: false
+viewof antalBaand = Inputs.radio([4, 5], {label: "Antal bånd", value: 4})
+viewof b1 = Inputs.select(cifferNavne, {label: "1. ciffer", value: "gul"})
+viewof b2 = Inputs.select(cifferNavne, {label: "2. ciffer", value: "violet"})
+// Det tredje ciffer findes kun på 5-båndsmodstande
+viewof b3 = Inputs.select(cifferNavne, {label: "3. ciffer", value: "sort", disabled: antalBaand === 4})
+viewof mult = Inputs.select(multNavne, {label: "Multiplikator", value: "rød"})
+// "ingen" betyder, at der ikke er et tolerancebånd (en 3-båndsmodstand, ±20 %)
+viewof tol = Inputs.select(tolNavne, {label: "Tolerance", value: "guld",
+  format: n => n === "ingen" ? "ingen (3 bånd, ±20 %)" : n})
+```
+
+```{ojs}
+//| echo: false
+{
+  // Båndene i rækkefølge fra venstre; ved 4 bånd springes 3. ciffer over
+  const navne = antalBaand === 4 ? [b1, b2, mult, tol] : [b1, b2, b3, mult, tol];
+  // Cifrene er alle bånd undtagen de to sidste: fx [4, 7] bliver til 47
+  const tal = navne.slice(0, antalBaand - 2)
+    .map(n => farve(n).ciffer)
+    .reduce((sum, c) => sum * 10 + c, 0);
+  const ohm = medEksponent(tal, farve(mult).eksp);
+  const t = farve(tol).tol;
+  return htl.html`<div>
+    ${modstandTegning(navne)}
+    <p><strong>${formatOhm(ohm)} ±${formatTal(t)} %</strong><br>
+    Den rigtige værdi ligger mellem ${formatOhm(ohm * (1 - t / 100))} og ${formatOhm(ohm * (1 + t / 100))}.</p>
+  </div>`;
+}
+```
+
+### Fra værdi til farver
+
+Skriv en værdi, fx `220`, `4,7k`, `4k7`, `10 kΩ` eller `1M`.
+
+```{ojs}
+//| echo: false
+viewof vaerdiTekst = Inputs.text({label: "Værdi", value: "220", placeholder: "fx 220, 4,7k eller 1M"})
+```
+
+```{ojs}
+//| echo: false
+{
+  const ohm = laesVaerdi(vaerdiTekst);
+  if (ohm === null) {
+    return htl.html`<p>Det kan jeg ikke læse. Skriv fx 220, 4,7k, 4k7 eller 1M.</p>`;
+  }
+  // 4 bånd: 2 cifre + multiplikator + guld (±5 %). 5 bånd: 3 cifre + multiplikator + brun (±1 %)
+  const fire = farverFor(ohm, 2);
+  const fem = farverFor(ohm, 3);
+  return htl.html`<div>
+    <p>Værdi: <strong>${formatOhm(ohm)}</strong>. E-række: ${eSerie(ohm)}.</p>
+    <p><strong>4 bånd (±5 %):</strong> ${fire ? [...fire, "guld"].join(", ") : "kan ikke skrives med 2 cifre"}</p>
+    ${fire ? modstandTegning([...fire, "guld"]) : null}
+    <p><strong>5 bånd (±1 %):</strong> ${fem ? [...fem, "brun"].join(", ") : "kan ikke skrives med 3 cifre"}</p>
+    ${fem ? modstandTegning([...fem, "brun"]) : null}
+  </div>`;
+}
+```
+
+### Koden bag beregneren
+
+Beregneren er skrevet i JavaScript med Quartos Observable JS. Fold koden ud, hvis du vil se, hvordan den regner. Læg mærke til, at den bruger de samme regler som ovenfor: cifre, multiplikator som en potens af 10, og tolerance i procent.
+
+```{ojs}
+//| code-fold: true
+// Farvekoden efter IEC 60062.
+// eksp: multiplikatoren som potens af 10 (rød = 10^2 = 100, guld = 10^-1 = 0,1)
+// tol: tolerance i procent. null betyder, at farven ikke bruges til det.
+farver = [
+  {navn: "sort",   hex: "#000000", ciffer: 0,    eksp: 0,    tol: null},
+  {navn: "brun",   hex: "#8B4513", ciffer: 1,    eksp: 1,    tol: 1},
+  {navn: "rød",    hex: "#E00000", ciffer: 2,    eksp: 2,    tol: 2},
+  {navn: "orange", hex: "#FF8C00", ciffer: 3,    eksp: 3,    tol: 0.05},
+  {navn: "gul",    hex: "#FFD700", ciffer: 4,    eksp: 4,    tol: 0.02},
+  {navn: "grøn",   hex: "#008000", ciffer: 5,    eksp: 5,    tol: 0.5},
+  {navn: "blå",    hex: "#0050FF", ciffer: 6,    eksp: 6,    tol: 0.25},
+  {navn: "violet", hex: "#8A2BE2", ciffer: 7,    eksp: 7,    tol: 0.1},
+  {navn: "grå",    hex: "#808080", ciffer: 8,    eksp: 8,    tol: 0.01},
+  {navn: "hvid",   hex: "#FFFFFF", ciffer: 9,    eksp: 9,    tol: null},
+  {navn: "guld",   hex: "#CFB53B", ciffer: null, eksp: -1,   tol: 5},
+  {navn: "sølv",   hex: "#C0C0C0", ciffer: null, eksp: -2,   tol: 10},
+  {navn: "ingen",  hex: null,      ciffer: null, eksp: null, tol: 20}
+]
+
+// Listerne til valgfelterne: kun de farver, der kan bruges i det bånd
+cifferNavne = farver.filter(f => f.ciffer !== null).map(f => f.navn)
+multNavne = farver.filter(f => f.eksp !== null).map(f => f.navn)
+tolNavne = farver.filter(f => f.tol !== null).map(f => f.navn)
+
+// E-rækkerne som tocifrede tal
+e12 = [10, 12, 15, 18, 22, 27, 33, 39, 47, 56, 68, 82]
+e24 = [10, 11, 12, 13, 15, 16, 18, 20, 22, 24, 27, 30, 33, 36, 39, 43, 47, 51, 56, 62, 68, 75, 82, 91]
+
+// Slå en farve op ud fra navnet
+function farve(navn) {
+  return farver.find(f => f.navn === navn);
+}
+
+// tal × 10^eksp. Ved negativ eksponent divideres der, så 47 × 10^-1 giver præcis 4,7
+function medEksponent(tal, eksp) {
+  return eksp >= 0 ? tal * 10 ** eksp : tal / 10 ** -eksp;
+}
+
+// Tal med dansk decimalkomma, højst tre decimaler
+function formatTal(x) {
+  return x.toLocaleString("da-DK", {maximumFractionDigits: 3});
+}
+
+// Vælg den enhed, der giver et pænt tal: 4700 bliver til "4,7 kΩ"
+function formatOhm(ohm) {
+  if (ohm >= 1e9) return formatTal(ohm / 1e9) + " GΩ";
+  if (ohm >= 1e6) return formatTal(ohm / 1e6) + " MΩ";
+  if (ohm >= 1e3) return formatTal(ohm / 1e3) + " kΩ";
+  return formatTal(ohm) + " Ω";
+}
+
+// Læs fx "220", "4,7k", "4k7", "10 kΩ", "1M", "4R7" eller "4.700". Giver ohm eller null.
+function laesVaerdi(tekst) {
+  let s = tekst.replace(/\s|Ω|ohm/gi, "");
+  // Dansk tusindtalspunktum: "4.700" og "1.000.000" er hele tal, ikke 4,7 og 1
+  if (/^\d{1,3}(\.\d{3})+$/.test(s)) s = s.replaceAll(".", "");
+  // Dansk decimalkomma: "4,7k" bliver til "4.7k"
+  s = s.replace(",", ".");
+  // tal, evt. et bogstav (R, k, M, G) og evt. flere cifre efter bogstavet
+  const m = s.match(/^(\d+(?:\.\d+)?)([rkmg]?)(\d*)$/i);
+  if (m === null) return null;
+  if (m[3] !== "" && (m[1].includes(".") || m[2] === "")) return null;
+  // "4k7": bogstavet står på kommaets plads
+  const tal = parseFloat(m[3] === "" ? m[1] : m[1] + "." + m[3]);
+  const faktor = {"": 1, r: 1, k: 1e3, m: 1e6, g: 1e9}[m[2].toLowerCase()];
+  const ohm = tal * faktor;
+  return ohm > 0 ? ohm : null;
+}
+
+// Find de n cifre og eksponenten, så ohm = cifrene × 10^eksp.
+// Giver null, hvis værdien kræver flere end n cifre.
+function cifreOgEksp(ohm, n) {
+  for (let eksp = -2; eksp <= 9; eksp++) {   // sølv (10^-2) til hvid (10^9)
+    const t = medEksponent(ohm, -eksp);
+    if (t < 10 ** n - 0.5) {                 // den første eksponent, hvor tallet kan stå med n cifre
+      const heltal = Math.round(t);
+      if (Math.abs(t - heltal) > 1e-6) return null;   // der er flere cifre end n
+      const cifre = String(heltal).padStart(n, "0").split("").map(Number);
+      return {cifre, eksp};
+    }
+  }
+  return null;   // for stor til farvekoden
+}
+
+// Farvenavnene for cifrene og multiplikatoren (uden tolerance)
+function farverFor(ohm, n) {
+  const r = cifreOgEksp(ohm, n);
+  if (r === null) return null;
+  return [
+    ...r.cifre.map(c => farver.find(f => f.ciffer === c).navn),
+    farver.find(f => f.eksp === r.eksp).navn
+  ];
+}
+
+// Hvilken E-række værdien hører til (ud fra de to første cifre)
+function eSerie(ohm) {
+  const r = cifreOgEksp(ohm, 2);
+  // Værdier uden for E24 kan godt findes som 5-båndsmodstande på ±1 % (E96)
+  if (r === null) return "ikke E12 eller E24 (kræver 3 cifre). Den kan findes som 5-båndsmodstand på ±1 % (E96)";
+  const tal = r.cifre[0] * 10 + r.cifre[1];
+  if (e12.includes(tal)) return "E12 (og dermed også E24)";
+  if (e24.includes(tal)) return "E24";
+  return "ikke E12 eller E24, så den findes ikke som 4-båndsmodstand på ±5 %. Den kan findes som 5-båndsmodstand på ±1 % (E96)";
+}
+
+// Tegn en modstand med farvede bånd. Det sidste bånd (tolerancen) får ekstra afstand.
+function modstandTegning(navne) {
+  const baand = navne.map((navn, i) => {
+    const f = farve(navn);
+    const css = "display:inline-block;width:12px;height:44px;"
+      + "background:" + (f.hex || "transparent") + ";"
+      + "margin-left:" + (i === navne.length - 1 ? "24px" : "8px") + ";"
+      + (navn === "hvid" ? "outline:1px solid #999;" : "");
+    return htl.html`<span title=${navn} style=${css}></span>`;
+  });
+  const ben = "display:inline-block;width:40px;height:3px;background:#999;";
+  const krop = "display:inline-flex;align-items:center;height:44px;padding:0 18px 0 10px;"
+    + "background:#E8D3A8;border-radius:14px;";
+  return htl.html`<div style="display:flex;align-items:center;margin:0.5em 0;">
+    <span style=${ben}></span><span style=${krop}>${baand}</span><span style=${ben}></span>
+  </div>`;
+}
+```
+
+## Eksempel: aflæs en modstand
+
+En modstand har båndene **gul, violet, orange, guld**.
+
+1. Guld står i den ene ende, så den ende vender til højre. Fire bånd: to cifre, multiplikator, tolerance.
+2. Gul = 4, violet = 7, så cifrene er 47.
+3. Orange = × 1.000, så værdien er 47 × 1.000 = 47.000 Ω = **47 kΩ**.
+4. Guld = ±5 %, så den rigtige værdi ligger mellem 44,65 kΩ og 49,35 kΩ.
+5. Tjek: 47 er i E12, så aflæsningen er sandsynlig.
+
+## Eksempel: vælg en modstand
+
+Du vil have ca. 10 mA gennem en rød lysdiode på 3,3 V. Lysdioden tager ca. 2 V.
+
+1. Spændingen over modstanden: 3,3 V − 2 V = 1,3 V.
+2. Ohms lov: $R = U / I = 1{,}3\ \text{V} / 0{,}010\ \text{A} = 130\ \Omega$.
+3. 130 Ω findes i E24, så den kan bruges direkte, og strømmen bliver præcis 10 mA. Har du kun E12, er den nærmeste værdi over 150 Ω, og strømmen bliver 1,3 V / 150 Ω ≈ 8,7 mA.
+4. Effekt med 130 Ω: $P = U \cdot I = 1{,}3\ \text{V} \cdot 0{,}010\ \text{A} = 0{,}013\ \text{W}$. Langt under 1/4 W.
+5. Farverne med 4 bånd: brun, orange, brun, guld (130 Ω). Med 150 Ω fra E12: brun, grøn, brun, guld. Tjek det i beregneren.
+
+Hvor stor strømmen bør være, og hvor meget ESP32-benet kan klare, står på siden om [Lysdioder](lysdioder.qmd).
+
+## Øvelser
+
+1. Aflæs farverne på tre forskellige modstande fra lokalet. Skriv farverne, værdien og tolerancen ned, og tjek dem bagefter i beregneren.
+2. Mål de samme tre modstande med et multimeter. Ligger de inden for tolerancen? Skriv målt værdi og afvigelse i procent ned.
+3. Find en 220 Ω og en 10 kΩ i skuffen uden at bruge multimeteret. Tjek derefter med multimeteret, at du tog de rigtige.
+4. Beregn strømmen gennem en 10 kΩ pull-up-modstand og gennem en 220 Ω formodstand til en rød lysdiode (Vf ca. 2 V) på 3,3 V. Hvilken af dem bruger mest strøm?
+5. En modstand har båndene brun, sort, sort, brun, brun. Hvilke to værdier kan den have, afhængigt af hvilken vej du læser? Hvordan finder du ud af, hvilken der er rigtig?
+6. *Ekstra:* Du vil have ca. 5 mA gennem en gul lysdiode (Vf ca. 2,1 V) på 3,3 V. Beregn modstanden, vælg en værdi fra E24-rækken, og find farverne for både 4 og 5 bånd. Hvad bliver strømmen og effekten med den værdi, du valgte?
+
+## Typiske fejl
+
+- **Læst fra den forkerte ende:** Værdien på en 4-båndsmodstand passer ikke med E24, eller multimeteret viser noget helt andet. Tolerancebåndet skal vende til højre. Er du i tvivl, så mål.
+- **4 og 5 bånd blandet sammen:** På en 5-båndsmodstand er det fjerde bånd multiplikatoren, ikke tolerancen. Tæl båndene, før du aflæser.
+- **Forvekslede farver:** Rød, orange og brun ligner hinanden, især på en blå modstand eller i dårligt lys. Det samme gælder violet og blå. Brug lys, eller mål.
+- **Regnet i forkerte enheder:** 1,3 V / 10 mA er ikke 0,13 Ω. Lav mA om til A (0,010 A), så bliver det 130 Ω.
+- **Målt i kredsløbet:** Multimeteret viser for lidt, fordi strømmen også kan løbe uden om modstanden. Tag den ene ende af modstanden ud af breadboardet, og slå strømmen fra.
+- **Lysdioden lyser ikke, eller lyser meget svagt:** Måske er der taget en 220 kΩ (rød, rød, gul) i stedet for 220 Ω (rød, rød, brun). Kun multiplikatoren er forskellig.
+
+## Læs videre
+
+### Electronics Tutorials: Resistor Colour Code
+
+[Resistor Colour Code](https://www.electronics-tutorials.ws/resistor/res_2.html){lang="en"} gennemgår farvekoden og E-rækkerne (E6 til E192) med flere regneeksempler. Den er god til at se, hvordan E-rækkerne overlapper, når tolerancen regnes med.
+
+Læs den kritisk:
+
+- Tabellen giver grå tolerance ±0,05 %. Wikipedias gengivelse af IEC 60062:2016 siger ±0,01 %. Begge findes i praksis, og du møder næsten aldrig grå som tolerance.
+- Tabellen mangler multiplikator for grå (× 100 M) og hvid (× 1 G) og tolerance for orange og gul. Brug tabellen på denne side.
+- Artiklen siger, at 5-båndsmodstande bruger E48-rækken. Det almindelige for ±1 % er E96.
+
+## Kilder
+
+- Wikipedia: Electronic color code (gengiver IEC 60062:2016), <https://en.wikipedia.org/wiki/Electronic_color_code>
+- Wikipedia: E series of preferred numbers (E12 og E24), <https://en.wikipedia.org/wiki/E_series_of_preferred_numbers>
+- DigiKey: Resistor Color Code Calculator, <https://www.digikey.com/en/resources/conversion-calculators/conversion-calculator-resistor-color-code>
+- EEPower: Resistor Color Code (læseretning, IEC 60062), <https://eepower.com/resistor-guide/resistor-standards-and-codes/resistor-color-code/>
+- Electronics Tutorials: Resistor Colour Code, <https://www.electronics-tutorials.ws/resistor/res_2.html>
+- Quarto: Observable JS, <https://quarto.org/docs/interactive/ojs/> og OJS Cells, <https://quarto.org/docs/interactive/ojs/ojs-cells.html>
+- Observable Inputs (`Inputs.select`, `Inputs.radio`, `Inputs.text`), <https://github.com/observablehq/inputs>
+- Hypertext Literal (`htl.html`), <https://github.com/observablehq/htl>

@@ -1,0 +1,368 @@
+---
+title: "ESP32-DEVKIT-V1"
+subtitle: "Chip, kort, ben og hukommelse"
+date: 2026-11-23
+maalpinde: [4, 17, 20]
+draft: true
+---
+
+<!-- IKKE KOMPILERET: eksemplerne er tjekket mod dokumentationen, men ikke kompileret eller testet på hardware. -->
+
+<!--
+TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
+1. Kompilér og upload eksemplet med platform = espressif32@8.0.0. Skriver det model (ESP32-D0WDQ6, ESP32-D0WDQ6-V3, ESP32-D0WD eller ESP32-D0WD-V3), 2 kerner, 240 MHz, flash 4194304 bytes og PSRAM 0? Passer partitionslisten med default.csv, og er app0 markeret "kører nu"?
+2. Notér "Heap i alt" og "Heap ledig" på skolens kort. Passer "et par hundrede KB" i afsnittet om SRAM (TJEK dér)? Hvor meget falder den ledige heap i øvelse 2, når WiFi.mode(WIFI_STA) kaldes?
+3. Øvelse 3: med board_build.partitions = no_ota.csv forventes "Plads til ny version" = 2097152 bytes (og 3145728 med huge_app.csv). Når der kun er én OTA-partition (app0 = ota_0), returnerer esp_ota_get_next_update_partition() den partition, programmet kører fra, så tallet er størrelsen på app0, ikke 0. Bekræft, og ret teksten, hvis ikke.
+4. Skolens kort (TJEK under "Kortets dele" og "30 eller 36 ben"): 30 eller 36 ben? Hvilken farve har strøm-lysdioden og lysdioden på GPIO 2? Måler VIN ca. 5 V, når kortet får strøm fra USB? (USB-chippen tjekkes allerede på PlatformIO-siden.)
+5. EN-knappen (TJEK under "Læs videre"): Random Nerd Tutorials skriver, at EN slår 3,3 V-regulatoren fra. Espressif kalder benet CHIP_PU (chippens enable). Mål evt. 3V3-benet, mens EN holdes nede, og ret teksten.
+6. ADC-området: giver analogReadMilliVolts() ca. 3100 mV som største værdi med standardindstillingen (11 dB, bekræftet i esp32-hal-adc.c)?
+7. Strømforsyning (TJEK under "Kortets dele"): Espressifs advarsel mod at bruge USB og ekstern forsyning samtidig gælder deres DevKitC. Tjek evt. diagrammet for DOIT-kortet (er der en diode mellem USB-5 V og VIN?), og ret teksten, hvis der er noget at tilføje.
+Billeder, der mangler (se de orange bokse):
+8. Nærbillede af skolens kort med USB-chip, regulator og de to lysdioder. Det erstatter også billedet fra Random Nerd Tutorials under "Kortets dele" (../images/esp32_devkit_v1_komponenter.png bruges også på forsiden).
+9. Kortets bagside eller kant, så teksten ved benene kan læses.
+10. Serial Monitor med udskriften fra eksemplet.
+11. Når alt er testet og billederne er sat ind: fjern IKKE KOMPILERET, denne tjekliste, TJEK-kommentarerne og de orange bokse (BILLEDE-punkterne).
+-->
+
+Når du skal koble en sensor til ESP32, skal du vælge et ben. Vælger du forkert, kan kortet nægte at starte, en analog måling giver 0, så snart WiFi er tændt, eller du kan ødelægge benet med 5 V. Det er ikke fejl i dit program, men egenskaber ved chippen og kortet. Denne side samler, hvad ESP32-DEVKIT-V1 kan og ikke kan: chippen, kortets dele, benene og hukommelsen. Brug den som opslag, når du planlægger en kobling.
+
+## Formål
+
+- Du kan forklare forskellen på ESP32-chippen, ESP-WROOM-32-modulet og DEVKIT-V1-kortet.
+- Du kan nævne nøgletallene for ESP32: kerner, clockfrekvens, RAM, flash, WiFi og Bluetooth.
+- Du kan vælge et ben, der passer til opgaven (digitalt, analogt, PWM, I2C, vækning fra deep sleep), og undgå de ben, der giver problemer.
+- Du kan forklare, hvordan flash er delt op i partitioner, og vælge en anden partitionstabel i `platformio.ini`.
+- Du kan få ESP32 til at skrive sine egne data ud: model, flash, ledig hukommelse og partitioner.
+
+## Målpinde
+
+Siden arbejder med målpind 4, 17 og 20 (se [Læringsmål](../laeringsmaal.qmd)).
+
+## Forudsætninger
+
+- Du kan oprette et PlatformIO-projekt til ESP32-DEVKIT-V1, uploade og åbne Serial Monitor (se [PlatformIO](platformio.qmd)).
+- Hardware: ESP32-DEVKIT-V1 og et USB-kabel. Der skal ikke kobles noget til.
+
+## Chip, modul og kort
+
+Ordet "ESP32" bruges om tre forskellige ting, der sidder inden i hinanden:
+
+| Niveau | Hvad det er | Hvad det indeholder |
+|---|---|---|
+| **ESP32**-chippen | Selve mikrocontrolleren fra Espressif, på skolens kort typisk en ESP32-D0WDQ6 eller ESP32-D0WD(-V3) | Processor, RAM, WiFi- og Bluetooth-radio, ADC, timere osv. Ingen flash til programmet. |
+| **ESP-WROOM-32**-modulet | Den sølvfarvede metalkasse på kortet | ESP32-chippen, 4 MB flash, en 40 MHz krystal og en antenne (det bugtede kobbermønster for enden) |
+| **ESP32-DEVKIT-V1**-kortet | Udviklingskortet fra DOIT, som du sætter i breadboardet | Modulet plus USB-stik, USB-serielchip, spændingsregulator, to knapper, lysdioder og ben med 2,54 mm afstand |
+
+Modulet er lavet, så en producent kan lodde det direkte på sit eget print, uden selv at skulle designe radio og antenne. Kortet er lavet, så *du* kan programmere modulet over USB og koble ting til på et breadboard. I et færdigt produkt ville man bruge modulet alene.
+
+Espressif anbefaler ikke længere ESP-WROOM-32 til nye produkter. Mange nyere kort har i stedet modulet ESP32-WROOM-32E, som har den nyere chip ESP32-D0WD-V3. Står der "32E" på dit modul, gælder siden stadig. Tjek dog flash-størrelsen i udskriften fra eksemplet nedenfor, for modulet findes med mere end 4 MB.
+
+### Nøgletal
+
+Tallene gælder chippen og modulet og er fra Espressifs datablade.
+
+| | ESP32 på DEVKIT-V1 |
+|---|---|
+| Processor | To kerner, Xtensa LX6, 32 bit, op til 240 MHz |
+| RAM (SRAM) | 520 KB i chippen |
+| RTC-hukommelse | 16 KB (8 KB *fast* + 8 KB *slow*), har strøm under deep sleep |
+| ROM | 448 KB (opstartskode og indbyggede funktioner, kan ikke ændres) |
+| Flash | 4 MB i modulet (til program, indstillinger og filsystem) |
+| PSRAM | Ingen |
+| WiFi | 802.11 b/g/n, kun 2,4 GHz |
+| Bluetooth | v4.2 Classic (BR/EDR) og Bluetooth Low Energy |
+| GPIO | 34 på chippen, 25 eller 31 på kortet (se [30 eller 36 ben](#ben-30-36)) |
+| ADC | 2 × 12 bit (ADC1 og ADC2), op til 18 kanaler |
+| DAC | 2 × 8 bit (GPIO 25 og 26) |
+| Touch | 10 kanaler |
+| PWM (LEDC) | 16 kanaler |
+| Seriel | 3 × UART, 2 × I2C, 4 × SPI (to af dem bruges til flash) |
+| Spænding | 3,3 V (chippen 2,3–3,6 V, modulet 3,0–3,6 V) |
+
+To ting er værd at hæfte sig ved: ESP32 kan **ikke** bruge WiFi på 5 GHz, og den har kun 520 KB RAM. Det er meget for en mikrocontroller (en Arduino Uno har 2 KB), men lidt for en computer, så store tekster og billeder skal holdes ude af RAM.
+
+### Kortets dele
+
+![ESP32-DEVKIT-V1 med de vigtigste dele markeret (billede: [Random Nerd Tutorials](https://randomnerdtutorials.com/getting-started-with-esp32/)).](../images/esp32_devkit_v1_komponenter.png){width="450" fig-alt="ESP32-DEVKIT-V1-printkort set fra oven med pile, der peger på antennen, ESP-WROOM-32-modulet, CP2102-chippen, spændingsregulatoren, RESET/EN-knappen, BOOT-knappen og micro-USB-stikket."}
+
+- **ESP-WROOM-32**: modulet med chippen, flash og antenne. Antennen skal være fri: læg ikke kortet med antennen ind over metal eller ledninger, hvis WiFi er ustabil.
+- **USB-serielchip** (CP2102 eller CH340): ESP32 har ikke selv USB. Chippen oversætter mellem USB og ESP32's serielle port UART0 (GPIO 1 og 3). Det er den, Serial Monitor og upload går igennem. Driveren er beskrevet på [PlatformIO](platformio.qmd#usb-serielchippen-og-driveren)-siden.
+- **Spændingsregulator**: laver de 5 V fra USB om til de 3,3 V, som ESP32 bruger.
+- **EN** (enable, ofte mærket RST): genstarter ESP32. Programmet starter forfra, præcis som når strømmen sættes til.
+- **BOOT**: forbundet til GPIO 0. Holdes den nede, mens ESP32 starter, går den i upload-tilstand i stedet for at køre programmet. Normalt klarer USB-chippen det selv; se [PlatformIO](platformio.qmd) for, hvad du gør, når den ikke gør.
+- **Lysdioder**: én lyser, når kortet har strøm. Den anden sidder på **GPIO 2** og kan styres fra programmet. I Arduino hedder benet også `LED_BUILTIN`.
+- **Strømben**: `3V3` (3,3 V fra regulatoren, til sensorer), `GND` og `VIN` (5 V-siden).
+
+<!-- TJEK: farverne på lysdioderne (typisk rød for strøm og blå for GPIO 2) og at VIN ligger på ca. 5 V, når kortet får strøm fra USB, er ikke bekræftet i en officiel kilde for DOIT-kortet. Se tjekliste punkt 4. -->
+
+::: {.billede-mangler}
+Nærbillede af et af skolens kort set fra oven, hvor USB-chippens navn kan læses, og hvor spændingsregulatoren og de to lysdioder (strøm og GPIO 2) er markeret. Se lignende billede: [Random Nerd Tutorials: Getting Started with the ESP32](https://randomnerdtutorials.com/getting-started-with-esp32/).
+:::
+
+Strømmen må kun komme ét sted fra ad gangen: enten USB eller en ekstern forsyning på `VIN` eller `3V3`. Espressif advarer om, at kort og strømforsyning kan tage skade, hvis man bruger flere på én gang. Advarslen står ved deres eget udviklingskort (ESP32-DevKitC), men det samme gælder i praksis for DEVKIT-V1.
+
+<!-- TJEK: Espressifs advarsel gælder DevKitC, ikke DOIT-kortet. Se tjekliste punkt 7. -->
+
+## Benene
+
+### 3,3 V-logik
+
+ESP32 arbejder med 3,3 V. Et ben, der er `HIGH`, giver 3,3 V, og et input læser `HIGH`, når spændingen er tæt på 3,3 V. Benene tåler **ikke** 5 V: databladet tillader højst 3,3 V + 0,3 V på et input. En sensor eller et modul, der sender 5 V-signaler (fx mange moduler lavet til Arduino Uno), skal derfor have en spændingsdeler eller en [level shifter]{lang="en"} imellem. Forsyn sensorer fra `3V3`, medmindre databladet for sensoren siger andet.
+
+Et ben kan trække en lysdiode med formodstand, men ikke en motor, et relæ eller en lang LED-strip. Dem skal du styre via en transistor eller et driver-modul.
+
+### Hvad benene kan
+
+Næsten alle ben er almindelige digitale ind- og udgange (`pinMode()`, `digitalRead()`, `digitalWrite()`). Derudover har mange ben en eller flere særlige funktioner:
+
+| Funktion | Ben | Bemærk |
+|---|---|---|
+| ADC1 (analog ind) | 32, 33, 34, 35, 36 (VP), 39 (VN) | Kan bruges sammen med WiFi |
+| ADC2 (analog ind) | 0, 2, 4, 12, 13, 14, 15, 25, 26, 27 | **Kan ikke bruges, mens WiFi er tændt** |
+| DAC (analog ud) | 25 (`DAC1`), 26 (`DAC2`) | 8 bit: `dacWrite(pin, 0–255)` giver 0–3,3 V |
+| Touch | T0–T9: 4, 0, 2, 15, 13, 12, 14, 27, 33, 32 | `touchRead(T7)` osv. |
+| PWM | Alle ben, der kan være output (ikke 34–39) | 16 kanaler, `ledcAttach()` og `ledcWrite()` |
+| I2C | SDA 21, SCL 22 | Standard i `Wire.begin()`, kan flyttes |
+| SPI (VSPI) | MOSI 23, MISO 19, SCK 18, SS 5 | Standard i `SPI.begin()`, kan flyttes |
+| UART0 | TX 1, RX 3 | Bruges af `Serial` og USB. Lad dem være. |
+| UART2 | RX 4, TX 25 (standard i Arduino-ESP32 3.x) | Angiv selv benene, fx `Serial2.begin(9600, SERIAL_8N1, 16, 17)`. Printet skriver RX2/TX2 ved GPIO 16 og 17; det passer med 2.x, ikke med 3.x |
+| RTC-GPIO | 0, 2, 4, 12–15, 25–27, 32–39 | Kun disse kan vække ESP32 fra deep sleep |
+
+Et par forklaringer:
+
+- **ADC** (*analog-to-digital converter*) måler en spænding og giver et tal fra 0 til 4095 (12 bit). Med standardindstillingen kan den måle fra ca. 0,15 V til 3,1 V, så den kan ikke måle helt op til 3,3 V. Brug `analogReadMilliVolts()`, hvis du vil have millivolt i stedet for et råt tal. ADC2 deler hardware med WiFi-radioen, så i et IoT-projekt bør analoge sensorer altid sidde på ADC1 (se [WiFi](wifi.qmd)).- **PWM** (*pulsbreddemodulation*) tænder og slukker et ben hurtigt, så en lysdiode ser ud til at lyse svagere. I Arduino-ESP32 3.x hedder funktionerne `ledcAttach(pin, frekvens, opløsning)` og `ledcWrite(pin, værdi)`. Ældre vejledninger bruger `ledcSetup()` og `ledcAttachPin()`, som er fjernet i 3.x.
+- **I2C, SPI og UART** er serielle forbindelser til sensorer og moduler. Benene i tabellen er standard; ESP32 kan flytte dem til (næsten) alle andre ben, hvis du angiver benene, fx `Wire.begin(SDA_PIN, SCL_PIN)`.
+- **RTC-GPIO** er de ben, der hører til den del af chippen, som har strøm under deep sleep. Det er forklaret på [Deep sleep](../Features/deep_sleep.qmd)-siden.
+
+### Ben, du skal passe på
+
+| Ben | Problem |
+|---|---|
+| 6–11 | Forbundet til flash i modulet. Rører du dem, går programmet ned. Sidder kun på 36-ben-udgaven. |
+| 34, 35, 36, 39 | Kun input. Ingen intern [pull-up]{lang="en"} eller pull-down, så en knap kræver en ekstern modstand. Fine til analoge sensorer (ADC1). |
+| 0 | Strapping pin og BOOT-knappen. `LOW` ved opstart giver upload-tilstand i stedet for dit program. |
+| 2 | Strapping pin og lysdioden. Skal være `LOW` eller fri ved upload. |
+| 12 | Strapping pin. `HIGH` ved opstart sætter flash-spændingen til 1,8 V, og så kan kortet hverken starte eller tage imod upload. |
+| 15 | Strapping pin. `LOW` ved opstart slår opstartsbeskederne i Serial Monitor fra. |
+| 5 | Strapping pin (timing for en SDIO-funktion, vi ikke bruger). Ufarlig i praksis, men husk den. |
+| 1, 3 | UART0: `Serial` og upload. |
+
+[Strapping pins]{lang="en"} er de fem ben, som ESP32 læser i det øjeblik, den starter, for at vælge opstartstilstand. Det er kun ved opstart, de betyder noget, men en sensor eller knap, der trækker benet den forkerte vej netop dér, kan forhindre opstart eller upload.
+
+**Sikre valg** til knapper, lysdioder og digitale sensorer: **18, 19, 21, 22, 23, 25, 26, 27, 32, 33**. Skal knappen også kunne vække fra deep sleep, så brug 25–27, 32 eller 33. Analoge sensorer i et projekt med WiFi: **32–36 eller 39**.
+
+### 30 eller 36 ben {#ben-30-36}
+
+DEVKIT-V1 findes i to udgaver, der ligner hinanden meget:
+
+- **30 ben** (15 i hver side): 25 GPIO-ben plus `EN`, `VIN`, `3V3` og to `GND`. GPIO 6–11 er ikke ført ud. Det er den udgave, der er på billedet ovenfor.
+- **36 ben**: de samme plus GPIO 6–11 (mærket `CMD`, `SD0`–`SD3`, `CLK`). Dem kan du alligevel ikke bruge, fordi de er forbundet til flash.
+
+Benene sidder forskelligt på de to udgaver, så brug et pinout-diagram, der passer til dit kort, og læs teksten på printet ved siden af benene. Bemærk, at printet ofte skriver `D18` eller bare `18`, og at GPIO 36 og 39 kan stå som `VP` og `VN`.
+
+<!-- TJEK: hvilken udgave har skolen (30 eller 36 ben)? At 30-ben-udgaven mangler netop GPIO 6–11, er fra en kommentar på Random Nerd Tutorials, ikke fra DOIT. Se tjekliste punkt 4. -->
+
+::: {.billede-mangler}
+Skolens kort set fra en vinkel, så teksten ved benene kan læses (fx `D18`, `VP`, `VN`, `VIN`). Har skolen begge udgaver, så gerne én af hver ved siden af hinanden. Se lignende diagram: [Random Nerd Tutorials: ESP32 Pinout Reference](https://randomnerdtutorials.com/esp32-pinout-reference-gpios/).
+:::
+
+### Pinout-diagram
+
+Et pinout-diagram viser, hvor hvert ben sidder, og hvilke funktioner det har. Hav et ved hånden, når du kobler:
+
+- [Random Nerd Tutorials: ESP32 Pinout Reference](https://randomnerdtutorials.com/esp32-pinout-reference-gpios/){lang="en"} har diagrammer for både 30- og 36-ben-udgaven af DEVKIT V1. Læs dog afsnittet [Læs videre](#læs-videre) først.
+- Espressifs eget udviklingskort, [ESP32-DevKitC](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html){lang="en"}, har samme chip og modul, men en anden placering af benene. Dets tabeller er gode til at slå op, hvad et GPIO kan, men ikke til at finde det fysiske ben på DEVKIT-V1.
+
+## Hukommelse
+
+ESP32 har flere slags hukommelse, og de bruges til hver sin ting:
+
+| Hukommelse | Størrelse | Mister indholdet ved | Bruges til |
+|---|---|---|---|
+| SRAM | 520 KB | Genstart, deep sleep, strømsvigt | Variabler, stakke og *heap* (det, `new` og `String` henter plads fra), WiFi |
+| RTC-hukommelse | 16 KB | Alle genstarter (EN, `ESP.restart()`, nedbrud) og strømsvigt. Kun deep sleep overlever | Variabler med `RTC_DATA_ATTR`, der skal overleve deep sleep ([Deep sleep](../Features/deep_sleep.qmd)) |
+| Flash | 4 MB | Ingenting | Programmet, indstillinger (NVS) og filsystem ([Filsystem](../Features/filsystem.qmd)) |
+| PSRAM | 0 på DEVKIT-V1 | | Ekstra RAM på nogle andre moduler (fx ESP32-WROVER) |
+
+Af de 520 KB SRAM er det langtfra det hele, dit program kan bruge. Systemet, FreeRTOS og WiFi-stakken tager en god del, og noget af SRAM'en bruges til programkode, der skal køre hurtigt. Den ledige heap er typisk et par hundrede KB. Eksemplet nedenfor viser, hvor meget der er på dit kort.
+
+<!-- TJEK: "et par hundrede KB" ledig heap er et skøn. PlatformIO's board-fil angiver 320 KB som største RAM til data. Aflæs Heap i alt og Heap ledig på skolens kort (tjekliste punkt 2). -->
+
+### Partitionstabellen
+
+Flash er delt op i *partitioner*, ligesom en harddisk. Forrest ligger [bootloaderen]{lang="en"} (fra adresse `0x1000`), det lille program, der starter dit program. På `0x8000` ligger *partitionstabellen*, som siger, hvor resten ligger. Med Arduino-frameworket bruger PlatformIO tabellen `default.csv`:
+
+| Partition | Størrelse | Indhold |
+|---|---|---|
+| `nvs` | 20 KB | Små nøgle/værdi-data, fx WiFi-indstillinger og biblioteket Preferences |
+| `otadata` | 8 KB | Hvilken af de to app-partitioner, der skal startes |
+| `app0` | 1280 KB | Dit program |
+| `app1` | 1280 KB | Plads til en ny version, når programmet opdateres over netværket (OTA) |
+| `spiffs` | 1408 KB | Filsystemet (bruges også af LittleFS) |
+| `coredump` | 64 KB | Fejlinformation, hvis programmet går ned |
+
+Adresserne og en længere forklaring står på [Filsystem](../Features/filsystem.qmd)-siden.
+
+Dit program må altså højst fylde 1280 KB, selvom der er 4 MB flash. Bliver programmet for stort (fx med WiFi, Bluetooth og flere biblioteker på én gang), giver PlatformIO en fejl om, at programmet ikke kan være der. Så kan du vælge en anden tabel med `board_build.partitions` i `platformio.ini`:
+
+```{.ini filename="platformio.ini"}
+board_build.partitions = huge_app.csv
+```
+
+| Tabel | Program | Filsystem | OTA |
+|---|---|---|---|
+| `default.csv` | 1280 KB | 1408 KB | Ja |
+| `no_ota.csv` | 2048 KB | 1920 KB | Nej |
+| `huge_app.csv` | 3072 KB | 896 KB | Nej |
+
+Tabellerne følger med Arduino-ESP32. Du kan også lave din egen: læg en CSV-fil i projektets rodmappe (ved siden af `platformio.ini`), og skriv dens navn i `board_build.partitions`. Bliv ved `default.csv`, medmindre du har brug for andet: uden `app1` kan enheden ikke opdateres over netværket, og når tabellen skifter, er filerne i filsystemet væk.
+
+## Eksempel: ESP32 fortæller om sig selv
+
+Programmet skriver chippens data og partitionstabellen ud én gang ved opstart. Derefter skriver det hvert 5. sekund, hvor meget heap der er ledig. Det bruger klassen `ESP` fra Arduino-ESP32 og to små funktioner fra ESP-IDF til partitionerne.
+
+```{.ini filename="platformio.ini"}
+[env:esp32doit-devkit-v1]
+platform = espressif32@8.0.0
+board = esp32doit-devkit-v1
+framework = arduino
+monitor_speed = 115200
+```
+
+```{.cpp filename="src/main.cpp"}
+#include <Arduino.h>
+#include <esp_partition.h>  // ESP-IDF: læs partitionstabellen
+#include <esp_ota_ops.h>    // ESP-IDF: hvilken app-partition kører lige nu
+
+// Konfiguration
+const unsigned long HEAP_INTERVAL_MS = 5000;  // hvor tit den ledige heap skrives ud
+
+unsigned long sidsteHeapUdskrift = 0;
+
+void skrivChipInfo() {
+  Serial.println("--- Chip ---");
+  Serial.printf("Model:       %s, revision %u\n", ESP.getChipModel(),
+                (unsigned)ESP.getChipRevision());
+  Serial.printf("Kerner:      %u\n", (unsigned)ESP.getChipCores());
+  Serial.printf("CPU:         %lu MHz\n", (unsigned long)ESP.getCpuFreqMHz());
+  Serial.printf("Software:    Arduino-ESP32 %s, ESP-IDF %s\n",
+                ESP.getCoreVersion(), ESP.getSdkVersion());
+
+  Serial.println("--- Hukommelse ---");
+  Serial.printf("Flash:       %lu bytes\n", (unsigned long)ESP.getFlashChipSize());
+  Serial.printf("Heap i alt:  %lu bytes\n", (unsigned long)ESP.getHeapSize());
+  Serial.printf("Heap ledig:  %lu bytes\n", (unsigned long)ESP.getFreeHeap());
+  Serial.printf("PSRAM:       %lu bytes\n", (unsigned long)ESP.getPsramSize());
+  Serial.printf("Program:     %lu bytes\n", (unsigned long)ESP.getSketchSize());
+  // Størrelsen på den app-partition, en ny version (OTA) ville blive skrevet til
+  Serial.printf("Plads til ny version: %lu bytes\n",
+                (unsigned long)ESP.getFreeSketchSpace());
+}
+
+// Skriver alle partitioner af én type (app eller data)
+void skrivPartitioner(esp_partition_type_t type, const char *typeNavn) {
+  const esp_partition_t *koerende = esp_ota_get_running_partition();
+
+  esp_partition_iterator_t it = esp_partition_find(type, ESP_PARTITION_SUBTYPE_ANY, NULL);
+  for (; it != NULL; it = esp_partition_next(it)) {
+    const esp_partition_t *p = esp_partition_get(it);
+    bool koererNu = (p->address == koerende->address);
+    Serial.printf("%-9s %-5s 0x%06lX %5lu KB%s\n", p->label, typeNavn,
+                  (unsigned long)p->address, (unsigned long)(p->size / 1024),
+                  koererNu ? "  <- kører nu" : "");
+  }
+  esp_partition_iterator_release(it);  // it er NULL her, og det er tilladt
+}
+
+void setup() {
+  Serial.begin(115200);
+  delay(1000);  // giv Serial Monitor tid til at koble på, så starten ikke går tabt
+
+  skrivChipInfo();
+
+  Serial.println("--- Partitioner ---");
+  skrivPartitioner(ESP_PARTITION_TYPE_APP, "app");
+  skrivPartitioner(ESP_PARTITION_TYPE_DATA, "data");
+}
+
+void loop() {
+  if (millis() - sidsteHeapUdskrift >= HEAP_INTERVAL_MS) {
+    sidsteHeapUdskrift = millis();
+    // getMinFreeHeap(): den laveste værdi siden opstart. Nærmer den sig 0, er der fare for nedbrud.
+    Serial.printf("Heap ledig: %lu bytes (laveste: %lu)\n",
+                  (unsigned long)ESP.getFreeHeap(), (unsigned long)ESP.getMinFreeHeap());
+  }
+}
+```
+
+Sådan virker det:
+
+- `ESP.getChipModel()` læser chippens type fra dens indbyggede [eFuses]{lang="en"} (en lille hukommelse, der skrives én gang på fabrikken). `getChipRevision()` giver revisionen som et tal, hvor fx `301` betyder major-version 3 og minor-version 1 (Espressif skriver v3.1).
+- `ESP.getFlashChipSize()` spørger selve flash-chippen og bør give 4194304 bytes (4 MB). `getPsramSize()` giver 0, fordi DEVKIT-V1 ikke har PSRAM.
+- `getHeapSize()` og `getFreeHeap()` tæller kun den interne RAM, som programmet kan bruge, ikke alle 520 KB.
+- `getFreeSketchSpace()` er misvisende navngivet: den giver *størrelsen* på den app-partition, en ny version ville blive skrevet til ved OTA (`app1`, når programmet kører fra `app0`). Findes der ingen anden app-partition (`no_ota.csv`, `huge_app.csv`), giver den størrelsen på den partition, programmet kører fra. Tallet er altså ikke 0, selvom der ikke er plads til OTA.
+- `esp_partition_find()` giver en [iterator]{lang="en"}, som `esp_partition_next()` flytter videre, til den bliver `NULL`. Listen skal passe med `default.csv`-tabellen ovenfor.
+- `delay(1000)` i `setup()` er her med vilje og er ufarlig: den kører kun én gang. I `loop()` bruges `millis()`, så programmet ikke står stille.
+
+::: {.billede-mangler}
+Skærmbillede af Serial Monitor i VS Code med udskriften fra eksemplet: chipmodel, flash, heap og partitionslisten med "kører nu" ved `app0`.
+:::
+
+## Øvelser
+
+1. Kør eksemplet. Hvilken chipmodel og revision har dit kort? Passer kerner, MHz og flash med tabellen [Nøgletal](#nøgletal)? Sammenlign med din sidemand: har I samme chip?
+2. Tilføj `#include <WiFi.h>` og kaldet `WiFi.mode(WIFI_STA);` sidst i `setup()`. Hvor meget falder den ledige heap? Hvad siger det om, hvor meget RAM der er tilbage til dit eget program i et IoT-projekt?
+3. Tilføj `board_build.partitions = no_ota.csv` i `platformio.ini`, og upload igen. Hvordan ser partitionslisten ud nu? Hvad skriver "Plads til ny version", og hvorfor? Prøv derefter `huge_app.csv`, og skift tilbage til standard ved at fjerne linjen.
+4. Tæl benene på dit kort: er det 30- eller 36-ben-udgaven? Find GPIO 18, 21, 22, 32, 34 og `VIN` på kortet ved hjælp af teksten på printet og et pinout-diagram.
+5. Lad lysdioden på GPIO 2 lysdæmpe op og ned med PWM: `ledcAttach(LED_BUILTIN, 5000, 8)` i `setup()` og `ledcWrite(LED_BUILTIN, værdi)` med en værdi fra 0 til 255, der ændres med `millis()`.
+6. *Ekstra:* Du skal bygge en enhed med WiFi, der har et potentiometer (analogt), to knapper (den ene skal kunne vække fra deep sleep), en lysdiode og et I2C-display. Vælg et ben til hver ting, og begrund valget ud fra tabellerne på siden. Aflever en tabel med ben, funktion og begrundelse.
+
+## Typiske fejl
+
+- **Analog måling giver 0 eller noget mærkeligt, når WiFi er tændt:** Sensoren sidder på et ADC2-ben. Flyt den til ADC1: GPIO 32–36 eller 39.
+- **Kortet vil ikke starte eller uploade, når noget er koblet til:** Noget trækker en strapping pin den forkerte vej ved opstart: GPIO 0 `LOW`, GPIO 2 `HIGH` eller GPIO 12 `HIGH`. Tag ledningen af, og prøv igen.
+- **En lysdiode på GPIO 34–39 lyser ikke:** De ben er kun input. Brug et andet ben.
+- **En knap på GPIO 34–39 svæver:** Der er ingen intern pull-up. Brug et andet ben, eller sæt en ekstern modstand på.
+- **Programmet går ned, så snart et ben bruges:** Benet er et af GPIO 6–11, som er forbundet til flash.
+- **En sensor eller et ben er gået i stykker:** Der er kommet 5 V på et input. Tjek sensorens udgang med et multimeter, før den kobles til.
+- **`Serial2` virker ikke med en ældre vejledning:** Vejledningen bruger GPIO 16 og 17, som var standard i Arduino-ESP32 2.x. I 3.x er standarden RX 4 og TX 25. Angiv benene selv i `Serial2.begin()`.
+- **Fejl om, at programmet er for stort:** Programmet fylder mere end app-partitionen (1280 KB). Vælg `huge_app.csv`, eller fjern biblioteker, du ikke bruger.
+- **Filerne i filsystemet er væk:** Partitionstabellen er skiftet, så filsystemet ligger et andet sted.
+
+## Læs videre
+
+### ESP32 Pinout Reference
+
+Random Nerd Tutorials' [ESP32 Pinout Reference: Which GPIO pins should you use?](https://randomnerdtutorials.com/esp32-pinout-reference-gpios/){lang="en"} er den mest brugte oversigt over benene, med diagrammer af DEVKIT V1 og en tabel over, hvilke ben der er gode at bruge. Den er god at have åben, når du kobler, men den har nogle fejl og forældede oplysninger:
+
+- Den nævner GPIO 4 som strapping pin. Det er den ikke: Espressifs datablad nævner kun 0, 2, 5, 12 og 15.
+- Den skriver, at GPIO 5 og 15 *skal* være `HIGH` ved opstart. Ifølge Espressif slår GPIO 15 `LOW` kun opstartsbeskederne fra, og GPIO 5 styrer en funktion, vi ikke bruger. GPIO 0 og 12 er dem, der virkelig kan forhindre opstart.
+- Den skriver, at UART2 sidder på GPIO 16 og 17. Det var standard i Arduino-ESP32 2.x. I 3.x er det RX 4 og TX 25, så angiv benene selv.
+- Den nævner en indbygget Hall-sensor (magnetfelt). Funktionen `hallRead()` er fjernet i Arduino-ESP32 3.x.
+- Den skriver, at EN er enable-ben til 3,3 V-regulatoren. Espressif kalder benet `CHIP_PU`: det tænder og slukker chippen og bruges til reset. I praksis er virkningen den samme: ESP32 genstarter.
+
+<!-- TJEK: om EN på DOIT-kortet også er forbundet til regulatorens enable-ben, kan ikke ses i Espressifs dokumentation (DOIT-kortet er ikke Espressifs). Se tjekliste punkt 5. -->
+
+## Kilder
+
+- Espressif: ESP32 Series Datasheet (kerner, hukommelse, ADC, DAC, strapping pins, RTC-GPIO, spændinger), <https://documentation.espressif.com/esp32_datasheet_en.html>
+- Espressif: ESP32-WROOM-32 Datasheet (4 MB flash, GPIO 6–11 til flash, NRND), <https://documentation.espressif.com/esp32-wroom-32_datasheet_en.html>
+- Espressif: ESP32-WROOM-32E & ESP32-WROOM-32UE Datasheet (ESP32-D0WD-V3), <https://documentation.espressif.com/esp32-wroom-32e_esp32-wroom-32ue_datasheet_en.html>
+- ESP-IDF: Deep-sleep Wake Stubs (RTC-hukommelse nulstilles ved alle genstarter undtagen opvågning fra deep sleep), <https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/deep-sleep-stub.html>
+- Espressif: ESP32-DevKitC User Guide (knapper, strømforsyning, moduler med og uden PSRAM), <https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html>
+- esptool: Boot Mode Selection (GPIO 0, 2, 12 og 15 ved opstart), <https://docs.espressif.com/projects/esptool/en/latest/esp32/advanced-topics/boot-mode-selection.html>
+- Arduino-ESP32: `Esp.h` og `Esp.cpp` (klassen `ESP`), <https://github.com/espressif/arduino-esp32/tree/master/cores/esp32>
+- Arduino-ESP32: benene på DOIT ESP32 DEVKIT V1 (`LED_BUILTIN`, `SDA`, `SCL`, `T0`–`T9`, `DAC1`, `DAC2`), <https://github.com/espressif/arduino-esp32/blob/master/variants/doitESP32devkitV1/pins_arduino.h>
+- Arduino-ESP32: `HardwareSerial.h` (standardben til UART1 og UART2), <https://github.com/espressif/arduino-esp32/blob/master/cores/esp32/HardwareSerial.h>
+- Arduino-ESP32: Migration from 2.x to 3.0 (Hall-sensor, LEDC, UART-ben), <https://docs.espressif.com/projects/arduino-esp32/en/latest/migration_guides/2.x_to_3.0.html>
+- Arduino-ESP32: ADC, <https://docs.espressif.com/projects/arduino-esp32/en/latest/api/adc.html>
+- Arduino-ESP32: DAC, <https://docs.espressif.com/projects/arduino-esp32/en/latest/api/dac.html>
+- Arduino-ESP32: LEDC (PWM), <https://docs.espressif.com/projects/arduino-esp32/en/latest/api/ledc.html>
+- Arduino-ESP32: partitionstabeller (`default.csv`, `no_ota.csv`, `huge_app.csv`), <https://github.com/espressif/arduino-esp32/tree/master/tools/partitions>
+- ESP-IDF: ADC Oneshot Mode Driver (ADC2 bruges også af WiFi), <https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/adc/adc_oneshot.html>
+- ESP-IDF: Partition Tables, <https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/partition-tables.html>
+- ESP-IDF: Partitions API (`esp_partition_find()` osv.), <https://docs.espressif.com/projects/esp-idf/en/v5.5/esp32/api-reference/storage/partition.html>
+- PlatformIO: Espressif 32 (Partition Tables, `board_build.partitions`), <https://docs.platformio.org/en/latest/platforms/espressif32.html>
+- PlatformIO: DOIT ESP32 DEVKIT V1 (4 MB flash, 240 MHz), <https://docs.platformio.org/en/latest/boards/espressif32/esp32doit-devkit-v1.html>
+- Random Nerd Tutorials: ESP32 Pinout Reference, <https://randomnerdtutorials.com/esp32-pinout-reference-gpios/>
+- Random Nerd Tutorials: Getting Started with the ESP32 (billedet af kortets dele), <https://randomnerdtutorials.com/getting-started-with-esp32/>
