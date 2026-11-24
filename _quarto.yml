@@ -28,10 +28,8 @@ toc: true
 # Ændringsdato: sidste commit (via _scripts/git_mtime.py). Oprettelsesdato (date:) står på hver side.
 date-modified: last-modified
 date-format: long
-# PDF (Typst): datolinjen viser også "Ændret"
-template-partials:
-  - _typst/typst-show.typ
-# Sidemargener i PDF (Typst). HTML bruger dem ikke.
+# template-partials (PDF) står i Opgaver/_metadata.yml, fordi revealjs-slides afviser den.
+# Sidemargener i PDF (Typst). HTML bruger dem ikke; slides sætter deres egen margin.
 margin:
   top: 1cm
   right: 1cm

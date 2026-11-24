@@ -7,3 +7,7 @@ format-links:
   - format: typst
     text: PDF
     icon: file-pdf
+
+# PDF (Typst): datolinjen viser også "Ændret"
+template-partials:
+  - ../_typst/typst-show.typ
