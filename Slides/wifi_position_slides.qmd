@@ -4,6 +4,7 @@ subtitle: "Intro til projektopgaven"
 date: 2026-11-26
 draft: true
 toc: false
+
 format:
   revealjs:
     width: 1280
@@ -14,15 +15,23 @@ format:
     preview-links: false
 ---
 
+## {background-color="black"}
+
 <!--
+Et bevidst tomt, sort slide (pause før start).
 UDKAST, bygget over lærerens disposition. Slides til Opgaver/Projektopgave_wifi_position.qmd;
 opgaven er den fulde tekst. Hver slide: én idé, højst ca. 8 punkter.
 Tjek med _scripts/slide_hoejde.py efter render.
 -->
 
-# Positionering uden GPS
+# Positionering uden GPS {background-image="images/indendoers_position_mobil.jpg" background-size="cover" background-opacity="0.45"}
 
-![Foto: Intel Free Press, [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0), via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Indoor_location_services_on_mobile_phone_(10928087126).jpg)](images/indendoers_position_mobil.jpg){fig-alt="En hånd holder en mobiltelefon, der viser en plantegning af en bygning. En grøn cirkel markerer, hvor telefonen er i bygningen." height="480"}
+<!-- Fotoet: en hånd holder en mobiltelefon med en plantegning af en bygning; en grøn cirkel viser, hvor telefonen er.
+     background-opacity gør fotoet svagere, så titlen kan læses. Fjern den for fuld styrke. -->
+
+::: {.absolute bottom="0" right="0" style="font-size: 0.45em;"}
+Foto: Intel Free Press, [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0), via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Indoor_location_services_on_mobile_phone_(10928087126).jpg)
+:::
 
 ## Hvormange, og hvor ?
 
@@ -73,14 +82,17 @@ Skærmbillede: seriel monitor med sniffer-demoen (MAC, RSSI, kanal). Slør MAC-a
 
 ## Opstillingen
 
+:::: {.columns}
+::: {.column width="42%"}
 - Flere ESP32 placeret i hjørnerne af et område (jeres bord eller lokalet)
 - Hver ESP32 lytter efter wifi-pakker og måler signalstyrken (RSSI)
 - Signalstyrke → omtrentlig afstand til telefonen
 - Afstande fra flere ESP32 → position (x, y)
-
-::: {.billede-mangler}
-Skitse: område med tre ESP32 i hjørnerne og en telefon i midten
 :::
+::: {.column width="58%"}
+![](images/opstilling.svg){fig-alt="Et område med tre ESP32 i hjørnerne, A og B forneden og C foroven. Fra hver ESP32 går en stiplet linje mod en telefon inde i området, mærket RSSI → afstand. Telefonen sender wifi-signaler. Fra opstillingen går en pil til en MQTT-broker, wilsons, som modtager id, tidspunkt og (x, y)."}
+:::
+::::
 
 ## Matematikken bag
 
