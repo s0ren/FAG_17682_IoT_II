@@ -26,7 +26,7 @@ Tjek med _scripts/slide_hoejde.py efter render.
 -->
 ```
 
-# Positionering uden GPS {background-image="images/indendoers_position_mobil.jpg" background-size="cover" background-opacity="0.45"}
+# Positionering uden GPS {background-image="images/indendoers_position_mobil.jpg" background-color="#cfe8f7" background-size="cover" background-opacity="0.45"}
 
 ```{=html}
 <!-- Fotoet: en hånd holder en mobiltelefon med en plantegning af en bygning; en grøn cirkel viser, hvor telefonen er.
@@ -37,7 +37,7 @@ Tjek med _scripts/slide_hoejde.py efter render.
 Foto: Intel Free Press, [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0), via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Indoor_location_services_on_mobile_phone_(10928087126).jpg)
 :::
 
-## Hvormange, og hvor ?
+## Hvormange, og hvor ? {background-color="#cfe8f7"}
 
 :::: {.columns}
 ::: {.column width="60%"}
@@ -63,7 +63,7 @@ Foto: en metroperron eller et indkøbscenter med mange mennesker (fx Wikimedia C
 Start med et spørgsmål til holdet: hvor har I set det bruges? (butikker, lufthavne, trafiktælling)
 :::
 
-## Hvad kan man så bruge?
+## Hvad kan man så bruge? {background-color="#cfe8f7"}
 
 :::: {.columns}
 ::: {.column width="66%"}
@@ -85,7 +85,7 @@ Vi bruger **wifi**: fordi ESP32 har det indbygget, og næsten alle telefoner har
 TJEK: tallene er grove tommelfingerregler; justér efter de kilder, du vil vise.
 :::
 
-## Wifi: hvad kan man se?
+## Wifi: hvad kan man se? {background-color="#cfe8f7"}
 
 :::: {.columns}
 ::: {.column width="58%"}
@@ -106,7 +106,7 @@ TJEK: tallene er grove tommelfingerregler; justér efter de kilder, du vil vise.
 Skærmbillede: seriel monitor med sniffer-demoen (MAC, RSSI, kanal). Slør MAC-adresserne.
 ::: -->
 
-## Opstillingen
+## Opstillingen {background-color="#cfe8f7"}
 
 ::::: columns
 ::: {.column width="42%"}
@@ -121,7 +121,7 @@ Skærmbillede: seriel monitor med sniffer-demoen (MAC, RSSI, kanal). Slør MAC-a
 :::
 :::::
 
-## Matematikken bag
+## Matematikken bag {background-color="#cfe8f7"}
 
 ::::: columns
 ::: {.column width="55%"}
@@ -139,7 +139,7 @@ Skærmbillede: seriel monitor med sniffer-demoen (MAC, RSSI, kanal). Slør MAC-a
 :::
 :::::
 
-## Eksempel: fra RSSI til afstand
+## Eksempel: fra RSSI til afstand {background-color="#cfe8f7"}
 
 ::::: columns
 ::: {.column width="50%"}
@@ -164,7 +164,7 @@ Med $A = -40$ dBm (målt ved 1 m) og $n = 2{,}5$ (indendørs):
 - $A$ og $n$ skal I selv **måle** i jeres lokale: stil telefonen på kendte afstande og aflæs RSSI
 - Læg mærke til: 15 dB svagere signal betyder 4 gange så langt væk
 
-## Eksempel: trilateration
+## Eksempel: trilateration {background-color="#cfe8f7"}
 
 ::::: columns
 ::: {.column width="55%"}
@@ -192,7 +192,7 @@ $$
 :::
 :::::
 
-## Eksempel: løs ligningerne
+## Eksempel: løs ligningerne {background-color="#cfe8f7"}
 
 Træk ligning A fra de to andre. Så forsvinder $x^2$ og $y^2$:
 
@@ -217,7 +217,7 @@ Telefonen står i **(1, 2)**.
 :::
 :::::
 
-## Hvem bruger det?
+## Hvem bruger det? {background-color="#cfe8f7"}
 
 :::: {.columns}
 ::: {.column width="60%"}
@@ -239,11 +239,11 @@ Foto: en skærm i en lufthavn, der viser ventetiden ved sikkerhedskontrollen
 
 <!-- TJEK: find gerne et par konkrete, aktuelle eksempler at vise. -->
 
-# Hvad må man?
+# Hvad må man? {background-color="#f3dfa2"}
 
 ![](images/Video_overv%C3%A5gning_miljobillede_reckdkw9M1omtYrp3_klistermaerke_a8_1768904337115-610x610.png){fig-alt="Et skilt med teksten Alarm og videoovervågning på en dørkarm ved indgangen til en butik. Bag glasset ses et overvågningskamera i loftet og en mand ved en disk." height="420"}
 
-## Data om andre mennesker
+## Data om andre mennesker {background-color="#f3dfa2"}
 
 - Har personerne givet **tilsagn**? 
   - Ved de overhovedet, at de bliver registreret?
@@ -255,7 +255,7 @@ Foto: en skærm i en lufthavn, der viser ventetiden ved sikkerhedskontrollen
 
 ![](images/berigelse_tidslinje.svg){fig-alt="Tidslinje for mandag, tirsdag og onsdag mellem kl. 7 og 10. Hver dag er den samme MAC-adresse set i lokale 2.14 omkring kl. 8. Teksten under siger: samme telefon, samme sted, hver morgen: et mønster om én person." width="760"}
 
-## GDPR
+## GDPR {background-color="#f3dfa2"}
 
 ![](images/gdpr_roller.svg){fig-alt="Tre kasser forbundet med pile: den registrerede (personen med telefonen) giver data til den dataansvarlige (bestemmer hvorfor og hvordan data behandles, fx jeres gruppe eller skolen), som har en aftale med databehandleren (behandler data på den ansvarliges vegne, fx den, der driver MQTT-serveren)." width="760"}
 
@@ -270,7 +270,7 @@ Foto: en skærm i en lufthavn, der viser ventetiden ved sikkerhedskontrollen
   - $r$: risikoen for et brud på datasikkerheden?
   - $s$: skaden for med personerne, hvis data slipper ud?
 
-## Databegrænsning
+## Databegrænsning {background-color="#f3dfa2"}
 
 - Brug kun de data, der er **nødvendige** for formålet
 - Gem dem kun, **så længe** det er nødvendigt
@@ -304,9 +304,9 @@ Kun det nødvendige:
 Højre: id er en hash af MAC + en nøgle, der skiftes hver dag; tiden er afrundet til kvarter; positionen til hele meter. Persondata er en del af bedømmelsen (se checklisten), ikke et tillæg.
 :::
 
-# Opgaven
+# Opgaven {background-color="#f8d3dc"}
 
-## Formalia
+## Formalia {background-color="#f8d3dc"}
 
 - Grupper på 2–3, oprettes på itslearning
 - I bygger en opstilling med flere ESP32, der lytter efter telefoner
@@ -316,7 +316,7 @@ Højre: id er en hash af MAC + en nøgle, der skiftes hver dag; tiden er afrunde
 
 <!-- TJEK: tilføj datoer for start, præsentation og aflevering. Med datoerne kan der laves en tidslinje over forløbet. -->
 
-## En eksplorativ opgave
+## En eksplorativ opgave {background-color="#f8d3dc"}
 
 ::::: columns
 ::: {.column width="52%"}
@@ -334,7 +334,7 @@ Der er ikke én rigtig løsning. I skal undersøge:
 :::
 :::::
 
-## Processen tæller
+## Processen tæller {background-color="#f8d3dc"}
 
 Processen er vigtig, også i bedømmelsen.
 
@@ -350,7 +350,7 @@ Processen er vigtig, også i bedømmelsen.
 Skærmbillede: git-log eller commit-graf fra et demo-repo (eller et elevprojekt, med tilladelse)
 :::
 
-## Aflevering
+## Aflevering {background-color="#f8d3dc"}
 
 ::::: columns
 ::: {.column width="55%"}
