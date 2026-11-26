@@ -109,6 +109,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Søg"
   }
 }</script>
+<meta name="quarto:status" content="draft">
 
 
 <link rel="stylesheet" href="../styles.css">
@@ -117,7 +118,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <body class="nav-sidebar floating nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
+  <header id="quarto-header" class="headroom fixed-top"><div id="quarto-draft-alert" class="alert alert-warning"><i class="bi bi-pencil-square"></i>Udkast</div>
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
@@ -242,6 +243,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../Grundlag/breadboard.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Breadboard med tilpassede ledninger</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../Grundlag/cpp_intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Intro til C++</span></a>
   </div>
@@ -256,6 +263,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../Grundlag/esp32_specs.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">ESP32-DEVKIT-V1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/fritzing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fritzing</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -321,6 +334,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../Opgaver/Projektopgave_Smiley.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Projektopgave, Smiley feedback panel</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Opgaver/Projektopgave_Smiley_chekliste.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Checkliste: Projektopgave, Smiley feedback panel</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -417,7 +436,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Ændret</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">24. november 2026</p>
+      <p class="date-modified">26. november 2026</p>
     </div>
   </div>
     
@@ -430,6 +449,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <!-- IKKE TESTET PÅ HARDWARE: eksemplerne kompilerer med espressif32@8.0.0 (24. nov. 2026; projekterne ligger i demo-repoerne, se linkene under eksemplerne), men er ikke testet på hardware. -->
 <!--
+
+FIXME: hvilken knap
+* Mangler en tydelig forklaring på at finde GPIO'en som forårsager wakeup v. ext1
+
 TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 1. AFPRØVET 24. nov. 2026: "Opstart nr." tæller op, årsagen er "timer", og første gang står der "Ikke vækket fra deep sleep (0)".
 2. Tryk på EN-knappen under eksemplet: starter tælleren forfra fra 1? (Siden påstår, at RTC-hukommelsen nulstilles ved EN.)

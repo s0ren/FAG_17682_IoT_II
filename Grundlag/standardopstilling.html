@@ -109,6 +109,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Søg"
   }
 }</script>
+<meta name="quarto:status" content="draft">
 
 
 <link rel="stylesheet" href="../styles.css">
@@ -117,7 +118,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <body class="nav-sidebar floating nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
+  <header id="quarto-header" class="headroom fixed-top"><div id="quarto-draft-alert" class="alert alert-warning"><i class="bi bi-pencil-square"></i>Udkast</div>
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
@@ -242,6 +243,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../Grundlag/breadboard.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Breadboard med tilpassede ledninger</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../Grundlag/cpp_intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Intro til C++</span></a>
   </div>
@@ -256,6 +263,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../Grundlag/esp32_specs.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">ESP32-DEVKIT-V1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/fritzing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fritzing</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -321,6 +334,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../Opgaver/Projektopgave_Smiley.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Projektopgave, Smiley feedback panel</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Opgaver/Projektopgave_Smiley_chekliste.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Checkliste: Projektopgave, Smiley feedback panel</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -398,7 +417,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Ændret</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">24. november 2026</p>
+      <p class="date-modified">26. november 2026</p>
     </div>
   </div>
     
@@ -435,7 +454,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før IKKE TESTET PÅ HARDWARE og TJEK-komment
 <section id="forudsætninger" class="level2">
 <h2 class="anchored" data-anchor-id="forudsætninger">Forudsætninger</h2>
 <ul>
-<li>Breadboard: hvordan hullerne er forbundet, og hvordan du bygger pænt med korte ledninger.</li>
+<li><a href="../Grundlag/breadboard.html">Breadboard</a>: hvordan hullerne er forbundet, og hvordan du bygger pænt med korte ledninger.</li>
 <li><a href="../Grundlag/platformio.html">PlatformIO</a>: oprette et projekt, uploade og åbne Serial Monitor.</li>
 <li>Komponenterne forklares på <a href="../Grundlag/knapper.html">Knapper</a>, <a href="../Grundlag/lysdioder.html">Lysdioder</a>, <a href="../Grundlag/modstande.html">Modstande</a> og <a href="../Grundlag/potentiometer.html">Potentiometer</a>.</li>
 </ul>
@@ -456,7 +475,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før IKKE TESTET PÅ HARDWARE og TJEK-komment
 </tr>
 <tr class="even">
 <td>1 eller 2</td>
-<td>Breadboard (se Breadboard)</td>
+<td>Breadboard (se <a href="../Grundlag/breadboard.html#esp32-devkit-v1-er-bred">Breadboard</a>)</td>
 </tr>
 <tr class="odd">
 <td>1</td>
@@ -519,11 +538,11 @@ TJEKLISTE TIL LÆREREN (afprøves, før IKKE TESTET PÅ HARDWARE og TJEK-komment
 </section>
 <section id="byggevejledning" class="level2">
 <h2 class="anchored" data-anchor-id="byggevejledning">Byggevejledning</h2>
-<p>Byg med USB-kablet taget ud. Brug samme farver som på Breadboard: <strong>rød</strong> til 3,3 V, <strong>sort</strong> til GND, og en farve pr. signal, fx <strong>gul</strong> til knappen, <strong>grøn</strong> til lysdioden og <strong>blå</strong> til potentiometeret.</p>
+<p>Byg med USB-kablet taget ud. Brug samme farver som på <a href="../Grundlag/breadboard.html">Breadboard</a>: <strong>rød</strong> til 3,3 V, <strong>sort</strong> til GND, og en farve pr. signal, fx <strong>gul</strong> til knappen, <strong>grøn</strong> til lysdioden og <strong>blå</strong> til potentiometeret.</p>
 <p>På ESP32-DEVKIT-V1 sidder GPIO 32 og 33 i samme side som <strong>VIN</strong>, og GPIO 19 i samme side som <strong>3V3</strong>. Der er GND i begge sider. Opstillingen bruger derfor begge sider af modulet: knap og potentiometer i VIN-siden, lysdioden i 3V3-siden.</p>
 <!-- TJEK: rækkefølgen af benene på lokalets kort (30 ben). Fra USB-stikket og op: VIN-siden VIN, GND, D13, D12, D14, D27, D26, D25, D33, D32, D35, D34, VN, VP, EN; 3V3-siden 3V3, GND, D15, D2, D4, RX2, TX2, D5, D18, D19, D21, RX0, TX0, D22, D23. Kilde: Random Nerd Tutorials' pinout for DOIT DEVKIT V1 med 30 GPIO'er. Kloner kan afvige. -->
 <ol type="1">
-<li><strong>ESP32:</strong> Sæt modulet hen over renden, eller over to boards (se Breadboard), så der er frie huller ud for benene i begge sider.</li>
+<li><strong>ESP32:</strong> Sæt modulet hen over renden, eller over to boards (se <a href="../Grundlag/breadboard.html#esp32-devkit-v1-er-bred">Breadboard</a>), så der er frie huller ud for benene i begge sider.</li>
 <li><strong>Strøm:</strong> En kort rød ledning fra <strong>3V3</strong> til den røde skinne og en kort sort ledning fra <strong>GND</strong> (3V3-siden) til den blå skinne. Skal potentiometeret have 3,3 V i den anden side, så sæt en rød og en sort ledning over til skinnerne dér.</li>
 <li><strong>Knappen:</strong> Sæt trykknappen hen over renden i VIN-siden. Brug to ben, der sidder <strong>diagonalt</strong> over for hinanden. En gul ledning fra det ene ben til <strong>GPIO 33</strong> og en sort fra det andet til GND-skinnen.</li>
 <li><strong>Lysdioden:</strong> I 3V3-siden: en grøn ledning fra <strong>GPIO 19</strong> til en ledig række. Sæt modstanden på 220 Ω fra den række til en ny række. Sæt lysdiodens <strong>lange ben</strong> (anoden) i samme række som modstandens andet ben, og det <strong>korte ben</strong> (katoden) i en tredje række. En sort ledning fra katodens række til GND-skinnen.</li>
@@ -532,7 +551,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før IKKE TESTET PÅ HARDWARE og TJEK-komment
 </ol>
 <!-- LÆRER: om I bygger på ét eller to boards, og hvor på boardet delene skal sidde. -->
 <div class="billede-mangler">
-<p>Fritzing-diagram af standardopstillingen i Breadboard-visningen: ESP32-DEVKIT-V1, knap på GPIO 33, lysdiode med 220 Ω på GPIO 19 og potentiometer på GPIO 32, med farvekoden fra siden. Tegnes som beskrevet på Fritzing. Se lignende billeder: <a href="https://randomnerdtutorials.com/esp32-adc-analog-read-arduino-ide/">Random Nerd Tutorials: ESP32 ADC</a> (potentiometer på GPIO 34).</p>
+<p>Fritzing-diagram af standardopstillingen i Breadboard-visningen: ESP32-DEVKIT-V1, knap på GPIO 33, lysdiode med 220 Ω på GPIO 19 og potentiometer på GPIO 32, med farvekoden fra siden. Tegnes som beskrevet på <a href="../Grundlag/fritzing.html">Fritzing</a>. Se lignende billeder: <a href="https://randomnerdtutorials.com/esp32-adc-analog-read-arduino-ide/">Random Nerd Tutorials: ESP32 ADC</a> (potentiometer på GPIO 34).</p>
 </div>
 <div class="billede-mangler">
 <p>Samme diagram i Schematic-visningen, så forbindelserne kan læses uden at følge ledninger.</p>
@@ -624,7 +643,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før IKKE TESTET PÅ HARDWARE og TJEK-komment
 <li>Byg opstillingen, og kør testprogrammet. Virker alle tre dele? Tag et billede af dit board ovenfra til din logbog.</li>
 <li>Drej potentiometeret helt i begge ender. Hvilke tal får du? Bytter du om på de to yderben, vender retningen så om?</li>
 <li>Ret programmet, så lysdioden på GPIO 19 tænder, når potentiometeret står over 1650 mV, og knappen ikke bruges.</li>
-<li>Tegn opstillingen i Fritzing (se Fritzing), og sammenlign diagrammet med dit board, ledning for ledning.</li>
+<li>Tegn opstillingen i Fritzing (se <a href="../Grundlag/fritzing.html">Fritzing</a>), og sammenlign diagrammet med dit board, ledning for ledning.</li>
 </ol>
 </section>
 <section id="typiske-fejl" class="level2">

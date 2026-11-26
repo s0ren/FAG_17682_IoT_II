@@ -109,6 +109,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Søg"
   }
 }</script>
+<meta name="quarto:status" content="draft">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
@@ -146,7 +147,7 @@ window.Quarto = {
 <body class="nav-sidebar floating nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
+  <header id="quarto-header" class="headroom fixed-top"><div id="quarto-draft-alert" class="alert alert-warning"><i class="bi bi-pencil-square"></i>Udkast</div>
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
@@ -271,6 +272,12 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../Grundlag/breadboard.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Breadboard med tilpassede ledninger</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../Grundlag/cpp_intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Intro til C++</span></a>
   </div>
@@ -285,6 +292,12 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="../Grundlag/esp32_specs.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">ESP32-DEVKIT-V1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/fritzing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fritzing</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -350,6 +363,12 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="../Opgaver/Projektopgave_Smiley.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Projektopgave, Smiley feedback panel</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Opgaver/Projektopgave_Smiley_chekliste.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Checkliste: Projektopgave, Smiley feedback panel</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -443,7 +462,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Ændret</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">24. november 2026</p>
+      <p class="date-modified">26. november 2026</p>
     </div>
   </div>
     
@@ -456,6 +475,9 @@ window.Quarto = {
 
 <!-- IKKE TESTET PÅ HARDWARE: eksemplerne kompilerer med espressif32@8.0.0 (24. nov. 2026; projekterne ligger i demo-repoerne, se linkene under eksemplerne), men er ikke testet på hardware. -->
 <!--
+
+FIXME: Teksten er for lang og starter ikke med det aller vigtigste først. Jeg må selv lige redigere
+
 TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 1. Byg koblingen (yderben til 3V3 og GND, midterben til GPIO 32), og kør eksemplet. Drej fra yderstilling til yderstilling: skifter værdien jævnt, og passer retningen med teksten?
 2. AFPRØVET 24. nov. 2026 (ESP32-D0WD-V3, core 3.3.12, to målinger): rå 0 svarede til 142 mV og rå 4095 til 3145 mV med analogReadMilliVolts(). Tallene i afsnittet om dæmpning og måleområde passer. Chippen har kalibreringsdata i eFuse (esptool: "Vref calibration in eFuse"); sammenligningen med multimeteret i punkt 4 mangler.
@@ -488,7 +510,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 <h2 class="anchored" data-anchor-id="forudsætninger">Forudsætninger</h2>
 <ul>
 <li>Du kan oprette et PlatformIO-projekt til ESP32-DEVKIT-V1, uploade et program og åbne Serial Monitor (se <a href="../Grundlag/platformio.html">PlatformIO</a>).</li>
-<li>Du kan sætte komponenter og ledninger i et breadboard (se Breadboard).</li>
+<li>Du kan sætte komponenter og ledninger i et breadboard (se <a href="../Grundlag/breadboard.html">Breadboard</a>).</li>
 <li>Du ved, hvad en modstand er (se <a href="../Grundlag/modstande.html">Modstande</a>).</li>
 <li>Hardware: ESP32-DEVKIT-V1, et drejepotentiometer (fx 10 kΩ), breadboard og tre ledninger. Til øvelserne: en lysdiode og en formodstand (se <a href="../Grundlag/lysdioder.html">Lysdioder</a>) og gerne et multimeter.</li>
 </ul>

@@ -242,6 +242,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../Grundlag/breadboard.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Breadboard med tilpassede ledninger</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../Grundlag/cpp_intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Intro til C++</span></a>
   </div>
@@ -256,6 +262,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../Grundlag/esp32_specs.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">ESP32-DEVKIT-V1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/fritzing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fritzing</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -321,6 +333,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../Opgaver/Projektopgave_Smiley.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Projektopgave, Smiley feedback panel</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Opgaver/Projektopgave_Smiley_chekliste.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Checkliste: Projektopgave, Smiley feedback panel</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -456,7 +474,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 <h2 class="anchored" data-anchor-id="forudsætninger">Forudsætninger</h2>
 <ul>
 <li>Du kan oprette et PlatformIO-projekt til ESP32-DEVKIT-V1 og uploade et program (se <a href="../Grundlag/platformio.html">PlatformIO</a>).</li>
-<li>Du ved, hvordan et breadboard er forbundet indvendigt (se Breadboard).</li>
+<li>Du ved, hvordan et breadboard er forbundet indvendigt (se <a href="../Grundlag/breadboard.html">Breadboard</a>).</li>
 <li>Til øvelserne: hvad en modstand er (siden om modstande). <!-- TJEK: link til Modstande-siden, når den findes. --></li>
 <li>Du ved, at den indbyggede lysdiode sidder på GPIO 2 (se <a href="../Grundlag/lysdioder.html">Lysdioder</a>).</li>
 <li>Hardware: ESP32-DEVKIT-V1, to trykknapper, en modstand på 10 kΩ, et breadboard og ledninger.</li>
@@ -522,7 +540,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 </section>
 <section id="knappen-på-breadboardet" class="level3">
 <h3 class="anchored" data-anchor-id="knappen-på-breadboardet">Knappen på breadboardet</h3>
-<p>Sæt knappen hen over renden på midten af breadboardet, så to ben sidder på hver side. Så er de fire ben i hver sin række, og intet er kortsluttet af boardet. Siden om Breadboard viser opstillingen trin for trin.</p>
+<p>Sæt knappen hen over renden på midten af breadboardet, så to ben sidder på hver side. Så er de fire ben i hver sin række, og intet er kortsluttet af boardet. Siden om <a href="../Grundlag/breadboard.html">Breadboard</a> viser opstillingen trin for trin.</p>
 </section>
 </section>
 <section id="pull-up-og-pull-down" class="level2">
@@ -629,7 +647,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 <h2 class="anchored" data-anchor-id="eksempel-lysdioden-lyser-mens-knappen-holdes-nede">Eksempel: lysdioden lyser, mens knappen holdes nede</h2>
 <p>Knappen sidder mellem <strong>GPIO 33</strong> og <strong>GND</strong>, på to diagonale ben, som i <a href="../Grundlag/standardopstilling.html">standardopstillingen</a>. Lysdioden er den indbyggede på <strong>GPIO 2</strong>, så den skal ikke kobles på.</p>
 <div class="billede-mangler">
-<p>Eksemplets opstilling: ESP32-DEVKIT-V1 og en trykknap over renden, med ledninger fra to diagonale ben til GPIO 33 og GND. Se lignende billeder på siden om Breadboard.</p>
+<p>Eksemplets opstilling: ESP32-DEVKIT-V1 og en trykknap over renden, med ledninger fra to diagonale ben til GPIO 33 og GND. Se lignende billeder på siden om <a href="../Grundlag/breadboard.html">Breadboard</a>.</p>
 </div>
 <div class="code-with-filename">
 <div class="code-with-filename-file">

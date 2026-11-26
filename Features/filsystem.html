@@ -109,6 +109,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Søg"
   }
 }</script>
+<meta name="quarto:status" content="draft">
 
 
 <link rel="stylesheet" href="../styles.css">
@@ -117,7 +118,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <body class="nav-sidebar floating nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
+  <header id="quarto-header" class="headroom fixed-top"><div id="quarto-draft-alert" class="alert alert-warning"><i class="bi bi-pencil-square"></i>Udkast</div>
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
@@ -242,6 +243,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../Grundlag/breadboard.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Breadboard med tilpassede ledninger</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../Grundlag/cpp_intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Intro til C++</span></a>
   </div>
@@ -256,6 +263,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../Grundlag/esp32_specs.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">ESP32-DEVKIT-V1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/fritzing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fritzing</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -321,6 +334,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../Opgaver/Projektopgave_Smiley.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Projektopgave, Smiley feedback panel</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Opgaver/Projektopgave_Smiley_chekliste.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Checkliste: Projektopgave, Smiley feedback panel</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -418,7 +437,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Ændret</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">24. november 2026</p>
+      <p class="date-modified">26. november 2026</p>
     </div>
   </div>
     
@@ -444,7 +463,7 @@ Skærmbilleder, der mangler (se BILLEDE-kommentarerne):
 9. Explorer med data/-mappen ved siden af src/. 10. Project Tasks med Platform → Upload Filesystem Image. 11. Serial Monitor under cache-eksemplet, hvor netværket forsvinder og kommer igen.
 12. Når alt er testet: fjern IKKE TESTET PÅ HARDWARE, denne tjekliste og TJEK-/BILLEDE-kommentarerne.
 -->
-<p>En ESP32, der sender målinger til en server, mister indimellem netforbindelsen. Hvis målingerne kun ligger i RAM, er de væk, så snart strømmen går eller kortet genstarter. ESP32-DEVKIT-V1 har 4 MB flash-hukommelse, og en del af den kan bruges som et lille filsystem, hvor programmet gemmer filer, der overlever en genstart. Det er det, du skal bruge til krav 3 i den afsluttende opgave: når nettet mangler, gemmes målingerne i en fil på ESP32, og når nettet kommer igen, sendes de.</p>
+<p>En ESP32, der sender målinger til en server, mister indimellem netforbindelsen. Hvis målingerne kun ligger i RAM, er de væk, så snart strømmen går eller kortet genstarter. ESP32-DEVKIT-V1 har 4 MB flash-hukommelse, og en del af den kan bruges som et lille filsystem, hvor programmet gemmer filer, der overlever en genstart. Det er det, du skal bruge til krav 3 i den <a href="../Opgaver/afsluttende_opgave/index.qmd">afsluttende opgave</a>: når nettet mangler, gemmes målingerne i en fil på ESP32, og når nettet kommer igen, sendes de.</p>
 <section id="formål" class="level2">
 <h2 class="anchored" data-anchor-id="formål">Formål</h2>
 <ul>

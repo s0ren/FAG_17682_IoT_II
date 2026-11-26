@@ -243,6 +243,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../Grundlag/breadboard.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Breadboard med tilpassede ledninger</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../Grundlag/cpp_intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Intro til C++</span></a>
   </div>
@@ -257,6 +263,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../Grundlag/esp32_specs.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">ESP32-DEVKIT-V1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Grundlag/fritzing.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Fritzing</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -322,6 +334,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../Opgaver/Projektopgave_Smiley.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Projektopgave, Smiley feedback panel</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Opgaver/Projektopgave_Smiley_chekliste.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Checkliste: Projektopgave, Smiley feedback panel</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -470,7 +488,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 <h2 class="anchored" data-anchor-id="forudsætninger">Forudsætninger</h2>
 <ul>
 <li>En Windows-pc, hvor du må installere programmer.</li>
-<li>Du ved, hvordan et breadboard er forbundet indvendigt (se Breadboard).</li>
+<li>Du ved, hvordan et breadboard er forbundet indvendigt (se <a href="../Grundlag/breadboard.html">Breadboard</a>).</li>
 <li>Du har bygget en opstilling med en knap eller en lysdiode, fx fra <a href="../Grundlag/knapper.html">Knapper</a>, <a href="../Grundlag/lysdioder.html">Lysdioder</a> eller <a href="../Grundlag/debouncing.html">Debouncing</a>.</li>
 </ul>
 </section>
@@ -587,7 +605,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 <li>en ledning fra den blå skinne til det ene af knappens ben</li>
 <li>en ledning fra det diagonale ben på knappen til <strong>GPIO 33</strong></li>
 </ul></li>
-<li><p><strong>Farver:</strong> Højreklik på hver ledning, og vælg <strong>Wire Color</strong>. Brug samme farvekode som på Breadboard: <strong>rød</strong> til 3,3 V, <strong>sort</strong> til GND, og en anden farve, fx gul, til signalet på GPIO 33.</p></li>
+<li><p><strong>Farver:</strong> Højreklik på hver ledning, og vælg <strong>Wire Color</strong>. Brug samme farvekode som på <a href="../Grundlag/breadboard.html">Breadboard</a>: <strong>rød</strong> til 3,3 V, <strong>sort</strong> til GND, og en anden farve, fx gul, til signalet på GPIO 33.</p></li>
 <li><p><strong>Knæk på ledningen:</strong> Træk i midten af en ledning for at lave et knæk (<span lang="en">bendpoint</span>), så ledningen kan gå i rette vinkler, ligesom på boardet. Bliver ledningen buet i stedet, så fortryd (Ctrl+Z) og træk uden at holde Ctrl nede, eller dobbeltklik på ledningen for at lave et knæk.</p>
 <!-- TJEK: i 1.0.7, at træk i midten af en ledning laver et knæk med standardindstillingerne, og at dobbeltklik også laver et knæk (wire.cpp: buede ledninger, "curvy wires", afhænger af en modifier-tast eller en indstilling under Preferences). --></li>
 <li><p><strong>Tjek forbindelserne:</strong> Zoom ind, og se, at begge ender af hver ledning er grønne (se nedenfor).</p></li>
@@ -647,7 +665,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 <li>Tegn opstillingen fra <a href="../Grundlag/lysdioder.html">Lysdioder</a>: en lysdiode med en formodstand på 220 Ω fra GPIO 19 til GND. Sæt modstandens værdi og lysdiodens farve i Inspector, så de passer til dine dele. Vend lysdioden rigtigt (det lange ben, anoden, mod modstanden). Se <a href="../Grundlag/modstande.html">Modstande</a>, hvis du er i tvivl om værdien.</li>
 <li>Kig på opstillingen fra øvelse 3 i Schematic-visningen. Træk ledninger langs de stiplede linjer, så diagrammet bliver pænt, og eksportér også det som billede.</li>
 <li>Byt <code>.fzz</code>-fil med en makker. Byg makkerens opstilling på dit eget board kun ud fra tegningen. Virker den? Hvis ikke: var fejlen i tegningen eller i opbygningen?</li>
-<li><em>Ekstra:</em> Tegn knap og lysdiode i samme opstilling (eksemplet på Breadboard), og eksportér som SVG. Åbn SVG-filen i en browser, og zoom ind. Sammenlign med PNG-filen.</li>
+<li><em>Ekstra:</em> Tegn knap og lysdiode i samme opstilling (eksemplet på <a href="../Grundlag/breadboard.html">Breadboard</a>), og eksportér som SVG. Åbn SVG-filen i en browser, og zoom ind. Sammenlign med PNG-filen.</li>
 </ol>
 <!-- LÆRER: tilpas øvelserne, fx hvilke opstillinger der skal tegnes til afleveringer. -->
 </section>

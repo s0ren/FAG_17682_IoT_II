@@ -2,12 +2,15 @@
   {
     "listing": "/laeringsmaal.html",
     "items": [
+      "/Grundlag/breadboard.html",
+      "/Opgaver/Projektopgave_Smiley_chekliste.html",
       "/Grundlag/debouncing.html",
       "/Features/deep_sleep.html",
       "/Grundlag/potentiometer.html",
       "/Features/esp_now_mesh.html",
       "/Grundlag/esp32_specs.html",
       "/Features/filsystem.html",
+      "/Grundlag/fritzing.html",
       "/Grundlag/hello_world.html",
       "/Grundlag/cpp_intro.html",
       "/Features/mqtt_intro.html",
@@ -26,8 +29,27 @@
   {
     "listing": "/Opgaver/index.html",
     "items": [
+      "/Opgaver/Projektopgave_Smiley_chekliste.html",
       "/Opgaver/Projektopgave_wifi_position.html",
       "/Opgaver/Projektopgave_Smiley.html"
+    ]
+  },
+  {
+    "listing": "/Grundlag/index.html",
+    "items": [
+      "/Grundlag/breadboard.html",
+      "/Grundlag/debouncing.html",
+      "/Grundlag/potentiometer.html",
+      "/Grundlag/esp32_specs.html",
+      "/Grundlag/fritzing.html",
+      "/Grundlag/hello_world.html",
+      "/Grundlag/cpp_intro.html",
+      "/Grundlag/knapper.html",
+      "/Grundlag/lysdioder.html",
+      "/Grundlag/modstande.html",
+      "/Grundlag/platformio.html",
+      "/Grundlag/standardopstilling.html",
+      "/Grundlag/wifi.html"
     ]
   },
   {
@@ -39,22 +61,6 @@
       "/Features/mqtt_intro.html",
       "/Features/mqtt_intro_slides.html",
       "/Features/lokal_mqtt.html"
-    ]
-  },
-  {
-    "listing": "/Grundlag/index.html",
-    "items": [
-      "/Grundlag/debouncing.html",
-      "/Grundlag/potentiometer.html",
-      "/Grundlag/esp32_specs.html",
-      "/Grundlag/hello_world.html",
-      "/Grundlag/cpp_intro.html",
-      "/Grundlag/knapper.html",
-      "/Grundlag/lysdioder.html",
-      "/Grundlag/modstande.html",
-      "/Grundlag/platformio.html",
-      "/Grundlag/standardopstilling.html",
-      "/Grundlag/wifi.html"
     ]
   }
 ]
