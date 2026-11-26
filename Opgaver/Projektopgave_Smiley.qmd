@@ -59,6 +59,10 @@ Karakteren **12** gives hvor alle målene opfyldes, og som kun har ubetydelige f
 
 F.eks. kan produktet have periodisk usikkerhed af debounce, eller usikker håndtering af tidszone eller deep-sleep funktioner. Der kan også enkelte begivenheder som mangler i logbogen, eller projektelementer som er mangelfuldt beskrevet i portfoliet.
 
+## Checkliste
+
+Spørgsmålene, der indgår i bedømmelsen, findes som [checkliste (side og PDF)](Projektopgave_Smiley_chekliste.qmd).
+
 ## Info
 
 For få info om den lokale mqtt-server, se [lokal MQTT server](../Features/lokal_mqtt.qmd). Her kan du også se nogen eksempler på kode som sender beskeder med MQTT.

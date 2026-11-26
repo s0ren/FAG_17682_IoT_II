@@ -23,7 +23,9 @@ Skærmbilleder, der mangler (se BILLEDE-kommentarerne):
 12. Når alt er testet: fjern IKKE TESTET PÅ HARDWARE, denne tjekliste og TJEK-/BILLEDE-kommentarerne.
 -->
 
-En ESP32, der sender målinger til en server, mister indimellem netforbindelsen. Hvis målingerne kun ligger i RAM, er de væk, så snart strømmen går eller kortet genstarter. ESP32-DEVKIT-V1 har 4 MB flash-hukommelse, og en del af den kan bruges som et lille filsystem, hvor programmet gemmer filer, der overlever en genstart. Det er det, du skal bruge til krav 3 i den [afsluttende opgave](../Opgaver/afsluttende_opgave/index.qmd): når nettet mangler, gemmes målingerne i en fil på ESP32, og når nettet kommer igen, sendes de.
+En ESP32, der sender målinger til en server, mister indimellem netforbindelsen. Hvis målingerne kun ligger i RAM, er de væk, så snart strømmen går eller kortet genstarter. ESP32-DEVKIT-V1 har 4 MB flash-hukommelse, og en del af den kan bruges som et lille filsystem, hvor programmet gemmer filer, der overlever en genstart. 
+
+<!-- Det er det, du skal bruge til krav 3 i den [afsluttende opgave](../Opgaver/afsluttende_opgave/index.qmd): når nettet mangler, gemmes målingerne i en fil på ESP32, og når nettet kommer igen, sendes de. -->
 
 ## Formål
 

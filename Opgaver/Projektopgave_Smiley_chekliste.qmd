@@ -5,6 +5,6 @@ date: 2026-11-26
 format: {html: default, typst: default}
 ---
 
-Hører til [Projektopgave, Projektopgave, Smiley feedback panel](Projektopgave_Smiley.qmd).
+Hører til [Projektopgave, Smiley feedback panel](Projektopgave_Smiley.qmd).
 
 {{< include _checkliste_wifi_smiley.qmd >}}
