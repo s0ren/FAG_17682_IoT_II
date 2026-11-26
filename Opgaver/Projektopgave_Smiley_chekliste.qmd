@@ -7,4 +7,4 @@ format: {html: default, typst: default}
 
 Hører til [Projektopgave, Smiley feedback panel](Projektopgave_Smiley.qmd).
 
-{{< include _checkliste_wifi_smiley.qmd >}}
+{{< include _checkliste_smiley.qmd >}}
