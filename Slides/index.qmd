@@ -1,0 +1,12 @@
+---
+title: "Slides"
+date: 2026-11-26
+listing:
+  contents:
+    - "*.qmd"
+  type: table
+  fields: [title, subtitle, date]
+  sort: "title"
+---
+
+Slides til gennemgang i klassen. Hver præsentation hører til en side eller en opgave, som har hele teksten.

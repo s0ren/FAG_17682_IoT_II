@@ -18,6 +18,8 @@ Hvordan kan man bestemme hvor en enhed befinder sig, uden at have adgang til GPS
 
 Er det muligt at positionsbestemme enheder alene ved at kende signalstyrken fra enheden?
 
+Slides til introduktionen i klassen: [Positionsbestemmelse uden GPS (slides)](../Slides/wifi_position_slides.qmd)
+
 ## Formål
 
 I skal undersøge hvordan det er muligt at bestemme

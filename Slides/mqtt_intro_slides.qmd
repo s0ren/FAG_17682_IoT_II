@@ -36,7 +36,7 @@ og tekst til højst ca. 8 punkter pr. slide. Kør _scripts/slide_hoejde.py efter
 - Meget lille hoved: en besked kan fylde få bytes ud over selve indholdet
 - Bruges meget i IoT: sensorer, ESP32, Raspberry Pi, hjemmeautomatisering, apps
 - Klienterne taler aldrig direkte sammen, men går gennem en **broker**
-- Skolens broker hedder **wilsons** og kører Mosquitto ([Lokal MQTT server](lokal_mqtt.qmd))
+- Skolens broker hedder **wilsons** og kører Mosquitto ([Lokal MQTT server](../Features/lokal_mqtt.qmd))
 
 ::: {.callout-note appearance="simple"}
 Alle, der forbinder til brokeren, er **klienter**: ESP32, Python-programmer, MQTT Explorer og weblog'ens logger.
@@ -204,7 +204,7 @@ void loop() {
 - `mqtt.publish(topic, payload)` giver `false`, hvis vi ikke er forbundet, eller beskeden er over 256 bytes (`mqtt.setBufferSize()` giver mere plads)
 - `mqtt.state()` fortæller, hvorfor et forsøg fejlede: `-2` = kunne ikke nå brokeren, `4`/`5` = login afvist
 - Client-id laves ud fra MAC-adressen, så to ESP32'er aldrig har samme id
-- På port 8883 skiftes `WiFiClient` ud med `WiFiClientSecure` og `ca.crt` ([Lokal MQTT server](lokal_mqtt.qmd))
+- På port 8883 skiftes `WiFiClient` ud med `WiFiClientSecure` og `ca.crt` ([Lokal MQTT server](../Features/lokal_mqtt.qmd))
 
 # Kode: Python
 
@@ -337,11 +337,11 @@ Gratis program, der viser alle topics som et træ: <https://mqtt-explorer.com/>
 1. *Host* `wilsons.local`, *Port* `8883`
 2. *Encryption (tls)* til, og **lad *Validate certificate* være slået til**
 3. *Username* og *Password* fra læreren
-4. *Advanced* → *Certificates* → *Server Certificate (CA)*: vælg [`ca.crt`](ca.crt)
+4. *Advanced* → *Certificates* → *Server Certificate (CA)*: vælg [`ca.crt`](../Features/ca.crt)
 
 - Brug `wilsons.local` eller `192.168.0.33`: de står i certifikatet
 - Slå aldrig certifikattjekket fra
-- Detaljer: [Lokal MQTT server](lokal_mqtt.qmd)
+- Detaljer: [Lokal MQTT server](../Features/lokal_mqtt.qmd)
 
 ## Weblog'en på wilsons
 
@@ -358,7 +358,7 @@ Et værktøj, læreren har lavet, så det er synligt, hvad der sker på brokeren
 
 ## Weblog'en: filerne
 
-![Filen `button.jsonl`: én linje pr. besked. (Skærmbilledet er fra den gamle server, wilson.local.)](images/weblog_topic_button.png){width="760" fig-alt="Browser med filen test/esp32/button.jsonl fra weblog'en: én linje JSON pr. MQTT-besked med timestamp, topic og payload."}
+![Filen `button.jsonl`: én linje pr. besked. (Skærmbilledet er fra den gamle server, wilson.local.)](../Features/images/weblog_topic_button.png){width="760" fig-alt="Browser med filen test/esp32/button.jsonl fra weblog'en: én linje JSON pr. MQTT-besked med timestamp, topic og payload."}
 
 - Topic `elever/anna/esp32/maaling` → <http://wilsons.local/elever/anna/esp32/maaling.jsonl>
 - Hver linje: `timestamp`, `topic` og `payload` (din besked som tekst). Alle beskeder: `%23.jsonl`
@@ -386,7 +386,7 @@ Fejlsøg i samme rækkefølge: sendes der (Serial Monitor)? Kommer den frem (MQT
 5. Giv to klienter samme client-id: hvad sker der?
 6. ESP32: send potentiometerets spænding hvert 5. sekund, og find den i weblog'en
 
-Alle øvelserne står på [Intro til MQTT](mqtt_intro.qmd#øvelser).
+Alle øvelserne står på [Intro til MQTT](../Features/mqtt_intro.qmd#øvelser).
 
 ## Typiske fejl
 
@@ -401,8 +401,8 @@ Alle øvelserne står på [Intro til MQTT](mqtt_intro.qmd#øvelser).
 
 ## Læs mere
 
-- [Intro til MQTT](mqtt_intro.qmd): hele teksten, alle eksempler og øvelser
-- [Python-eksemplerne](mqtt_intro.qmd#eksempel-python-abonnerer) og [ESP32-programmet](mqtt_intro.qmd#eksempel-esp32-sender-en-måling) i fuld længde med fejlhåndtering
-- [Lokal MQTT server](lokal_mqtt.qmd): wilsons, porte, TLS, `ca.crt`, kodeeksempler på 8883
+- [Intro til MQTT](../Features/mqtt_intro.qmd): hele teksten, alle eksempler og øvelser
+- [Python-eksemplerne](../Features/mqtt_intro.qmd#eksempel-python-abonnerer) og [ESP32-programmet](../Features/mqtt_intro.qmd#eksempel-esp32-sender-en-måling) i fuld længde med fejlhåndtering
+- [Lokal MQTT server](../Features/lokal_mqtt.qmd): wilsons, porte, TLS, `ca.crt`, kodeeksempler på 8883
 - [WiFi](../Grundlag/wifi.qmd): ESP32 på nettet, `secrets.h`
 - [Potentiometer](../Grundlag/potentiometer.qmd): analog måling på ESP32

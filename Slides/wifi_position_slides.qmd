@@ -1,0 +1,329 @@
+---
+title: "Positionsbestemmelse uden GPS (slides)"
+subtitle: "Intro til projektopgaven"
+date: 2026-11-26
+draft: true
+toc: false
+format:
+  revealjs:
+    width: 1280
+    height: 720
+    smaller: true
+    margin: 0.05          # revealjs: luft om sliden som brøkdel; overskriver PDF-margin fra _quarto.yml
+    slide-number: true
+    preview-links: false
+---
+
+<!--
+UDKAST, bygget over lærerens disposition. Slides til Opgaver/Projektopgave_wifi_position.qmd;
+opgaven er den fulde tekst. Hver slide: én idé, højst ca. 8 punkter.
+Tjek med _scripts/slide_hoejde.py efter render.
+-->
+
+# Positionering uden GPS
+
+![Foto: Intel Free Press, [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0), via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Indoor_location_services_on_mobile_phone_(10928087126).jpg)](images/indendoers_position_mobil.jpg){fig-alt="En hånd holder en mobiltelefon, der viser en plantegning af en bygning. En grøn cirkel markerer, hvor telefonen er i bygningen." height="480"}
+
+## Hvormange, og hvor ?
+
+- GPS kræver frit udsyn til satellitterne
+- **Indendørs** er signalet svagt, unøjagtigt eller helt væk
+  - i metroen
+  - i indkøbscentre
+  - på skolen
+- Alligevel vil man gerne vide, **hvor** en enhed er, og **hvor mange** der er
+
+::: {.billede-mangler}
+Foto: en metroperron eller et indkøbscenter med mange mennesker (fx Wikimedia Commons, søg "Copenhagen Metro platform")
+:::
+
+::: notes
+Start med et spørgsmål til holdet: hvor har I set det bruges? (butikker, lufthavne, trafiktælling)
+:::
+
+## Hvad kan man så bruge?
+
+| Teknologi | Typisk nøjagtighed | Kræver |
+|---|---|---|
+| UWB ([Ultra-Wideband]{lang="en"}) | ned til ca. 10 cm | særlige UWB-chips og ankre |
+| Bluetooth (BLE) | 1–5 m | beacons, eller at enheden sender BLE |
+| Wifi | 3–15 m | access points eller lyttere, der fanger pakker |
+
+- Vi bruger **wifi**: ESP32 har det indbygget, og næsten alle telefoner har det tændt
+
+::: {.billede-mangler}
+Foto: en UWB-tag (fx en AirTag), en BLE-beacon og en wifi-router side om side
+:::
+
+<!-- TJEK: tallene er grove tommelfingerregler; justér efter de kilder, du vil vise. -->
+
+## Wifi: hvad kan man se?
+
+- Telefoner sender pakker, også når de ikke er forbundet: *[probe requests]{lang="en"}* ("er mit net her?")
+- En ESP32 i *[promiscuous mode]{lang="en"}* kan lytte med på pakker, der ikke er til den
+- I hver pakke kan man se
+  - afsenderens **MAC-adresse**
+  - **signalstyrken** (RSSI, i dBm)
+  - tidspunkt og kanal
+- Nyere telefoner bruger **tilfældige MAC-adresser**, når de leder efter net. Hvad betyder det for os?
+
+::: {.billede-mangler}
+Skærmbillede: seriel monitor med sniffer-demoen (MAC, RSSI, kanal). Slør MAC-adresserne.
+:::
+
+## Opstillingen
+
+- Flere ESP32 placeret i hjørnerne af et område (jeres bord eller lokalet)
+- Hver ESP32 lytter efter wifi-pakker og måler signalstyrken (RSSI)
+- Signalstyrke → omtrentlig afstand til telefonen
+- Afstande fra flere ESP32 → position (x, y)
+
+::: {.billede-mangler}
+Skitse: område med tre ESP32 i hjørnerne og en telefon i midten
+:::
+
+## Matematikken bag
+
+:::: {.columns}
+::: {.column width="55%"}
+- **Signalstyrke → afstand**: signalet bliver svagere med afstanden
+  - $RSSI = A - 10 \cdot n \cdot \log_{10}(d)$
+  - $A$ er RSSI ved 1 m, $n$ afhænger af rummet
+- **Afstande → position**: trilateration
+  - afstanden fra én lytter giver en cirkel
+  - tre lyttere giver tre cirkler, og telefonen er omtrent, hvor de mødes
+- RSSI svinger meget (vægge, kroppe, telefonens retning), så positionen er et **skøn**
+:::
+::: {.column width="45%"}
+![](images/rssi_kurve.svg){fig-alt="Graf over RSSI i dBm som funktion af afstanden i meter, fra 0 til 20 m. Kurven falder brat de første meter og flader derefter ud: tæt på ændrer signalet sig meget, langt væk kun lidt."}
+:::
+::::
+
+## Eksempel: fra RSSI til afstand
+
+:::: {.columns}
+::: {.column width="50%"}
+Løs formlen for $d$:
+
+$$d = 10^{\frac{A - RSSI}{10 \cdot n}}$$
+
+Med $A = -40$ dBm (målt ved 1 m) og $n = 2{,}5$ (indendørs):
+
+| Målt RSSI | Regnestykke | Afstand |
+|---|---|---|
+| −40 dBm | $10^{0/25}$ | 1,0 m |
+| −55 dBm | $10^{15/25} = 10^{0{,}6}$ | 4,0 m |
+| −70 dBm | $10^{30/25} = 10^{1{,}2}$ | 15,8 m |
+:::
+::: {.column width="50%"}
+![](images/rssi_kurve_punkter.svg){fig-alt="Den samme RSSI-kurve med tre markerede punkter: −40 dBm ved 1 m, −55 dBm ved 4 m og −70 dBm ved 15,8 m."}
+:::
+::::
+
+- $A$ og $n$ skal I selv **måle** i jeres lokale: stil telefonen på kendte afstande og aflæs RSSI
+- Læg mærke til: 15 dB svagere signal betyder 4 gange så langt væk
+
+## Eksempel: trilateration
+
+:::: {.columns}
+::: {.column width="55%"}
+Tre ESP32 i et lokale på 4 × 3 m. De har målt afstanden til telefonen:
+
+| | Placering | Afstand $d$ | $d^2$ |
+|---|---|---|---|
+| A | (0, 0) | 2,24 m | 5 |
+| B | (4, 0) | 3,61 m | 13 |
+| C | (0, 3) | 1,41 m | 2 |
+
+Hver afstand giver en cirkel om sin ESP32:
+
+$$
+\begin{aligned}
+x^2 + y^2 &= 5 \\
+(x-4)^2 + y^2 &= 13 \\
+x^2 + (y-3)^2 &= 2
+\end{aligned}
+$$
+:::
+::: {.column width="45%"}
+![](images/trilateration_eksempel.svg){fig-alt="Et rektangulært lokale med tre ESP32: A i (0,0), B i (4,0) og C i (0,3). Om hver ESP32 er tegnet en cirkel med den målte afstand som radius. De tre cirkler skærer hinanden i ét punkt, telefonen i (1,2)."}
+:::
+::::
+
+## Eksempel: løs ligningerne
+
+Træk ligning A fra de to andre. Så forsvinder $x^2$ og $y^2$:
+
+$$
+\begin{aligned}
+(x-4)^2 + y^2 - (x^2 + y^2) &= 13 - 5 &\Rightarrow\quad -8x + 16 &= 8 &\Rightarrow\quad x &= 1 \\
+x^2 + (y-3)^2 - (x^2 + y^2) &= 2 - 5 &\Rightarrow\quad -6y + 9 &= -3 &\Rightarrow\quad y &= 2
+\end{aligned}
+$$
+
+Telefonen står i **(1, 2)**.
+
+:::: {.columns}
+::: {.column width="58%"}
+- To rette linjer i stedet for tre cirkler: let at regne ud på en ESP32
+- **I virkeligheden** mødes cirklerne ikke i ét punkt. Find det punkt, der passer **bedst**: gennemsnit af flere målinger, flere ESP32, mindste kvadraters metode
+- **Trilateration** bruger afstande, **triangulering** bruger vinkler. En ESP32 kan kun måle afstande
+:::
+::: {.column width="42%"}
+![](images/trilateration_stoej.svg){fig-alt="Samme lokale med tre ESP32, men afstandene er målt med fejl: A 2,5 m, B 3,3 m og C 1,6 m. Cirklerne mødes ikke i ét punkt. Det beregnede skøn (1,4; 2,1) ligger lidt fra telefonens rigtige plads (1; 2)." width="380"}
+:::
+::::
+
+## Hvem bruger det?
+
+- Indkøbscentre og butikker: hvor mange kommer, hvor går de hen, hvor længe bliver de?
+- Lufthavne og stationer: kølængder og trængsel
+- Museer, hospitaler og lagre: find vej, find udstyr
+- Trafik: rejsetid ud fra de samme enheder set to steder
+
+::: {.billede-mangler}
+Foto: en skærm i en lufthavn, der viser ventetiden ved sikkerhedskontrollen
+:::
+
+<!-- TJEK: find gerne et par konkrete, aktuelle eksempler at vise. -->
+
+# Hvad må man?
+
+::: {.billede-mangler}
+Foto: et skilt i en butik eller på en station om wifi-sporing eller videoovervågning
+:::
+
+## Data om andre mennesker
+
+- Har personerne givet **tilsagn**? Ved de overhovedet, at de bliver registreret?
+- Hvor **følsom** er en MAC-adresse? Den kan følge en bestemt telefon, og dermed en person
+- Hvad sker der, når vi **indsamler**: data bliver gemt, kopieret og kan bruges til andet
+- **Berigelse**: MAC + tid + sted siger meget mere end MAC alene
+  - hvem kommer her hver tirsdag kl. 8?
+
+![](images/berigelse_tidslinje.svg){fig-alt="Tidslinje for mandag, tirsdag og onsdag mellem kl. 7 og 10. Hver dag er den samme MAC-adresse set i lokale 2.14 omkring kl. 8. Teksten under siger: samme telefon, samme sted, hver morgen: et mønster om én person." width="760"}
+
+## GDPR
+
+![](images/gdpr_roller.svg){fig-alt="Tre kasser forbundet med pile: den registrerede (personen med telefonen) giver data til den dataansvarlige (bestemmer hvorfor og hvordan data behandles, fx jeres gruppe eller skolen), som har en aftale med databehandleren (behandler data på den ansvarliges vegne, fx den, der driver MQTT-serveren)." width="760"}
+
+- **Dataansvarlig**: den, der bestemmer, hvorfor og hvordan data behandles
+- **Databehandler**: den, der behandler data på den ansvarliges vegne
+- **Sikkerhed**: hvem kan få adgang, og kan andre lytte med?
+- **Sårbarhed**
+  - hvor følsomme er data?
+  - hvad er risikoen for et brud på datasikkerheden?
+  - hvad sker der med personerne, hvis data slipper ud?
+
+<!-- I lærerens disposition står der et "x" under sårbarhed; udfyld eller slet. -->
+
+## Databegrænsning
+
+- Brug kun de data, der er **nødvendige** for formålet
+- Gem dem kun, **så længe** det er nødvendigt
+- Kan I tælle og placere enheder uden at gemme MAC-adressen?
+  - hashe, afkorte, skifte nøgle hver dag, slette efter kort tid
+- Jeres valg her er en del af bedømmelsen
+
+:::: {.columns}
+::: {.column width="50%"}
+Alt sendes:
+
+```json
+{"mac": "12:34:56:78:9a:bc",
+ "tid": "2026-11-27T08:02:11",
+ "x": 1.03, "y": 2.17}
+```
+:::
+::: {.column width="50%"}
+Kun det nødvendige:
+
+```json
+{"id": "7f3a9c",
+ "tid": "2026-11-27T08:00",
+ "x": 1, "y": 2}
+```
+:::
+::::
+
+::: notes
+Højre: id er en hash af MAC + en nøgle, der skiftes hver dag; tiden er afrundet til kvarter; positionen til hele meter.
+Persondata er en del af bedømmelsen (se checklisten), ikke et tillæg.
+:::
+
+# Opgaven
+
+## Formalia
+
+- Grupper på 2–3, oprettes på itslearning
+- I bygger en opstilling med flere ESP32, der lytter efter telefoner
+- Resultatet sendes til den lokale MQTT-broker: **id**, **tidspunkt**, **(x, y)**
+- Data skal være klar til statistik (fx heatmap), men visualisering er ikke et krav
+- Hele opgaven: [Projektopgave, Positionsbestemmelse](../Opgaver/Projektopgave_wifi_position.qmd)
+
+<!-- TJEK: tilføj datoer for start, præsentation og aflevering. Med datoerne kan der laves en tidslinje over forløbet. -->
+
+## En eksplorativ opgave
+
+:::: {.columns}
+::: {.column width="52%"}
+Der er ikke én rigtig løsning. I skal undersøge:
+
+- **muligheder**: hvad kan lade sig gøre med en ESP32?
+- **teknologier**: wifi, BLE, ESP-NOW, ESP-MESH
+- **algoritmer** og **metoder**: afstand, trilateration, filtrering af støj
+- **alternativer**: hvad gjorde I ikke, og hvorfor?
+- **"konkurrenter"**: hvordan løser andre det?
+:::
+::: {.column width="48%"}
+![](images/eksplorativ_arbejdsgang.svg){fig-alt="Et kredsløb med fire trin forbundet med pile: undersøg (hvad findes der?), prøv af (lille, hurtigt forsøg), vurder (virkede det?) og beslut (byg videre eller smid væk). I midten står: skriv det i logbogen."}
+:::
+::::
+
+## Processen tæller
+
+Processen er vigtig, også i bedømmelsen.
+
+- **Projektstyring**
+  - en plan, der bliver justeret undervejs
+  - en logbog, som alle skriver i hver dag (i git)
+- **Design**
+  - algoritmedesign: hvordan bliver målinger til en position?
+  - datadesign: hvad sendes, hvad gemmes, hvad smides væk?
+  - projektdesign: hvilke dele, og hvem laver hvad?
+
+::: {.billede-mangler}
+Skærmbillede: git-log eller commit-graf fra et demo-repo (eller et elevprojekt, med tilladelse)
+:::
+
+## Aflevering
+
+:::: {.columns}
+::: {.column width="55%"}
+- På **itslearning**: zip eller link til jeres repo (læreren skal have adgang)
+- Processen fra starten: logbog og arbejdsportfolio
+- En **projektbeskrivelse**
+- **Programkode**
+- **Opsætningsvejledning**: en anden skal kunne få opstillingen til at virke
+- **Dataeksempler**: hvad sender opstillingen faktisk?
+:::
+::: {.column width="45%"}
+Fx sådan:
+
+```text
+projekt/
+├── README.md       beskrivelse og opsætning
+├── logbog.md
+├── portfolio/
+├── src/            programkode
+├── platformio.ini
+└── data/           dataeksempler
+```
+:::
+::::
+
+[Checkliste til bedømmelsen (side og PDF)](../Opgaver/Projektopgave_wifi_position_checkliste.qmd)
+
+::: notes
+Målpinde: 5, 9, 13, 14, 22 (fra opgavens front matter).
+:::

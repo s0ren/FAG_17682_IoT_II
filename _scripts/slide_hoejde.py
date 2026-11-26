@@ -1,6 +1,6 @@
 """Skøn over hver slides højde i en renderet revealjs-præsentation.
 
-Brug:  python3 _scripts/slide_hoejde.py output/Features/mqtt_intro_slides.html
+Brug:  python3 _scripts/slide_hoejde.py output/Slides/mqtt_intro_slides.html
 
 Scriptet åbner ikke en browser. Det tæller linjer i overskrifter, tekst, punkter,
 kode og tabeller og regner dem om til pixels ud fra typiske størrelser i Quartos
@@ -103,4 +103,4 @@ def main(sti):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1] if len(sys.argv) > 1 else "output/Features/mqtt_intro_slides.html")
+    main(sys.argv[1] if len(sys.argv) > 1 else "output/Slides/mqtt_intro_slides.html")

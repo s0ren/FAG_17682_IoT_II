@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 470" font-family="sans-serif" font-size="20" fill="#222">
+<rect width="100%" height="100%" fill="#fff"/>
+<defs><marker id="pil" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#222"/></marker></defs>
+<line x1="428.0625" y1="124.45" x2="498.1875" y2="180.55" stroke="#222" stroke-width="2.5" marker-end="url(#pil)"/>
+<line x1="498.1875" y1="289.45" x2="428.0625" y2="345.55" stroke="#222" stroke-width="2.5" marker-end="url(#pil)"/>
+<line x1="291.9375" y1="345.55" x2="221.8125" y2="289.45000000000005" stroke="#222" stroke-width="2.5" marker-end="url(#pil)"/>
+<line x1="221.8125" y1="180.55" x2="291.9375" y2="124.45" stroke="#222" stroke-width="2.5" marker-end="url(#pil)"/>
+<rect x="250.0" y="32.0" width="220" height="76" rx="12" fill="#fff" stroke="#1f77b4" stroke-width="3"/>
+<text x="360.0" y="64.0" text-anchor="middle" font-weight="bold">Undersøg</text>
+<text x="360.0" y="92.0" text-anchor="middle" font-size="16">hvad findes der?</text>
+<rect x="456.25" y="197.0" width="220" height="76" rx="12" fill="#fff" stroke="#1f77b4" stroke-width="3"/>
+<text x="566.25" y="229.0" text-anchor="middle" font-weight="bold">Prøv af</text>
+<text x="566.25" y="257.0" text-anchor="middle" font-size="16">lille, hurtigt forsøg</text>
+<rect x="250.0" y="362.0" width="220" height="76" rx="12" fill="#fff" stroke="#1f77b4" stroke-width="3"/>
+<text x="360.0" y="394.0" text-anchor="middle" font-weight="bold">Vurder</text>
+<text x="360.0" y="422.0" text-anchor="middle" font-size="16">virkede det?</text>
+<rect x="43.75" y="197.00000000000003" width="220" height="76" rx="12" fill="#fff" stroke="#1f77b4" stroke-width="3"/>
+<text x="153.75" y="229.00000000000003" text-anchor="middle" font-weight="bold">Beslut</text>
+<text x="153.75" y="257.0" text-anchor="middle" font-size="16">byg videre / smid væk</text>
+<text x="360" y="231" text-anchor="middle" font-weight="bold" fill="#d62728">Skriv det i</text>
+<text x="360" y="257" text-anchor="middle" font-weight="bold" fill="#d62728">logbogen</text>
+</svg>

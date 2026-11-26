@@ -34,7 +34,7 @@ TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 En temperaturføler i klasselokalet skal sende en måling hvert 5. sekund, og både en Python-app, en skærm på væggen og en database vil gerne have den. Hvis føleren selv skulle kende alle modtagerne og sende til hver af dem, ville koden skulle rettes, hver gang der kom en ny modtager. Med MQTT sender føleren i stedet sin måling ét sted hen, til en *broker*, under et emne som `elever/anna/temperatur`. Alle, der har sagt, at de er interesserede i det emne, får målingen. Det er den måde, IoT-enheder oftest sender data på, og det er det, I skal bruge i projektopgaverne.
 
 ::: {.callout-tip appearance="simple"}
-Slides til gennemgang i klassen: [Intro til MQTT (slides)](mqtt_intro_slides.qmd)
+Slides til gennemgang i klassen: [Intro til MQTT (slides)](../Slides/mqtt_intro_slides.qmd)
 :::
 
 ## Formål
