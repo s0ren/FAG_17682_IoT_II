@@ -3,7 +3,7 @@ title: "Lokal MQTT-server"
 subtitle: "Send og modtag data gennem brokeren wilsons"
 date: 2025-11-17
 maalpinde: [13, 14, 22]
-draft: false
+draft: true
 ---
 
 <!-- IKKE TESTET PÅ HARDWARE: eksemplerne er tjekket mod dokumentationen og lærerens vejledning. ESP32-eksemplet kompilerer med espressif32@8.0.0 (24. nov. 2026; projektet ligger i IOT_del2_demoer), men er ikke testet på hardware. -->

@@ -3,12 +3,15 @@ title: "Drejepotentiometer"
 subtitle: "Analog aflæsning med ESP32's ADC"
 date: 2026-11-23
 maalpinde: [11, 19, 23]
-draft: false
+draft: true
 ---
 
 <!-- IKKE TESTET PÅ HARDWARE: eksemplerne kompilerer med espressif32@8.0.0 (24. nov. 2026; projekterne ligger i demo-repoerne, se linkene under eksemplerne), men er ikke testet på hardware. -->
 
 <!--
+
+FIXME: Teksten er for lang og starter ikke med det aller vigtigste først. Jeg må selv lige redigere
+
 TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 1. Byg koblingen (yderben til 3V3 og GND, midterben til GPIO 32), og kør eksemplet. Drej fra yderstilling til yderstilling: skifter værdien jævnt, og passer retningen med teksten?
 2. AFPRØVET 24. nov. 2026 (ESP32-D0WD-V3, core 3.3.12, to målinger): rå 0 svarede til 142 mV og rå 4095 til 3145 mV med analogReadMilliVolts(). Tallene i afsnittet om dæmpning og måleområde passer. Chippen har kalibreringsdata i eFuse (esptool: "Vref calibration in eFuse"); sammenligningen med multimeteret i punkt 4 mangler.

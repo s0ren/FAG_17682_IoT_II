@@ -20,7 +20,8 @@ website:
   sidebar:
     contents: auto
     background: gray
-  draft-mode: unlinked
+  # draft-mode: unlinked
+  draft-mode: visible
 
 # Fælles for alle sider og alle formater (HTML og PDF)
 lang: da

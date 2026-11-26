@@ -2,7 +2,7 @@
 title: "Intro til MQTT (slides)"
 subtitle: "Publish/subscribe fra klientens side"
 date: 2026-11-24
-draft: false
+draft: true
 toc: false
 format:
   revealjs:
@@ -14,6 +14,13 @@ format:
     code-line-numbers: false
     preview-links: false
 ---
+
+<!--
+
+FIXME: ESP32 eksempler
+  * ESP32/c++ eksemplet mangler helt TLS. Det er vigtigt og skal med
+  * eksemplet skjuler i øvrigt selve kaldene til librariet i lokale funktioner. Så betydningen bliver uklar
+-->
 
 <!--
 Slides til Features/mqtt_intro.qmd. Siden er den fulde tekst; slides er til gennemgang i klassen.

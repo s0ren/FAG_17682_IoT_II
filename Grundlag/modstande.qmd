@@ -3,12 +3,15 @@ title: "Modstande og farvekoder"
 subtitle: "Aflæs, beregn og mål en modstand"
 date: 2026-11-23
 maalpinde: [4, 12, 18]
-draft: false
+draft: true
 ---
 
 <!-- IKKE KOMPILERET: siden har ingen ESP32-kode. Farvekoden er tjekket mod kilderne, men beregneren (OJS-cellerne) er skrevet uden at kunne køre quarto og er ikke afprøvet i en browser. -->
 
 <!--
+
+FIXME: Teksten er for lang og starter ikke med det aller vigtigste først. Jeg må selv lige redigere
+
 TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 1. Byg siden, og afprøv beregneren "Fra farver til værdi": standardvalget gul, violet, rød, guld skal give 4,7 kΩ ±5 % (4,465 kΩ til 4,935 kΩ). Skift til 5 bånd: feltet "3. ciffer" skal blive aktivt, og gul, violet, sort, rød, guld skal give 47 kΩ.
 2. Afprøv "Fra værdi til farver" med 220, 4,7k, 4k7, 4.700, 1.000, 10 kΩ, 1M, 0,47 og 225. 220 skal give rød, rød, brun, guld og rød, rød, sort, sort, brun. 4.700 skal give 4,7 kΩ (ikke 4,7 Ω), og 1.000 skal give 1 kΩ. 225 skal give "kan ikke" ved 4 bånd og "ikke E12 eller E24 ... (E96)".

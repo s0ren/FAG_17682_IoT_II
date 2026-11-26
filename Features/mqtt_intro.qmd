@@ -3,12 +3,15 @@ title: "Intro til MQTT"
 subtitle: "Publish/subscribe fra klientens side: Python, C#, ESP32 og MQTT Explorer"
 date: 2026-11-23
 maalpinde: [2, 13, 20, 22]
-draft: false
+draft: true
 ---
 
 <!-- IKKE TESTET PÅ HARDWARE: eksemplerne kompilerer med espressif32@8.0.0 (24. nov. 2026; projekterne ligger i demo-repoerne, se linkene under eksemplerne), men er ikke testet på hardware. -->
 
 <!--
+
+TODO: Tjek eksempler. ESP32 først! Også med TLS, dernest python.
+
 TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 1. Kør subscriber.py og publisher.py mod wilsons.local:1883 med paho-mqtt 2.x. Kommer beskederne frem i subscriberen, i MQTT Explorer og i weblog'en (elever/<navn>/python/temperatur.jsonl)?
 2. Kør C#-eksemplet (Program.cs) i et nyt "dotnet new console"-projekt med .NET 8 eller nyere og "dotnet add package MQTTnet --version 5.2.0.1603" mod wilsons.local:1883. Kompilerer det uden advarsler? Skriver det "Forbundet som csharp-…", kommer hilsenen tilbage i konsollen, og ses den i MQTT Explorer og i weblog'en (elever/<navn>/csharp/hilsen.jsonl)? Kommer en besked fra MQTT Explorer frem i konsollen? (øvelse 10)

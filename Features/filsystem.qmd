@@ -3,7 +3,7 @@ title: "Filsystem på ESP32"
 subtitle: "Gem filer i flash med LittleFS"
 date: 2026-11-23
 maalpinde: [17, 19, 22]
-draft: false
+draft: true
 ---
 
 <!-- IKKE TESTET PÅ HARDWARE: eksemplerne kompilerer med espressif32@8.0.0 (24. nov. 2026; projekterne ligger i demo-repoerne, se linkene under eksemplerne), men er ikke testet på hardware. -->

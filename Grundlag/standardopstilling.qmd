@@ -3,7 +3,7 @@ title: "Standardopstillingen"
 subtitle: "Én opstilling til næsten alle sider"
 date: 2026-11-24
 maalpinde: [9, 18, 24]
-draft: false
+draft: true
 ---
 
 <!-- IKKE TESTET PÅ HARDWARE: testprogrammet kompilerer med espressif32@8.0.0 (24. nov. 2026; projektet ligger i IOT_del1_demoer), men er ikke testet på hardware. Opstillingen er ikke bygget. -->

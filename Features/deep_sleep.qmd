@@ -3,12 +3,16 @@ title: "Deep Sleep"
 subtitle: "Spar strøm, og vågn på timer, knap eller berøring"
 date: 2026-11-23
 maalpinde: [17, 18, 19]
-draft: false
+draft: true
 ---
 
 <!-- IKKE TESTET PÅ HARDWARE: eksemplerne kompilerer med espressif32@8.0.0 (24. nov. 2026; projekterne ligger i demo-repoerne, se linkene under eksemplerne), men er ikke testet på hardware. -->
 
 <!--
+
+FIXME: hvilken knap
+* Mangler en tydelig forklaring på at finde GPIO'en som forårsager wakeup v. ext1
+
 TJEKLISTE TIL LÆREREN (afprøves, før draft: true fjernes):
 1. AFPRØVET 24. nov. 2026: "Opstart nr." tæller op, årsagen er "timer", og første gang står der "Ikke vækket fra deep sleep (0)".
 2. Tryk på EN-knappen under eksemplet: starter tælleren forfra fra 1? (Siden påstår, at RTC-hukommelsen nulstilles ved EN.)
