@@ -726,7 +726,7 @@ og tekst til højst ca. 8 punkter pr. slide. Kør _scripts/slide_hoejde.py efter
 <li><em>Host</em> <code>wilsons.local</code>, <em>Port</em> <code>8883</code></li>
 <li><em>Encryption (tls)</em> til, og <strong>lad <em>Validate certificate</em> være slået til</strong></li>
 <li><em>Username</em> og <em>Password</em> fra læreren</li>
-<li><em>Advanced</em> → <em>Certificates</em> → <em>Server Certificate (CA)</em>: vælg <a href="ca.crt"><code>ca.crt</code></a></li>
+<li><em>Advanced</em> → <em>Certificates</em> → <em>Server Certificate (CA)</em>: vælg <a href="../Features/ca.crt"><code>ca.crt</code></a></li>
 </ol>
 <ul>
 <li>Brug <code>wilsons.local</code> eller <code>192.168.0.33</code>: de står i certifikatet</li>
@@ -751,7 +751,7 @@ og tekst til højst ca. 8 punkter pr. slide. Kør _scripts/slide_hoejde.py efter
 <section id="weblogen-filerne" class="slide level2">
 <h2>Weblog’en: filerne</h2>
 
-<img data-src="images/weblog_topic_button.png" alt="Browser med filen test/esp32/button.jsonl fra weblog'en: én linje JSON pr. MQTT-besked med timestamp, topic og payload." width="760" class="r-stretch quarto-figure-center"><p class="caption">Filen <code>button.jsonl</code>: én linje pr. besked. (Skærmbilledet er fra den gamle server, wilson.local.)</p><ul>
+<img data-src="../Features/images/weblog_topic_button.png" alt="Browser med filen test/esp32/button.jsonl fra weblog'en: én linje JSON pr. MQTT-besked med timestamp, topic og payload." width="760" class="r-stretch quarto-figure-center"><p class="caption">Filen <code>button.jsonl</code>: én linje pr. besked. (Skærmbilledet er fra den gamle server, wilson.local.)</p><ul>
 <li>Topic <code>elever/anna/esp32/maaling</code> → <a href="http://wilsons.local/elever/anna/esp32/maaling.jsonl" class="uri">http://wilsons.local/elever/anna/esp32/maaling.jsonl</a></li>
 <li>Hver linje: <code>timestamp</code>, <code>topic</code> og <code>payload</code> (din besked som tekst). Alle beskeder: <code>%23.jsonl</code></li>
 <li>Hent med Python: <code>requests.get(url).text.splitlines()</code> og <code>json.loads()</code> pr. linje</li>

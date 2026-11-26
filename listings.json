@@ -14,7 +14,6 @@
       "/Grundlag/hello_world.html",
       "/Grundlag/cpp_intro.html",
       "/Features/mqtt_intro.html",
-      "/Features/mqtt_intro_slides.html",
       "/Grundlag/knapper.html",
       "/Features/lokal_mqtt.html",
       "/Grundlag/lysdioder.html",
@@ -27,11 +26,13 @@
     ]
   },
   {
-    "listing": "/Opgaver/index.html",
+    "listing": "/Features/index.html",
     "items": [
-      "/Opgaver/Projektopgave_Smiley_chekliste.html",
-      "/Opgaver/Projektopgave_wifi_position.html",
-      "/Opgaver/Projektopgave_Smiley.html"
+      "/Features/deep_sleep.html",
+      "/Features/esp_now_mesh.html",
+      "/Features/filsystem.html",
+      "/Features/mqtt_intro.html",
+      "/Features/lokal_mqtt.html"
     ]
   },
   {
@@ -53,14 +54,17 @@
     ]
   },
   {
-    "listing": "/Features/index.html",
+    "listing": "/Opgaver/index.html",
     "items": [
-      "/Features/deep_sleep.html",
-      "/Features/esp_now_mesh.html",
-      "/Features/filsystem.html",
-      "/Features/mqtt_intro.html",
-      "/Features/mqtt_intro_slides.html",
-      "/Features/lokal_mqtt.html"
+      "/Opgaver/Projektopgave_wifi_position.html",
+      "/Opgaver/Projektopgave_Smiley.html"
+    ]
+  },
+  {
+    "listing": "/Slides/index.html",
+    "items": [
+      "/Slides/mqtt_intro_slides.html",
+      "/Slides/wifi_position_slides.html"
     ]
   }
 ]

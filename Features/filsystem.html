@@ -224,12 +224,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Intro til MQTT</span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../Features/mqtt_intro_slides.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Intro til MQTT (slides)</span></a>
-  </div>
-</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -356,6 +350,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
       </ul>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Slides/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Slides</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Skift sektion">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Slides/mqtt_intro_slides.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Intro til MQTT (slides)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Slides/wifi_position_slides.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Positionsbestemmelse uden GPS (slides)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -463,7 +480,8 @@ Skærmbilleder, der mangler (se BILLEDE-kommentarerne):
 9. Explorer med data/-mappen ved siden af src/. 10. Project Tasks med Platform → Upload Filesystem Image. 11. Serial Monitor under cache-eksemplet, hvor netværket forsvinder og kommer igen.
 12. Når alt er testet: fjern IKKE TESTET PÅ HARDWARE, denne tjekliste og TJEK-/BILLEDE-kommentarerne.
 -->
-<p>En ESP32, der sender målinger til en server, mister indimellem netforbindelsen. Hvis målingerne kun ligger i RAM, er de væk, så snart strømmen går eller kortet genstarter. ESP32-DEVKIT-V1 har 4 MB flash-hukommelse, og en del af den kan bruges som et lille filsystem, hvor programmet gemmer filer, der overlever en genstart. Det er det, du skal bruge til krav 3 i den <a href="../Opgaver/afsluttende_opgave/index.qmd">afsluttende opgave</a>: når nettet mangler, gemmes målingerne i en fil på ESP32, og når nettet kommer igen, sendes de.</p>
+<p>En ESP32, der sender målinger til en server, mister indimellem netforbindelsen. Hvis målingerne kun ligger i RAM, er de væk, så snart strømmen går eller kortet genstarter. ESP32-DEVKIT-V1 har 4 MB flash-hukommelse, og en del af den kan bruges som et lille filsystem, hvor programmet gemmer filer, der overlever en genstart.</p>
+<!-- Det er det, du skal bruge til krav 3 i den [afsluttende opgave](../Opgaver/afsluttende_opgave/index.qmd): når nettet mangler, gemmes målingerne i en fil på ESP32, og når nettet kommer igen, sendes de. -->
 <section id="formål" class="level2">
 <h2 class="anchored" data-anchor-id="formål">Formål</h2>
 <ul>

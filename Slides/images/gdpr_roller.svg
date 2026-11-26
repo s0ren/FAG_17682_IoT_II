@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 300" font-family="sans-serif" font-size="20" fill="#222">
+<rect width="100%" height="100%" fill="#fff" fill-opacity="0.2" rx="12"/>
+<defs><marker id="pil" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#222"/></marker></defs>
+<rect x="20" y="60" width="240" height="150" rx="12" fill="#fff" stroke="#888" stroke-width="3"/>
+<text x="140.0" y="94" text-anchor="middle" font-weight="bold" fill="#888">Den registrerede</text>
+<text x="140.0" y="126" text-anchor="middle" font-size="18">personen med</text>
+<text x="140.0" y="152" text-anchor="middle" font-size="18">telefonen</text>
+<rect x="330" y="60" width="240" height="150" rx="12" fill="#fff" stroke="#d62728" stroke-width="3"/>
+<text x="450.0" y="94" text-anchor="middle" font-weight="bold" fill="#d62728">Dataansvarlig</text>
+<text x="450.0" y="126" text-anchor="middle" font-size="18">bestemmer hvorfor</text>
+<text x="450.0" y="152" text-anchor="middle" font-size="18">og hvordan data</text>
+<text x="450.0" y="178" text-anchor="middle" font-size="18">behandles</text>
+<rect x="640" y="60" width="240" height="150" rx="12" fill="#fff" stroke="#1f77b4" stroke-width="3"/>
+<text x="760.0" y="94" text-anchor="middle" font-weight="bold" fill="#1f77b4">Databehandler</text>
+<text x="760.0" y="126" text-anchor="middle" font-size="18">behandler data på</text>
+<text x="760.0" y="152" text-anchor="middle" font-size="18">den ansvarliges</text>
+<text x="760.0" y="178" text-anchor="middle" font-size="18">vegne</text>
+<line x1="262" y1="135" x2="326" y2="135" stroke="#222" stroke-width="2.5" marker-end="url(#pil)"/>
+<text x="294.0" y="123.0" text-anchor="middle" font-size="17">data</text>
+<line x1="572" y1="135" x2="636" y2="135" stroke="#222" stroke-width="2.5" marker-end="url(#pil)"/>
+<text x="604.0" y="123.0" text-anchor="middle" font-size="17">aftale</text>
+<text x="450" y="250" text-anchor="middle" font-size="17">fx jeres gruppe / skolen</text>
+<text x="760" y="250" text-anchor="middle" font-size="17">fx den, der driver</text>
+<text x="760" y="274" text-anchor="middle" font-size="17">MQTT-serveren</text>
+<text x="450" y="34" text-anchor="middle" font-size="17">Den registrerede har ret til at vide, hvad der sker med data</text>
+</svg>

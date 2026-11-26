@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 330" font-family="sans-serif" font-size="20" fill="#222">
+<rect width="100%" height="100%" fill="#fff" fill-opacity="0.2" rx="12"/>
+<defs><marker id="pil" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#222"/></marker></defs>
+<line x1="130.0" y1="40" x2="130.0" y2="230" stroke="#e5e5e5"/>
+<text x="130.0" y="258" text-anchor="middle">07:00</text>
+<line x1="346.66666666666663" y1="40" x2="346.66666666666663" y2="230" stroke="#e5e5e5"/>
+<text x="346.66666666666663" y="258" text-anchor="middle">08:00</text>
+<line x1="563.3333333333333" y1="40" x2="563.3333333333333" y2="230" stroke="#e5e5e5"/>
+<text x="563.3333333333333" y="258" text-anchor="middle">09:00</text>
+<line x1="780.0" y1="40" x2="780.0" y2="230" stroke="#e5e5e5"/>
+<text x="780.0" y="258" text-anchor="middle">10:00</text>
+<text x="114" y="82" text-anchor="end">mandag</text>
+<line x1="130" y1="75" x2="780" y2="75" stroke="#ccc"/>
+<circle cx="353.88888888888886" cy="75" r="10" fill="#d62728"/>
+<text x="371.88888888888886" y="82" font-family="monospace" font-size="18">12:34:56:78:9a:bc  08:02  lokale 2.14</text>
+<text x="114" y="147" text-anchor="end">tirsdag</text>
+<line x1="130" y1="140" x2="780" y2="140" stroke="#ccc"/>
+<circle cx="339.44444444444446" cy="140" r="10" fill="#d62728"/>
+<text x="357.44444444444446" y="147" font-family="monospace" font-size="18">12:34:56:78:9a:bc  07:58  lokale 2.14</text>
+<text x="114" y="212" text-anchor="end">onsdag</text>
+<line x1="130" y1="205" x2="780" y2="205" stroke="#ccc"/>
+<circle cx="364.7222222222224" cy="205" r="10" fill="#d62728"/>
+<text x="382.7222222222224" y="212" font-family="monospace" font-size="18">12:34:56:78:9a:bc  08:05  lokale 2.14</text>
+<text x="410.0" y="305" text-anchor="middle" font-weight="bold">Samme telefon, samme sted, hver morgen: et mønster om én person</text>
+</svg>
