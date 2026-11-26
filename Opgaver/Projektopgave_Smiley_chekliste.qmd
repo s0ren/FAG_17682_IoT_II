@@ -1,0 +1,10 @@
+---
+title: "Checkliste: Projektopgave, Smiley feedback panel"
+subtitle: "Spørgsmål som indgår i bedømmelsen"
+date: 2026-11-26
+format: {html: default, typst: default}
+---
+
+Hører til [Projektopgave, Projektopgave, Smiley feedback panel](Projektopgave_Smiley.qmd).
+
+{{< include _checkliste_wifi_smiley.qmd >}}
